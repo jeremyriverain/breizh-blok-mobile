@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,45 +55,39 @@ class SortBouldersButton extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (dialogContext) => BlocProvider.value(
-            value: BlocProvider.of<BoulderFilterBloc>(context),
-            child: AlertDialog(
-              alignment: Alignment.topCenter,
-              contentPadding: EdgeInsets.zero,
-              title: const Text("Afficher en 1er:"),
-              content: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: BlocBuilder<BoulderFilterBloc, BoulderFilterState>(
-                  buildWhen: (previousValue, value) {
-                    return previousValue.order != value.order;
-                  },
-                  builder: (context, state) {
-                    OrderQueryParam groupValue = state.order;
+          builder: (dialogContext) => AlertDialog(
+            alignment: Alignment.topCenter,
+            contentPadding: EdgeInsets.zero,
+            title: const Text("Afficher en 1er:"),
+            content: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: BlocBuilder<BoulderOrderBloc, OrderQueryParam>(
+                builder: (context, state) {
+                  OrderQueryParam groupValue = state;
 
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        for (var orderChoice in OrderChoice.values)
-                          RadioListTile<OrderQueryParam>(
-                            value: orderChoice.orderQueryParam,
-                            groupValue: groupValue,
-                            onChanged: (value) {
-                              if (value == null) {
-                                return;
-                              }
-                              context.read<BoulderFilterBloc>().add(
-                                    BoulderFilterOrder(
-                                      orderChoice.orderQueryParam,
-                                    ),
-                                  );
-                              Navigator.of(context).pop();
-                            },
-                            title: Text(orderChoice.label),
-                          ),
-                      ],
-                    );
-                  },
-                ),
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      for (var orderChoice in OrderChoice.values)
+                        RadioListTile<OrderQueryParam>(
+                          value: orderChoice.orderQueryParam,
+                          groupValue: groupValue,
+                          onChanged: (value) {
+                            if (value == null) {
+                              return;
+                            }
+                            context.read<BoulderOrderBloc>().add(
+                                  BoulderOrderEvent(
+                                    orderChoice.orderQueryParam,
+                                  ),
+                                );
+                            Navigator.of(context).pop();
+                          },
+                          title: Text(orderChoice.label),
+                        ),
+                    ],
+                  );
+                },
               ),
             ),
           ),

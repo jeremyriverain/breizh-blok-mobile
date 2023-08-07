@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/components/app_bar_helper.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
@@ -49,7 +50,9 @@ class BoulderAreaDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<BoulderMarkerBloc>().add(
           BoulderMarkerRequested(
-              filterState: context.read<BoulderFilterBloc>().state),
+            filterState: context.read<BoulderFilterBloc>().state,
+            orderQueryParam: context.read<BoulderOrderBloc>().state,
+          ),
         );
 
     final location = boulderArea.resolveLocation();
@@ -71,6 +74,7 @@ class BoulderAreaDetails extends StatelessWidget {
           return BoulderListViewRequested(
             page: page,
             filterState: context.read<BoulderFilterBloc>().state,
+            orderQueryParam: context.read<BoulderOrderBloc>().state,
           );
         },
       ),
@@ -119,6 +123,7 @@ class BoulderAreaDetails extends StatelessWidget {
                       context,
                       boulderFilterState:
                           context.read<BoulderFilterBloc>().state,
+                      orderQueryParam: context.read<BoulderOrderBloc>().state,
                     ),
                     markers: parkingLocation == null
                         ? {}

@@ -3,7 +3,6 @@ import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -15,10 +14,6 @@ void main() {
         expect(bloc.state.term, null);
         expect(bloc.state.boulderAreas, <BoulderArea>{});
         expect(bloc.state.grades, <Grade>{});
-        expect(
-          bloc.state.order,
-          const OrderQueryParam(name: 'order[id]', direction: 'desc'),
-        );
       },
     );
 
@@ -69,21 +64,6 @@ void main() {
         BoulderFilterState(grades: {
           referenceGrade,
         })
-      ],
-    );
-
-    const referenceOrder =
-        OrderQueryParam(name: 'order[name]', direction: 'asc');
-    blocTest(
-      'BoulderFilterOrder event OK',
-      build: () => BoulderFilterBloc(BoulderFilterState()),
-      act: (BoulderFilterBloc bloc) => bloc.add(
-        BoulderFilterOrder(referenceOrder),
-      ),
-      expect: () => [
-        BoulderFilterState(
-          order: referenceOrder,
-        )
       ],
     );
   });

@@ -1,4 +1,5 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_map.dart';
 import 'package:breizh_blok_mobile/utils/map_utils.dart';
@@ -26,6 +27,7 @@ class _HomeMapViewState extends State<HomeMapView> {
       boulderMarkerBuilder: markerBuilderFactory(
         context,
         boulderFilterState: BoulderFilterState(),
+        orderQueryParam: context.read<BoulderOrderBloc>().state,
       ),
     );
   }

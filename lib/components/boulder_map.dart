@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/components/base_map.dart';
 import 'package:breizh_blok_mobile/components/error_indicator.dart';
@@ -130,7 +131,9 @@ class _BoulderMapState extends State<BoulderMap> {
             onTryAgain: () {
               context.read<BoulderMarkerBloc>().add(
                     BoulderMarkerRequested(
-                        filterState: context.read<BoulderFilterBloc>().state),
+                      filterState: context.read<BoulderFilterBloc>().state,
+                      orderQueryParam: context.read<BoulderOrderBloc>().state,
+                    ),
                   );
             },
           );

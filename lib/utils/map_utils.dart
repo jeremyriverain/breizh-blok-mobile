@@ -6,6 +6,7 @@ import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/components/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
+import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -79,8 +80,10 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
 }
 
 Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
-    BuildContext context,
-    {required BoulderFilterState boulderFilterState}) {
+  BuildContext context, {
+  required BoulderFilterState boulderFilterState,
+  required OrderQueryParam orderQueryParam,
+}) {
   return (cluster) async {
     return Marker(
       markerId: MarkerId(cluster.getId()),
@@ -110,6 +113,7 @@ Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
                               .map((e) => e.id.toString())
                               .toList(),
                           filterState: boulderFilterState,
+                          orderQueryParam: orderQueryParam,
                         );
                       },
                     ),

@@ -1,5 +1,6 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/components/lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/views/home_municipalities_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,6 +35,7 @@ class HomeView extends StatelessWidget {
             context.read<BoulderMarkerBloc>().add(
                   BoulderMarkerRequested(
                     filterState: context.read<BoulderFilterBloc>().state,
+                    orderQueryParam: context.read<BoulderOrderBloc>().state,
                   ),
                 );
           }
@@ -55,6 +57,7 @@ class HomeView extends StatelessWidget {
                 onPageRequested: (int page) => BoulderListViewRequested(
                   page: page,
                   filterState: context.read<BoulderFilterBloc>().state,
+                  orderQueryParam: context.read<BoulderOrderBloc>().state,
                 ),
               ),
               const HomeMapView(),

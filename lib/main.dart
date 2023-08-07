@@ -1,7 +1,9 @@
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
+import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/views/boulder_area_details_view.dart';
 import 'package:breizh_blok_mobile/views/municipality_details_view.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,10 @@ main({
     BoulderFilterState(),
   );
 
+  final BoulderOrderBloc boulderOrderBloc = BoulderOrderBloc(
+    const OrderQueryParam(direction: 'desc', name: 'order[id]'),
+  );
+
   final boulderMarkerBloc = BoulderMarkerBloc();
 
   await SentryFlutter.init(
@@ -49,6 +55,9 @@ main({
           ),
           BlocProvider<BoulderFilterBloc>(
             create: (BuildContext context) => boulderFilterBloc,
+          ),
+          BlocProvider<BoulderOrderBloc>(
+            create: (BuildContext context) => boulderOrderBloc,
           ),
           BlocProvider<BoulderMarkerBloc>(
             create: (BuildContext context) => boulderMarkerBloc,

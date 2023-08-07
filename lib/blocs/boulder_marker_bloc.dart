@@ -1,4 +1,5 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/utils/boulder_list_query_params_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +25,8 @@ class BoulderMarkerBloc extends Bloc<BoulderMarkerEvent, BoulderMarkerState> {
           'pagination': ['false'],
           'groups[]': ['Boulder:map'],
           ...await BoulderListQueryParamsBuilder.compute(
-            event.filterState,
+            filterState: event.filterState,
+            orderQueryParam: event.orderQueryParam,
           ),
         };
 
@@ -49,8 +51,12 @@ abstract class BoulderMarkerEvent {}
 
 class BoulderMarkerRequested extends BoulderMarkerEvent {
   final BoulderFilterState filterState;
+  final OrderQueryParam orderQueryParam;
 
-  BoulderMarkerRequested({required this.filterState});
+  BoulderMarkerRequested({
+    required this.filterState,
+    required this.orderQueryParam,
+  });
 }
 
 class BoulderMarkerState extends Equatable {
