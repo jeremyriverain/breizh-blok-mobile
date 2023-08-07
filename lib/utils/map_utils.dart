@@ -2,11 +2,11 @@ import 'dart:ui' as ui;
 
 import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/components/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -80,10 +80,8 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
 }
 
 Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
-  BuildContext context, {
-  required BoulderFilterState boulderFilterState,
-  required OrderQueryParam orderQueryParam,
-}) {
+  BuildContext context,
+) {
   return (cluster) async {
     return Marker(
       markerId: MarkerId(cluster.getId()),
@@ -93,34 +91,32 @@ Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
           context: context,
           isScrollControlled: true,
           builder: (BuildContext context) {
-            return BlocProvider(
-              create: (context) => BoulderFilterBloc(boulderFilterState),
-              child: Builder(builder: (context) {
-                return FractionallySizedBox(
-                  heightFactor: 0.8,
-                  child: Scaffold(
-                    floatingActionButton: const ModalClosingButton(),
-                    floatingActionButtonLocation:
-                        FloatingActionButtonLocation.endTop,
-                    body: BoulderListBuilder(
-                      onClickTile: (id) => {
-                        GoRouter.of(context).pop(),
-                      },
-                      onPageRequested: (int page) {
-                        return BoulderMapViewRequested(
-                          page: page,
-                          boulderIds: cluster.items
-                              .map((e) => e.id.toString())
-                              .toList(),
-                          filterState: boulderFilterState,
-                          orderQueryParam: orderQueryParam,
-                        );
-                      },
-                    ),
+            return Builder(builder: (context) {
+              return FractionallySizedBox(
+                heightFactor: 0.8,
+                child: Scaffold(
+                  floatingActionButton: const ModalClosingButton(),
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.endTop,
+                  body: BoulderListBuilder(
+                    boulderFilterBloc: BoulderFilterBloc(BoulderFilterState()),
+                    onClickTile: (id) => {
+                      GoRouter.of(context).pop(),
+                    },
+                    onPageRequested: (int page) {
+                      return BoulderMapViewRequested(
+                        page: page,
+                        boulderIds:
+                            cluster.items.map((e) => e.id.toString()).toList(),
+                        filterState: BoulderFilterState(),
+                        orderQueryParam: context.read<BoulderOrderBloc>().state,
+                      );
+                    },
+                    showFilterButton: false,
                   ),
-                );
-              }),
-            );
+                ),
+              );
+            });
           },
         );
       },

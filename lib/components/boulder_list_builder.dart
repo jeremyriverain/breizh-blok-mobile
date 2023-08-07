@@ -22,11 +22,15 @@ import 'package:breizh_blok_mobile/components/boulder_list_results.dart';
 class BoulderListBuilder extends StatefulWidget {
   final Function onPageRequested;
   final Function? onClickTile;
+  final BoulderFilterBloc boulderFilterBloc;
+  final bool showFilterButton;
 
   const BoulderListBuilder({
     Key? key,
     required this.onPageRequested,
     this.onClickTile,
+    required this.boulderFilterBloc,
+    this.showFilterButton = true,
   }) : super(key: key);
 
   @override
@@ -120,7 +124,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                 pagingController: _pagingController,
                 scrollController: _scrollController,
                 padding: const EdgeInsets.only(
-                    bottom: 16, left: 10, right: 10, top: 0),
+                    bottom: 16, left: 10, right: 10, top: 5),
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 16,
                 ),
@@ -144,7 +148,10 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const SortBouldersButton(),
-                              const FilterBouldersButton(),
+                              if (widget.showFilterButton)
+                                FilterBouldersButton(
+                                  boulderFilterBloc: widget.boulderFilterBloc,
+                                ),
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 8.0),

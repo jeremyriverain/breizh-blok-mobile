@@ -59,6 +59,7 @@ class HomeView extends StatelessWidget {
                   filterState: context.read<BoulderFilterBloc>().state,
                   orderQueryParam: context.read<BoulderOrderBloc>().state,
                 ),
+                boulderFilterBloc: context.read<BoulderFilterBloc>(),
               ),
               const HomeMapView(),
               const HomeMunicipalitiesView(),

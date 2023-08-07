@@ -70,6 +70,7 @@ class BoulderAreaDetails extends StatelessWidget {
         boulderArea.numberOfBouldersGroupedByGrade;
     final tabViews = [
       BoulderListBuilder(
+        boulderFilterBloc: context.read<BoulderFilterBloc>(),
         onPageRequested: (int page) {
           return BoulderListViewRequested(
             page: page,
@@ -121,9 +122,6 @@ class BoulderAreaDetails extends StatelessWidget {
                     initialZoom: context.watch<MapBloc>().state.mapZoom,
                     boulderMarkerBuilder: markerBuilderFactory(
                       context,
-                      boulderFilterState:
-                          context.read<BoulderFilterBloc>().state,
-                      orderQueryParam: context.read<BoulderOrderBloc>().state,
                     ),
                     markers: parkingLocation == null
                         ? {}

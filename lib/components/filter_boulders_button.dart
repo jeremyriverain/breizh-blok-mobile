@@ -1,9 +1,14 @@
+import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_filter_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FilterBouldersButton extends StatelessWidget {
-  const FilterBouldersButton({Key? key}) : super(key: key);
+  final BoulderFilterBloc boulderFilterBloc;
+  const FilterBouldersButton({
+    Key? key,
+    required this.boulderFilterBloc,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +29,10 @@ class FilterBouldersButton extends StatelessWidget {
             context: context,
             builder: (context) {
               return FractionallySizedBox(
-                heightFactor: 0.6,
-                child: BoulderListFilterModal(),
+                heightFactor: 0.5,
+                child: BoulderListFilterModal(
+                  boulderFilterBloc: boulderFilterBloc,
+                ),
               );
             });
       },

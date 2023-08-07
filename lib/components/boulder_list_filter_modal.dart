@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/components/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 
 class BoulderListFilterModal extends StatelessWidget {
-  BoulderListFilterModal({Key? key}) : super(key: key);
+  final BoulderFilterBloc boulderFilterBloc;
+  BoulderListFilterModal({Key? key, required this.boulderFilterBloc})
+      : super(key: key);
 
   final _gradeRepository = GradeRepository();
 
@@ -24,26 +27,23 @@ class BoulderListFilterModal extends StatelessWidget {
           future: _fetch(),
           builder: (BuildContext context,
               AsyncSnapshot<CollectionItems<Grade>> snapshot) {
-            List<Widget> widgets = [
-              const SizedBox(
-                height: 20,
-              ),
-              if (snapshot.hasData && snapshot.data!.totalItems > 1) ...[
-                BoulderListFilterGrade(
-                  key: const Key('boulder-list-filter-grade'),
-                  allGrades: snapshot.data!,
-                ),
-              ],
-            ];
+            final data = snapshot.data;
 
-            if (snapshot.hasData || snapshot.hasError) {
+            if (data != null && data.totalItems > 1) {
               return SafeArea(
                 child: Center(
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 400),
                     child: Column(
                       children: [
-                        ...widgets,
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        BoulderListFilterGrade(
+                          key: const Key('boulder-list-filter-grade'),
+                          allGrades: data,
+                          boulderFilterBloc: boulderFilterBloc,
+                        ),
                       ],
                     ),
                   ),
