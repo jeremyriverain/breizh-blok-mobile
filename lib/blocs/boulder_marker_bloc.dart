@@ -27,6 +27,7 @@ class BoulderMarkerBloc extends Bloc<BoulderMarkerEvent, BoulderMarkerState> {
           ...await BoulderListQueryParamsBuilder.compute(
             filterState: event.filterState,
             orderQueryParam: event.orderQueryParam,
+            grades: {},
           ),
         };
 

@@ -1,15 +1,14 @@
+import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BoulderListFilterGrade extends StatefulWidget {
-  final BoulderFilterBloc boulderFilterBloc;
   const BoulderListFilterGrade({
     Key? key,
     required this.allGrades,
-    required this.boulderFilterBloc,
   }) : super(key: key);
 
   final CollectionItems<Grade> allGrades;
@@ -25,7 +24,7 @@ class _BoulderListFilterGradeState extends State<BoulderListFilterGrade> {
   void initState() {
     super.initState();
     final List<Grade> selectedGrades =
-        widget.boulderFilterBloc.state.grades.toList();
+        context.read<BoulderFilterGradeBloc>().state.grades.toList();
     selectedGrades.sort((a, b) => a.name.compareTo(b.name));
 
     if (selectedGrades.isEmpty) {
@@ -121,9 +120,11 @@ class _BoulderListFilterGradeState extends State<BoulderListFilterGrade> {
                   };
                 }
 
-                widget.boulderFilterBloc.add(BoulderFilterGrade(
-                  newValues,
-                ));
+                context
+                    .read<BoulderFilterGradeBloc>()
+                    .add(BoulderFilterGradeEvent(
+                      newValues,
+                    ));
               },
             )),
       ],

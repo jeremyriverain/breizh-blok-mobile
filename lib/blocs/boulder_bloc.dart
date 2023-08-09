@@ -1,4 +1,5 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/utils/boulder_list_query_params_builder.dart';
@@ -19,6 +20,7 @@ class BoulderBloc
           emit: emit,
           filterState: event.filterState,
           orderQueryParam: event.orderQueryParam,
+          grades: event.grades,
         );
       },
     );
@@ -33,6 +35,7 @@ class BoulderBloc
           },
           filterState: event.filterState,
           orderQueryParam: event.orderQueryParam,
+          grades: {},
         );
       },
     );
@@ -44,6 +47,7 @@ class BoulderBloc
     Map<String, List<String>>? extraQueryParams,
     required BoulderFilterState filterState,
     required OrderQueryParam orderQueryParam,
+    required Set<Grade> grades,
   }) async {
     Map<String, List<String>> queryParams = {
       'page': [
@@ -52,6 +56,7 @@ class BoulderBloc
       ...await BoulderListQueryParamsBuilder.compute(
         filterState: filterState,
         orderQueryParam: orderQueryParam,
+        grades: grades,
       ),
       ...(extraQueryParams ?? {}),
     };
@@ -77,11 +82,13 @@ class BoulderListViewRequested extends BoulderEvent {
   final int page;
   final BoulderFilterState filterState;
   final OrderQueryParam orderQueryParam;
+  final Set<Grade> grades;
 
   BoulderListViewRequested({
     required this.page,
     required this.filterState,
     required this.orderQueryParam,
+    required this.grades,
   });
 }
 

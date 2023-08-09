@@ -1,5 +1,6 @@
 import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
@@ -76,6 +77,7 @@ class BoulderAreaDetails extends StatelessWidget {
             page: page,
             filterState: context.read<BoulderFilterBloc>().state,
             orderQueryParam: context.read<BoulderOrderBloc>().state,
+            grades: context.read<BoulderFilterGradeBloc>().state.grades,
           );
         },
       ),

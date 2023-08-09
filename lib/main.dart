@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
@@ -39,6 +40,9 @@ main({
     const OrderQueryParam(direction: 'desc', name: 'order[id]'),
   );
 
+  final BoulderFilterGradeBloc boulderFilterGradeBloc =
+      BoulderFilterGradeBloc(BoulderFilterGradeState());
+
   final boulderMarkerBloc = BoulderMarkerBloc();
 
   await SentryFlutter.init(
@@ -58,6 +62,9 @@ main({
           ),
           BlocProvider<BoulderOrderBloc>(
             create: (BuildContext context) => boulderOrderBloc,
+          ),
+          BlocProvider<BoulderFilterGradeBloc>(
+            create: (BuildContext context) => boulderFilterGradeBloc,
           ),
           BlocProvider<BoulderMarkerBloc>(
             create: (BuildContext context) => boulderMarkerBloc,

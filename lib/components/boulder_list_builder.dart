@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_back_to_top_button.dart';
 import 'package:breizh_blok_mobile/components/filter_boulders_button.dart';
@@ -91,6 +92,11 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
             _pagingController.refresh();
           },
         ),
+        BlocListener<BoulderFilterGradeBloc, BoulderFilterGradeState>(
+          listener: (context, state) {
+            _pagingController.refresh();
+          },
+        ),
         BlocListener<BoulderBloc, Response<CollectionItems<Boulder>>>(
           listener: (context, state) {
             if (state.error != null) {
@@ -149,9 +155,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                             children: [
                               const SortBouldersButton(),
                               if (widget.showFilterButton)
-                                FilterBouldersButton(
-                                  boulderFilterBloc: widget.boulderFilterBloc,
-                                ),
+                                const FilterBouldersButton(),
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 8.0),

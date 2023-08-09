@@ -1,4 +1,3 @@
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/components/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +7,7 @@ import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 
 class BoulderListFilterModal extends StatelessWidget {
-  final BoulderFilterBloc boulderFilterBloc;
-  BoulderListFilterModal({Key? key, required this.boulderFilterBloc})
-      : super(key: key);
+  BoulderListFilterModal({Key? key}) : super(key: key);
 
   final _gradeRepository = GradeRepository();
 
@@ -42,7 +39,6 @@ class BoulderListFilterModal extends StatelessWidget {
                         BoulderListFilterGrade(
                           key: const Key('boulder-list-filter-grade'),
                           allGrades: data,
-                          boulderFilterBloc: boulderFilterBloc,
                         ),
                       ],
                     ),

@@ -1,19 +1,17 @@
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_filter_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilterBouldersButton extends StatelessWidget {
-  final BoulderFilterBloc boulderFilterBloc;
   const FilterBouldersButton({
     Key? key,
-    required this.boulderFilterBloc,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BoulderFilterBloc, BoulderFilterState>(
+    return BlocBuilder<BoulderFilterGradeBloc, BoulderFilterGradeState>(
         builder: (context, state) {
       final button = TextButton(
         key: const Key('boulder-list-filter-button'),
@@ -33,9 +31,7 @@ class FilterBouldersButton extends StatelessWidget {
               builder: (context) {
                 return FractionallySizedBox(
                   heightFactor: 0.5,
-                  child: BoulderListFilterModal(
-                    boulderFilterBloc: boulderFilterBloc,
-                  ),
+                  child: BoulderListFilterModal(),
                 );
               });
         },

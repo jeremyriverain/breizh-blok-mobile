@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_print
 
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_filter_grade.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -36,15 +37,20 @@ void main() {
   group('BoulderListFilterGrade', () {
     testWidgets('set bloc values correctly after selecting some grades',
         (tester) async {
-      final boulderFilterBloc = BoulderFilterBloc(BoulderFilterState());
-      expect(boulderFilterBloc.state.grades.length, 0);
+      final boulderFilterGradeBloc =
+          BoulderFilterGradeBloc(BoulderFilterGradeState());
+      expect(boulderFilterGradeBloc.state.grades.length, 0);
 
       await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: BoulderListFilterGrade(
-            allGrades: gradeCollection,
-            boulderFilterBloc: boulderFilterBloc,
-          ),
+        home: BlocProvider(
+          create: (context) => boulderFilterGradeBloc,
+          child: Builder(builder: (context) {
+            return Scaffold(
+              body: BoulderListFilterGrade(
+                allGrades: gradeCollection,
+              ),
+            );
+          }),
         ),
       ));
 
@@ -59,7 +65,7 @@ void main() {
       await tester.dragFrom(rightTarget, -middleOffset);
       await tester.pumpAndSettle();
 
-      expect(boulderFilterBloc.state.grades, {
+      expect(boulderFilterGradeBloc.state.grades, {
         const Grade(
           iri: '/grades/1',
           name: '5',
@@ -77,7 +83,7 @@ void main() {
       await tester.dragFrom(
           rightTarget - middleOffset, middleOffset + const Offset(1, 0));
 
-      expect(boulderFilterBloc.state.grades, <Grade>{});
+      expect(boulderFilterGradeBloc.state.grades, <Grade>{});
     });
   });
 }
