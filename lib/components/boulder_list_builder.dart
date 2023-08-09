@@ -148,31 +148,34 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                       onClickTile: widget.onClickTile,
                     );
                     if (index == 0) {
-                      return Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SortBouldersButton(),
-                              if (widget.showFilterButton)
-                                const FilterBouldersButton(),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: BoulderListResults(
-                                    key: const Key('boulder-list-result'),
-                                    totalItems:
-                                        _bloc.state.data?.totalItems ?? 0,
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const SortBouldersButton(),
+                                if (widget.showFilterButton)
+                                  const FilterBouldersButton(),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: BoulderListResults(
+                                      key: const Key('boulder-list-result'),
+                                      totalItems:
+                                          _bloc.state.data?.totalItems ?? 0,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          tile
-                        ],
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            tile
+                          ],
+                        ),
                       );
                     }
                     return tile;
