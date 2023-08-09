@@ -47,7 +47,7 @@ void main() {
       ],
     );
 
-    final referenceGrade = Grade(
+    const referenceGrade = Grade(
       iri: '1',
       name: '6a',
     );

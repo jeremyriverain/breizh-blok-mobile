@@ -1,8 +1,10 @@
-class Grade {
+import 'package:equatable/equatable.dart';
+
+class Grade extends Equatable {
   final String name;
   final String iri;
 
-  Grade({
+  const Grade({
     required this.iri,
     required this.name,
   });
@@ -13,4 +15,7 @@ class Grade {
       name: json['name'],
     );
   }
+
+  @override
+  List<Object?> get props => [iri];
 }

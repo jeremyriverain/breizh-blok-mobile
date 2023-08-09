@@ -74,7 +74,7 @@ void main() {
 
           final boulderArea3 = boulderAreaRef.copyWith(
             numberOfBoulders: 5,
-            lowestGrade: Grade(iri: '', name: '5c'),
+            lowestGrade: const Grade(iri: '', name: '5c'),
           );
 
           expect(boulderArea3.numberOfBoulders, 5);
@@ -84,7 +84,7 @@ void main() {
 
           final boulderArea4 = boulderAreaRef.copyWith(
             numberOfBoulders: 5,
-            highestGrade: Grade(iri: '', name: '5c'),
+            highestGrade: const Grade(iri: '', name: '5c'),
           );
 
           expect(boulderArea4.numberOfBoulders, 5);
@@ -96,8 +96,8 @@ void main() {
         test('return "n blocs en ..."', () {
           final boulderArea = boulderAreaRef.copyWith(
             numberOfBoulders: 5,
-            lowestGrade: Grade(iri: '', name: '5c'),
-            highestGrade: Grade(iri: '', name: '5c'),
+            lowestGrade: const Grade(iri: '', name: '5c'),
+            highestGrade: const Grade(iri: '', name: '5c'),
           );
 
           expect(boulderArea.numberOfBoulders, 5);
@@ -107,8 +107,8 @@ void main() {
 
           final boulderArea2 = boulderAreaRef.copyWith(
             numberOfBoulders: 5,
-            lowestGrade: Grade(iri: '', name: '5a'),
-            highestGrade: Grade(iri: '', name: '5c'),
+            lowestGrade: const Grade(iri: '', name: '5a'),
+            highestGrade: const Grade(iri: '', name: '5c'),
           );
 
           expect(boulderArea2.numberOfBoulders, 5);

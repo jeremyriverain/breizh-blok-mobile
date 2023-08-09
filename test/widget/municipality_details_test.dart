@@ -18,8 +18,8 @@ void main() {
           name: 'generic',
         ),
         numberOfBoulders: 4,
-        lowestGrade: Grade(iri: '', name: '5c'),
-        highestGrade: Grade(iri: '', name: '6c'),
+        lowestGrade: const Grade(iri: '', name: '5c'),
+        highestGrade: const Grade(iri: '', name: '6c'),
       ),
       BoulderArea(
         iri: '/boulder_areas/2',
