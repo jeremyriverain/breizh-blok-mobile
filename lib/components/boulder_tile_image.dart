@@ -13,7 +13,7 @@ class BoulderTileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size sizeScreen = MediaQuery.of(context).size;
+    final Size sizeScreen = MediaQuery.sizeOf(context);
     final double widthImage = sizeScreen.width > 600 ? 200 : 120;
 
     if (boulder.lineBoulders.isEmpty) {

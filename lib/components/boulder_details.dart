@@ -87,7 +87,7 @@ class BoulderDetails extends StatelessWidget {
 
   List<Widget> _buildLineBouldersImages(
       BuildContext context, List<LineBoulder> lineBoulders) {
-    final Size sizeScreen = MediaQuery.of(context).size;
+    final Size sizeScreen = MediaQuery.sizeOf(context);
     if (sizeScreen.width < 600) {
       return lineBoulders
           .map<Widget>(
