@@ -7,7 +7,7 @@ class TermsOfUsePrompt {
     return showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (BuildContext context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog.adaptive(
         key: const Key('terms-of-use'),
         title: FittedBox(
           fit: BoxFit.scaleDown,
