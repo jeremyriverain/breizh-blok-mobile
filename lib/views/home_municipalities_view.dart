@@ -19,6 +19,9 @@ class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
     return _departmentRepository.findAll();
   }
 
+  CollectionItems<Department> data =
+      const CollectionItems(items: [], totalItems: 0);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -27,6 +30,7 @@ class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
             (context, AsyncSnapshot<CollectionItems<Department>> snapshot) {
           final data = snapshot.data;
           if (data != null) {
+            this.data = data;
             return ListView.builder(
               itemCount: data.totalItems,
               itemBuilder: (BuildContext context, int index) {
@@ -64,7 +68,11 @@ class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
           if (snapshot.hasError) {
             return ErrorIndicator(
               error: snapshot.error,
-              onTryAgain: () => _fetch(),
+              onTryAgain: () {
+                setState(() {
+                  this.data = const CollectionItems(items: [], totalItems: 0);
+                });
+              },
             );
           }
 
