@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/components/map_error_message.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
@@ -6,6 +7,7 @@ import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:breizh_blok_mobile/components/base_map.dart';
@@ -54,8 +56,10 @@ class MunicipalityDetailsMapState extends State<MunicipalityDetailsMap> {
           return BaseMap(
             map: GoogleMap(
               mapToolbarEnabled: false,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
+              myLocationEnabled:
+                  context.read<MapPermissionBloc>().state.hasPermission,
+              myLocationButtonEnabled:
+                  context.read<MapPermissionBloc>().state.hasPermission,
               mapType: MapType.hybrid,
               initialCameraPosition: CameraPosition(
                 target: initialPosition,

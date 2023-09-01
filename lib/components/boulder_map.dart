@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/components/base_map.dart';
 import 'package:breizh_blok_mobile/components/error_indicator.dart';
 import 'package:breizh_blok_mobile/components/map_loading_indicator.dart';
@@ -77,8 +78,9 @@ class _BoulderMapState extends State<BoulderMap> {
   Widget build(BuildContext context) {
     final GoogleMap map = GoogleMap(
       mapToolbarEnabled: false,
-      myLocationEnabled: true,
-      myLocationButtonEnabled: true,
+      myLocationEnabled: context.read<MapPermissionBloc>().state.hasPermission,
+      myLocationButtonEnabled:
+          context.read<MapPermissionBloc>().state.hasPermission,
       mapType: MapType.hybrid,
       initialCameraPosition: CameraPosition(
         target: widget.initialPosition,

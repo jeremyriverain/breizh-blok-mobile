@@ -10,6 +10,7 @@ void main() {
       verify: (MapPermissionBloc bloc) async {
         expect(bloc.state.hasRequested, false);
         expect(bloc.state.hasDenied, false);
+        expect(bloc.state.hasPermission, false);
       },
     );
 
@@ -18,8 +19,11 @@ void main() {
       build: () => MapPermissionBloc(),
       act: (MapPermissionBloc bloc) =>
           bloc.add(RequestPermissionEvent(hasDenied: false)),
-      expect: () =>
-          [const MapPermissionState(hasRequested: true, hasDenied: false)],
+      verify: (MapPermissionBloc bloc) async {
+        expect(bloc.state.hasRequested, true);
+        expect(bloc.state.hasDenied, false);
+        expect(bloc.state.hasPermission, true);
+      },
     );
 
     blocTest(

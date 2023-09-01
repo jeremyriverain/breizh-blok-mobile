@@ -20,6 +20,10 @@ class MapPermissionState extends Equatable {
 
   @override
   List<Object?> get props => [hasRequested];
+
+  bool get hasPermission {
+    return !hasDenied && hasRequested;
+  }
 }
 
 class MapPermissionBloc extends Bloc<MapPermissionEvent, MapPermissionState> {
