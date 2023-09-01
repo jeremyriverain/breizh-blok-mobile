@@ -43,3 +43,5 @@ app.*.map.json
 .vscode/*
 
 _*.md
+
+integration_test/screenshots
