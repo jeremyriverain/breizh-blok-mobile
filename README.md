@@ -33,7 +33,7 @@ flutter test
 ### Exécuter les tests E2E
 
 ```bash
-flutter test integration_test/app_test.dart --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY"
+flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY"
 ```
 
 ### Compiler pour Android
@@ -46,10 +46,4 @@ flutter build appbundle --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-de
 
 ```bash
 flutter build ipa --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN"
-```
-
-### Générer les captures d'écran de l'application
-
-```bash
-flutter drive --driver=test_driver/screenshot_test.dart --target=integration_test/screenshot_test.dart --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" -d device_id
 ```
