@@ -9,11 +9,9 @@ class BoulderListTile extends StatelessWidget {
   const BoulderListTile({
     Key? key,
     required this.boulder,
-    this.onClickTile,
   }) : super(key: key);
 
   final Boulder boulder;
-  final Function? onClickTile;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +19,6 @@ class BoulderListTile extends StatelessWidget {
       label: 'Voir le détail du bloc "${boulder.name}"',
       child: InkWell(
         onTap: () {
-          if (onClickTile != null) {
-            onClickTile!(boulder.id);
-          }
           context.pushNamed('boulder_details', params: {'bid': boulder.id});
         },
         child: Padding(

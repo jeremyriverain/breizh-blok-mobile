@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_launcher/map_launcher.dart';
@@ -100,9 +99,6 @@ Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
                       FloatingActionButtonLocation.endTop,
                   body: BoulderListBuilder(
                     boulderFilterBloc: BoulderFilterBloc(BoulderFilterState()),
-                    onClickTile: (id) => {
-                      GoRouter.of(context).pop(),
-                    },
                     onPageRequested: (int page) {
                       return BoulderMapViewRequested(
                         page: page,

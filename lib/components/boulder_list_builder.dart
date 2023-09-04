@@ -22,14 +22,12 @@ import 'package:breizh_blok_mobile/components/boulder_list_results.dart';
 
 class BoulderListBuilder extends StatefulWidget {
   final Function onPageRequested;
-  final Function? onClickTile;
   final BoulderFilterBloc boulderFilterBloc;
   final bool showFilterButton;
 
   const BoulderListBuilder({
     Key? key,
     required this.onPageRequested,
-    this.onClickTile,
     required this.boulderFilterBloc,
     this.showFilterButton = true,
   }) : super(key: key);
@@ -145,7 +143,6 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                     final tile = BoulderListTile(
                       boulder: boulder,
                       key: Key(boulder.iri),
-                      onClickTile: widget.onClickTile,
                     );
                     if (index == 0) {
                       return Padding(
