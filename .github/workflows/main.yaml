@@ -8,12 +8,13 @@ on:
   workflow_dispatch: ~
 
 jobs:
-  ci:
+  
+  test:
     runs-on: macos-13
-    timeout-minutes: 60
+
     steps:
       - uses: actions/checkout@v3
-
+      
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2
         with:
@@ -32,19 +33,17 @@ jobs:
 
   integration_test:
     runs-on: macos-13
-    strategy:
-      fail-fast: true
-      matrix:
-        api-level: [29]
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.1'
           channel: 'stable'
           cache: true
-      - name: Install Flutter dependencies
+
+      - name: Install
         run: flutter pub get
 
       - name: Gradle cache
@@ -57,13 +56,13 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-${{ matrix.api-level }}
+          key: avd-29
 
       - name: create AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
+          api-level: 29
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -76,8 +75,9 @@ jobs:
           BREIZH_BLOK_API_HOST: ${{ secrets.BREIZH_BLOK_API_HOST }}
           BREIZH_BLOK_GMAPS_KEY: ${{ secrets.BREIZH_BLOK_GMAPS_KEY }}
         with:
-          api-level: ${{ matrix.api-level }}
+          api-level: 29
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
+          # flaky, sometimes timeouts 12 min: https://github.com/flutter/flutter/issues/105913
           script: flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --verbose
