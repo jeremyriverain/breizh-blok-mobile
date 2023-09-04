@@ -9,26 +9,10 @@ on:
 
 jobs:
   ci:
-    runs-on: macos-11
+    runs-on: macos-13
     timeout-minutes: 60
-    strategy:
-      matrix:
-        device:
-          # The available simulators are listed by the "xcrun xctrace list devices" command
-          - iPhone 14 Pro Max Simulator (16.4)
-      fail-fast: true
     steps:
       - uses: actions/checkout@v3
-
-      - name: "List all simulators"
-        run: "xcrun xctrace list devices"
-
-      - name: "Start Simulator"
-      
-        run: |
-          UDID=$(xcrun xctrace list devices | grep -m 1 "^${{ matrix.device }}" | awk '{gsub(/[()]/,""); print $NF}')
-          echo $UDID
-          open -a Simulator --args -CurrentDeviceUDID "${UDID:?No Simulator with this name found}"
 
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2
@@ -46,14 +30,12 @@ jobs:
       - name: Unit and Widget tests
         run: flutter test test/
 
-      - name: Integration tests
-        env:
-          BREIZH_BLOK_API_HOST: ${{ secrets.BREIZH_BLOK_API_HOST }}
-          BREIZH_BLOK_GMAPS_KEY: ${{ secrets.BREIZH_BLOK_GMAPS_KEY }}
-        run: flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY"
-
-  android:
+  integration_test:
     runs-on: macos-13
+    strategy:
+      fail-fast: true
+      matrix:
+        api-level: [29]
     steps:
       - uses: actions/checkout@v3
       - name: Setup Flutter SDK
@@ -64,13 +46,38 @@ jobs:
           cache: true
       - name: Install Flutter dependencies
         run: flutter pub get
-      - name: Run integration tests
+
+      - name: Gradle cache
+        uses: gradle/gradle-build-action@v2
+        
+      - name: AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+
+      - name: Integration tests
+        timeout-minutes: 30
         uses: reactivecircus/android-emulator-runner@v2
         env:
           BREIZH_BLOK_API_HOST: ${{ secrets.BREIZH_BLOK_API_HOST }}
           BREIZH_BLOK_GMAPS_KEY: ${{ secrets.BREIZH_BLOK_GMAPS_KEY }}
         with:
-          api-level: 29
-          arch: x86_64
-          profile: Nexus 6
-          script: flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY"
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --verbose
