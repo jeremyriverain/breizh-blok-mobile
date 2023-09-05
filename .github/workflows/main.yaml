@@ -21,6 +21,8 @@ jobs:
           flutter-version: '3.13.1'
           channel: 'stable'
           cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
 
       - name: Install
         run: flutter pub get
@@ -42,6 +44,8 @@ jobs:
           flutter-version: '3.13.1'
           channel: 'stable'
           cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
 
       - name: Install
         run: flutter pub get
@@ -70,7 +74,7 @@ jobs:
 
       - name: Integration tests
         # flaky, sometimes tests timeouts, or emulator shutdowns unexpectedly
-        continue-on-error: true
+        # continue-on-error: true
         timeout-minutes: 30
         uses: reactivecircus/android-emulator-runner@v2
         env:
@@ -81,4 +85,4 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --verbose
+          script: flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --verbose --suppress-analytics
