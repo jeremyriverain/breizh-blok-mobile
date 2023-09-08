@@ -24,12 +24,14 @@ class BoulderListBuilder extends StatefulWidget {
   final Function onPageRequested;
   final BoulderFilterBloc boulderFilterBloc;
   final bool showFilterButton;
+  final Widget? bottomHeaderWidget;
 
   const BoulderListBuilder({
     Key? key,
     required this.onPageRequested,
     required this.boulderFilterBloc,
     this.showFilterButton = true,
+    this.bottomHeaderWidget,
   }) : super(key: key);
 
   @override
@@ -78,6 +80,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomHeaderWidget = widget.bottomHeaderWidget;
     return MultiBlocListener(
       listeners: [
         BlocListener<BoulderFilterBloc, BoulderFilterState>(
@@ -167,6 +170,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                                 ),
                               ],
                             ),
+                            if (bottomHeaderWidget != null) bottomHeaderWidget,
                             const SizedBox(
                               height: 10,
                             ),

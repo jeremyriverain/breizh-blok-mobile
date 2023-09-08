@@ -51,6 +51,13 @@ class HomeView extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 )),
+              3 => AppBar(
+                    title: const Text(
+                  'Téléchargements',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
               (_) => null
             },
             body: LazyIndexedStack(index: currentIndex, children: [
@@ -65,8 +72,10 @@ class HomeView extends StatelessWidget {
               ),
               const HomeMapView(),
               const HomeMunicipalitiesView(),
+              Container(),
             ]),
             bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.list_bullet), label: 'Liste'),
@@ -77,6 +86,10 @@ class HomeView extends StatelessWidget {
                 BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.rectangle_on_rectangle),
                   label: 'Index',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.download_circle),
+                  label: 'Téléchargements',
                 ),
               ],
               onTap: (index) =>

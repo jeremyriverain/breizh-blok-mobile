@@ -7,6 +7,7 @@ import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/components/app_bar_helper.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/components/boulder_map.dart';
+import 'package:breizh_blok_mobile/components/download_area_button.dart';
 import 'package:breizh_blok_mobile/components/map_error_message.dart';
 import 'package:breizh_blok_mobile/components/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
@@ -80,6 +81,7 @@ class BoulderAreaDetails extends StatelessWidget {
             grades: context.read<BoulderFilterGradeBloc>().state.grades,
           );
         },
+        bottomHeaderWidget: const DownloadAreaButton(),
       ),
       Column(
         children: [
