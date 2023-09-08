@@ -747,7 +747,8 @@ void main() async {
       findsOneWidget,
     );
 
-    find.widgetWithText(Tab, 'Liste des secteurs');
-    find.widgetWithText(Tab, 'Carte');
+    find
+      ..widgetWithText(Tab, 'Liste des secteurs')
+      ..widgetWithText(Tab, 'Carte');
   });
 }

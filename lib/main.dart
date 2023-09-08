@@ -1,11 +1,16 @@
+import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/views/boulder_area_details_view.dart';
+import 'package:breizh_blok_mobile/views/boulder_details_view.dart';
+import 'package:breizh_blok_mobile/views/home_view.dart';
 import 'package:breizh_blok_mobile/views/municipality_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,13 +19,7 @@ import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-import 'package:breizh_blok_mobile/views/boulder_details_view.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
-import 'package:breizh_blok_mobile/views/home_view.dart';
-import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
-
-main({
+void main({
   MapPermissionBloc? mapPermissionBloc,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();

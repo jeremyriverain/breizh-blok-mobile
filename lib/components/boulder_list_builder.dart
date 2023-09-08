@@ -1,24 +1,23 @@
 import 'dart:async';
 
+import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_back_to_top_button.dart';
-import 'package:breizh_blok_mobile/components/filter_boulders_button.dart';
-import 'package:breizh_blok_mobile/components/sort_boulders_button.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-
+import 'package:breizh_blok_mobile/components/boulder_list_results.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_tile.dart';
 import 'package:breizh_blok_mobile/components/empty_list_indicator.dart';
 import 'package:breizh_blok_mobile/components/error_indicator.dart';
+import 'package:breizh_blok_mobile/components/filter_boulders_button.dart';
+import 'package:breizh_blok_mobile/components/sort_boulders_button.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
+import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/models/response.dart';
-import 'package:breizh_blok_mobile/components/boulder_list_results.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class BoulderListBuilder extends StatefulWidget {
   final Function onPageRequested;
@@ -112,7 +111,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
               }
               return;
             }
-            throw Exception("data or error should be present");
+            throw Exception('data or error should be present');
           },
           bloc: _bloc,
         )
@@ -153,7 +152,6 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                         child: Column(
                           children: [
                             Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 const SortBouldersButton(),
                                 if (widget.showFilterButton)
@@ -186,9 +184,11 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
               if (showBackToTopButton)
                 BoulderListBackToTopButton(
                   onPressed: () {
-                    _scrollController.animateTo(0,
-                        duration: const Duration(milliseconds: 600),
-                        curve: Curves.ease);
+                    _scrollController.animateTo(
+                      0,
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.ease,
+                    );
                   },
                 ),
             ],
