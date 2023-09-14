@@ -19,36 +19,36 @@ import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-void main({
+main({
   MapPermissionBloc? mapPermissionBloc,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  TermsOfUseBloc termsOfUseBloc = TermsOfUseBloc();
+  final termsOfUseBloc = TermsOfUseBloc();
 
-  TabBloc tabBloc = TabBloc();
+  final tabBloc = TabBloc();
 
-  MapBloc mapBloc = MapBloc();
+  final mapBloc = MapBloc();
 
-  final BoulderFilterBloc boulderFilterBloc = BoulderFilterBloc(
+  final boulderFilterBloc = BoulderFilterBloc(
     BoulderFilterState(),
   );
 
-  final BoulderOrderBloc boulderOrderBloc = BoulderOrderBloc(
+  final boulderOrderBloc = BoulderOrderBloc(
     const OrderQueryParam(direction: 'desc', name: 'order[id]'),
   );
 
-  final BoulderFilterGradeBloc boulderFilterGradeBloc =
+  final boulderFilterGradeBloc =
       BoulderFilterGradeBloc(BoulderFilterGradeState());
 
   final boulderMarkerBloc = BoulderMarkerBloc();
 
   await SentryFlutter.init(
     (options) {
-      options.dsn = options.dsn =
-          const String.fromEnvironment('SENTRY_DSN', defaultValue: '');
-      options.tracesSampleRate = 0;
+      options
+        ..dsn = options.dsn = const String.fromEnvironment('SENTRY_DSN')
+        ..tracesSampleRate = 0;
     },
     appRunner: () => runApp(
       MultiBlocProvider(
@@ -89,7 +89,7 @@ void main({
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  MyApp({super.key});
 
   final _router = GoRouter(
     routes: [

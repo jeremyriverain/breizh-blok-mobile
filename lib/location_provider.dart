@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
 class LocationProvider extends InheritedWidget {
+  const LocationProvider({
+    required super.child,
+    required this.locationInstance,
+    super.key,
+  });
   static LocationProvider of(BuildContext context) {
-    final LocationProvider? result =
+    final result =
         context.dependOnInheritedWidgetOfExactType<LocationProvider>();
 
     if (result == null) {
@@ -14,12 +19,6 @@ class LocationProvider extends InheritedWidget {
   }
 
   final Location locationInstance;
-
-  const LocationProvider({
-    super.key,
-    required super.child,
-    required this.locationInstance,
-  });
 
   @override
   bool updateShouldNotify(LocationProvider oldWidget) {

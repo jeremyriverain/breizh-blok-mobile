@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:http/http.dart' as http;
-
 import 'package:breizh_blok_mobile/models/collection_items.dart';
-
 import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
+import 'package:http/http.dart' as http;
 
 class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
   @override
@@ -20,8 +18,9 @@ class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
   }
 
   @override
-  Future<CollectionItems<BoulderArea>> findBy(
-      {Map<String, List<String>>? queryParams}) {
+  Future<CollectionItems<BoulderArea>> findBy({
+    Map<String, List<String>>? queryParams,
+  }) {
     throw UnimplementedError();
   }
 }

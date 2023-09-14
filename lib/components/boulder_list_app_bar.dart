@@ -1,9 +1,10 @@
+import 'package:breizh_blok_mobile/components/boulder_list_app_bar_search_field.dart';
 import 'package:flutter/material.dart';
 
-import 'package:breizh_blok_mobile/components/boulder_list_app_bar_search_field.dart';
-
 class BoulderListAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const BoulderListAppBar({Key? key}) : super(key: key);
+  const BoulderListAppBar({
+    super.key,
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);

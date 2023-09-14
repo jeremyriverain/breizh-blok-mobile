@@ -2,8 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class BoulderAreaBarChart extends StatelessWidget {
+  const BoulderAreaBarChart({required this.data, super.key});
   final Map<String, int> data;
-  const BoulderAreaBarChart({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -107,18 +107,20 @@ class BoulderAreaBarChart extends StatelessWidget {
       );
 
   List<BarChartGroupData> barGroups(List<int> values) {
-    List<BarChartGroupData> barGroups = [];
+    final barGroups = <BarChartGroupData>[];
     for (var i = 0; i < values.length; i++) {
-      barGroups.add(BarChartGroupData(
-        x: i,
-        barRods: [
-          BarChartRodData(
-            toY: values[i].toDouble(),
-            gradient: _barsGradient,
-          )
-        ],
-        showingTooltipIndicators: [0],
-      ));
+      barGroups.add(
+        BarChartGroupData(
+          x: i,
+          barRods: [
+            BarChartRodData(
+              toY: values[i].toDouble(),
+              gradient: _barsGradient,
+            )
+          ],
+          showingTooltipIndicators: [0],
+        ),
+      );
     }
 
     return barGroups;

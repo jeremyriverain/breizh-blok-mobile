@@ -148,7 +148,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                     );
                     if (index == 0) {
                       return Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 8),
                         child: Column(
                           children: [
                             Row(
@@ -158,7 +158,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                                   const FilterBouldersButton(),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
+                                    padding: const EdgeInsets.only(right: 8),
                                     child: BoulderListResults(
                                       key: const Key('boulder-list-result'),
                                       totalItems:
