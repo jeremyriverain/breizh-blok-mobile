@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
 import 'package:breizh_blok_mobile/components/boulder_tile_image.dart';
 import 'package:breizh_blok_mobile/components/boulder_tile_title.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BoulderDetailsAssociatedItem extends StatelessWidget {
   const BoulderDetailsAssociatedItem({
-    Key? key,
     required this.boulder,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Boulder boulder;
 
@@ -21,7 +20,7 @@ class BoulderDetailsAssociatedItem extends StatelessWidget {
           context.pushNamed('boulder_details', params: {'bid': boulder.id});
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 1.0),
+          padding: const EdgeInsets.symmetric(vertical: 1),
           child: SizedBox(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,13 +28,14 @@ class BoulderDetailsAssociatedItem extends StatelessWidget {
                 BoulderTileImage(boulder: boulder),
                 Expanded(
                   child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          BoulderTileTitle(boulder: boulder),
-                        ],
-                      )),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 2, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        BoulderTileTitle(boulder: boulder),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),

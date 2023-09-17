@@ -20,18 +20,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class BoulderListBuilder extends StatefulWidget {
+  const BoulderListBuilder({
+    required this.onPageRequested,
+    required this.boulderFilterBloc,
+    super.key,
+    this.showFilterButton = true,
+    this.bottomHeaderWidget,
+  });
+
   final Function onPageRequested;
   final BoulderFilterBloc boulderFilterBloc;
   final bool showFilterButton;
   final Widget? bottomHeaderWidget;
-
-  const BoulderListBuilder({
-    Key? key,
-    required this.onPageRequested,
-    required this.boulderFilterBloc,
-    this.showFilterButton = true,
-    this.bottomHeaderWidget,
-  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _BoulderListBuilderState();
@@ -53,7 +53,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
     });
 
     _scrollController.addListener(() {
-      double showBackToTopButtonOffset = 400.0;
+      double showBackToTopButtonOffset = 400;
 
       if (_scrollController.offset > showBackToTopButtonOffset &&
           !showBackToTopButton) {
