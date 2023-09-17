@@ -116,7 +116,7 @@ class BoulderAreaBarChart extends StatelessWidget {
             BarChartRodData(
               toY: values[i].toDouble(),
               gradient: _barsGradient,
-            )
+            ),
           ],
           showingTooltipIndicators: [0],
         ),

@@ -4,19 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 abstract class MapPermissionEvent {}
 
 class RequestPermissionEvent extends MapPermissionEvent {
-  final bool hasDenied;
-
   RequestPermissionEvent({required this.hasDenied});
+
+  final bool hasDenied;
 }
 
 class MapPermissionState extends Equatable {
-  final bool hasRequested;
-  final bool hasDenied;
-
   const MapPermissionState({
     this.hasRequested = false,
     this.hasDenied = false,
   });
+
+  final bool hasRequested;
+  final bool hasDenied;
 
   @override
   List<Object?> get props => [hasRequested];
