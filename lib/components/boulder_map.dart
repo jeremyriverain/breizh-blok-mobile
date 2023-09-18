@@ -8,6 +8,7 @@ import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/components/base_map.dart';
 import 'package:breizh_blok_mobile/components/error_indicator.dart';
 import 'package:breizh_blok_mobile/components/map_loading_indicator.dart';
+import 'package:breizh_blok_mobile/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -16,21 +17,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import 'package:breizh_blok_mobile/models/boulder_marker.dart';
-
 class BoulderMap extends StatefulWidget {
-  final LatLng initialPosition;
-  final double initialZoom;
-  final Future<Marker> Function(Cluster<BoulderMarker>)? boulderMarkerBuilder;
-  final Set<Marker> markers;
-
   const BoulderMap({
-    Key? key,
+    super.key,
     this.initialPosition = kDefaultInitialPosition,
     this.initialZoom = 13,
     this.markers = const {},
     this.boulderMarkerBuilder,
-  }) : super(key: key);
+  });
+
+  final LatLng initialPosition;
+  final double initialZoom;
+  final Future<Marker> Function(Cluster<BoulderMarker>)? boulderMarkerBuilder;
+  final Set<Marker> markers;
 
   @override
   State<BoulderMap> createState() => _BoulderMapState();
@@ -53,7 +52,7 @@ class _BoulderMapState extends State<BoulderMap> {
       context.read<BoulderMarkerBloc>().state.markers,
       _updateMarkers,
       markerBuilder: widget.boulderMarkerBuilder ?? boulderMarkerBuilder,
-      stopClusteringZoom: 100.0,
+      stopClusteringZoom: 100,
       extraPercent: 1,
     );
   }
@@ -69,14 +68,16 @@ class _BoulderMapState extends State<BoulderMap> {
         return Marker(
           markerId: MarkerId(cluster.getId()),
           position: cluster.location,
-          icon: await getMarkerBitmap(cluster.isMultiple ? 125 : 75,
-              text: cluster.isMultiple ? cluster.count.toString() : null),
+          icon: await getMarkerBitmap(
+            cluster.isMultiple ? 125 : 75,
+            text: cluster.isMultiple ? cluster.count.toString() : null,
+          ),
         );
       };
 
   @override
   Widget build(BuildContext context) {
-    final GoogleMap map = GoogleMap(
+    final map = GoogleMap(
       mapToolbarEnabled: false,
       myLocationEnabled: context.read<MapPermissionBloc>().state.hasPermission,
       myLocationButtonEnabled:
@@ -92,11 +93,11 @@ class _BoulderMapState extends State<BoulderMap> {
       },
       onCameraIdle: () async {
         _manager.updateMap();
-        final GoogleMapController mapController = await _controller.future;
-        final double zoom = await mapController.getZoomLevel();
+        final mapController = await _controller.future;
+        final zoom = await mapController.getZoomLevel();
 
-        LatLngBounds visibleRegion = await mapController.getVisibleRegion();
-        LatLng centerLatLng = LatLng(
+        final visibleRegion = await mapController.getVisibleRegion();
+        final centerLatLng = LatLng(
           (visibleRegion.northeast.latitude +
                   visibleRegion.southwest.latitude) /
               2,
@@ -118,9 +119,9 @@ class _BoulderMapState extends State<BoulderMap> {
         ...boulderMarkers,
         ...widget.markers,
       },
-      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+      gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{
         Factory<OneSequenceGestureRecognizer>(
-          () => EagerGestureRecognizer(),
+          EagerGestureRecognizer.new,
         ),
       },
     );

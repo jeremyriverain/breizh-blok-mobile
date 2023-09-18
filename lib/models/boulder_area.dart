@@ -5,17 +5,6 @@ import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:equatable/equatable.dart';
 
 class BoulderArea extends Equatable {
-  final String iri;
-  final String name;
-  final Municipality municipality;
-  final Location? centroid;
-  final Location? parkingLocation;
-  final String? description;
-  final int? numberOfBoulders;
-  final Grade? lowestGrade;
-  final Grade? highestGrade;
-  final Map<String, int>? numberOfBouldersGroupedByGrade;
-
   const BoulderArea({
     required this.iri,
     required this.name,
@@ -29,6 +18,17 @@ class BoulderArea extends Equatable {
     this.numberOfBouldersGroupedByGrade,
   });
 
+  final String iri;
+  final String name;
+  final Municipality municipality;
+  final Location? centroid;
+  final Location? parkingLocation;
+  final String? description;
+  final int? numberOfBoulders;
+  final Grade? lowestGrade;
+  final Grade? highestGrade;
+  final Map<String, int>? numberOfBouldersGroupedByGrade;
+
   BoulderArea copyWith({
     Municipality? municipality,
     Location? centroid,
@@ -39,17 +39,18 @@ class BoulderArea extends Equatable {
     Map<String, int>? numberOfBouldersGroupedByGrade,
   }) {
     return BoulderArea(
-        iri: iri,
-        name: name,
-        centroid: centroid ?? this.centroid,
-        parkingLocation: parkingLocation ?? this.parkingLocation,
-        description: description,
-        municipality: municipality ?? this.municipality,
-        numberOfBoulders: numberOfBoulders ?? this.numberOfBoulders,
-        lowestGrade: lowestGrade ?? this.lowestGrade,
-        highestGrade: highestGrade ?? this.highestGrade,
-        numberOfBouldersGroupedByGrade: numberOfBouldersGroupedByGrade ??
-            this.numberOfBouldersGroupedByGrade);
+      iri: iri,
+      name: name,
+      centroid: centroid ?? this.centroid,
+      parkingLocation: parkingLocation ?? this.parkingLocation,
+      description: description,
+      municipality: municipality ?? this.municipality,
+      numberOfBoulders: numberOfBoulders ?? this.numberOfBoulders,
+      lowestGrade: lowestGrade ?? this.lowestGrade,
+      highestGrade: highestGrade ?? this.highestGrade,
+      numberOfBouldersGroupedByGrade:
+          numberOfBouldersGroupedByGrade ?? this.numberOfBouldersGroupedByGrade,
+    );
   }
 
   factory BoulderArea.fromJson(Map<String, dynamic> json) {

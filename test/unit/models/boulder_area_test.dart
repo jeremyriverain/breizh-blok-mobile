@@ -39,8 +39,10 @@ void main() {
 
       test('return default initial position if no parking location or centroid',
           () {
-        expect(boulderAreaRef.resolveLocation().latitude,
-            kDefaultInitialPosition.latitude);
+        expect(
+          boulderAreaRef.resolveLocation().latitude,
+          kDefaultInitialPosition.latitude,
+        );
       });
     });
 

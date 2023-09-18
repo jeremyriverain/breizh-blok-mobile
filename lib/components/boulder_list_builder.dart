@@ -28,7 +28,7 @@ class BoulderListBuilder extends StatefulWidget {
     this.bottomHeaderWidget,
   });
 
-  final Function onPageRequested;
+  final BoulderEvent Function(int) onPageRequested;
   final BoulderFilterBloc boulderFilterBloc;
   final bool showFilterButton;
   final Widget? bottomHeaderWidget;
@@ -53,7 +53,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
     });
 
     _scrollController.addListener(() {
-      double showBackToTopButtonOffset = 400;
+      const showBackToTopButtonOffset = 400;
 
       if (_scrollController.offset > showBackToTopButtonOffset &&
           !showBackToTopButton) {
@@ -114,13 +114,11 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
             throw Exception('data or error should be present');
           },
           bloc: _bloc,
-        )
+        ),
       ],
       child: RefreshIndicator(
         onRefresh: () => Future.sync(
-          () {
-            _pagingController.refresh();
-          },
+          _pagingController.refresh,
         ),
         child: SafeArea(
           child: Stack(
@@ -130,7 +128,11 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                 pagingController: _pagingController,
                 scrollController: _scrollController,
                 padding: const EdgeInsets.only(
-                    bottom: 16, left: 10, right: 10, top: 5),
+                  bottom: 16,
+                  left: 10,
+                  right: 10,
+                  top: 5,
+                ),
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 16,
                 ),
@@ -138,8 +140,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                   noItemsFoundIndicatorBuilder: (context) =>
                       const EmptyListIndicator(),
                   firstPageErrorIndicatorBuilder: (context) => ErrorIndicator(
-                    error: _pagingController.error,
-                    onTryAgain: () => _pagingController.refresh(),
+                    onTryAgain: _pagingController.refresh,
                   ),
                   itemBuilder: (context, boulder, index) {
                     final tile = BoulderListTile(
@@ -172,7 +173,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                             const SizedBox(
                               height: 10,
                             ),
-                            tile
+                            tile,
                           ],
                         ),
                       );

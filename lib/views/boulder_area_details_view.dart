@@ -4,7 +4,6 @@ import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/views/error_view.dart';
 import 'package:breizh_blok_mobile/views/loading_view.dart';
@@ -13,14 +12,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class BoulderAreaDetailsView extends StatelessWidget {
+  BoulderAreaDetailsView({
+    required this.id,
+    super.key,
+  });
   final String id;
 
   final boulderAreaRepository = BoulderAreaRepository();
-
-  BoulderAreaDetailsView({
-    super.key,
-    required this.id,
-  });
 
   Future<BoulderArea> _findBoulderArea() {
     return boulderAreaRepository.find(id);
@@ -33,18 +31,20 @@ class BoulderAreaDetailsView extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<BoulderArea> snapshot) {
         final boulderArea = snapshot.data;
         if (boulderArea != null) {
-          final Location location = boulderArea.resolveLocation();
-          final BoulderFilterBloc boulderFilterBloc = BoulderFilterBloc(
-            BoulderFilterState(boulderAreas: {
-              boulderArea,
-            }),
+          final location = boulderArea.resolveLocation();
+          final boulderFilterBloc = BoulderFilterBloc(
+            BoulderFilterState(
+              boulderAreas: {
+                boulderArea,
+              },
+            ),
           );
 
-          final BoulderMarkerBloc boulderMarkerBloc = BoulderMarkerBloc();
+          final boulderMarkerBloc = BoulderMarkerBloc();
 
-          final BoulderBloc boulderBloc = BoulderBloc();
+          final boulderBloc = BoulderBloc();
 
-          final MapBloc mapBloc = MapBloc(
+          final mapBloc = MapBloc(
             initialState: MapState(
               mapZoom: 14.5,
               mapLatLng: LatLng(

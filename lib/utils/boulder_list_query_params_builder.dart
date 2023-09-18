@@ -8,7 +8,7 @@ class BoulderListQueryParamsBuilder {
     required OrderQueryParam orderQueryParam,
     required BoulderFilterState filterState,
   }) async {
-    Map<String, List<String>> queryParams = {};
+    final queryParams = <String, List<String>>{};
     if (filterState.term != null) {
       queryParams['term'] = [filterState.term!];
     }

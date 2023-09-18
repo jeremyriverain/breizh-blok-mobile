@@ -5,20 +5,22 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('BoulderFilterBloc', () {
-    blocTest(
+    blocTest<BoulderOrderBloc, OrderQueryParam>(
       'default state OK',
       build: () => BoulderOrderBloc(
-          const OrderQueryParam(direction: 'desc', name: 'order[id]')),
+        const OrderQueryParam(direction: 'desc', name: 'order[id]'),
+      ),
       verify: (BoulderOrderBloc bloc) {
         expect(bloc.state.direction, 'desc');
         expect(bloc.state.name, 'order[id]');
       },
     );
 
-    blocTest(
+    blocTest<BoulderOrderBloc, OrderQueryParam>(
       'BoulderOrderEvent OK',
       build: () => BoulderOrderBloc(
-          const OrderQueryParam(direction: 'desc', name: 'order[id]')),
+        const OrderQueryParam(direction: 'desc', name: 'order[id]'),
+      ),
       act: (BoulderOrderBloc bloc) => bloc.add(
         BoulderOrderEvent(
           const OrderQueryParam(direction: 'asc', name: 'name'),

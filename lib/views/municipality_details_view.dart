@@ -6,14 +6,13 @@ import 'package:breizh_blok_mobile/views/loading_view.dart';
 import 'package:flutter/material.dart';
 
 class MunicipalityDetailsView extends StatelessWidget {
+  MunicipalityDetailsView({
+    required this.id,
+    super.key,
+  });
   final String id;
 
   final municipalityRepository = MunicipalityRepository();
-
-  MunicipalityDetailsView({
-    super.key,
-    required this.id,
-  });
 
   Future<Municipality> _findMunicipality() {
     return municipalityRepository.find(id);

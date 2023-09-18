@@ -27,6 +27,7 @@ class TermsOfUsePrompt {
           ),
         ),
         content: const Text(
+            // ignore: lines_longer_than_80_chars
             "L'escalade est un sport à risque. Sa pratique est sous l'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d'accident."),
         actions: <Widget>[
           TextButton(

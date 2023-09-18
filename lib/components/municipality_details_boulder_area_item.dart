@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 class MunicipalityDetailsBoulderAreaItem extends StatelessWidget {
   const MunicipalityDetailsBoulderAreaItem({
-    super.key,
     required this.boulderArea,
+    super.key,
   });
 
   final BoulderArea boulderArea;

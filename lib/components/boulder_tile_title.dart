@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
-
 import 'package:breizh_blok_mobile/models/boulder.dart';
+import 'package:flutter/material.dart';
 
 class BoulderTileTitle extends StatelessWidget {
   const BoulderTileTitle({
-    Key? key,
     required this.boulder,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Boulder boulder;
 
@@ -28,7 +27,7 @@ class BoulderTileTitle extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 16,
               ),
-            )
+            ),
         ],
       ),
     );

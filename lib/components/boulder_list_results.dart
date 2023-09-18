@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 class BoulderListResults extends StatelessWidget {
-  final int totalItems;
-
   const BoulderListResults({
-    Key? key,
     required this.totalItems,
-  }) : super(key: key);
+    super.key,
+  });
+  final int totalItems;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +16,13 @@ class BoulderListResults extends StatelessWidget {
           TextSpan(
             children: [
               TextSpan(
-                text: '${totalItems.toString()} ',
+                text: '$totalItems ',
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               TextSpan(text: totalItems > 1 ? 'blocs' : 'bloc'),
             ],
           ),
-        )
+        ),
       ],
     );
   }

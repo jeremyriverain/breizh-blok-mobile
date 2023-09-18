@@ -11,7 +11,7 @@ class MapLoadingIndicator extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 80.0),
+          padding: EdgeInsets.only(top: 80),
           child: CircularProgressIndicator(
             color: Colors.red,
             semanticsLabel: 'Récupération de la liste des blocs',

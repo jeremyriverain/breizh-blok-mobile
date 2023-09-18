@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('BoulderFilterBloc', () {
-    blocTest(
+    blocTest<BoulderFilterBloc, BoulderFilterState>(
       'default state OK',
       build: () => BoulderFilterBloc(BoulderFilterState()),
       verify: (BoulderFilterBloc bloc) {
@@ -15,12 +15,14 @@ void main() {
       },
     );
 
-    blocTest(
+    blocTest<BoulderFilterBloc, BoulderFilterState>(
       'BoulderFilterSearched event OK',
       build: () => BoulderFilterBloc(BoulderFilterState()),
-      act: (BoulderFilterBloc bloc) => bloc.add(BoulderFilterSearched(
-        'cre',
-      )),
+      act: (BoulderFilterBloc bloc) => bloc.add(
+        BoulderFilterSearched(
+          'cre',
+        ),
+      ),
       expect: () => [BoulderFilterState(term: 'cre')],
     );
 
@@ -30,18 +32,22 @@ void main() {
       municipality: Municipality(iri: '', name: 'kerlouan'),
     );
 
-    blocTest(
+    blocTest<BoulderFilterBloc, BoulderFilterState>(
       'BoulderFilterLocation event OK',
       build: () => BoulderFilterBloc(BoulderFilterState()),
-      act: (BoulderFilterBloc bloc) => bloc.add(BoulderFilterLocation(
-        {
-          referenceBoulderArea,
-        },
-      )),
+      act: (BoulderFilterBloc bloc) => bloc.add(
+        BoulderFilterLocation(
+          {
+            referenceBoulderArea,
+          },
+        ),
+      ),
       expect: () => [
-        BoulderFilterState(boulderAreas: {
-          referenceBoulderArea,
-        })
+        BoulderFilterState(
+          boulderAreas: {
+            referenceBoulderArea,
+          },
+        ),
       ],
     );
   });

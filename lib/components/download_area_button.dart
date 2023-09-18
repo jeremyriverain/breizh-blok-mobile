@@ -28,12 +28,13 @@ class _DownloadAreaButtonState extends State<DownloadAreaButton> {
           ),
         ),
         GestureDetector(
-            onTap: () {
-              setState(() {
-                download = !download;
-              });
-            },
-            child: const Text('TÉLÉCHARGER')),
+          onTap: () {
+            setState(() {
+              download = !download;
+            });
+          },
+          child: const Text('TÉLÉCHARGER'),
+        ),
       ],
     );
   }

@@ -37,7 +37,9 @@ enum OrderChoice {
 }
 
 class SortBouldersButton extends StatelessWidget {
-  const SortBouldersButton({Key? key}) : super(key: key);
+  const SortBouldersButton({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,26 +51,26 @@ class SortBouldersButton extends StatelessWidget {
           SizedBox(
             width: 5,
           ),
-          Text('Trier')
+          Text('Trier'),
         ],
       ),
       onPressed: () {
-        showDialog(
+        showDialog<void>(
           context: context,
           builder: (dialogContext) => AlertDialog(
             alignment: Alignment.topCenter,
             contentPadding: EdgeInsets.zero,
-            title: const Text("Afficher en 1er:"),
+            title: const Text('Afficher en 1er:'),
             content: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 8),
               child: BlocBuilder<BoulderOrderBloc, OrderQueryParam>(
                 builder: (context, state) {
-                  OrderQueryParam groupValue = state;
+                  final groupValue = state;
 
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      for (var orderChoice in OrderChoice.values)
+                      for (final orderChoice in OrderChoice.values)
                         RadioListTile<OrderQueryParam>(
                           value: orderChoice.orderQueryParam,
                           groupValue: groupValue,

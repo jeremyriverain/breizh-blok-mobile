@@ -6,9 +6,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
   group('MapBloc', () {
-    blocTest(
+    blocTest<MapBloc, MapState>(
       'default state OK',
-      build: () => MapBloc(),
+      build: MapBloc.new,
       verify: (MapBloc bloc) {
         expect(
           bloc.state,
@@ -20,35 +20,39 @@ void main() {
       },
     );
 
-    blocTest('initial state OK',
-        build: () => MapBloc(
-              initialState: const MapState(
-                mapZoom: 5,
-                mapLatLng: LatLng(10, 20),
-              ),
-            ),
-        verify: (MapBloc bloc) {
-          expect(
-            bloc.state,
-            const MapState(
-              mapZoom: 5,
-              mapLatLng: LatLng(10, 20),
-            ),
-          );
-        });
+    blocTest<MapBloc, MapState>(
+      'initial state OK',
+      build: () => MapBloc(
+        initialState: const MapState(
+          mapZoom: 5,
+          mapLatLng: LatLng(10, 20),
+        ),
+      ),
+      verify: (MapBloc bloc) {
+        expect(
+          bloc.state,
+          const MapState(
+            mapZoom: 5,
+            mapLatLng: LatLng(10, 20),
+          ),
+        );
+      },
+    );
 
-    blocTest(
+    blocTest<MapBloc, MapState>(
       'MapUpdated event OK',
-      build: () => MapBloc(),
-      act: (MapBloc bloc) => bloc.add(MapUpdated(
-        mapZoom: 5,
-        mapLatLng: const LatLng(10, 20),
-      )),
+      build: MapBloc.new,
+      act: (MapBloc bloc) => bloc.add(
+        MapUpdated(
+          mapZoom: 5,
+          mapLatLng: const LatLng(10, 20),
+        ),
+      ),
       expect: () => [
         const MapState(
           mapZoom: 5,
           mapLatLng: LatLng(10, 20),
-        )
+        ),
       ],
     );
   });

@@ -1,20 +1,19 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
 
 import 'package:breizh_blok_mobile/components/generic_error_indicator.dart';
 import 'package:breizh_blok_mobile/components/no_connection_indicator.dart';
+import 'package:flutter/material.dart';
 
 /// Based on the received error, displays either a [NoConnectionIndicator] or
 /// a [GenericErrorIndicator].
 class ErrorIndicator extends StatelessWidget {
   const ErrorIndicator({
-    required this.error,
     required this.onTryAgain,
-    Key? key,
-  })  : assert(error != null),
-        super(key: key);
+    this.error = 'Une erreur est survenue',
+    super.key,
+  });
 
-  final dynamic error;
+  final String error;
   final VoidCallback onTryAgain;
 
   @override

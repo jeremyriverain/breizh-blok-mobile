@@ -5,9 +5,9 @@ class QueryConstructor {
     if (queryParams == null) {
       return null;
     }
-    String result = '';
+    var result = '';
     queryParams.forEach((key, paramsList) {
-      for (var param in paramsList) {
+      for (final param in paramsList) {
         if (result.isNotEmpty) {
           result += '&';
         }

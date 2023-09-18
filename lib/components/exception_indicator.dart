@@ -7,8 +7,8 @@ class ExceptionIndicator extends StatelessWidget {
     required this.assetName,
     required this.message,
     this.onTryAgain,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final String title;
   final String message;
   final String assetName;
