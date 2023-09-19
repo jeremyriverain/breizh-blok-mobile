@@ -19,7 +19,7 @@ import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-main({
+Future<void> main({
   MapPermissionBloc? mapPermissionBloc,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -102,21 +102,21 @@ class MyApp extends StatelessWidget {
         path: '/boulders/:bid',
         name: 'boulder_details',
         builder: (context, state) {
-          return BoulderDetailsView(id: state.params['bid'] as String);
+          return BoulderDetailsView(id: state.params['bid']!);
         },
       ),
       GoRoute(
         path: '/boulders-area/:id',
         name: 'boulder_area_details',
         builder: (context, state) {
-          return BoulderAreaDetailsView(id: state.params['id'] as String);
+          return BoulderAreaDetailsView(id: state.params['id']!);
         },
       ),
       GoRoute(
         path: '/municipalities/:id',
         name: 'municipality_details',
         builder: (context, state) {
-          return MunicipalityDetailsView(id: state.params['id'] as String);
+          return MunicipalityDetailsView(id: state.params['id']!);
         },
       ),
     ],

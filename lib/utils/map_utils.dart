@@ -7,7 +7,6 @@ import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/components/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,16 +25,15 @@ const kSizeSimpleMarker = 75;
 const kParkingIcon = 'assets/parking-icon.png';
 
 Future<BitmapDescriptor> getMarkerBitmap(int size, {String? text}) async {
-  if (kIsWeb) size = (size / 2).floor();
-
   final pictureRecorder = ui.PictureRecorder();
   final canvas = Canvas(pictureRecorder);
   final paint1 = Paint()..color = Colors.lightGreen;
   final paint2 = Paint()..color = Colors.white;
 
-  canvas.drawCircle(Offset(size / 2, size / 2), size / 2.0, paint1);
-  canvas.drawCircle(Offset(size / 2, size / 2), size / 2.2, paint2);
-  canvas.drawCircle(Offset(size / 2, size / 2), size / 2.8, paint1);
+  canvas
+    ..drawCircle(Offset(size / 2, size / 2), size / 2.0, paint1)
+    ..drawCircle(Offset(size / 2, size / 2), size / 2.2, paint2)
+    ..drawCircle(Offset(size / 2, size / 2), size / 2.8, paint1);
 
   if (text != null) {
     final painter = TextPainter(textDirection: TextDirection.ltr)
@@ -55,9 +53,9 @@ Future<BitmapDescriptor> getMarkerBitmap(int size, {String? text}) async {
   }
 
   final img = await pictureRecorder.endRecording().toImage(size, size);
-  final data = await img.toByteData(format: ui.ImageByteFormat.png) as ByteData;
+  final data = await img.toByteData(format: ui.ImageByteFormat.png);
 
-  return BitmapDescriptor.fromBytes(data.buffer.asUint8List());
+  return BitmapDescriptor.fromBytes(data!.buffer.asUint8List());
 }
 
 Future<BitmapDescriptor> getMarkerIconFromAsset({
@@ -70,10 +68,12 @@ Future<BitmapDescriptor> getMarkerIconFromAsset({
 }
 
 Future<Uint8List> getBytesFromAsset(String path, int width) async {
-  ByteData data = await rootBundle.load(path);
-  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-      targetWidth: width);
-  ui.FrameInfo fi = await codec.getNextFrame();
+  final data = await rootBundle.load(path);
+  final codec = await ui.instantiateImageCodec(
+    data.buffer.asUint8List(),
+    targetWidth: width,
+  );
+  final fi = await codec.getNextFrame();
   return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
       .buffer
       .asUint8List();
@@ -91,34 +91,41 @@ Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
           context: context,
           isScrollControlled: true,
           builder: (BuildContext context) {
-            return Builder(builder: (context) {
-              return FractionallySizedBox(
-                heightFactor: 0.8,
-                child: Scaffold(
-                  floatingActionButton: const ModalClosingButton(),
-                  floatingActionButtonLocation:
-                      FloatingActionButtonLocation.endTop,
-                  body: BoulderListBuilder(
-                    boulderFilterBloc: BoulderFilterBloc(BoulderFilterState()),
-                    onPageRequested: (int page) {
-                      return BoulderMapViewRequested(
-                        page: page,
-                        boulderIds:
-                            cluster.items.map((e) => e.id.toString()).toList(),
-                        filterState: BoulderFilterState(),
-                        orderQueryParam: context.read<BoulderOrderBloc>().state,
-                      );
-                    },
-                    showFilterButton: false,
+            return Builder(
+              builder: (context) {
+                return FractionallySizedBox(
+                  heightFactor: 0.8,
+                  child: Scaffold(
+                    floatingActionButton: const ModalClosingButton(),
+                    floatingActionButtonLocation:
+                        FloatingActionButtonLocation.endTop,
+                    body: BoulderListBuilder(
+                      boulderFilterBloc:
+                          BoulderFilterBloc(BoulderFilterState()),
+                      onPageRequested: (int page) {
+                        return BoulderMapViewRequested(
+                          page: page,
+                          boulderIds: cluster.items
+                              .map((e) => e.id.toString())
+                              .toList(),
+                          filterState: BoulderFilterState(),
+                          orderQueryParam:
+                              context.read<BoulderOrderBloc>().state,
+                        );
+                      },
+                      showFilterButton: false,
+                    ),
                   ),
-                ),
-              );
-            });
+                );
+              },
+            );
           },
         );
       },
-      icon: await getMarkerBitmap(cluster.isMultiple ? 125 : kSizeSimpleMarker,
-          text: cluster.isMultiple ? cluster.count.toString() : null),
+      icon: await getMarkerBitmap(
+        cluster.isMultiple ? 125 : kSizeSimpleMarker,
+        text: cluster.isMultiple ? cluster.count.toString() : null,
+      ),
     );
   };
 }
@@ -136,31 +143,31 @@ void Function({
         map.showDirections(
           destination: Coords(destination.latitude, destination.longitude),
           destinationTitle: destinationTitle,
-        )
+        ),
       };
 }
 
-openMapsSheet({
+Future<void> openMapsSheet({
   required BuildContext context,
   required List<AvailableMap> availableMaps,
   required void Function({required AvailableMap map}) onMapSelectedFn,
 }) async {
   try {
-    showModalBottomSheet(
+    await showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
         return SafeArea(
           child: SingleChildScrollView(
             child: Wrap(
               children: <Widget>[
-                for (var map in availableMaps)
+                for (final map in availableMaps)
                   ListTile(
                     onTap: () => onMapSelectedFn(map: map),
                     title: Text(map.mapName),
                     leading: SvgPicture.asset(
                       map.icon,
-                      height: 30.0,
-                      width: 30.0,
+                      height: 30,
+                      width: 30,
                     ),
                   ),
               ],

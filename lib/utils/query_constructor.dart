@@ -5,16 +5,16 @@ class QueryConstructor {
     if (queryParams == null) {
       return null;
     }
-    var result = '';
+    final result = StringBuffer();
     queryParams.forEach((key, paramsList) {
       for (final param in paramsList) {
         if (result.isNotEmpty) {
-          result += '&';
+          result.write('&');
         }
-        result += '$key=${Uri.encodeComponent(param)}';
+        result.write('$key=${Uri.encodeComponent(param)}');
       }
     });
 
-    return result;
+    return result.toString();
   }
 }

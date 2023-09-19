@@ -18,6 +18,52 @@ class BoulderArea extends Equatable {
     this.numberOfBouldersGroupedByGrade,
   });
 
+  factory BoulderArea.fromJson(Map<String, dynamic> json) {
+    if (json case {'@id': final String iri, 'name': final String name}) {
+      final jsonDescription = json['description'];
+      final description = jsonDescription is String ? jsonDescription : null;
+      return BoulderArea(
+        iri: iri,
+        name: name,
+        municipality: json['municipality'] != null
+            ? Municipality.fromJson(
+                json['municipality'] as Map<String, dynamic>,
+              )
+            : Municipality(iri: '/municipalities/0', name: 'generic'),
+        description: description,
+        centroid: json['centroid'] != null
+            ? Location.fromJson(json['centroid'] as Map<String, dynamic>)
+            : null,
+        parkingLocation: json['parkingLocation'] != null
+            ? Location.fromJson(
+                json['parkingLocation'] as Map<String, dynamic>,
+              )
+            : null,
+        numberOfBoulders: json['numberOfBoulders'] as int?,
+        lowestGrade: json['lowestGrade'] != null
+            ? Grade.fromJson(json['lowestGrade'] as Map<String, dynamic>)
+            : null,
+        highestGrade: json['highestGrade'] != null
+            ? Grade.fromJson(json['highestGrade'] as Map<String, dynamic>)
+            : null,
+        numberOfBouldersGroupedByGrade:
+            json['numberOfBouldersGroupedByGrade'] != null
+                ? (json['numberOfBouldersGroupedByGrade']
+                        as Map<String, dynamic>)
+                    .map(
+                    (key, value) {
+                      return MapEntry(
+                        key,
+                        (value as num).toInt(),
+                      );
+                    },
+                  )
+                : null,
+      );
+    }
+    throw const FormatException();
+  }
+
   final String iri;
   final String name;
   final Municipality municipality;
@@ -53,41 +99,6 @@ class BoulderArea extends Equatable {
     );
   }
 
-  factory BoulderArea.fromJson(Map<String, dynamic> json) {
-    return BoulderArea(
-      iri: json['@id'],
-      name: json['name'],
-      municipality: json['municipality'] != null
-          ? Municipality.fromJson(json['municipality'])
-          : Municipality(iri: '/municipalities/0', name: 'generic'),
-      description: json['description'],
-      centroid:
-          json['centroid'] != null ? Location.fromJson(json['centroid']) : null,
-      parkingLocation: json['parkingLocation'] != null
-          ? Location.fromJson(json['parkingLocation'])
-          : null,
-      numberOfBoulders: json['numberOfBoulders'],
-      lowestGrade: json['lowestGrade'] != null
-          ? Grade.fromJson(json['lowestGrade'])
-          : null,
-      highestGrade: json['highestGrade'] != null
-          ? Grade.fromJson(json['highestGrade'])
-          : null,
-      numberOfBouldersGroupedByGrade:
-          json['numberOfBouldersGroupedByGrade'] != null
-              ? (json['numberOfBouldersGroupedByGrade'] as Map<String, dynamic>)
-                  .map(
-                  (key, value) {
-                    return MapEntry(
-                      key,
-                      value.toInt(),
-                    );
-                  },
-                )
-              : null,
-    );
-  }
-
   @override
   List<Object?> get props => [iri];
 
@@ -96,11 +107,14 @@ class BoulderArea extends Equatable {
     final parkingLocation = this.parkingLocation;
     if (parkingLocation != null) {
       return Location(
-          latitude: parkingLocation.latitude,
-          longitude: parkingLocation.longitude);
+        latitude: parkingLocation.latitude,
+        longitude: parkingLocation.longitude,
+      );
     } else if (centroid != null) {
       return Location(
-          latitude: centroid.latitude, longitude: centroid.longitude);
+        latitude: centroid.latitude,
+        longitude: centroid.longitude,
+      );
     } else {
       return Location(
         latitude: kDefaultInitialPosition.latitude,
@@ -114,7 +128,7 @@ class BoulderArea extends Equatable {
     final minGrade = lowestGrade;
     final maxGrade = highestGrade;
     if (numBoulders != null && numBoulders > 0) {
-      var result = '$numBoulders bloc${numBoulders > 1 ? 's' : ''}';
+      final result = '$numBoulders bloc${numBoulders > 1 ? 's' : ''}';
       if (minGrade == null || maxGrade == null) {
         return result;
       }

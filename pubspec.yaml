@@ -46,6 +46,8 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^9.1.1
+  build_runner: ^2.1.10
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   integration_test:
@@ -56,8 +58,6 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
-  build_runner: ^2.1.10
   mockito: ^5.1.0
   very_good_analysis: ^5.1.0
 

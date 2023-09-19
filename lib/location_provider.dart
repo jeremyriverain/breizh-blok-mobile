@@ -12,7 +12,7 @@ class LocationProvider extends InheritedWidget {
         context.dependOnInheritedWidgetOfExactType<LocationProvider>();
 
     if (result == null) {
-      throw 'No LocationProvider found';
+      throw Exception('No LocationProvider found');
     }
 
     return result;

@@ -1,24 +1,30 @@
 import 'package:breizh_blok_mobile/models/municipality.dart';
 
 class Department {
-  final String name;
-  final List<Municipality> municipalities;
-
   Department({
     required this.name,
     List<Municipality>? municipalities,
   }) : municipalities = municipalities ?? [];
 
   factory Department.fromJson(Map<String, dynamic> json) {
-    return Department(
-      name: json['name'],
-      municipalities: json['municipalities'] != null
-          ? json['municipalities']
-              .map<Municipality>(
-                (municipality) => Municipality.fromJson(municipality),
-              )
-              .toList()
-          : [],
-    );
+    if (json case {'name': final String name}) {
+      var municipalities = <Municipality>[];
+      final jsonMunicipalities = json['municipalities'];
+      if (jsonMunicipalities is List) {
+        municipalities = jsonMunicipalities
+            .map<Municipality>(
+              (m) => Municipality.fromJson(m as Map<String, dynamic>),
+            )
+            .toList();
+      }
+      return Department(
+        name: name,
+        municipalities: municipalities,
+      );
+    }
+
+    throw const FormatException();
   }
+  final String name;
+  final List<Municipality> municipalities;
 }
