@@ -1,13 +1,20 @@
 class Location {
-  double latitude;
-  double longitude;
-
   Location({required this.latitude, required this.longitude});
 
   factory Location.fromJson(Map<String, dynamic> json) {
-    return Location(
-      latitude: double.parse(json['latitude']),
-      longitude: double.parse(json['longitude']),
-    );
+    if (json
+        case {
+          'latitude': final String latitude,
+          'longitude': final String longitude
+        }) {
+      return Location(
+        latitude: double.parse(latitude),
+        longitude: double.parse(longitude),
+      );
+    }
+
+    throw const FormatException();
   }
+  double latitude;
+  double longitude;
 }
