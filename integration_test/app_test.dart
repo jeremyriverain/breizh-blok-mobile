@@ -576,6 +576,7 @@ by clicking on the "scroll to to the top" button''',
         matching: find.byType(Scrollable),
       ),
     );
+    await tester.pumpAndSettle();
 
     await tester.tap(
       find.byKey(const Key('boulder-area-details-link')).first,
@@ -669,6 +670,7 @@ by clicking on the "scroll to to the top" button''',
         matching: find.byType(Scrollable),
       ),
     );
+    await tester.pumpAndSettle();
 
     await tester.tap(
       find.byKey(const Key('boulder-area-details-link')).first,
