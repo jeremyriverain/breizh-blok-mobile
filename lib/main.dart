@@ -102,21 +102,21 @@ class MyApp extends StatelessWidget {
         path: '/boulders/:bid',
         name: 'boulder_details',
         builder: (context, state) {
-          return BoulderDetailsView(id: state.params['bid']!);
+          return BoulderDetailsView(id: state.pathParameters['bid']!);
         },
       ),
       GoRoute(
         path: '/boulders-area/:id',
         name: 'boulder_area_details',
         builder: (context, state) {
-          return BoulderAreaDetailsView(id: state.params['id']!);
+          return BoulderAreaDetailsView(id: state.pathParameters['id']!);
         },
       ),
       GoRoute(
         path: '/municipalities/:id',
         name: 'municipality_details',
         builder: (context, state) {
-          return MunicipalityDetailsView(id: state.params['id']!);
+          return MunicipalityDetailsView(id: state.pathParameters['id']!);
         },
       ),
     ],

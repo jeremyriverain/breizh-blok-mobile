@@ -18,7 +18,10 @@ class BoulderListTile extends StatelessWidget {
       label: 'Voir le détail du bloc "${boulder.name}"',
       child: InkWell(
         onTap: () {
-          context.pushNamed('boulder_details', params: {'bid': boulder.id});
+          context.pushNamed(
+            'boulder_details',
+            pathParameters: {'bid': boulder.id},
+          );
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 1),

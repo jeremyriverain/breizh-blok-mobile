@@ -54,7 +54,7 @@ class BoulderDetails extends StatelessWidget {
             onTap: () {
               context.pushNamed(
                 'municipality_details',
-                params: {
+                pathParameters: {
                   'id': Uri.parse(boulder.rock.boulderArea.municipality.iri)
                       .pathSegments
                       .last,
@@ -69,7 +69,7 @@ class BoulderDetails extends StatelessWidget {
             onTap: () {
               context.pushNamed(
                 'boulder_area_details',
-                params: {
+                pathParameters: {
                   'id':
                       Uri.parse(boulder.rock.boulderArea.iri).pathSegments.last,
                 },

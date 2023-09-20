@@ -33,7 +33,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_launcher_icons: ^0.11.0
   flutter_svg: ^1.0.3
-  go_router: ^6.0.6
+  go_router: ^10.2.0
   google_maps_cluster_manager: ^3.0.0+1
   google_maps_flutter: ^2.4.0
   http: ^1.1.0

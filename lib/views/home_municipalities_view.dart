@@ -50,7 +50,7 @@ class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
                       onTap: () {
                         context.pushNamed(
                           'municipality_details',
-                          params: {
+                          pathParameters: {
                             'id': municipality.iri
                                 .replaceAll('/municipalities/', ''),
                           },
