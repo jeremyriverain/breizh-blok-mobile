@@ -6,7 +6,7 @@ workflows:
     max_build_duration: 45
     environment:
       flutter: 3.13.3
-      xcode: latest
+      xcode: 14
       groups:
         - app
     cache:
@@ -17,7 +17,12 @@ workflows:
         - push
       cancel_previous_builds: false
     scripts:
+      - name: Install dependencies
+        script: flutter pub get
       - name: Integration tests
         script: | 
           flutter emulators --launch apple_ios_simulator
-          flutter -d iPhone test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --verbose --suppress-analytics
+          xcrun simctl shutdown all
+          TEST_DEVICE=$(xcrun simctl create test-device com.apple.CoreSimulator.SimDeviceType.iPhone-13 com.apple.CoreSimulator.SimRuntime.iOS-16-0)
+          xcrun simctl boot $TEST_DEVICE
+          flutter -d $TEST_DEVICE test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --verbose --suppress-analytics
