@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://static.codemagic.io/codemagic-schema.json
+workflows:
+  ci:
+    name: CI
+    instance_type: mac_mini_m1
+    max_build_duration: 45
+    environment:
+      flutter: 3.13.3
+      xcode: latest
+      groups:
+        - app
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+    triggering:
+      events:
+        - push
+      cancel_previous_builds: false
+    scripts:
+      - name: Integration tests
+        script: | 
+          flutter emulators --launch apple_ios_simulator
+          flutter -d iPhone test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --verbose --suppress-analytics

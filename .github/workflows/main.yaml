@@ -32,14 +32,3 @@ jobs:
 
       - name: Unit and Widget tests
         run: flutter test test/
-
-      - name: Integration tests
-        # flaky, sometimes tests timeouts, or emulator shutdowns unexpectedly
-        # continue-on-error: true
-        timeout-minutes: 30
-        env:
-          BREIZH_BLOK_API_HOST: ${{ secrets.BREIZH_BLOK_API_HOST }}
-          BREIZH_BLOK_GMAPS_KEY: ${{ secrets.BREIZH_BLOK_GMAPS_KEY }}
-        run: |
-          flutter emulators --launch ios
-          flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --verbose --suppress-analytics

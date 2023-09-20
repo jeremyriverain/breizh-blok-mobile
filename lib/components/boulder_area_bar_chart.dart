@@ -28,7 +28,7 @@ class BoulderAreaBarChart extends StatelessWidget {
               titlesData: titlesData(keys.toList()),
               borderData: borderData,
               barGroups: barGroups(values.toList()),
-              gridData: FlGridData(show: false),
+              gridData: const FlGridData(show: false),
               alignment: BarChartAlignment.spaceAround,
               maxY: max.toDouble() + 2,
             ),
@@ -62,7 +62,6 @@ class BoulderAreaBarChart extends StatelessWidget {
 
   FlTitlesData titlesData(List<String> titles) {
     return FlTitlesData(
-      show: true,
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
@@ -81,15 +80,9 @@ class BoulderAreaBarChart extends StatelessWidget {
           },
         ),
       ),
-      leftTitles: AxisTitles(
-        sideTitles: SideTitles(showTitles: false),
-      ),
-      topTitles: AxisTitles(
-        sideTitles: SideTitles(showTitles: false),
-      ),
-      rightTitles: AxisTitles(
-        sideTitles: SideTitles(showTitles: false),
-      ),
+      leftTitles: const AxisTitles(),
+      topTitles: const AxisTitles(),
+      rightTitles: const AxisTitles(),
     );
   }
 
