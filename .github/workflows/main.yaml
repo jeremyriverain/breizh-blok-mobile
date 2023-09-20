@@ -33,23 +33,6 @@ jobs:
       - name: Unit and Widget tests
         run: flutter test test/
 
-  integration_test:
-    runs-on: macos-13
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.13.3'
-          channel: 'stable'
-          cache: true
-          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
-          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
-
-      - name: Install
-        run: flutter pub get
-
       - name: Integration tests
         # flaky, sometimes tests timeouts, or emulator shutdowns unexpectedly
         # continue-on-error: true

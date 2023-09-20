@@ -45,19 +45,12 @@ dependencies:
   syncfusion_flutter_sliders: ^21.2.4
 
 dev_dependencies:
-  bloc_test: ^9.1.1
+  bloc_test: ^9.1.4
   build_runner: ^2.1.10
-  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   mockito: ^5.1.0
   very_good_analysis: ^5.1.0
 
