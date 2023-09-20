@@ -18,7 +18,7 @@ workflows:
       cancel_previous_builds: false
     scripts:
       - name: Install dependencies
-        script: flutter pub get
+        script: flutter clean && flutter pub get
       - name: Integration tests
         script: | 
           flutter emulators --launch apple_ios_simulator
