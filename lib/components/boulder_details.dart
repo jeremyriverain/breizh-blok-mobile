@@ -28,12 +28,8 @@ class BoulderDetails extends StatelessWidget {
           ...boulder.lineBoulders.map<Widget>(
             (e) => Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: InteractiveViewer(
-                maxScale: 6,
-                minScale: 1,
-                child: LineBoulderImage(
-                  lineBoulder: e,
-                ),
+              child: LineBoulderImage(
+                lineBoulder: e,
               ),
             ),
           ),
