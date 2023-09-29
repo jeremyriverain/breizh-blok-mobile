@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/components/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/components/boulder_item_map.dart';
-import 'package:breizh_blok_mobile/components/line_boulder_image.dart';
+import 'package:breizh_blok_mobile/components/line_boulders.dart';
 import 'package:breizh_blok_mobile/components/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:flutter/material.dart';
@@ -25,14 +25,7 @@ class BoulderDetails extends StatelessWidget {
         key: const Key('boulder-details-list-view'),
         shrinkWrap: true,
         children: [
-          ...boulder.lineBoulders.map<Widget>(
-            (e) => Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: LineBoulderImage(
-                lineBoulder: e,
-              ),
-            ),
-          ),
+          LineBoulders(lineBoulders: boulder.lineBoulders),
           if (description != null)
             ListTile(
               title: Text(description),
