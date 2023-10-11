@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -115,6 +116,21 @@ void main() async {
           find.byType(LineBoulderImage),
           findsWidgets,
         );
+
+        await tester.tap(find.byType(LineBoulderImage).first);
+
+        await tester.pumpAndSettle();
+
+        expect(find.byType(PhotoViewGallery), findsOneWidget);
+
+        expect(
+          find.text('Image 1/${boulderReference.lineBoulders.length}'),
+          findsOneWidget,
+        );
+
+        await tester.tap(find.byTooltip("Quitter la galerie d'images"));
+
+        await tester.pumpAndSettle();
       }
 
       await tester.scrollUntilVisible(
