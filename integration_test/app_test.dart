@@ -7,11 +7,14 @@ import 'package:breizh_blok_mobile/components/boulder_list_tile.dart';
 import 'package:breizh_blok_mobile/components/line_boulder_image.dart';
 import 'package:breizh_blok_mobile/components/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_item.dart';
+import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/main.dart' as app;
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
+import 'package:drift/drift.dart' show driftRuntimeOptions;
+import 'package:drift/native.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,10 +36,16 @@ void main() async {
     await prefs.setBool(TermsOfUseBloc.termsOfUseAcceptanceKey, true);
   });
 
+  driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+
   Future<void> runApplication({required WidgetTester tester}) async {
     final mapPermissionBloc = MapPermissionBloc()
       ..add(RequestPermissionEvent(hasDenied: true));
-    await app.main(mapPermissionBloc: mapPermissionBloc);
+    final database = AppDatabase(NativeDatabase.memory());
+    await app.main(
+      mapPermissionBloc: mapPermissionBloc,
+      database: database,
+    );
     await tester.pumpAndSettle();
   }
 

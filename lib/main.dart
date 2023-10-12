@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
@@ -6,21 +8,28 @@ import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
+import 'package:breizh_blok_mobile/database/app_database.dart';
+import 'package:breizh_blok_mobile/database_provider.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/views/boulder_area_details_view.dart';
 import 'package:breizh_blok_mobile/views/boulder_details_view.dart';
 import 'package:breizh_blok_mobile/views/home_view.dart';
 import 'package:breizh_blok_mobile/views/municipality_details_view.dart';
+import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future<void> main({
   MapPermissionBloc? mapPermissionBloc,
+  AppDatabase? database,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -79,9 +88,19 @@ Future<void> main({
                 mapPermissionBloc ?? MapPermissionBloc(),
           ),
         ],
-        child: LocationProvider(
-          locationInstance: Location.instance,
-          child: MyApp(),
+        child: DatabaseProvider(
+          database: database ??
+              AppDatabase(
+                LazyDatabase(() async {
+                  final dbFolder = await getApplicationDocumentsDirectory();
+                  final file = File(p.join(dbFolder.path, 'db.sqlite'));
+                  return NativeDatabase.createInBackground(file);
+                }),
+              ),
+          child: LocationProvider(
+            locationInstance: Location.instance,
+            child: MyApp(),
+          ),
         ),
       ),
     ),

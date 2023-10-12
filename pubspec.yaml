@@ -26,6 +26,7 @@ environment:
 dependencies:
   cached_network_image: ^3.2.0
   cupertino_icons: ^1.0.6
+  drift: ^2.12.1
   equatable: ^2.0.3
   fl_chart: ^0.63.0
   flutter:
@@ -40,14 +41,18 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   location: ^5.0.3
   map_launcher: ^2.5.0
+  path: ^1.8.3
+  path_provider: ^2.0.0
   photo_view: ^0.14.0
   sentry_flutter: ^7.8.0
   shared_preferences: ^2.2.1
+  sqlite3_flutter_libs: ^0.5.0
   syncfusion_flutter_sliders: ^23.1.36
 
 dev_dependencies:
   bloc_test: ^9.1.4
-  build_runner: ^2.1.10
+  build_runner: ^2.4.6
+  drift_dev: ^2.12.1
   flutter_test:
     sdk: flutter
   integration_test:
