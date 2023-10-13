@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_details_associated_item.dart';
@@ -31,6 +32,8 @@ void main() async {
     'order[id]': ['desc'],
   };
 
+  final httpClient = AppHttpClient();
+
   setUp(() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(TermsOfUseBloc.termsOfUseAcceptanceKey, true);
@@ -59,7 +62,9 @@ void main() async {
         (WidgetTester tester) async {
       // prior to test, I fetch boulders to retrieve a reference
       // and assert boulders details dynamically
-      final boulderRepository = BoulderRepository();
+      final boulderRepository = BoulderRepository(
+        httpClient: httpClient,
+      );
       final bouldersResponse = await boulderRepository.findBy(
         queryParams: defaultBoulderQueryParams,
       );
@@ -241,7 +246,7 @@ void main() async {
     });
 
     testWidgets('filter by grade', (WidgetTester tester) async {
-      final gradeRepository = GradeRepository();
+      final gradeRepository = GradeRepository(httpClient: httpClient);
       final gradesResponse =
           await gradeRepository.findWithBouldersOrderedByName();
 
@@ -351,7 +356,9 @@ void main() async {
         await tester.pumpAndSettle();
       }
 
-      final boulderRepository = BoulderRepository();
+      final boulderRepository = BoulderRepository(
+        httpClient: httpClient,
+      );
       final mostRecentBoulders = await boulderRepository.findBy(
         queryParams: defaultBoulderQueryParams,
       );
@@ -453,7 +460,9 @@ by clicking on the "scroll to to the top" button''',
     // prior to test, I fetch boulders to retrieve a reference
     // and assert boulders details dynamically
 
-    final boulderRepository = BoulderRepository();
+    final boulderRepository = BoulderRepository(
+      httpClient: httpClient,
+    );
     final bouldersResponse =
         await boulderRepository.findBy(queryParams: defaultBoulderQueryParams);
     final boulderReference = bouldersResponse.items[0];
@@ -503,7 +512,9 @@ by clicking on the "scroll to to the top" button''',
       ..widgetWithText(Tab, 'Liste des secteurs')
       ..widgetWithText(Tab, 'Carte');
 
-    final municipalityRepository = MunicipalityRepository();
+    final municipalityRepository = MunicipalityRepository(
+      httpClient: httpClient,
+    );
     print(
       'municipality IRI: ${boulderReference.rock.boulderArea.municipality.iri}',
     );
@@ -576,7 +587,9 @@ by clicking on the "scroll to to the top" button''',
       (WidgetTester tester) async {
     // prior to test, I fetch boulders to retrieve a reference
     // and assert boulders details dynamically
-    final boulderRepository = BoulderRepository();
+    final boulderRepository = BoulderRepository(
+      httpClient: httpClient,
+    );
     final bouldersResponse =
         await boulderRepository.findBy(queryParams: defaultBoulderQueryParams);
     final boulderReference = bouldersResponse.items[0];
@@ -670,7 +683,9 @@ by clicking on the "scroll to to the top" button''',
       await tester.pumpAndSettle();
     }
 
-    final boulderRepository = BoulderRepository();
+    final boulderRepository = BoulderRepository(
+      httpClient: httpClient,
+    );
     final bouldersResponse =
         await boulderRepository.findBy(queryParams: defaultBoulderQueryParams);
     final boulderReference = bouldersResponse.items[0];
@@ -764,7 +779,9 @@ by clicking on the "scroll to to the top" button''',
 
   testWidgets('go to index view and select a municipality',
       (WidgetTester tester) async {
-    final departmentRepository = DepartmentRepository();
+    final departmentRepository = DepartmentRepository(
+      httpClient: httpClient,
+    );
     final departmentsResponse = await departmentRepository.findAll();
     final departmentReference = departmentsResponse.items[0];
     print('department reference: ${departmentReference.name}');

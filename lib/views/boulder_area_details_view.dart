@@ -5,6 +5,8 @@ import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/views/error_view.dart';
 import 'package:breizh_blok_mobile/views/loading_view.dart';
 import 'package:flutter/material.dart';
@@ -12,22 +14,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class BoulderAreaDetailsView extends StatelessWidget {
-  BoulderAreaDetailsView({
+  const BoulderAreaDetailsView({
     required this.id,
     super.key,
   });
   final String id;
 
-  final boulderAreaRepository = BoulderAreaRepository();
-
-  Future<BoulderArea> _findBoulderArea() {
-    return boulderAreaRepository.find(id);
+  Future<BoulderArea> _findBoulderArea(BuildContext context) {
+    return context.read<BoulderAreaRepository>().find(id);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _findBoulderArea(),
+      future: _findBoulderArea(context),
       builder: (BuildContext context, AsyncSnapshot<BoulderArea> snapshot) {
         final boulderArea = snapshot.data;
         if (boulderArea != null) {
@@ -40,9 +40,13 @@ class BoulderAreaDetailsView extends StatelessWidget {
             ),
           );
 
-          final boulderMarkerBloc = BoulderMarkerBloc();
+          final boulderMarkerBloc = BoulderMarkerBloc(
+            repository: context.read<BoulderMarkerRepository>(),
+          );
 
-          final boulderBloc = BoulderBloc();
+          final boulderBloc = BoulderBloc(
+            repository: context.read<BoulderRepository>(),
+          );
 
           final mapBloc = MapBloc(
             initialState: MapState(
@@ -73,7 +77,9 @@ class BoulderAreaDetailsView extends StatelessWidget {
           );
         } else if (snapshot.hasError) {
           return ErrorView(
-            onTryAgain: _findBoulderArea,
+            onTryAgain: () {
+              _findBoulderArea(context);
+            },
           );
         }
 

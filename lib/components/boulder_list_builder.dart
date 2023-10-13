@@ -15,6 +15,7 @@ import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/models/response.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -46,7 +47,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
 
   @override
   void initState() {
-    _bloc = BoulderBloc();
+    _bloc = BoulderBloc(repository: context.read<BoulderRepository>());
 
     _pagingController.addPageRequestListener((pageKey) {
       _bloc.add(widget.onPageRequested(pageKey));

@@ -29,7 +29,7 @@ class FilterBouldersButton extends StatelessWidget {
               isScrollControlled: true,
               context: context,
               builder: (context) {
-                return FractionallySizedBox(
+                return const FractionallySizedBox(
                   heightFactor: 0.5,
                   child: BoulderListFilterModal(),
                 );

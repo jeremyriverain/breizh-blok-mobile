@@ -3,6 +3,7 @@ import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderDetailsAssociated extends StatefulWidget {
   const BoulderDetailsAssociated({
@@ -19,18 +20,20 @@ class BoulderDetailsAssociated extends StatefulWidget {
 
 class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
     with AutomaticKeepAliveClientMixin {
-  final boulderRepository = BoulderRepository();
+  Future<CollectionItems<Boulder>> _findBoulders(BuildContext context) {
+    return context.read<BoulderRepository>().findBy(
+      queryParams: {
+        'pagination': ['false'],
+        'rock.id': [widget.boulder.rock.id],
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return FutureBuilder<CollectionItems<Boulder>>(
-      future: boulderRepository.findBy(
-        queryParams: {
-          'pagination': ['false'],
-          'rock.id': [widget.boulder.rock.id],
-        },
-      ),
+      future: _findBoulders(context),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final boulders = snapshot.data!;

@@ -14,7 +14,6 @@ import 'package:breizh_blok_mobile/components/download_area_button.dart';
 import 'package:breizh_blok_mobile/components/map_error_message.dart';
 import 'package:breizh_blok_mobile/components/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,13 +22,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 class BoulderAreaDetails extends StatelessWidget {
-  BoulderAreaDetails({
+  const BoulderAreaDetails({
     required this.boulderArea,
     super.key,
   });
 
   final BoulderArea boulderArea;
-  final boulderMarkerRepository = BoulderMarkerRepository();
 
   Future<BitmapDescriptor> test() async {
     return BitmapDescriptor.fromBytes(

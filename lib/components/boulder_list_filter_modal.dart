@@ -4,16 +4,15 @@ import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderListFilterModal extends StatelessWidget {
-  BoulderListFilterModal({
+  const BoulderListFilterModal({
     super.key,
   });
 
-  final _gradeRepository = GradeRepository();
-
-  Future<CollectionItems<Grade>> _fetch() {
-    return _gradeRepository.findWithBouldersOrderedByName();
+  Future<CollectionItems<Grade>> _fetch(BuildContext context) {
+    return context.read<GradeRepository>().findWithBouldersOrderedByName();
   }
 
   @override
@@ -22,7 +21,7 @@ class BoulderListFilterModal extends StatelessWidget {
       floatingActionButton: const ModalClosingButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: FutureBuilder(
-        future: _fetch(),
+        future: _fetch(context),
         builder: (
           BuildContext context,
           AsyncSnapshot<CollectionItems<Grade>> snapshot,

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
@@ -10,16 +11,21 @@ import 'package:breizh_blok_mobile/blocs/offline_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
-import 'package:breizh_blok_mobile/database_provider.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
+import 'package:breizh_blok_mobile/repositories/department_repository.dart';
+import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
+import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/views/boulder_area_details_view.dart';
 import 'package:breizh_blok_mobile/views/boulder_details_view.dart';
 import 'package:breizh_blok_mobile/views/home_view.dart';
 import 'package:breizh_blok_mobile/views/municipality_details_view.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide HttpClientProvider;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -37,6 +43,16 @@ Future<void> main({
 
   final termsOfUseBloc = TermsOfUseBloc();
 
+  final appDatabase = database ??
+      AppDatabase(
+        LazyDatabase(() async {
+          final dbFolder = await getApplicationDocumentsDirectory();
+          final file = File(p.join(dbFolder.path, 'db.sqlite'));
+          return NativeDatabase.createInBackground(file);
+        }),
+      );
+  final httpClient = AppHttpClient();
+
   final tabBloc = TabBloc();
 
   final mapBloc = MapBloc();
@@ -51,8 +67,12 @@ Future<void> main({
 
   final boulderFilterGradeBloc =
       BoulderFilterGradeBloc(BoulderFilterGradeState());
+  final boulderMarkerRepository =
+      BoulderMarkerRepository(httpClient: httpClient);
 
-  final boulderMarkerBloc = BoulderMarkerBloc();
+  final boulderMarkerBloc = BoulderMarkerBloc(
+    repository: boulderMarkerRepository,
+  );
 
   final offlineBloc = OfflineBloc();
 
@@ -63,44 +83,59 @@ Future<void> main({
         ..tracesSampleRate = 0;
     },
     appRunner: () => runApp(
-      MultiBlocProvider(
+      MultiRepositoryProvider(
         providers: [
-          BlocProvider<TermsOfUseBloc>(
-            create: (BuildContext context) => termsOfUseBloc,
+          RepositoryProvider<BoulderAreaRepository>(
+            create: (context) => BoulderAreaRepository(httpClient: httpClient),
           ),
-          BlocProvider<BoulderFilterBloc>(
-            create: (BuildContext context) => boulderFilterBloc,
+          RepositoryProvider<BoulderMarkerRepository>(
+            create: (context) => boulderMarkerRepository,
           ),
-          BlocProvider<BoulderOrderBloc>(
-            create: (BuildContext context) => boulderOrderBloc,
+          RepositoryProvider<BoulderRepository>(
+            create: (context) => BoulderRepository(httpClient: httpClient),
           ),
-          BlocProvider<BoulderFilterGradeBloc>(
-            create: (BuildContext context) => boulderFilterGradeBloc,
+          RepositoryProvider<DepartmentRepository>(
+            create: (context) => DepartmentRepository(httpClient: httpClient),
           ),
-          BlocProvider<BoulderMarkerBloc>(
-            create: (BuildContext context) => boulderMarkerBloc,
+          RepositoryProvider<GradeRepository>(
+            create: (context) => GradeRepository(httpClient: httpClient),
           ),
-          BlocProvider<TabBloc>(
-            create: (BuildContext context) => tabBloc,
+          RepositoryProvider<MunicipalityRepository>(
+            create: (context) => MunicipalityRepository(httpClient: httpClient),
           ),
-          BlocProvider<MapBloc>(
-            create: (BuildContext context) => mapBloc,
+          RepositoryProvider<AppDatabase>(
+            create: (context) => appDatabase,
           ),
-          BlocProvider<MapPermissionBloc>(
-            create: (BuildContext context) =>
-                mapPermissionBloc ?? MapPermissionBloc(),
-          ),
-          BlocProvider<OfflineBloc>(create: (context) => offlineBloc),
         ],
-        child: DatabaseProvider(
-          database: database ??
-              AppDatabase(
-                LazyDatabase(() async {
-                  final dbFolder = await getApplicationDocumentsDirectory();
-                  final file = File(p.join(dbFolder.path, 'db.sqlite'));
-                  return NativeDatabase.createInBackground(file);
-                }),
-              ),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<TermsOfUseBloc>(
+              create: (BuildContext context) => termsOfUseBloc,
+            ),
+            BlocProvider<BoulderFilterBloc>(
+              create: (BuildContext context) => boulderFilterBloc,
+            ),
+            BlocProvider<BoulderOrderBloc>(
+              create: (BuildContext context) => boulderOrderBloc,
+            ),
+            BlocProvider<BoulderFilterGradeBloc>(
+              create: (BuildContext context) => boulderFilterGradeBloc,
+            ),
+            BlocProvider<BoulderMarkerBloc>(
+              create: (BuildContext context) => boulderMarkerBloc,
+            ),
+            BlocProvider<TabBloc>(
+              create: (BuildContext context) => tabBloc,
+            ),
+            BlocProvider<MapBloc>(
+              create: (BuildContext context) => mapBloc,
+            ),
+            BlocProvider<MapPermissionBloc>(
+              create: (BuildContext context) =>
+                  mapPermissionBloc ?? MapPermissionBloc(),
+            ),
+            BlocProvider<OfflineBloc>(create: (context) => offlineBloc),
+          ],
           child: LocationProvider(
             locationInstance: Location.instance,
             child: MyApp(),

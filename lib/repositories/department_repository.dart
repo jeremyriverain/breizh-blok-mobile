@@ -1,13 +1,18 @@
 import 'dart:convert';
 
+import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/department.dart';
 import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
 import 'package:breizh_blok_mobile/utils/query_constructor.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 
 class DepartmentRepository implements ApiRepositoryInterface<Department> {
+  DepartmentRepository({required this.httpClient});
+
+  @override
+  final AppHttpClient httpClient;
+
   CollectionItems<Department> _parseDepartments(String responseBody) {
     return CollectionItems.fromApi(
       jsonDecode(responseBody) as Map<String, dynamic>,
@@ -21,7 +26,7 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
   }) async {
     final query = QueryConstructor.stringify(queryParams: queryParams);
 
-    final response = await http.get(
+    final response = await httpClient.get(
       Uri(
         scheme: 'https',
         host: const String.fromEnvironment('API_HOST'),
@@ -29,11 +34,8 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
         query: query,
       ),
     );
-    if (response.statusCode == 200) {
-      return compute(_parseDepartments, response.body);
-    } else {
-      throw Exception(response.body);
-    }
+
+    return compute(_parseDepartments, response.body);
   }
 
   Future<CollectionItems<Department>> findAll() {

@@ -7,8 +7,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderMarkerBloc extends Bloc<BoulderMarkerEvent, BoulderMarkerState> {
-  BoulderMarkerBloc()
-      : super(
+  BoulderMarkerBloc({
+    required this.repository,
+  }) : super(
           const BoulderMarkerState(
             markers: [],
             isLoading: false,
@@ -51,7 +52,7 @@ class BoulderMarkerBloc extends Bloc<BoulderMarkerEvent, BoulderMarkerState> {
       }
     });
   }
-  final BoulderMarkerRepository repository = BoulderMarkerRepository();
+  final BoulderMarkerRepository repository;
 }
 
 abstract class BoulderMarkerEvent {}

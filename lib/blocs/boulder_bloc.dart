@@ -10,7 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderBloc
     extends Bloc<BoulderEvent, Response<CollectionItems<Boulder>>> {
-  BoulderBloc() : super(const Response()) {
+  BoulderBloc({
+    required this.repository,
+  }) : super(const Response()) {
     on<BoulderListViewRequested>(
       (event, emit) async {
         await _fetch(
@@ -38,7 +40,7 @@ class BoulderBloc
       },
     );
   }
-  final BoulderRepository repository = BoulderRepository();
+  final BoulderRepository repository;
 
   Future<void> _fetch({
     required int page,

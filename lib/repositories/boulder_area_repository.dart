@@ -1,19 +1,23 @@
 import 'dart:convert';
 
+import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
-import 'package:http/http.dart' as http;
 
 class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
+  BoulderAreaRepository({
+    required this.httpClient,
+  });
+
+  @override
+  final AppHttpClient httpClient;
+
   @override
   Future<BoulderArea> find(String id) async {
-    final response = await http.get(
+    final response = await httpClient.get(
       Uri.https(const String.fromEnvironment('API_HOST'), '/boulder_areas/$id'),
     );
-    if (response.statusCode != 200) {
-      throw Exception(response.body);
-    }
 
     final json = jsonDecode(response.body);
     if (json is Map<String, dynamic>) {

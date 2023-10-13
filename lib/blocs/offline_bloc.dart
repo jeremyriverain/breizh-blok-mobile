@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class OfflineBloc extends Bloc<OfflineBlocEvent, OfflineState> {
   OfflineBloc() : super(OfflineState()) {
     on<DownloadBoulderAreaEvent>((event, emit) {
-      print('download boulder area, ${event.boulderAreaIri}');
+      // print('download boulder area, ${event.boulderAreaIri}');
     });
     on<DeleteDownloadBoulderAreaEvent>((event, emit) {
-      print('delete download boulder area, ${event.boulderAreaIri}');
+      // print('delete download boulder area, ${event.boulderAreaIri}');
     });
   }
 }

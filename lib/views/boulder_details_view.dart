@@ -5,21 +5,21 @@ import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/views/error_view.dart';
 import 'package:breizh_blok_mobile/views/loading_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderDetailsView extends StatelessWidget {
-  BoulderDetailsView({required this.id, super.key});
+  const BoulderDetailsView({required this.id, super.key});
 
   final String id;
-  final boulderRepository = BoulderRepository();
 
-  Future<Boulder> _findBoulder() {
-    return boulderRepository.find(id);
+  Future<Boulder> _findBoulder(BuildContext context) {
+    return context.read<BoulderRepository>().find(id);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Boulder>(
-      future: _findBoulder(),
+      future: _findBoulder(context),
       builder: (context, snapshot) {
         final boulder = snapshot.data;
         if (boulder != null) {
@@ -28,7 +28,7 @@ class BoulderDetailsView extends StatelessWidget {
             body: BoulderDetails(boulder: boulder),
           );
         } else if (snapshot.hasError) {
-          return ErrorView(onTryAgain: _findBoulder);
+          return ErrorView(onTryAgain: () => {_findBoulder(context)});
         }
 
         return const LoadingView();

@@ -3,6 +3,7 @@ import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/department.dart';
 import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeMunicipalitiesView extends StatefulWidget {
@@ -13,10 +14,8 @@ class HomeMunicipalitiesView extends StatefulWidget {
 }
 
 class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
-  final _departmentRepository = DepartmentRepository();
-
-  Future<CollectionItems<Department>> _fetch() {
-    return _departmentRepository.findAll();
+  Future<CollectionItems<Department>> _fetch(BuildContext context) {
+    return context.read<DepartmentRepository>().findAll();
   }
 
   CollectionItems<Department> data =
@@ -25,7 +24,7 @@ class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _fetch(),
+      future: _fetch(context),
       builder: (context, AsyncSnapshot<CollectionItems<Department>> snapshot) {
         final data = snapshot.data;
         if (data != null) {
