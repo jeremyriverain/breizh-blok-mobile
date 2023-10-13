@@ -82,7 +82,9 @@ class BoulderAreaDetails extends StatelessWidget {
             grades: context.read<BoulderFilterGradeBloc>().state.grades,
           );
         },
-        bottomHeaderWidget: const DownloadAreaButton(),
+        bottomHeaderWidget: DownloadAreaButton(
+          boulderAreaIri: boulderArea.iri,
+        ),
       ),
       Column(
         children: [
