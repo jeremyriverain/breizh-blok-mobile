@@ -51,7 +51,12 @@ Future<void> main({
           return NativeDatabase.createInBackground(file);
         }),
       );
-  final httpClient = AppHttpClient();
+
+  final offlineBloc = OfflineBloc(database: appDatabase);
+
+  final httpClient = AppHttpClient(
+    database: appDatabase,
+  );
 
   final tabBloc = TabBloc();
 
@@ -73,8 +78,6 @@ Future<void> main({
   final boulderMarkerBloc = BoulderMarkerBloc(
     repository: boulderMarkerRepository,
   );
-
-  final offlineBloc = OfflineBloc();
 
   await SentryFlutter.init(
     (options) {

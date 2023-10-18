@@ -21,7 +21,7 @@ class MunicipalityRepository implements ApiRepositoryInterface<Municipality> {
       ),
     );
     return Municipality.fromJson(
-      jsonDecode(response.body) as Map<String, dynamic>,
+      jsonDecode(response) as Map<String, dynamic>,
     );
   }
 

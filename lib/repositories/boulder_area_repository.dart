@@ -19,7 +19,7 @@ class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
       Uri.https(const String.fromEnvironment('API_HOST'), '/boulder_areas/$id'),
     );
 
-    final json = jsonDecode(response.body);
+    final json = jsonDecode(response);
     if (json is Map<String, dynamic>) {
       return BoulderArea.fromJson(json);
     }

@@ -26,7 +26,7 @@ class BoulderMarkerRepository {
       headers: {'Accept': 'application/json'},
     );
 
-    final json = jsonDecode(response.body);
+    final json = jsonDecode(response);
     if (json is List) {
       return json
           .map((b) => BoulderMarker.fromJson(b as Map<String, dynamic>))

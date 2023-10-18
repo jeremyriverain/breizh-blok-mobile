@@ -24,16 +24,9 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
       ),
     );
 
-    final json = jsonDecode(response.body);
+    final json = jsonDecode(response);
     return Boulder.fromJson(
       json as Map<String, dynamic>,
-    );
-  }
-
-  CollectionItems<Boulder> _parseBoulders(String responseBody) {
-    return CollectionItems.fromApi(
-      jsonDecode(responseBody) as Map<String, dynamic>,
-      Boulder.fromJson,
     );
   }
 
@@ -51,6 +44,13 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
       ),
     );
 
-    return compute(_parseBoulders, response.body);
+    return compute(_parseBoulders, response);
   }
+}
+
+CollectionItems<Boulder> _parseBoulders(String responseBody) {
+  return CollectionItems.fromApi(
+    jsonDecode(responseBody) as Map<String, dynamic>,
+    Boulder.fromJson,
+  );
 }

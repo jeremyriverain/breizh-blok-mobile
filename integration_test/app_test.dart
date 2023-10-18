@@ -32,7 +32,8 @@ void main() async {
     'order[id]': ['desc'],
   };
 
-  final httpClient = AppHttpClient();
+  final database = AppDatabase(NativeDatabase.memory());
+  final httpClient = AppHttpClient(database: database);
 
   setUp(() async {
     final prefs = await SharedPreferences.getInstance();
@@ -44,7 +45,6 @@ void main() async {
   Future<void> runApplication({required WidgetTester tester}) async {
     final mapPermissionBloc = MapPermissionBloc()
       ..add(RequestPermissionEvent(hasDenied: true));
-    final database = AppDatabase(NativeDatabase.memory());
     await app.main(
       mapPermissionBloc: mapPermissionBloc,
       database: database,

@@ -13,13 +13,6 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
   @override
   final AppHttpClient httpClient;
 
-  CollectionItems<Department> _parseDepartments(String responseBody) {
-    return CollectionItems.fromApi(
-      jsonDecode(responseBody) as Map<String, dynamic>,
-      Department.fromJson,
-    );
-  }
-
   @override
   Future<CollectionItems<Department>> findBy({
     Map<String, List<String>>? queryParams,
@@ -35,7 +28,7 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
       ),
     );
 
-    return compute(_parseDepartments, response.body);
+    return compute(_parseDepartments, response);
   }
 
   Future<CollectionItems<Department>> findAll() {
@@ -52,4 +45,11 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
   Future<Department> find(String id) {
     throw UnimplementedError();
   }
+}
+
+CollectionItems<Department> _parseDepartments(String responseBody) {
+  return CollectionItems.fromApi(
+    jsonDecode(responseBody) as Map<String, dynamic>,
+    Department.fromJson,
+  );
 }

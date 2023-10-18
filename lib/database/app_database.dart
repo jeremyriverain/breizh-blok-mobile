@@ -9,4 +9,13 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  Future<int> createOrUpdateRequest(Request request) {
+    return into(requests).insertOnConflictUpdate(request);
+  }
+
+  Future<Request?> requestById(String id) {
+    return (select(requests)..where((t) => t.requestPath.equals(id)))
+        .getSingleOrNull();
+  }
 }

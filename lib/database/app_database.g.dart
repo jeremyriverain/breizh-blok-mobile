@@ -14,14 +14,14 @@ class $RequestsTable extends Requests with TableInfo<$RequestsTable, Request> {
   late final GeneratedColumn<String> requestPath = GeneratedColumn<String>(
       'request_path', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _responseMeta =
-      const VerificationMeta('response');
+  static const VerificationMeta _responseBodyMeta =
+      const VerificationMeta('responseBody');
   @override
-  late final GeneratedColumn<String> response = GeneratedColumn<String>(
-      'response', aliasedName, false,
+  late final GeneratedColumn<String> responseBody = GeneratedColumn<String>(
+      'response_body', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [requestPath, response];
+  List<GeneratedColumn> get $columns => [requestPath, responseBody];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -40,11 +40,13 @@ class $RequestsTable extends Requests with TableInfo<$RequestsTable, Request> {
     } else if (isInserting) {
       context.missing(_requestPathMeta);
     }
-    if (data.containsKey('response')) {
-      context.handle(_responseMeta,
-          response.isAcceptableOrUnknown(data['response']!, _responseMeta));
+    if (data.containsKey('response_body')) {
+      context.handle(
+          _responseBodyMeta,
+          responseBody.isAcceptableOrUnknown(
+              data['response_body']!, _responseBodyMeta));
     } else if (isInserting) {
-      context.missing(_responseMeta);
+      context.missing(_responseBodyMeta);
     }
     return context;
   }
@@ -57,8 +59,8 @@ class $RequestsTable extends Requests with TableInfo<$RequestsTable, Request> {
     return Request(
       requestPath: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}request_path'])!,
-      response: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}response'])!,
+      responseBody: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}response_body'])!,
     );
   }
 
@@ -70,20 +72,20 @@ class $RequestsTable extends Requests with TableInfo<$RequestsTable, Request> {
 
 class Request extends DataClass implements Insertable<Request> {
   final String requestPath;
-  final String response;
-  const Request({required this.requestPath, required this.response});
+  final String responseBody;
+  const Request({required this.requestPath, required this.responseBody});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['request_path'] = Variable<String>(requestPath);
-    map['response'] = Variable<String>(response);
+    map['response_body'] = Variable<String>(responseBody);
     return map;
   }
 
   RequestsCompanion toCompanion(bool nullToAbsent) {
     return RequestsCompanion(
       requestPath: Value(requestPath),
-      response: Value(response),
+      responseBody: Value(responseBody),
     );
   }
 
@@ -92,7 +94,7 @@ class Request extends DataClass implements Insertable<Request> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Request(
       requestPath: serializer.fromJson<String>(json['requestPath']),
-      response: serializer.fromJson<String>(json['response']),
+      responseBody: serializer.fromJson<String>(json['responseBody']),
     );
   }
   @override
@@ -100,67 +102,67 @@ class Request extends DataClass implements Insertable<Request> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'requestPath': serializer.toJson<String>(requestPath),
-      'response': serializer.toJson<String>(response),
+      'responseBody': serializer.toJson<String>(responseBody),
     };
   }
 
-  Request copyWith({String? requestPath, String? response}) => Request(
+  Request copyWith({String? requestPath, String? responseBody}) => Request(
         requestPath: requestPath ?? this.requestPath,
-        response: response ?? this.response,
+        responseBody: responseBody ?? this.responseBody,
       );
   @override
   String toString() {
     return (StringBuffer('Request(')
           ..write('requestPath: $requestPath, ')
-          ..write('response: $response')
+          ..write('responseBody: $responseBody')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(requestPath, response);
+  int get hashCode => Object.hash(requestPath, responseBody);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Request &&
           other.requestPath == this.requestPath &&
-          other.response == this.response);
+          other.responseBody == this.responseBody);
 }
 
 class RequestsCompanion extends UpdateCompanion<Request> {
   final Value<String> requestPath;
-  final Value<String> response;
+  final Value<String> responseBody;
   final Value<int> rowid;
   const RequestsCompanion({
     this.requestPath = const Value.absent(),
-    this.response = const Value.absent(),
+    this.responseBody = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   RequestsCompanion.insert({
     required String requestPath,
-    required String response,
+    required String responseBody,
     this.rowid = const Value.absent(),
   })  : requestPath = Value(requestPath),
-        response = Value(response);
+        responseBody = Value(responseBody);
   static Insertable<Request> custom({
     Expression<String>? requestPath,
-    Expression<String>? response,
+    Expression<String>? responseBody,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (requestPath != null) 'request_path': requestPath,
-      if (response != null) 'response': response,
+      if (responseBody != null) 'response_body': responseBody,
       if (rowid != null) 'rowid': rowid,
     });
   }
 
   RequestsCompanion copyWith(
       {Value<String>? requestPath,
-      Value<String>? response,
+      Value<String>? responseBody,
       Value<int>? rowid}) {
     return RequestsCompanion(
       requestPath: requestPath ?? this.requestPath,
-      response: response ?? this.response,
+      responseBody: responseBody ?? this.responseBody,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -171,8 +173,8 @@ class RequestsCompanion extends UpdateCompanion<Request> {
     if (requestPath.present) {
       map['request_path'] = Variable<String>(requestPath.value);
     }
-    if (response.present) {
-      map['response'] = Variable<String>(response.value);
+    if (responseBody.present) {
+      map['response_body'] = Variable<String>(responseBody.value);
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -184,7 +186,7 @@ class RequestsCompanion extends UpdateCompanion<Request> {
   String toString() {
     return (StringBuffer('RequestsCompanion(')
           ..write('requestPath: $requestPath, ')
-          ..write('response: $response, ')
+          ..write('responseBody: $responseBody, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();

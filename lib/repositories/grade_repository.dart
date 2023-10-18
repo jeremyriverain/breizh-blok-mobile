@@ -13,13 +13,6 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
   @override
   final AppHttpClient httpClient;
 
-  CollectionItems<Grade> _parseGrades(String responseBody) {
-    return CollectionItems.fromApi(
-      jsonDecode(responseBody) as Map<String, dynamic>,
-      Grade.fromJson,
-    );
-  }
-
   @override
   Future<CollectionItems<Grade>> findBy({
     Map<String, List<String>>? queryParams,
@@ -34,7 +27,7 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
         query: query,
       ),
     );
-    return compute(_parseGrades, response.body);
+    return compute(_parseGrades, response);
   }
 
   Future<CollectionItems<Grade>> findWithBouldersOrderedByName() async {
@@ -51,4 +44,11 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
   Future<Grade> find(String id) {
     throw UnimplementedError();
   }
+}
+
+CollectionItems<Grade> _parseGrades(String responseBody) {
+  return CollectionItems.fromApi(
+    jsonDecode(responseBody) as Map<String, dynamic>,
+    Grade.fromJson,
+  );
 }
