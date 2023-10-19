@@ -7,13 +7,18 @@ import 'package:breizh_blok_mobile/views/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BoulderDetailsView extends StatelessWidget {
+class BoulderDetailsView extends StatefulWidget {
   const BoulderDetailsView({required this.id, super.key});
 
   final String id;
 
+  @override
+  State<BoulderDetailsView> createState() => _BoulderDetailsViewState();
+}
+
+class _BoulderDetailsViewState extends State<BoulderDetailsView> {
   Future<Boulder> _findBoulder(BuildContext context) {
-    return context.read<BoulderRepository>().find(id);
+    return context.read<BoulderRepository>().find(widget.id);
   }
 
   @override
@@ -28,7 +33,11 @@ class BoulderDetailsView extends StatelessWidget {
             body: BoulderDetails(boulder: boulder),
           );
         } else if (snapshot.hasError) {
-          return ErrorView(onTryAgain: () => {_findBoulder(context)});
+          return ErrorView(
+            onTryAgain: () {
+              setState(() => {});
+            },
+          );
         }
 
         return const LoadingView();

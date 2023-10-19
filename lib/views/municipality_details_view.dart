@@ -6,15 +6,21 @@ import 'package:breizh_blok_mobile/views/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MunicipalityDetailsView extends StatelessWidget {
+class MunicipalityDetailsView extends StatefulWidget {
   const MunicipalityDetailsView({
     required this.id,
     super.key,
   });
   final String id;
 
+  @override
+  State<MunicipalityDetailsView> createState() =>
+      _MunicipalityDetailsViewState();
+}
+
+class _MunicipalityDetailsViewState extends State<MunicipalityDetailsView> {
   Future<Municipality> _findMunicipality(BuildContext context) {
-    return context.read<MunicipalityRepository>().find(id);
+    return context.read<MunicipalityRepository>().find(widget.id);
   }
 
   @override
@@ -28,7 +34,7 @@ class MunicipalityDetailsView extends StatelessWidget {
         } else if (snapshot.hasError) {
           return ErrorView(
             onTryAgain: () {
-              _findMunicipality(context);
+              setState(() {});
             },
           );
         }

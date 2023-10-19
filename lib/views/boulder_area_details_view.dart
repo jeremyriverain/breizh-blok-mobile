@@ -13,15 +13,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class BoulderAreaDetailsView extends StatelessWidget {
+class BoulderAreaDetailsView extends StatefulWidget {
   const BoulderAreaDetailsView({
     required this.id,
     super.key,
   });
   final String id;
 
+  @override
+  State<BoulderAreaDetailsView> createState() => _BoulderAreaDetailsViewState();
+}
+
+class _BoulderAreaDetailsViewState extends State<BoulderAreaDetailsView> {
   Future<BoulderArea> _findBoulderArea(BuildContext context) {
-    return context.read<BoulderAreaRepository>().find(id);
+    return context.read<BoulderAreaRepository>().find(widget.id);
   }
 
   @override
@@ -78,7 +83,7 @@ class BoulderAreaDetailsView extends StatelessWidget {
         } else if (snapshot.hasError) {
           return ErrorView(
             onTryAgain: () {
-              _findBoulderArea(context);
+              setState(() {});
             },
           );
         }

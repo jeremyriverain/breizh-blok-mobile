@@ -129,16 +129,19 @@ class _BoulderMapState extends State<BoulderMap> {
     return BlocBuilder<BoulderMarkerBloc, BoulderMarkerState>(
       builder: (context, state) {
         if (state.error.isNotEmpty) {
-          return ErrorIndicator(
-            error: state.error,
-            onTryAgain: () {
-              context.read<BoulderMarkerBloc>().add(
-                    BoulderMarkerRequested(
-                      filterState: context.read<BoulderFilterBloc>().state,
-                      orderQueryParam: context.read<BoulderOrderBloc>().state,
-                    ),
-                  );
-            },
+          return Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: ErrorIndicator(
+              error: state.error,
+              onTryAgain: () {
+                context.read<BoulderMarkerBloc>().add(
+                      BoulderMarkerRequested(
+                        filterState: context.read<BoulderFilterBloc>().state,
+                        orderQueryParam: context.read<BoulderOrderBloc>().state,
+                      ),
+                    );
+              },
+            ),
           );
         }
         return Stack(

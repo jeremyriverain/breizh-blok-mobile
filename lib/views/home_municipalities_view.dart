@@ -66,9 +66,7 @@ class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
         if (snapshot.hasError) {
           return ErrorIndicator(
             onTryAgain: () {
-              setState(() {
-                this.data = const CollectionItems(items: [], totalItems: 0);
-              });
+              setState(() {});
             },
           );
         }
