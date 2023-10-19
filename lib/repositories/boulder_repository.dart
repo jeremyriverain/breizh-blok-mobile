@@ -44,11 +44,11 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
       ),
     );
 
-    return compute(_parseBoulders, response);
+    return compute(parseBoulders, response);
   }
 }
 
-CollectionItems<Boulder> _parseBoulders(String responseBody) {
+CollectionItems<Boulder> parseBoulders(String responseBody) {
   return CollectionItems.fromApi(
     jsonDecode(responseBody) as Map<String, dynamic>,
     Boulder.fromJson,

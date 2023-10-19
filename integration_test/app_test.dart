@@ -14,7 +14,8 @@ import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
-import 'package:drift/drift.dart' show driftRuntimeOptions;
+import 'package:drift/drift.dart'
+    show StringExpressionOperators, driftRuntimeOptions;
 import 'package:drift/native.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -35,9 +36,18 @@ void main() async {
   final database = AppDatabase(NativeDatabase.memory());
   final httpClient = AppHttpClient(database: database);
 
+  Future<void> clearDatabase(AppDatabase database) async {
+    await database.transaction(() async {
+      for (final table in database.allTables) {
+        await database.delete(table).go();
+      }
+    });
+  }
+
   setUp(() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(TermsOfUseBloc.termsOfUseAcceptanceKey, true);
+    await clearDatabase(database);
   });
 
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
@@ -814,5 +824,22 @@ by clicking on the "scroll to to the top" button''',
     find
       ..widgetWithText(Tab, 'Liste des secteurs')
       ..widgetWithText(Tab, 'Carte');
+  });
+
+  testWidgets('requests are persisted to a local database', (tester) async {
+    final storedRequests = await database.select(database.requests).get();
+    expect(storedRequests.length, 0);
+
+    await runApplication(tester: tester);
+
+    final boulderRequest = await (database.select(database.requests)
+          ..where(
+            (tbl) => tbl.requestPath.like('/boulders?page=1%'),
+          ))
+        .getSingle();
+    expect(
+      parseBoulders(boulderRequest.responseBody).items[0].iri,
+      contains('/boulders/'),
+    );
   });
 }
