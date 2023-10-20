@@ -7,44 +7,51 @@ import 'package:http/http.dart' as http;
 class AppHttpClient {
   AppHttpClient({
     required this.database,
-  });
+    http.Client? httpClient,
+  }) : httpClient = httpClient ?? http.Client();
 
   final AppDatabase database;
+  final http.Client httpClient;
 
   Future<String> get(
     Uri uri, {
     Map<String, String>? headers,
   }) async {
-    final requestPath = '${uri.path}?${uri.query}';
+    final requestPath =
+        '${uri.path}${uri.query.isEmpty ? '' : "?${uri.query}"}';
     try {
-      final response = await http
+      final response = await httpClient
           .get(
             uri,
             headers: headers,
           )
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: 7));
 
-      if (response.statusCode != 200) {
-        throw Exception(response.body);
+      if (response.statusCode == 200) {
+        unawaited(
+          database.createOrUpdateRequest(
+            Request(
+              requestPath: requestPath,
+              responseBody: response.body,
+            ),
+          ),
+        );
+
+        return response.body;
       }
 
-      unawaited(
-        database.createOrUpdateRequest(
-          Request(
-            requestPath: '${uri.path}?${uri.query}',
-            responseBody: response.body,
-          ),
-        ),
+      throw HttpException(
+        'an error occured: status code ${response.statusCode}',
       );
-
-      return response.body;
     } catch (e) {
-      if (e is SocketException || e is http.ClientException) {
-        final storedRequest = await database.requestById(requestPath);
+      if (e is HttpException) {
+        rethrow;
+      }
 
-        if (storedRequest != null) {
-          return storedRequest.responseBody;
-        }
+      final storedRequest = await database.requestById(requestPath);
+
+      if (storedRequest != null) {
+        return storedRequest.responseBody;
       }
 
       rethrow;

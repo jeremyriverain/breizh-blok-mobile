@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
@@ -10,6 +12,7 @@ import 'package:breizh_blok_mobile/components/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_item.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/main.dart' as app;
+import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
@@ -832,14 +835,46 @@ by clicking on the "scroll to to the top" button''',
 
     await runApplication(tester: tester);
 
-    final boulderRequest = await (database.select(database.requests)
+    final bouldersRequest = await (database.select(database.requests)
           ..where(
             (tbl) => tbl.requestPath.like('/boulders?page=1%'),
           ))
         .getSingle();
+
+    final boulders = parseBoulders(bouldersRequest.responseBody).items;
     expect(
-      parseBoulders(boulderRequest.responseBody).items[0].iri,
+      boulders[0].iri,
       contains('/boulders/'),
     );
+
+    final boulderRequest = await (database.select(database.requests)
+          ..where(
+            (tbl) => tbl.requestPath.equals(boulders[0].iri),
+          ))
+        .getSingleOrNull();
+
+    final boulderReference = boulders[0];
+    print('ref boulder: ${boulderReference.name}');
+    print(boulderReference.iri);
+    expect(boulderRequest, isNull);
+    await tester.tap(find.byType(BoulderListTile).first);
+
+    await tester.pumpAndSettle();
+
+    final boulderRequestAfterShowingDetails =
+        await (database.select(database.requests)
+              ..where(
+                (tbl) => tbl.requestPath.equals(boulderReference.iri),
+              ))
+            .getSingleOrNull();
+    expect(
+      boulderRequestAfterShowingDetails?.requestPath,
+      equals(boulderReference.iri),
+    );
+
+    final jsonBoulder =
+        jsonDecode(boulderRequestAfterShowingDetails?.responseBody ?? '')
+            as Map<String, dynamic>;
+    expect(Boulder.fromJson(jsonBoulder).name, boulderReference.name);
   });
 }
