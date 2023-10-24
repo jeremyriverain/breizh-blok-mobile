@@ -9,6 +9,7 @@ import 'package:breizh_blok_mobile/components/boulder_list_app_bar.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/components/lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/utils/terms_of_use_prompt.dart';
+import 'package:breizh_blok_mobile/views/download_view.dart';
 import 'package:breizh_blok_mobile/views/home_map_view.dart';
 import 'package:breizh_blok_mobile/views/home_municipalities_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,7 +54,7 @@ class HomeView extends StatelessWidget {
                 ),
               3 => AppBar(
                   title: const Text(
-                    'Téléchargements',
+                    'Secteurs téléchargés',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -75,7 +76,7 @@ class HomeView extends StatelessWidget {
                 ),
                 const HomeMapView(),
                 const HomeMunicipalitiesView(),
-                Container(),
+                const DownloadView(),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(

@@ -362,7 +362,7 @@ void main() async {
       }
 
       Future<void> sortByLabel({required String label}) async {
-        await tester.tap(find.byKey(const Key('boulder-list-sort-button')));
+        await tester.tap(find.byKey(const Key('sort-button')));
         await tester.pumpAndSettle();
 
         await tester.tap(find.text(label));
@@ -689,7 +689,7 @@ by clicking on the "scroll to to the top" button''',
     }
 
     Future<void> sortByLabel({required String label}) async {
-      await tester.tap(find.byKey(const Key('boulder-list-sort-button')));
+      await tester.tap(find.byKey(const Key('sort-button')));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text(label));

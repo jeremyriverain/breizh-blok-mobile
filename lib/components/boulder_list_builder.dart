@@ -155,7 +155,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                           children: [
                             Row(
                               children: [
-                                const SortBouldersButton(),
+                                SortBouldersButton(),
                                 if (widget.showFilterButton)
                                   const FilterBouldersButton(),
                                 Expanded(

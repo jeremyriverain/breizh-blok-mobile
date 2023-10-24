@@ -1,100 +1,52 @@
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
+import 'package:breizh_blok_mobile/components/sort_button.dart';
+import 'package:breizh_blok_mobile/models/order_choice.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum OrderChoice {
-  mostRecentFirst(
-    label: 'Les plus récents',
-    orderQueryParam: OrderQueryParam(
-      name: 'order[id]',
-      direction: 'desc',
-    ),
-  ),
-  easiestFirst(
-    label: 'Les plus faciles',
-    orderQueryParam: OrderQueryParam(
-      name: 'order[grade.name]',
-      direction: 'asc',
-    ),
-  ),
-  hardestFirst(
-    label: 'Les plus difficiles',
-    orderQueryParam: OrderQueryParam(
-      name: 'order[grade.name]',
-      direction: 'desc',
-    ),
-  );
-
-  const OrderChoice({
-    required this.label,
-    required this.orderQueryParam,
-  });
-
-  final String label;
-  final OrderQueryParam orderQueryParam;
-}
-
 class SortBouldersButton extends StatelessWidget {
-  const SortBouldersButton({
+  SortBouldersButton({
     super.key,
   });
 
+  final choices = [
+    OrderChoice(
+      label: 'Les plus récents',
+      orderQueryParam: const OrderQueryParam(
+        name: 'order[id]',
+        direction: 'desc',
+      ),
+    ),
+    OrderChoice(
+      label: 'Les plus faciles',
+      orderQueryParam: const OrderQueryParam(
+        name: 'order[grade.name]',
+        direction: 'asc',
+      ),
+    ),
+    OrderChoice(
+      label: 'Les plus difficiles',
+      orderQueryParam: const OrderQueryParam(
+        name: 'order[grade.name]',
+        direction: 'desc',
+      ),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      key: const Key('boulder-list-sort-button'),
-      child: const Row(
-        children: [
-          Icon(CupertinoIcons.sort_down),
-          SizedBox(
-            width: 5,
-          ),
-          Text('Trier'),
-        ],
-      ),
-      onPressed: () {
-        showDialog<void>(
-          context: context,
-          builder: (dialogContext) => AlertDialog(
-            alignment: Alignment.topCenter,
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Afficher en 1er:'),
-            content: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: BlocBuilder<BoulderOrderBloc, OrderQueryParam>(
-                builder: (context, state) {
-                  final groupValue = state;
-
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (final orderChoice in OrderChoice.values)
-                        RadioListTile<OrderQueryParam>(
-                          value: orderChoice.orderQueryParam,
-                          groupValue: groupValue,
-                          onChanged: (value) {
-                            if (value == null) {
-                              return;
-                            }
-                            context.read<BoulderOrderBloc>().add(
-                                  BoulderOrderEvent(
-                                    orderChoice.orderQueryParam,
-                                  ),
-                                );
-                            Navigator.of(context).pop();
-                          },
-                          title: Text(orderChoice.label),
-                        ),
-                    ],
-                  );
-                },
+    return SortButton(
+      choices: choices,
+      onChanged: (value) => {
+        context.read<BoulderOrderBloc>().add(
+              BoulderOrderEvent(
+                value,
               ),
             ),
-          ),
-        );
       },
+      initialSelected: context.read<BoulderOrderBloc>().state,
     );
   }
 }
