@@ -6,7 +6,6 @@ import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/components/base_map.dart';
-import 'package:breizh_blok_mobile/components/error_indicator.dart';
 import 'package:breizh_blok_mobile/components/map_loading_indicator.dart';
 import 'package:breizh_blok_mobile/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/utils/map_utils.dart';
@@ -128,22 +127,6 @@ class _BoulderMapState extends State<BoulderMap> {
 
     return BlocBuilder<BoulderMarkerBloc, BoulderMarkerState>(
       builder: (context, state) {
-        if (state.error.isNotEmpty) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: ErrorIndicator(
-              error: state.error,
-              onTryAgain: () {
-                context.read<BoulderMarkerBloc>().add(
-                      BoulderMarkerRequested(
-                        filterState: context.read<BoulderFilterBloc>().state,
-                        orderQueryParam: context.read<BoulderOrderBloc>().state,
-                      ),
-                    );
-              },
-            ),
-          );
-        }
         return Stack(
           children: [
             BlocListener<BoulderMarkerBloc, BoulderMarkerState>(
@@ -158,6 +141,53 @@ class _BoulderMapState extends State<BoulderMap> {
               ),
             ),
             if (state.isLoading == true) const MapLoadingIndicator(),
+            if (state.error.isNotEmpty)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: ColoredBox(
+                  color: const Color(0xFF333333),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      children: [
+                        const Expanded(
+                          flex: 3,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 1),
+                            child: Text(
+                              // ignore: lines_longer_than_80_chars
+                              'Une erreur est survenue lors de la récupération des blocs',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton(
+                            child: const Text('Réessayer'),
+                            onPressed: () {
+                              context.read<BoulderMarkerBloc>().add(
+                                    BoulderMarkerRequested(
+                                      filterState: context
+                                          .read<BoulderFilterBloc>()
+                                          .state,
+                                      orderQueryParam: context
+                                          .read<BoulderOrderBloc>()
+                                          .state,
+                                    ),
+                                  );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
           ],
         );
       },

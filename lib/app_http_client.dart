@@ -16,6 +16,7 @@ class AppHttpClient {
   Future<String> get(
     Uri uri, {
     Map<String, String>? headers,
+    Duration timeout = const Duration(seconds: 7),
   }) async {
     final requestPath =
         '${uri.path}${uri.query.isEmpty ? '' : "?${uri.query}"}';
@@ -25,7 +26,7 @@ class AppHttpClient {
             uri,
             headers: headers,
           )
-          .timeout(const Duration(seconds: 7));
+          .timeout(timeout);
 
       if (response.statusCode == 200) {
         unawaited(

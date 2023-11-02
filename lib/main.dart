@@ -7,10 +7,10 @@ import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/offline_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
+import 'package:breizh_blok_mobile/download_area_service.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
@@ -52,10 +52,13 @@ Future<void> main({
         }),
       );
 
-  final offlineBloc = OfflineBloc(database: appDatabase);
-
   final httpClient = AppHttpClient(
     database: appDatabase,
+  );
+
+  final downloadAreaService = DownloadAreaService(
+    database: appDatabase,
+    httpClient: httpClient,
   );
 
   final tabBloc = TabBloc();
@@ -109,6 +112,9 @@ Future<void> main({
           RepositoryProvider<AppDatabase>(
             create: (context) => appDatabase,
           ),
+          RepositoryProvider<DownloadAreaService>(
+            create: (context) => downloadAreaService,
+          ),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -137,11 +143,12 @@ Future<void> main({
               create: (BuildContext context) =>
                   mapPermissionBloc ?? MapPermissionBloc(),
             ),
-            BlocProvider<OfflineBloc>(create: (context) => offlineBloc),
           ],
           child: LocationProvider(
             locationInstance: Location.instance,
-            child: MyApp(),
+            child: MyApp(
+              database: appDatabase,
+            ),
           ),
         ),
       ),
@@ -150,46 +157,55 @@ Future<void> main({
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({
+    required this.database,
+    super.key,
+  });
 
-  final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/boulders',
-        name: 'boulder_list',
-        builder: (context, state) => const HomeView(),
-      ),
-      GoRoute(
-        path: '/boulders/:bid',
-        name: 'boulder_details',
-        builder: (context, state) {
-          return BoulderDetailsView(id: state.pathParameters['bid']!);
-        },
-      ),
-      GoRoute(
-        path: '/boulders-area/:id',
-        name: 'boulder_area_details',
-        builder: (context, state) {
-          return BoulderAreaDetailsView(id: state.pathParameters['id']!);
-        },
-      ),
-      GoRoute(
-        path: '/municipalities/:id',
-        name: 'municipality_details',
-        builder: (context, state) {
-          return MunicipalityDetailsView(id: state.pathParameters['id']!);
-        },
-      ),
-    ],
-    initialLocation: '/boulders',
-  );
+  final AppDatabase database;
 
   @override
-  Widget build(BuildContext context) => MaterialApp.router(
-        routeInformationProvider: _router.routeInformationProvider,
-        routeInformationParser: _router.routeInformationParser,
-        routerDelegate: _router.routerDelegate,
-        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.lightBlue),
-        debugShowCheckedModeBanner: false,
-      );
+  Widget build(BuildContext context) {
+    final router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/boulders',
+          name: 'boulder_list',
+          builder: (context, state) => HomeView(
+            database: database,
+          ),
+        ),
+        GoRoute(
+          path: '/boulders/:bid',
+          name: 'boulder_details',
+          builder: (context, state) {
+            return BoulderDetailsView(id: state.pathParameters['bid']!);
+          },
+        ),
+        GoRoute(
+          path: '/boulders-area/:id',
+          name: 'boulder_area_details',
+          builder: (context, state) {
+            return BoulderAreaDetailsView(id: state.pathParameters['id']!);
+          },
+        ),
+        GoRoute(
+          path: '/municipalities/:id',
+          name: 'municipality_details',
+          builder: (context, state) {
+            return MunicipalityDetailsView(id: state.pathParameters['id']!);
+          },
+        ),
+      ],
+      initialLocation: '/boulders',
+    );
+
+    return MaterialApp.router(
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.lightBlue),
+      debugShowCheckedModeBanner: false,
+    );
+  }
 }

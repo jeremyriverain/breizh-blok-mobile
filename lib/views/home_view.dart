@@ -8,6 +8,7 @@ import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_app_bar.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/components/lazy_indexed_stack.dart';
+import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/utils/terms_of_use_prompt.dart';
 import 'package:breizh_blok_mobile/views/download_view.dart';
 import 'package:breizh_blok_mobile/views/home_map_view.dart';
@@ -17,7 +18,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  const HomeView({
+    required this.database,
+    super.key,
+  });
+
+  final AppDatabase database;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +82,9 @@ class HomeView extends StatelessWidget {
                 ),
                 const HomeMapView(),
                 const HomeMunicipalitiesView(),
-                const DownloadView(),
+                DownloadView(
+                  database: database,
+                ),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(

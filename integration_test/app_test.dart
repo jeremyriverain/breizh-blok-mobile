@@ -55,14 +55,28 @@ void main() async {
 
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
 
+  Future<void> restoreFlutterError(Future<void> Function() call) async {
+    final originalOnError = FlutterError.onError!;
+    await call();
+    final overriddenOnError = FlutterError.onError!;
+
+    // restore FlutterError.onError
+    FlutterError.onError = (FlutterErrorDetails details) {
+      if (overriddenOnError != originalOnError) overriddenOnError(details);
+      originalOnError(details);
+    };
+  }
+
   Future<void> runApplication({required WidgetTester tester}) async {
-    final mapPermissionBloc = MapPermissionBloc()
-      ..add(RequestPermissionEvent(hasDenied: true));
-    await app.main(
-      mapPermissionBloc: mapPermissionBloc,
-      database: database,
-    );
-    await tester.pumpAndSettle();
+    await restoreFlutterError(() async {
+      final mapPermissionBloc = MapPermissionBloc()
+        ..add(RequestPermissionEvent(hasDenied: true));
+      await app.main(
+        mapPermissionBloc: mapPermissionBloc,
+        database: database,
+      );
+      await tester.pumpAndSettle();
+    });
   }
 
   Future<void> closeFilterModal(WidgetTester tester) async {
@@ -70,354 +84,352 @@ void main() async {
     await tester.pumpAndSettle();
   }
 
-  group('end to end test -', () {
-    testWidgets('I list boulders and show details about them',
-        (WidgetTester tester) async {
-      // prior to test, I fetch boulders to retrieve a reference
-      // and assert boulders details dynamically
-      final boulderRepository = BoulderRepository(
-        httpClient: httpClient,
-      );
-      final bouldersResponse = await boulderRepository.findBy(
-        queryParams: defaultBoulderQueryParams,
-      );
-      final boulderReference = bouldersResponse.items[0];
+  testWidgets('I list boulders and show details about them',
+      (WidgetTester tester) async {
+    // prior to test, I fetch boulders to retrieve a reference
+    // and assert boulders details dynamically
+    final boulderRepository = BoulderRepository(
+      httpClient: httpClient,
+    );
+    final bouldersResponse = await boulderRepository.findBy(
+      queryParams: defaultBoulderQueryParams,
+    );
+    final boulderReference = bouldersResponse.items[0];
 
-      expect(boulderReference, isNot(null));
+    expect(boulderReference, isNot(null));
 
-      final prefs = await SharedPreferences.getInstance();
-      print(prefs.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey));
+    final prefs = await SharedPreferences.getInstance();
+    print(prefs.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey));
 
-      await runApplication(tester: tester);
+    await runApplication(tester: tester);
 
-      expect(
-        find.textContaining(RegExp(r'^\d+ blocs'), findRichText: true),
-        findsOneWidget,
-      );
-      expect(
-        find.text(
-          '${boulderReference.name} (${boulderReference.grade?.name})',
-          findRichText: true,
-        ),
-        findsWidgets,
-      );
+    expect(
+      find.textContaining(RegExp(r'^\d+ blocs'), findRichText: true),
+      findsOneWidget,
+    );
+    expect(
+      find.text(
+        '${boulderReference.name} (${boulderReference.grade?.name})',
+        findRichText: true,
+      ),
+      findsWidgets,
+    );
 
-      expect(
-        find.text(
-          'Secteur: ${boulderReference.rock.boulderArea.name}',
-          findRichText: true,
-        ),
-        findsWidgets,
-      );
+    expect(
+      find.text(
+        'Secteur: ${boulderReference.rock.boulderArea.name}',
+        findRichText: true,
+      ),
+      findsWidgets,
+    );
 
-      expect(
-        find.text(
-          'Commune: ${boulderReference.rock.boulderArea.municipality.name}',
-          findRichText: true,
-        ),
-        findsWidgets,
-      );
+    expect(
+      find.text(
+        'Commune: ${boulderReference.rock.boulderArea.municipality.name}',
+        findRichText: true,
+      ),
+      findsWidgets,
+    );
 
+    expect(
+      find.byType(LineBoulderImage),
+      findsWidgets,
+    );
+
+    // SHOW PAGE
+
+    // tap on the first tile and show details
+    await tester.tap(find.byType(BoulderListTile).first);
+
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+        boulderReference.name,
+        findRichText: true,
+      ),
+      findsOneWidget,
+    );
+
+    if (boulderReference.lineBoulders.isNotEmpty) {
       expect(
         find.byType(LineBoulderImage),
         findsWidgets,
       );
 
-      // SHOW PAGE
-
-      // tap on the first tile and show details
-      await tester.tap(find.byType(BoulderListTile).first);
+      await tester.tap(find.byType(LineBoulderImage).first);
 
       await tester.pumpAndSettle();
 
+      expect(find.byType(PhotoViewGallery), findsOneWidget);
+
       expect(
-        find.text(
-          boulderReference.name,
-          findRichText: true,
-        ),
+        find.text('Image 1/${boulderReference.lineBoulders.length}'),
         findsOneWidget,
       );
 
-      if (boulderReference.lineBoulders.isNotEmpty) {
-        expect(
-          find.byType(LineBoulderImage),
-          findsWidgets,
-        );
+      await tester.tap(find.byTooltip("Quitter la galerie d'images"));
 
-        await tester.tap(find.byType(LineBoulderImage).first);
+      await tester.pumpAndSettle();
+    }
 
-        await tester.pumpAndSettle();
-
-        expect(find.byType(PhotoViewGallery), findsOneWidget);
-
-        expect(
-          find.text('Image 1/${boulderReference.lineBoulders.length}'),
-          findsOneWidget,
-        );
-
-        await tester.tap(find.byTooltip("Quitter la galerie d'images"));
-
-        await tester.pumpAndSettle();
-      }
-
-      await tester.scrollUntilVisible(
-        find.textContaining('Secteur'),
-        200,
-        scrollable: find.descendant(
-          of: find.byKey(
-            const Key('boulder-details-list-view'),
-          ),
-          matching: find.byType(Scrollable),
+    await tester.scrollUntilVisible(
+      find.textContaining('Secteur'),
+      200,
+      scrollable: find.descendant(
+        of: find.byKey(
+          const Key('boulder-details-list-view'),
         ),
-      );
+        matching: find.byType(Scrollable),
+      ),
+    );
 
-      expect(
-        find.textContaining(
-          boulderReference.rock.boulderArea.name,
-        ),
-        findsOneWidget,
-      );
+    expect(
+      find.textContaining(
+        boulderReference.rock.boulderArea.name,
+      ),
+      findsOneWidget,
+    );
 
-      expect(
-        find.textContaining(
-          boulderReference.rock.boulderArea.municipality.name,
-        ),
-        findsOneWidget,
-      );
-    });
+    expect(
+      find.textContaining(
+        boulderReference.rock.boulderArea.municipality.name,
+      ),
+      findsOneWidget,
+    );
+  });
 
-    testWidgets('it shows an alert dialog containing terms of use',
-        (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        // test code here
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool(TermsOfUseBloc.termsOfUseAcceptanceKey, false);
-        await runApplication(tester: tester);
-        await expectLater(
-          find.byKey(const Key('terms-of-use')),
-          findsOneWidget,
-        );
-      });
-    });
-
-    testWidgets('it shows a map when I click on the appropriate tab',
-        (WidgetTester tester) async {
+  testWidgets('it shows an alert dialog containing terms of use',
+      (WidgetTester tester) async {
+    await tester.runAsync(() async {
+      // test code here
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(TermsOfUseBloc.termsOfUseAcceptanceKey, false);
       await runApplication(tester: tester);
-      // tap on the Map tab
-      await tester.tap(find.text('Carte'));
-      await tester.pumpAndSettle();
-
-      expect(
-        find.byType(GoogleMap),
+      await expectLater(
+        find.byKey(const Key('terms-of-use')),
         findsOneWidget,
       );
     });
+  });
 
-    testWidgets(
-        'search for a boulder, view details, and select an associated boulder',
-        (WidgetTester tester) async {
-      await runApplication(tester: tester);
-      const searchedBoulder = 'retaretapas';
-      await tester.enterText(
-        find.byKey(const Key('search-boulders')),
-        searchedBoulder,
-      );
-      await tester.testTextInput.receiveAction(TextInputAction.done);
-      await tester.pumpAndSettle();
+  testWidgets('it shows a map when I click on the appropriate tab',
+      (WidgetTester tester) async {
+    await runApplication(tester: tester);
+    // tap on the Map tab
+    await tester.tap(find.text('Carte'));
+    await tester.pumpAndSettle();
 
-      expect(find.text(searchedBoulder), findsOneWidget);
+    expect(
+      find.byType(GoogleMap),
+      findsOneWidget,
+    );
+  });
 
-      await tester.tap(find.byType(BoulderListTile).first);
+  testWidgets(
+      'search for a boulder, view details, and select an associated boulder',
+      (WidgetTester tester) async {
+    await runApplication(tester: tester);
+    const searchedBoulder = 'retaretapas';
+    await tester.enterText(
+      find.byKey(const Key('search-boulders')),
+      searchedBoulder,
+    );
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
 
-      expect(find.text(searchedBoulder), findsOneWidget);
-      await tester.pumpAndSettle();
+    expect(find.text(searchedBoulder), findsOneWidget);
 
-      final sameRockTitleSection = find.text('Blocs sur le même rocher');
+    await tester.tap(find.byType(BoulderListTile).first);
 
-      await tester.scrollUntilVisible(
-        // WORKAROUND TO SCROLL TO THE BOTTOM
-        find.textContaining('Cotation'),
-        300,
-        scrollable: find.descendant(
-          of: find.byKey(
-            const Key('boulder-details-list-view'),
-          ),
-          matching: find.byType(Scrollable),
+    expect(find.text(searchedBoulder), findsOneWidget);
+    await tester.pumpAndSettle();
+
+    final sameRockTitleSection = find.text('Blocs sur le même rocher');
+
+    await tester.scrollUntilVisible(
+      // WORKAROUND TO SCROLL TO THE BOTTOM
+      find.textContaining('Cotation'),
+      300,
+      scrollable: find.descendant(
+        of: find.byKey(
+          const Key('boulder-details-list-view'),
         ),
-      );
+        matching: find.byType(Scrollable),
+      ),
+    );
 
-      await tester.scrollUntilVisible(
-        sameRockTitleSection,
-        300,
-      );
+    await tester.scrollUntilVisible(
+      sameRockTitleSection,
+      300,
+    );
 
+    await tester.pumpAndSettle();
+
+    expect(sameRockTitleSection, findsOneWidget);
+
+    expect(find.byType(BoulderDetailsAssociatedItem), findsWidgets);
+  });
+
+  testWidgets('filter by grade', (WidgetTester tester) async {
+    final gradeRepository = GradeRepository(httpClient: httpClient);
+    final gradesResponse =
+        await gradeRepository.findWithBouldersOrderedByName();
+
+    await runApplication(tester: tester);
+    await tester.tap(
+      find.text('Filtrer'),
+    );
+
+    await tester.pumpAndSettle();
+
+    final firstGrade = gradesResponse.items[0];
+    final lastGrade = gradesResponse.items[gradesResponse.totalItems - 1];
+
+    print(
+      'initial grade range expected: ${firstGrade.name} -> ${lastGrade.name}',
+    );
+    expect(
+      find.textContaining(
+        'Cotation min: ${gradesResponse.items[0].name}',
+        findRichText: true,
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.textContaining(
+        'max: ${gradesResponse.items[gradesResponse.totalItems - 1].name}',
+        findRichText: true,
+      ),
+      findsOneWidget,
+    );
+
+    await tester.pumpAndSettle();
+
+    // Get the bounds of the track by finding the slider edges and translating
+    // inwards by the overlay radius.
+    // inspired from https://github.com/flutter/flutter/blob/master/packages/flutter/test/material/range_slider_test.dart
+    final leftTarget =
+        tester.getTopLeft(find.byType(SfRangeSlider)).translate(20, 16);
+    final rightTarget =
+        tester.getTopRight(find.byType(SfRangeSlider)).translate(-20, 16);
+
+    await tester.dragFrom(
+      rightTarget,
+      Offset(-(leftTarget.dx + rightTarget.dx) / 2, 0),
+    );
+    await tester.pumpAndSettle();
+
+    final maxGradeWidget = tester
+        .element(find.byKey(const Key('boulder-list-grade-max')).first)
+        .widget as Text;
+
+    final maxGrade = maxGradeWidget.textSpan?.toPlainText() ?? '';
+    final selectedGrade = maxGrade.replaceFirst('max: ', '');
+
+    expect(selectedGrade.length, greaterThan(0));
+
+    await tester.dragFrom(
+      leftTarget,
+      Offset((leftTarget.dx + rightTarget.dx) / 2, 0),
+    );
+    await tester.pumpAndSettle();
+    final minGradeWidget = tester
+        .element(find.byKey(const Key('boulder-list-grade-min')).first)
+        .widget as Text;
+
+    final minGrade = minGradeWidget.textSpan?.toPlainText() ?? '';
+
+    print('min grade: $minGrade, max grade: $maxGrade');
+
+    expect(
+      selectedGrade,
+      equals(
+        minGrade.replaceFirst('Cotation min: ', ''),
+      ),
+    );
+
+    await closeFilterModal(tester);
+    await tester.pumpAndSettle();
+
+    final gradeFinder =
+        find.textContaining('($selectedGrade)', findRichText: true);
+
+    expect(gradeFinder, findsWidgets);
+
+    print('found elements: ${gradeFinder.evaluate().length}');
+    expect(
+      gradeFinder.evaluate().length,
+      equals(find.byType(BoulderListTile).evaluate().length),
+    );
+  });
+
+  testWidgets('sort boulders', (WidgetTester tester) async {
+    BoulderListTile getBoulderListTileAt(int index) {
+      return find
+          .byWidgetPredicate((Widget widget) => widget is BoulderListTile)
+          .evaluate()
+          .elementAt(index)
+          .widget as BoulderListTile;
+    }
+
+    Future<void> sortByLabel({required String label}) async {
+      await tester.tap(find.byKey(const Key('sort-button')));
       await tester.pumpAndSettle();
 
-      expect(sameRockTitleSection, findsOneWidget);
-
-      expect(find.byType(BoulderDetailsAssociatedItem), findsWidgets);
-    });
-
-    testWidgets('filter by grade', (WidgetTester tester) async {
-      final gradeRepository = GradeRepository(httpClient: httpClient);
-      final gradesResponse =
-          await gradeRepository.findWithBouldersOrderedByName();
-
-      await runApplication(tester: tester);
-      await tester.tap(
-        find.text('Filtrer'),
-      );
-
+      await tester.tap(find.text(label));
       await tester.pumpAndSettle();
+    }
 
-      final firstGrade = gradesResponse.items[0];
-      final lastGrade = gradesResponse.items[gradesResponse.totalItems - 1];
+    final boulderRepository = BoulderRepository(
+      httpClient: httpClient,
+    );
+    final mostRecentBoulders = await boulderRepository.findBy(
+      queryParams: defaultBoulderQueryParams,
+    );
+    final easiestBoulders = await boulderRepository.findBy(
+      queryParams: {
+        'order[grade.name]': ['asc'],
+      },
+    );
+    final hardestBoulders = await boulderRepository.findBy(
+      queryParams: {
+        'order[grade.name]': ['desc'],
+      },
+    );
 
-      print(
-        'initial grade range expected: ${firstGrade.name} -> ${lastGrade.name}',
-      );
-      expect(
-        find.textContaining(
-          'Cotation min: ${gradesResponse.items[0].name}',
-          findRichText: true,
-        ),
-        findsOneWidget,
-      );
+    await runApplication(tester: tester);
+    // checks the first and second boulders are the most recent
+    final firstMostRecent = getBoulderListTileAt(0);
+    expect(
+      firstMostRecent.boulder.iri,
+      equals(mostRecentBoulders.items[0].iri),
+    );
 
-      expect(
-        find.textContaining(
-          'max: ${gradesResponse.items[gradesResponse.totalItems - 1].name}',
-          findRichText: true,
-        ),
-        findsOneWidget,
-      );
+    final secondMostRecent = getBoulderListTileAt(1);
+    expect(
+      secondMostRecent.boulder.iri,
+      equals(mostRecentBoulders.items[1].iri),
+    );
 
-      await tester.pumpAndSettle();
+    // checks the first and second boulders are the easiest ones
+    await sortByLabel(label: 'Les plus faciles');
 
-      // Get the bounds of the track by finding the slider edges and translating
-      // inwards by the overlay radius.
-      // inspired from https://github.com/flutter/flutter/blob/master/packages/flutter/test/material/range_slider_test.dart
-      final leftTarget =
-          tester.getTopLeft(find.byType(SfRangeSlider)).translate(20, 16);
-      final rightTarget =
-          tester.getTopRight(find.byType(SfRangeSlider)).translate(-20, 16);
+    final firstEasiest = getBoulderListTileAt(0);
+    expect(firstEasiest.boulder.iri, equals(easiestBoulders.items[0].iri));
 
-      await tester.dragFrom(
-        rightTarget,
-        Offset(-(leftTarget.dx + rightTarget.dx) / 2, 0),
-      );
-      await tester.pumpAndSettle();
+    final secondEasiest = getBoulderListTileAt(1);
+    expect(secondEasiest.boulder.iri, equals(easiestBoulders.items[1].iri));
 
-      final maxGradeWidget = tester
-          .element(find.byKey(const Key('boulder-list-grade-max')).first)
-          .widget as Text;
+    // checks the first and second boulders are the hardest ones
+    await sortByLabel(label: 'Les plus difficiles');
 
-      final maxGrade = maxGradeWidget.textSpan?.toPlainText() ?? '';
-      final selectedGrade = maxGrade.replaceFirst('max: ', '');
+    final firstHardest = getBoulderListTileAt(0);
+    expect(firstHardest.boulder.iri, equals(hardestBoulders.items[0].iri));
 
-      expect(selectedGrade.length, greaterThan(0));
-
-      await tester.dragFrom(
-        leftTarget,
-        Offset((leftTarget.dx + rightTarget.dx) / 2, 0),
-      );
-      await tester.pumpAndSettle();
-      final minGradeWidget = tester
-          .element(find.byKey(const Key('boulder-list-grade-min')).first)
-          .widget as Text;
-
-      final minGrade = minGradeWidget.textSpan?.toPlainText() ?? '';
-
-      print('min grade: $minGrade, max grade: $maxGrade');
-
-      expect(
-        selectedGrade,
-        equals(
-          minGrade.replaceFirst('Cotation min: ', ''),
-        ),
-      );
-
-      await closeFilterModal(tester);
-      await tester.pumpAndSettle();
-
-      final gradeFinder =
-          find.textContaining('($selectedGrade)', findRichText: true);
-
-      expect(gradeFinder, findsWidgets);
-
-      print('found elements: ${gradeFinder.evaluate().length}');
-      expect(
-        gradeFinder.evaluate().length,
-        equals(find.byType(BoulderListTile).evaluate().length),
-      );
-    });
-
-    testWidgets('sort boulders', (WidgetTester tester) async {
-      BoulderListTile getBoulderListTileAt(int index) {
-        return find
-            .byWidgetPredicate((Widget widget) => widget is BoulderListTile)
-            .evaluate()
-            .elementAt(index)
-            .widget as BoulderListTile;
-      }
-
-      Future<void> sortByLabel({required String label}) async {
-        await tester.tap(find.byKey(const Key('sort-button')));
-        await tester.pumpAndSettle();
-
-        await tester.tap(find.text(label));
-        await tester.pumpAndSettle();
-      }
-
-      final boulderRepository = BoulderRepository(
-        httpClient: httpClient,
-      );
-      final mostRecentBoulders = await boulderRepository.findBy(
-        queryParams: defaultBoulderQueryParams,
-      );
-      final easiestBoulders = await boulderRepository.findBy(
-        queryParams: {
-          'order[grade.name]': ['asc'],
-        },
-      );
-      final hardestBoulders = await boulderRepository.findBy(
-        queryParams: {
-          'order[grade.name]': ['desc'],
-        },
-      );
-
-      await runApplication(tester: tester);
-      // checks the first and second boulders are the most recent
-      final firstMostRecent = getBoulderListTileAt(0);
-      expect(
-        firstMostRecent.boulder.iri,
-        equals(mostRecentBoulders.items[0].iri),
-      );
-
-      final secondMostRecent = getBoulderListTileAt(1);
-      expect(
-        secondMostRecent.boulder.iri,
-        equals(mostRecentBoulders.items[1].iri),
-      );
-
-      // checks the first and second boulders are the easiest ones
-      await sortByLabel(label: 'Les plus faciles');
-
-      final firstEasiest = getBoulderListTileAt(0);
-      expect(firstEasiest.boulder.iri, equals(easiestBoulders.items[0].iri));
-
-      final secondEasiest = getBoulderListTileAt(1);
-      expect(secondEasiest.boulder.iri, equals(easiestBoulders.items[1].iri));
-
-      // checks the first and second boulders are the hardest ones
-      await sortByLabel(label: 'Les plus difficiles');
-
-      final firstHardest = getBoulderListTileAt(0);
-      expect(firstHardest.boulder.iri, equals(hardestBoulders.items[0].iri));
-
-      final secondHardest = getBoulderListTileAt(1);
-      expect(secondHardest.boulder.iri, equals(hardestBoulders.items[1].iri));
-    });
+    final secondHardest = getBoulderListTileAt(1);
+    expect(secondHardest.boulder.iri, equals(hardestBoulders.items[1].iri));
   });
 
   testWidgets('''
@@ -876,5 +888,102 @@ by clicking on the "scroll to to the top" button''',
         jsonDecode(boulderRequestAfterShowingDetails?.responseBody ?? '')
             as Map<String, dynamic>;
     expect(Boulder.fromJson(jsonBoulder).name, boulderReference.name);
+  });
+
+  testWidgets('i can download boulder areas', (WidgetTester tester) async {
+    var downloads = await database.select(database.boulderAreas).get();
+    expect(downloads.length, 0);
+    await runApplication(tester: tester);
+    await tester.tap(find.text('Téléchargements').first);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Secteurs téléchargés'), findsOneWidget);
+    expect(find.text('Aucun secteur téléchargé'), findsOneWidget);
+
+    await tester.tap(find.text('Index').first);
+    await tester.pumpAndSettle();
+
+    final departmentRepository = DepartmentRepository(
+      httpClient: httpClient,
+    );
+    final departmentsResponse = await departmentRepository.findAll();
+    final departmentReference = departmentsResponse.items[0];
+    print('department reference: ${departmentReference.name}');
+
+    final municipalityReference = departmentReference.municipalities[0];
+    print('municipality reference: ${municipalityReference.name}');
+
+    final boulderAreaReference = municipalityReference.boulderAreas[0];
+    print('boulder area reference: ${municipalityReference.name}');
+
+    await tester.tap(find.text(municipalityReference.name).first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(boulderAreaReference.name).first);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('TÉLÉCHARGER').first);
+
+    // download a boulder area takes time
+    await tester.pump(
+      const Duration(
+        seconds: 3,
+      ),
+    );
+
+    expect(find.text('TÉLÉCHARGÉ'), findsOneWidget);
+
+    final navigator = (tester.state(find.byType(Navigator)) as NavigatorState)
+      ..pop();
+    await tester.pumpAndSettle();
+    navigator.pop();
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Téléchargements').first);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.descendant(
+        of: find.byKey(Key(boulderAreaReference.iri)),
+        matching: find.textContaining(
+          boulderAreaReference.name,
+          findRichText: true,
+        ),
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.descendant(
+        of: find.byKey(Key(boulderAreaReference.iri)),
+        matching: find.textContaining(
+          municipalityReference.name,
+          findRichText: true,
+        ),
+      ),
+      findsOneWidget,
+    );
+
+    downloads = await (database.select(database.boulderAreas)
+          ..where(
+            (tbl) => tbl.iri.equals(boulderAreaReference.iri),
+          ))
+        .get();
+
+    expect(downloads.length, 1);
+    expect(downloads[0].iri, boulderAreaReference.iri);
+
+    await tester.tap(find.textContaining(boulderAreaReference.name).first);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('boulder-area-details-app-bar')),
+        matching: find.textContaining(
+          boulderAreaReference.name,
+          findRichText: true,
+        ),
+      ),
+      findsOneWidget,
+    );
   });
 }

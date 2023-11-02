@@ -24,6 +24,7 @@ class BoulderMarkerRepository {
         query: query,
       ),
       headers: {'Accept': 'application/json'},
+      timeout: const Duration(seconds: 10),
     );
 
     final json = jsonDecode(response);

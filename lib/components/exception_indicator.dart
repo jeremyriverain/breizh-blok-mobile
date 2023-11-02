@@ -5,12 +5,12 @@ class ExceptionIndicator extends StatelessWidget {
   const ExceptionIndicator({
     required this.title,
     required this.assetName,
-    required this.message,
+    this.message,
     this.onTryAgain,
     super.key,
   });
   final String title;
-  final String message;
+  final String? message;
   final String assetName;
   final VoidCallback? onTryAgain;
 
@@ -31,13 +31,14 @@ class ExceptionIndicator extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                message,
-                textAlign: TextAlign.center,
-              ),
+              if (message != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Text(
+                    message ?? '',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               const Spacer(),
               if (onTryAgain != null)
                 SizedBox(

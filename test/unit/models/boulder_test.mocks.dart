@@ -18,7 +18,6 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
-// ignore_for_file: must_be_immutable
 
 class _FakeBoulderArea_0 extends _i1.SmartFake implements _i2.BoulderArea {
   _FakeBoulderArea_0(

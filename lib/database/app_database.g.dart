@@ -193,12 +193,202 @@ class RequestsCompanion extends UpdateCompanion<Request> {
   }
 }
 
+class $BoulderAreasTable extends BoulderAreas
+    with TableInfo<$BoulderAreasTable, BoulderArea> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BoulderAreasTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _iriMeta = const VerificationMeta('iri');
+  @override
+  late final GeneratedColumn<String> iri = GeneratedColumn<String>(
+      'iri', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _isDownloadedMeta =
+      const VerificationMeta('isDownloaded');
+  @override
+  late final GeneratedColumn<bool> isDownloaded = GeneratedColumn<bool>(
+      'is_downloaded', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_downloaded" IN (0, 1))'));
+  @override
+  List<GeneratedColumn> get $columns => [iri, isDownloaded];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'boulder_areas';
+  @override
+  VerificationContext validateIntegrity(Insertable<BoulderArea> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('iri')) {
+      context.handle(
+          _iriMeta, iri.isAcceptableOrUnknown(data['iri']!, _iriMeta));
+    } else if (isInserting) {
+      context.missing(_iriMeta);
+    }
+    if (data.containsKey('is_downloaded')) {
+      context.handle(
+          _isDownloadedMeta,
+          isDownloaded.isAcceptableOrUnknown(
+              data['is_downloaded']!, _isDownloadedMeta));
+    } else if (isInserting) {
+      context.missing(_isDownloadedMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {iri};
+  @override
+  BoulderArea map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return BoulderArea(
+      iri: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}iri'])!,
+      isDownloaded: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_downloaded'])!,
+    );
+  }
+
+  @override
+  $BoulderAreasTable createAlias(String alias) {
+    return $BoulderAreasTable(attachedDatabase, alias);
+  }
+}
+
+class BoulderArea extends DataClass implements Insertable<BoulderArea> {
+  final String iri;
+  final bool isDownloaded;
+  const BoulderArea({required this.iri, required this.isDownloaded});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['iri'] = Variable<String>(iri);
+    map['is_downloaded'] = Variable<bool>(isDownloaded);
+    return map;
+  }
+
+  BoulderAreasCompanion toCompanion(bool nullToAbsent) {
+    return BoulderAreasCompanion(
+      iri: Value(iri),
+      isDownloaded: Value(isDownloaded),
+    );
+  }
+
+  factory BoulderArea.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BoulderArea(
+      iri: serializer.fromJson<String>(json['iri']),
+      isDownloaded: serializer.fromJson<bool>(json['isDownloaded']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'iri': serializer.toJson<String>(iri),
+      'isDownloaded': serializer.toJson<bool>(isDownloaded),
+    };
+  }
+
+  BoulderArea copyWith({String? iri, bool? isDownloaded}) => BoulderArea(
+        iri: iri ?? this.iri,
+        isDownloaded: isDownloaded ?? this.isDownloaded,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('BoulderArea(')
+          ..write('iri: $iri, ')
+          ..write('isDownloaded: $isDownloaded')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(iri, isDownloaded);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BoulderArea &&
+          other.iri == this.iri &&
+          other.isDownloaded == this.isDownloaded);
+}
+
+class BoulderAreasCompanion extends UpdateCompanion<BoulderArea> {
+  final Value<String> iri;
+  final Value<bool> isDownloaded;
+  final Value<int> rowid;
+  const BoulderAreasCompanion({
+    this.iri = const Value.absent(),
+    this.isDownloaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  BoulderAreasCompanion.insert({
+    required String iri,
+    required bool isDownloaded,
+    this.rowid = const Value.absent(),
+  })  : iri = Value(iri),
+        isDownloaded = Value(isDownloaded);
+  static Insertable<BoulderArea> custom({
+    Expression<String>? iri,
+    Expression<bool>? isDownloaded,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (iri != null) 'iri': iri,
+      if (isDownloaded != null) 'is_downloaded': isDownloaded,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  BoulderAreasCompanion copyWith(
+      {Value<String>? iri, Value<bool>? isDownloaded, Value<int>? rowid}) {
+    return BoulderAreasCompanion(
+      iri: iri ?? this.iri,
+      isDownloaded: isDownloaded ?? this.isDownloaded,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (iri.present) {
+      map['iri'] = Variable<String>(iri.value);
+    }
+    if (isDownloaded.present) {
+      map['is_downloaded'] = Variable<bool>(isDownloaded.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BoulderAreasCompanion(')
+          ..write('iri: $iri, ')
+          ..write('isDownloaded: $isDownloaded, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $RequestsTable requests = $RequestsTable(this);
+  late final $BoulderAreasTable boulderAreas = $BoulderAreasTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [requests];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [requests, boulderAreas];
 }

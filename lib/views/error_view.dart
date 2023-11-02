@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 class ErrorView extends StatelessWidget {
   const ErrorView({
-    required this.onTryAgain,
+    this.onTryAgain,
     super.key,
   });
-  final FutureOr<void> Function() onTryAgain;
+  final FutureOr<void> Function()? onTryAgain;
 
   @override
   Widget build(BuildContext context) {
