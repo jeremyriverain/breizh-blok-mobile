@@ -16,9 +16,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class BoulderAreaDetailsView extends StatefulWidget {
   const BoulderAreaDetailsView({
     required this.id,
+    this.offlineFirst = false,
     super.key,
   });
   final String id;
+  final bool offlineFirst;
 
   @override
   State<BoulderAreaDetailsView> createState() => _BoulderAreaDetailsViewState();

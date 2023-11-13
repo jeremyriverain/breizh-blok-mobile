@@ -31,7 +31,10 @@ class BoulderMarkerBloc extends Bloc<BoulderMarkerEvent, BoulderMarkerState> {
           ),
         };
 
-        final data = await repository.findBy(queryParams: queryParams);
+        final data = await repository.findBy(
+          queryParams: queryParams,
+          offlineFirst: event.offlineFirst,
+        );
         emit(
           state.copyWith(
             markers: data,
@@ -61,10 +64,12 @@ class BoulderMarkerRequested extends BoulderMarkerEvent {
   BoulderMarkerRequested({
     required this.filterState,
     required this.orderQueryParam,
+    this.offlineFirst = false,
   });
 
   final BoulderFilterState filterState;
   final OrderQueryParam orderQueryParam;
+  final bool offlineFirst;
 }
 
 class BoulderMarkerState extends Equatable {

@@ -138,4 +138,117 @@ void main() {
       throwsA(const TypeMatcher<HttpException>()),
     );
   });
+
+  test('stored request are returned first if offline first strategy is enabled',
+      () async {
+    final mockClient = MockClient((request) async {
+      return http.Response(
+        json.encode({
+          'bar': request.url.path,
+        }),
+        200,
+        request: request,
+        headers: {'content-type': 'application/json'},
+      );
+    });
+
+    final database = AppDatabase(NativeDatabase.memory());
+    final httpClient = AppHttpClient(
+      database: database,
+      httpClient: mockClient,
+    );
+
+    await database.into(database.requests).insert(
+          const Request(
+            requestPath: '/foo',
+            responseBody: '{"from":"database"}',
+          ),
+        );
+
+    // the response is returned from the database
+    expect(
+      jsonDecode(
+        await httpClient.get(
+          Uri.http('example.com', '/foo'),
+          offlineFirst: true,
+        ),
+      ),
+      {'from': 'database'},
+    );
+
+    await pumpEventQueue(times: 1);
+
+    // the response from the network is fetched and persisted
+    final request = await (database.select(database.requests)
+          ..where((tbl) => tbl.requestPath.equals('/foo')))
+        .getSingle();
+
+    expect(jsonDecode(request.responseBody), {'bar': '/foo'});
+  });
+
+  test('''
+stored request are returned 
+even if the attempt to persist the response from the network fails''',
+      () async {
+    final mockClient = MockClient((request) async {
+      throw http.ClientException('client exception');
+    });
+
+    final database = AppDatabase(NativeDatabase.memory());
+    final httpClient = AppHttpClient(
+      database: database,
+      httpClient: mockClient,
+    );
+
+    await database.into(database.requests).insert(
+          const Request(
+            requestPath: '/foo',
+            responseBody: '{"from":"database"}',
+          ),
+        );
+
+    // the response is returned from the database
+    expect(
+      jsonDecode(
+        await httpClient.get(
+          Uri.http('example.com', '/foo'),
+          offlineFirst: true,
+        ),
+      ),
+      {'from': 'database'},
+    );
+  });
+
+  test('network call is made if offline first enabled but no matching request',
+      () async {
+    final mockClient = MockClient((request) async {
+      return http.Response(
+        json.encode({
+          'bar': request.url.path,
+        }),
+        200,
+        request: request,
+        headers: {'content-type': 'application/json'},
+      );
+    });
+
+    final database = AppDatabase(NativeDatabase.memory());
+    final httpClient = AppHttpClient(
+      database: database,
+      httpClient: mockClient,
+    );
+
+    final storedRequests = await database.select(database.requests).get();
+    expect(storedRequests.length, equals(0));
+
+    expect(
+      jsonDecode(
+        await httpClient.get(
+          Uri.http('example.com', '/foo'),
+          offlineFirst: true,
+        ),
+      ),
+      {'bar': '/foo'},
+    );
+  });
 }

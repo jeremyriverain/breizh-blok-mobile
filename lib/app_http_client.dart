@@ -17,10 +17,12 @@ class AppHttpClient {
     Uri uri, {
     Map<String, String>? headers,
     Duration timeout = const Duration(seconds: 7),
+    bool offlineFirst = false,
   }) async {
     final requestPath =
         '${uri.path}${uri.query.isEmpty ? '' : "?${uri.query}"}';
-    try {
+
+    Future<http.Response> persistentFetch() async {
       final response = await httpClient
           .get(
             uri,
@@ -37,7 +39,24 @@ class AppHttpClient {
             ),
           ),
         );
+      }
 
+      return response;
+    }
+
+    try {
+      if (offlineFirst) {
+        final storedRequest = await database.requestById(requestPath);
+
+        if (storedRequest != null) {
+          persistentFetch().ignore();
+
+          return storedRequest.responseBody;
+        }
+      }
+      final response = await persistentFetch();
+
+      if (response.statusCode == 200) {
         return response.body;
       }
 

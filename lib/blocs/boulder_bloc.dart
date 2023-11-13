@@ -21,6 +21,7 @@ class BoulderBloc
           filterState: event.filterState,
           orderQueryParam: event.orderQueryParam,
           grades: event.grades,
+          offlineFirst: event.offlineFirst,
         );
       },
     );
@@ -49,6 +50,7 @@ class BoulderBloc
     required OrderQueryParam orderQueryParam,
     required Set<Grade> grades,
     Map<String, List<String>>? extraQueryParams,
+    bool offlineFirst = false,
   }) async {
     final queryParams = <String, List<String>>{
       'page': [
@@ -65,6 +67,7 @@ class BoulderBloc
     try {
       final data = await repository.findBy(
         queryParams: queryParams,
+        offlineFirst: offlineFirst,
       );
       emit(
         Response(
@@ -89,11 +92,13 @@ class BoulderListViewRequested extends BoulderEvent {
     required this.filterState,
     required this.orderQueryParam,
     required this.grades,
+    this.offlineFirst = false,
   });
   final int page;
   final BoulderFilterState filterState;
   final OrderQueryParam orderQueryParam;
   final Set<Grade> grades;
+  final bool offlineFirst;
 }
 
 class BoulderMapViewRequested extends BoulderEvent {

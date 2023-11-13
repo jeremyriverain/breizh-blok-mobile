@@ -33,6 +33,7 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
   @override
   Future<CollectionItems<Boulder>> findBy({
     Map<String, List<String>>? queryParams,
+    bool offlineFirst = false,
   }) async {
     final query = QueryConstructor.stringify(queryParams: queryParams);
     final response = await httpClient.get(
@@ -42,6 +43,7 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
         path: '/boulders',
         query: query,
       ),
+      offlineFirst: offlineFirst,
     );
 
     return compute(parseBoulders, response);

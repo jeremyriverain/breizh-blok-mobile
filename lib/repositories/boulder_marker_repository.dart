@@ -13,6 +13,7 @@ class BoulderMarkerRepository {
 
   Future<List<BoulderMarker>> findBy({
     Map<String, List<String>>? queryParams,
+    bool offlineFirst = false,
   }) async {
     final query = QueryConstructor.stringify(queryParams: queryParams);
 
@@ -25,6 +26,7 @@ class BoulderMarkerRepository {
       ),
       headers: {'Accept': 'application/json'},
       timeout: const Duration(seconds: 10),
+      offlineFirst: offlineFirst,
     );
 
     final json = jsonDecode(response);

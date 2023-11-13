@@ -8,9 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderDetailsView extends StatefulWidget {
-  const BoulderDetailsView({required this.id, super.key});
+  const BoulderDetailsView({
+    required this.id,
+    this.offlineFirst = false,
+    super.key,
+  });
 
   final String id;
+  final bool offlineFirst;
 
   @override
   State<BoulderDetailsView> createState() => _BoulderDetailsViewState();

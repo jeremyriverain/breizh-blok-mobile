@@ -49,7 +49,7 @@ Il est possible de télécharger des secteurs
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
                       context.pushNamed(
-                        'boulder_area_details',
+                        'downloaded_boulder_area_details',
                         pathParameters: {
                           'id': data[index]
                               .boulderAreaIri

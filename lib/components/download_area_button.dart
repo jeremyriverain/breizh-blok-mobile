@@ -34,11 +34,9 @@ class DownloadAreaButton extends StatelessWidget {
           final data = snapshot.data;
           final valueCheckbox = data != null;
 
-          final label = data == null
-              ? 'TÉLÉCHARGER'
-              : data.isDownloaded
-                  ? 'TÉLÉCHARGÉ'
-                  : 'TÉLÉCHARGEMENT EN COURS';
+          final label = data != null && data.isDownloaded
+              ? 'TÉLÉCHARGER ✅'
+              : 'TÉLÉCHARGER';
           return Row(
             children: [
               Transform.scale(

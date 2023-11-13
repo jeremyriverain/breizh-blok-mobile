@@ -293,6 +293,7 @@ class MockAppHttpClient extends _i1.Mock implements _i7.AppHttpClient {
     Uri? uri, {
     Map<String, String>? headers,
     Duration? timeout = const Duration(seconds: 7),
+    bool? offlineFirst = false,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -301,6 +302,7 @@ class MockAppHttpClient extends _i1.Mock implements _i7.AppHttpClient {
           {
             #headers: headers,
             #timeout: timeout,
+            #offlineFirst: offlineFirst,
           },
         ),
         returnValue: _i6.Future<String>.value(''),

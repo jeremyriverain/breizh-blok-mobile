@@ -71,7 +71,7 @@ void main() {
     await tester.pump(Duration.zero);
 
     expect(
-      find.text('TÉLÉCHARGEMENT EN COURS'),
+      find.byType(LinearProgressIndicator),
       findsOneWidget,
     );
 
@@ -84,6 +84,6 @@ void main() {
 
     await tester.pump(Duration.zero);
 
-    expect(find.text('TÉLÉCHARGÉ'), findsOneWidget);
+    expect(find.text('TÉLÉCHARGER ✅'), findsOneWidget);
   });
 }

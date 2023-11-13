@@ -930,7 +930,7 @@ by clicking on the "scroll to to the top" button''',
       ),
     );
 
-    expect(find.text('TÉLÉCHARGÉ'), findsOneWidget);
+    expect(find.text('TÉLÉCHARGER ✅'), findsOneWidget);
 
     final navigator = (tester.state(find.byType(Navigator)) as NavigatorState)
       ..pop();

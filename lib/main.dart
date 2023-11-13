@@ -183,10 +183,30 @@ class MyApp extends StatelessWidget {
           },
         ),
         GoRoute(
+          path: '/downloads/boulders/:bid',
+          name: 'downloaded_boulder_details',
+          builder: (context, state) {
+            return BoulderDetailsView(
+              id: state.pathParameters['bid']!,
+              offlineFirst: true,
+            );
+          },
+        ),
+        GoRoute(
           path: '/boulders-area/:id',
           name: 'boulder_area_details',
           builder: (context, state) {
             return BoulderAreaDetailsView(id: state.pathParameters['id']!);
+          },
+        ),
+        GoRoute(
+          path: '/downloads/boulders-area/:id',
+          name: 'downloaded_boulder_area_details',
+          builder: (context, state) {
+            return BoulderAreaDetailsView(
+              id: state.pathParameters['id']!,
+              offlineFirst: true,
+            );
           },
         ),
         GoRoute(
