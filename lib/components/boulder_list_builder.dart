@@ -47,7 +47,9 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
 
   @override
   void initState() {
-    _bloc = BoulderBloc(repository: context.read<BoulderRepository>());
+    _bloc = BoulderBloc(
+      repository: context.read<BoulderRepository>(),
+    );
 
     _pagingController.addPageRequestListener((pageKey) {
       _bloc.add(widget.onPageRequested(pageKey));

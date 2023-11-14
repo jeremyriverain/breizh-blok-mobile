@@ -16,12 +16,16 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
   final AppHttpClient httpClient;
 
   @override
-  Future<Boulder> find(String id) async {
+  Future<Boulder> find(
+    String id, {
+    bool offlineFirst = false,
+  }) async {
     final response = await httpClient.get(
       Uri.https(
         const String.fromEnvironment('API_HOST'),
         '/boulders/$id',
       ),
+      offlineFirst: offlineFirst,
     );
 
     final json = jsonDecode(response);

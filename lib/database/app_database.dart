@@ -1,43 +1,43 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/database/tables/boulder_areas.dart';
-import 'package:breizh_blok_mobile/database/tables/requests.dart';
+import 'package:breizh_blok_mobile/database/tables/db_boulder_areas.dart';
+import 'package:breizh_blok_mobile/database/tables/db_requests.dart';
 import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart';
 import 'package:drift/drift.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [Requests, BoulderAreas])
+@DriftDatabase(tables: [DbRequests, DbBoulderAreas])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
   int get schemaVersion => 1;
 
-  Future<int> createOrUpdateRequest(Request request) {
-    return into(requests).insertOnConflictUpdate(request);
+  Future<int> createOrUpdateRequest(DbRequest request) {
+    return into(dbRequests).insertOnConflictUpdate(request);
   }
 
-  Future<Request?> requestById(String id) {
-    return (select(requests)..where((t) => t.requestPath.equals(id)))
+  Future<DbRequest?> requestById(String id) {
+    return (select(dbRequests)..where((t) => t.requestPath.equals(id)))
         .getSingleOrNull();
   }
 
-  Future<int> createOrUpdateBoulderArea(BoulderArea boulderArea) {
-    return into(boulderAreas).insertOnConflictUpdate(boulderArea);
+  Future<int> createOrUpdateBoulderArea(DbBoulderArea boulderArea) {
+    return into(dbBoulderAreas).insertOnConflictUpdate(boulderArea);
   }
 
   Future<List<DownloadedBoulderArea>> allDownloads() async {
-    final rows = await select(boulderAreas).join([
+    final rows = await select(dbBoulderAreas).join([
       innerJoin(
-        requests,
-        requests.requestPath.equalsExp(boulderAreas.iri),
+        dbRequests,
+        dbRequests.requestPath.equalsExp(dbBoulderAreas.iri),
       ),
     ]).get();
 
     return rows.where((row) {
-      final request = row.readTable(requests);
-      final boulderArea = row.readTable(boulderAreas);
+      final request = row.readTable(dbRequests);
+      final boulderArea = row.readTable(dbBoulderAreas);
       if (!boulderArea.isDownloaded) {
         return false;
       }
@@ -58,20 +58,20 @@ class AppDatabase extends _$AppDatabase {
         return false;
       }
     }).map((row) {
-      final json = jsonDecode(row.readTable(requests).responseBody)
+      final json = jsonDecode(row.readTable(dbRequests).responseBody)
           as Map<String, dynamic>;
 
       return DownloadedBoulderArea(
         boulderAreaName: json['name'] as String,
-        boulderAreaIri: row.readTable(boulderAreas).iri,
+        boulderAreaIri: row.readTable(dbBoulderAreas).iri,
         // ignore: avoid_dynamic_calls
         municipalityName: json['municipality']['name'] as String,
       );
     }).toList();
   }
 
-  Stream<BoulderArea?> watchDownload(String iri) {
-    return (select(boulderAreas)..where((t) => t.iri.equals(iri)))
+  Stream<DbBoulderArea?> watchDownload(String iri) {
+    return (select(dbBoulderAreas)..where((t) => t.iri.equals(iri)))
         .watchSingleOrNull();
   }
 }

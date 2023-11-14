@@ -16,7 +16,7 @@ import './download_area_button_test.mocks.dart';
 void main() {
   testWidgets('displays status download information',
       (WidgetTester tester) async {
-    final streamController = StreamController<BoulderArea?>();
+    final streamController = StreamController<DbBoulderArea?>();
 
     final database = MockAppDatabase();
     final downloadAreaService = DownloadAreaService(
@@ -62,7 +62,7 @@ void main() {
     });
 
     streamController.add(
-      const BoulderArea(
+      const DbBoulderArea(
         iri: '/foo',
         isDownloaded: false,
       ),
@@ -76,7 +76,7 @@ void main() {
     );
 
     streamController.add(
-      const BoulderArea(
+      const DbBoulderArea(
         iri: '/foo',
         isDownloaded: true,
       ),

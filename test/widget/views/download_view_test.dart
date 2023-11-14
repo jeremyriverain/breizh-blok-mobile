@@ -32,11 +32,11 @@ void main() {
 
     await Future.wait(
       [
-        database.into(database.boulderAreas).insert(
-              const BoulderArea(iri: '/foo', isDownloaded: true),
+        database.into(database.dbBoulderAreas).insert(
+              const DbBoulderArea(iri: '/foo', isDownloaded: true),
             ),
-        database.into(database.requests).insert(
-              const Request(
+        database.into(database.dbRequests).insert(
+              const DbRequest(
                 requestPath: '/foo',
                 responseBody: '''
 {

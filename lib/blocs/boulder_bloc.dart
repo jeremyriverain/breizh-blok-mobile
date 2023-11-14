@@ -37,6 +37,7 @@ class BoulderBloc
           filterState: event.filterState,
           orderQueryParam: event.orderQueryParam,
           grades: {},
+          offlineFirst: event.offlineFirst,
         );
       },
     );
@@ -107,9 +108,11 @@ class BoulderMapViewRequested extends BoulderEvent {
     required this.boulderIds,
     required this.filterState,
     required this.orderQueryParam,
+    this.offlineFirst = false,
   });
   final int page;
   final List<String> boulderIds;
   final BoulderFilterState filterState;
   final OrderQueryParam orderQueryParam;
+  final bool offlineFirst;
 }

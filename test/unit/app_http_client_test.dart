@@ -30,7 +30,7 @@ void main() {
       httpClient: mockClient,
     );
 
-    final storedRequests = await database.select(database.requests).get();
+    final storedRequests = await database.select(database.dbRequests).get();
     expect(storedRequests.length, equals(0));
 
     expect(
@@ -42,7 +42,7 @@ void main() {
       {'foo': '/foo'},
     );
 
-    final firstStoredRequest = await (database.select(database.requests)
+    final firstStoredRequest = await (database.select(database.dbRequests)
           ..where((tbl) => tbl.requestPath.equals('/foo')))
         .getSingle();
 
@@ -57,7 +57,7 @@ void main() {
       {'foo': '/bar'},
     );
 
-    final secondStoredRequest = await (database.select(database.requests)
+    final secondStoredRequest = await (database.select(database.dbRequests)
           ..where((tbl) => tbl.requestPath.equals('/bar?foo=bar')))
         .getSingle();
 
@@ -80,8 +80,8 @@ void main() {
     );
 
     await database
-        .into(database.requests)
-        .insert(const Request(requestPath: '/foo', responseBody: 'bar'));
+        .into(database.dbRequests)
+        .insert(const DbRequest(requestPath: '/foo', responseBody: 'bar'));
 
     expect(
       await httpClient.get(
@@ -104,8 +104,8 @@ void main() {
     );
 
     await database
-        .into(database.requests)
-        .insert(const Request(requestPath: '/foo', responseBody: 'bar'));
+        .into(database.dbRequests)
+        .insert(const DbRequest(requestPath: '/foo', responseBody: 'bar'));
 
     await expectLater(
       httpClient.get(
@@ -128,8 +128,8 @@ void main() {
     );
 
     await database
-        .into(database.requests)
-        .insert(const Request(requestPath: '/foo', responseBody: 'bar'));
+        .into(database.dbRequests)
+        .insert(const DbRequest(requestPath: '/foo', responseBody: 'bar'));
 
     await expectLater(
       httpClient.get(
@@ -158,8 +158,8 @@ void main() {
       httpClient: mockClient,
     );
 
-    await database.into(database.requests).insert(
-          const Request(
+    await database.into(database.dbRequests).insert(
+          const DbRequest(
             requestPath: '/foo',
             responseBody: '{"from":"database"}',
           ),
@@ -179,7 +179,7 @@ void main() {
     await pumpEventQueue(times: 1);
 
     // the response from the network is fetched and persisted
-    final request = await (database.select(database.requests)
+    final request = await (database.select(database.dbRequests)
           ..where((tbl) => tbl.requestPath.equals('/foo')))
         .getSingle();
 
@@ -200,8 +200,8 @@ even if the attempt to persist the response from the network fails''',
       httpClient: mockClient,
     );
 
-    await database.into(database.requests).insert(
-          const Request(
+    await database.into(database.dbRequests).insert(
+          const DbRequest(
             requestPath: '/foo',
             responseBody: '{"from":"database"}',
           ),
@@ -238,7 +238,7 @@ even if the attempt to persist the response from the network fails''',
       httpClient: mockClient,
     );
 
-    final storedRequests = await database.select(database.requests).get();
+    final storedRequests = await database.select(database.dbRequests).get();
     expect(storedRequests.length, equals(0));
 
     expect(

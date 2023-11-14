@@ -20,13 +20,13 @@ class DownloadAreaButton extends StatelessWidget {
     }
   }
 
-  Stream<BoulderArea?> watchDownload(BuildContext context, String iri) {
+  Stream<DbBoulderArea?> watchDownload(BuildContext context, String iri) {
     return context.read<AppDatabase>().watchDownload(iri);
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<BoulderArea?>(
+    return StreamBuilder<DbBoulderArea?>(
       stream: watchDownload(context, boulderAreaIri),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active ||

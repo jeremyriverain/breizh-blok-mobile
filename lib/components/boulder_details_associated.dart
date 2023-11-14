@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/components/boulder_details_associated_item.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,7 @@ class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
         'pagination': ['false'],
         'rock.id': [widget.boulder.rock.id],
       },
+      offlineFirst: context.read<RequestStrategy>().offlineFirst,
     );
   }
 

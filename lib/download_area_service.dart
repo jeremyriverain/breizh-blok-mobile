@@ -11,14 +11,14 @@ class DownloadAreaService {
   final AppHttpClient httpClient;
 
   Future<void> removeDownload(String iri) async {
-    await (database.delete(database.boulderAreas)
+    await (database.delete(database.dbBoulderAreas)
           ..where((tbl) => tbl.iri.equals(iri)))
         .go();
   }
 
   Future<void> download(String iri) async {
-    await database.into(database.boulderAreas).insert(
-          BoulderArea(iri: iri, isDownloaded: false),
+    await database.into(database.dbBoulderAreas).insert(
+          DbBoulderArea(iri: iri, isDownloaded: false),
         );
 
     try {
@@ -35,9 +35,9 @@ class DownloadAreaService {
         ],
       );
 
-      await (database.update(database.boulderAreas)
+      await (database.update(database.dbBoulderAreas)
             ..where((tbl) => tbl.iri.equals(iri)))
-          .write(BoulderArea(iri: iri, isDownloaded: true));
+          .write(DbBoulderArea(iri: iri, isDownloaded: true));
     } catch (e) {
       //
     }

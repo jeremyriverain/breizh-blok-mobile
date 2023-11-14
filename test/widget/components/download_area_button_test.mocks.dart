@@ -45,9 +45,9 @@ class _FakeClient_1 extends _i1.SmartFake implements _i3.Client {
         );
 }
 
-class _Fake$RequestsTable_2 extends _i1.SmartFake
-    implements _i2.$RequestsTable {
-  _Fake$RequestsTable_2(
+class _Fake$DbRequestsTable_2 extends _i1.SmartFake
+    implements _i2.$DbRequestsTable {
+  _Fake$DbRequestsTable_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -56,9 +56,9 @@ class _Fake$RequestsTable_2 extends _i1.SmartFake
         );
 }
 
-class _Fake$BoulderAreasTable_3 extends _i1.SmartFake
-    implements _i2.$BoulderAreasTable {
-  _Fake$BoulderAreasTable_3(
+class _Fake$DbBoulderAreasTable_3 extends _i1.SmartFake
+    implements _i2.$DbBoulderAreasTable {
+  _Fake$DbBoulderAreasTable_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -321,29 +321,29 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
         returnValueForMissingStub: 0,
       ) as int);
   @override
-  _i2.$RequestsTable get requests => (super.noSuchMethod(
-        Invocation.getter(#requests),
-        returnValue: _Fake$RequestsTable_2(
+  _i2.$DbRequestsTable get dbRequests => (super.noSuchMethod(
+        Invocation.getter(#dbRequests),
+        returnValue: _Fake$DbRequestsTable_2(
           this,
-          Invocation.getter(#requests),
+          Invocation.getter(#dbRequests),
         ),
-        returnValueForMissingStub: _Fake$RequestsTable_2(
+        returnValueForMissingStub: _Fake$DbRequestsTable_2(
           this,
-          Invocation.getter(#requests),
+          Invocation.getter(#dbRequests),
         ),
-      ) as _i2.$RequestsTable);
+      ) as _i2.$DbRequestsTable);
   @override
-  _i2.$BoulderAreasTable get boulderAreas => (super.noSuchMethod(
-        Invocation.getter(#boulderAreas),
-        returnValue: _Fake$BoulderAreasTable_3(
+  _i2.$DbBoulderAreasTable get dbBoulderAreas => (super.noSuchMethod(
+        Invocation.getter(#dbBoulderAreas),
+        returnValue: _Fake$DbBoulderAreasTable_3(
           this,
-          Invocation.getter(#boulderAreas),
+          Invocation.getter(#dbBoulderAreas),
         ),
-        returnValueForMissingStub: _Fake$BoulderAreasTable_3(
+        returnValueForMissingStub: _Fake$DbBoulderAreasTable_3(
           this,
-          Invocation.getter(#boulderAreas),
+          Invocation.getter(#dbBoulderAreas),
         ),
-      ) as _i2.$BoulderAreasTable);
+      ) as _i2.$DbBoulderAreasTable);
   @override
   Iterable<_i4.TableInfo<_i4.Table, Object?>> get allTables =>
       (super.noSuchMethod(
@@ -466,7 +466,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
         ),
       ) as _i4.DatabaseConnectionUser);
   @override
-  _i6.Future<int> createOrUpdateRequest(_i2.Request? request) =>
+  _i6.Future<int> createOrUpdateRequest(_i2.DbRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #createOrUpdateRequest,
@@ -476,16 +476,16 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
         returnValueForMissingStub: _i6.Future<int>.value(0),
       ) as _i6.Future<int>);
   @override
-  _i6.Future<_i2.Request?> requestById(String? id) => (super.noSuchMethod(
+  _i6.Future<_i2.DbRequest?> requestById(String? id) => (super.noSuchMethod(
         Invocation.method(
           #requestById,
           [id],
         ),
-        returnValue: _i6.Future<_i2.Request?>.value(),
-        returnValueForMissingStub: _i6.Future<_i2.Request?>.value(),
-      ) as _i6.Future<_i2.Request?>);
+        returnValue: _i6.Future<_i2.DbRequest?>.value(),
+        returnValueForMissingStub: _i6.Future<_i2.DbRequest?>.value(),
+      ) as _i6.Future<_i2.DbRequest?>);
   @override
-  _i6.Future<int> createOrUpdateBoulderArea(_i2.BoulderArea? boulderArea) =>
+  _i6.Future<int> createOrUpdateBoulderArea(_i2.DbBoulderArea? boulderArea) =>
       (super.noSuchMethod(
         Invocation.method(
           #createOrUpdateBoulderArea,
@@ -508,15 +508,15 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 <_i8.DownloadedBoulderArea>[]),
       ) as _i6.Future<List<_i8.DownloadedBoulderArea>>);
   @override
-  _i6.Stream<_i2.BoulderArea?> watchDownload(String? iri) =>
+  _i6.Stream<_i2.DbBoulderArea?> watchDownload(String? iri) =>
       (super.noSuchMethod(
         Invocation.method(
           #watchDownload,
           [iri],
         ),
-        returnValue: _i6.Stream<_i2.BoulderArea?>.empty(),
-        returnValueForMissingStub: _i6.Stream<_i2.BoulderArea?>.empty(),
-      ) as _i6.Stream<_i2.BoulderArea?>);
+        returnValue: _i6.Stream<_i2.DbBoulderArea?>.empty(),
+        returnValueForMissingStub: _i6.Stream<_i2.DbBoulderArea?>.empty(),
+      ) as _i6.Stream<_i2.DbBoulderArea?>);
   @override
   _i4.Migrator createMigrator() => (super.noSuchMethod(
         Invocation.method(

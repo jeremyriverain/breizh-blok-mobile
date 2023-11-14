@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
@@ -16,11 +17,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class BoulderAreaDetailsView extends StatefulWidget {
   const BoulderAreaDetailsView({
     required this.id,
-    this.offlineFirst = false,
     super.key,
   });
   final String id;
-  final bool offlineFirst;
 
   @override
   State<BoulderAreaDetailsView> createState() => _BoulderAreaDetailsViewState();
@@ -28,7 +27,11 @@ class BoulderAreaDetailsView extends StatefulWidget {
 
 class _BoulderAreaDetailsViewState extends State<BoulderAreaDetailsView> {
   Future<BoulderArea> _findBoulderArea(BuildContext context) {
-    return context.read<BoulderAreaRepository>().find(widget.id);
+    final offlineFirst = context.read<RequestStrategy>().offlineFirst;
+    return context.read<BoulderAreaRepository>().find(
+          widget.id,
+          offlineFirst: offlineFirst,
+        );
   }
 
   @override

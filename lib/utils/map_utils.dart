@@ -80,8 +80,9 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
 }
 
 Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
-  BuildContext context,
-) {
+  BuildContext context, {
+  bool offlineFirst = false,
+}) {
   return (cluster) async {
     return Marker(
       markerId: MarkerId(cluster.getId()),
@@ -111,6 +112,7 @@ Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
                           filterState: BoulderFilterState(),
                           orderQueryParam:
                               context.read<BoulderOrderBloc>().state,
+                          offlineFirst: offlineFirst,
                         );
                       },
                       showFilterButton: false,

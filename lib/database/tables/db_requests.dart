@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-class Requests extends Table {
+class DbRequests extends Table {
   TextColumn get requestPath => text()();
   TextColumn get responseBody => text()();
 

@@ -8,6 +8,7 @@ import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/components/base_map.dart';
 import 'package:breizh_blok_mobile/components/map_loading_indicator.dart';
 import 'package:breizh_blok_mobile/models/boulder_marker.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -178,6 +179,9 @@ class _BoulderMapState extends State<BoulderMap> {
                                       orderQueryParam: context
                                           .read<BoulderOrderBloc>()
                                           .state,
+                                      offlineFirst: context
+                                          .read<RequestStrategy>()
+                                          .offlineFirst,
                                     ),
                                   );
                             },

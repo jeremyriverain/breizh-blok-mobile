@@ -17,8 +17,8 @@ void main() {
     test('returns empty list if no Request entry matches', () async {
       final database = AppDatabase(NativeDatabase.memory());
 
-      await database.into(database.boulderAreas).insert(
-            const BoulderArea(iri: '/foo', isDownloaded: true),
+      await database.into(database.dbBoulderAreas).insert(
+            const DbBoulderArea(iri: '/foo', isDownloaded: true),
           );
 
       expect(await database.allDownloads(), <DownloadedBoulderArea>[]);
@@ -27,12 +27,12 @@ void main() {
     test('returns empty list if request body is invalid', () async {
       final database = AppDatabase(NativeDatabase.memory());
 
-      await database.into(database.boulderAreas).insert(
-            const BoulderArea(iri: '/foo', isDownloaded: true),
+      await database.into(database.dbBoulderAreas).insert(
+            const DbBoulderArea(iri: '/foo', isDownloaded: true),
           );
 
-      await database.into(database.requests).insert(
-            const Request(
+      await database.into(database.dbRequests).insert(
+            const DbRequest(
               requestPath: '/foo',
               responseBody: '''
 {
@@ -48,12 +48,12 @@ void main() {
         () async {
       final database = AppDatabase(NativeDatabase.memory());
 
-      await database.into(database.boulderAreas).insert(
-            const BoulderArea(iri: '/foo', isDownloaded: true),
+      await database.into(database.dbBoulderAreas).insert(
+            const DbBoulderArea(iri: '/foo', isDownloaded: true),
           );
 
-      await database.into(database.requests).insert(
-            const Request(
+      await database.into(database.dbRequests).insert(
+            const DbRequest(
               requestPath: '/foo',
               responseBody: '',
             ),
@@ -66,12 +66,12 @@ void main() {
         () async {
       final database = AppDatabase(NativeDatabase.memory());
 
-      await database.into(database.boulderAreas).insert(
-            const BoulderArea(iri: '/foo', isDownloaded: true),
+      await database.into(database.dbBoulderAreas).insert(
+            const DbBoulderArea(iri: '/foo', isDownloaded: true),
           );
 
-      await database.into(database.requests).insert(
-            const Request(
+      await database.into(database.dbRequests).insert(
+            const DbRequest(
               requestPath: '/foo',
               responseBody: '''
 {
@@ -100,12 +100,12 @@ void main() {
         () async {
       final database = AppDatabase(NativeDatabase.memory());
 
-      await database.into(database.boulderAreas).insert(
-            const BoulderArea(iri: '/foo', isDownloaded: false),
+      await database.into(database.dbBoulderAreas).insert(
+            const DbBoulderArea(iri: '/foo', isDownloaded: false),
           );
 
-      await database.into(database.requests).insert(
-            const Request(
+      await database.into(database.dbRequests).insert(
+            const DbRequest(
               requestPath: '/foo',
               responseBody: '''
 {

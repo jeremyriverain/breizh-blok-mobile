@@ -13,6 +13,7 @@ import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
@@ -171,24 +172,32 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/boulders',
           name: 'boulder_list',
-          builder: (context, state) => HomeView(
-            database: database,
+          builder: (context, state) => RepositoryProvider(
+            create: (context) => RequestStrategy(),
+            child: HomeView(
+              database: database,
+            ),
           ),
         ),
         GoRoute(
           path: '/boulders/:bid',
           name: 'boulder_details',
           builder: (context, state) {
-            return BoulderDetailsView(id: state.pathParameters['bid']!);
+            return RepositoryProvider(
+              create: (context) => RequestStrategy(),
+              child: BoulderDetailsView(id: state.pathParameters['bid']!),
+            );
           },
         ),
         GoRoute(
           path: '/downloads/boulders/:bid',
           name: 'downloaded_boulder_details',
           builder: (context, state) {
-            return BoulderDetailsView(
-              id: state.pathParameters['bid']!,
-              offlineFirst: true,
+            return RepositoryProvider<RequestStrategy>(
+              create: (context) => RequestStrategy(offlineFirst: true),
+              child: BoulderDetailsView(
+                id: state.pathParameters['bid']!,
+              ),
             );
           },
         ),
@@ -196,16 +205,21 @@ class MyApp extends StatelessWidget {
           path: '/boulders-area/:id',
           name: 'boulder_area_details',
           builder: (context, state) {
-            return BoulderAreaDetailsView(id: state.pathParameters['id']!);
+            return RepositoryProvider(
+              create: (context) => RequestStrategy(),
+              child: BoulderAreaDetailsView(id: state.pathParameters['id']!),
+            );
           },
         ),
         GoRoute(
           path: '/downloads/boulders-area/:id',
           name: 'downloaded_boulder_area_details',
           builder: (context, state) {
-            return BoulderAreaDetailsView(
-              id: state.pathParameters['id']!,
-              offlineFirst: true,
+            return RepositoryProvider<RequestStrategy>(
+              create: (context) => RequestStrategy(offlineFirst: true),
+              child: BoulderAreaDetailsView(
+                id: state.pathParameters['id']!,
+              ),
             );
           },
         ),
@@ -213,7 +227,10 @@ class MyApp extends StatelessWidget {
           path: '/municipalities/:id',
           name: 'municipality_details',
           builder: (context, state) {
-            return MunicipalityDetailsView(id: state.pathParameters['id']!);
+            return RepositoryProvider(
+              create: (context) => RequestStrategy(),
+              child: MunicipalityDetailsView(id: state.pathParameters['id']!),
+            );
           },
         ),
       ],

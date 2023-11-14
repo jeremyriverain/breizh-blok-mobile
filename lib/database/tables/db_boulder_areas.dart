@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-class BoulderAreas extends Table {
+class DbBoulderAreas extends Table {
   TextColumn get iri => text()();
   BoolColumn get isDownloaded => boolean()();
 

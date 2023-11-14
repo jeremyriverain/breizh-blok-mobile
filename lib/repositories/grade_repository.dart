@@ -26,6 +26,7 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
         path: 'grades',
         query: query,
       ),
+      offlineFirst: true,
     );
     return compute(_parseGrades, response);
   }

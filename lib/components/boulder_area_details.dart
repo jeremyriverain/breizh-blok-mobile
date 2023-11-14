@@ -14,6 +14,7 @@ import 'package:breizh_blok_mobile/components/download_area_button.dart';
 import 'package:breizh_blok_mobile/components/map_error_message.dart';
 import 'package:breizh_blok_mobile/components/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,6 +54,7 @@ class BoulderAreaDetails extends StatelessWidget {
           BoulderMarkerRequested(
             filterState: context.read<BoulderFilterBloc>().state,
             orderQueryParam: context.read<BoulderOrderBloc>().state,
+            offlineFirst: context.read<RequestStrategy>().offlineFirst,
           ),
         );
 
@@ -78,6 +80,7 @@ class BoulderAreaDetails extends StatelessWidget {
             filterState: context.read<BoulderFilterBloc>().state,
             orderQueryParam: context.read<BoulderOrderBloc>().state,
             grades: context.read<BoulderFilterGradeBloc>().state.grades,
+            offlineFirst: context.read<RequestStrategy>().offlineFirst,
           );
         },
         bottomHeaderWidget: DownloadAreaButton(
@@ -127,6 +130,7 @@ class BoulderAreaDetails extends StatelessWidget {
                   initialZoom: context.watch<MapBloc>().state.mapZoom,
                   boulderMarkerBuilder: markerBuilderFactory(
                     context,
+                    offlineFirst: context.read<RequestStrategy>().offlineFirst,
                   ),
                   markers: parkingLocation == null
                       ? {}

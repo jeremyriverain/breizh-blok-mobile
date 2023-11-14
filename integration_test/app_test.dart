@@ -842,12 +842,12 @@ by clicking on the "scroll to to the top" button''',
   });
 
   testWidgets('requests are persisted to a local database', (tester) async {
-    final storedRequests = await database.select(database.requests).get();
+    final storedRequests = await database.select(database.dbRequests).get();
     expect(storedRequests.length, 0);
 
     await runApplication(tester: tester);
 
-    final bouldersRequest = await (database.select(database.requests)
+    final bouldersRequest = await (database.select(database.dbRequests)
           ..where(
             (tbl) => tbl.requestPath.like('/boulders?page=1%'),
           ))
@@ -859,7 +859,7 @@ by clicking on the "scroll to to the top" button''',
       contains('/boulders/'),
     );
 
-    final boulderRequest = await (database.select(database.requests)
+    final boulderRequest = await (database.select(database.dbRequests)
           ..where(
             (tbl) => tbl.requestPath.equals(boulders[0].iri),
           ))
@@ -874,7 +874,7 @@ by clicking on the "scroll to to the top" button''',
     await tester.pumpAndSettle();
 
     final boulderRequestAfterShowingDetails =
-        await (database.select(database.requests)
+        await (database.select(database.dbRequests)
               ..where(
                 (tbl) => tbl.requestPath.equals(boulderReference.iri),
               ))
@@ -891,7 +891,7 @@ by clicking on the "scroll to to the top" button''',
   });
 
   testWidgets('i can download boulder areas', (WidgetTester tester) async {
-    var downloads = await database.select(database.boulderAreas).get();
+    var downloads = await database.select(database.dbBoulderAreas).get();
     expect(downloads.length, 0);
     await runApplication(tester: tester);
     await tester.tap(find.text('Téléchargements').first);
@@ -963,7 +963,7 @@ by clicking on the "scroll to to the top" button''',
       findsOneWidget,
     );
 
-    downloads = await (database.select(database.boulderAreas)
+    downloads = await (database.select(database.dbBoulderAreas)
           ..where(
             (tbl) => tbl.iri.equals(boulderAreaReference.iri),
           ))
