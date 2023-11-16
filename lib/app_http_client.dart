@@ -33,7 +33,7 @@ class AppHttpClient {
       if (response.statusCode == 200) {
         unawaited(
           database.createOrUpdateRequest(
-            Request(
+            DbRequest(
               requestPath: requestPath,
               responseBody: response.body,
             ),
