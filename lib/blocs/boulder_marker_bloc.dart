@@ -24,7 +24,7 @@ class BoulderMarkerBloc extends Bloc<BoulderMarkerEvent, BoulderMarkerState> {
         final Map<String, List<String>> queryParams = {
           'pagination': ['false'],
           'groups[]': ['Boulder:map'],
-          ...await BoulderListQueryParamsBuilder.compute(
+          ...BoulderListQueryParamsBuilder.compute(
             filterState: event.filterState,
             orderQueryParam: event.orderQueryParam,
             grades: {},

@@ -57,7 +57,7 @@ class BoulderBloc
       'page': [
         page.toString(),
       ],
-      ...await BoulderListQueryParamsBuilder.compute(
+      ...BoulderListQueryParamsBuilder.compute(
         filterState: filterState,
         orderQueryParam: orderQueryParam,
         grades: grades,

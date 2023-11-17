@@ -3,11 +3,11 @@ import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
 
 class BoulderListQueryParamsBuilder {
-  static Future<Map<String, List<String>>> compute({
+  static Map<String, List<String>> compute({
     required Set<Grade> grades,
     required OrderQueryParam orderQueryParam,
     required BoulderFilterState filterState,
-  }) async {
+  }) {
     final queryParams = <String, List<String>>{};
     if (filterState.term != null) {
       queryParams['term'] = [filterState.term!];

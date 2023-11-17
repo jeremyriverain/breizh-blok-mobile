@@ -20,7 +20,6 @@ class AppHttpClient {
     bool offlineFirst = false,
   }) async {
     final requestPath = normalizeRequestPath(uri);
-    print(requestPath);
 
     Future<http.Response> persistentFetch() async {
       final response = await httpClient

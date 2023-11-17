@@ -1,5 +1,9 @@
 import 'package:breizh_blok_mobile/app_http_client.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
+import 'package:breizh_blok_mobile/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/utils/boulder_list_query_params_builder.dart';
 
 class DownloadAreaService {
   DownloadAreaService({
@@ -16,30 +20,53 @@ class DownloadAreaService {
         .go();
   }
 
-  Future<void> download(String iri) async {
+  Future<void> download(BoulderArea boulderArea) async {
     await database.into(database.dbBoulderAreas).insert(
-          DbBoulderArea(iri: iri, isDownloaded: false),
+          DbBoulderArea(iri: boulderArea.iri, isDownloaded: false),
         );
 
     try {
       await Future.wait(
         [
-          // ignore: inference_failure_on_instance_creation
-          Future.delayed(const Duration(seconds: 3)),
-          httpClient.get(
-            Uri.https(
-              const String.fromEnvironment('API_HOST'),
-              iri,
-            ),
-          ),
+          _fetchAllBoulders(boulderArea),
+          _fetchBoulderAreaDetails(boulderArea),
         ],
       );
 
       await (database.update(database.dbBoulderAreas)
-            ..where((tbl) => tbl.iri.equals(iri)))
-          .write(DbBoulderArea(iri: iri, isDownloaded: true));
+            ..where((tbl) => tbl.iri.equals(boulderArea.iri)))
+          .write(DbBoulderArea(iri: boulderArea.iri, isDownloaded: true));
     } catch (e) {
       //
     }
+  }
+
+  Future<String> _fetchAllBoulders(BoulderArea boulderArea) {
+    return httpClient.get(
+      Uri.https(
+        const String.fromEnvironment('API_HOST'),
+        '/boulders',
+        {
+          ...BoulderListQueryParamsBuilder.compute(
+            grades: {},
+            orderQueryParam:
+                const OrderQueryParam(name: 'id', direction: 'desc'),
+            filterState: BoulderFilterState(
+              boulderAreas: {boulderArea},
+            ),
+          ),
+          ...{'pagination': 'false'},
+        },
+      ),
+    );
+  }
+
+  Future<String> _fetchBoulderAreaDetails(BoulderArea boulderArea) {
+    return httpClient.get(
+      Uri.https(
+        const String.fromEnvironment('API_HOST'),
+        boulderArea.iri,
+      ),
+    );
   }
 }

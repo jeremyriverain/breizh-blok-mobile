@@ -1,22 +1,23 @@
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
+import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DownloadAreaButton extends StatelessWidget {
   const DownloadAreaButton({
-    required this.boulderAreaIri,
+    required this.boulderArea,
     super.key,
   });
 
-  final String boulderAreaIri;
+  final BoulderArea boulderArea;
 
   void _onChanged(BuildContext context, bool value) {
     switch (value) {
       case false:
-        context.read<DownloadAreaService>().removeDownload(boulderAreaIri);
+        context.read<DownloadAreaService>().removeDownload(boulderArea.iri);
       case true:
-        context.read<DownloadAreaService>().download(boulderAreaIri);
+        context.read<DownloadAreaService>().download(boulderArea);
     }
   }
 
@@ -27,7 +28,7 @@ class DownloadAreaButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DbBoulderArea?>(
-      stream: watchDownload(context, boulderAreaIri),
+      stream: watchDownload(context, boulderArea.iri),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active ||
             snapshot.connectionState == ConnectionState.done) {

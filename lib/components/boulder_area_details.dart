@@ -84,7 +84,7 @@ class BoulderAreaDetails extends StatelessWidget {
           );
         },
         bottomHeaderWidget: DownloadAreaButton(
-          boulderAreaIri: boulderArea.iri,
+          boulderArea: boulderArea,
         ),
       ),
       Column(
