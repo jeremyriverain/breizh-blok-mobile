@@ -40,7 +40,7 @@ void main() {
     ),
   );
 
-  test('download', () async {
+  test('download then remove download', () async {
     final downloadAreaService = DownloadAreaService(
       database: database,
       httpClient: httpClient,
@@ -54,6 +54,7 @@ void main() {
         await database.select(database.dbBoulderAreas).get();
     expect(storedBoulderAreasBeforeDownloading.length, equals(0));
 
+    // download
     await downloadAreaService.download(
       BoulderArea(
         iri: '/boulder_areas/3',
@@ -68,13 +69,15 @@ void main() {
     );
 
     final storedRequests = await database.select(database.dbRequests).get();
+
+    const expectedBouldersRequestPath =
+        '/boulders?id=desc&pagination=false&rock.boulderArea.id%5B%5D=3';
     expect(storedRequests.length, equals(2));
     expect(
       storedRequests,
       [
         const DbRequest(
-          requestPath:
-              '/boulders?id=desc&pagination=false&rock.boulderArea.id%5B%5D=3',
+          requestPath: expectedBouldersRequestPath,
           responseBody: '{}',
         ),
         DbRequest(
@@ -93,8 +96,18 @@ void main() {
         DbBoulderArea(
           iri: boulderArea.iri,
           isDownloaded: true,
+          boulders: expectedBouldersRequestPath,
         ),
       ],
     );
+
+    // remove download
+    await downloadAreaService.removeDownload(boulderArea.iri);
+    final storedBoulderAreasAfterRemovingDownload =
+        await database.select(database.dbBoulderAreas).get();
+    expect(storedBoulderAreasAfterRemovingDownload.length, equals(0));
+    final storedRequetsAfterRemovingDownload =
+        await database.select(database.dbRequests).get();
+    expect(storedRequetsAfterRemovingDownload.length, equals(0));
   });
 }

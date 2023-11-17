@@ -214,8 +214,17 @@ class $DbBoulderAreasTable extends DbBoulderAreas
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("is_downloaded" IN (0, 1))'));
+  static const VerificationMeta _bouldersMeta =
+      const VerificationMeta('boulders');
   @override
-  List<GeneratedColumn> get $columns => [iri, isDownloaded];
+  late final GeneratedColumn<String> boulders = GeneratedColumn<String>(
+      'boulders', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES db_requests (request_path)'));
+  @override
+  List<GeneratedColumn> get $columns => [iri, isDownloaded, boulders];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -240,6 +249,10 @@ class $DbBoulderAreasTable extends DbBoulderAreas
     } else if (isInserting) {
       context.missing(_isDownloadedMeta);
     }
+    if (data.containsKey('boulders')) {
+      context.handle(_bouldersMeta,
+          boulders.isAcceptableOrUnknown(data['boulders']!, _bouldersMeta));
+    }
     return context;
   }
 
@@ -253,6 +266,8 @@ class $DbBoulderAreasTable extends DbBoulderAreas
           .read(DriftSqlType.string, data['${effectivePrefix}iri'])!,
       isDownloaded: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_downloaded'])!,
+      boulders: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}boulders']),
     );
   }
 
@@ -265,12 +280,17 @@ class $DbBoulderAreasTable extends DbBoulderAreas
 class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
   final String iri;
   final bool isDownloaded;
-  const DbBoulderArea({required this.iri, required this.isDownloaded});
+  final String? boulders;
+  const DbBoulderArea(
+      {required this.iri, required this.isDownloaded, this.boulders});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['iri'] = Variable<String>(iri);
     map['is_downloaded'] = Variable<bool>(isDownloaded);
+    if (!nullToAbsent || boulders != null) {
+      map['boulders'] = Variable<String>(boulders);
+    }
     return map;
   }
 
@@ -278,6 +298,9 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
     return DbBoulderAreasCompanion(
       iri: Value(iri),
       isDownloaded: Value(isDownloaded),
+      boulders: boulders == null && nullToAbsent
+          ? const Value.absent()
+          : Value(boulders),
     );
   }
 
@@ -287,6 +310,7 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
     return DbBoulderArea(
       iri: serializer.fromJson<String>(json['iri']),
       isDownloaded: serializer.fromJson<bool>(json['isDownloaded']),
+      boulders: serializer.fromJson<String?>(json['boulders']),
     );
   }
   @override
@@ -295,64 +319,81 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
     return <String, dynamic>{
       'iri': serializer.toJson<String>(iri),
       'isDownloaded': serializer.toJson<bool>(isDownloaded),
+      'boulders': serializer.toJson<String?>(boulders),
     };
   }
 
-  DbBoulderArea copyWith({String? iri, bool? isDownloaded}) => DbBoulderArea(
+  DbBoulderArea copyWith(
+          {String? iri,
+          bool? isDownloaded,
+          Value<String?> boulders = const Value.absent()}) =>
+      DbBoulderArea(
         iri: iri ?? this.iri,
         isDownloaded: isDownloaded ?? this.isDownloaded,
+        boulders: boulders.present ? boulders.value : this.boulders,
       );
   @override
   String toString() {
     return (StringBuffer('DbBoulderArea(')
           ..write('iri: $iri, ')
-          ..write('isDownloaded: $isDownloaded')
+          ..write('isDownloaded: $isDownloaded, ')
+          ..write('boulders: $boulders')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(iri, isDownloaded);
+  int get hashCode => Object.hash(iri, isDownloaded, boulders);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DbBoulderArea &&
           other.iri == this.iri &&
-          other.isDownloaded == this.isDownloaded);
+          other.isDownloaded == this.isDownloaded &&
+          other.boulders == this.boulders);
 }
 
 class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
   final Value<String> iri;
   final Value<bool> isDownloaded;
+  final Value<String?> boulders;
   final Value<int> rowid;
   const DbBoulderAreasCompanion({
     this.iri = const Value.absent(),
     this.isDownloaded = const Value.absent(),
+    this.boulders = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   DbBoulderAreasCompanion.insert({
     required String iri,
     required bool isDownloaded,
+    this.boulders = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : iri = Value(iri),
         isDownloaded = Value(isDownloaded);
   static Insertable<DbBoulderArea> custom({
     Expression<String>? iri,
     Expression<bool>? isDownloaded,
+    Expression<String>? boulders,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (iri != null) 'iri': iri,
       if (isDownloaded != null) 'is_downloaded': isDownloaded,
+      if (boulders != null) 'boulders': boulders,
       if (rowid != null) 'rowid': rowid,
     });
   }
 
   DbBoulderAreasCompanion copyWith(
-      {Value<String>? iri, Value<bool>? isDownloaded, Value<int>? rowid}) {
+      {Value<String>? iri,
+      Value<bool>? isDownloaded,
+      Value<String?>? boulders,
+      Value<int>? rowid}) {
     return DbBoulderAreasCompanion(
       iri: iri ?? this.iri,
       isDownloaded: isDownloaded ?? this.isDownloaded,
+      boulders: boulders ?? this.boulders,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -366,6 +407,9 @@ class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
     if (isDownloaded.present) {
       map['is_downloaded'] = Variable<bool>(isDownloaded.value);
     }
+    if (boulders.present) {
+      map['boulders'] = Variable<String>(boulders.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -377,6 +421,7 @@ class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
     return (StringBuffer('DbBoulderAreasCompanion(')
           ..write('iri: $iri, ')
           ..write('isDownloaded: $isDownloaded, ')
+          ..write('boulders: $boulders, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();

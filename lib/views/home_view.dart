@@ -9,7 +9,6 @@ import 'package:breizh_blok_mobile/components/boulder_list_app_bar.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/components/lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
-import 'package:breizh_blok_mobile/utils/terms_of_use_prompt.dart';
 import 'package:breizh_blok_mobile/views/download_view.dart';
 import 'package:breizh_blok_mobile/views/home_map_view.dart';
 import 'package:breizh_blok_mobile/views/home_municipalities_view.dart';
@@ -30,7 +29,7 @@ class HomeView extends StatelessWidget {
     return BlocListener<TermsOfUseBloc, bool?>(
       listener: (context, hasAcceptedTermsOfUse) async {
         if (hasAcceptedTermsOfUse != null && !hasAcceptedTermsOfUse) {
-          await TermsOfUsePrompt.showTermsOfUse(context);
+          await _showTermsOfUse(context);
         }
       },
       child: BlocBuilder<TabBloc, int>(
@@ -113,6 +112,46 @@ class HomeView extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Future<void> _showTermsOfUse(BuildContext context) async {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => AlertDialog.adaptive(
+        key: const Key('terms-of-use'),
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            children: [
+              Icon(
+                Icons.warning,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              const Text(
+                "Conditions d'utilisation",
+              ),
+            ],
+          ),
+        ),
+        content: const Text(
+          // ignore: lines_longer_than_80_chars
+          "L'escalade est un sport à risque. Sa pratique est sous l'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d'accident.",
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              context.read<TermsOfUseBloc>().add(TermsOfUseAccepted());
+              Navigator.pop(context);
+            },
+            child: const Text("J'accepte"),
+          ),
+        ],
       ),
     );
   }

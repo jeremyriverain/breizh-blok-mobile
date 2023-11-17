@@ -15,9 +15,32 @@ class DownloadAreaService {
   final AppHttpClient httpClient;
 
   Future<void> removeDownload(String iri) async {
-    await (database.delete(database.dbBoulderAreas)
+    final storedBoulderArea = await (database.select(database.dbBoulderAreas)
           ..where((tbl) => tbl.iri.equals(iri)))
-        .go();
+        .getSingleOrNull();
+    if (storedBoulderArea == null) {
+      return;
+    }
+
+    final deletions = [
+      (database.delete(database.dbBoulderAreas)
+            ..where((tbl) => tbl.iri.equals(iri)))
+          .go(),
+      (database.delete(database.dbRequests)
+            ..where((tbl) => tbl.requestPath.equals(iri)))
+          .go(),
+    ];
+
+    final bouldersRequestPath = storedBoulderArea.boulders;
+
+    if (bouldersRequestPath != null) {
+      deletions.add(
+        (database.delete(database.dbRequests)
+              ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
+            .go(),
+      );
+    }
+    Future.wait(deletions).ignore();
   }
 
   Future<void> download(BoulderArea boulderArea) async {
@@ -26,7 +49,7 @@ class DownloadAreaService {
         );
 
     try {
-      await Future.wait(
+      final responses = await Future.wait(
         [
           _fetchAllBoulders(boulderArea),
           _fetchBoulderAreaDetails(boulderArea),
@@ -35,14 +58,34 @@ class DownloadAreaService {
 
       await (database.update(database.dbBoulderAreas)
             ..where((tbl) => tbl.iri.equals(boulderArea.iri)))
-          .write(DbBoulderArea(iri: boulderArea.iri, isDownloaded: true));
+          .write(
+        DbBoulderArea(
+          iri: boulderArea.iri,
+          isDownloaded: true,
+          boulders: responses[0],
+        ),
+      );
     } catch (e) {
       //
     }
   }
 
-  Future<String> _fetchAllBoulders(BoulderArea boulderArea) {
-    return httpClient.get(
+  Future<String> _fetchAllBoulders(BoulderArea boulderArea) async {
+    final uri = Uri.https(
+      const String.fromEnvironment('API_HOST'),
+      '/boulders',
+      {
+        ...BoulderListQueryParamsBuilder.compute(
+          grades: {},
+          orderQueryParam: const OrderQueryParam(name: 'id', direction: 'desc'),
+          filterState: BoulderFilterState(
+            boulderAreas: {boulderArea},
+          ),
+        ),
+        ...{'pagination': 'false'},
+      },
+    );
+    await httpClient.get(
       Uri.https(
         const String.fromEnvironment('API_HOST'),
         '/boulders',
@@ -59,9 +102,11 @@ class DownloadAreaService {
         },
       ),
     );
+
+    return httpClient.normalizeRequestPath(uri);
   }
 
-  Future<String> _fetchBoulderAreaDetails(BoulderArea boulderArea) {
+  Future<String> _fetchBoulderAreaDetails(BoulderArea boulderArea) async {
     return httpClient.get(
       Uri.https(
         const String.fromEnvironment('API_HOST'),
