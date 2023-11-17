@@ -19,8 +19,8 @@ class AppHttpClient {
     Duration timeout = const Duration(seconds: 7),
     bool offlineFirst = false,
   }) async {
-    final requestPath =
-        '${uri.path}${uri.query.isEmpty ? '' : "?${uri.query}"}';
+    final requestPath = normalizeRequestPath(uri);
+    print(requestPath);
 
     Future<http.Response> persistentFetch() async {
       final response = await httpClient
@@ -76,5 +76,11 @@ class AppHttpClient {
 
       rethrow;
     }
+  }
+
+  String normalizeRequestPath(Uri uri) {
+    final query =
+        (uri.query.split('&')..sort((a, b) => a.compareTo(b))).join('&');
+    return '${uri.path}${uri.query.isEmpty ? '' : "?$query"}';
   }
 }

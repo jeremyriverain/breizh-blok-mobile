@@ -13,242 +13,290 @@ import 'package:http/testing.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
-  test('requests are persisted in the database', () async {
-    final mockClient = MockClient((request) async {
-      return http.Response(
-        json.encode({
-          'foo': request.url.path,
-        }),
-        200,
-        request: request,
-        headers: {'content-type': 'application/json'},
-      );
-    });
-    final database = AppDatabase(NativeDatabase.memory());
-    final httpClient = AppHttpClient(
-      database: database,
-      httpClient: mockClient,
-    );
 
-    final storedRequests = await database.select(database.dbRequests).get();
-    expect(storedRequests.length, equals(0));
-
-    expect(
-      jsonDecode(
-        await httpClient.get(
-          Uri.http('example.com', '/foo'),
-        ),
-      ),
-      {'foo': '/foo'},
-    );
-
-    final firstStoredRequest = await (database.select(database.dbRequests)
-          ..where((tbl) => tbl.requestPath.equals('/foo')))
-        .getSingle();
-
-    expect(jsonDecode(firstStoredRequest.responseBody), {'foo': '/foo'});
-
-    expect(
-      jsonDecode(
-        await httpClient.get(
-          Uri.http('example.com', '/bar', {'foo': 'bar'}),
-        ),
-      ),
-      {'foo': '/bar'},
-    );
-
-    final secondStoredRequest = await (database.select(database.dbRequests)
-          ..where((tbl) => tbl.requestPath.equals('/bar?foo=bar')))
-        .getSingle();
-
-    expect(
-      jsonDecode(secondStoredRequest.responseBody),
-      {'foo': '/bar'},
-    );
-  });
-
-  test(
-      'in offline context, persisted requests are returned if the path matches',
-      () async {
-    final mockClient = MockClient((request) async {
-      throw http.ClientException('client exception');
-    });
-    final database = AppDatabase(NativeDatabase.memory());
-    final httpClient = AppHttpClient(
-      database: database,
-      httpClient: mockClient,
-    );
-
-    await database
-        .into(database.dbRequests)
-        .insert(const DbRequest(requestPath: '/foo', responseBody: 'bar'));
-
-    expect(
-      await httpClient.get(
-        Uri.http('example.com', '/foo'),
-      ),
-      'bar',
-    );
-  });
-
-  test(
-      'in offline context, an error is thrown if there is no persisted request',
-      () async {
-    final mockClient = MockClient((request) async {
-      throw http.ClientException('client exception');
-    });
-    final database = AppDatabase(NativeDatabase.memory());
-    final httpClient = AppHttpClient(
-      database: database,
-      httpClient: mockClient,
-    );
-
-    await database
-        .into(database.dbRequests)
-        .insert(const DbRequest(requestPath: '/foo', responseBody: 'bar'));
-
-    await expectLater(
-      httpClient.get(
-        Uri.http('example.com', '/bar'),
-      ),
-      throwsA(const TypeMatcher<http.ClientException>()),
-    );
-  });
-
-  test(
-      '''an error is thrown if api responds with HttpException, even if there is persisted request''',
-      () async {
-    final mockClient = MockClient((request) async {
-      throw const HttpException('not found');
-    });
-    final database = AppDatabase(NativeDatabase.memory());
-    final httpClient = AppHttpClient(
-      database: database,
-      httpClient: mockClient,
-    );
-
-    await database
-        .into(database.dbRequests)
-        .insert(const DbRequest(requestPath: '/foo', responseBody: 'bar'));
-
-    await expectLater(
-      httpClient.get(
-        Uri.http('example.com', '/foo'),
-      ),
-      throwsA(const TypeMatcher<HttpException>()),
-    );
-  });
-
-  test('stored request are returned first if offline first strategy is enabled',
-      () async {
-    final mockClient = MockClient((request) async {
-      return http.Response(
-        json.encode({
-          'bar': request.url.path,
-        }),
-        200,
-        request: request,
-        headers: {'content-type': 'application/json'},
-      );
-    });
-
-    final database = AppDatabase(NativeDatabase.memory());
-    final httpClient = AppHttpClient(
-      database: database,
-      httpClient: mockClient,
-    );
-
-    await database.into(database.dbRequests).insert(
-          const DbRequest(
-            requestPath: '/foo',
-            responseBody: '{"from":"database"}',
-          ),
+  group('get', () {
+    test('requests are persisted in the database', () async {
+      final mockClient = MockClient((request) async {
+        return http.Response(
+          json.encode({
+            'foo': request.url.path,
+          }),
+          200,
+          request: request,
+          headers: {'content-type': 'application/json'},
         );
+      });
+      final database = AppDatabase(NativeDatabase.memory());
+      final httpClient = AppHttpClient(
+        database: database,
+        httpClient: mockClient,
+      );
 
-    // the response is returned from the database
-    expect(
-      jsonDecode(
+      final storedRequests = await database.select(database.dbRequests).get();
+      expect(storedRequests.length, equals(0));
+
+      expect(
+        jsonDecode(
+          await httpClient.get(
+            Uri.http('example.com', '/foo'),
+          ),
+        ),
+        {'foo': '/foo'},
+      );
+
+      final firstStoredRequest = await (database.select(database.dbRequests)
+            ..where((tbl) => tbl.requestPath.equals('/foo')))
+          .getSingle();
+
+      expect(jsonDecode(firstStoredRequest.responseBody), {'foo': '/foo'});
+
+      expect(
+        jsonDecode(
+          await httpClient.get(
+            Uri.http('example.com', '/bar', {'foo': 'bar'}),
+          ),
+        ),
+        {'foo': '/bar'},
+      );
+
+      final secondStoredRequest = await (database.select(database.dbRequests)
+            ..where((tbl) => tbl.requestPath.equals('/bar?foo=bar')))
+          .getSingle();
+
+      expect(
+        jsonDecode(secondStoredRequest.responseBody),
+        {'foo': '/bar'},
+      );
+    });
+
+    test(
+        '''in offline context, persisted requests are returned if the path matches''',
+        () async {
+      final mockClient = MockClient((request) async {
+        throw http.ClientException('client exception');
+      });
+      final database = AppDatabase(NativeDatabase.memory());
+      final httpClient = AppHttpClient(
+        database: database,
+        httpClient: mockClient,
+      );
+
+      await database
+          .into(database.dbRequests)
+          .insert(const DbRequest(requestPath: '/foo', responseBody: 'bar'));
+
+      expect(
         await httpClient.get(
           Uri.http('example.com', '/foo'),
-          offlineFirst: true,
         ),
-      ),
-      {'from': 'database'},
-    );
+        'bar',
+      );
+    });
 
-    await pumpEventQueue(times: 1);
+    test(
+        '''in offline context, an error is thrown if there is no persisted request''',
+        () async {
+      final mockClient = MockClient((request) async {
+        throw http.ClientException('client exception');
+      });
+      final database = AppDatabase(NativeDatabase.memory());
+      final httpClient = AppHttpClient(
+        database: database,
+        httpClient: mockClient,
+      );
 
-    // the response from the network is fetched and persisted
-    final request = await (database.select(database.dbRequests)
-          ..where((tbl) => tbl.requestPath.equals('/foo')))
-        .getSingle();
+      await database
+          .into(database.dbRequests)
+          .insert(const DbRequest(requestPath: '/foo', responseBody: 'bar'));
 
-    expect(jsonDecode(request.responseBody), {'bar': '/foo'});
-  });
+      await expectLater(
+        httpClient.get(
+          Uri.http('example.com', '/bar'),
+        ),
+        throwsA(const TypeMatcher<http.ClientException>()),
+      );
+    });
 
-  test('''
+    test(
+        '''an error is thrown if api responds with HttpException, even if there is persisted request''',
+        () async {
+      final mockClient = MockClient((request) async {
+        throw const HttpException('not found');
+      });
+      final database = AppDatabase(NativeDatabase.memory());
+      final httpClient = AppHttpClient(
+        database: database,
+        httpClient: mockClient,
+      );
+
+      await database
+          .into(database.dbRequests)
+          .insert(const DbRequest(requestPath: '/foo', responseBody: 'bar'));
+
+      await expectLater(
+        httpClient.get(
+          Uri.http('example.com', '/foo'),
+        ),
+        throwsA(const TypeMatcher<HttpException>()),
+      );
+    });
+
+    test(
+        '''stored request are returned first if offline first strategy is enabled''',
+        () async {
+      final mockClient = MockClient((request) async {
+        return http.Response(
+          json.encode({
+            'bar': request.url.path,
+          }),
+          200,
+          request: request,
+          headers: {'content-type': 'application/json'},
+        );
+      });
+
+      final database = AppDatabase(NativeDatabase.memory());
+      final httpClient = AppHttpClient(
+        database: database,
+        httpClient: mockClient,
+      );
+
+      await database.into(database.dbRequests).insert(
+            const DbRequest(
+              requestPath: '/foo',
+              responseBody: '{"from":"database"}',
+            ),
+          );
+
+      // the response is returned from the database
+      expect(
+        jsonDecode(
+          await httpClient.get(
+            Uri.http('example.com', '/foo'),
+            offlineFirst: true,
+          ),
+        ),
+        {'from': 'database'},
+      );
+
+      await pumpEventQueue(times: 1);
+
+      // the response from the network is fetched and persisted
+      final request = await (database.select(database.dbRequests)
+            ..where((tbl) => tbl.requestPath.equals('/foo')))
+          .getSingle();
+
+      expect(jsonDecode(request.responseBody), {'bar': '/foo'});
+    });
+
+    test('''
 stored request are returned 
 even if the attempt to persist the response from the network fails''',
-      () async {
-    final mockClient = MockClient((request) async {
-      throw http.ClientException('client exception');
-    });
+        () async {
+      final mockClient = MockClient((request) async {
+        throw http.ClientException('client exception');
+      });
 
-    final database = AppDatabase(NativeDatabase.memory());
-    final httpClient = AppHttpClient(
-      database: database,
-      httpClient: mockClient,
-    );
+      final database = AppDatabase(NativeDatabase.memory());
+      final httpClient = AppHttpClient(
+        database: database,
+        httpClient: mockClient,
+      );
 
-    await database.into(database.dbRequests).insert(
-          const DbRequest(
-            requestPath: '/foo',
-            responseBody: '{"from":"database"}',
+      await database.into(database.dbRequests).insert(
+            const DbRequest(
+              requestPath: '/foo',
+              responseBody: '{"from":"database"}',
+            ),
+          );
+
+      // the response is returned from the database
+      expect(
+        jsonDecode(
+          await httpClient.get(
+            Uri.http('example.com', '/foo'),
+            offlineFirst: true,
           ),
-        );
-
-    // the response is returned from the database
-    expect(
-      jsonDecode(
-        await httpClient.get(
-          Uri.http('example.com', '/foo'),
-          offlineFirst: true,
         ),
-      ),
-      {'from': 'database'},
-    );
-  });
-
-  test('network call is made if offline first enabled but no matching request',
-      () async {
-    final mockClient = MockClient((request) async {
-      return http.Response(
-        json.encode({
-          'bar': request.url.path,
-        }),
-        200,
-        request: request,
-        headers: {'content-type': 'application/json'},
+        {'from': 'database'},
       );
     });
 
+    test(
+        'network call is made if offline first enabled but no matching request',
+        () async {
+      final mockClient = MockClient((request) async {
+        return http.Response(
+          json.encode({
+            'bar': request.url.path,
+          }),
+          200,
+          request: request,
+          headers: {'content-type': 'application/json'},
+        );
+      });
+
+      final database = AppDatabase(NativeDatabase.memory());
+      final httpClient = AppHttpClient(
+        database: database,
+        httpClient: mockClient,
+      );
+
+      final storedRequests = await database.select(database.dbRequests).get();
+      expect(storedRequests.length, equals(0));
+
+      expect(
+        jsonDecode(
+          await httpClient.get(
+            Uri.http('example.com', '/foo'),
+            offlineFirst: true,
+          ),
+        ),
+        {'bar': '/foo'},
+      );
+    });
+  });
+
+  test('normalizeRequestPath sorts query parameters alphabetically', () {
     final database = AppDatabase(NativeDatabase.memory());
     final httpClient = AppHttpClient(
       database: database,
-      httpClient: mockClient,
+      httpClient: http.Client(),
+    );
+    expect(
+      httpClient.normalizeRequestPath(Uri.https('foo.org', 'bar', {})),
+      '/bar',
     );
 
-    final storedRequests = await database.select(database.dbRequests).get();
-    expect(storedRequests.length, equals(0));
+    expect(
+      httpClient.normalizeRequestPath(
+        Uri.https('foo.org', 'bar', {
+          'cd': 'foo',
+          'ab': 'bar',
+        }),
+      ),
+      '/bar?ab=bar&cd=foo',
+    );
+
+    const expectedPath = '/bar?ab=baz&ab=boo&ab=foo&cd=foo';
+    expect(
+      httpClient.normalizeRequestPath(
+        Uri.https('foo.org', 'bar', {
+          'cd': 'foo',
+          'ab': ['boo', 'baz', 'foo'],
+        }),
+      ),
+      expectedPath,
+    );
 
     expect(
-      jsonDecode(
-        await httpClient.get(
-          Uri.http('example.com', '/foo'),
-          offlineFirst: true,
-        ),
+      httpClient.normalizeRequestPath(
+        Uri.https('foo.org', 'bar', {
+          'cd': 'foo',
+          'ab': ['foo', 'boo', 'baz'],
+        }),
       ),
-      {'bar': '/foo'},
+      expectedPath,
     );
   });
 }

@@ -308,6 +308,15 @@ class MockAppHttpClient extends _i1.Mock implements _i7.AppHttpClient {
         returnValue: _i6.Future<String>.value(''),
         returnValueForMissingStub: _i6.Future<String>.value(''),
       ) as _i6.Future<String>);
+  @override
+  String normalizeRequestPath(Uri? uri) => (super.noSuchMethod(
+        Invocation.method(
+          #normalizeRequestPath,
+          [uri],
+        ),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
 }
 
 /// A class which mocks [AppDatabase].

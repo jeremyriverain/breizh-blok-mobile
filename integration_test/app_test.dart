@@ -849,7 +849,8 @@ by clicking on the "scroll to to the top" button''',
 
     final bouldersRequest = await (database.select(database.dbRequests)
           ..where(
-            (tbl) => tbl.requestPath.like('/boulders?page=1%'),
+            (tbl) =>
+                tbl.requestPath.like('/boulders?order%5Bid%5D=desc&page=1'),
           ))
         .getSingle();
 
