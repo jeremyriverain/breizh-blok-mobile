@@ -41,7 +41,6 @@ class HomeView extends StatelessWidget {
             context.read<BoulderMarkerBloc>().add(
                   BoulderMarkerRequested(
                     filterState: context.read<BoulderFilterBloc>().state,
-                    orderQueryParam: context.read<BoulderOrderBloc>().state,
                   ),
                 );
           }

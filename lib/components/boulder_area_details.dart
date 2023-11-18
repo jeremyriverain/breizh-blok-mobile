@@ -50,11 +50,11 @@ class BoulderAreaDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final offlineFirst = context.read<RequestStrategy>().offlineFirst;
     context.read<BoulderMarkerBloc>().add(
           BoulderMarkerRequested(
             filterState: context.read<BoulderFilterBloc>().state,
-            orderQueryParam: context.read<BoulderOrderBloc>().state,
-            offlineFirst: context.read<RequestStrategy>().offlineFirst,
+            offlineFirst: offlineFirst,
           ),
         );
 

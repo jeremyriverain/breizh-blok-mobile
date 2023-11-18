@@ -109,7 +109,6 @@ Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
                           boulderIds: cluster.items
                               .map((e) => e.id.toString())
                               .toList(),
-                          filterState: BoulderFilterState(),
                           orderQueryParam:
                               context.read<BoulderOrderBloc>().state,
                           offlineFirst: offlineFirst,

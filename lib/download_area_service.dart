@@ -1,9 +1,6 @@
 import 'package:breizh_blok_mobile/app_http_client.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
-import 'package:breizh_blok_mobile/utils/boulder_list_query_params_builder.dart';
 
 class DownloadAreaService {
   DownloadAreaService({
@@ -75,32 +72,14 @@ class DownloadAreaService {
       const String.fromEnvironment('API_HOST'),
       '/boulders',
       {
-        ...BoulderListQueryParamsBuilder.compute(
-          grades: {},
-          orderQueryParam: const OrderQueryParam(name: 'id', direction: 'desc'),
-          filterState: BoulderFilterState(
-            boulderAreas: {boulderArea},
-          ),
-        ),
-        ...{'pagination': 'false'},
+        'rock.boulderArea.id[]':
+            boulderArea.iri.replaceAll('/boulder_areas/', ''),
+        'order[id]': 'desc',
+        'pagination': 'false',
       },
     );
     await httpClient.get(
-      Uri.https(
-        const String.fromEnvironment('API_HOST'),
-        '/boulders',
-        {
-          ...BoulderListQueryParamsBuilder.compute(
-            grades: {},
-            orderQueryParam:
-                const OrderQueryParam(name: 'id', direction: 'desc'),
-            filterState: BoulderFilterState(
-              boulderAreas: {boulderArea},
-            ),
-          ),
-          ...{'pagination': 'false'},
-        },
-      ),
+      uri,
     );
 
     return httpClient.normalizeRequestPath(uri);

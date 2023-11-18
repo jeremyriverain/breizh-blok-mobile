@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/components/base_map.dart';
@@ -175,9 +174,6 @@ class _BoulderMapState extends State<BoulderMap> {
                                     BoulderMarkerRequested(
                                       filterState: context
                                           .read<BoulderFilterBloc>()
-                                          .state,
-                                      orderQueryParam: context
-                                          .read<BoulderOrderBloc>()
                                           .state,
                                       offlineFirst: context
                                           .read<RequestStrategy>()

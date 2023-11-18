@@ -5,7 +5,6 @@ import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/models/response.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
-import 'package:breizh_blok_mobile/utils/boulder_list_query_params_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderBloc
@@ -15,74 +14,76 @@ class BoulderBloc
   }) : super(const Response()) {
     on<BoulderListViewRequested>(
       (event, emit) async {
-        await _fetch(
-          page: event.page,
-          emit: emit,
-          filterState: event.filterState,
-          orderQueryParam: event.orderQueryParam,
-          grades: event.grades,
-          offlineFirst: event.offlineFirst,
-        );
+        final queryParams = <String, List<String>>{
+          'page': [
+            event.page.toString(),
+          ],
+          event.orderQueryParam.name: [event.orderQueryParam.direction],
+        };
+        if (event.filterState.term != null) {
+          queryParams['term'] = [event.filterState.term!];
+        }
+        if (event.filterState.boulderAreas.isNotEmpty) {
+          queryParams['rock.boulderArea.id[]'] = event.filterState.boulderAreas
+              .map((e) => e.iri.replaceAll('/boulder_areas/', ''))
+              .toList();
+        }
+
+        if (event.grades.isNotEmpty) {
+          queryParams['grade.name[]'] =
+              event.grades.map((e) => e.name).toList();
+        }
+
+        try {
+          final data = await repository.findBy(
+            queryParams: queryParams,
+            offlineFirst: event.offlineFirst,
+          );
+          emit(
+            Response(
+              data: data,
+            ),
+          );
+        } catch (error) {
+          emit(
+            Response(
+              error: error,
+            ),
+          );
+        }
       },
     );
 
     on<BoulderMapViewRequested>(
       (event, emit) async {
-        await _fetch(
-          page: event.page,
-          emit: emit,
-          extraQueryParams: {
-            'id[]': event.boulderIds,
-          },
-          filterState: event.filterState,
-          orderQueryParam: event.orderQueryParam,
-          grades: {},
-          offlineFirst: event.offlineFirst,
-        );
+        final queryParams = <String, List<String>>{
+          'page': [
+            event.page.toString(),
+          ],
+          event.orderQueryParam.name: [event.orderQueryParam.direction],
+          'id[]': event.boulderIds,
+        };
+        try {
+          final data = await repository.findBy(
+            queryParams: queryParams,
+            offlineFirst: event.offlineFirst,
+          );
+          emit(
+            Response(
+              data: data,
+            ),
+          );
+        } catch (error) {
+          emit(
+            Response(
+              error: error,
+            ),
+          );
+        }
       },
     );
   }
   final BoulderRepository repository;
-
-  Future<void> _fetch({
-    required int page,
-    required Emitter<Response<CollectionItems<Boulder>>> emit,
-    required BoulderFilterState filterState,
-    required OrderQueryParam orderQueryParam,
-    required Set<Grade> grades,
-    Map<String, List<String>>? extraQueryParams,
-    bool offlineFirst = false,
-  }) async {
-    final queryParams = <String, List<String>>{
-      'page': [
-        page.toString(),
-      ],
-      ...BoulderListQueryParamsBuilder.compute(
-        filterState: filterState,
-        orderQueryParam: orderQueryParam,
-        grades: grades,
-      ),
-      ...extraQueryParams ?? {},
-    };
-
-    try {
-      final data = await repository.findBy(
-        queryParams: queryParams,
-        offlineFirst: offlineFirst,
-      );
-      emit(
-        Response(
-          data: data,
-        ),
-      );
-    } catch (error) {
-      emit(
-        Response(
-          error: error,
-        ),
-      );
-    }
-  }
 }
 
 abstract class BoulderEvent {}
@@ -106,13 +107,11 @@ class BoulderMapViewRequested extends BoulderEvent {
   BoulderMapViewRequested({
     required this.page,
     required this.boulderIds,
-    required this.filterState,
     required this.orderQueryParam,
     this.offlineFirst = false,
   });
   final int page;
   final List<String> boulderIds;
-  final BoulderFilterState filterState;
   final OrderQueryParam orderQueryParam;
   final bool offlineFirst;
 }
