@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 class QueryConstructor {
   static String? stringify({
     Map<String, List<String>>? queryParams,
@@ -6,7 +8,8 @@ class QueryConstructor {
       return null;
     }
     final result = StringBuffer();
-    queryParams.forEach((key, paramsList) {
+    SplayTreeMap<String, List<String>>.from(queryParams)
+        .forEach((key, paramsList) {
       for (final param in paramsList) {
         if (result.isNotEmpty) {
           result.write('&');

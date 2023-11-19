@@ -80,6 +80,7 @@ class DownloadAreaService {
     );
     await httpClient.get(
       uri,
+      timeout: const Duration(seconds: 15),
     );
 
     return httpClient.normalizeRequestPath(uri);

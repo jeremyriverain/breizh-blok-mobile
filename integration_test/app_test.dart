@@ -18,7 +18,7 @@ import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:drift/drift.dart'
-    show StringExpressionOperators, driftRuntimeOptions;
+    show StringExpressionOperators, Value, driftRuntimeOptions;
 import 'package:drift/native.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -892,8 +892,8 @@ by clicking on the "scroll to to the top" button''',
   });
 
   testWidgets('i can download boulder areas', (WidgetTester tester) async {
-    var downloads = await database.select(database.dbBoulderAreas).get();
-    expect(downloads.length, 0);
+    var dbBoulderAreas = await database.select(database.dbBoulderAreas).get();
+    expect(dbBoulderAreas.length, 0);
     await runApplication(tester: tester);
     await tester.tap(find.text('Téléchargements').first);
     await tester.pumpAndSettle();
@@ -915,7 +915,7 @@ by clicking on the "scroll to to the top" button''',
     print('municipality reference: ${municipalityReference.name}');
 
     final boulderAreaReference = municipalityReference.boulderAreas[0];
-    print('boulder area reference: ${municipalityReference.name}');
+    print('boulder area reference: ${boulderAreaReference.name}');
 
     await tester.tap(find.text(municipalityReference.name).first);
     await tester.pumpAndSettle();
@@ -964,14 +964,42 @@ by clicking on the "scroll to to the top" button''',
       findsOneWidget,
     );
 
-    downloads = await (database.select(database.dbBoulderAreas)
+    dbBoulderAreas = await (database.select(database.dbBoulderAreas)
           ..where(
             (tbl) => tbl.iri.equals(boulderAreaReference.iri),
           ))
         .get();
 
-    expect(downloads.length, 1);
-    expect(downloads[0].iri, boulderAreaReference.iri);
+    expect(dbBoulderAreas.length, 1);
+    expect(dbBoulderAreas[0].iri, boulderAreaReference.iri);
+    expect(
+      dbBoulderAreas[0].boulders,
+      '/boulders?order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=${boulderAreaReference.iri.replaceAll('/boulder_areas/', '')}',
+    );
+
+    final dbRequest = await (database.select(database.dbRequests)
+          ..where(
+            (tbl) => tbl.requestPath.equals(dbBoulderAreas[0].boulders!),
+          ))
+        .getSingle();
+
+    final firstBoulderName =
+        // ignore: avoid_dynamic_calls
+        jsonDecode(dbRequest.responseBody)['hydra:member'][0]['name'] as String;
+
+    print('first boulder name: $firstBoulderName');
+    await (database.update(database.dbRequests)
+          ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
+        .write(
+      DbRequestsCompanion(
+        responseBody: Value(
+          dbRequest.responseBody.replaceFirst(
+            RegExp('"name":"$firstBoulderName"'),
+            '"name":"Breath of the wild"',
+          ),
+        ),
+      ),
+    );
 
     await tester.tap(find.textContaining(boulderAreaReference.name).first);
     await tester.pumpAndSettle();
@@ -983,6 +1011,36 @@ by clicking on the "scroll to to the top" button''',
           boulderAreaReference.name,
           findRichText: true,
         ),
+      ),
+      findsOneWidget,
+    );
+
+    // check the initial boulder list comes from the database
+    expect(
+      find.textContaining(
+        'Breath of the wild',
+        findRichText: true,
+      ),
+      findsOneWidget,
+    );
+
+    navigator.pop();
+    await tester.pumpAndSettle();
+
+    await tester.pump(
+      const Duration(
+        seconds: 3,
+      ),
+    );
+
+    await tester.tap(find.textContaining(boulderAreaReference.name).first);
+    await tester.pumpAndSettle();
+
+    // check the boulder list has been refreshed
+    expect(
+      find.textContaining(
+        firstBoulderName,
+        findRichText: true,
       ),
       findsOneWidget,
     );

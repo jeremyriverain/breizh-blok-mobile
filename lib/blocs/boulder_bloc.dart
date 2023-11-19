@@ -7,8 +7,9 @@ import 'package:breizh_blok_mobile/models/response.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BoulderBloc
-    extends Bloc<BoulderEvent, Response<CollectionItems<Boulder>>> {
+typedef BoulderState = Response<CollectionItems<Boulder>>;
+
+class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
   BoulderBloc({
     required this.repository,
   }) : super(const Response()) {
@@ -82,6 +83,29 @@ class BoulderBloc
         }
       },
     );
+
+    on<DbBouldersRequested>(
+      (event, emit) async {
+        try {
+          final data = await repository.findBy(
+            queryParams: event.queryParams,
+            offlineFirst: true,
+            timeout: const Duration(seconds: 15),
+          );
+          emit(
+            Response(
+              data: data,
+            ),
+          );
+        } catch (error) {
+          emit(
+            Response(
+              error: error,
+            ),
+          );
+        }
+      },
+    );
   }
   final BoulderRepository repository;
 }
@@ -114,4 +138,12 @@ class BoulderMapViewRequested extends BoulderEvent {
   final List<String> boulderIds;
   final OrderQueryParam orderQueryParam;
   final bool offlineFirst;
+}
+
+class DbBouldersRequested extends BoulderEvent {
+  DbBouldersRequested({
+    required this.queryParams,
+  });
+
+  final Map<String, List<String>> queryParams;
 }

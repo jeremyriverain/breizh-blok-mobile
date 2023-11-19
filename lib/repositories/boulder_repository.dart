@@ -38,6 +38,7 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
   Future<CollectionItems<Boulder>> findBy({
     Map<String, List<String>>? queryParams,
     bool offlineFirst = false,
+    Duration? timeout,
   }) async {
     final query = QueryConstructor.stringify(queryParams: queryParams);
     final response = await httpClient.get(
@@ -48,6 +49,7 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
         query: query,
       ),
       offlineFirst: offlineFirst,
+      timeout: timeout ?? kRequestDefaultTimeout,
     );
 
     return compute(parseBoulders, response);

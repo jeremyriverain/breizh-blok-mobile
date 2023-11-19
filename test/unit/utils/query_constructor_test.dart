@@ -22,7 +22,7 @@ void main() {
           'baz': ['test'],
         },
       );
-      expect(query, 'foo=bar&baz=test');
+      expect(query, 'baz=test&foo=bar');
     });
     test('return foo=bar&baz[]aaa&baz[]=bbb', () {
       final query = QueryConstructor.stringify(
@@ -31,7 +31,7 @@ void main() {
           'baz[]': ['aaa', 'bbb'],
         },
       );
-      expect(query, 'foo=bar&baz[]=aaa&baz[]=bbb');
+      expect(query, 'baz[]=aaa&baz[]=bbb&foo=bar');
     });
 
     test('encode query params correctly', () {

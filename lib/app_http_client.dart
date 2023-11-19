@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:http/http.dart' as http;
 
+const kRequestDefaultTimeout = Duration(seconds: 7);
+
 class AppHttpClient {
   AppHttpClient({
     required this.database,
@@ -16,7 +18,7 @@ class AppHttpClient {
   Future<String> get(
     Uri uri, {
     Map<String, String>? headers,
-    Duration timeout = const Duration(seconds: 7),
+    Duration timeout = kRequestDefaultTimeout,
     bool offlineFirst = false,
   }) async {
     final requestPath = normalizeRequestPath(uri);
