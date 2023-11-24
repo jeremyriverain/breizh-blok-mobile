@@ -75,19 +75,21 @@ class BoulderAreaDetails extends StatelessWidget {
       BoulderListBuilder(
         boulderFilterBloc: context.read<BoulderFilterBloc>(),
         onPageRequested: (int page) {
-          if (offlineFirst) {
-            final orderBlocState = context.read<BoulderOrderBloc>().state;
+          final orderBlocState = context.read<BoulderOrderBloc>().state;
+          final grades = context.read<BoulderFilterGradeBloc>().state.grades;
 
+          if (offlineFirst) {
             return DbBouldersRequested(
               boulderArea: boulderArea,
               orderQueryParam: orderBlocState,
+              grades: grades,
             );
           }
           return BoulderListViewRequested(
             page: page,
             filterState: context.read<BoulderFilterBloc>().state,
-            orderQueryParam: context.read<BoulderOrderBloc>().state,
-            grades: context.read<BoulderFilterGradeBloc>().state.grades,
+            orderQueryParam: orderBlocState,
+            grades: grades,
             offlineFirst: context.read<RequestStrategy>().offlineFirst,
           );
         },

@@ -274,8 +274,7 @@ void main() async {
 
   testWidgets('filter by grade', (WidgetTester tester) async {
     final gradeRepository = GradeRepository(httpClient: httpClient);
-    final gradesResponse =
-        await gradeRepository.findWithBouldersOrderedByName();
+    final gradesResponse = await gradeRepository.findAll();
 
     await runApplication(tester: tester);
     await tester.tap(

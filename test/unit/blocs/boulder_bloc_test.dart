@@ -78,6 +78,7 @@ void main() {
             name: kGradeOrderQueryParam,
             direction: kAscendantDirection,
           ),
+          grades: {},
         ),
       ),
       verify: (BoulderBloc bloc) {
@@ -134,6 +135,7 @@ void main() {
             name: kGradeOrderQueryParam,
             direction: kAscendantDirection,
           ),
+          grades: {},
         ),
       ),
       verify: (BoulderBloc bloc) {
@@ -188,6 +190,7 @@ void main() {
             name: kGradeOrderQueryParam,
             direction: kDescendantDirection,
           ),
+          grades: {},
         ),
       ),
       verify: (BoulderBloc bloc) {
@@ -199,6 +202,62 @@ void main() {
               boulder6a,
               boulder5aPlus,
               boulder5a,
+            ],
+          ),
+        );
+      },
+    );
+
+    blocTest<BoulderBloc, BoulderState>(
+      'sort by grade desc',
+      setUp: () {
+        when(
+          mockBoulderRepository.findBy(
+            offlineFirst: true,
+            timeout: anyNamed('timeout'),
+            queryParams: {
+              'rock.boulderArea.id[]': [
+                idBoulderArea,
+              ],
+              kIdOrderQueryParam: [kDescendantDirection],
+              'pagination': ['false'],
+            },
+          ),
+        ).thenAnswer((_) async {
+          return CollectionItems<Boulder>(
+            items: [
+              boulder5a,
+              boulder6a,
+              boulder5aPlus,
+              boulderWithoutGrade,
+            ],
+            totalItems: 0,
+          );
+        });
+      },
+      build: () => BoulderBloc(
+        repository: mockBoulderRepository,
+      ),
+      act: (BoulderBloc bloc) => bloc.add(
+        DbBouldersRequested(
+          boulderArea: boulderArea,
+          orderQueryParam: const OrderQueryParam(
+            name: kGradeOrderQueryParam,
+            direction: kAscendantDirection,
+          ),
+          grades: {
+            boulder5aPlus.grade!,
+            boulder6a.grade!,
+          },
+        ),
+      ),
+      verify: (BoulderBloc bloc) {
+        expect(
+          bloc.state.data?.items,
+          equals(
+            [
+              boulder5aPlus,
+              boulder6a,
             ],
           ),
         );

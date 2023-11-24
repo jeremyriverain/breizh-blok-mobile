@@ -101,6 +101,22 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
             timeout: const Duration(seconds: 15),
           );
 
+          data = CollectionItems(
+            items: data.items.where((boulder) {
+              final grades = event.grades;
+              if (grades.isEmpty) {
+                return true;
+              }
+
+              if (grades.contains(boulder.grade)) {
+                return true;
+              }
+              return false;
+            }).toList(),
+            totalItems: data.totalItems,
+            nextPage: data.nextPage,
+          );
+
           if (event.orderQueryParam.name == kGradeOrderQueryParam) {
             data = CollectionItems(
               items: data.items
@@ -192,8 +208,10 @@ class DbBouldersRequested extends BoulderEvent {
   DbBouldersRequested({
     required this.boulderArea,
     required this.orderQueryParam,
+    required this.grades,
   });
 
   final BoulderArea boulderArea;
   final OrderQueryParam orderQueryParam;
+  final Set<Grade> grades;
 }

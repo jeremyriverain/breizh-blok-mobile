@@ -32,15 +32,17 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
     return compute(_parseGrades, response);
   }
 
-  Future<CollectionItems<Grade>> findWithBouldersOrderedByName() async {
+  Future<CollectionItems<Grade>> findAll() async {
     return findBy(
-      queryParams: {
-        'exists[boulders]': ['true'],
-        'pagination': ['false'],
-        'order[name]': [kAscendantDirection],
-      },
+      queryParams: findAllQueryParams,
     );
   }
+
+  static const findAllQueryParams = {
+    'exists[boulders]': ['true'],
+    'pagination': ['false'],
+    'order[name]': [kAscendantDirection],
+  };
 
   @override
   Future<Grade> find(String id) {

@@ -2,6 +2,7 @@ import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 
 class DownloadAreaService {
   DownloadAreaService({
@@ -47,10 +48,11 @@ class DownloadAreaService {
         );
 
     try {
-      final responses = await Future.wait(
+      final [boulders, _, _] = await Future.wait(
         [
           _fetchAllBoulders(boulderArea),
           _fetchBoulderAreaDetails(boulderArea),
+          _fetchGrades(),
         ],
       );
 
@@ -60,7 +62,7 @@ class DownloadAreaService {
         DbBoulderArea(
           iri: boulderArea.iri,
           isDownloaded: true,
-          boulders: responses[0],
+          boulders: boulders,
         ),
       );
     } catch (e) {
@@ -92,6 +94,16 @@ class DownloadAreaService {
       Uri.https(
         const String.fromEnvironment('API_HOST'),
         boulderArea.iri,
+      ),
+    );
+  }
+
+  Future<String> _fetchGrades() async {
+    return httpClient.get(
+      Uri.https(
+        const String.fromEnvironment('API_HOST'),
+        '/grades',
+        GradeRepository.findAllQueryParams,
       ),
     );
   }

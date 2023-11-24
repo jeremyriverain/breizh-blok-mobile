@@ -12,7 +12,7 @@ class BoulderListFilterModal extends StatelessWidget {
   });
 
   Future<CollectionItems<Grade>> _fetch(BuildContext context) {
-    return context.read<GradeRepository>().findWithBouldersOrderedByName();
+    return context.read<GradeRepository>().findAll();
   }
 
   @override
