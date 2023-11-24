@@ -15,22 +15,22 @@ class SortBouldersButton extends StatelessWidget {
     OrderChoice(
       label: 'Les plus récents',
       orderQueryParam: const OrderQueryParam(
-        name: 'order[id]',
-        direction: 'desc',
+        name: kIdOrderQueryParam,
+        direction: kDescendantDirection,
       ),
     ),
     OrderChoice(
       label: 'Les plus faciles',
       orderQueryParam: const OrderQueryParam(
-        name: 'order[grade.name]',
-        direction: 'asc',
+        name: kGradeOrderQueryParam,
+        direction: kAscendantDirection,
       ),
     ),
     OrderChoice(
       label: 'Les plus difficiles',
       orderQueryParam: const OrderQueryParam(
-        name: 'order[grade.name]',
-        direction: 'desc',
+        name: kGradeOrderQueryParam,
+        direction: kDescendantDirection,
       ),
     ),
   ];

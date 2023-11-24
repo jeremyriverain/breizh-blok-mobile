@@ -1,5 +1,6 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
+import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/order_query_param.dart';
@@ -87,11 +88,34 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
     on<DbBouldersRequested>(
       (event, emit) async {
         try {
-          final data = await repository.findBy(
-            queryParams: event.queryParams,
+          final queryParams = {
+            'rock.boulderArea.id[]': [
+              event.boulderArea.iri.replaceAll('/boulder_areas/', ''),
+            ],
+            kIdOrderQueryParam: [kDescendantDirection],
+            'pagination': ['false'],
+          };
+          var data = await repository.findBy(
+            queryParams: queryParams,
             offlineFirst: true,
             timeout: const Duration(seconds: 15),
           );
+
+          if (event.orderQueryParam.name == kGradeOrderQueryParam) {
+            data = CollectionItems(
+              items: data.items
+                ..sort((firstBoulder, secondBoulder) {
+                  return _compareGrades(
+                    firstBoulder,
+                    secondBoulder,
+                    orderQueryParam: event.orderQueryParam,
+                  );
+                }),
+              totalItems: data.totalItems,
+              nextPage: data.nextPage,
+            );
+          }
+
           emit(
             Response(
               data: data,
@@ -108,6 +132,30 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
     );
   }
   final BoulderRepository repository;
+
+  int _compareGrades(
+    Boulder firstBoulder,
+    Boulder secondBoulder, {
+    required OrderQueryParam orderQueryParam,
+  }) {
+    final direction = orderQueryParam.direction;
+    final aGrade = direction == kAscendantDirection
+        ? firstBoulder.grade
+        : secondBoulder.grade;
+    final bGrade = direction == kAscendantDirection
+        ? secondBoulder.grade
+        : firstBoulder.grade;
+    if (aGrade == null && bGrade == null) {
+      return 0;
+    }
+    if (aGrade == null) {
+      return 1;
+    }
+    if (bGrade == null) {
+      return -1;
+    }
+    return aGrade.name.compareTo(bGrade.name);
+  }
 }
 
 abstract class BoulderEvent {}
@@ -142,8 +190,10 @@ class BoulderMapViewRequested extends BoulderEvent {
 
 class DbBouldersRequested extends BoulderEvent {
   DbBouldersRequested({
-    required this.queryParams,
+    required this.boulderArea,
+    required this.orderQueryParam,
   });
 
-  final Map<String, List<String>> queryParams;
+  final BoulderArea boulderArea;
+  final OrderQueryParam orderQueryParam;
 }

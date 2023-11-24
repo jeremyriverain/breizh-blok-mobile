@@ -8,25 +8,32 @@ void main() {
     blocTest<BoulderOrderBloc, OrderQueryParam>(
       'default state OK',
       build: () => BoulderOrderBloc(
-        const OrderQueryParam(direction: 'desc', name: 'order[id]'),
+        const OrderQueryParam(
+          direction: kDescendantDirection,
+          name: kIdOrderQueryParam,
+        ),
       ),
       verify: (BoulderOrderBloc bloc) {
-        expect(bloc.state.direction, 'desc');
-        expect(bloc.state.name, 'order[id]');
+        expect(bloc.state.direction, kDescendantDirection);
+        expect(bloc.state.name, kIdOrderQueryParam);
       },
     );
 
     blocTest<BoulderOrderBloc, OrderQueryParam>(
       'BoulderOrderEvent OK',
       build: () => BoulderOrderBloc(
-        const OrderQueryParam(direction: 'desc', name: 'order[id]'),
+        const OrderQueryParam(
+          direction: kDescendantDirection,
+          name: kIdOrderQueryParam,
+        ),
       ),
       act: (BoulderOrderBloc bloc) => bloc.add(
         BoulderOrderEvent(
-          const OrderQueryParam(direction: 'asc', name: 'name'),
+          const OrderQueryParam(direction: kAscendantDirection, name: 'name'),
         ),
       ),
-      expect: () => [const OrderQueryParam(direction: 'asc', name: 'name')],
+      expect: () =>
+          [const OrderQueryParam(direction: kAscendantDirection, name: 'name')],
     );
   });
 }

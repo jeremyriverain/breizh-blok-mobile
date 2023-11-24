@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/department.dart';
+import 'package:breizh_blok_mobile/models/order_query_param.dart';
 import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
 import 'package:breizh_blok_mobile/utils/query_constructor.dart';
 import 'package:flutter/foundation.dart';
@@ -36,7 +37,7 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
       queryParams: {
         'exists[municipalities.boulderAreas.rocks.boulders]': ['true'],
         'pagination': ['false'],
-        'order[name]': ['asc'],
+        'order[name]': [kAscendantDirection],
       },
     );
   }

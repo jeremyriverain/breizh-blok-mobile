@@ -71,7 +71,10 @@ Future<void> main({
   );
 
   final boulderOrderBloc = BoulderOrderBloc(
-    const OrderQueryParam(direction: 'desc', name: 'order[id]'),
+    const OrderQueryParam(
+      direction: kDescendantDirection,
+      name: kIdOrderQueryParam,
+    ),
   );
 
   final boulderFilterGradeBloc =

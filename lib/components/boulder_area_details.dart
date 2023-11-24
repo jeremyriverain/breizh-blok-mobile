@@ -76,14 +76,11 @@ class BoulderAreaDetails extends StatelessWidget {
         boulderFilterBloc: context.read<BoulderFilterBloc>(),
         onPageRequested: (int page) {
           if (offlineFirst) {
+            final orderBlocState = context.read<BoulderOrderBloc>().state;
+
             return DbBouldersRequested(
-              queryParams: {
-                'rock.boulderArea.id[]': [
-                  boulderArea.iri.replaceAll('/boulder_areas/', ''),
-                ],
-                'order[id]': ['desc'],
-                'pagination': ['false'],
-              },
+              boulderArea: boulderArea,
+              orderQueryParam: orderBlocState,
             );
           }
           return BoulderListViewRequested(

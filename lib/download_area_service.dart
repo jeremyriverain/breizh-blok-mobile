@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/models/order_query_param.dart';
 
 class DownloadAreaService {
   DownloadAreaService({
@@ -74,7 +75,7 @@ class DownloadAreaService {
       {
         'rock.boulderArea.id[]':
             boulderArea.iri.replaceAll('/boulder_areas/', ''),
-        'order[id]': 'desc',
+        kIdOrderQueryParam: kDescendantDirection,
         'pagination': 'false',
       },
     );

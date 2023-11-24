@@ -3,10 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i7;
 
 import 'package:breizh_blok_mobile/app_http_client.dart' as _i4;
 import 'package:breizh_blok_mobile/database/app_database.dart' as _i2;
+import 'package:breizh_blok_mobile/models/boulder.dart' as _i5;
+import 'package:breizh_blok_mobile/models/collection_items.dart' as _i6;
+import 'package:breizh_blok_mobile/repositories/boulder_repository.dart' as _i8;
 import 'package:http/http.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -33,6 +36,37 @@ class _FakeAppDatabase_0 extends _i1.SmartFake implements _i2.AppDatabase {
 
 class _FakeClient_1 extends _i1.SmartFake implements _i3.Client {
   _FakeClient_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeAppHttpClient_2 extends _i1.SmartFake implements _i4.AppHttpClient {
+  _FakeAppHttpClient_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeBoulder_3 extends _i1.SmartFake implements _i5.Boulder {
+  _FakeBoulder_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCollectionItems_4<T> extends _i1.SmartFake
+    implements _i6.CollectionItems<T> {
+  _FakeCollectionItems_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -70,7 +104,7 @@ class MockAppHttpClient extends _i1.Mock implements _i4.AppHttpClient {
         ),
       ) as _i3.Client);
   @override
-  _i5.Future<String> get(
+  _i7.Future<String> get(
     Uri? uri, {
     Map<String, String>? headers,
     Duration? timeout = const Duration(seconds: 7),
@@ -86,9 +120,9 @@ class MockAppHttpClient extends _i1.Mock implements _i4.AppHttpClient {
             #offlineFirst: offlineFirst,
           },
         ),
-        returnValue: _i5.Future<String>.value(''),
-        returnValueForMissingStub: _i5.Future<String>.value(''),
-      ) as _i5.Future<String>);
+        returnValue: _i7.Future<String>.value(''),
+        returnValueForMissingStub: _i7.Future<String>.value(''),
+      ) as _i7.Future<String>);
   @override
   String normalizeRequestPath(Uri? uri) => (super.noSuchMethod(
         Invocation.method(
@@ -98,4 +132,94 @@ class MockAppHttpClient extends _i1.Mock implements _i4.AppHttpClient {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+}
+
+/// A class which mocks [BoulderRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBoulderRepository extends _i1.Mock implements _i8.BoulderRepository {
+  @override
+  _i4.AppHttpClient get httpClient => (super.noSuchMethod(
+        Invocation.getter(#httpClient),
+        returnValue: _FakeAppHttpClient_2(
+          this,
+          Invocation.getter(#httpClient),
+        ),
+        returnValueForMissingStub: _FakeAppHttpClient_2(
+          this,
+          Invocation.getter(#httpClient),
+        ),
+      ) as _i4.AppHttpClient);
+  @override
+  _i7.Future<_i5.Boulder> find(
+    String? id, {
+    bool? offlineFirst = false,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #find,
+          [id],
+          {#offlineFirst: offlineFirst},
+        ),
+        returnValue: _i7.Future<_i5.Boulder>.value(_FakeBoulder_3(
+          this,
+          Invocation.method(
+            #find,
+            [id],
+            {#offlineFirst: offlineFirst},
+          ),
+        )),
+        returnValueForMissingStub: _i7.Future<_i5.Boulder>.value(_FakeBoulder_3(
+          this,
+          Invocation.method(
+            #find,
+            [id],
+            {#offlineFirst: offlineFirst},
+          ),
+        )),
+      ) as _i7.Future<_i5.Boulder>);
+  @override
+  _i7.Future<_i6.CollectionItems<_i5.Boulder>> findBy({
+    Map<String, List<String>>? queryParams,
+    bool? offlineFirst = false,
+    Duration? timeout,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #findBy,
+          [],
+          {
+            #queryParams: queryParams,
+            #offlineFirst: offlineFirst,
+            #timeout: timeout,
+          },
+        ),
+        returnValue: _i7.Future<_i6.CollectionItems<_i5.Boulder>>.value(
+            _FakeCollectionItems_4<_i5.Boulder>(
+          this,
+          Invocation.method(
+            #findBy,
+            [],
+            {
+              #queryParams: queryParams,
+              #offlineFirst: offlineFirst,
+              #timeout: timeout,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i7.Future<_i6.CollectionItems<_i5.Boulder>>.value(
+                _FakeCollectionItems_4<_i5.Boulder>(
+          this,
+          Invocation.method(
+            #findBy,
+            [],
+            {
+              #queryParams: queryParams,
+              #offlineFirst: offlineFirst,
+              #timeout: timeout,
+            },
+          ),
+        )),
+      ) as _i7.Future<_i6.CollectionItems<_i5.Boulder>>);
 }
