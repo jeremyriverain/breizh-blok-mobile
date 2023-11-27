@@ -5,8 +5,10 @@ import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/components/modal_closing_button.dart';
+import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,6 +84,7 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
 Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
   BuildContext context, {
   bool offlineFirst = false,
+  BoulderArea? boulderArea,
 }) {
   return (cluster) async {
     return Marker(
@@ -92,33 +95,47 @@ Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
           context: context,
           isScrollControlled: true,
           builder: (BuildContext context) {
-            return Builder(
-              builder: (context) {
-                return FractionallySizedBox(
-                  heightFactor: 0.8,
-                  child: Scaffold(
-                    floatingActionButton: const ModalClosingButton(),
-                    floatingActionButtonLocation:
-                        FloatingActionButtonLocation.endTop,
-                    body: BoulderListBuilder(
-                      boulderFilterBloc:
-                          BoulderFilterBloc(BoulderFilterState()),
-                      onPageRequested: (int page) {
-                        return BoulderMapViewRequested(
-                          page: page,
-                          boulderIds: cluster.items
-                              .map((e) => e.id.toString())
-                              .toList(),
-                          orderQueryParam:
-                              context.read<BoulderOrderBloc>().state,
-                          offlineFirst: offlineFirst,
-                        );
-                      },
-                      showFilterButton: false,
+            return RepositoryProvider(
+              create: (_) => RequestStrategy(
+                offlineFirst: offlineFirst,
+              ),
+              child: Builder(
+                builder: (context) {
+                  return FractionallySizedBox(
+                    heightFactor: 0.8,
+                    child: Scaffold(
+                      floatingActionButton: const ModalClosingButton(),
+                      floatingActionButtonLocation:
+                          FloatingActionButtonLocation.endTop,
+                      body: BoulderListBuilder(
+                        boulderFilterBloc:
+                            BoulderFilterBloc(BoulderFilterState()),
+                        onPageRequested: (int page) {
+                          final orderQueryParam =
+                              context.read<BoulderOrderBloc>().state;
+
+                          final boulderIds =
+                              cluster.items.map((e) => e.id.toString()).toSet();
+
+                          if (boulderArea != null && offlineFirst) {
+                            return DbBouldersRequested(
+                              boulderArea: boulderArea,
+                              orderQueryParam: orderQueryParam,
+                              boulderIds: boulderIds,
+                            );
+                          }
+                          return BoulderRequested(
+                            page: page,
+                            boulderIds: boulderIds,
+                            orderQueryParam: orderQueryParam,
+                          );
+                        },
+                        showFilterButton: false,
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           },
         );

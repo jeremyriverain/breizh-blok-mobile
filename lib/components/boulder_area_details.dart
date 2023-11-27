@@ -85,12 +85,14 @@ class BoulderAreaDetails extends StatelessWidget {
               grades: grades,
             );
           }
-          return BoulderListViewRequested(
+
+          final boulderFilterState = context.read<BoulderFilterBloc>().state;
+          return BoulderRequested(
             page: page,
-            filterState: context.read<BoulderFilterBloc>().state,
+            term: boulderFilterState.term,
+            boulderAreas: boulderFilterState.boulderAreas,
             orderQueryParam: orderBlocState,
             grades: grades,
-            offlineFirst: context.read<RequestStrategy>().offlineFirst,
           );
         },
         bottomHeaderWidget: DownloadAreaButton(
@@ -135,12 +137,14 @@ class BoulderAreaDetails extends StatelessWidget {
 
                 final icon = data[0] as BitmapDescriptor;
                 final availableMaps = data[1] as List<AvailableMap>;
+
                 return BoulderMap(
                   initialPosition: context.watch<MapBloc>().state.mapLatLng,
                   initialZoom: context.watch<MapBloc>().state.mapZoom,
                   boulderMarkerBuilder: markerBuilderFactory(
                     context,
                     offlineFirst: context.read<RequestStrategy>().offlineFirst,
+                    boulderArea: boulderArea,
                   ),
                   markers: parkingLocation == null
                       ? {}

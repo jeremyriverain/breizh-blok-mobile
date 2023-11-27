@@ -32,6 +32,18 @@ class CollectionItems<T> {
   final int totalItems;
   final int? nextPage;
 
+  CollectionItems<T> copyWith({
+    List<T>? items,
+    int? totalItems,
+    int? nextPage,
+  }) {
+    return CollectionItems(
+      items: items ?? this.items,
+      totalItems: totalItems ?? this.totalItems,
+      nextPage: nextPage ?? this.nextPage,
+    );
+  }
+
   static int? extractPage(String uri) {
     final page = Uri.parse(uri).queryParameters['page'];
 

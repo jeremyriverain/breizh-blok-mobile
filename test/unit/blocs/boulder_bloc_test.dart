@@ -140,6 +140,10 @@ void main() {
       ),
       verify: (BoulderBloc bloc) {
         expect(
+          bloc.state.data?.totalItems,
+          equals(4),
+        );
+        expect(
           bloc.state.data?.items,
           equals(
             [
@@ -194,6 +198,10 @@ void main() {
         ),
       ),
       verify: (BoulderBloc bloc) {
+        expect(
+          bloc.state.data?.totalItems,
+          equals(4),
+        );
         expect(
           bloc.state.data?.items,
           equals(
@@ -253,11 +261,131 @@ void main() {
       ),
       verify: (BoulderBloc bloc) {
         expect(
+          bloc.state.data?.totalItems,
+          equals(2),
+        );
+        expect(
           bloc.state.data?.items,
           equals(
             [
               boulder5aPlus,
               boulder6a,
+            ],
+          ),
+        );
+      },
+    );
+
+    blocTest<BoulderBloc, BoulderState>(
+      'filter by boulder IDs',
+      setUp: () {
+        when(
+          mockBoulderRepository.findBy(
+            offlineFirst: true,
+            timeout: anyNamed('timeout'),
+            queryParams: {
+              'rock.boulderArea.id[]': [
+                idBoulderArea,
+              ],
+              kIdOrderQueryParam: [kDescendantDirection],
+              'pagination': ['false'],
+            },
+          ),
+        ).thenAnswer((_) async {
+          return CollectionItems<Boulder>(
+            items: [
+              boulder5a,
+              boulder5aPlus,
+              boulder6a,
+              boulderWithoutGrade,
+            ],
+            totalItems: 0,
+          );
+        });
+      },
+      build: () => BoulderBloc(
+        repository: mockBoulderRepository,
+      ),
+      act: (BoulderBloc bloc) => bloc.add(
+        DbBouldersRequested(
+          boulderArea: boulderArea,
+          boulderIds: {boulder5a.id, boulder5aPlus.id},
+          orderQueryParam: const OrderQueryParam(
+            name: kGradeOrderQueryParam,
+            direction: kDescendantDirection,
+          ),
+        ),
+      ),
+      verify: (BoulderBloc bloc) {
+        expect(
+          bloc.state.data?.totalItems,
+          equals(2),
+        );
+        expect(
+          bloc.state.data?.items,
+          equals(
+            [
+              boulder5aPlus,
+              boulder5a,
+            ],
+          ),
+        );
+      },
+    );
+
+    blocTest<BoulderBloc, BoulderState>(
+      'filter by boulder IDs and grade',
+      setUp: () {
+        when(
+          mockBoulderRepository.findBy(
+            offlineFirst: true,
+            timeout: anyNamed('timeout'),
+            queryParams: {
+              'rock.boulderArea.id[]': [
+                idBoulderArea,
+              ],
+              kIdOrderQueryParam: [kDescendantDirection],
+              'pagination': ['false'],
+            },
+          ),
+        ).thenAnswer((_) async {
+          return CollectionItems<Boulder>(
+            items: [
+              boulder5a,
+              boulder5aPlus,
+              boulder6a,
+              boulderWithoutGrade,
+            ],
+            totalItems: 0,
+          );
+        });
+      },
+      build: () => BoulderBloc(
+        repository: mockBoulderRepository,
+      ),
+      act: (BoulderBloc bloc) => bloc.add(
+        DbBouldersRequested(
+          boulderArea: boulderArea,
+          boulderIds: {boulder5a.id, boulder5aPlus.id},
+          orderQueryParam: const OrderQueryParam(
+            name: kGradeOrderQueryParam,
+            direction: kDescendantDirection,
+          ),
+          grades: {
+            boulder5aPlus.grade!,
+          },
+        ),
+      ),
+      verify: (BoulderBloc bloc) {
+        expect(
+          bloc.state.data?.totalItems,
+          equals(1),
+        );
+        expect(
+          bloc.state.data?.items,
+          equals(
+            [
+              boulder5aPlus,
             ],
           ),
         );

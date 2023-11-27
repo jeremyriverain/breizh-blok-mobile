@@ -183,23 +183,23 @@ class MyApp extends StatelessWidget {
           ),
         ),
         GoRoute(
-          path: '/boulders/:bid',
+          path: '/boulders/:id',
           name: 'boulder_details',
           builder: (context, state) {
             return RepositoryProvider(
               create: (context) => RequestStrategy(),
-              child: BoulderDetailsView(id: state.pathParameters['bid']!),
+              child: BoulderDetailsView(id: state.pathParameters['id']!),
             );
           },
         ),
         GoRoute(
-          path: '/downloads/boulders/:bid',
+          path: '/downloads/boulders/:id',
           name: 'downloaded_boulder_details',
           builder: (context, state) {
             return RepositoryProvider<RequestStrategy>(
               create: (context) => RequestStrategy(offlineFirst: true),
               child: BoulderDetailsView(
-                id: state.pathParameters['bid']!,
+                id: state.pathParameters['id']!,
               ),
             );
           },

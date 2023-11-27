@@ -85,6 +85,17 @@ void main() async {
     await tester.pumpAndSettle();
   }
 
+  Future<void> sortByLabel({
+    required WidgetTester tester,
+    required String label,
+  }) async {
+    await tester.tap(find.byKey(const Key('sort-button')));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text(label));
+    await tester.pumpAndSettle();
+  }
+
   testWidgets('I list boulders and show details about them',
       (WidgetTester tester) async {
     // prior to test, I fetch boulders to retrieve a reference
@@ -374,14 +385,6 @@ void main() async {
           .widget as BoulderListTile;
     }
 
-    Future<void> sortByLabel({required String label}) async {
-      await tester.tap(find.byKey(const Key('sort-button')));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text(label));
-      await tester.pumpAndSettle();
-    }
-
     final boulderRepository = BoulderRepository(
       httpClient: httpClient,
     );
@@ -414,7 +417,7 @@ void main() async {
     );
 
     // checks the first and second boulders are the easiest ones
-    await sortByLabel(label: 'Les plus faciles');
+    await sortByLabel(tester: tester, label: 'Les plus faciles');
 
     final firstEasiest = getBoulderListTileAt(0);
     expect(firstEasiest.boulder.iri, equals(easiestBoulders.items[0].iri));
@@ -423,7 +426,7 @@ void main() async {
     expect(secondEasiest.boulder.iri, equals(easiestBoulders.items[1].iri));
 
     // checks the first and second boulders are the hardest ones
-    await sortByLabel(label: 'Les plus difficiles');
+    await sortByLabel(tester: tester, label: 'Les plus difficiles');
 
     final firstHardest = getBoulderListTileAt(0);
     expect(firstHardest.boulder.iri, equals(hardestBoulders.items[0].iri));
@@ -891,7 +894,8 @@ by clicking on the "scroll to to the top" button''',
     expect(Boulder.fromJson(jsonBoulder).name, boulderReference.name);
   });
 
-  testWidgets('i can download boulder areas', (WidgetTester tester) async {
+  testWidgets('i can download boulder areas and view them',
+      (WidgetTester tester) async {
     var dbBoulderAreas = await database.select(database.dbBoulderAreas).get();
     expect(dbBoulderAreas.length, 0);
     await runApplication(tester: tester);
@@ -1041,6 +1045,81 @@ by clicking on the "scroll to to the top" button''',
       find.textContaining(
         firstBoulderName,
         findRichText: true,
+      ),
+      findsOneWidget,
+    );
+
+    // ignore: avoid_dynamic_calls, lines_longer_than_80_chars
+    final requestBodyReference =
+        jsonDecode(dbRequest.responseBody) as Map<String, dynamic>;
+
+    final boulderReference =
+        // ignore: avoid_dynamic_calls
+        requestBodyReference['hydra:member'][0] as Map<String, dynamic>;
+
+    final boulder5a = {
+      ...boulderReference,
+      'name': '5a boulder',
+      'grade': {
+        '@id': '/grades/1',
+        '@type': 'Grade',
+        'name': '5a',
+      },
+    };
+
+    final boulder6a = {
+      ...boulderReference,
+      'name': '6a boulder',
+      'grade': {
+        '@id': '/grades/2',
+        '@type': 'Grade',
+        'name': '6a',
+      },
+    };
+
+    final boulderWithoutGrade = {
+      ...boulderReference,
+      'name': 'boulder without grade',
+      'grade': null,
+    };
+
+    final newRequestBody = jsonEncode({
+      ...requestBodyReference,
+      'hydra:member': [boulderWithoutGrade, boulder5a, boulder6a],
+      'hydra:totalItems': 3,
+    });
+
+    await (database.update(database.dbRequests)
+          ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
+        .write(
+      DbRequestsCompanion(
+        responseBody: Value(newRequestBody),
+      ),
+    );
+
+    await sortByLabel(tester: tester, label: 'Les plus faciles');
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderListTile).first,
+        matching: find.textContaining('5a boulder', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderListTile).at(1),
+        matching: find.textContaining('6a boulder', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderListTile).at(2),
+        matching:
+            find.textContaining('boulder without grade', findRichText: true),
       ),
       findsOneWidget,
     );

@@ -1,4 +1,3 @@
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
@@ -14,7 +13,7 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
   BoulderBloc({
     required this.repository,
   }) : super(const Response()) {
-    on<BoulderListViewRequested>(
+    on<BoulderRequested>(
       (event, emit) async {
         final queryParams = <String, List<String>>{
           'page': [
@@ -22,11 +21,14 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
           ],
           event.orderQueryParam.name: [event.orderQueryParam.direction],
         };
-        if (event.filterState.term != null) {
-          queryParams['term'] = [event.filterState.term!];
+
+        final term = event.term;
+        if (term != null) {
+          queryParams['term'] = [term];
         }
-        if (event.filterState.boulderAreas.isNotEmpty) {
-          queryParams['rock.boulderArea.id[]'] = event.filterState.boulderAreas
+        final boulderAreas = event.boulderAreas;
+        if (boulderAreas.isNotEmpty) {
+          queryParams['rock.boulderArea.id[]'] = boulderAreas
               .map((e) => e.iri.replaceAll('/boulder_areas/', ''))
               .toList();
         }
@@ -36,39 +38,13 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
               event.grades.map((e) => e.name).toList();
         }
 
-        try {
-          final data = await repository.findBy(
-            queryParams: queryParams,
-            offlineFirst: event.offlineFirst,
-          );
-          emit(
-            Response(
-              data: data,
-            ),
-          );
-        } catch (error) {
-          emit(
-            Response(
-              error: error,
-            ),
-          );
+        if (event.boulderIds.isNotEmpty) {
+          queryParams['id[]'] = event.boulderIds.map((e) => e).toList();
         }
-      },
-    );
 
-    on<BoulderMapViewRequested>(
-      (event, emit) async {
-        final queryParams = <String, List<String>>{
-          'page': [
-            event.page.toString(),
-          ],
-          event.orderQueryParam.name: [event.orderQueryParam.direction],
-          'id[]': event.boulderIds,
-        };
         try {
           final data = await repository.findBy(
             queryParams: queryParams,
-            offlineFirst: event.offlineFirst,
           );
           emit(
             Response(
@@ -89,36 +65,32 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
       (event, emit) async {
         try {
           final queryParams = {
-            'rock.boulderArea.id[]': [
-              event.boulderArea.iri.replaceAll('/boulder_areas/', ''),
-            ],
             kIdOrderQueryParam: [kDescendantDirection],
             'pagination': ['false'],
           };
+
+          queryParams['rock.boulderArea.id[]'] = [
+            event.boulderArea.iri.replaceAll('/boulder_areas/', ''),
+          ];
+
           var data = await repository.findBy(
             queryParams: queryParams,
             offlineFirst: true,
             timeout: const Duration(seconds: 15),
           );
 
-          data = CollectionItems(
+          data = data.copyWith(
             items: data.items.where((boulder) {
-              final grades = event.grades;
-              if (grades.isEmpty) {
-                return true;
-              }
-
-              if (grades.contains(boulder.grade)) {
-                return true;
-              }
-              return false;
+              return _isInSet(boulder.id, event.boulderIds) &&
+                  _isInSet(
+                    boulder.grade,
+                    event.grades,
+                  );
             }).toList(),
-            totalItems: data.totalItems,
-            nextPage: data.nextPage,
           );
 
           if (event.orderQueryParam.name == kGradeOrderQueryParam) {
-            data = CollectionItems(
+            data = data.copyWith(
               items: data.items
                 ..sort((firstBoulder, secondBoulder) {
                   return _compareGrades(
@@ -127,10 +99,12 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
                     orderQueryParam: event.orderQueryParam,
                   );
                 }),
-              totalItems: data.totalItems,
-              nextPage: data.nextPage,
             );
           }
+
+          data = data.copyWith(
+            totalItems: data.items.length,
+          );
 
           emit(
             Response(
@@ -148,6 +122,17 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
     );
   }
   final BoulderRepository repository;
+
+  bool _isInSet<T>(T item, Set<T> set) {
+    if (set.isEmpty) {
+      return true;
+    }
+
+    if (set.contains(item)) {
+      return true;
+    }
+    return false;
+  }
 
   int _compareGrades(
     Boulder firstBoulder,
@@ -176,42 +161,33 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
 
 abstract class BoulderEvent {}
 
-class BoulderListViewRequested extends BoulderEvent {
-  BoulderListViewRequested({
+class BoulderRequested extends BoulderEvent {
+  BoulderRequested({
     required this.page,
-    required this.filterState,
     required this.orderQueryParam,
-    required this.grades,
-    this.offlineFirst = false,
+    this.term,
+    this.boulderAreas = const {},
+    this.grades = const {},
+    this.boulderIds = const {},
   });
   final int page;
-  final BoulderFilterState filterState;
+  final String? term;
+  final Set<BoulderArea> boulderAreas;
   final OrderQueryParam orderQueryParam;
   final Set<Grade> grades;
-  final bool offlineFirst;
-}
-
-class BoulderMapViewRequested extends BoulderEvent {
-  BoulderMapViewRequested({
-    required this.page,
-    required this.boulderIds,
-    required this.orderQueryParam,
-    this.offlineFirst = false,
-  });
-  final int page;
-  final List<String> boulderIds;
-  final OrderQueryParam orderQueryParam;
-  final bool offlineFirst;
+  final Set<String> boulderIds;
 }
 
 class DbBouldersRequested extends BoulderEvent {
   DbBouldersRequested({
     required this.boulderArea,
     required this.orderQueryParam,
-    required this.grades,
+    this.grades = const {},
+    this.boulderIds = const {},
   });
 
   final BoulderArea boulderArea;
   final OrderQueryParam orderQueryParam;
   final Set<Grade> grades;
+  final Set<String> boulderIds;
 }

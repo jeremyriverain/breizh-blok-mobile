@@ -70,12 +70,18 @@ class HomeView extends StatelessWidget {
               index: currentIndex,
               children: [
                 BoulderListBuilder(
-                  onPageRequested: (int page) => BoulderListViewRequested(
-                    page: page,
-                    filterState: context.read<BoulderFilterBloc>().state,
-                    orderQueryParam: context.read<BoulderOrderBloc>().state,
-                    grades: context.read<BoulderFilterGradeBloc>().state.grades,
-                  ),
+                  onPageRequested: (int page) {
+                    final boulderFilterState =
+                        context.read<BoulderFilterBloc>().state;
+                    return BoulderRequested(
+                      page: page,
+                      boulderAreas: boulderFilterState.boulderAreas,
+                      term: boulderFilterState.term,
+                      orderQueryParam: context.read<BoulderOrderBloc>().state,
+                      grades:
+                          context.read<BoulderFilterGradeBloc>().state.grades,
+                    );
+                  },
                   boulderFilterBloc: context.read<BoulderFilterBloc>(),
                 ),
                 const HomeMapView(),

@@ -25,7 +25,7 @@ class BoulderListTile extends StatelessWidget {
               offlineFirst ? 'downloaded_boulder_details' : 'boulder_details';
           context.pushNamed(
             routeName,
-            pathParameters: {'bid': boulder.id},
+            pathParameters: {'id': boulder.id},
           );
         },
         child: Padding(

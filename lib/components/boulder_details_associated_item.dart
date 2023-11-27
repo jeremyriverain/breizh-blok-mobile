@@ -19,7 +19,7 @@ class BoulderDetailsAssociatedItem extends StatelessWidget {
         onTap: () {
           context.pushNamed(
             'boulder_details',
-            pathParameters: {'bid': boulder.id},
+            pathParameters: {'id': boulder.id},
           );
         },
         child: Padding(
