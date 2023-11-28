@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/components/boulder_details.dart';
 import 'package:breizh_blok_mobile/components/boulder_details_navbar.dart';
+import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
@@ -11,10 +15,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BoulderDetailsView extends StatefulWidget {
   const BoulderDetailsView({
     required this.id,
+    this.boulderAreaIri,
     super.key,
   });
 
   final String id;
+  final String? boulderAreaIri;
 
   @override
   State<BoulderDetailsView> createState() => _BoulderDetailsViewState();
@@ -22,11 +28,42 @@ class BoulderDetailsView extends StatefulWidget {
 
 class _BoulderDetailsViewState extends State<BoulderDetailsView> {
   Future<Boulder> _findBoulder(BuildContext context) {
-    final offlineFirst = context.read<RequestStrategy>().offlineFirst;
-    return context.read<BoulderRepository>().find(
-          widget.id,
-          offlineFirst: offlineFirst,
-        );
+    if (!context.read<RequestStrategy>().offlineFirst) {
+      return context.read<BoulderRepository>().find(
+            widget.id,
+          );
+    }
+
+    final boulderAreaIri = widget.boulderAreaIri;
+    if (boulderAreaIri == null) {
+      throw Exception('boulderAreaId should be defined');
+    }
+
+    final database = context.read<AppDatabase>();
+    return (database.select(database.dbBoulderAreas)
+          ..where(
+            (tbl) => tbl.iri.equals(boulderAreaIri),
+          ))
+        .getSingle()
+        .then((dbBoulderArea) {
+      final bouldersPath = dbBoulderArea.boulders;
+      if (bouldersPath == null) {
+        throw Exception('boulders property should be defined');
+      }
+      return context.read<AppHttpClient>().get(
+            Uri.parse(bouldersPath),
+            offlineFirst: true,
+          );
+    }).then((response) {
+      final boulderJson =
+          // ignore: avoid_dynamic_calls
+          (jsonDecode(response)['hydra:member'] as List<dynamic>)
+              // ignore: avoid_dynamic_calls
+              .singleWhere((json) => json['@id'] == '/boulders/${widget.id}');
+      return Boulder.fromJson(
+        boulderJson as Map<String, dynamic>,
+      );
+    });
   }
 
   @override

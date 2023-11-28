@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/download_area_service.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
@@ -64,14 +65,9 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
     on<DbBouldersRequested>(
       (event, emit) async {
         try {
-          final queryParams = {
-            kIdOrderQueryParam: [kDescendantDirection],
-            'pagination': ['false'],
-          };
-
-          queryParams['rock.boulderArea.id[]'] = [
-            event.boulderArea.iri.replaceAll('/boulder_areas/', ''),
-          ];
+          final queryParams = DownloadAreaService.bouldersQueryParamsOf(
+            boulderArea: event.boulderArea,
+          );
 
           var data = await repository.findBy(
             queryParams: queryParams,

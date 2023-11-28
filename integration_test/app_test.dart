@@ -978,7 +978,7 @@ by clicking on the "scroll to to the top" button''',
     expect(dbBoulderAreas[0].iri, boulderAreaReference.iri);
     expect(
       dbBoulderAreas[0].boulders,
-      '/boulders?order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=${boulderAreaReference.iri.replaceAll('/boulder_areas/', '')}',
+      '/boulders?groups%5B%5D=Boulder%3Aitem-get&groups%5B%5D=Boulder%3Aread&groups%5B%5D=read&order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=${boulderAreaReference.iri.replaceAll('/boulder_areas/', '')}',
     );
 
     final dbRequest = await (database.select(database.dbRequests)
@@ -1083,17 +1083,17 @@ by clicking on the "scroll to to the top" button''',
       'grade': null,
     };
 
-    final newRequestBody = jsonEncode({
+    var newRequestBody = {
       ...requestBodyReference,
       'hydra:member': [boulderWithoutGrade, boulder5a, boulder6a],
       'hydra:totalItems': 3,
-    });
+    };
 
     await (database.update(database.dbRequests)
           ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
         .write(
       DbRequestsCompanion(
-        responseBody: Value(newRequestBody),
+        responseBody: Value(jsonEncode(newRequestBody)),
       ),
     );
 
@@ -1120,6 +1120,43 @@ by clicking on the "scroll to to the top" button''',
         of: find.byType(BoulderListTile).at(2),
         matching:
             find.textContaining('boulder without grade', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+
+    await sortByLabel(tester: tester, label: 'Les plus récents');
+    navigator.pop();
+    await tester.pumpAndSettle();
+
+    await tester.pump(
+      const Duration(
+        seconds: 3,
+      ),
+    );
+
+    await tester.tap(find.textContaining(boulderAreaReference.name).first);
+    await tester.pumpAndSettle();
+
+    newRequestBody =
+        jsonDecode(jsonEncode(requestBodyReference)) as Map<String, dynamic>;
+    // ignore: avoid_dynamic_calls
+    newRequestBody['hydra:member'][0]['name'] = 'Mario';
+
+    await (database.update(database.dbRequests)
+          ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
+        .write(
+      DbRequestsCompanion(
+        responseBody: Value(jsonEncode(newRequestBody)),
+      ),
+    );
+
+    await tester.tap(find.byType(BoulderListTile).first);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+        'Mario',
+        findRichText: true,
       ),
       findsOneWidget,
     );

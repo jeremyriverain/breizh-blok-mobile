@@ -71,7 +71,7 @@ void main() {
     final storedRequests = await database.select(database.dbRequests).get();
 
     const expectedBouldersRequestPath =
-        '/boulders?order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=3';
+        '/boulders?groups%5B%5D=Boulder%3Aitem-get&groups%5B%5D=Boulder%3Aread&groups%5B%5D=read&order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=3';
     const expectedGradesRequestPath =
         '/grades?exists%5Bboulders%5D=true&order%5Bname%5D=asc&pagination=false';
     expect(storedRequests.length, equals(3));

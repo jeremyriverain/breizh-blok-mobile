@@ -74,12 +74,7 @@ class DownloadAreaService {
     final uri = Uri.https(
       const String.fromEnvironment('API_HOST'),
       '/boulders',
-      {
-        'rock.boulderArea.id[]':
-            boulderArea.iri.replaceAll('/boulder_areas/', ''),
-        kIdOrderQueryParam: kDescendantDirection,
-        'pagination': 'false',
-      },
+      DownloadAreaService.bouldersQueryParamsOf(boulderArea: boulderArea),
     );
     await httpClient.get(
       uri,
@@ -106,5 +101,18 @@ class DownloadAreaService {
         GradeRepository.findAllQueryParams,
       ),
     );
+  }
+
+  static Map<String, List<String>> bouldersQueryParamsOf({
+    required BoulderArea boulderArea,
+  }) {
+    return {
+      'rock.boulderArea.id[]': [
+        boulderArea.iri.replaceAll('/boulder_areas/', ''),
+      ],
+      kIdOrderQueryParam: [kDescendantDirection],
+      'pagination': ['false'],
+      'groups[]': ['Boulder:item-get', 'Boulder:read', 'read'],
+    };
   }
 }

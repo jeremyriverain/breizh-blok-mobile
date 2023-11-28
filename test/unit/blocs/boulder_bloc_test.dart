@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
+import 'package:breizh_blok_mobile/download_area_service.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
@@ -93,7 +94,7 @@ void main() {
           ).captured.single as Uri)
               .toString(),
           endsWith(
-            '/boulders?order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=3',
+            '/boulders?groups%5B%5D=Boulder%3Aitem-get&groups%5B%5D=Boulder%3Aread&groups%5B%5D=read&order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=3',
           ),
         );
       },
@@ -105,13 +106,9 @@ void main() {
           mockBoulderRepository.findBy(
             offlineFirst: true,
             timeout: anyNamed('timeout'),
-            queryParams: {
-              'rock.boulderArea.id[]': [
-                idBoulderArea,
-              ],
-              kIdOrderQueryParam: [kDescendantDirection],
-              'pagination': ['false'],
-            },
+            queryParams: DownloadAreaService.bouldersQueryParamsOf(
+              boulderArea: boulderArea,
+            ),
           ),
         ).thenAnswer((_) async {
           return CollectionItems<Boulder>(
@@ -164,13 +161,9 @@ void main() {
           mockBoulderRepository.findBy(
             offlineFirst: true,
             timeout: anyNamed('timeout'),
-            queryParams: {
-              'rock.boulderArea.id[]': [
-                idBoulderArea,
-              ],
-              kIdOrderQueryParam: [kDescendantDirection],
-              'pagination': ['false'],
-            },
+            queryParams: DownloadAreaService.bouldersQueryParamsOf(
+              boulderArea: boulderArea,
+            ),
           ),
         ).thenAnswer((_) async {
           return CollectionItems<Boulder>(
@@ -223,13 +216,9 @@ void main() {
           mockBoulderRepository.findBy(
             offlineFirst: true,
             timeout: anyNamed('timeout'),
-            queryParams: {
-              'rock.boulderArea.id[]': [
-                idBoulderArea,
-              ],
-              kIdOrderQueryParam: [kDescendantDirection],
-              'pagination': ['false'],
-            },
+            queryParams: DownloadAreaService.bouldersQueryParamsOf(
+              boulderArea: boulderArea,
+            ),
           ),
         ).thenAnswer((_) async {
           return CollectionItems<Boulder>(
@@ -283,13 +272,9 @@ void main() {
           mockBoulderRepository.findBy(
             offlineFirst: true,
             timeout: anyNamed('timeout'),
-            queryParams: {
-              'rock.boulderArea.id[]': [
-                idBoulderArea,
-              ],
-              kIdOrderQueryParam: [kDescendantDirection],
-              'pagination': ['false'],
-            },
+            queryParams: DownloadAreaService.bouldersQueryParamsOf(
+              boulderArea: boulderArea,
+            ),
           ),
         ).thenAnswer((_) async {
           return CollectionItems<Boulder>(
@@ -340,13 +325,9 @@ void main() {
           mockBoulderRepository.findBy(
             offlineFirst: true,
             timeout: anyNamed('timeout'),
-            queryParams: {
-              'rock.boulderArea.id[]': [
-                idBoulderArea,
-              ],
-              kIdOrderQueryParam: [kDescendantDirection],
-              'pagination': ['false'],
-            },
+            queryParams: DownloadAreaService.bouldersQueryParamsOf(
+              boulderArea: boulderArea,
+            ),
           ),
         ).thenAnswer((_) async {
           return CollectionItems<Boulder>(

@@ -3,7 +3,9 @@ import 'package:breizh_blok_mobile/components/boulder_item_map.dart';
 import 'package:breizh_blok_mobile/components/line_boulders.dart';
 import 'package:breizh_blok_mobile/components/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class BoulderDetails extends StatelessWidget {
@@ -18,6 +20,7 @@ class BoulderDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final grade = boulder.grade;
     final description = boulder.description;
+    final offlineFirst = context.read<RequestStrategy>().offlineFirst;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -40,24 +43,30 @@ class BoulderDetails extends StatelessWidget {
             title: Text(boulder.rock.boulderArea.municipality.name),
             leading: const Text('Commune'),
             key: const Key('municipality-details-link'),
-            onTap: () {
-              context.pushNamed(
-                'municipality_details',
-                pathParameters: {
-                  'id': Uri.parse(boulder.rock.boulderArea.municipality.iri)
-                      .pathSegments
-                      .last,
-                },
-              );
-            },
+            onTap: offlineFirst
+                ? null
+                : () {
+                    context.pushNamed(
+                      'municipality_details',
+                      pathParameters: {
+                        'id':
+                            Uri.parse(boulder.rock.boulderArea.municipality.iri)
+                                .pathSegments
+                                .last,
+                      },
+                    );
+                  },
           ),
           ListTile(
             title: Text(boulder.rock.boulderArea.name),
             leading: const Text('Secteur'),
             key: const Key('boulder-area-details-link'),
             onTap: () {
+              final routeName = offlineFirst
+                  ? 'downloaded_boulder_area_details'
+                  : 'boulder_area_details';
               context.pushNamed(
-                'boulder_area_details',
+                routeName,
                 pathParameters: {
                   'id':
                       Uri.parse(boulder.rock.boulderArea.iri).pathSegments.last,

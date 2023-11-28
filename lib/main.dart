@@ -119,6 +119,9 @@ Future<void> main({
           RepositoryProvider<DownloadAreaService>(
             create: (context) => downloadAreaService,
           ),
+          RepositoryProvider<AppHttpClient>(
+            create: (context) => httpClient,
+          ),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -200,6 +203,7 @@ class MyApp extends StatelessWidget {
               create: (context) => RequestStrategy(offlineFirst: true),
               child: BoulderDetailsView(
                 id: state.pathParameters['id']!,
+                boulderAreaIri: state.uri.queryParameters['boulderAreaIri'],
               ),
             );
           },

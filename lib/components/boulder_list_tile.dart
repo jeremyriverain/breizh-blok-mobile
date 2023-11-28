@@ -26,6 +26,11 @@ class BoulderListTile extends StatelessWidget {
           context.pushNamed(
             routeName,
             pathParameters: {'id': boulder.id},
+            queryParameters: offlineFirst
+                ? {
+                    'boulderAreaIri': boulder.rock.boulderArea.iri,
+                  }
+                : {},
           );
         },
         child: Padding(
