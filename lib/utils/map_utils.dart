@@ -111,7 +111,7 @@ Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
                         boulderFilterBloc:
                             BoulderFilterBloc(BoulderFilterState()),
                         onPageRequested: (int page) {
-                          final orderQueryParam =
+                          final orderParam =
                               context.read<BoulderOrderBloc>().state;
 
                           final boulderIds =
@@ -120,14 +120,14 @@ Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
                           if (boulderArea != null && offlineFirst) {
                             return DbBouldersRequested(
                               boulderArea: boulderArea,
-                              orderQueryParam: orderQueryParam,
+                              orderParam: orderParam,
                               boulderIds: boulderIds,
                             );
                           }
                           return BoulderRequested(
                             page: page,
                             boulderIds: boulderIds,
-                            orderQueryParam: orderQueryParam,
+                            orderParam: orderParam,
                           );
                         },
                         showFilterButton: false,

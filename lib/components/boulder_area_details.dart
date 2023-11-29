@@ -81,7 +81,7 @@ class BoulderAreaDetails extends StatelessWidget {
           if (offlineFirst) {
             return DbBouldersRequested(
               boulderArea: boulderArea,
-              orderQueryParam: orderBlocState,
+              orderParam: orderBlocState,
               grades: grades,
             );
           }
@@ -91,7 +91,7 @@ class BoulderAreaDetails extends StatelessWidget {
             page: page,
             term: boulderFilterState.term,
             boulderAreas: boulderFilterState.boulderAreas,
-            orderQueryParam: orderBlocState,
+            orderParam: orderBlocState,
             grades: grades,
           );
         },

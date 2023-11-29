@@ -8,11 +8,12 @@ import 'dart:async' as _i6;
 import 'package:breizh_blok_mobile/app_http_client.dart' as _i7;
 import 'package:breizh_blok_mobile/database/app_database.dart' as _i2;
 import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart' as _i8;
+import 'package:breizh_blok_mobile/models/order_param.dart' as _i9;
 import 'package:drift/drift.dart' as _i4;
 import 'package:drift/src/runtime/executor/stream_queries.dart' as _i5;
 import 'package:http/http.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i9;
+import 'package:mockito/src/dummies.dart' as _i10;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -67,9 +68,9 @@ class _Fake$DbBoulderAreasTable_3 extends _i1.SmartFake
         );
 }
 
-class _FakeGeneratedDatabase_4 extends _i1.SmartFake
-    implements _i4.GeneratedDatabase {
-  _FakeGeneratedDatabase_4(
+class _FakeDriftDatabaseOptions_4 extends _i1.SmartFake
+    implements _i4.DriftDatabaseOptions {
+  _FakeDriftDatabaseOptions_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -78,9 +79,9 @@ class _FakeGeneratedDatabase_4 extends _i1.SmartFake
         );
 }
 
-class _FakeDriftDatabaseOptions_5 extends _i1.SmartFake
-    implements _i4.DriftDatabaseOptions {
-  _FakeDriftDatabaseOptions_5(
+class _FakeGeneratedDatabase_5 extends _i1.SmartFake
+    implements _i4.GeneratedDatabase {
+  _FakeGeneratedDatabase_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -367,29 +368,29 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
         returnValueForMissingStub: <_i4.DatabaseSchemaEntity>[],
       ) as List<_i4.DatabaseSchemaEntity>);
   @override
-  _i4.GeneratedDatabase get attachedDatabase => (super.noSuchMethod(
-        Invocation.getter(#attachedDatabase),
-        returnValue: _FakeGeneratedDatabase_4(
-          this,
-          Invocation.getter(#attachedDatabase),
-        ),
-        returnValueForMissingStub: _FakeGeneratedDatabase_4(
-          this,
-          Invocation.getter(#attachedDatabase),
-        ),
-      ) as _i4.GeneratedDatabase);
-  @override
   _i4.DriftDatabaseOptions get options => (super.noSuchMethod(
         Invocation.getter(#options),
-        returnValue: _FakeDriftDatabaseOptions_5(
+        returnValue: _FakeDriftDatabaseOptions_4(
           this,
           Invocation.getter(#options),
         ),
-        returnValueForMissingStub: _FakeDriftDatabaseOptions_5(
+        returnValueForMissingStub: _FakeDriftDatabaseOptions_4(
           this,
           Invocation.getter(#options),
         ),
       ) as _i4.DriftDatabaseOptions);
+  @override
+  _i4.GeneratedDatabase get attachedDatabase => (super.noSuchMethod(
+        Invocation.getter(#attachedDatabase),
+        returnValue: _FakeGeneratedDatabase_5(
+          this,
+          Invocation.getter(#attachedDatabase),
+        ),
+        returnValueForMissingStub: _FakeGeneratedDatabase_5(
+          this,
+          Invocation.getter(#attachedDatabase),
+        ),
+      ) as _i4.GeneratedDatabase);
   @override
   _i4.MigrationStrategy get migration => (super.noSuchMethod(
         Invocation.getter(#migration),
@@ -504,11 +505,16 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
         returnValueForMissingStub: _i6.Future<int>.value(0),
       ) as _i6.Future<int>);
   @override
-  _i6.Future<List<_i8.DownloadedBoulderArea>> allDownloads() =>
+  _i6.Future<List<_i8.DownloadedBoulderArea>> allDownloads(
+          {_i9.OrderParam? orderParam = const _i9.OrderParam(
+            direction: r'desc',
+            name: r'order[id]',
+          )}) =>
       (super.noSuchMethod(
         Invocation.method(
           #allDownloads,
           [],
+          {#orderParam: orderParam},
         ),
         returnValue: _i6.Future<List<_i8.DownloadedBoulderArea>>.value(
             <_i8.DownloadedBoulderArea>[]),
@@ -597,7 +603,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             alias,
           ],
         ),
-        returnValue: _i9.dummyValue<T>(
+        returnValue: _i10.dummyValue<T>(
           this,
           Invocation.method(
             #alias,
@@ -607,7 +613,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ],
           ),
         ),
-        returnValueForMissingStub: _i9.dummyValue<T>(
+        returnValueForMissingStub: _i10.dummyValue<T>(
           this,
           Invocation.method(
             #alias,
@@ -654,8 +660,8 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
           #doWhenOpened,
           [fn],
         ),
-        returnValue: _i9.ifNotNull(
-              _i9.dummyValueOrNull<T>(
+        returnValue: _i10.ifNotNull(
+              _i10.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #doWhenOpened,
@@ -671,8 +677,8 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 [fn],
               ),
             ),
-        returnValueForMissingStub: _i9.ifNotNull(
-              _i9.dummyValueOrNull<T>(
+        returnValueForMissingStub: _i10.ifNotNull(
+              _i10.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #doWhenOpened,
@@ -976,8 +982,8 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
           [action],
           {#requireNew: requireNew},
         ),
-        returnValue: _i9.ifNotNull(
-              _i9.dummyValueOrNull<T>(
+        returnValue: _i10.ifNotNull(
+              _i10.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #transaction,
@@ -995,8 +1001,8 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 {#requireNew: requireNew},
               ),
             ),
-        returnValueForMissingStub: _i9.ifNotNull(
-              _i9.dummyValueOrNull<T>(
+        returnValueForMissingStub: _i10.ifNotNull(
+              _i10.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #transaction,

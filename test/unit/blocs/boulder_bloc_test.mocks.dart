@@ -151,22 +151,16 @@ class MockBoulderRepository extends _i1.Mock implements _i8.BoulderRepository {
         ),
       ) as _i4.AppHttpClient);
   @override
-  _i7.Future<_i5.Boulder> find(
-    String? id, {
-    bool? offlineFirst = false,
-  }) =>
-      (super.noSuchMethod(
+  _i7.Future<_i5.Boulder> find(String? id) => (super.noSuchMethod(
         Invocation.method(
           #find,
           [id],
-          {#offlineFirst: offlineFirst},
         ),
         returnValue: _i7.Future<_i5.Boulder>.value(_FakeBoulder_3(
           this,
           Invocation.method(
             #find,
             [id],
-            {#offlineFirst: offlineFirst},
           ),
         )),
         returnValueForMissingStub: _i7.Future<_i5.Boulder>.value(_FakeBoulder_3(
@@ -174,7 +168,6 @@ class MockBoulderRepository extends _i1.Mock implements _i8.BoulderRepository {
           Invocation.method(
             #find,
             [id],
-            {#offlineFirst: offlineFirst},
           ),
         )),
       ) as _i7.Future<_i5.Boulder>);

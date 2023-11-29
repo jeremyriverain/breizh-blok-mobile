@@ -12,7 +12,7 @@ import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
@@ -71,9 +71,9 @@ Future<void> main({
   );
 
   final boulderOrderBloc = BoulderOrderBloc(
-    const OrderQueryParam(
+    const OrderParam(
       direction: kDescendantDirection,
-      name: kIdOrderQueryParam,
+      name: kIdOrderParam,
     ),
   );
 

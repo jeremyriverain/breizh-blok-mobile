@@ -1,39 +1,39 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('BoulderFilterBloc', () {
-    blocTest<BoulderOrderBloc, OrderQueryParam>(
+    blocTest<BoulderOrderBloc, OrderParam>(
       'default state OK',
       build: () => BoulderOrderBloc(
-        const OrderQueryParam(
+        const OrderParam(
           direction: kDescendantDirection,
-          name: kIdOrderQueryParam,
+          name: kIdOrderParam,
         ),
       ),
       verify: (BoulderOrderBloc bloc) {
         expect(bloc.state.direction, kDescendantDirection);
-        expect(bloc.state.name, kIdOrderQueryParam);
+        expect(bloc.state.name, kIdOrderParam);
       },
     );
 
-    blocTest<BoulderOrderBloc, OrderQueryParam>(
+    blocTest<BoulderOrderBloc, OrderParam>(
       'BoulderOrderEvent OK',
       build: () => BoulderOrderBloc(
-        const OrderQueryParam(
+        const OrderParam(
           direction: kDescendantDirection,
-          name: kIdOrderQueryParam,
+          name: kIdOrderParam,
         ),
       ),
       act: (BoulderOrderBloc bloc) => bloc.add(
         BoulderOrderEvent(
-          const OrderQueryParam(direction: kAscendantDirection, name: 'name'),
+          const OrderParam(direction: kAscendantDirection, name: 'name'),
         ),
       ),
       expect: () =>
-          [const OrderQueryParam(direction: kAscendantDirection, name: 'name')],
+          [const OrderParam(direction: kAscendantDirection, name: 'name')],
     );
   });
 }

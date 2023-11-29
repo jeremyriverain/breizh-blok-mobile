@@ -13,7 +13,7 @@ import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/main.dart' as app;
 import 'package:breizh_blok_mobile/models/boulder.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
@@ -34,7 +34,7 @@ void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   final defaultBoulderQueryParams = {
-    kIdOrderQueryParam: [kDescendantDirection],
+    kIdOrderParam: [kDescendantDirection],
   };
 
   final database = AppDatabase(NativeDatabase.memory());
@@ -393,12 +393,12 @@ void main() async {
     );
     final easiestBoulders = await boulderRepository.findBy(
       queryParams: {
-        kGradeOrderQueryParam: [kAscendantDirection],
+        kGradeOrderParam: [kAscendantDirection],
       },
     );
     final hardestBoulders = await boulderRepository.findBy(
       queryParams: {
-        kGradeOrderQueryParam: [kDescendantDirection],
+        kGradeOrderParam: [kDescendantDirection],
       },
     );
 
@@ -763,13 +763,13 @@ by clicking on the "scroll to to the top" button''',
     );
     final easiestBoulders = await boulderRepository.findBy(
       queryParams: {
-        kGradeOrderQueryParam: [kAscendantDirection],
+        kGradeOrderParam: [kAscendantDirection],
         ...boulderAreaQueryParam,
       },
     );
     final hardestBoulders = await boulderRepository.findBy(
       queryParams: {
-        kGradeOrderQueryParam: [kDescendantDirection],
+        kGradeOrderParam: [kDescendantDirection],
         ...boulderAreaQueryParam,
       },
     );

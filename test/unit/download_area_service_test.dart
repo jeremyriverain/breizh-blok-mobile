@@ -96,13 +96,15 @@ void main() {
     final storedBoulderAreas =
         await database.select(database.dbBoulderAreas).get();
     expect(storedBoulderAreas.length, equals(1));
+    final mockDate = DateTime.now();
     expect(
-      storedBoulderAreas,
+      storedBoulderAreas.map((e) => e.copyWith(downloadedAt: mockDate)),
       [
         DbBoulderArea(
           iri: boulderArea.iri,
           isDownloaded: true,
           boulders: expectedBouldersRequestPath,
+          downloadedAt: mockDate,
         ),
       ],
     );

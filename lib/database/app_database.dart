@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:breizh_blok_mobile/database/tables/db_boulder_areas.dart';
 import 'package:breizh_blok_mobile/database/tables/db_requests.dart';
 import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:drift/drift.dart';
 
 part 'app_database.g.dart';
@@ -27,7 +28,10 @@ class AppDatabase extends _$AppDatabase {
     return into(dbBoulderAreas).insertOnConflictUpdate(boulderArea);
   }
 
-  Future<List<DownloadedBoulderArea>> allDownloads() async {
+  Future<List<DownloadedBoulderArea>> allDownloads({
+    OrderParam? orderParam =
+        const OrderParam(direction: kDescendantDirection, name: kIdOrderParam),
+  }) async {
     final rows = await select(dbBoulderAreas).join([
       innerJoin(
         dbRequests,
@@ -67,7 +71,10 @@ class AppDatabase extends _$AppDatabase {
         // ignore: avoid_dynamic_calls
         municipalityName: json['municipality']['name'] as String,
       );
-    }).toList();
+    }).toList()
+      ..sort((a, b) {
+        return 0;
+      });
   }
 
   Stream<DbBoulderArea?> watchDownload(String iri) {

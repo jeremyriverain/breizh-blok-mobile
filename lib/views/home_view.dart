@@ -77,7 +77,7 @@ class HomeView extends StatelessWidget {
                       page: page,
                       boulderAreas: boulderFilterState.boulderAreas,
                       term: boulderFilterState.term,
-                      orderQueryParam: context.read<BoulderOrderBloc>().state,
+                      orderParam: context.read<BoulderOrderBloc>().state,
                       grades:
                           context.read<BoulderFilterGradeBloc>().state.grades,
                     );

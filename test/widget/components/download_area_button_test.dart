@@ -74,9 +74,10 @@ void main() {
     });
 
     streamController.add(
-      const DbBoulderArea(
+      DbBoulderArea(
         iri: '/foo',
         isDownloaded: false,
+        downloadedAt: DateTime.now(),
       ),
     );
 
@@ -88,9 +89,10 @@ void main() {
     );
 
     streamController.add(
-      const DbBoulderArea(
+      DbBoulderArea(
         iri: '/foo',
         isDownloaded: true,
+        downloadedAt: DateTime.now(),
       ),
     );
 

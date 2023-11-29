@@ -8,7 +8,7 @@ import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/models/rock.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -75,8 +75,8 @@ void main() {
       act: (BoulderBloc bloc) => bloc.add(
         DbBouldersRequested(
           boulderArea: boulderArea,
-          orderQueryParam: const OrderQueryParam(
-            name: kGradeOrderQueryParam,
+          orderParam: const OrderParam(
+            name: kGradeOrderParam,
             direction: kAscendantDirection,
           ),
           grades: {},
@@ -128,8 +128,8 @@ void main() {
       act: (BoulderBloc bloc) => bloc.add(
         DbBouldersRequested(
           boulderArea: boulderArea,
-          orderQueryParam: const OrderQueryParam(
-            name: kGradeOrderQueryParam,
+          orderParam: const OrderParam(
+            name: kGradeOrderParam,
             direction: kAscendantDirection,
           ),
           grades: {},
@@ -183,8 +183,8 @@ void main() {
       act: (BoulderBloc bloc) => bloc.add(
         DbBouldersRequested(
           boulderArea: boulderArea,
-          orderQueryParam: const OrderQueryParam(
-            name: kGradeOrderQueryParam,
+          orderParam: const OrderParam(
+            name: kGradeOrderParam,
             direction: kDescendantDirection,
           ),
           grades: {},
@@ -238,8 +238,8 @@ void main() {
       act: (BoulderBloc bloc) => bloc.add(
         DbBouldersRequested(
           boulderArea: boulderArea,
-          orderQueryParam: const OrderQueryParam(
-            name: kGradeOrderQueryParam,
+          orderParam: const OrderParam(
+            name: kGradeOrderParam,
             direction: kAscendantDirection,
           ),
           grades: {
@@ -295,8 +295,8 @@ void main() {
         DbBouldersRequested(
           boulderArea: boulderArea,
           boulderIds: {boulder5a.id, boulder5aPlus.id},
-          orderQueryParam: const OrderQueryParam(
-            name: kGradeOrderQueryParam,
+          orderParam: const OrderParam(
+            name: kGradeOrderParam,
             direction: kDescendantDirection,
           ),
         ),
@@ -348,8 +348,8 @@ void main() {
         DbBouldersRequested(
           boulderArea: boulderArea,
           boulderIds: {boulder5a.id, boulder5aPlus.id},
-          orderQueryParam: const OrderQueryParam(
-            name: kGradeOrderQueryParam,
+          orderParam: const OrderParam(
+            name: kGradeOrderParam,
             direction: kDescendantDirection,
           ),
           grades: {

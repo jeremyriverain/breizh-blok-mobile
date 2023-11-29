@@ -1,40 +1,40 @@
 import 'package:breizh_blok_mobile/components/sort_button.dart';
 import 'package:breizh_blok_mobile/models/order_choice.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final radioListTileType = const RadioListTile<OrderQueryParam>(
-    value: OrderQueryParam(name: '', direction: ''),
-    groupValue: OrderQueryParam(name: '', direction: ''),
+  final radioListTileType = const RadioListTile<OrderParam>(
+    value: OrderParam(name: '', direction: ''),
+    groupValue: OrderParam(name: '', direction: ''),
     onChanged: null,
   ).runtimeType;
 
-  List<RadioListTile<OrderQueryParam>> findTiles() {
+  List<RadioListTile<OrderParam>> findTiles() {
     return find
         .byType(radioListTileType)
         .evaluate()
         .map<Widget>((Element element) => element.widget)
-        .cast<RadioListTile<OrderQueryParam>>()
+        .cast<RadioListTile<OrderParam>>()
         .toList();
   }
 
   final choices = [
     OrderChoice(
       label: 'label 1',
-      orderQueryParam: const OrderQueryParam(direction: 'bar', name: 'foo'),
+      orderParam: const OrderParam(direction: 'bar', name: 'foo'),
     ),
     OrderChoice(
       label: 'label 2',
-      orderQueryParam: const OrderQueryParam(direction: 'foo', name: 'bar'),
+      orderParam: const OrderParam(direction: 'foo', name: 'bar'),
     ),
   ];
 
   testWidgets('I can select specific radio tile', (WidgetTester tester) async {
     const defaultLabel = 'Afficher en 1er:';
 
-    OrderQueryParam? result;
+    OrderParam? result;
 
     await tester.pumpWidget(
       MaterialApp(
@@ -69,7 +69,7 @@ void main() {
     expect(generatedRadioListTiles[0].checked, equals(true));
     expect(generatedRadioListTiles[1].checked, equals(false));
 
-    expect(result, equals(choices[0].orderQueryParam));
+    expect(result, equals(choices[0].orderParam));
   });
 
   testWidgets(
@@ -80,7 +80,7 @@ void main() {
       MaterialApp(
         home: SortButton(
           choices: choices,
-          initialSelected: choices[1].orderQueryParam,
+          initialSelected: choices[1].orderParam,
           onChanged: (p0) => {},
           label: label,
         ),

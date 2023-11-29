@@ -3,7 +3,7 @@ import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/models/response.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +20,7 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
           'page': [
             event.page.toString(),
           ],
-          event.orderQueryParam.name: [event.orderQueryParam.direction],
+          event.orderParam.name: [event.orderParam.direction],
         };
 
         final term = event.term;
@@ -85,14 +85,14 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
             }).toList(),
           );
 
-          if (event.orderQueryParam.name == kGradeOrderQueryParam) {
+          if (event.orderParam.name == kGradeOrderParam) {
             data = data.copyWith(
               items: data.items
                 ..sort((firstBoulder, secondBoulder) {
                   return _compareGrades(
                     firstBoulder,
                     secondBoulder,
-                    orderQueryParam: event.orderQueryParam,
+                    orderParam: event.orderParam,
                   );
                 }),
             );
@@ -133,9 +133,9 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
   int _compareGrades(
     Boulder firstBoulder,
     Boulder secondBoulder, {
-    required OrderQueryParam orderQueryParam,
+    required OrderParam orderParam,
   }) {
-    final direction = orderQueryParam.direction;
+    final direction = orderParam.direction;
     final aGrade = direction == kAscendantDirection
         ? firstBoulder.grade
         : secondBoulder.grade;
@@ -160,7 +160,7 @@ abstract class BoulderEvent {}
 class BoulderRequested extends BoulderEvent {
   BoulderRequested({
     required this.page,
-    required this.orderQueryParam,
+    required this.orderParam,
     this.term,
     this.boulderAreas = const {},
     this.grades = const {},
@@ -169,7 +169,7 @@ class BoulderRequested extends BoulderEvent {
   final int page;
   final String? term;
   final Set<BoulderArea> boulderAreas;
-  final OrderQueryParam orderQueryParam;
+  final OrderParam orderParam;
   final Set<Grade> grades;
   final Set<String> boulderIds;
 }
@@ -177,13 +177,13 @@ class BoulderRequested extends BoulderEvent {
 class DbBouldersRequested extends BoulderEvent {
   DbBouldersRequested({
     required this.boulderArea,
-    required this.orderQueryParam,
+    required this.orderParam,
     this.grades = const {},
     this.boulderIds = const {},
   });
 
   final BoulderArea boulderArea;
-  final OrderQueryParam orderQueryParam;
+  final OrderParam orderParam;
   final Set<Grade> grades;
   final Set<String> boulderIds;
 }

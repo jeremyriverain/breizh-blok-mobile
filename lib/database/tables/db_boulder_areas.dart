@@ -6,6 +6,8 @@ class DbBoulderAreas extends Table {
   BoolColumn get isDownloaded => boolean()();
   TextColumn get boulders =>
       text().nullable().references(DbRequests, #requestPath)();
+  DateTimeColumn get downloadedAt =>
+      dateTime().withDefault(currentDateAndTime)();
 
   @override
   Set<Column> get primaryKey => {iri};

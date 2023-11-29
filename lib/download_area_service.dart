@@ -1,8 +1,9 @@
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
+import 'package:drift/drift.dart';
 
 class DownloadAreaService {
   DownloadAreaService({
@@ -44,7 +45,10 @@ class DownloadAreaService {
 
   Future<void> download(BoulderArea boulderArea) async {
     await database.into(database.dbBoulderAreas).insert(
-          DbBoulderArea(iri: boulderArea.iri, isDownloaded: false),
+          DbBoulderAreasCompanion.insert(
+            iri: boulderArea.iri,
+            isDownloaded: false,
+          ),
         );
 
     try {
@@ -59,10 +63,10 @@ class DownloadAreaService {
       await (database.update(database.dbBoulderAreas)
             ..where((tbl) => tbl.iri.equals(boulderArea.iri)))
           .write(
-        DbBoulderArea(
+        DbBoulderAreasCompanion.insert(
           iri: boulderArea.iri,
           isDownloaded: true,
-          boulders: boulders,
+          boulders: Value(boulders),
         ),
       );
     } catch (e) {
@@ -110,7 +114,7 @@ class DownloadAreaService {
       'rock.boulderArea.id[]': [
         boulderArea.iri.replaceAll('/boulder_areas/', ''),
       ],
-      kIdOrderQueryParam: [kDescendantDirection],
+      kIdOrderParam: [kDescendantDirection],
       'pagination': ['false'],
       'groups[]': ['Boulder:item-get', 'Boulder:read', 'read'],
     };
