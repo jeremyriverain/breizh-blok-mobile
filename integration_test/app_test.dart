@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, avoid_dynamic_calls
 
 import 'dart:convert';
 
@@ -988,7 +988,6 @@ by clicking on the "scroll to to the top" button''',
         .getSingle();
 
     final firstBoulderName =
-        // ignore: avoid_dynamic_calls
         jsonDecode(dbRequest.responseBody)['hydra:member'][0]['name'] as String;
 
     print('first boulder name: $firstBoulderName');
@@ -1049,12 +1048,11 @@ by clicking on the "scroll to to the top" button''',
       findsOneWidget,
     );
 
-    // ignore: avoid_dynamic_calls, lines_longer_than_80_chars
+    // ignore: lines_longer_than_80_chars
     final requestBodyReference =
         jsonDecode(dbRequest.responseBody) as Map<String, dynamic>;
 
     final boulderReference =
-        // ignore: avoid_dynamic_calls
         requestBodyReference['hydra:member'][0] as Map<String, dynamic>;
 
     final boulder5a = {
@@ -1083,21 +1081,22 @@ by clicking on the "scroll to to the top" button''',
       'grade': null,
     };
 
-    var newRequestBody = {
-      ...requestBodyReference,
+    // ignore: omit_local_variable_types
+    Map<String, dynamic> newRequestBody = {
       'hydra:member': [boulderWithoutGrade, boulder5a, boulder6a],
       'hydra:totalItems': 3,
     };
 
-    print(newRequestBody);
-
-    print(dbRequest.requestPath);
+    await tester.pump(
+      const Duration(seconds: 2),
+    );
 
     await (database.update(database.dbRequests)
           ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
         .write(
-      DbRequestsCompanion(
-        responseBody: Value(jsonEncode(newRequestBody)),
+      DbRequest(
+        requestPath: dbRequest.requestPath,
+        responseBody: jsonEncode(newRequestBody),
       ),
     );
 
@@ -1145,14 +1144,33 @@ by clicking on the "scroll to to the top" button''',
 
     newRequestBody =
         jsonDecode(jsonEncode(requestBodyReference)) as Map<String, dynamic>;
-    // ignore: avoid_dynamic_calls
+
+    final rockIri = newRequestBody['hydra:member'][0]['rock']['@id'];
+
+    // ignore: inference_failure_on_untyped_parameter
+    newRequestBody['hydra:member'].map((b) {
+      b['rock']['@id'] = '/rocks/0';
+      return b;
+    }).toList();
+    newRequestBody['hydra:member'][0]['rock']['@id'] = rockIri;
     newRequestBody['hydra:member'][0]['name'] = 'Mario';
+
+    newRequestBody['hydra:member'][1]['rock']['@id'] = rockIri;
+    newRequestBody['hydra:member'][1]['name'] = 'Foo';
+
+    newRequestBody['hydra:member'][2]['rock']['@id'] = rockIri;
+    newRequestBody['hydra:member'][2]['name'] = 'Bar';
+
+    await tester.pump(
+      const Duration(seconds: 2),
+    );
 
     await (database.update(database.dbRequests)
           ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
         .write(
-      DbRequestsCompanion(
-        responseBody: Value(jsonEncode(newRequestBody)),
+      DbRequest(
+        requestPath: dbRequest.requestPath,
+        responseBody: jsonEncode(newRequestBody),
       ),
     );
 
@@ -1163,6 +1181,45 @@ by clicking on the "scroll to to the top" button''',
       find.text(
         'Mario',
         findRichText: true,
+      ),
+      findsOneWidget,
+    );
+
+    await tester.scrollUntilVisible(
+      // WORKAROUND TO SCROLL TO THE BOTTOM
+      find.textContaining('Cotation'),
+      300,
+      scrollable: find.descendant(
+        of: find.byKey(
+          const Key('boulder-details-list-view'),
+        ),
+        matching: find.byType(Scrollable),
+      ),
+    );
+
+    await tester.scrollUntilVisible(
+      find.text('Blocs sur le même rocher'),
+      300,
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Blocs sur le même rocher'), findsOneWidget);
+
+    expect(find.byType(BoulderDetailsAssociatedItem), findsNWidgets(2));
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderDetailsAssociatedItem).at(0),
+        matching: find.textContaining('Bar', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderDetailsAssociatedItem).at(1),
+        matching: find.textContaining('Foo', findRichText: true),
       ),
       findsOneWidget,
     );

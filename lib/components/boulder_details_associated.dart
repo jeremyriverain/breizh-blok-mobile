@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/components/boulder_details_associated_item.dart';
+import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter/material.dart';
@@ -22,13 +27,46 @@ class BoulderDetailsAssociated extends StatefulWidget {
 class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
     with AutomaticKeepAliveClientMixin {
   Future<CollectionItems<Boulder>> _findBoulders(BuildContext context) {
-    return context.read<BoulderRepository>().findBy(
-      queryParams: {
-        'pagination': ['false'],
-        'rock.id': [widget.boulder.rock.id],
-      },
-      offlineFirst: context.read<RequestStrategy>().offlineFirst,
-    );
+    if (!context.read<RequestStrategy>().offlineFirst) {
+      return context.read<BoulderRepository>().findBy(
+        queryParams: {
+          'pagination': ['false'],
+          'rock.id': [widget.boulder.rock.id],
+          'order[name]': [kAscendantDirection],
+        },
+      );
+    }
+
+    final database = context.read<AppDatabase>();
+    return (database.select(database.dbBoulderAreas)
+          ..where(
+            (tbl) => tbl.iri.equals(widget.boulder.rock.boulderArea.iri),
+          ))
+        .getSingle()
+        .then((dbBoulderArea) {
+      final bouldersPath = dbBoulderArea.boulders;
+      if (bouldersPath == null) {
+        throw Exception('boulders property should be defined');
+      }
+      return context.read<AppHttpClient>().get(
+            Uri.parse(bouldersPath),
+            offlineFirst: true,
+          );
+    }).then((response) {
+      final bouldersJson =
+          // ignore: avoid_dynamic_calls
+          (jsonDecode(response)['hydra:member'] as List<dynamic>)
+              // ignore: avoid_dynamic_calls
+              .where((json) => json['rock']['@id'] == widget.boulder.rock.iri)
+              .toList();
+      return CollectionItems(
+        items: bouldersJson
+            .map((json) => Boulder.fromJson(json as Map<String, dynamic>))
+            .toList()
+          ..sort((a, b) => a.name.compareTo(b.name)),
+        totalItems: bouldersJson.length,
+      );
+    });
   }
 
   @override
