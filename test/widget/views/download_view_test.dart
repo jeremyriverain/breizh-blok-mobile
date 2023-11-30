@@ -25,33 +25,47 @@ void main() {
     expect(find.text('Aucun secteur téléchargé'), findsOneWidget);
   });
 
-  testWidgets('display downloads', (WidgetTester tester) async {
-    final database = AppDatabase(
-      NativeDatabase.memory(),
-    );
-
+  Future<void> createDownload(
+    AppDatabase database, {
+    required String boulerAreaName,
+    required String municipalityName,
+    required String boulderAreaIri,
+  }) async {
     await Future.wait(
       [
         database.into(database.dbBoulderAreas).insert(
               DbBoulderAreasCompanion.insert(
-                iri: '/foo',
+                iri: boulderAreaIri,
                 isDownloaded: true,
               ),
             ),
         database.into(database.dbRequests).insert(
-              const DbRequest(
-                requestPath: '/foo',
+              DbRequest(
+                requestPath: boulderAreaIri,
                 responseBody: '''
 {
-  "name": "Petit paradis",
+  "name": "$boulerAreaName",
   "municipality": {
-    "name": "Kerlouan"
+    "name": "$municipalityName"
   }
 }
 ''',
               ),
             ),
       ],
+    );
+  }
+
+  testWidgets('display downloads', (WidgetTester tester) async {
+    final database = AppDatabase(
+      NativeDatabase.memory(),
+    );
+
+    await createDownload(
+      database,
+      municipalityName: 'Kerlouan',
+      boulerAreaName: 'Petit paradis',
+      boulderAreaIri: '/foo',
     );
 
     await tester.pumpWidget(
@@ -88,5 +102,174 @@ void main() {
       ),
       findsOneWidget,
     );
+  });
+
+  testWidgets('sort downloaded boulder areas', (WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final database = AppDatabase(
+        NativeDatabase.memory(),
+      );
+
+      await Future.wait([
+        createDownload(
+          database,
+          municipalityName: 'Kerlouan',
+          boulerAreaName: 'Petit paradis',
+          boulderAreaIri: '/foo',
+        ),
+        // ignore: inference_failure_on_instance_creation
+        Future.delayed(const Duration(milliseconds: 1)).then(
+          (_) => createDownload(
+            database,
+            boulerAreaName: 'Bois de Keroual',
+            municipalityName: 'Guilers',
+            boulderAreaIri: '/bar',
+          ),
+        ),
+        // ignore: inference_failure_on_instance_creation
+        Future.delayed(const Duration(milliseconds: 2)).then(
+          (_) => createDownload(
+            database,
+            boulerAreaName: 'Impératrice',
+            municipalityName: 'Plougastel Daoulas',
+            boulderAreaIri: '/baz',
+          ),
+        ),
+        // ignore: inference_failure_on_instance_creation
+        Future.delayed(const Duration(milliseconds: 3)).then(
+          (_) => createDownload(
+            database,
+            boulerAreaName: 'La rivière',
+            municipalityName: 'Kerlouan',
+            boulderAreaIri: '/boo',
+          ),
+        ),
+      ]);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: DownloadView(
+              database: database,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ListTile), findsNWidgets(4));
+
+      // displays the most recent downloads first
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(0),
+          matching: find.text('Petit paradis'),
+        ),
+        findsOneWidget,
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(1),
+          matching: find.text('Bois de Keroual'),
+        ),
+        findsOneWidget,
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(2),
+          matching: find.text('Impératrice'),
+        ),
+        findsOneWidget,
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(3),
+          matching: find.text('La rivière'),
+        ),
+        findsOneWidget,
+      );
+
+      // sort by boulderAreaName
+      await tester.tap(find.text('Trier'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('A - Z (secteur)'));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(0),
+          matching: find.text('Bois de Keroual'),
+        ),
+        findsOneWidget,
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(1),
+          matching: find.text('Impératrice'),
+        ),
+        findsOneWidget,
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(2),
+          matching: find.text('La rivière'),
+        ),
+        findsOneWidget,
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(3),
+          matching: find.text('Petit paradis'),
+        ),
+        findsOneWidget,
+      );
+
+      // sort by municipalityName
+      await tester.tap(find.text('Trier'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('A - Z (commune)'));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(0),
+          matching: find.text('Guilers'),
+        ),
+        findsOneWidget,
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(1),
+          matching: find.text('La rivière'),
+        ),
+        findsOneWidget,
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(2),
+          matching: find.text('Petit paradis'),
+        ),
+        findsOneWidget,
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(ListTile).at(3),
+          matching: find.text('Plougastel Daoulas'),
+        ),
+        findsOneWidget,
+      );
+    });
   });
 }

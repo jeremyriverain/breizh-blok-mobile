@@ -66,8 +66,14 @@ void main() {
         () async {
       final database = AppDatabase(NativeDatabase.memory());
 
+      final mockDate = DateTime.now();
+
       await database.into(database.dbBoulderAreas).insert(
-            DbBoulderAreasCompanion.insert(iri: '/foo', isDownloaded: true),
+            DbBoulderAreasCompanion.insert(
+              iri: '/foo',
+              isDownloaded: true,
+              downloadedAt: Value(mockDate),
+            ),
           );
 
       await database.into(database.dbRequests).insert(
@@ -87,10 +93,11 @@ void main() {
       expect(
         await database.allDownloads(),
         [
-          const DownloadedBoulderArea(
+          DownloadedBoulderArea(
             boulderAreaName: 'Petit paradis',
             boulderAreaIri: '/foo',
             municipalityName: 'Kerlouan',
+            downloadedAt: mockDate,
           ),
         ],
       );

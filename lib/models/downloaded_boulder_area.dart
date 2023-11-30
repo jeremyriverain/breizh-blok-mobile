@@ -5,11 +5,13 @@ class DownloadedBoulderArea extends Equatable {
     required this.boulderAreaName,
     required this.municipalityName,
     required this.boulderAreaIri,
+    required this.downloadedAt,
   });
 
   final String boulderAreaName;
   final String municipalityName;
   final String boulderAreaIri;
+  final DateTime downloadedAt;
 
   @override
   List<Object?> get props => [

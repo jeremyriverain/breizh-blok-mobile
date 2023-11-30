@@ -2,11 +2,12 @@ import 'package:breizh_blok_mobile/components/empty_list_indicator.dart';
 import 'package:breizh_blok_mobile/components/sort_downloads_button.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/views/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class DownloadView extends StatelessWidget {
+class DownloadView extends StatefulWidget {
   const DownloadView({
     required this.database,
     super.key,
@@ -14,14 +15,27 @@ class DownloadView extends StatelessWidget {
 
   final AppDatabase database;
 
-  Future<List<DownloadedBoulderArea>> _findDownloads() async {
-    return database.allDownloads();
+  @override
+  State<DownloadView> createState() => _DownloadViewState();
+}
+
+class _DownloadViewState extends State<DownloadView> {
+  Future<List<DownloadedBoulderArea>> _findDownloads(
+    OrderParam orderParam,
+  ) async {
+    final response = await widget.database.allDownloads(orderParam: orderParam);
+    return response;
   }
+
+  var _orderParam = const OrderParam(
+    name: kIdOrderParam,
+    direction: kDescendantDirection,
+  );
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _findDownloads(),
+      future: _findDownloads(_orderParam),
       builder: (context, snapshot) {
         final data = snapshot.data;
 
@@ -41,7 +55,15 @@ Il est possible de télécharger des secteurs
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  if (index == 0) SortDownloadsButton(),
+                  if (index == 0)
+                    SortDownloadsButton(
+                      initialSelected: _orderParam,
+                      onChanged: (OrderParam orderParam) {
+                        setState(() {
+                          _orderParam = orderParam;
+                        });
+                      },
+                    ),
                   ListTile(
                     key: Key(data[index].boulderAreaIri),
                     title: Text(data[index].boulderAreaName),

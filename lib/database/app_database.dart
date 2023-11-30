@@ -29,7 +29,7 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Future<List<DownloadedBoulderArea>> allDownloads({
-    OrderParam? orderParam =
+    OrderParam orderParam =
         const OrderParam(direction: kDescendantDirection, name: kIdOrderParam),
   }) async {
     final rows = await select(dbBoulderAreas).join([
@@ -65,15 +65,25 @@ class AppDatabase extends _$AppDatabase {
       final json = jsonDecode(row.readTable(dbRequests).responseBody)
           as Map<String, dynamic>;
 
+      final dbBoulderArea = row.readTable(dbBoulderAreas);
+
       return DownloadedBoulderArea(
         boulderAreaName: json['name'] as String,
         boulderAreaIri: row.readTable(dbBoulderAreas).iri,
         // ignore: avoid_dynamic_calls
         municipalityName: json['municipality']['name'] as String,
+        downloadedAt: dbBoulderArea.downloadedAt,
       );
     }).toList()
       ..sort((a, b) {
-        return 0;
+        final c = orderParam.direction == kAscendantDirection ? a : b;
+        final d = orderParam.direction == kAscendantDirection ? b : a;
+        return switch (orderParam.name) {
+          'boulderAreaName' => c.boulderAreaName.compareTo(d.boulderAreaName),
+          'municipalityName' => (c.municipalityName + c.boulderAreaName)
+              .compareTo(d.municipalityName + d.boulderAreaName),
+          _ => c.downloadedAt.compareTo(d.downloadedAt),
+        };
       });
   }
 

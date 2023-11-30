@@ -6,33 +6,41 @@ import 'package:flutter/material.dart';
 
 class SortDownloadsButton extends StatelessWidget {
   SortDownloadsButton({
+    required this.onChanged,
+    required this.initialSelected,
     super.key,
-  });
+  }) : choices = [
+          OrderChoice(
+            label: 'Téléchargés récemment',
+            orderParam: initialSelected,
+          ),
+          OrderChoice(
+            label: 'A - Z (secteur)',
+            orderParam: const OrderParam(
+              direction: kAscendantDirection,
+              name: 'boulderAreaName',
+            ),
+          ),
+          OrderChoice(
+            label: 'A - Z (commune)',
+            orderParam: const OrderParam(
+              direction: kAscendantDirection,
+              name: 'municipalityName',
+            ),
+          ),
+        ];
 
-  void _onChanged(OrderParam orderParam) {
-    //
-  }
+  final void Function(OrderParam orderParam) onChanged;
 
-  final List<OrderChoice> choices = [
-    OrderChoice(
-      label: 'Téléchargés récemment',
-      orderParam: const OrderParam(direction: 'bar', name: 'foo3'),
-    ),
-    OrderChoice(
-      label: 'A - Z (secteur)',
-      orderParam: const OrderParam(direction: 'bar', name: 'foo1'),
-    ),
-    OrderChoice(
-      label: 'A - Z (commune)',
-      orderParam: const OrderParam(direction: 'bar', name: 'foo2'),
-    ),
-  ];
+  final OrderParam initialSelected;
+  final List<OrderChoice> choices;
 
   @override
   Widget build(BuildContext context) {
     return SortButton(
       choices: choices,
-      onChanged: _onChanged,
+      initialSelected: initialSelected,
+      onChanged: onChanged,
       label: 'Trier par:',
     );
   }

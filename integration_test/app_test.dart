@@ -1089,6 +1089,10 @@ by clicking on the "scroll to to the top" button''',
       'hydra:totalItems': 3,
     };
 
+    print(newRequestBody);
+
+    print(dbRequest.requestPath);
+
     await (database.update(database.dbRequests)
           ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
         .write(
@@ -1096,6 +1100,8 @@ by clicking on the "scroll to to the top" button''',
         responseBody: Value(jsonEncode(newRequestBody)),
       ),
     );
+
+    await tester.pumpAndSettle();
 
     await sortByLabel(tester: tester, label: 'Les plus faciles');
 
