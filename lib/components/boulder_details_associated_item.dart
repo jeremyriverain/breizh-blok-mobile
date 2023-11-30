@@ -1,7 +1,9 @@
 import 'package:breizh_blok_mobile/components/boulder_tile_image.dart';
 import 'package:breizh_blok_mobile/components/boulder_tile_title.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class BoulderDetailsAssociatedItem extends StatelessWidget {
@@ -17,9 +19,17 @@ class BoulderDetailsAssociatedItem extends StatelessWidget {
     return Material(
       child: InkWell(
         onTap: () {
+          final offlineFirst = context.read<RequestStrategy>().offlineFirst;
+          final routeName =
+              offlineFirst ? 'downloaded_boulder_details' : 'boulder_details';
           context.pushNamed(
-            'boulder_details',
+            routeName,
             pathParameters: {'id': boulder.id},
+            queryParameters: offlineFirst
+                ? {
+                    'boulderAreaIri': boulder.rock.boulderArea.iri,
+                  }
+                : {},
           );
         },
         child: Padding(
