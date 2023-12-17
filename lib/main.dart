@@ -11,6 +11,7 @@ import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
+import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
@@ -57,9 +58,12 @@ Future<void> main({
     database: appDatabase,
   );
 
+  final imageBoulderCache = ImageBoulderCache();
+
   final downloadAreaService = DownloadAreaService(
     database: appDatabase,
     httpClient: httpClient,
+    imageBoulderCache: imageBoulderCache,
   );
 
   final tabBloc = TabBloc();
@@ -121,6 +125,9 @@ Future<void> main({
           ),
           RepositoryProvider<AppHttpClient>(
             create: (context) => httpClient,
+          ),
+          RepositoryProvider<ImageBoulderCache>(
+            create: (context) => imageBoulderCache,
           ),
         ],
         child: MultiBlocProvider(

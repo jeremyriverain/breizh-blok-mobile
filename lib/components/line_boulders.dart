@@ -134,7 +134,9 @@ class _GalleryPhotoViewWrapperState extends State<_GalleryPhotoViewWrapper> {
       child: SizedBox(
         width: 300,
         height: 300,
-        child: LineBoulderImage(lineBoulder: item),
+        child: LineBoulderImage(
+          lineBoulder: item,
+        ),
       ),
       childSize: const Size(300, 300),
       initialScale: PhotoViewComputedScale.contained,

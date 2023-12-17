@@ -1,46 +1,57 @@
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
+import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:drift/drift.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class DownloadAreaService {
   DownloadAreaService({
     required this.database,
     required this.httpClient,
+    required this.imageBoulderCache,
   });
 
   final AppDatabase database;
   final AppHttpClient httpClient;
+  final ImageBoulderCache imageBoulderCache;
 
   Future<void> removeDownload(String iri) async {
-    final storedBoulderArea = await (database.select(database.dbBoulderAreas)
-          ..where((tbl) => tbl.iri.equals(iri)))
-        .getSingleOrNull();
-    if (storedBoulderArea == null) {
-      return;
-    }
-
-    final deletions = [
-      (database.delete(database.dbBoulderAreas)
+    try {
+      final storedBoulderArea = await (database.select(database.dbBoulderAreas)
             ..where((tbl) => tbl.iri.equals(iri)))
-          .go(),
-      (database.delete(database.dbRequests)
-            ..where((tbl) => tbl.requestPath.equals(iri)))
-          .go(),
-    ];
+          .getSingleOrNull();
+      if (storedBoulderArea == null) {
+        return;
+      }
 
-    final bouldersRequestPath = storedBoulderArea.boulders;
-
-    if (bouldersRequestPath != null) {
-      deletions.add(
-        (database.delete(database.dbRequests)
-              ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
+      final deletions = [
+        (database.delete(database.dbBoulderAreas)
+              ..where((tbl) => tbl.iri.equals(iri)))
             .go(),
+        (database.delete(database.dbRequests)
+              ..where((tbl) => tbl.requestPath.equals(iri)))
+            .go(),
+      ];
+
+      final bouldersRequestPath = storedBoulderArea.boulders;
+
+      if (bouldersRequestPath != null) {
+        deletions.add(
+          (database.delete(database.dbRequests)
+                ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
+              .go(),
+        );
+      }
+      Future.wait(deletions).ignore();
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
       );
     }
-    Future.wait(deletions).ignore();
   }
 
   Future<void> download(BoulderArea boulderArea) async {
@@ -69,8 +80,11 @@ class DownloadAreaService {
           boulders: Value(boulders),
         ),
       );
-    } catch (e) {
-      //
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
     }
   }
 
@@ -83,6 +97,7 @@ class DownloadAreaService {
     await httpClient.get(
       uri,
       timeout: const Duration(seconds: 15),
+      offlineFirst: true,
     );
 
     return httpClient.normalizeRequestPath(uri);
@@ -94,6 +109,7 @@ class DownloadAreaService {
         const String.fromEnvironment('API_HOST'),
         boulderArea.iri,
       ),
+      offlineFirst: true,
     );
   }
 
@@ -104,6 +120,7 @@ class DownloadAreaService {
         '/grades',
         GradeRepository.findAllQueryParams,
       ),
+      offlineFirst: true,
     );
   }
 

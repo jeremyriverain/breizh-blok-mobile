@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
+import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
@@ -11,6 +12,12 @@ import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:mockito/annotations.dart';
+
+@GenerateNiceMocks([
+  MockSpec<ImageBoulderCache>(),
+])
+import './download_area_service_test.mocks.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
@@ -44,6 +51,7 @@ void main() {
     final downloadAreaService = DownloadAreaService(
       database: database,
       httpClient: httpClient,
+      imageBoulderCache: MockImageBoulderCache(),
     );
 
     final storedRequestsBeforeDownloading =

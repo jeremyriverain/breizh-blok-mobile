@@ -5,15 +5,17 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 
-import 'package:breizh_blok_mobile/app_http_client.dart' as _i7;
+import 'package:breizh_blok_mobile/app_http_client.dart' as _i8;
 import 'package:breizh_blok_mobile/database/app_database.dart' as _i2;
-import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart' as _i8;
-import 'package:breizh_blok_mobile/models/order_param.dart' as _i9;
+import 'package:breizh_blok_mobile/image_boulder_cache.dart' as _i12;
+import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart' as _i9;
+import 'package:breizh_blok_mobile/models/order_param.dart' as _i10;
 import 'package:drift/drift.dart' as _i4;
 import 'package:drift/src/runtime/executor/stream_queries.dart' as _i5;
+import 'package:flutter_cache_manager/flutter_cache_manager.dart' as _i7;
 import 'package:http/http.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i10;
+import 'package:mockito/src/dummies.dart' as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -261,10 +263,20 @@ class _FakeGenerationContext_21 extends _i1.SmartFake
         );
 }
 
+class _FakeCacheManager_22 extends _i1.SmartFake implements _i7.CacheManager {
+  _FakeCacheManager_22(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [AppHttpClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppHttpClient extends _i1.Mock implements _i7.AppHttpClient {
+class MockAppHttpClient extends _i1.Mock implements _i8.AppHttpClient {
   @override
   _i2.AppDatabase get database => (super.noSuchMethod(
         Invocation.getter(#database),
@@ -505,8 +517,8 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
         returnValueForMissingStub: _i6.Future<int>.value(0),
       ) as _i6.Future<int>);
   @override
-  _i6.Future<List<_i8.DownloadedBoulderArea>> allDownloads(
-          {_i9.OrderParam? orderParam = const _i9.OrderParam(
+  _i6.Future<List<_i9.DownloadedBoulderArea>> allDownloads(
+          {_i10.OrderParam? orderParam = const _i10.OrderParam(
             direction: r'desc',
             name: r'order[id]',
           )}) =>
@@ -516,12 +528,12 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
           [],
           {#orderParam: orderParam},
         ),
-        returnValue: _i6.Future<List<_i8.DownloadedBoulderArea>>.value(
-            <_i8.DownloadedBoulderArea>[]),
+        returnValue: _i6.Future<List<_i9.DownloadedBoulderArea>>.value(
+            <_i9.DownloadedBoulderArea>[]),
         returnValueForMissingStub:
-            _i6.Future<List<_i8.DownloadedBoulderArea>>.value(
-                <_i8.DownloadedBoulderArea>[]),
-      ) as _i6.Future<List<_i8.DownloadedBoulderArea>>);
+            _i6.Future<List<_i9.DownloadedBoulderArea>>.value(
+                <_i9.DownloadedBoulderArea>[]),
+      ) as _i6.Future<List<_i9.DownloadedBoulderArea>>);
   @override
   _i6.Stream<_i2.DbBoulderArea?> watchDownload(String? iri) =>
       (super.noSuchMethod(
@@ -603,7 +615,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             alias,
           ],
         ),
-        returnValue: _i10.dummyValue<T>(
+        returnValue: _i11.dummyValue<T>(
           this,
           Invocation.method(
             #alias,
@@ -613,7 +625,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ],
           ),
         ),
-        returnValueForMissingStub: _i10.dummyValue<T>(
+        returnValueForMissingStub: _i11.dummyValue<T>(
           this,
           Invocation.method(
             #alias,
@@ -660,8 +672,8 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
           #doWhenOpened,
           [fn],
         ),
-        returnValue: _i10.ifNotNull(
-              _i10.dummyValueOrNull<T>(
+        returnValue: _i11.ifNotNull(
+              _i11.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #doWhenOpened,
@@ -677,8 +689,8 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 [fn],
               ),
             ),
-        returnValueForMissingStub: _i10.ifNotNull(
-              _i10.dummyValueOrNull<T>(
+        returnValueForMissingStub: _i11.ifNotNull(
+              _i11.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #doWhenOpened,
@@ -982,8 +994,8 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
           [action],
           {#requireNew: requireNew},
         ),
-        returnValue: _i10.ifNotNull(
-              _i10.dummyValueOrNull<T>(
+        returnValue: _i11.ifNotNull(
+              _i11.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #transaction,
@@ -1001,8 +1013,8 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 {#requireNew: requireNew},
               ),
             ),
-        returnValueForMissingStub: _i10.ifNotNull(
-              _i10.dummyValueOrNull<T>(
+        returnValueForMissingStub: _i11.ifNotNull(
+              _i11.dummyValueOrNull<T>(
                 this,
                 Invocation.method(
                   #transaction,
@@ -1123,4 +1135,22 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
+}
+
+/// A class which mocks [ImageBoulderCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockImageBoulderCache extends _i1.Mock implements _i12.ImageBoulderCache {
+  @override
+  _i7.CacheManager get cache => (super.noSuchMethod(
+        Invocation.getter(#cache),
+        returnValue: _FakeCacheManager_22(
+          this,
+          Invocation.getter(#cache),
+        ),
+        returnValueForMissingStub: _FakeCacheManager_22(
+          this,
+          Invocation.getter(#cache),
+        ),
+      ) as _i7.CacheManager);
 }

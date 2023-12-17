@@ -23,7 +23,9 @@ class BoulderTileImage extends StatelessWidget {
     }
     return SizedBox(
       width: widthImage.toDouble(),
-      child: LineBoulderImage(lineBoulder: boulder.lineBoulders[0]),
+      child: LineBoulderImage(
+        lineBoulder: boulder.lineBoulders[0],
+      ),
     );
   }
 }

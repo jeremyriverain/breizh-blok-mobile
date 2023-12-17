@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/models/line_boulder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LineBoulderImage extends StatelessWidget {
@@ -30,6 +32,7 @@ class LineBoulderImage extends StatelessWidget {
           (lineBoulder.rockImage.filterUrl ?? '')
               .replaceAll('%filter%', 'scale_md'),
         ).toString(),
+        cacheManager: context.read<ImageBoulderCache>().cache,
       ),
     );
     final completer = Completer<ui.Image>();

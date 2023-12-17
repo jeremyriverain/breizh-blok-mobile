@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/components/download_area_button.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
+import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
@@ -13,7 +14,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-@GenerateNiceMocks([MockSpec<AppHttpClient>(), MockSpec<AppDatabase>()])
+@GenerateNiceMocks([
+  MockSpec<AppHttpClient>(),
+  MockSpec<AppDatabase>(),
+  MockSpec<ImageBoulderCache>(),
+])
 import './download_area_button_test.mocks.dart';
 
 void main() {
@@ -25,6 +30,7 @@ void main() {
     final downloadAreaService = DownloadAreaService(
       database: database,
       httpClient: MockAppHttpClient(),
+      imageBoulderCache: MockImageBoulderCache(),
     );
 
     when(

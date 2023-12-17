@@ -96,6 +96,387 @@ void main() async {
     await tester.pumpAndSettle();
   }
 
+  testWidgets('requests are persisted to a local database', (tester) async {
+    final storedRequests = await database.select(database.dbRequests).get();
+    expect(storedRequests.length, 0);
+
+    await runApplication(tester: tester);
+
+    final bouldersRequest = await (database.select(database.dbRequests)
+          ..where(
+            (tbl) =>
+                tbl.requestPath.like('/boulders?order%5Bid%5D=desc&page=1'),
+          ))
+        .getSingle();
+
+    final boulders = parseBoulders(bouldersRequest.responseBody).items;
+    expect(
+      boulders[0].iri,
+      contains('/boulders/'),
+    );
+
+    final boulderRequest = await (database.select(database.dbRequests)
+          ..where(
+            (tbl) => tbl.requestPath.equals(boulders[0].iri),
+          ))
+        .getSingleOrNull();
+
+    final boulderReference = boulders[0];
+    print('ref boulder: ${boulderReference.name}');
+    print(boulderReference.iri);
+    expect(boulderRequest, isNull);
+    await tester.tap(find.byType(BoulderListTile).first);
+
+    await tester.pumpAndSettle();
+
+    final boulderRequestAfterShowingDetails =
+        await (database.select(database.dbRequests)
+              ..where(
+                (tbl) => tbl.requestPath.equals(boulderReference.iri),
+              ))
+            .getSingleOrNull();
+    expect(
+      boulderRequestAfterShowingDetails?.requestPath,
+      equals(boulderReference.iri),
+    );
+
+    final jsonBoulder =
+        jsonDecode(boulderRequestAfterShowingDetails?.responseBody ?? '')
+            as Map<String, dynamic>;
+    expect(Boulder.fromJson(jsonBoulder).name, boulderReference.name);
+  });
+
+  testWidgets('i can download boulder areas and view them',
+      (WidgetTester tester) async {
+    var dbBoulderAreas = await database.select(database.dbBoulderAreas).get();
+    expect(dbBoulderAreas.length, 0);
+    await runApplication(tester: tester);
+    await tester.tap(find.text('Téléchargements').first);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Secteurs téléchargés'), findsOneWidget);
+    expect(find.text('Aucun secteur téléchargé'), findsOneWidget);
+
+    await tester.tap(find.text('Index').first);
+    await tester.pumpAndSettle();
+
+    final departmentRepository = DepartmentRepository(
+      httpClient: httpClient,
+    );
+    final departmentsResponse = await departmentRepository.findAll();
+    final departmentReference = departmentsResponse.items[0];
+    print('department reference: ${departmentReference.name}');
+
+    final municipalityReference = departmentReference.municipalities[0];
+    print('municipality reference: ${municipalityReference.name}');
+
+    final boulderAreaReference = municipalityReference.boulderAreas[0];
+    print('boulder area reference: ${boulderAreaReference.name}');
+
+    await tester.tap(find.text(municipalityReference.name).first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(boulderAreaReference.name).first);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('TÉLÉCHARGER').first);
+
+    // download a boulder area takes time
+    await tester.pump(
+      const Duration(
+        seconds: 3,
+      ),
+    );
+
+    expect(find.text('TÉLÉCHARGER ✅'), findsOneWidget);
+
+    final navigator = (tester.state(find.byType(Navigator)) as NavigatorState)
+      ..pop();
+    await tester.pumpAndSettle();
+    navigator.pop();
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Téléchargements').first);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.descendant(
+        of: find.byKey(Key(boulderAreaReference.iri)),
+        matching: find.textContaining(
+          boulderAreaReference.name,
+          findRichText: true,
+        ),
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.descendant(
+        of: find.byKey(Key(boulderAreaReference.iri)),
+        matching: find.textContaining(
+          municipalityReference.name,
+          findRichText: true,
+        ),
+      ),
+      findsOneWidget,
+    );
+
+    dbBoulderAreas = await (database.select(database.dbBoulderAreas)
+          ..where(
+            (tbl) => tbl.iri.equals(boulderAreaReference.iri),
+          ))
+        .get();
+
+    expect(dbBoulderAreas.length, 1);
+    expect(dbBoulderAreas[0].iri, boulderAreaReference.iri);
+    expect(
+      dbBoulderAreas[0].boulders,
+      '/boulders?groups%5B%5D=Boulder%3Aitem-get&groups%5B%5D=Boulder%3Aread&groups%5B%5D=read&order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=${boulderAreaReference.iri.replaceAll('/boulder_areas/', '')}',
+    );
+
+    final dbRequest = await (database.select(database.dbRequests)
+          ..where(
+            (tbl) => tbl.requestPath.equals(dbBoulderAreas[0].boulders!),
+          ))
+        .getSingle();
+
+    final firstBoulderName =
+        jsonDecode(dbRequest.responseBody)['hydra:member'][0]['name'] as String;
+
+    print('first boulder name: $firstBoulderName');
+    await (database.update(database.dbRequests)
+          ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
+        .write(
+      DbRequestsCompanion(
+        responseBody: Value(
+          dbRequest.responseBody.replaceFirstMapped(
+            RegExp(r'"name"\s*:\s*"(.*?)"'),
+            (Match match) => '"name":"Breath of the wild"',
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.textContaining(boulderAreaReference.name).first);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('boulder-area-details-app-bar')),
+        matching: find.textContaining(
+          boulderAreaReference.name,
+          findRichText: true,
+        ),
+      ),
+      findsOneWidget,
+    );
+
+    // check the initial boulder list comes from the database
+    expect(
+      find.textContaining(
+        'Breath of the wild',
+        findRichText: true,
+      ),
+      findsOneWidget,
+    );
+
+    navigator.pop();
+    await tester.pumpAndSettle();
+
+    await tester.pump(
+      const Duration(
+        seconds: 3,
+      ),
+    );
+
+    await tester.tap(find.textContaining(boulderAreaReference.name).first);
+    await tester.pumpAndSettle();
+
+    // check the boulder list has been refreshed
+    expect(
+      find.textContaining(
+        firstBoulderName,
+        findRichText: true,
+      ),
+      findsOneWidget,
+    );
+
+    // ignore: lines_longer_than_80_chars
+    final requestBodyReference =
+        jsonDecode(dbRequest.responseBody) as Map<String, dynamic>;
+
+    final boulderReference =
+        requestBodyReference['hydra:member'][0] as Map<String, dynamic>;
+
+    final boulder5a = {
+      ...boulderReference,
+      'name': '5a boulder',
+      'grade': {
+        '@id': '/grades/1',
+        '@type': 'Grade',
+        'name': '5a',
+      },
+    };
+
+    final boulder6a = {
+      ...boulderReference,
+      'name': '6a boulder',
+      'grade': {
+        '@id': '/grades/2',
+        '@type': 'Grade',
+        'name': '6a',
+      },
+    };
+
+    final boulderWithoutGrade = {
+      ...boulderReference,
+      'name': 'boulder without grade',
+      'grade': null,
+    };
+
+    // ignore: omit_local_variable_types
+    Map<String, dynamic> newRequestBody = {
+      'hydra:member': [boulderWithoutGrade, boulder5a, boulder6a],
+      'hydra:totalItems': 3,
+    };
+
+    await tester.pump(
+      const Duration(seconds: 2),
+    );
+
+    await (database.update(database.dbRequests)
+          ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
+        .write(
+      DbRequest(
+        requestPath: dbRequest.requestPath,
+        responseBody: jsonEncode(newRequestBody),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+
+    await sortByLabel(tester: tester, label: 'Les plus faciles');
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderListTile).first,
+        matching: find.textContaining('5a boulder', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderListTile).at(1),
+        matching: find.textContaining('6a boulder', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderListTile).at(2),
+        matching:
+            find.textContaining('boulder without grade', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+
+    await sortByLabel(tester: tester, label: 'Les plus récents');
+    navigator.pop();
+    await tester.pumpAndSettle();
+
+    await tester.pump(
+      const Duration(
+        seconds: 3,
+      ),
+    );
+
+    await tester.tap(find.textContaining(boulderAreaReference.name).first);
+    await tester.pumpAndSettle();
+
+    newRequestBody =
+        jsonDecode(jsonEncode(requestBodyReference)) as Map<String, dynamic>;
+
+    final rockIri = newRequestBody['hydra:member'][0]['rock']['@id'];
+
+    // ignore: inference_failure_on_untyped_parameter
+    newRequestBody['hydra:member'].map((b) {
+      b['rock']['@id'] = '/rocks/0';
+      return b;
+    }).toList();
+    newRequestBody['hydra:member'][0]['rock']['@id'] = rockIri;
+    newRequestBody['hydra:member'][0]['name'] = 'Mario';
+
+    newRequestBody['hydra:member'][1]['rock']['@id'] = rockIri;
+    newRequestBody['hydra:member'][1]['name'] = 'Foo';
+
+    newRequestBody['hydra:member'][2]['rock']['@id'] = rockIri;
+    newRequestBody['hydra:member'][2]['name'] = 'Bar';
+
+    await tester.pump(
+      const Duration(seconds: 2),
+    );
+
+    await (database.update(database.dbRequests)
+          ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
+        .write(
+      DbRequest(
+        requestPath: dbRequest.requestPath,
+        responseBody: jsonEncode(newRequestBody),
+      ),
+    );
+
+    await tester.tap(find.byType(BoulderListTile).first);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+        'Mario',
+        findRichText: true,
+      ),
+      findsOneWidget,
+    );
+
+    await tester.scrollUntilVisible(
+      // WORKAROUND TO SCROLL TO THE BOTTOM
+      find.textContaining('Cotation'),
+      300,
+      scrollable: find.descendant(
+        of: find.byKey(
+          const Key('boulder-details-list-view'),
+        ),
+        matching: find.byType(Scrollable),
+      ),
+    );
+
+    await tester.scrollUntilVisible(
+      find.text('Blocs sur le même rocher'),
+      300,
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Blocs sur le même rocher'), findsOneWidget);
+
+    expect(find.byType(BoulderDetailsAssociatedItem), findsNWidgets(2));
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderDetailsAssociatedItem).at(0),
+        matching: find.textContaining('Bar', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.descendant(
+        of: find.byType(BoulderDetailsAssociatedItem).at(1),
+        matching: find.textContaining('Foo', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+  });
+
   testWidgets('I list boulders and show details about them',
       (WidgetTester tester) async {
     // prior to test, I fetch boulders to retrieve a reference
@@ -842,386 +1223,5 @@ by clicking on the "scroll to to the top" button''',
     find
       ..widgetWithText(Tab, 'Liste des secteurs')
       ..widgetWithText(Tab, 'Carte');
-  });
-
-  testWidgets('requests are persisted to a local database', (tester) async {
-    final storedRequests = await database.select(database.dbRequests).get();
-    expect(storedRequests.length, 0);
-
-    await runApplication(tester: tester);
-
-    final bouldersRequest = await (database.select(database.dbRequests)
-          ..where(
-            (tbl) =>
-                tbl.requestPath.like('/boulders?order%5Bid%5D=desc&page=1'),
-          ))
-        .getSingle();
-
-    final boulders = parseBoulders(bouldersRequest.responseBody).items;
-    expect(
-      boulders[0].iri,
-      contains('/boulders/'),
-    );
-
-    final boulderRequest = await (database.select(database.dbRequests)
-          ..where(
-            (tbl) => tbl.requestPath.equals(boulders[0].iri),
-          ))
-        .getSingleOrNull();
-
-    final boulderReference = boulders[0];
-    print('ref boulder: ${boulderReference.name}');
-    print(boulderReference.iri);
-    expect(boulderRequest, isNull);
-    await tester.tap(find.byType(BoulderListTile).first);
-
-    await tester.pumpAndSettle();
-
-    final boulderRequestAfterShowingDetails =
-        await (database.select(database.dbRequests)
-              ..where(
-                (tbl) => tbl.requestPath.equals(boulderReference.iri),
-              ))
-            .getSingleOrNull();
-    expect(
-      boulderRequestAfterShowingDetails?.requestPath,
-      equals(boulderReference.iri),
-    );
-
-    final jsonBoulder =
-        jsonDecode(boulderRequestAfterShowingDetails?.responseBody ?? '')
-            as Map<String, dynamic>;
-    expect(Boulder.fromJson(jsonBoulder).name, boulderReference.name);
-  });
-
-  testWidgets('i can download boulder areas and view them',
-      (WidgetTester tester) async {
-    var dbBoulderAreas = await database.select(database.dbBoulderAreas).get();
-    expect(dbBoulderAreas.length, 0);
-    await runApplication(tester: tester);
-    await tester.tap(find.text('Téléchargements').first);
-    await tester.pumpAndSettle();
-
-    expect(find.text('Secteurs téléchargés'), findsOneWidget);
-    expect(find.text('Aucun secteur téléchargé'), findsOneWidget);
-
-    await tester.tap(find.text('Index').first);
-    await tester.pumpAndSettle();
-
-    final departmentRepository = DepartmentRepository(
-      httpClient: httpClient,
-    );
-    final departmentsResponse = await departmentRepository.findAll();
-    final departmentReference = departmentsResponse.items[0];
-    print('department reference: ${departmentReference.name}');
-
-    final municipalityReference = departmentReference.municipalities[0];
-    print('municipality reference: ${municipalityReference.name}');
-
-    final boulderAreaReference = municipalityReference.boulderAreas[0];
-    print('boulder area reference: ${boulderAreaReference.name}');
-
-    await tester.tap(find.text(municipalityReference.name).first);
-    await tester.pumpAndSettle();
-    await tester.tap(find.text(boulderAreaReference.name).first);
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.text('TÉLÉCHARGER').first);
-
-    // download a boulder area takes time
-    await tester.pump(
-      const Duration(
-        seconds: 3,
-      ),
-    );
-
-    expect(find.text('TÉLÉCHARGER ✅'), findsOneWidget);
-
-    final navigator = (tester.state(find.byType(Navigator)) as NavigatorState)
-      ..pop();
-    await tester.pumpAndSettle();
-    navigator.pop();
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.text('Téléchargements').first);
-    await tester.pumpAndSettle();
-
-    expect(
-      find.descendant(
-        of: find.byKey(Key(boulderAreaReference.iri)),
-        matching: find.textContaining(
-          boulderAreaReference.name,
-          findRichText: true,
-        ),
-      ),
-      findsOneWidget,
-    );
-
-    expect(
-      find.descendant(
-        of: find.byKey(Key(boulderAreaReference.iri)),
-        matching: find.textContaining(
-          municipalityReference.name,
-          findRichText: true,
-        ),
-      ),
-      findsOneWidget,
-    );
-
-    dbBoulderAreas = await (database.select(database.dbBoulderAreas)
-          ..where(
-            (tbl) => tbl.iri.equals(boulderAreaReference.iri),
-          ))
-        .get();
-
-    expect(dbBoulderAreas.length, 1);
-    expect(dbBoulderAreas[0].iri, boulderAreaReference.iri);
-    expect(
-      dbBoulderAreas[0].boulders,
-      '/boulders?groups%5B%5D=Boulder%3Aitem-get&groups%5B%5D=Boulder%3Aread&groups%5B%5D=read&order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=${boulderAreaReference.iri.replaceAll('/boulder_areas/', '')}',
-    );
-
-    final dbRequest = await (database.select(database.dbRequests)
-          ..where(
-            (tbl) => tbl.requestPath.equals(dbBoulderAreas[0].boulders!),
-          ))
-        .getSingle();
-
-    final firstBoulderName =
-        jsonDecode(dbRequest.responseBody)['hydra:member'][0]['name'] as String;
-
-    print('first boulder name: $firstBoulderName');
-    await (database.update(database.dbRequests)
-          ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
-        .write(
-      DbRequestsCompanion(
-        responseBody: Value(
-          dbRequest.responseBody.replaceFirst(
-            RegExp('"name":"$firstBoulderName"'),
-            '"name":"Breath of the wild"',
-          ),
-        ),
-      ),
-    );
-
-    await tester.tap(find.textContaining(boulderAreaReference.name).first);
-    await tester.pumpAndSettle();
-
-    expect(
-      find.descendant(
-        of: find.byKey(const Key('boulder-area-details-app-bar')),
-        matching: find.textContaining(
-          boulderAreaReference.name,
-          findRichText: true,
-        ),
-      ),
-      findsOneWidget,
-    );
-
-    // check the initial boulder list comes from the database
-    expect(
-      find.textContaining(
-        'Breath of the wild',
-        findRichText: true,
-      ),
-      findsOneWidget,
-    );
-
-    navigator.pop();
-    await tester.pumpAndSettle();
-
-    await tester.pump(
-      const Duration(
-        seconds: 3,
-      ),
-    );
-
-    await tester.tap(find.textContaining(boulderAreaReference.name).first);
-    await tester.pumpAndSettle();
-
-    // check the boulder list has been refreshed
-    expect(
-      find.textContaining(
-        firstBoulderName,
-        findRichText: true,
-      ),
-      findsOneWidget,
-    );
-
-    // ignore: lines_longer_than_80_chars
-    final requestBodyReference =
-        jsonDecode(dbRequest.responseBody) as Map<String, dynamic>;
-
-    final boulderReference =
-        requestBodyReference['hydra:member'][0] as Map<String, dynamic>;
-
-    final boulder5a = {
-      ...boulderReference,
-      'name': '5a boulder',
-      'grade': {
-        '@id': '/grades/1',
-        '@type': 'Grade',
-        'name': '5a',
-      },
-    };
-
-    final boulder6a = {
-      ...boulderReference,
-      'name': '6a boulder',
-      'grade': {
-        '@id': '/grades/2',
-        '@type': 'Grade',
-        'name': '6a',
-      },
-    };
-
-    final boulderWithoutGrade = {
-      ...boulderReference,
-      'name': 'boulder without grade',
-      'grade': null,
-    };
-
-    // ignore: omit_local_variable_types
-    Map<String, dynamic> newRequestBody = {
-      'hydra:member': [boulderWithoutGrade, boulder5a, boulder6a],
-      'hydra:totalItems': 3,
-    };
-
-    await tester.pump(
-      const Duration(seconds: 2),
-    );
-
-    await (database.update(database.dbRequests)
-          ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
-        .write(
-      DbRequest(
-        requestPath: dbRequest.requestPath,
-        responseBody: jsonEncode(newRequestBody),
-      ),
-    );
-
-    await tester.pumpAndSettle();
-
-    await sortByLabel(tester: tester, label: 'Les plus faciles');
-
-    expect(
-      find.descendant(
-        of: find.byType(BoulderListTile).first,
-        matching: find.textContaining('5a boulder', findRichText: true),
-      ),
-      findsOneWidget,
-    );
-
-    expect(
-      find.descendant(
-        of: find.byType(BoulderListTile).at(1),
-        matching: find.textContaining('6a boulder', findRichText: true),
-      ),
-      findsOneWidget,
-    );
-
-    expect(
-      find.descendant(
-        of: find.byType(BoulderListTile).at(2),
-        matching:
-            find.textContaining('boulder without grade', findRichText: true),
-      ),
-      findsOneWidget,
-    );
-
-    await sortByLabel(tester: tester, label: 'Les plus récents');
-    navigator.pop();
-    await tester.pumpAndSettle();
-
-    await tester.pump(
-      const Duration(
-        seconds: 3,
-      ),
-    );
-
-    await tester.tap(find.textContaining(boulderAreaReference.name).first);
-    await tester.pumpAndSettle();
-
-    newRequestBody =
-        jsonDecode(jsonEncode(requestBodyReference)) as Map<String, dynamic>;
-
-    final rockIri = newRequestBody['hydra:member'][0]['rock']['@id'];
-
-    // ignore: inference_failure_on_untyped_parameter
-    newRequestBody['hydra:member'].map((b) {
-      b['rock']['@id'] = '/rocks/0';
-      return b;
-    }).toList();
-    newRequestBody['hydra:member'][0]['rock']['@id'] = rockIri;
-    newRequestBody['hydra:member'][0]['name'] = 'Mario';
-
-    newRequestBody['hydra:member'][1]['rock']['@id'] = rockIri;
-    newRequestBody['hydra:member'][1]['name'] = 'Foo';
-
-    newRequestBody['hydra:member'][2]['rock']['@id'] = rockIri;
-    newRequestBody['hydra:member'][2]['name'] = 'Bar';
-
-    await tester.pump(
-      const Duration(seconds: 2),
-    );
-
-    await (database.update(database.dbRequests)
-          ..where((t) => t.requestPath.equals(dbRequest.requestPath)))
-        .write(
-      DbRequest(
-        requestPath: dbRequest.requestPath,
-        responseBody: jsonEncode(newRequestBody),
-      ),
-    );
-
-    await tester.tap(find.byType(BoulderListTile).first);
-    await tester.pumpAndSettle();
-
-    expect(
-      find.text(
-        'Mario',
-        findRichText: true,
-      ),
-      findsOneWidget,
-    );
-
-    await tester.scrollUntilVisible(
-      // WORKAROUND TO SCROLL TO THE BOTTOM
-      find.textContaining('Cotation'),
-      300,
-      scrollable: find.descendant(
-        of: find.byKey(
-          const Key('boulder-details-list-view'),
-        ),
-        matching: find.byType(Scrollable),
-      ),
-    );
-
-    await tester.scrollUntilVisible(
-      find.text('Blocs sur le même rocher'),
-      300,
-    );
-
-    await tester.pumpAndSettle();
-
-    expect(find.text('Blocs sur le même rocher'), findsOneWidget);
-
-    expect(find.byType(BoulderDetailsAssociatedItem), findsNWidgets(2));
-
-    expect(
-      find.descendant(
-        of: find.byType(BoulderDetailsAssociatedItem).at(0),
-        matching: find.textContaining('Bar', findRichText: true),
-      ),
-      findsOneWidget,
-    );
-
-    expect(
-      find.descendant(
-        of: find.byType(BoulderDetailsAssociatedItem).at(1),
-        matching: find.textContaining('Foo', findRichText: true),
-      ),
-      findsOneWidget,
-    );
   });
 }
