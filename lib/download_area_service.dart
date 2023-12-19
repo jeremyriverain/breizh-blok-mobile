@@ -45,7 +45,8 @@ class DownloadAreaService {
               .go(),
         );
       }
-      Future.wait(deletions).ignore();
+
+      await Future.wait(deletions);
     } catch (exception, stackTrace) {
       await Sentry.captureException(
         exception,
