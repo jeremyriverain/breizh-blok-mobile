@@ -183,7 +183,7 @@ void main() async {
     // download a boulder area takes time
     await tester.pump(
       const Duration(
-        seconds: 3,
+        seconds: 6,
       ),
     );
 

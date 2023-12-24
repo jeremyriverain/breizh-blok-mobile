@@ -18,6 +18,36 @@ class DownloadAreaService {
   final AppHttpClient httpClient;
   final ImageBoulderCache imageBoulderCache;
 
+  static final regexpImage = RegExp(
+    r'"filterUrl":\s?"(\\?\/media\\?\/cache\\?\/resolve\\?\/%filter%\\?\/uploads\\?\/[^"]*)',
+  );
+
+  Set<String> extractImages(String response) {
+    final imageMatches = DownloadAreaService.regexpImage.allMatches(response);
+    final imageUrls = <String>{};
+    for (final imageMatch in imageMatches) {
+      final group = imageMatch.group(1);
+      if (group != null) {
+        imageUrls.add(
+          group.replaceAll(r'\/', '/').replaceAll('%filter%', 'scale_md'),
+        );
+      }
+    }
+    return imageUrls;
+  }
+
+  Future<void> downloadImage(String url) async {
+    try {
+      await imageBoulderCache.cache.getSingleFile(url);
+    } catch (_) {}
+  }
+
+  Future<void> removeImage(String url) async {
+    try {
+      await imageBoulderCache.cache.removeFile(url);
+    } catch (_) {}
+  }
+
   Future<void> removeDownload(String iri) async {
     try {
       final storedBoulderArea = await (database.select(database.dbBoulderAreas)
@@ -39,6 +69,21 @@ class DownloadAreaService {
       final bouldersRequestPath = storedBoulderArea.boulders;
 
       if (bouldersRequestPath != null) {
+        final bouldersRequest = await (database.select(database.dbRequests)
+              ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
+            .getSingle();
+
+        final imageUrls = extractImages(bouldersRequest.responseBody);
+
+        for (final pathImage in List<String>.from(imageUrls)) {
+          await removeImage(
+            Uri.https(
+              const String.fromEnvironment('API_HOST'),
+              pathImage,
+            ).toString(),
+          );
+        }
+
         deletions.add(
           (database.delete(database.dbRequests)
                 ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
@@ -64,7 +109,7 @@ class DownloadAreaService {
         );
 
     try {
-      final [boulders, _, _] = await Future.wait(
+      final [bouldersRequestPath, _, _] = await Future.wait(
         [
           _fetchAllBoulders(boulderArea),
           _fetchBoulderAreaDetails(boulderArea),
@@ -72,13 +117,28 @@ class DownloadAreaService {
         ],
       );
 
+      final bouldersRequest = await (database.select(database.dbRequests)
+            ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
+          .getSingle();
+
+      final imageUrls = extractImages(bouldersRequest.responseBody);
+
+      for (final pathImage in List<String>.from(imageUrls)) {
+        await downloadImage(
+          Uri.https(
+            const String.fromEnvironment('API_HOST'),
+            pathImage,
+          ).toString(),
+        );
+      }
+
       await (database.update(database.dbBoulderAreas)
             ..where((tbl) => tbl.iri.equals(boulderArea.iri)))
           .write(
         DbBoulderAreasCompanion.insert(
           iri: boulderArea.iri,
           isDownloaded: true,
-          boulders: Value(boulders),
+          boulders: Value(bouldersRequestPath),
         ),
       );
     } catch (exception, stackTrace) {

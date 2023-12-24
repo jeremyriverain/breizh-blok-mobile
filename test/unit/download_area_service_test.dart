@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
@@ -9,22 +7,36 @@ import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 @GenerateNiceMocks([
   MockSpec<ImageBoulderCache>(),
+  MockSpec<CacheManager>(),
 ])
 import './download_area_service_test.mocks.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
 
+  var onRequest = (String requestUrl) {
+    return '{}';
+  };
+
+  String onRequestOriginal(String requestUrl) {
+    return '{}';
+  }
+
   final mockClient = MockClient((request) async {
+    final requestUrl = request.url.toString();
+    final response = onRequest(requestUrl);
+
     return http.Response(
-      json.encode({}),
+      response,
       200,
       request: request,
       headers: {'content-type': 'application/json'},
@@ -47,11 +59,36 @@ void main() {
     ),
   );
 
+  setUp(() {
+    onRequest = onRequestOriginal;
+  });
+
   test('download then remove download', () async {
+    const mockResponseBoulders = '''
+{
+  "filterUrl": "/media/cache/resolve/%filter%/uploads/ima/image-foo.jpg",
+  "filterUrl": "/media/cache/resolve/%filter%/uploads/ima/image-bar.jpg"
+}''';
+    onRequest = (String requestUrl) {
+      if (requestUrl.contains('/boulders?')) {
+        return mockResponseBoulders;
+      }
+      return '{}';
+    };
+
+    final imageBoulderCache = MockImageBoulderCache();
+    final mockCacheManager = MockCacheManager();
+
+    when(mockCacheManager.getSingleFile(any)).thenThrow(Exception());
+    when(mockCacheManager.removeFile(any)).thenThrow(Exception());
+    when(
+      imageBoulderCache.cache,
+    ).thenReturn(mockCacheManager);
+
     final downloadAreaService = DownloadAreaService(
       database: database,
       httpClient: httpClient,
-      imageBoulderCache: MockImageBoulderCache(),
+      imageBoulderCache: imageBoulderCache,
     );
 
     final storedRequestsBeforeDownloading =
@@ -88,7 +125,7 @@ void main() {
       [
         const DbRequest(
           requestPath: expectedBouldersRequestPath,
-          responseBody: '{}',
+          responseBody: mockResponseBoulders,
         ),
         DbRequest(
           requestPath: boulderArea.iri,
@@ -117,6 +154,22 @@ void main() {
       ],
     );
 
+    verify(
+      mockCacheManager.getSingleFile(
+        argThat(
+          endsWith('/media/cache/resolve/scale_md/uploads/ima/image-foo.jpg'),
+        ),
+      ),
+    ).called(1);
+
+    verify(
+      mockCacheManager.getSingleFile(
+        argThat(
+          endsWith('/media/cache/resolve/scale_md/uploads/ima/image-bar.jpg'),
+        ),
+      ),
+    ).called(1);
+
     // remove download
     await downloadAreaService.removeDownload(boulderArea.iri);
     final storedBoulderAreasAfterRemovingDownload =
@@ -135,5 +188,70 @@ void main() {
         ),
       ],
     );
+
+    verify(
+      mockCacheManager.removeFile(
+        argThat(
+          endsWith('/media/cache/resolve/scale_md/uploads/ima/image-foo.jpg'),
+        ),
+      ),
+    ).called(1);
+
+    verify(
+      mockCacheManager.removeFile(
+        argThat(
+          endsWith('/media/cache/resolve/scale_md/uploads/ima/image-bar.jpg'),
+        ),
+      ),
+    ).called(1);
+  });
+
+  test('regexp image', () {
+    final matches = DownloadAreaService.regexpImage.allMatches(r'''
+"filePath": "image-foo.jpg",
+            "filterUrl": "\/media\/resolve\/%filter%\/uploads\/ima\/image-foo.jpg",
+''');
+    expect(matches.length, 0);
+
+    final matches2 = DownloadAreaService.regexpImage.allMatches(r'''
+"filePath": "image-foo.jpg",
+            "filterUrl": "\/media\/cache\/resolve\/%filter%\/uploads\/ima\/image-foo.jpg",
+''');
+    expect(matches2.length, 1);
+    expect(
+      matches2.elementAt(0).group(1),
+      r'\/media\/cache\/resolve\/%filter%\/uploads\/ima\/image-foo.jpg',
+    );
+
+    final matches3 = DownloadAreaService.regexpImage.allMatches('''
+"filePath": "image-foo.jpg",
+            "filterUrl": "/media/cache/resolve/%filter%/uploads/ima/image-foo.jpg",
+''');
+    expect(matches3.length, 1);
+    expect(
+      matches3.elementAt(0).group(1),
+      '/media/cache/resolve/%filter%/uploads/ima/image-foo.jpg',
+    );
+  });
+
+  test('extractImages', () {
+    final downloadAreaService = DownloadAreaService(
+      database: database,
+      httpClient: httpClient,
+      imageBoulderCache: MockImageBoulderCache(),
+    );
+    final images = downloadAreaService.extractImages(r'''
+"filePath": "image-foo.jpg",
+            "filterUrl": "\/media\/cache\/resolve\/%filter%\/uploads\/ima\/image-foo.jpg",
+            "filterUrl": "\/media\/cache\/resolve\/%filter%\/uploads\/ima\/image-foo.jpg",
+            "filterUrl": "/media/cache/resolve/%filter%/uploads/ima/image-foo.jpg",
+            "filterUrl": "\/media\/cache\/resolve\/%filter%\/uploads\/ima\/image-bar.jpg",
+            "filterUrl": "\/media\/cache\/resolve\/%filter%\/uploads\/ima\/image-baz.jpg",
+''');
+    expect(images, {
+      '/media/cache/resolve/scale_md/uploads/ima/image-foo.jpg',
+      '/media/cache/resolve/scale_md/uploads/ima/image-bar.jpg',
+      '/media/cache/resolve/scale_md/uploads/ima/image-baz.jpg',
+    });
   });
 }
