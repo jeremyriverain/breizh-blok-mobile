@@ -1,15 +1,14 @@
 import 'package:breizh_blok_mobile/components/app_bar_helper.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_item.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_map.dart';
+import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
 import 'package:flutter/material.dart';
-import 'package:breizh_blok_mobile/models/boulder_area.dart';
 
 class MunicipalityDetails extends StatelessWidget {
-  final Municipality municipality;
   MunicipalityDetails({
-    super.key,
     required this.municipality,
+    super.key,
   }) {
     boulderAreas = municipality.boulderAreas.where(
       (b) {
@@ -18,6 +17,7 @@ class MunicipalityDetails extends StatelessWidget {
       },
     ).toList();
   }
+  final Municipality municipality;
 
   late final List<BoulderArea> boulderAreas;
 
@@ -72,7 +72,7 @@ class MunicipalityDetails extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
+          padding: const EdgeInsets.only(bottom: 10),
           child: TabBarView(
             children: tabViews,
           ),

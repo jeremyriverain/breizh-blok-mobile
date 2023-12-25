@@ -4,9 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('MapPermissionBloc', () {
-    blocTest(
+    blocTest<MapPermissionBloc, MapPermissionState>(
       'default state OK',
-      build: () => MapPermissionBloc(),
+      build: MapPermissionBloc.new,
       verify: (MapPermissionBloc bloc) async {
         expect(bloc.state.hasRequested, false);
         expect(bloc.state.hasDenied, false);
@@ -14,9 +14,9 @@ void main() {
       },
     );
 
-    blocTest(
+    blocTest<MapPermissionBloc, MapPermissionState>(
       'dont deny permission',
-      build: () => MapPermissionBloc(),
+      build: MapPermissionBloc.new,
       act: (MapPermissionBloc bloc) =>
           bloc.add(RequestPermissionEvent(hasDenied: false)),
       verify: (MapPermissionBloc bloc) async {
@@ -26,9 +26,9 @@ void main() {
       },
     );
 
-    blocTest(
+    blocTest<MapPermissionBloc, MapPermissionState>(
       'deny permission',
-      build: () => MapPermissionBloc(),
+      build: MapPermissionBloc.new,
       act: (MapPermissionBloc bloc) =>
           bloc.add(RequestPermissionEvent(hasDenied: true)),
       expect: () =>

@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('MunicipalityDetails', (tester) async {
-    final List<BoulderArea> boulderAreas = [
+    final boulderAreas = [
       BoulderArea(
         iri: '/boulder_areas/1',
         name: 'Le chenal',
@@ -28,17 +28,19 @@ void main() {
           iri: '/municipalities/0',
           name: 'generic',
         ),
-      )
+      ),
     ];
-    await tester.pumpWidget(MaterialApp(
-      home: MunicipalityDetails(
-        municipality: Municipality(
-          name: 'Kerlouan',
-          iri: '/municipalities/1',
-          boulderAreas: boulderAreas,
+    await tester.pumpWidget(
+      MaterialApp(
+        home: MunicipalityDetails(
+          municipality: Municipality(
+            name: 'Kerlouan',
+            iri: '/municipalities/1',
+            boulderAreas: boulderAreas,
+          ),
         ),
       ),
-    ));
+    );
 
     await tester.pumpAndSettle();
 

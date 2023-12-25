@@ -14,10 +14,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               ),
         ) {
     on<MapUpdated>((event, emit) {
-      emit(state.copyWith(
-        mapZoom: event.mapZoom,
-        mapLatLng: event.mapLatLng,
-      ));
+      emit(
+        state.copyWith(
+          mapZoom: event.mapZoom,
+          mapLatLng: event.mapLatLng,
+        ),
+      );
     });
   }
 }
@@ -25,23 +27,23 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 abstract class MapEvent {}
 
 class MapUpdated extends MapEvent {
-  final double mapZoom;
-  final LatLng mapLatLng;
-
   MapUpdated({
     required this.mapZoom,
     required this.mapLatLng,
   });
+
+  final double mapZoom;
+  final LatLng mapLatLng;
 }
 
 class MapState extends Equatable {
-  final double mapZoom;
-  final LatLng mapLatLng;
-
   const MapState({
     required this.mapZoom,
     required this.mapLatLng,
   });
+
+  final double mapZoom;
+  final LatLng mapLatLng;
 
   @override
   List<Object?> get props => [mapZoom, mapLatLng];

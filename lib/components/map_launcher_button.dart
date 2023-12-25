@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 class MapLauncherButton extends StatelessWidget {
+  const MapLauncherButton({
+    required this.destination,
+    required this.destinationTitle,
+    super.key,
+    this.labelButton = 'Itinéraire',
+  });
+
   final Location destination;
   final String destinationTitle;
   final String labelButton;
-
-  const MapLauncherButton({
-    Key? key,
-    required this.destination,
-    required this.destinationTitle,
-    this.labelButton = 'Itinéraire',
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

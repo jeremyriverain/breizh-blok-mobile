@@ -1,5 +1,7 @@
 # Breizh Blok
 
+[![Codemagic build status](https://api.codemagic.io/apps/650ad9baab73c45ac24d4bca/ci/status_badge.svg)](https://codemagic.io/apps/650ad9baab73c45ac24d4bca/ci/latest_build)
+
 Application mobile (disponible sur iOS et Android) répertoriant les blocs d'escalade en Bretagne
 
 ## Configuration

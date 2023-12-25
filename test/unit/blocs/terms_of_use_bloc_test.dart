@@ -5,12 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   group('TermsOfUseBloc', () {
-    blocTest(
+    blocTest<TermsOfUseBloc, bool?>(
       'default state OK - key acceptance not present',
       setUp: () {
         SharedPreferences.setMockInitialValues({});
       },
-      build: () => TermsOfUseBloc(),
+      build: TermsOfUseBloc.new,
       act: (TermsOfUseBloc bloc) => bloc.add(TermsOfUseAcceptanceRequested()),
       expect: () => [false],
       verify: (TermsOfUseBloc bloc) async {
@@ -21,15 +21,15 @@ void main() {
       },
     );
 
-    blocTest(
+    blocTest<TermsOfUseBloc, bool?>(
       'default state OK - not accepted',
       setUp: () {
-        final Map<String, Object> values = <String, Object>{
-          TermsOfUseBloc.termsOfUseAcceptanceKey: false
+        final values = <String, Object>{
+          TermsOfUseBloc.termsOfUseAcceptanceKey: false,
         };
         SharedPreferences.setMockInitialValues(values);
       },
-      build: () => TermsOfUseBloc(),
+      build: TermsOfUseBloc.new,
       act: (TermsOfUseBloc bloc) => bloc.add(TermsOfUseAcceptanceRequested()),
       expect: () => [false],
       verify: (TermsOfUseBloc bloc) async {
@@ -40,15 +40,15 @@ void main() {
       },
     );
 
-    blocTest(
+    blocTest<TermsOfUseBloc, bool?>(
       'default state OK - accepted',
       setUp: () {
-        final Map<String, Object> values = <String, Object>{
-          TermsOfUseBloc.termsOfUseAcceptanceKey: true
+        final values = <String, Object>{
+          TermsOfUseBloc.termsOfUseAcceptanceKey: true,
         };
         SharedPreferences.setMockInitialValues(values);
       },
-      build: () => TermsOfUseBloc(),
+      build: TermsOfUseBloc.new,
       act: (TermsOfUseBloc bloc) => bloc.add(TermsOfUseAcceptanceRequested()),
       expect: () => [true],
       verify: (TermsOfUseBloc bloc) async {
@@ -59,21 +59,23 @@ void main() {
       },
     );
 
-    blocTest('accept terme of use',
-        setUp: () {
-          final Map<String, Object> values = <String, Object>{
-            TermsOfUseBloc.termsOfUseAcceptanceKey: false
-          };
-          SharedPreferences.setMockInitialValues(values);
-        },
-        build: () => TermsOfUseBloc(),
-        act: (TermsOfUseBloc bloc) => bloc.add(TermsOfUseAccepted()),
-        expect: () => [true],
-        verify: (TermsOfUseBloc bloc) async {
-          final sharedPreferences = await SharedPreferences.getInstance();
-          final hasAccepted =
-              sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
-          expect(hasAccepted, true);
-        });
+    blocTest<TermsOfUseBloc, bool?>(
+      'accept terme of use',
+      setUp: () {
+        final values = <String, Object>{
+          TermsOfUseBloc.termsOfUseAcceptanceKey: false,
+        };
+        SharedPreferences.setMockInitialValues(values);
+      },
+      build: TermsOfUseBloc.new,
+      act: (TermsOfUseBloc bloc) => bloc.add(TermsOfUseAccepted()),
+      expect: () => [true],
+      verify: (TermsOfUseBloc bloc) async {
+        final sharedPreferences = await SharedPreferences.getInstance();
+        final hasAccepted =
+            sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
+        expect(hasAccepted, true);
+      },
+    );
   });
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class BoulderListBackToTopButton extends StatelessWidget {
-  final Function onPressed;
   const BoulderListBackToTopButton({
-    super.key,
     required this.onPressed,
+    super.key,
   });
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +18,7 @@ class BoulderListBackToTopButton extends StatelessWidget {
         heroTag: 'backToTopButton',
         tooltip: 'Revenir en haut de la liste',
         shape: const CircleBorder(),
-        onPressed: () {
-          onPressed();
-        },
+        onPressed: onPressed,
         child: const Icon(Icons.arrow_upward_outlined),
       ),
     );

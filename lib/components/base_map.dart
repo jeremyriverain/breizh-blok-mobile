@@ -7,9 +7,9 @@ import 'package:location/location.dart';
 
 class BaseMap extends StatefulWidget {
   const BaseMap({
-    Key? key,
     required this.map,
-  }) : super(key: key);
+    super.key,
+  });
 
   final GoogleMap map;
 
@@ -49,7 +49,7 @@ class _BaseMapState extends State<BaseMap> {
       return;
     }
 
-    bool serviceEnabled = await locationInstance.serviceEnabled();
+    var serviceEnabled = await locationInstance.serviceEnabled();
     if (!serviceEnabled) {
       serviceEnabled = await locationInstance.requestService();
       if (!serviceEnabled) {
@@ -57,7 +57,7 @@ class _BaseMapState extends State<BaseMap> {
       }
     }
 
-    PermissionStatus permissionGranted = await locationInstance.hasPermission();
+    var permissionGranted = await locationInstance.hasPermission();
 
     if (permissionGranted == PermissionStatus.denied) {
       permissionGranted = await locationInstance.requestPermission().then(

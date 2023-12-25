@@ -4,23 +4,36 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 // ignore: must_be_immutable
 class BoulderMarker extends Equatable with ClusterItem {
-  final int id;
-  @override
-  final LatLng location;
-
   BoulderMarker({
     required this.id,
     required this.location,
   });
 
   factory BoulderMarker.fromJson(Map<String, dynamic> json) {
-    final location = json['rock']['location'];
-    return BoulderMarker(
-      id: json['id'],
-      location: LatLng(double.parse(location['latitude']),
-          double.parse(location['longitude'])),
-    );
+    if (json
+        case {
+          'id': final int id,
+          'rock': {
+            'location': {
+              'latitude': final String latitude,
+              'longitude': final String longitude,
+            }
+          }
+        }) {
+      return BoulderMarker(
+        id: id,
+        location: LatLng(
+          double.parse(latitude),
+          double.parse(longitude),
+        ),
+      );
+    }
+
+    throw const FormatException();
   }
+  final int id;
+  @override
+  final LatLng location;
 
   @override
   List<Object?> get props => [id, location];

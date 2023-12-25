@@ -4,47 +4,61 @@ import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/location.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/views/error_view.dart';
 import 'package:breizh_blok_mobile/views/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class BoulderAreaDetailsView extends StatelessWidget {
+class BoulderAreaDetailsView extends StatefulWidget {
+  const BoulderAreaDetailsView({
+    required this.id,
+    super.key,
+  });
   final String id;
 
-  final boulderAreaRepository = BoulderAreaRepository();
+  @override
+  State<BoulderAreaDetailsView> createState() => _BoulderAreaDetailsViewState();
+}
 
-  BoulderAreaDetailsView({
-    super.key,
-    required this.id,
-  });
-
-  Future<BoulderArea> _findBoulderArea() {
-    return boulderAreaRepository.find(id);
+class _BoulderAreaDetailsViewState extends State<BoulderAreaDetailsView> {
+  Future<BoulderArea> _findBoulderArea(BuildContext context) {
+    final offlineFirst = context.read<RequestStrategy>().offlineFirst;
+    return context.read<BoulderAreaRepository>().find(
+          widget.id,
+          offlineFirst: offlineFirst,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _findBoulderArea(),
+      future: _findBoulderArea(context),
       builder: (BuildContext context, AsyncSnapshot<BoulderArea> snapshot) {
         final boulderArea = snapshot.data;
         if (boulderArea != null) {
-          final Location location = boulderArea.resolveLocation();
-          final BoulderFilterBloc boulderFilterBloc = BoulderFilterBloc(
-            BoulderFilterState(boulderAreas: {
-              boulderArea,
-            }),
+          final location = boulderArea.resolveLocation();
+          final boulderFilterBloc = BoulderFilterBloc(
+            BoulderFilterState(
+              boulderAreas: {
+                boulderArea,
+              },
+            ),
           );
 
-          final BoulderMarkerBloc boulderMarkerBloc = BoulderMarkerBloc();
+          final boulderMarkerBloc = BoulderMarkerBloc(
+            repository: context.read<BoulderMarkerRepository>(),
+          );
 
-          final BoulderBloc boulderBloc = BoulderBloc();
+          final boulderBloc = BoulderBloc(
+            repository: context.read<BoulderRepository>(),
+          );
 
-          final MapBloc mapBloc = MapBloc(
+          final mapBloc = MapBloc(
             initialState: MapState(
               mapZoom: 14.5,
               mapLatLng: LatLng(
@@ -73,7 +87,9 @@ class BoulderAreaDetailsView extends StatelessWidget {
           );
         } else if (snapshot.hasError) {
           return ErrorView(
-            onTryAgain: _findBoulderArea,
+            onTryAgain: () {
+              setState(() {});
+            },
           );
         }
 

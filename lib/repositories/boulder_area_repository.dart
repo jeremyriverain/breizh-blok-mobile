@@ -1,27 +1,40 @@
 import 'dart:convert';
 
+import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:http/http.dart' as http;
-
 import 'package:breizh_blok_mobile/models/collection_items.dart';
-
 import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
 
 class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
+  BoulderAreaRepository({
+    required this.httpClient,
+  });
+
   @override
-  Future<BoulderArea> find(String id) async {
-    final response = await http.get(Uri.https(
-        const String.fromEnvironment('API_HOST'), '/boulder_areas/$id'));
-    if (response.statusCode == 200) {
-      return BoulderArea.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception(response.body);
+  final AppHttpClient httpClient;
+
+  @override
+  Future<BoulderArea> find(
+    String id, {
+    bool offlineFirst = false,
+  }) async {
+    final response = await httpClient.get(
+      Uri.https(const String.fromEnvironment('API_HOST'), '/boulder_areas/$id'),
+      offlineFirst: offlineFirst,
+    );
+
+    final json = jsonDecode(response);
+    if (json is Map<String, dynamic>) {
+      return BoulderArea.fromJson(json);
     }
+
+    throw const FormatException();
   }
 
   @override
-  Future<CollectionItems<BoulderArea>> findBy(
-      {Map<String, List<String>>? queryParams}) {
+  Future<CollectionItems<BoulderArea>> findBy({
+    Map<String, List<String>>? queryParams,
+  }) {
     throw UnimplementedError();
   }
 }

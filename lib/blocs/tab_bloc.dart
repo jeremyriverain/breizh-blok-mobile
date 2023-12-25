@@ -9,9 +9,9 @@ class TabBloc extends Bloc<TabEvent, int> {
 abstract class TabEvent {}
 
 class TabUpdated extends TabEvent {
-  final int activeTab;
-
   TabUpdated({
     required this.activeTab,
   });
+
+  final int activeTab;
 }

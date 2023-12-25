@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeMapView extends StatefulWidget {
-  const HomeMapView({Key? key}) : super(key: key);
+  const HomeMapView({super.key});
 
   @override
   State<HomeMapView> createState() => _HomeMapViewState();

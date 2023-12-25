@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
-
 import 'package:breizh_blok_mobile/models/boulder.dart';
+import 'package:flutter/material.dart';
 
 class BoulderDetailsNavbar extends StatelessWidget
     implements PreferredSizeWidget {
-  final Boulder boulder;
-
   const BoulderDetailsNavbar({
-    Key? key,
     required this.boulder,
-  }) : super(key: key);
+    super.key,
+  });
+
+  final Boulder boulder;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -18,7 +17,6 @@ class BoulderDetailsNavbar extends StatelessWidget
   Widget build(BuildContext context) {
     return AppBar(
       title: FittedBox(
-        fit: BoxFit.contain,
         child: Text(
           boulder.name,
           style: const TextStyle(

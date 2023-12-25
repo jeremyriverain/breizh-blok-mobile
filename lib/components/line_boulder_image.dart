@@ -1,19 +1,19 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 
+import 'package:breizh_blok_mobile/image_boulder_cache.dart';
+import 'package:breizh_blok_mobile/models/line_boulder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:breizh_blok_mobile/models/line_boulder.dart';
-
 class LineBoulderImage extends StatelessWidget {
-  final LineBoulder lineBoulder;
-
   const LineBoulderImage({
-    Key? key,
     required this.lineBoulder,
-  }) : super(key: key);
+    super.key,
+  });
+  final LineBoulder lineBoulder;
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +25,18 @@ class LineBoulderImage extends StatelessWidget {
       );
     }
 
-    Image image = Image(
+    final image = Image(
       image: CachedNetworkImageProvider(
         Uri.https(
           const String.fromEnvironment('API_HOST'),
           (lineBoulder.rockImage.filterUrl ?? '')
               .replaceAll('%filter%', 'scale_md'),
         ).toString(),
+        cacheManager: context.read<ImageBoulderCache>().cache,
       ),
     );
-    Completer<ui.Image> completer = Completer<ui.Image>();
-    image.image.resolve(const ImageConfiguration()).addListener(
+    final completer = Completer<ui.Image>();
+    image.image.resolve(ImageConfiguration.empty).addListener(
       ImageStreamListener(
         (ImageInfo image, bool synchronousCall) {
           if (!completer.isCompleted) {
@@ -60,7 +61,8 @@ class LineBoulderImage extends StatelessWidget {
                 children: [
                   image,
                   SvgPicture.string(
-                    '''<svg
+                    '''
+<svg
                            width="$width"
                            height="$height"
                            viewBox="0 0 $width $height"
@@ -72,7 +74,7 @@ class LineBoulderImage extends StatelessWidget {
                                stroke-width="6px">
                                </path>
                        </svg>''',
-                  )
+                  ),
                 ],
               ),
             ),

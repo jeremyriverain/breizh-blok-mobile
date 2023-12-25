@@ -19,8 +19,8 @@ void main() {
     testWidgets(
         'dont call location service if user has already denied permission',
         (tester) async {
-      final mapPermissionBloc = MapPermissionBloc();
-      mapPermissionBloc.add(RequestPermissionEvent(hasDenied: true));
+      final mapPermissionBloc = MapPermissionBloc()
+        ..add(RequestPermissionEvent(hasDenied: true));
       final location = MockLocation();
 
       await tester.pumpWidget(
@@ -29,12 +29,16 @@ void main() {
             create: (context) => mapPermissionBloc,
             child: LocationProvider(
               locationInstance: location,
-              child: Builder(builder: (context) {
-                return const BaseMap(
+              child: Builder(
+                builder: (context) {
+                  return const BaseMap(
                     map: GoogleMap(
-                        initialCameraPosition:
-                            CameraPosition(target: LatLng(0, 0))));
-              }),
+                      initialCameraPosition:
+                          CameraPosition(target: LatLng(0, 0)),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -43,7 +47,7 @@ void main() {
       verifyNever(location.serviceEnabled());
     });
 
-    requestPermissionIfUserHasNotAlreadyDenied(
+    Future<void> requestPermissionIfUserHasNotAlreadyDenied(
       WidgetTester tester, {
       required PermissionStatus requestPermissionMockResult,
     }) async {
@@ -66,12 +70,16 @@ void main() {
             create: (context) => mapPermissionBloc,
             child: LocationProvider(
               locationInstance: location,
-              child: Builder(builder: (context) {
-                return const BaseMap(
+              child: Builder(
+                builder: (context) {
+                  return const BaseMap(
                     map: GoogleMap(
-                        initialCameraPosition:
-                            CameraPosition(target: LatLng(0, 0))));
-              }),
+                      initialCameraPosition:
+                          CameraPosition(target: LatLng(0, 0)),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -86,7 +94,7 @@ void main() {
 
     testWidgets('call location service if user has not denied permission',
         (tester) async {
-      requestPermissionIfUserHasNotAlreadyDenied(
+      await requestPermissionIfUserHasNotAlreadyDenied(
         tester,
         requestPermissionMockResult: PermissionStatus.denied,
       );
@@ -95,13 +103,13 @@ void main() {
     testWidgets(
         'call location service if user has not denied permission forever',
         (tester) async {
-      requestPermissionIfUserHasNotAlreadyDenied(
+      await requestPermissionIfUserHasNotAlreadyDenied(
         tester,
         requestPermissionMockResult: PermissionStatus.deniedForever,
       );
     });
 
-    doesNotRequestPermissionIfPermissionIsGranted(
+    Future<void> doesNotRequestPermissionIfPermissionIsGranted(
       WidgetTester tester, {
       required PermissionStatus permissionGranted,
     }) async {
@@ -120,12 +128,16 @@ void main() {
             create: (context) => mapPermissionBloc,
             child: LocationProvider(
               locationInstance: location,
-              child: Builder(builder: (context) {
-                return const BaseMap(
+              child: Builder(
+                builder: (context) {
+                  return const BaseMap(
                     map: GoogleMap(
-                        initialCameraPosition:
-                            CameraPosition(target: LatLng(0, 0))));
-              }),
+                      initialCameraPosition:
+                          CameraPosition(target: LatLng(0, 0)),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -138,7 +150,7 @@ void main() {
 
     testWidgets('does not request permission if permission is granted',
         (tester) async {
-      doesNotRequestPermissionIfPermissionIsGranted(
+      await doesNotRequestPermissionIfPermissionIsGranted(
         tester,
         permissionGranted: PermissionStatus.granted,
       );
@@ -146,7 +158,7 @@ void main() {
 
     testWidgets('does not request permission if permission is granted limited',
         (tester) async {
-      doesNotRequestPermissionIfPermissionIsGranted(
+      await doesNotRequestPermissionIfPermissionIsGranted(
         tester,
         permissionGranted: PermissionStatus.grantedLimited,
       );

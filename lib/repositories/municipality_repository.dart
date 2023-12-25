@@ -1,26 +1,34 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/models/municipality.dart';
-import 'package:http/http.dart' as http;
-
+import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
+import 'package:breizh_blok_mobile/models/municipality.dart';
 import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
 
 class MunicipalityRepository implements ApiRepositoryInterface<Municipality> {
+  MunicipalityRepository({
+    required this.httpClient,
+  });
+
+  @override
+  final AppHttpClient httpClient;
   @override
   Future<Municipality> find(String id) async {
-    final response = await http.get(Uri.https(
-        const String.fromEnvironment('API_HOST'), '/municipalities/$id'));
-    if (response.statusCode == 200) {
-      return Municipality.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception(response.body);
-    }
+    final response = await httpClient.get(
+      Uri.https(
+        const String.fromEnvironment('API_HOST'),
+        '/municipalities/$id',
+      ),
+    );
+    return Municipality.fromJson(
+      jsonDecode(response) as Map<String, dynamic>,
+    );
   }
 
   @override
-  Future<CollectionItems<Municipality>> findBy(
-      {Map<String, List<String>>? queryParams}) {
+  Future<CollectionItems<Municipality>> findBy({
+    Map<String, List<String>>? queryParams,
+  }) {
     throw UnimplementedError();
   }
 }

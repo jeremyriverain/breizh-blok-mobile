@@ -2,8 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class BoulderAreaBarChart extends StatelessWidget {
+  const BoulderAreaBarChart({required this.data, super.key});
   final Map<String, int> data;
-  const BoulderAreaBarChart({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class BoulderAreaBarChart extends StatelessWidget {
               titlesData: titlesData(keys.toList()),
               borderData: borderData,
               barGroups: barGroups(values.toList()),
-              gridData: FlGridData(show: false),
+              gridData: const FlGridData(show: false),
               alignment: BarChartAlignment.spaceAround,
               maxY: max.toDouble() + 2,
             ),
@@ -62,7 +62,6 @@ class BoulderAreaBarChart extends StatelessWidget {
 
   FlTitlesData titlesData(List<String> titles) {
     return FlTitlesData(
-      show: true,
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
@@ -81,15 +80,9 @@ class BoulderAreaBarChart extends StatelessWidget {
           },
         ),
       ),
-      leftTitles: AxisTitles(
-        sideTitles: SideTitles(showTitles: false),
-      ),
-      topTitles: AxisTitles(
-        sideTitles: SideTitles(showTitles: false),
-      ),
-      rightTitles: AxisTitles(
-        sideTitles: SideTitles(showTitles: false),
-      ),
+      leftTitles: const AxisTitles(),
+      topTitles: const AxisTitles(),
+      rightTitles: const AxisTitles(),
     );
   }
 
@@ -107,18 +100,20 @@ class BoulderAreaBarChart extends StatelessWidget {
       );
 
   List<BarChartGroupData> barGroups(List<int> values) {
-    List<BarChartGroupData> barGroups = [];
+    final barGroups = <BarChartGroupData>[];
     for (var i = 0; i < values.length; i++) {
-      barGroups.add(BarChartGroupData(
-        x: i,
-        barRods: [
-          BarChartRodData(
-            toY: values[i].toDouble(),
-            gradient: _barsGradient,
-          )
-        ],
-        showingTooltipIndicators: [0],
-      ));
+      barGroups.add(
+        BarChartGroupData(
+          x: i,
+          barRods: [
+            BarChartRodData(
+              toY: values[i].toDouble(),
+              gradient: _barsGradient,
+            ),
+          ],
+          showingTooltipIndicators: [0],
+        ),
+      );
     }
 
     return barGroups;

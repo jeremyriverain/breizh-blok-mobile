@@ -1,50 +1,58 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-
+import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
-import 'package:breizh_blok_mobile/utils/query_constructor.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
+import 'package:breizh_blok_mobile/utils/query_constructor.dart';
+import 'package:flutter/foundation.dart';
 
 class GradeRepository implements ApiRepositoryInterface<Grade> {
-  CollectionItems<Grade> _parseGrades(String responseBody) {
-    return CollectionItems.fromApi(
-      jsonDecode(responseBody),
-      Grade.fromJson,
-    );
-  }
+  GradeRepository({required this.httpClient});
+
+  @override
+  final AppHttpClient httpClient;
 
   @override
   Future<CollectionItems<Grade>> findBy({
     Map<String, List<String>>? queryParams,
   }) async {
-    String? query = QueryConstructor.stringify(queryParams: queryParams);
+    final query = QueryConstructor.stringify(queryParams: queryParams);
 
-    final response = await http.get(Uri(
-      scheme: 'https',
-      host: const String.fromEnvironment('API_HOST'),
-      path: 'grades',
-      query: query,
-    ));
-    if (response.statusCode == 200) {
-      return compute(_parseGrades, response.body);
-    } else {
-      throw Exception(response.body);
-    }
+    final response = await httpClient.get(
+      Uri(
+        scheme: 'https',
+        host: const String.fromEnvironment('API_HOST'),
+        path: 'grades',
+        query: query,
+      ),
+      offlineFirst: true,
+    );
+    return compute(_parseGrades, response);
   }
 
-  Future<CollectionItems<Grade>> findWithBouldersOrderedByName() async {
-    return findBy(queryParams: {
-      'exists[boulders]': ['true'],
-      'pagination': ['false'],
-      'order[name]': ['asc'],
-    });
+  Future<CollectionItems<Grade>> findAll() async {
+    return findBy(
+      queryParams: findAllQueryParams,
+    );
   }
+
+  static const findAllQueryParams = {
+    'exists[boulders]': ['true'],
+    'pagination': ['false'],
+    'order[name]': [kAscendantDirection],
+  };
 
   @override
   Future<Grade> find(String id) {
     throw UnimplementedError();
   }
+}
+
+CollectionItems<Grade> _parseGrades(String responseBody) {
+  return CollectionItems.fromApi(
+    jsonDecode(responseBody) as Map<String, dynamic>,
+    Grade.fromJson,
+  );
 }

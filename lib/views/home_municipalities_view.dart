@@ -3,6 +3,7 @@ import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/department.dart';
 import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeMunicipalitiesView extends StatefulWidget {
@@ -13,10 +14,8 @@ class HomeMunicipalitiesView extends StatefulWidget {
 }
 
 class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
-  final _departmentRepository = DepartmentRepository();
-
-  Future<CollectionItems<Department>> _fetch() {
-    return _departmentRepository.findAll();
+  Future<CollectionItems<Department>> _fetch(BuildContext context) {
+    return context.read<DepartmentRepository>().findAll();
   }
 
   CollectionItems<Department> data =
@@ -25,60 +24,57 @@ class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _fetch(),
-        builder:
-            (context, AsyncSnapshot<CollectionItems<Department>> snapshot) {
-          final data = snapshot.data;
-          if (data != null) {
-            this.data = data;
-            return ListView.builder(
-              itemCount: data.totalItems,
-              itemBuilder: (BuildContext context, int index) {
-                final Department department = data.items[index];
+      future: _fetch(context),
+      builder: (context, AsyncSnapshot<CollectionItems<Department>> snapshot) {
+        final data = snapshot.data;
+        if (data != null) {
+          this.data = data;
+          return ListView.builder(
+            itemCount: data.totalItems,
+            itemBuilder: (BuildContext context, int index) {
+              final department = data.items[index];
 
-                return Column(
-                  children: [
-                    ListTile(
-                      title: Text(
-                        department.name,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
+              return Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      department.name,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    ...department.municipalities
-                        .map(
-                          (municipality) => ListTile(
-                            title: Text(municipality.name),
-                            trailing: const Icon(Icons.arrow_forward_ios),
-                            onTap: () {
-                              context.pushNamed('municipality_details',
-                                  params: {
-                                    'id': municipality.iri
-                                        .replaceAll('/municipalities/', '')
-                                  });
-                            },
-                          ),
-                        )
-                        .toList()
-                  ],
-                );
-              },
-            );
-          }
-
-          if (snapshot.hasError) {
-            return ErrorIndicator(
-              error: snapshot.error,
-              onTryAgain: () {
-                setState(() {
-                  this.data = const CollectionItems(items: [], totalItems: 0);
-                });
-              },
-            );
-          }
-
-          return const Center(
-            child: CircularProgressIndicator(),
+                  ),
+                  ...department.municipalities.map(
+                    (municipality) => ListTile(
+                      title: Text(municipality.name),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      onTap: () {
+                        context.pushNamed(
+                          'municipality_details',
+                          pathParameters: {
+                            'id': municipality.iri
+                                .replaceAll('/municipalities/', ''),
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
           );
-        });
+        }
+
+        if (snapshot.hasError) {
+          return ErrorIndicator(
+            onTryAgain: () {
+              setState(() {});
+            },
+          );
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
   }
 }

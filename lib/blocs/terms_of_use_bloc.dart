@@ -2,8 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TermsOfUseBloc extends Bloc<TermsOfUseEvent, bool?> {
-  static const String termsOfUseAcceptanceKey = 'hasAcceptedTermsOfUse';
-
   TermsOfUseBloc() : super(null) {
     on<TermsOfUseAcceptanceRequested>((event, emit) async {
       try {
@@ -19,6 +17,7 @@ class TermsOfUseBloc extends Bloc<TermsOfUseEvent, bool?> {
       await prefs.setBool(termsOfUseAcceptanceKey, true);
     });
   }
+  static const String termsOfUseAcceptanceKey = 'hasAcceptedTermsOfUse';
 }
 
 abstract class TermsOfUseEvent {}

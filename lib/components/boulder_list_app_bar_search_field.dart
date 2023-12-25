@@ -1,10 +1,9 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
-
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderListAppBarSearchField extends StatefulWidget {
-  const BoulderListAppBarSearchField({Key? key}) : super(key: key);
+  const BoulderListAppBarSearchField({super.key});
 
   @override
   State<BoulderListAppBarSearchField> createState() =>

@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderFilterGradeBloc
     extends Bloc<BoulderFilterGradeEvent, BoulderFilterGradeState> {
-  BoulderFilterGradeBloc(BoulderFilterGradeState initialState)
-      : super(initialState) {
+  BoulderFilterGradeBloc(super.initialState) {
     on<BoulderFilterGradeEvent>(
       (event, emit) => emit(BoulderFilterGradeState(grades: event.grades)),
     );
@@ -13,15 +12,15 @@ class BoulderFilterGradeBloc
 }
 
 class BoulderFilterGradeEvent {
-  final Set<Grade> grades;
-
   BoulderFilterGradeEvent(this.grades);
+
+  final Set<Grade> grades;
 }
 
 class BoulderFilterGradeState extends Equatable {
-  final Set<Grade> grades;
-
   BoulderFilterGradeState({Set<Grade>? grades}) : grades = grades ?? <Grade>{};
+
+  final Set<Grade> grades;
 
   @override
   List<Object?> get props => [grades];

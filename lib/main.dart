@@ -1,88 +1,159 @@
+import 'dart:io';
+
+import 'package:breizh_blok_mobile/app_http_client.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
+import 'package:breizh_blok_mobile/database/app_database.dart';
+import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/models/request_strategy.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
+import 'package:breizh_blok_mobile/repositories/department_repository.dart';
+import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
+import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/views/boulder_area_details_view.dart';
+import 'package:breizh_blok_mobile/views/boulder_details_view.dart';
+import 'package:breizh_blok_mobile/views/home_view.dart';
 import 'package:breizh_blok_mobile/views/municipality_details_view.dart';
-import 'package:flutter/material.dart';
+import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
+import 'package:flutter/material.dart' hide HttpClientProvider;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-import 'package:breizh_blok_mobile/views/boulder_details_view.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
-import 'package:breizh_blok_mobile/views/home_view.dart';
-import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
-
-main({
+Future<void> main({
   MapPermissionBloc? mapPermissionBloc,
+  AppDatabase? database,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  TermsOfUseBloc termsOfUseBloc = TermsOfUseBloc();
+  final termsOfUseBloc = TermsOfUseBloc();
 
-  TabBloc tabBloc = TabBloc();
+  final appDatabase = database ??
+      AppDatabase(
+        LazyDatabase(() async {
+          final dbFolder = await getApplicationDocumentsDirectory();
+          final file = File(p.join(dbFolder.path, 'db.sqlite'));
+          return NativeDatabase.createInBackground(file);
+        }),
+      );
 
-  MapBloc mapBloc = MapBloc();
+  final httpClient = AppHttpClient(
+    database: appDatabase,
+  );
 
-  final BoulderFilterBloc boulderFilterBloc = BoulderFilterBloc(
+  final imageBoulderCache = ImageBoulderCache();
+
+  final tabBloc = TabBloc();
+
+  final mapBloc = MapBloc();
+
+  final boulderFilterBloc = BoulderFilterBloc(
     BoulderFilterState(),
   );
 
-  final BoulderOrderBloc boulderOrderBloc = BoulderOrderBloc(
-    const OrderQueryParam(direction: 'desc', name: 'order[id]'),
+  final boulderOrderBloc = BoulderOrderBloc(
+    const OrderParam(
+      direction: kDescendantDirection,
+      name: kIdOrderParam,
+    ),
   );
 
-  final BoulderFilterGradeBloc boulderFilterGradeBloc =
+  final boulderFilterGradeBloc =
       BoulderFilterGradeBloc(BoulderFilterGradeState());
+  final boulderMarkerRepository =
+      BoulderMarkerRepository(httpClient: httpClient);
 
-  final boulderMarkerBloc = BoulderMarkerBloc();
+  final boulderMarkerBloc = BoulderMarkerBloc(
+    repository: boulderMarkerRepository,
+  );
 
   await SentryFlutter.init(
     (options) {
-      options.dsn = options.dsn =
-          const String.fromEnvironment('SENTRY_DSN', defaultValue: '');
-      options.tracesSampleRate = 0;
+      options
+        ..dsn = options.dsn = const String.fromEnvironment('SENTRY_DSN')
+        ..tracesSampleRate = 0;
     },
     appRunner: () => runApp(
-      MultiBlocProvider(
+      MultiRepositoryProvider(
         providers: [
-          BlocProvider<TermsOfUseBloc>(
-            create: (BuildContext context) => termsOfUseBloc,
+          RepositoryProvider<BoulderAreaRepository>(
+            create: (context) => BoulderAreaRepository(httpClient: httpClient),
           ),
-          BlocProvider<BoulderFilterBloc>(
-            create: (BuildContext context) => boulderFilterBloc,
+          RepositoryProvider<BoulderMarkerRepository>(
+            create: (context) => boulderMarkerRepository,
           ),
-          BlocProvider<BoulderOrderBloc>(
-            create: (BuildContext context) => boulderOrderBloc,
+          RepositoryProvider<BoulderRepository>(
+            create: (context) => BoulderRepository(httpClient: httpClient),
           ),
-          BlocProvider<BoulderFilterGradeBloc>(
-            create: (BuildContext context) => boulderFilterGradeBloc,
+          RepositoryProvider<DepartmentRepository>(
+            create: (context) => DepartmentRepository(httpClient: httpClient),
           ),
-          BlocProvider<BoulderMarkerBloc>(
-            create: (BuildContext context) => boulderMarkerBloc,
+          RepositoryProvider<GradeRepository>(
+            create: (context) => GradeRepository(httpClient: httpClient),
           ),
-          BlocProvider<TabBloc>(
-            create: (BuildContext context) => tabBloc,
+          RepositoryProvider<MunicipalityRepository>(
+            create: (context) => MunicipalityRepository(httpClient: httpClient),
           ),
-          BlocProvider<MapBloc>(
-            create: (BuildContext context) => mapBloc,
+          RepositoryProvider<AppDatabase>(
+            create: (context) => appDatabase,
           ),
-          BlocProvider<MapPermissionBloc>(
-            create: (BuildContext context) =>
-                mapPermissionBloc ?? MapPermissionBloc(),
+          RepositoryProvider<AppHttpClient>(
+            create: (context) => httpClient,
+          ),
+          RepositoryProvider<ImageBoulderCache>(
+            create: (context) => imageBoulderCache,
           ),
         ],
-        child: LocationProvider(
-          locationInstance: Location.instance,
-          child: MyApp(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<TermsOfUseBloc>(
+              create: (BuildContext context) => termsOfUseBloc,
+            ),
+            BlocProvider<BoulderFilterBloc>(
+              create: (BuildContext context) => boulderFilterBloc,
+            ),
+            BlocProvider<BoulderOrderBloc>(
+              create: (BuildContext context) => boulderOrderBloc,
+            ),
+            BlocProvider<BoulderFilterGradeBloc>(
+              create: (BuildContext context) => boulderFilterGradeBloc,
+            ),
+            BlocProvider<BoulderMarkerBloc>(
+              create: (BuildContext context) => boulderMarkerBloc,
+            ),
+            BlocProvider<TabBloc>(
+              create: (BuildContext context) => tabBloc,
+            ),
+            BlocProvider<MapBloc>(
+              create: (BuildContext context) => mapBloc,
+            ),
+            BlocProvider<MapPermissionBloc>(
+              create: (BuildContext context) =>
+                  mapPermissionBloc ?? MapPermissionBloc(),
+            ),
+          ],
+          child: LocationProvider(
+            locationInstance: Location.instance,
+            child: MyApp(
+              database: appDatabase,
+            ),
+          ),
         ),
       ),
     ),
@@ -90,46 +161,92 @@ main({
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({
+    required this.database,
+    super.key,
+  });
 
-  final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/boulders',
-        name: 'boulder_list',
-        builder: (context, state) => const HomeView(),
-      ),
-      GoRoute(
-        path: '/boulders/:bid',
-        name: 'boulder_details',
-        builder: (context, state) {
-          return BoulderDetailsView(id: state.params['bid'] as String);
-        },
-      ),
-      GoRoute(
-        path: '/boulders-area/:id',
-        name: 'boulder_area_details',
-        builder: (context, state) {
-          return BoulderAreaDetailsView(id: state.params['id'] as String);
-        },
-      ),
-      GoRoute(
-        path: '/municipalities/:id',
-        name: 'municipality_details',
-        builder: (context, state) {
-          return MunicipalityDetailsView(id: state.params['id'] as String);
-        },
-      ),
-    ],
-    initialLocation: '/boulders',
-  );
+  final AppDatabase database;
 
   @override
-  Widget build(BuildContext context) => MaterialApp.router(
-        routeInformationProvider: _router.routeInformationProvider,
-        routeInformationParser: _router.routeInformationParser,
-        routerDelegate: _router.routerDelegate,
-        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.lightBlue),
-        debugShowCheckedModeBanner: false,
-      );
+  Widget build(BuildContext context) {
+    final router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/boulders',
+          name: 'boulder_list',
+          builder: (context, state) => RepositoryProvider(
+            create: (context) => RequestStrategy(),
+            child: HomeView(
+              database: database,
+            ),
+          ),
+        ),
+        GoRoute(
+          path: '/boulders/:id',
+          name: 'boulder_details',
+          builder: (context, state) {
+            return RepositoryProvider(
+              create: (context) => RequestStrategy(),
+              child: BoulderDetailsView(id: state.pathParameters['id']!),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/downloads/boulders/:id',
+          name: 'downloaded_boulder_details',
+          builder: (context, state) {
+            return RepositoryProvider<RequestStrategy>(
+              create: (context) => RequestStrategy(offlineFirst: true),
+              child: BoulderDetailsView(
+                id: state.pathParameters['id']!,
+                boulderAreaIri: state.uri.queryParameters['boulderAreaIri'],
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/boulders-area/:id',
+          name: 'boulder_area_details',
+          builder: (context, state) {
+            return RepositoryProvider(
+              create: (context) => RequestStrategy(),
+              child: BoulderAreaDetailsView(id: state.pathParameters['id']!),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/downloads/boulders-area/:id',
+          name: 'downloaded_boulder_area_details',
+          builder: (context, state) {
+            return RepositoryProvider<RequestStrategy>(
+              create: (context) => RequestStrategy(offlineFirst: true),
+              child: BoulderAreaDetailsView(
+                id: state.pathParameters['id']!,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/municipalities/:id',
+          name: 'municipality_details',
+          builder: (context, state) {
+            return RepositoryProvider(
+              create: (context) => RequestStrategy(),
+              child: MunicipalityDetailsView(id: state.pathParameters['id']!),
+            );
+          },
+        ),
+      ],
+      initialLocation: '/boulders',
+    );
+
+    return MaterialApp.router(
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.lightBlue),
+      debugShowCheckedModeBanner: false,
+    );
+  }
 }

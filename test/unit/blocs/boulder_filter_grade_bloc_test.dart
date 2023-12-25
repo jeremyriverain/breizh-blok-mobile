@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('BoulderFilterGradeBloc', () {
-    blocTest(
+    blocTest<BoulderFilterGradeBloc, BoulderFilterGradeState>(
       'default state OK',
       build: () => BoulderFilterGradeBloc(BoulderFilterGradeState()),
       verify: (BoulderFilterGradeBloc bloc) {
@@ -18,16 +18,18 @@ void main() {
       name: '6a',
     );
 
-    blocTest(
+    blocTest<BoulderFilterGradeBloc, BoulderFilterGradeState>(
       'BoulderFilterGrade event OK',
       build: () => BoulderFilterGradeBloc(BoulderFilterGradeState()),
-      act: (BoulderFilterGradeBloc bloc) => bloc.add(BoulderFilterGradeEvent(
-        {
-          referenceGrade,
-        },
-      )),
+      act: (BoulderFilterGradeBloc bloc) => bloc.add(
+        BoulderFilterGradeEvent(
+          {
+            referenceGrade,
+          },
+        ),
+      ),
       expect: () => [
-        BoulderFilterGradeState(grades: {referenceGrade})
+        BoulderFilterGradeState(grades: {referenceGrade}),
       ],
     );
   });

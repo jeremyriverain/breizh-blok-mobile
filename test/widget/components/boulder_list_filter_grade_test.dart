@@ -30,9 +30,9 @@ void main() {
     const Grade(
       iri: '/grades/4',
       name: '7a',
-    )
+    ),
   ];
-  final CollectionItems<Grade> gradeCollection =
+  final gradeCollection =
       CollectionItems(items: grades, totalItems: grades.length);
   group('BoulderListFilterGrade', () {
     testWidgets('set bloc values correctly after selecting some grades',
@@ -41,23 +41,27 @@ void main() {
           BoulderFilterGradeBloc(BoulderFilterGradeState());
       expect(boulderFilterGradeBloc.state.grades.length, 0);
 
-      await tester.pumpWidget(MaterialApp(
-        home: BlocProvider(
-          create: (context) => boulderFilterGradeBloc,
-          child: Builder(builder: (context) {
-            return Scaffold(
-              body: BoulderListFilterGrade(
-                allGrades: gradeCollection,
-              ),
-            );
-          }),
+      await tester.pumpWidget(
+        MaterialApp(
+          home: BlocProvider(
+            create: (context) => boulderFilterGradeBloc,
+            child: Builder(
+              builder: (context) {
+                return Scaffold(
+                  body: BoulderListFilterGrade(
+                    allGrades: gradeCollection,
+                  ),
+                );
+              },
+            ),
+          ),
         ),
-      ));
+      );
 
       await tester.pumpAndSettle();
-      final Offset leftTarget =
+      final leftTarget =
           tester.getTopLeft(find.byType(SfRangeSlider)).translate(20, 16);
-      final Offset rightTarget =
+      final rightTarget =
           tester.getTopRight(find.byType(SfRangeSlider)).translate(-20, 16);
 
       final middleOffset = Offset((leftTarget.dx + rightTarget.dx) / 2, 0);
@@ -81,7 +85,9 @@ void main() {
       });
 
       await tester.dragFrom(
-          rightTarget - middleOffset, middleOffset + const Offset(1, 0));
+        rightTarget - middleOffset,
+        middleOffset + const Offset(1, 0),
+      );
 
       expect(boulderFilterGradeBloc.state.grades, <Grade>{});
     });

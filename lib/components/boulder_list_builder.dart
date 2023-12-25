@@ -1,36 +1,38 @@
 import 'dart:async';
 
+import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_back_to_top_button.dart';
+import 'package:breizh_blok_mobile/components/boulder_list_results.dart';
+import 'package:breizh_blok_mobile/components/boulder_list_tile.dart';
+import 'package:breizh_blok_mobile/components/empty_list_indicator.dart';
+import 'package:breizh_blok_mobile/components/error_indicator.dart';
 import 'package:breizh_blok_mobile/components/filter_boulders_button.dart';
 import 'package:breizh_blok_mobile/components/sort_boulders_button.dart';
-import 'package:breizh_blok_mobile/models/order_query_param.dart';
+import 'package:breizh_blok_mobile/models/boulder.dart';
+import 'package:breizh_blok_mobile/models/collection_items.dart';
+import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/models/response.dart';
+import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import 'package:breizh_blok_mobile/components/boulder_list_tile.dart';
-import 'package:breizh_blok_mobile/components/empty_list_indicator.dart';
-import 'package:breizh_blok_mobile/components/error_indicator.dart';
-import 'package:breizh_blok_mobile/models/boulder.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
-import 'package:breizh_blok_mobile/models/collection_items.dart';
-import 'package:breizh_blok_mobile/models/response.dart';
-import 'package:breizh_blok_mobile/components/boulder_list_results.dart';
-
 class BoulderListBuilder extends StatefulWidget {
-  final Function onPageRequested;
-  final BoulderFilterBloc boulderFilterBloc;
-  final bool showFilterButton;
-
   const BoulderListBuilder({
-    Key? key,
     required this.onPageRequested,
     required this.boulderFilterBloc,
+    super.key,
     this.showFilterButton = true,
-  }) : super(key: key);
+    this.bottomHeaderWidget,
+  });
+
+  final BoulderEvent Function(int) onPageRequested;
+  final BoulderFilterBloc boulderFilterBloc;
+  final bool showFilterButton;
+  final Widget? bottomHeaderWidget;
 
   @override
   State<StatefulWidget> createState() => _BoulderListBuilderState();
@@ -45,14 +47,16 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
 
   @override
   void initState() {
-    _bloc = BoulderBloc();
+    _bloc = BoulderBloc(
+      repository: context.read<BoulderRepository>(),
+    );
 
     _pagingController.addPageRequestListener((pageKey) {
       _bloc.add(widget.onPageRequested(pageKey));
     });
 
     _scrollController.addListener(() {
-      double showBackToTopButtonOffset = 400.0;
+      const showBackToTopButtonOffset = 400;
 
       if (_scrollController.offset > showBackToTopButtonOffset &&
           !showBackToTopButton) {
@@ -78,6 +82,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomHeaderWidget = widget.bottomHeaderWidget;
     return MultiBlocListener(
       listeners: [
         BlocListener<BoulderFilterBloc, BoulderFilterState>(
@@ -85,7 +90,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
             _pagingController.refresh();
           },
         ),
-        BlocListener<BoulderOrderBloc, OrderQueryParam>(
+        BlocListener<BoulderOrderBloc, OrderParam>(
           listener: (context, state) {
             _pagingController.refresh();
           },
@@ -109,16 +114,14 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
               }
               return;
             }
-            throw Exception("data or error should be present");
+            throw Exception('data or error should be present');
           },
           bloc: _bloc,
-        )
+        ),
       ],
       child: RefreshIndicator(
         onRefresh: () => Future.sync(
-          () {
-            _pagingController.refresh();
-          },
+          _pagingController.refresh,
         ),
         child: SafeArea(
           child: Stack(
@@ -128,7 +131,11 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                 pagingController: _pagingController,
                 scrollController: _scrollController,
                 padding: const EdgeInsets.only(
-                    bottom: 16, left: 10, right: 10, top: 5),
+                  bottom: 16,
+                  left: 10,
+                  right: 10,
+                  top: 5,
+                ),
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 16,
                 ),
@@ -136,8 +143,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                   noItemsFoundIndicatorBuilder: (context) =>
                       const EmptyListIndicator(),
                   firstPageErrorIndicatorBuilder: (context) => ErrorIndicator(
-                    error: _pagingController.error,
-                    onTryAgain: () => _pagingController.refresh(),
+                    onTryAgain: _pagingController.refresh,
                   ),
                   itemBuilder: (context, boulder, index) {
                     final tile = BoulderListTile(
@@ -146,18 +152,17 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                     );
                     if (index == 0) {
                       return Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 8),
                         child: Column(
                           children: [
                             Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const SortBouldersButton(),
+                                SortBouldersButton(),
                                 if (widget.showFilterButton)
                                   const FilterBouldersButton(),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
+                                    padding: const EdgeInsets.only(right: 8),
                                     child: BoulderListResults(
                                       key: const Key('boulder-list-result'),
                                       totalItems:
@@ -167,10 +172,11 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                                 ),
                               ],
                             ),
+                            if (bottomHeaderWidget != null) bottomHeaderWidget,
                             const SizedBox(
                               height: 10,
                             ),
-                            tile
+                            tile,
                           ],
                         ),
                       );
@@ -182,9 +188,11 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
               if (showBackToTopButton)
                 BoulderListBackToTopButton(
                   onPressed: () {
-                    _scrollController.animateTo(0,
-                        duration: const Duration(milliseconds: 600),
-                        curve: Curves.ease);
+                    _scrollController.animateTo(
+                      0,
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.ease,
+                    );
                   },
                 ),
             ],

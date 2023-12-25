@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 class MunicipalityDetailsBoulderAreaItem extends StatelessWidget {
   const MunicipalityDetailsBoulderAreaItem({
-    super.key,
     required this.boulderArea,
+    super.key,
   });
 
   final BoulderArea boulderArea;
@@ -20,7 +20,9 @@ class MunicipalityDetailsBoulderAreaItem extends StatelessWidget {
       onTap: () {
         context.pushNamed(
           'boulder_area_details',
-          params: {'id': boulderArea.iri.replaceAll('/boulder_areas/', '')},
+          pathParameters: {
+            'id': boulderArea.iri.replaceAll('/boulder_areas/', ''),
+          },
         );
       },
     );

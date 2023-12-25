@@ -4,9 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('TabBloc', () {
-    blocTest(
+    blocTest<TabBloc, int>(
       'default state OK',
-      build: () => TabBloc(),
+      build: TabBloc.new,
       verify: (TabBloc bloc) {
         expect(
           bloc.state,
@@ -15,12 +15,14 @@ void main() {
       },
     );
 
-    blocTest(
+    blocTest<TabBloc, int>(
       'TabUpdated event OK',
-      build: () => TabBloc(),
-      act: (TabBloc bloc) => bloc.add(TabUpdated(
-        activeTab: 1,
-      )),
+      build: TabBloc.new,
+      act: (TabBloc bloc) => bloc.add(
+        TabUpdated(
+          activeTab: 1,
+        ),
+      ),
       expect: () => [1],
     );
   });
