@@ -147,7 +147,7 @@ void main() {
       [
         DbBoulderArea(
           iri: boulderArea.iri,
-          isDownloaded: true,
+          downloadProgress: 100,
           boulders: expectedBouldersRequestPath,
           downloadedAt: mockDate,
         ),

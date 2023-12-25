@@ -36,7 +36,7 @@ void main() {
         database.into(database.dbBoulderAreas).insert(
               DbBoulderAreasCompanion.insert(
                 iri: boulderAreaIri,
-                isDownloaded: true,
+                downloadProgress: 100,
               ),
             ),
         database.into(database.dbRequests).insert(

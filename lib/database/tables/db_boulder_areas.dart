@@ -3,7 +3,7 @@ import 'package:drift/drift.dart';
 
 class DbBoulderAreas extends Table {
   TextColumn get iri => text()();
-  BoolColumn get isDownloaded => boolean()();
+  IntColumn get downloadProgress => integer()();
   TextColumn get boulders =>
       text().nullable().references(DbRequests, #requestPath)();
   DateTimeColumn get downloadedAt =>

@@ -205,15 +205,12 @@ class $DbBoulderAreasTable extends DbBoulderAreas
   late final GeneratedColumn<String> iri = GeneratedColumn<String>(
       'iri', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isDownloadedMeta =
-      const VerificationMeta('isDownloaded');
+  static const VerificationMeta _downloadProgressMeta =
+      const VerificationMeta('downloadProgress');
   @override
-  late final GeneratedColumn<bool> isDownloaded = GeneratedColumn<bool>(
-      'is_downloaded', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_downloaded" IN (0, 1))'));
+  late final GeneratedColumn<int> downloadProgress = GeneratedColumn<int>(
+      'download_progress', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _bouldersMeta =
       const VerificationMeta('boulders');
   @override
@@ -233,7 +230,7 @@ class $DbBoulderAreasTable extends DbBoulderAreas
       defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns =>
-      [iri, isDownloaded, boulders, downloadedAt];
+      [iri, downloadProgress, boulders, downloadedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -250,13 +247,13 @@ class $DbBoulderAreasTable extends DbBoulderAreas
     } else if (isInserting) {
       context.missing(_iriMeta);
     }
-    if (data.containsKey('is_downloaded')) {
+    if (data.containsKey('download_progress')) {
       context.handle(
-          _isDownloadedMeta,
-          isDownloaded.isAcceptableOrUnknown(
-              data['is_downloaded']!, _isDownloadedMeta));
+          _downloadProgressMeta,
+          downloadProgress.isAcceptableOrUnknown(
+              data['download_progress']!, _downloadProgressMeta));
     } else if (isInserting) {
-      context.missing(_isDownloadedMeta);
+      context.missing(_downloadProgressMeta);
     }
     if (data.containsKey('boulders')) {
       context.handle(_bouldersMeta,
@@ -279,8 +276,8 @@ class $DbBoulderAreasTable extends DbBoulderAreas
     return DbBoulderArea(
       iri: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}iri'])!,
-      isDownloaded: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_downloaded'])!,
+      downloadProgress: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}download_progress'])!,
       boulders: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}boulders']),
       downloadedAt: attachedDatabase.typeMapping.read(
@@ -296,19 +293,19 @@ class $DbBoulderAreasTable extends DbBoulderAreas
 
 class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
   final String iri;
-  final bool isDownloaded;
+  final int downloadProgress;
   final String? boulders;
   final DateTime downloadedAt;
   const DbBoulderArea(
       {required this.iri,
-      required this.isDownloaded,
+      required this.downloadProgress,
       this.boulders,
       required this.downloadedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['iri'] = Variable<String>(iri);
-    map['is_downloaded'] = Variable<bool>(isDownloaded);
+    map['download_progress'] = Variable<int>(downloadProgress);
     if (!nullToAbsent || boulders != null) {
       map['boulders'] = Variable<String>(boulders);
     }
@@ -319,7 +316,7 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
   DbBoulderAreasCompanion toCompanion(bool nullToAbsent) {
     return DbBoulderAreasCompanion(
       iri: Value(iri),
-      isDownloaded: Value(isDownloaded),
+      downloadProgress: Value(downloadProgress),
       boulders: boulders == null && nullToAbsent
           ? const Value.absent()
           : Value(boulders),
@@ -332,7 +329,7 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DbBoulderArea(
       iri: serializer.fromJson<String>(json['iri']),
-      isDownloaded: serializer.fromJson<bool>(json['isDownloaded']),
+      downloadProgress: serializer.fromJson<int>(json['downloadProgress']),
       boulders: serializer.fromJson<String?>(json['boulders']),
       downloadedAt: serializer.fromJson<DateTime>(json['downloadedAt']),
     );
@@ -342,7 +339,7 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'iri': serializer.toJson<String>(iri),
-      'isDownloaded': serializer.toJson<bool>(isDownloaded),
+      'downloadProgress': serializer.toJson<int>(downloadProgress),
       'boulders': serializer.toJson<String?>(boulders),
       'downloadedAt': serializer.toJson<DateTime>(downloadedAt),
     };
@@ -350,12 +347,12 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
 
   DbBoulderArea copyWith(
           {String? iri,
-          bool? isDownloaded,
+          int? downloadProgress,
           Value<String?> boulders = const Value.absent(),
           DateTime? downloadedAt}) =>
       DbBoulderArea(
         iri: iri ?? this.iri,
-        isDownloaded: isDownloaded ?? this.isDownloaded,
+        downloadProgress: downloadProgress ?? this.downloadProgress,
         boulders: boulders.present ? boulders.value : this.boulders,
         downloadedAt: downloadedAt ?? this.downloadedAt,
       );
@@ -363,7 +360,7 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
   String toString() {
     return (StringBuffer('DbBoulderArea(')
           ..write('iri: $iri, ')
-          ..write('isDownloaded: $isDownloaded, ')
+          ..write('downloadProgress: $downloadProgress, ')
           ..write('boulders: $boulders, ')
           ..write('downloadedAt: $downloadedAt')
           ..write(')'))
@@ -371,48 +368,49 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
   }
 
   @override
-  int get hashCode => Object.hash(iri, isDownloaded, boulders, downloadedAt);
+  int get hashCode =>
+      Object.hash(iri, downloadProgress, boulders, downloadedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DbBoulderArea &&
           other.iri == this.iri &&
-          other.isDownloaded == this.isDownloaded &&
+          other.downloadProgress == this.downloadProgress &&
           other.boulders == this.boulders &&
           other.downloadedAt == this.downloadedAt);
 }
 
 class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
   final Value<String> iri;
-  final Value<bool> isDownloaded;
+  final Value<int> downloadProgress;
   final Value<String?> boulders;
   final Value<DateTime> downloadedAt;
   final Value<int> rowid;
   const DbBoulderAreasCompanion({
     this.iri = const Value.absent(),
-    this.isDownloaded = const Value.absent(),
+    this.downloadProgress = const Value.absent(),
     this.boulders = const Value.absent(),
     this.downloadedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   DbBoulderAreasCompanion.insert({
     required String iri,
-    required bool isDownloaded,
+    required int downloadProgress,
     this.boulders = const Value.absent(),
     this.downloadedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : iri = Value(iri),
-        isDownloaded = Value(isDownloaded);
+        downloadProgress = Value(downloadProgress);
   static Insertable<DbBoulderArea> custom({
     Expression<String>? iri,
-    Expression<bool>? isDownloaded,
+    Expression<int>? downloadProgress,
     Expression<String>? boulders,
     Expression<DateTime>? downloadedAt,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (iri != null) 'iri': iri,
-      if (isDownloaded != null) 'is_downloaded': isDownloaded,
+      if (downloadProgress != null) 'download_progress': downloadProgress,
       if (boulders != null) 'boulders': boulders,
       if (downloadedAt != null) 'downloaded_at': downloadedAt,
       if (rowid != null) 'rowid': rowid,
@@ -421,13 +419,13 @@ class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
 
   DbBoulderAreasCompanion copyWith(
       {Value<String>? iri,
-      Value<bool>? isDownloaded,
+      Value<int>? downloadProgress,
       Value<String?>? boulders,
       Value<DateTime>? downloadedAt,
       Value<int>? rowid}) {
     return DbBoulderAreasCompanion(
       iri: iri ?? this.iri,
-      isDownloaded: isDownloaded ?? this.isDownloaded,
+      downloadProgress: downloadProgress ?? this.downloadProgress,
       boulders: boulders ?? this.boulders,
       downloadedAt: downloadedAt ?? this.downloadedAt,
       rowid: rowid ?? this.rowid,
@@ -440,8 +438,8 @@ class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
     if (iri.present) {
       map['iri'] = Variable<String>(iri.value);
     }
-    if (isDownloaded.present) {
-      map['is_downloaded'] = Variable<bool>(isDownloaded.value);
+    if (downloadProgress.present) {
+      map['download_progress'] = Variable<int>(downloadProgress.value);
     }
     if (boulders.present) {
       map['boulders'] = Variable<String>(boulders.value);
@@ -459,7 +457,7 @@ class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
   String toString() {
     return (StringBuffer('DbBoulderAreasCompanion(')
           ..write('iri: $iri, ')
-          ..write('isDownloaded: $isDownloaded, ')
+          ..write('downloadProgress: $downloadProgress, ')
           ..write('boulders: $boulders, ')
           ..write('downloadedAt: $downloadedAt, ')
           ..write('rowid: $rowid')

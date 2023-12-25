@@ -104,7 +104,7 @@ class DownloadAreaService {
     await database.into(database.dbBoulderAreas).insert(
           DbBoulderAreasCompanion.insert(
             iri: boulderArea.iri,
-            isDownloaded: false,
+            downloadProgress: 0,
           ),
         );
 
@@ -117,11 +117,23 @@ class DownloadAreaService {
         ],
       );
 
+      const minDownloadProgress = 10;
+
+      await (database.update(database.dbBoulderAreas)
+            ..where((tbl) => tbl.iri.equals(boulderArea.iri)))
+          .write(
+        const DbBoulderAreasCompanion(
+          downloadProgress: Value(minDownloadProgress),
+        ),
+      );
+
       final bouldersRequest = await (database.select(database.dbRequests)
             ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
           .getSingle();
 
       final imageUrls = extractImages(bouldersRequest.responseBody);
+
+      var downloadedImages = 0;
 
       for (final pathImage in List<String>.from(imageUrls)) {
         await downloadImage(
@@ -130,6 +142,19 @@ class DownloadAreaService {
             pathImage,
           ).toString(),
         );
+        downloadedImages++;
+        await (database.update(database.dbBoulderAreas)
+              ..where((tbl) => tbl.iri.equals(boulderArea.iri)))
+            .write(
+          DbBoulderAreasCompanion(
+            downloadProgress: Value(
+              minDownloadProgress +
+                  (downloadedImages *
+                      (100 - minDownloadProgress) ~/
+                      imageUrls.length),
+            ),
+          ),
+        );
       }
 
       await (database.update(database.dbBoulderAreas)
@@ -137,7 +162,7 @@ class DownloadAreaService {
           .write(
         DbBoulderAreasCompanion.insert(
           iri: boulderArea.iri,
-          isDownloaded: true,
+          downloadProgress: 100,
           boulders: Value(bouldersRequestPath),
         ),
       );

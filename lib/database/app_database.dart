@@ -42,7 +42,7 @@ class AppDatabase extends _$AppDatabase {
     return rows.where((row) {
       final request = row.readTable(dbRequests);
       final boulderArea = row.readTable(dbBoulderAreas);
-      if (!boulderArea.isDownloaded) {
+      if (boulderArea.downloadProgress != 100) {
         return false;
       }
       try {

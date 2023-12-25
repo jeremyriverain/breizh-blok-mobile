@@ -67,7 +67,7 @@ class DownloadAreaButton extends StatelessWidget {
           final data = snapshot.data;
           final valueCheckbox = data != null;
 
-          final label = data != null && data.isDownloaded
+          final label = data != null && data.downloadProgress == 100
               ? 'TÉLÉCHARGER ✅'
               : 'TÉLÉCHARGER';
           return Row(
@@ -80,26 +80,24 @@ class DownloadAreaButton extends StatelessWidget {
                   onChanged: (value) => _onChanged(context, value),
                 ),
               ),
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  GestureDetector(
-                    onTap: () => _onChanged(context, !valueCheckbox),
-                    child: Text(label),
-                  ),
-                  if (data != null && !data.isDownloaded)
-                    const Positioned(
-                      bottom: -4,
-                      right: 0,
-                      left: 0,
-                      child: SizedBox(
-                        width: 100,
-                        height: 3,
-                        child: LinearProgressIndicator(),
-                      ),
-                    ),
-                ],
+              GestureDetector(
+                onTap: () => _onChanged(context, !valueCheckbox),
+                child: Text(label),
               ),
+              if (data != null && data.downloadProgress != 100)
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: SizedBox(
+                    width: 15,
+                    height: 15,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                      value: data.downloadProgress == 0
+                          ? null
+                          : data.downloadProgress / 100,
+                    ),
+                  ),
+                ),
             ],
           );
         }

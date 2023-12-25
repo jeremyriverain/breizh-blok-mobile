@@ -82,7 +82,7 @@ void main() {
     streamController.add(
       DbBoulderArea(
         iri: '/foo',
-        isDownloaded: false,
+        downloadProgress: 0,
         downloadedAt: DateTime.now(),
       ),
     );
@@ -90,14 +90,14 @@ void main() {
     await tester.pump(Duration.zero);
 
     expect(
-      find.byType(LinearProgressIndicator),
+      find.byType(CircularProgressIndicator),
       findsOneWidget,
     );
 
     streamController.add(
       DbBoulderArea(
         iri: '/foo',
-        isDownloaded: true,
+        downloadProgress: 100,
         downloadedAt: DateTime.now(),
       ),
     );

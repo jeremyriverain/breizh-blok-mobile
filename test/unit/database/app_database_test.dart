@@ -18,7 +18,7 @@ void main() {
       final database = AppDatabase(NativeDatabase.memory());
 
       await database.into(database.dbBoulderAreas).insert(
-            DbBoulderAreasCompanion.insert(iri: '/foo', isDownloaded: true),
+            DbBoulderAreasCompanion.insert(iri: '/foo', downloadProgress: 100),
           );
 
       expect(await database.allDownloads(), <DownloadedBoulderArea>[]);
@@ -28,7 +28,7 @@ void main() {
       final database = AppDatabase(NativeDatabase.memory());
 
       await database.into(database.dbBoulderAreas).insert(
-            DbBoulderAreasCompanion.insert(iri: '/foo', isDownloaded: true),
+            DbBoulderAreasCompanion.insert(iri: '/foo', downloadProgress: 100),
           );
 
       await database.into(database.dbRequests).insert(
@@ -49,7 +49,7 @@ void main() {
       final database = AppDatabase(NativeDatabase.memory());
 
       await database.into(database.dbBoulderAreas).insert(
-            DbBoulderAreasCompanion.insert(iri: '/foo', isDownloaded: true),
+            DbBoulderAreasCompanion.insert(iri: '/foo', downloadProgress: 100),
           );
 
       await database.into(database.dbRequests).insert(
@@ -71,7 +71,7 @@ void main() {
       await database.into(database.dbBoulderAreas).insert(
             DbBoulderAreasCompanion.insert(
               iri: '/foo',
-              isDownloaded: true,
+              downloadProgress: 100,
               downloadedAt: Value(mockDate),
             ),
           );
@@ -108,7 +108,7 @@ void main() {
       final database = AppDatabase(NativeDatabase.memory());
 
       await database.into(database.dbBoulderAreas).insert(
-            DbBoulderAreasCompanion.insert(iri: '/foo', isDownloaded: false),
+            DbBoulderAreasCompanion.insert(iri: '/foo', downloadProgress: 0),
           );
 
       await database.into(database.dbRequests).insert(
