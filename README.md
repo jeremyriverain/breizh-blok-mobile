@@ -17,7 +17,7 @@ Définissez les variables d'environnement suivantes:
 ### Démarrer l'application en mode DEV
 
 ```bash
-flutter run --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --debug
+flutter run --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="TOMTOM_APIKEY=$BREIZH_BLOK_TOMTOM_APIKEY" --debug
 ```
 
 ### Analyse statique de code
@@ -35,17 +35,17 @@ flutter test
 ### Exécuter les tests E2E
 
 ```bash
-flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY"
+flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="TOMTOM_APIKEY=$BREIZH_BLOK_TOMTOM_API_KEY"
 ```
 
 ### Compiler pour Android
 
 ```bash
-flutter build appbundle --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN"
+flutter build appbundle --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN" --dart-define="TOMTOM_APIKEY=$BREIZH_BLOK_TOMTOM_API_KEY"
 ```
 
 ### Compiler pour iOS
 
 ```bash
-flutter build ipa --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN"
+flutter build ipa --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN" --dart-define="TOMTOM_APIKEY=$BREIZH_BLOK_TOMTOM_API_KEY"
 ```
