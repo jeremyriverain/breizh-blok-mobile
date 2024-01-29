@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, avoid_dynamic_calls
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:breizh_blok_mobile/app_http_client.dart';
@@ -96,6 +97,24 @@ void main() async {
     await tester.pumpAndSettle();
   }
 
+  Future<void> pumpUntilFound(
+    WidgetTester tester,
+    Finder finder, {
+    Duration timeout = const Duration(seconds: 10),
+  }) async {
+    var timerDone = false;
+    final timer = Timer(timeout, () => timerDone = true);
+    while (timerDone != true) {
+      await tester.pump();
+
+      final found = tester.any(finder);
+      if (found) {
+        timerDone = true;
+      }
+    }
+    timer.cancel();
+  }
+
   testWidgets('requests are persisted to a local database', (tester) async {
     final storedRequests = await database.select(database.dbRequests).get();
     expect(storedRequests.length, 0);
@@ -185,6 +204,11 @@ void main() async {
       const Duration(
         seconds: 6,
       ),
+    );
+    await pumpUntilFound(
+      tester,
+      find.text('TÉLÉCHARGER ✅'),
+      timeout: const Duration(seconds: 30),
     );
 
     expect(find.text('TÉLÉCHARGER ✅'), findsOneWidget);
@@ -1076,7 +1100,7 @@ by clicking on the "scroll to to the top" button''',
       (WidgetTester tester) async {
     // prior to test, I fetch boulders to retrieve a reference
     // and assert boulders details dynamically
-    BoulderListTile getBoulderListTileAt(int index) {
+    BoulderListTile getBoulderListTileAt(CommonFinders find, int index) {
       return find
           .byWidgetPredicate((Widget widget) => widget is BoulderListTile)
           .evaluate()
@@ -1155,13 +1179,13 @@ by clicking on the "scroll to to the top" button''',
       },
     );
 
-    final firstMostRecent = getBoulderListTileAt(0);
+    final firstMostRecent = getBoulderListTileAt(find, 0);
     expect(
       firstMostRecent.boulder.iri,
       equals(mostRecentBoulders.items[0].iri),
     );
 
-    final secondMostRecent = getBoulderListTileAt(1);
+    final secondMostRecent = getBoulderListTileAt(find, 1);
     expect(
       secondMostRecent.boulder.iri,
       equals(mostRecentBoulders.items[1].iri),
@@ -1170,19 +1194,19 @@ by clicking on the "scroll to to the top" button''',
     // checks the first and second boulders are the easiest ones
     await sortByLabel(label: 'Les plus faciles');
 
-    final firstEasiest = getBoulderListTileAt(0);
+    final firstEasiest = getBoulderListTileAt(find, 0);
     expect(firstEasiest.boulder.iri, equals(easiestBoulders.items[0].iri));
 
-    final secondEasiest = getBoulderListTileAt(1);
+    final secondEasiest = getBoulderListTileAt(find, 1);
     expect(secondEasiest.boulder.iri, equals(easiestBoulders.items[1].iri));
 
     // checks the first and second boulders are the hardest ones
     await sortByLabel(label: 'Les plus difficiles');
 
-    final firstHardest = getBoulderListTileAt(0);
+    final firstHardest = getBoulderListTileAt(find, 0);
     expect(firstHardest.boulder.iri, equals(hardestBoulders.items[0].iri));
 
-    final secondHardest = getBoulderListTileAt(1);
+    final secondHardest = getBoulderListTileAt(find, 1);
     expect(secondHardest.boulder.iri, equals(hardestBoulders.items[1].iri));
   });
 

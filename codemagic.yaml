@@ -21,8 +21,8 @@ workflows:
         script: flutter pub get && cd ios && pod install
       - name: Integration tests
         script: | 
-          flutter emulators --launch apple_ios_simulator
           xcrun simctl shutdown all
+          xcrun simctl list
           TEST_DEVICE=$(xcrun simctl create test-device com.apple.CoreSimulator.SimDeviceType.iPhone-13 com.apple.CoreSimulator.SimRuntime.iOS-16-0)
           xcrun simctl boot $TEST_DEVICE
           flutter -d $TEST_DEVICE test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --verbose --suppress-analytics
