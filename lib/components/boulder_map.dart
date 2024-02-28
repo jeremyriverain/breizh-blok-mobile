@@ -95,23 +95,23 @@ class _BoulderMapState extends State<BoulderMap> {
         final mapController = await _controller.future;
         final zoom = await mapController.getZoomLevel();
 
-        final visibleRegion = await mapController.getVisibleRegion();
-        final centerLatLng = LatLng(
-          (visibleRegion.northeast.latitude +
-                  visibleRegion.southwest.latitude) /
-              2,
-          (visibleRegion.northeast.longitude +
-                  visibleRegion.southwest.longitude) /
-              2,
-        );
+        await mapController.getVisibleRegion().then((visibleRegion) {
+          final centerLatLng = LatLng(
+            (visibleRegion.northeast.latitude +
+                    visibleRegion.southwest.latitude) /
+                2,
+            (visibleRegion.northeast.longitude +
+                    visibleRegion.southwest.longitude) /
+                2,
+          );
 
-        if (!mounted) return;
-        context.read<MapBloc>().add(
-              MapUpdated(
-                mapZoom: zoom,
-                mapLatLng: centerLatLng,
-              ),
-            );
+          context.read<MapBloc>().add(
+                MapUpdated(
+                  mapZoom: zoom,
+                  mapLatLng: centerLatLng,
+                ),
+              );
+        });
       },
       onCameraMove: _manager.onCameraMove,
       markers: {

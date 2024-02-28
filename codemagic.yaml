@@ -5,8 +5,8 @@ workflows:
     instance_type: mac_mini_m1
     max_build_duration: 20
     environment:
-      flutter: 3.16.9
-      xcode: 14
+      flutter: 3.19.1
+      xcode: 15
       groups:
         - app
     cache:
