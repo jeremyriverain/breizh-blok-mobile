@@ -4,7 +4,8 @@ import 'dart:io';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:http/http.dart' as http;
 
-const kRequestDefaultTimeout = Duration(seconds: 7);
+const kRequestDefaultTimeout =
+    Duration(seconds: int.fromEnvironment('REQUEST_TIMEOUT', defaultValue: 7));
 
 class AppHttpClient {
   AppHttpClient({

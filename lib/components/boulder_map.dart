@@ -57,6 +57,9 @@ class _BoulderMapState extends State<BoulderMap> {
   }
 
   void _updateMarkers(Set<Marker> boulderMarkers) {
+    if (!mounted) {
+      return;
+    }
     setState(() {
       this.boulderMarkers = boulderMarkers;
     });
