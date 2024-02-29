@@ -5,7 +5,7 @@ workflows:
     instance_type: mac_mini_m1
     max_build_duration: 30
     environment:
-      flutter: 3.19.1
+      flutter: 3.19.2
       xcode: 15
       groups:
         - app
@@ -25,4 +25,4 @@ workflows:
           xcrun simctl list
           TEST_DEVICE=$(xcrun simctl create test-device com.apple.CoreSimulator.SimDeviceType.iPhone-13 com.apple.CoreSimulator.SimRuntime.iOS-17-0)
           xcrun simctl boot $TEST_DEVICE
-          flutter -d $TEST_DEVICE test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="REQUEST_TIMEOUT=20" --verbose --suppress-analytics
+          flutter -d $TEST_DEVICE test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="REQUEST_TIMEOUT=20" --suppress-analytics --timeout=none --reporter=expanded

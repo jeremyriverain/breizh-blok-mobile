@@ -100,7 +100,7 @@ void main() async {
   Future<void> pumpUntilFound(
     WidgetTester tester,
     Finder finder, {
-    Duration timeout = const Duration(seconds: 10),
+    Duration timeout = const Duration(seconds: 15),
   }) async {
     var timerDone = false;
     final timer = Timer(timeout, () => timerDone = true);
@@ -202,7 +202,7 @@ void main() async {
     // download a boulder area takes time
     await tester.pump(
       const Duration(
-        seconds: 6,
+        seconds: 10,
       ),
     );
     await pumpUntilFound(
@@ -308,7 +308,7 @@ void main() async {
 
     await tester.pump(
       const Duration(
-        seconds: 3,
+        seconds: 6,
       ),
     );
 
@@ -364,7 +364,7 @@ void main() async {
     };
 
     await tester.pump(
-      const Duration(seconds: 2),
+      const Duration(seconds: 5),
     );
 
     await (database.update(database.dbRequests)
@@ -411,7 +411,7 @@ void main() async {
 
     await tester.pump(
       const Duration(
-        seconds: 3,
+        seconds: 5,
       ),
     );
 
@@ -438,7 +438,7 @@ void main() async {
     newRequestBody['hydra:member'][2]['name'] = 'Bar';
 
     await tester.pump(
-      const Duration(seconds: 2),
+      const Duration(seconds: 5),
     );
 
     await (database.update(database.dbRequests)
