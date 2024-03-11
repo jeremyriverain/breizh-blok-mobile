@@ -35,7 +35,7 @@ flutter test
 ### Exécuter les tests E2E
 
 ```bash
-flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY"
+flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="REQUEST_TIMEOUT=20"
 ```
 
 ### Compiler pour Android

@@ -101,7 +101,10 @@ class DownloadAreaButton extends StatelessWidget {
             ],
           );
         }
-        return Container();
+        return const SizedBox(
+          height: 15,
+          width: 15,
+        );
       },
     );
   }
