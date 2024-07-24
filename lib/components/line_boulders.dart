@@ -130,15 +130,20 @@ class _GalleryPhotoViewWrapperState extends State<_GalleryPhotoViewWrapper> {
 
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
     final item = widget.galleryItems[index];
+    final width = item.rockImage.width?.toDouble() ?? 300;
+    final height = item.rockImage.height?.toDouble() ?? 300;
     return PhotoViewGalleryPageOptions.customChild(
       child: SizedBox(
-        width: 300,
-        height: 300,
+        width: width,
+        height: height,
         child: LineBoulderImage(
           lineBoulder: item,
         ),
       ),
-      childSize: const Size(300, 300),
+      childSize: Size(
+        width,
+        height,
+      ),
       initialScale: PhotoViewComputedScale.contained,
       minScale: PhotoViewComputedScale.contained * (0.5 + index / 10),
       maxScale: PhotoViewComputedScale.covered * 4.1,
