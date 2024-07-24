@@ -101,7 +101,7 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   google_maps_flutter_ios: abdac20d6ce8931f6ebc5f46616df241bfaa2cfd
   GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
-  integration_test: 13825b8a9334a850581300559b8839134b124670
+  integration_test: ce0a3ffa1de96d1a89ca0ac26fca7ea18a749ef4
   location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
   map_launcher: e325db1261d029ff33e08e03baccffe09593ffea
   package_info_plus: fd030dabf36271f146f1f3beacd48f564b0f17f7
@@ -116,4 +116,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 11eef7367984e3579585a872ba2d9cb0a619829a
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2

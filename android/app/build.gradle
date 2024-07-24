@@ -59,8 +59,7 @@ android {
 
     defaultConfig {
         applicationId "fr.geekco.boulders"
-        // minSdkVersion flutter.minSdkVersion
-        minSdkVersion 20
+        minSdkVersion flutter.minSdkVersion
         multiDexEnabled true
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
