@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/components/base_map.dart';
-import 'package:breizh_blok_mobile/components/map_error_message.dart';
+import 'package:breizh_blok_mobile/components/bb_map.dart';
+import 'package:breizh_blok_mobile/components/bb_map_error_message.dart';
+import 'package:breizh_blok_mobile/constants.dart';
+import 'package:breizh_blok_mobile/map_marker.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
-import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -38,11 +39,11 @@ class MunicipalityDetailsMapState extends State<MunicipalityDetailsMap> {
 
     final map = FutureBuilder(
       future: Future.wait([
-        getMarkerBitmap(kSizeSimpleMarker),
+        MapMarker.getMarkerBitmap(kSizeSimpleMarker),
       ]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
         if (snapshot.hasError) {
-          return const MapErrorMessage();
+          return const BbMapErrorMessage();
         }
 
         final data = snapshot.data;
@@ -53,7 +54,7 @@ class MunicipalityDetailsMapState extends State<MunicipalityDetailsMap> {
 
         final icon = data[0] as BitmapDescriptor;
 
-        return BaseMap(
+        return BbMap(
           map: GoogleMap(
             mapToolbarEnabled: false,
             myLocationEnabled:

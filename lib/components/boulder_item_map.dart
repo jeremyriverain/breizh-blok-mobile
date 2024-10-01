@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/components/base_map.dart';
-import 'package:breizh_blok_mobile/components/map_error_message.dart';
+import 'package:breizh_blok_mobile/components/bb_map.dart';
+import 'package:breizh_blok_mobile/components/bb_map_error_message.dart';
+import 'package:breizh_blok_mobile/constants.dart';
+import 'package:breizh_blok_mobile/map_directions.dart';
+import 'package:breizh_blok_mobile/map_marker.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
-import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -36,12 +38,12 @@ class BoulderItemMapState extends State<BoulderItemMap> {
 
     final map = FutureBuilder(
       future: Future.wait([
-        getMarkerBitmap(kSizeSimpleMarker),
+        MapMarker.getMarkerBitmap(kSizeSimpleMarker),
         MapLauncher.installedMaps,
       ]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
         if (snapshot.hasError) {
-          return const MapErrorMessage();
+          return const BbMapErrorMessage();
         }
 
         final data = snapshot.data;
@@ -53,7 +55,7 @@ class BoulderItemMapState extends State<BoulderItemMap> {
         final icon = data[0] as BitmapDescriptor;
         final availableMaps = data[1] as List<AvailableMap>;
 
-        return BaseMap(
+        return BbMap(
           map: GoogleMap(
             mapToolbarEnabled: false,
             myLocationEnabled:
@@ -72,10 +74,10 @@ class BoulderItemMapState extends State<BoulderItemMap> {
                 position: initialPosition,
                 icon: icon,
                 onTap: () {
-                  openMapsSheet(
+                  MapDirections.openMapsSheet(
                     context: context,
                     availableMaps: availableMaps,
-                    onMapSelectedFn: showDirections(
+                    onMapSelectedFn: MapDirections.showDirections(
                       destination: widget.boulder.rock.location,
                       destinationTitle: widget.boulder.name,
                     ),

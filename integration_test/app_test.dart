@@ -6,10 +6,10 @@ import 'dart:convert';
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
+import 'package:breizh_blok_mobile/components/bb_boulder_list_builder_tile.dart';
+import 'package:breizh_blok_mobile/components/bb_line_boulder_image.dart';
+import 'package:breizh_blok_mobile/components/bb_map_launcher_button.dart';
 import 'package:breizh_blok_mobile/components/boulder_details_associated_item.dart';
-import 'package:breizh_blok_mobile/components/boulder_list_tile.dart';
-import 'package:breizh_blok_mobile/components/line_boulder_image.dart';
-import 'package:breizh_blok_mobile/components/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_item.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/main.dart' as app;
@@ -144,7 +144,7 @@ void main() async {
     print('ref boulder: ${boulderReference.name}');
     print(boulderReference.iri);
     expect(boulderRequest, isNull);
-    await tester.tap(find.byType(BoulderListTile).first);
+    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
 
     await tester.pumpAndSettle();
 
@@ -170,13 +170,18 @@ void main() async {
     var dbBoulderAreas = await database.select(database.dbBoulderAreas).get();
     expect(dbBoulderAreas.length, 0);
     await runApplication(tester: tester);
+    await tester.tap(find.text('Mon profil').first);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Téléchargements').first);
     await tester.pumpAndSettle();
 
-    expect(find.text('Secteurs téléchargés'), findsOneWidget);
-    expect(find.text('Aucun secteur téléchargé'), findsOneWidget);
+    expect(find.text('Téléchargements'), findsOneWidget);
+    expect(find.text('Aucun téléchargement'), findsOneWidget);
 
-    await tester.tap(find.text('Index').first);
+    (tester.state(find.byType(Navigator)) as NavigatorState).pop();
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Sites').first);
     await tester.pumpAndSettle();
 
     final departmentRepository = DepartmentRepository(
@@ -207,11 +212,11 @@ void main() async {
     );
     await pumpUntilFound(
       tester,
-      find.text('TÉLÉCHARGER ✅'),
+      find.byKey(const Key('area_downloaded')),
       timeout: const Duration(seconds: 30),
     );
 
-    expect(find.text('TÉLÉCHARGER ✅'), findsOneWidget);
+    expect(find.byKey(const Key('area_downloaded')), findsOneWidget);
 
     final navigator = (tester.state(find.byType(Navigator)) as NavigatorState)
       ..pop();
@@ -219,6 +224,8 @@ void main() async {
     navigator.pop();
     await tester.pumpAndSettle();
 
+    await tester.tap(find.text('Mon profil').first);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Téléchargements').first);
     await tester.pumpAndSettle();
 
@@ -382,7 +389,7 @@ void main() async {
 
     expect(
       find.descendant(
-        of: find.byType(BoulderListTile).first,
+        of: find.byType(BbBoulderListBuilderTile).first,
         matching: find.textContaining('5a boulder', findRichText: true),
       ),
       findsOneWidget,
@@ -390,7 +397,7 @@ void main() async {
 
     expect(
       find.descendant(
-        of: find.byType(BoulderListTile).at(1),
+        of: find.byType(BbBoulderListBuilderTile).at(1),
         matching: find.textContaining('6a boulder', findRichText: true),
       ),
       findsOneWidget,
@@ -398,7 +405,7 @@ void main() async {
 
     expect(
       find.descendant(
-        of: find.byType(BoulderListTile).at(2),
+        of: find.byType(BbBoulderListBuilderTile).at(2),
         matching:
             find.textContaining('boulder without grade', findRichText: true),
       ),
@@ -450,7 +457,7 @@ void main() async {
       ),
     );
 
-    await tester.tap(find.byType(BoulderListTile).first);
+    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
     await tester.pumpAndSettle();
 
     expect(
@@ -549,14 +556,14 @@ void main() async {
     );
 
     expect(
-      find.byType(LineBoulderImage),
+      find.byType(BbLineBoulderImage),
       findsWidgets,
     );
 
     // SHOW PAGE
 
     // tap on the first tile and show details
-    await tester.tap(find.byType(BoulderListTile).first);
+    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
 
     await tester.pumpAndSettle();
 
@@ -570,11 +577,11 @@ void main() async {
 
     if (boulderReference.lineBoulders.isNotEmpty) {
       expect(
-        find.byType(LineBoulderImage),
+        find.byType(BbLineBoulderImage),
         findsWidgets,
       );
 
-      await tester.tap(find.byType(LineBoulderImage).first);
+      await tester.tap(find.byType(BbLineBoulderImage).first);
 
       await tester.pumpAndSettle();
 
@@ -657,7 +664,7 @@ void main() async {
 
     expect(find.text(searchedBoulder), findsOneWidget);
 
-    await tester.tap(find.byType(BoulderListTile).first);
+    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
 
     expect(find.text(searchedBoulder), findsOneWidget);
     await tester.pumpAndSettle();
@@ -777,17 +784,19 @@ void main() async {
     print('found elements: ${gradeFinder.evaluate().length}');
     expect(
       gradeFinder.evaluate().length,
-      equals(find.byType(BoulderListTile).evaluate().length),
+      equals(find.byType(BbBoulderListBuilderTile).evaluate().length),
     );
   });
 
   testWidgets('sort boulders', (WidgetTester tester) async {
-    BoulderListTile getBoulderListTileAt(int index) {
+    BbBoulderListBuilderTile getBoulderListTileAt(int index) {
       return find
-          .byWidgetPredicate((Widget widget) => widget is BoulderListTile)
+          .byWidgetPredicate(
+            (Widget widget) => widget is BbBoulderListBuilderTile,
+          )
           .evaluate()
           .elementAt(index)
-          .widget as BoulderListTile;
+          .widget as BbBoulderListBuilderTile;
     }
 
     final boulderRepository = BoulderRepository(
@@ -903,7 +912,7 @@ by clicking on the "scroll to to the top" button''',
     expect(boulderReference, isNot(null));
     await runApplication(tester: tester);
     // tap on the first tile and show details
-    await tester.tap(find.byType(BoulderListTile).first);
+    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
     await tester.pumpAndSettle();
 
     await tester.scrollUntilVisible(
@@ -942,7 +951,7 @@ by clicking on the "scroll to to the top" button''',
     );
 
     find
-      ..widgetWithText(Tab, 'Liste des secteurs')
+      ..widgetWithText(Tab, 'Secteurs')
       ..widgetWithText(Tab, 'Carte');
 
     final municipalityRepository = MunicipalityRepository(
@@ -1030,7 +1039,7 @@ by clicking on the "scroll to to the top" button''',
     expect(boulderReference, isNot(null));
     await runApplication(tester: tester);
     // tap on the first tile and show details
-    await tester.tap(find.byType(BoulderListTile).first);
+    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
     await tester.pumpAndSettle();
 
     await tester.scrollUntilVisible(
@@ -1069,29 +1078,18 @@ by clicking on the "scroll to to the top" button''',
       findsOneWidget,
     );
 
-    expect(
-      find.text(
-        'Secteur: ${boulderReference.rock.boulderArea.name}',
-        findRichText: true,
-      ),
-      findsWidgets,
-    );
-
-    await tester.tap(find.textContaining('Carte').first);
-    await tester.pumpAndSettle();
-
-    expect(
-      find.byType(GoogleMap),
-      findsOneWidget,
-    );
-
-    expect(find.byType(MapLauncherButton), findsOneWidget);
-
     await tester.tap(find.textContaining('Description').first);
     await tester.pumpAndSettle();
 
     expect(
       find.byType(BarChart),
+      findsOneWidget,
+    );
+
+    expect(find.byType(BbMapLauncherButton), findsOneWidget);
+
+    expect(
+      find.byType(GoogleMap),
       findsOneWidget,
     );
   });
@@ -1100,12 +1098,17 @@ by clicking on the "scroll to to the top" button''',
       (WidgetTester tester) async {
     // prior to test, I fetch boulders to retrieve a reference
     // and assert boulders details dynamically
-    BoulderListTile getBoulderListTileAt(CommonFinders find, int index) {
+    BbBoulderListBuilderTile getBoulderListTileAt(
+      CommonFinders find,
+      int index,
+    ) {
       return find
-          .byWidgetPredicate((Widget widget) => widget is BoulderListTile)
+          .byWidgetPredicate(
+            (Widget widget) => widget is BbBoulderListBuilderTile,
+          )
           .evaluate()
           .elementAt(index)
-          .widget as BoulderListTile;
+          .widget as BbBoulderListBuilderTile;
     }
 
     Future<void> sortByLabel({required String label}) async {
@@ -1126,7 +1129,7 @@ by clicking on the "scroll to to the top" button''',
     expect(boulderReference, isNot(null));
     await runApplication(tester: tester);
     // tap on the first tile and show details
-    await tester.tap(find.byType(BoulderListTile).first);
+    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
     await tester.pumpAndSettle();
 
     await tester.scrollUntilVisible(
@@ -1223,7 +1226,7 @@ by clicking on the "scroll to to the top" button''',
     print('municipality reference: ${municipalityReference.name}');
 
     await runApplication(tester: tester);
-    await tester.tap(find.text('Index').first);
+    await tester.tap(find.text('Sites').first);
     await tester.pumpAndSettle();
 
     expect(find.text('Communes répertoriées'), findsOneWidget);
@@ -1245,7 +1248,7 @@ by clicking on the "scroll to to the top" button''',
     );
 
     find
-      ..widgetWithText(Tab, 'Liste des secteurs')
+      ..widgetWithText(Tab, 'Secteurs')
       ..widgetWithText(Tab, 'Carte');
   });
 }

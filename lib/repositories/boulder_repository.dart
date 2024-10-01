@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
+import 'package:breizh_blok_mobile/query_param_factory.dart';
 import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
-import 'package:breizh_blok_mobile/utils/query_constructor.dart';
 import 'package:flutter/foundation.dart';
 
 class BoulderRepository implements ApiRepositoryInterface<Boulder> {
@@ -36,7 +36,7 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
     bool offlineFirst = false,
     Duration? timeout,
   }) async {
-    final query = QueryConstructor.stringify(queryParams: queryParams);
+    final query = QueryParamFactory.stringify(queryParams: queryParams);
     final response = await httpClient.get(
       Uri(
         scheme: 'https',

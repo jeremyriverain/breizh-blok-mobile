@@ -2,8 +2,8 @@ import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
-import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
-import 'package:breizh_blok_mobile/components/download_area_button.dart';
+import 'package:breizh_blok_mobile/components/bb_boulder_list_builder.dart';
+import 'package:breizh_blok_mobile/components/downloads_area_button.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class BoulderAreaDetailsListTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BoulderListBuilder(
+    return BbBoulderListBuilder(
       boulderFilterBloc: context.read<BoulderFilterBloc>(),
       onPageRequested: (int page) {
         final orderBlocState = context.read<BoulderOrderBloc>().state;
@@ -42,9 +42,10 @@ class BoulderAreaDetailsListTab extends StatelessWidget {
           grades: grades,
         );
       },
-      bottomHeaderWidget: DownloadAreaButton(
+      bottomHeaderWidget: DownloadsAreaButton(
         boulderArea: boulderArea,
       ),
+      showLocationinfo: false,
     );
   }
 }

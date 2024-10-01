@@ -1,6 +1,6 @@
+import 'package:breizh_blok_mobile/constants.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
-import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:equatable/equatable.dart';
 
 class Municipality extends Equatable {

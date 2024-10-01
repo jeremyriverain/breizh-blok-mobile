@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
-import 'package:breizh_blok_mobile/components/boulder_map.dart';
-import 'package:breizh_blok_mobile/utils/map_utils.dart';
+import 'package:breizh_blok_mobile/components/bb_boulder_map.dart';
+import 'package:breizh_blok_mobile/map_marker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,10 +19,10 @@ class _HomeMapViewState extends State<HomeMapView> {
 
   @override
   Widget build(BuildContext context) {
-    return BoulderMap(
+    return BbBoulderMap(
       initialZoom: context.read<MapBloc>().state.mapZoom,
       initialPosition: context.read<MapBloc>().state.mapLatLng,
-      boulderMarkerBuilder: markerBuilderFactory(
+      boulderMarkerBuilder: MapMarker.markerBuilderFactory(
         context,
       ),
     );

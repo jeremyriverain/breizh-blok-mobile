@@ -1,7 +1,7 @@
+import 'package:breizh_blok_mobile/components/bb_map_launcher_button.dart';
 import 'package:breizh_blok_mobile/components/boulder_details_associated.dart';
+import 'package:breizh_blok_mobile/components/boulder_details_line_boulders.dart';
 import 'package:breizh_blok_mobile/components/boulder_item_map.dart';
-import 'package:breizh_blok_mobile/components/line_boulders.dart';
-import 'package:breizh_blok_mobile/components/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,11 @@ class BoulderDetails extends StatelessWidget {
         key: const Key('boulder-details-list-view'),
         shrinkWrap: true,
         children: [
-          LineBoulders(lineBoulders: boulder.lineBoulders),
+          Stack(
+            children: [
+              BoulderDetailsLineBoulders(lineBoulders: boulder.lineBoulders),
+            ],
+          ),
           if (description != null)
             ListTile(
               title: Text(description),
@@ -74,20 +78,20 @@ class BoulderDetails extends StatelessWidget {
               );
             },
           ),
-          SizedBox(
-            height: 300,
-            child: BoulderItemMap(boulder: boulder),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Center(
-              child: MapLauncherButton(
+              child: BbMapLauncherButton(
                 destination: boulder.rock.location,
                 destinationTitle:
                     // ignore: lines_longer_than_80_chars
                     '${boulder.name}${boulder.grade != null ? ', ${boulder.grade?.name}' : ''}',
               ),
             ),
+          ),
+          SizedBox(
+            height: 300,
+            child: BoulderItemMap(boulder: boulder),
           ),
           const SizedBox(
             height: 20,

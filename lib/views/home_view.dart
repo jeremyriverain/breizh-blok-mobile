@@ -5,14 +5,13 @@ import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
+import 'package:breizh_blok_mobile/components/bb_boulder_list_builder.dart';
+import 'package:breizh_blok_mobile/components/bb_lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/components/boulder_list_app_bar.dart';
-import 'package:breizh_blok_mobile/components/boulder_list_builder.dart';
-import 'package:breizh_blok_mobile/components/lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
-import 'package:breizh_blok_mobile/views/download_view.dart';
 import 'package:breizh_blok_mobile/views/home_map_view.dart';
 import 'package:breizh_blok_mobile/views/home_municipalities_view.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:breizh_blok_mobile/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -58,7 +57,7 @@ class HomeView extends StatelessWidget {
                 ),
               3 => AppBar(
                   title: const Text(
-                    'Secteurs téléchargés',
+                    'Mon profil',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -66,10 +65,10 @@ class HomeView extends StatelessWidget {
                 ),
               (_) => null
             },
-            body: LazyIndexedStack(
+            body: BbLazyIndexedStack(
               index: currentIndex,
               children: [
-                BoulderListBuilder(
+                BbBoulderListBuilder(
                   onPageRequested: (int page) {
                     final boulderFilterState =
                         context.read<BoulderFilterBloc>().state;
@@ -86,29 +85,27 @@ class HomeView extends StatelessWidget {
                 ),
                 const HomeMapView(),
                 const HomeMunicipalitiesView(),
-                DownloadView(
-                  database: database,
-                ),
+                const ProfileView(),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.list_bullet),
-                  label: 'Liste',
+                  icon: Icon(Icons.terrain),
+                  label: 'Blocs',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.map_pin_ellipse),
+                  icon: Icon(Icons.map),
                   label: 'Carte',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.rectangle_on_rectangle),
-                  label: 'Index',
+                  icon: Icon(Icons.scatter_plot),
+                  label: 'Sites',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.download_circle),
-                  label: 'Téléchargements',
+                  icon: Icon(Icons.account_circle),
+                  label: 'Mon profil',
                 ),
               ],
               onTap: (index) =>

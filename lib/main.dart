@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:breizh_blok_mobile/app_http_client.dart';
+import 'package:breizh_blok_mobile/blocs/auth_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
@@ -22,8 +23,10 @@ import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/views/boulder_area_details_view.dart';
 import 'package:breizh_blok_mobile/views/boulder_details_view.dart';
+import 'package:breizh_blok_mobile/views/download_view.dart';
 import 'package:breizh_blok_mobile/views/home_view.dart';
 import 'package:breizh_blok_mobile/views/municipality_details_view.dart';
+import 'package:breizh_blok_mobile/views/profile_view.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart' hide HttpClientProvider;
@@ -58,6 +61,8 @@ Future<void> main({
   );
 
   final imageBoulderCache = ImageBoulderCache();
+
+  final authBloc = AuthBloc();
 
   final tabBloc = TabBloc();
 
@@ -122,6 +127,9 @@ Future<void> main({
         ],
         child: MultiBlocProvider(
           providers: [
+            BlocProvider<AuthBloc>(
+              create: (BuildContext context) => authBloc,
+            ),
             BlocProvider<TermsOfUseBloc>(
               create: (BuildContext context) => termsOfUseBloc,
             ),
@@ -234,6 +242,28 @@ class MyApp extends StatelessWidget {
             return RepositoryProvider(
               create: (context) => RequestStrategy(),
               child: MunicipalityDetailsView(id: state.pathParameters['id']!),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/profile',
+          name: 'profile',
+          builder: (context, state) {
+            return RepositoryProvider(
+              create: (context) => RequestStrategy(),
+              child: const ProfileView(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/downloads',
+          name: 'downloads',
+          builder: (context, state) {
+            return RepositoryProvider(
+              create: (context) => RequestStrategy(),
+              child: DownloadView(
+                database: database,
+              ),
             );
           },
         ),

@@ -1,4 +1,3 @@
-import 'package:breizh_blok_mobile/components/app_bar_helper.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_item.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_map.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
@@ -25,7 +24,7 @@ class MunicipalityDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final tabs = [
       const Tab(
-        text: 'Liste des secteurs',
+        text: 'Secteurs',
       ),
       const Tab(
         text: 'Carte',
@@ -58,7 +57,6 @@ class MunicipalityDetails extends StatelessWidget {
           key: const Key('municipality-details-app-bar'),
           title: Column(
             children: [
-              const AppBarHelper(label: 'commune'),
               Text(
                 municipality.name,
                 style: const TextStyle(

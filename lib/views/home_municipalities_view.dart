@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/components/error_indicator.dart';
+import 'package:breizh_blok_mobile/components/bb_error_indicator.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/department.dart';
 import 'package:breizh_blok_mobile/repositories/department_repository.dart';
@@ -64,7 +64,7 @@ class _HomeMunicipalitiesViewState extends State<HomeMunicipalitiesView> {
         }
 
         if (snapshot.hasError) {
-          return ErrorIndicator(
+          return BbErrorIndicator(
             onTryAgain: () {
               setState(() {});
             },

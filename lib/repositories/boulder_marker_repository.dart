@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/models/boulder_marker.dart';
-import 'package:breizh_blok_mobile/utils/query_constructor.dart';
+import 'package:breizh_blok_mobile/query_param_factory.dart';
 
 class BoulderMarkerRepository {
   BoulderMarkerRepository({
@@ -15,7 +15,7 @@ class BoulderMarkerRepository {
     Map<String, List<String>>? queryParams,
     bool offlineFirst = false,
   }) async {
-    final query = QueryConstructor.stringify(queryParams: queryParams);
+    final query = QueryParamFactory.stringify(queryParams: queryParams);
 
     final response = await httpClient.get(
       Uri(

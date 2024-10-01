@@ -22,7 +22,7 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    expect(find.text('Aucun secteur téléchargé'), findsOneWidget);
+    expect(find.text('Aucun téléchargement'), findsOneWidget);
   });
 
   Future<void> createDownload(

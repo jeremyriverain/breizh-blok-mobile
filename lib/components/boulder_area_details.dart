@@ -1,10 +1,8 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
-import 'package:breizh_blok_mobile/components/app_bar_helper.dart';
+import 'package:breizh_blok_mobile/components/bb_lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details_description_tab.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details_list_tab.dart';
-import 'package:breizh_blok_mobile/components/boulder_area_details_map_tab.dart';
-import 'package:breizh_blok_mobile/components/lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +51,6 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
     const Tab(
       text: 'Description',
     ),
-    const Tab(text: 'Carte'),
   ];
 
   int _currentIndex = 0;
@@ -71,7 +68,6 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
     final tabViews = [
       BoulderAreaDetailsListTab(boulderArea: widget.boulderArea),
       BoulderAreaDetailsDescriptionTab(boulderArea: widget.boulderArea),
-      BoulderAreaDetailsMapTab(boulderArea: widget.boulderArea),
     ];
 
     return DefaultTabController(
@@ -81,11 +77,19 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
           key: const Key('boulder-area-details-app-bar'),
           title: Column(
             children: [
-              const AppBarHelper(label: 'secteur'),
-              Text(
-                widget.boulderArea.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+              Text.rich(
+                TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: widget.boulderArea.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' (${widget.boulderArea.municipality.name})',
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -97,7 +101,7 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
         ),
         body: Padding(
           padding: const EdgeInsets.only(bottom: 10),
-          child: LazyIndexedStack(
+          child: BbLazyIndexedStack(
             index: _currentIndex,
             children: tabViews,
           ),

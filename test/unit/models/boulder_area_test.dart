@@ -1,8 +1,8 @@
+import 'package:breizh_blok_mobile/constants.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
-import 'package:breizh_blok_mobile/utils/map_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

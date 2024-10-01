@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/utils/map_utils.dart';
+import 'package:breizh_blok_mobile/constants.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
