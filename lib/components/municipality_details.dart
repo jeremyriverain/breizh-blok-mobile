@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/components/bb_share_button.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_item.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_map.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
@@ -65,6 +66,9 @@ class MunicipalityDetails extends StatelessWidget {
               ),
             ],
           ),
+          actions: const <Widget>[
+            BbShareButton(),
+          ],
           bottom: TabBar(
             tabs: tabs,
           ),

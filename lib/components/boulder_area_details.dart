@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/components/bb_lazy_indexed_stack.dart';
+import 'package:breizh_blok_mobile/components/bb_share_button.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details_description_tab.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details_list_tab.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
@@ -94,6 +95,9 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
               ),
             ],
           ),
+          actions: const <Widget>[
+            BbShareButton(),
+          ],
           bottom: TabBar(
             controller: _tabController,
             tabs: _tabs,

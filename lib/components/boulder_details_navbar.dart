@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/components/bb_share_button.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,9 @@ class BoulderDetailsNavbar extends StatelessWidget
           ),
         ),
       ),
+      actions: const <Widget>[
+        BbShareButton(),
+      ],
     );
   }
 }
