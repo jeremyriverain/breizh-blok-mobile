@@ -80,7 +80,7 @@ class _GalleryPhotoViewWrapperState extends State<_GalleryPhotoViewWrapper> {
       body: Container(
         decoration: widget.backgroundDecoration,
         constraints: BoxConstraints.expand(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.sizeOf(context).height,
         ),
         child: Stack(
           alignment: Alignment.bottomRight,
