@@ -181,7 +181,7 @@ class MyApp extends StatelessWidget {
     final router = GoRouter(
       routes: [
         GoRoute(
-          path: '/boulders',
+          path: '/',
           name: 'boulder_list',
           builder: (context, state) => RepositoryProvider(
             create: (context) => RequestStrategy(),
@@ -189,16 +189,40 @@ class MyApp extends StatelessWidget {
               database: database,
             ),
           ),
-        ),
-        GoRoute(
-          path: '/boulders/:id',
-          name: 'boulder_details',
-          builder: (context, state) {
-            return RepositoryProvider(
-              create: (context) => RequestStrategy(),
-              child: BoulderDetailsView(id: state.pathParameters['id']!),
-            );
-          },
+          routes: [
+            GoRoute(
+              path: 'boulders/:id',
+              name: 'boulder_details',
+              builder: (context, state) {
+                return RepositoryProvider(
+                  create: (context) => RequestStrategy(),
+                  child: BoulderDetailsView(id: state.pathParameters['id']!),
+                );
+              },
+            ),
+            GoRoute(
+              path: 'boulder-aeas/:id',
+              name: 'boulder_area_details',
+              builder: (context, state) {
+                return RepositoryProvider(
+                  create: (context) => RequestStrategy(),
+                  child:
+                      BoulderAreaDetailsView(id: state.pathParameters['id']!),
+                );
+              },
+            ),
+            GoRoute(
+              path: 'municipalities/:id',
+              name: 'municipality_details',
+              builder: (context, state) {
+                return RepositoryProvider(
+                  create: (context) => RequestStrategy(),
+                  child:
+                      MunicipalityDetailsView(id: state.pathParameters['id']!),
+                );
+              },
+            ),
+          ],
         ),
         GoRoute(
           path: '/downloads/boulders/:id',
@@ -214,16 +238,6 @@ class MyApp extends StatelessWidget {
           },
         ),
         GoRoute(
-          path: '/boulders-area/:id',
-          name: 'boulder_area_details',
-          builder: (context, state) {
-            return RepositoryProvider(
-              create: (context) => RequestStrategy(),
-              child: BoulderAreaDetailsView(id: state.pathParameters['id']!),
-            );
-          },
-        ),
-        GoRoute(
           path: '/downloads/boulders-area/:id',
           name: 'downloaded_boulder_area_details',
           builder: (context, state) {
@@ -232,16 +246,6 @@ class MyApp extends StatelessWidget {
               child: BoulderAreaDetailsView(
                 id: state.pathParameters['id']!,
               ),
-            );
-          },
-        ),
-        GoRoute(
-          path: '/municipalities/:id',
-          name: 'municipality_details',
-          builder: (context, state) {
-            return RepositoryProvider(
-              create: (context) => RequestStrategy(),
-              child: MunicipalityDetailsView(id: state.pathParameters['id']!),
             );
           },
         ),
@@ -268,7 +272,7 @@ class MyApp extends StatelessWidget {
           },
         ),
       ],
-      initialLocation: '/boulders',
+      initialLocation: '/',
     );
 
     return MaterialApp.router(
