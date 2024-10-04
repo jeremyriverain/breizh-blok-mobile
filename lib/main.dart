@@ -201,7 +201,7 @@ class MyApp extends StatelessWidget {
               },
             ),
             GoRoute(
-              path: 'boulder-aeas/:id',
+              path: 'boulder-areas/:id',
               name: 'boulder_area_details',
               builder: (context, state) {
                 return RepositoryProvider(
