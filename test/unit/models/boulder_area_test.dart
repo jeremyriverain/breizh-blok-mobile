@@ -120,5 +120,12 @@ void main() {
         });
       });
     });
+
+    test('shareableContent contains correct deep link', () {
+      expect(
+        boulderAreaRef.shareableContent,
+        contains('https://breizh-blok.fr/boulder-areas/1'),
+      );
+    });
   });
 }

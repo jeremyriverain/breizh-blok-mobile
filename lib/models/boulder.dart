@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/line_boulder.dart';
 import 'package:breizh_blok_mobile/models/rock.dart';
@@ -42,4 +43,9 @@ class Boulder extends Equatable {
 
   @override
   List<Object?> get props => [iri];
+
+  String get shareableContent => '''
+Breizh Blok recommande le bloc $name dans le secteur ${rock.boulderArea.name}.
+Voir https://breizh-blok.fr/boulders/${IriParser.id(iri)}
+''';
 }

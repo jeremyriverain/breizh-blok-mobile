@@ -95,8 +95,10 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
               ),
             ],
           ),
-          actions: const <Widget>[
-            BbShareButton(),
+          actions: [
+            BbShareButton(
+              content: widget.boulderArea.shareableContent,
+            ),
           ],
           bottom: TabBar(
             controller: _tabController,

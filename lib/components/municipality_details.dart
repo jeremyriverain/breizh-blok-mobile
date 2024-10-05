@@ -66,8 +66,10 @@ class MunicipalityDetails extends StatelessWidget {
               ),
             ],
           ),
-          actions: const <Widget>[
-            BbShareButton(),
+          actions: [
+            BbShareButton(
+              content: municipality.shareableContent,
+            ),
           ],
           bottom: TabBar(
             tabs: tabs,

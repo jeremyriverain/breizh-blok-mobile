@@ -1,4 +1,5 @@
 import 'package:breizh_blok_mobile/constants.dart';
+import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
@@ -139,4 +140,8 @@ class BoulderArea extends Equatable {
     }
     return null;
   }
+
+  String get shareableContent => '''
+Breizh Blok recommande le secteur $name à ${municipality.name}.
+Voir https://breizh-blok.fr/boulder-areas/${IriParser.id(iri)}''';
 }

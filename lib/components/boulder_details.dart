@@ -2,6 +2,7 @@ import 'package:breizh_blok_mobile/components/bb_map_launcher_button.dart';
 import 'package:breizh_blok_mobile/components/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/components/boulder_details_line_boulders.dart';
 import 'package:breizh_blok_mobile/components/boulder_item_map.dart';
+import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +54,9 @@ class BoulderDetails extends StatelessWidget {
                     context.pushNamed(
                       'municipality_details',
                       pathParameters: {
-                        'id':
-                            Uri.parse(boulder.rock.boulderArea.municipality.iri)
-                                .pathSegments
-                                .last,
+                        'id': IriParser.id(
+                          boulder.rock.boulderArea.municipality.iri,
+                        ),
                       },
                     );
                   },
@@ -72,8 +72,7 @@ class BoulderDetails extends StatelessWidget {
               context.pushNamed(
                 routeName,
                 pathParameters: {
-                  'id':
-                      Uri.parse(boulder.rock.boulderArea.iri).pathSegments.last,
+                  'id': IriParser.id(boulder.rock.boulderArea.iri),
                 },
               );
             },

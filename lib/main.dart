@@ -21,6 +21,7 @@ import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
+import 'package:breizh_blok_mobile/share_content_service.dart';
 import 'package:breizh_blok_mobile/views/boulder_area_details_view.dart';
 import 'package:breizh_blok_mobile/views/boulder_details_view.dart';
 import 'package:breizh_blok_mobile/views/download_view.dart';
@@ -88,6 +89,8 @@ Future<void> main({
     repository: boulderMarkerRepository,
   );
 
+  final shareContentService = ShareContentService();
+
   await SentryFlutter.init(
     (options) {
       options
@@ -123,6 +126,9 @@ Future<void> main({
           ),
           RepositoryProvider<ImageBoulderCache>(
             create: (context) => imageBoulderCache,
+          ),
+          RepositoryProvider<ShareContentService>(
+            create: (context) => shareContentService,
           ),
         ],
         child: MultiBlocProvider(

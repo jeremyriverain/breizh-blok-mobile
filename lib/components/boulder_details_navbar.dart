@@ -25,8 +25,10 @@ class BoulderDetailsNavbar extends StatelessWidget
           ),
         ),
       ),
-      actions: const <Widget>[
-        BbShareButton(),
+      actions: [
+        BbShareButton(
+          content: boulder.shareableContent,
+        ),
       ],
     );
   }
