@@ -22,6 +22,7 @@ import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/share_content_service.dart';
+import 'package:breizh_blok_mobile/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/views/boulder_area_details_view.dart';
 import 'package:breizh_blok_mobile/views/boulder_details_view.dart';
 import 'package:breizh_blok_mobile/views/download_view.dart';
@@ -41,6 +42,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future<void> main({
   MapPermissionBloc? mapPermissionBloc,
+  ShareContentServiceInterface? shareContentService,
   AppDatabase? database,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,7 +91,7 @@ Future<void> main({
     repository: boulderMarkerRepository,
   );
 
-  final shareContentService = ShareContentService();
+  final appShareContentService = shareContentService ?? ShareContentService();
 
   await SentryFlutter.init(
     (options) {
@@ -127,8 +129,8 @@ Future<void> main({
           RepositoryProvider<ImageBoulderCache>(
             create: (context) => imageBoulderCache,
           ),
-          RepositoryProvider<ShareContentService>(
-            create: (context) => shareContentService,
+          RepositoryProvider<ShareContentServiceInterface>(
+            create: (context) => appShareContentService,
           ),
         ],
         child: MultiBlocProvider(

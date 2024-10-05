@@ -9,9 +9,11 @@ import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/components/bb_boulder_list_builder_tile.dart';
 import 'package:breizh_blok_mobile/components/bb_line_boulder_image.dart';
 import 'package:breizh_blok_mobile/components/bb_map_launcher_button.dart';
+import 'package:breizh_blok_mobile/components/bb_share_button.dart';
 import 'package:breizh_blok_mobile/components/boulder_details_associated_item.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_item.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
+import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/main.dart' as app;
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
@@ -31,6 +33,8 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
+import 'share_content_service.mocks.dart';
+
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -40,6 +44,8 @@ void main() async {
 
   final database = AppDatabase(NativeDatabase.memory());
   final httpClient = AppHttpClient(database: database);
+
+  final mockShareContentService = MockShareContentService();
 
   Future<void> clearDatabase(AppDatabase database) async {
     await database.transaction(() async {
@@ -53,6 +59,7 @@ void main() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(TermsOfUseBloc.termsOfUseAcceptanceKey, true);
     await clearDatabase(database);
+    mockShareContentService.sharedContents.clear();
   });
 
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
@@ -76,6 +83,7 @@ void main() async {
       await app.main(
         mapPermissionBloc: mapPermissionBloc,
         database: database,
+        shareContentService: mockShareContentService,
       );
       await tester.pumpAndSettle();
     });
@@ -567,6 +575,17 @@ void main() async {
 
     await tester.pumpAndSettle();
 
+    await tester.tap(find.byType(BbShareButton).first);
+
+    await tester.pumpAndSettle();
+
+    expect(mockShareContentService.sharedContents.length, 1);
+
+    expect(
+      mockShareContentService.sharedContents[0],
+      contains('https://breizh-blok.fr/boulders/${boulderReference.id}'),
+    );
+
     expect(
       find.text(
         boulderReference.name,
@@ -1015,6 +1034,19 @@ by clicking on the "scroll to to the top" button''',
       findsOneWidget,
     );
 
+    await tester.tap(find.byType(BbShareButton).first);
+
+    await tester.pumpAndSettle();
+
+    expect(mockShareContentService.sharedContents.length, 1);
+
+    expect(
+      mockShareContentService.sharedContents[0],
+      contains(
+        'https://breizh-blok.fr/municipalities/${IriParser.id(municipalityReference.iri)}',
+      ),
+    );
+
     await tester.tap(find.textContaining('Carte').first);
     await tester.pumpAndSettle();
 
@@ -1076,6 +1108,19 @@ by clicking on the "scroll to to the top" button''',
         ),
       ),
       findsOneWidget,
+    );
+
+    await tester.tap(find.byType(BbShareButton).first);
+
+    await tester.pumpAndSettle();
+
+    expect(mockShareContentService.sharedContents.length, 1);
+
+    expect(
+      mockShareContentService.sharedContents[0],
+      contains(
+        'https://breizh-blok.fr/boulder-areas/${IriParser.id(boulderReference.rock.boulderArea.iri)}',
+      ),
     );
 
     await tester.tap(find.textContaining('Description').first);
