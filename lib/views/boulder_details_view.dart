@@ -9,8 +9,10 @@ import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/views/error_view.dart';
 import 'package:breizh_blok_mobile/views/loading_view.dart';
+import 'package:breizh_blok_mobile/views/not_found_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class BoulderDetailsView extends StatefulWidget {
   const BoulderDetailsView({
@@ -78,6 +80,10 @@ class _BoulderDetailsViewState extends State<BoulderDetailsView> {
             body: BoulderDetails(boulder: boulder),
           );
         } else if (snapshot.hasError) {
+          final error = snapshot.error;
+          if (error is HttpExceptionWithStatus && error.statusCode == 404) {
+            return const NotFoundView();
+          }
           return ErrorView(
             onTryAgain: () {
               setState(() => {});

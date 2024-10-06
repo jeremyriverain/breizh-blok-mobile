@@ -1,12 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -118,10 +118,10 @@ void main() {
     });
 
     test(
-        '''an error is thrown if api responds with HttpException, even if there is persisted request''',
+        '''an error is thrown if api responds with HttpExceptionWithStatus, even if there is persisted request''',
         () async {
       final mockClient = MockClient((request) async {
-        throw const HttpException('not found');
+        throw const HttpExceptionWithStatus(404, 'not found');
       });
       final database = AppDatabase(NativeDatabase.memory());
       final httpClient = AppHttpClient(
@@ -137,7 +137,7 @@ void main() {
         httpClient.get(
           Uri.http('example.com', '/foo'),
         ),
-        throwsA(const TypeMatcher<HttpException>()),
+        throwsA(const TypeMatcher<HttpExceptionWithStatus>()),
       );
     });
 

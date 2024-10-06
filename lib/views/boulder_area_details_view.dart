@@ -10,8 +10,10 @@ import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/views/error_view.dart';
 import 'package:breizh_blok_mobile/views/loading_view.dart';
+import 'package:breizh_blok_mobile/views/not_found_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class BoulderAreaDetailsView extends StatefulWidget {
@@ -86,6 +88,11 @@ class _BoulderAreaDetailsViewState extends State<BoulderAreaDetailsView> {
             ),
           );
         } else if (snapshot.hasError) {
+          final error = snapshot.error;
+          if (error is HttpExceptionWithStatus && error.statusCode == 404) {
+            return const NotFoundView();
+          }
+
           return ErrorView(
             onTryAgain: () {
               setState(() {});

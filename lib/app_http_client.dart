@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:breizh_blok_mobile/database/app_database.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
 
 const kRequestDefaultTimeout =
@@ -62,11 +62,12 @@ class AppHttpClient {
         return response.body;
       }
 
-      throw HttpException(
+      throw HttpExceptionWithStatus(
+        response.statusCode,
         'an error occured: status code ${response.statusCode}',
       );
     } catch (e) {
-      if (e is HttpException) {
+      if (e is HttpExceptionWithStatus) {
         rethrow;
       }
 

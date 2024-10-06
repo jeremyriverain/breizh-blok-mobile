@@ -3,8 +3,10 @@ import 'package:breizh_blok_mobile/models/municipality.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/views/error_view.dart';
 import 'package:breizh_blok_mobile/views/loading_view.dart';
+import 'package:breizh_blok_mobile/views/not_found_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class MunicipalityDetailsView extends StatefulWidget {
   const MunicipalityDetailsView({
@@ -32,6 +34,11 @@ class _MunicipalityDetailsViewState extends State<MunicipalityDetailsView> {
         if (municipality != null) {
           return MunicipalityDetails(municipality: municipality);
         } else if (snapshot.hasError) {
+          final error = snapshot.error;
+          if (error is HttpExceptionWithStatus && error.statusCode == 404) {
+            return const NotFoundView();
+          }
+
           return ErrorView(
             onTryAgain: () {
               setState(() {});
