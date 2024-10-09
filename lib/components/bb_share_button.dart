@@ -15,6 +15,7 @@ class BbShareButton extends StatelessWidget {
     return IconButton(
       icon: const Icon(
         Icons.share,
+        semanticLabel: 'Partager le lien',
       ),
       onPressed: () {
         context.read<ShareContentServiceInterface>().share(content);
