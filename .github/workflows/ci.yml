@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - uses: ./.github/actions/setup-flutter
+      - uses: ./.github/actions/setup
 
       - name: Lint
         run: flutter analyze

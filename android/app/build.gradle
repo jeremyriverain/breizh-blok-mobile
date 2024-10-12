@@ -61,7 +61,15 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        manifestPlaceholders.GMAPS_KEY = dartEnvironmentVariables.GMAPS_KEY
+        manifestPlaceholders.GMAPS_KEY = dartEnvironmentVariables.GMAPS_KEY    
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+    dependencies {
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'androidx.test:runner:1.2.0'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     }
 
     signingConfigs {
