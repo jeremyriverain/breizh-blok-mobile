@@ -1,0 +1,17 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: ~
+  workflow_dispatch: ~
+
+jobs:
+  integration_test:
+    name: Run integration Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - uses: ./.github/actions/setup-flutter
