@@ -1080,7 +1080,7 @@ by clicking on the "scroll to to the top" button''',
           'boulder-area-details-link',
         ),
       ),
-      200,
+      0,
       scrollable: find.descendant(
         of: find.byKey(
           const Key('boulder-details-list-view'),
@@ -1097,6 +1097,11 @@ by clicking on the "scroll to to the top" button''',
 
     print(
       'boulder area ref => ${boulderReference.rock.boulderArea.name}',
+    );
+
+    expect(
+      find.byKey(const Key('boulder-area-details-app-bar')),
+      findsOneWidget,
     );
 
     expect(
