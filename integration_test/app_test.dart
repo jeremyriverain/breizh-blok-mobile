@@ -1080,7 +1080,7 @@ by clicking on the "scroll to to the top" button''',
           'boulder-area-details-link',
         ),
       ),
-      0,
+      100,
       scrollable: find.descendant(
         of: find.byKey(
           const Key('boulder-details-list-view'),
