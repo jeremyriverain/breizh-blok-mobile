@@ -34,6 +34,7 @@ import 'package:drift/native.dart';
 import 'package:flutter/material.dart' hide HttpClientProvider;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
 import 'package:path/path.dart' as p;
@@ -289,6 +290,9 @@ class MyApp extends StatelessWidget {
       routerDelegate: router.routerDelegate,
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.lightBlue),
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: const Locale('fr'),
     );
   }
 }
