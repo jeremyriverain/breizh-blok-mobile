@@ -15,8 +15,10 @@ jobs:
       
       - uses: ./.github/actions/setup
 
-      - name: Lint
-        run: flutter analyze
+      - name: Format and lint
+        run: |
+          dart format --output=none --set-exit-if-changed . && \
+          flutter analyze
 
       - name: Unit and Widget tests
         run: flutter test test/
