@@ -58,9 +58,11 @@ class _BbBoulderMapState extends State<BbBoulderMap> {
   }
 
   void _updateMarkers(Set<Marker> boulderMarkers) {
-    setState(() {
-      this.boulderMarkers = boulderMarkers;
-    });
+    if (mounted) {
+      setState(() {
+        this.boulderMarkers = boulderMarkers;
+      });
+    }
   }
 
   Future<Marker> Function(Cluster<BoulderMarker>) get boulderMarkerBuilder =>

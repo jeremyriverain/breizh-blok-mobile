@@ -40,8 +40,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-.vscode/*
-
 _*.md
 
 integration_test/screenshots
+
+# FVM Version Cache
+.fvm/
