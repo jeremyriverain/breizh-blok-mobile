@@ -81,6 +81,8 @@ flutter:
     - assets/empty-box.png
     - assets/frustrated-face.png
     - assets/parking-icon.png
+    - assets/fr_flag.svg
+    - assets/gb_flag.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
