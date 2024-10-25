@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:breizh_blok_mobile/app_http_client.dart';
-import 'package:breizh_blok_mobile/blocs/auth_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
@@ -57,8 +56,6 @@ Future<void> main({
   );
 
   final imageBoulderCache = ImageBoulderCache();
-
-  final authBloc = AuthBloc();
 
   final tabBloc = TabBloc();
 
@@ -128,9 +125,6 @@ Future<void> main({
         ],
         child: MultiBlocProvider(
           providers: [
-            BlocProvider<AuthBloc>(
-              create: (BuildContext context) => authBloc,
-            ),
             BlocProvider<TermsOfUseBloc>(
               create: (BuildContext context) => termsOfUseBloc,
             ),
