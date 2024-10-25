@@ -2,6 +2,7 @@ import 'package:breizh_blok_mobile/components/bb_sort_button.dart';
 import 'package:breizh_blok_mobile/models/order_choice.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -38,6 +39,9 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: const Locale('fr'),
         home: BbSortButton(
           choices: choices,
           onChanged: (value) => {result = value},
@@ -78,6 +82,8 @@ void main() {
     const label = 'Sort by';
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: BbSortButton(
           choices: choices,
           initialSelected: choices[1].orderParam,
