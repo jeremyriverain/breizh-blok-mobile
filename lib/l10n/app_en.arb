@@ -1,7 +1,46 @@
 {
   "@@locale": "en",
+  "anErrorOccured": "An error occured",
+  "@anErrorOccured": {},
+  "checkYourConnection": "Check your internet connection and try again",
+  "@checkYourConnection": {},
+  "errorOccuredWhileFetchingBoulders": "A error occured while fetching boulders",
+  "@errorOccuredWhileFetchingBoulders": {},
+  "fetchingData": "Fetching data",
+  "@fetchingData": {},
+  "filter": "Filter",
+  "@filter": {},
   "language": "Language",
-  "sort": "Sort",
   "@language": {},
-  "@sort": {}
+  "max": "max",
+  "@max": {},
+  "minGrade": "Min grade",
+  "@minGrade": {},
+  "nBoulders": "{count, plural, =1{boulder} other{boulders}}",
+  "@nBoulders": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "noConnection": "No connection",
+  "@noConnection": {},
+  "noResults": "No results",
+  "@noResults": {},
+  "noResultsMatchYourSearchCriteria": "No results match your search criteria",
+  "@noResultsMatchYourSearchCriteria": {},
+  "returnToTheTop": "Return to the top",
+  "@returnToTheTop": {},
+  "sort": "Sort",
+  "@sort": {},
+  "theEasiest": "The easiest",
+  "@theEasiest": {},
+  "theHardest": "The hardest",
+  "@theHardest": {},
+  "theMostRecent": "The most recent",
+  "@theMostRecent": {},
+  "tryAgain": "Try again",
+  "@tryAgain": {}
 }

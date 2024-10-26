@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Basic layout for indicating that an exception occurred.
 class BbExceptionIndicator extends StatelessWidget {
@@ -49,9 +50,9 @@ class BbExceptionIndicator extends StatelessWidget {
                     icon: const Icon(
                       Icons.refresh,
                     ),
-                    label: const Text(
-                      'Essayer à nouveau',
-                      style: TextStyle(
+                    label: Text(
+                      AppLocalizations.of(context).tryAgain,
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),

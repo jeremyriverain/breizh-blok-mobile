@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BbBoulderListBuilderBackToTopButton extends StatelessWidget {
   const BbBoulderListBuilderBackToTopButton({
@@ -16,7 +17,7 @@ class BbBoulderListBuilderBackToTopButton extends StatelessWidget {
       child: FloatingActionButton(
         mini: true,
         heroTag: 'backToTopButton',
-        tooltip: 'Revenir en haut de la liste',
+        tooltip: AppLocalizations.of(context).returnToTheTop,
         shape: const CircleBorder(),
         onPressed: onPressed,
         child: const Icon(Icons.arrow_upward_outlined),

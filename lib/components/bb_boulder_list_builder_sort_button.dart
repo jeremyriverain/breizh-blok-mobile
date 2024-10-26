@@ -5,40 +5,39 @@ import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BbBoulderListBuilderSortButton extends StatelessWidget {
-  BbBoulderListBuilderSortButton({
+  const BbBoulderListBuilderSortButton({
     super.key,
   });
-
-  final choices = [
-    OrderChoice(
-      label: 'Les plus récents',
-      orderParam: const OrderParam(
-        name: kIdOrderParam,
-        direction: kDescendantDirection,
-      ),
-    ),
-    OrderChoice(
-      label: 'Les plus faciles',
-      orderParam: const OrderParam(
-        name: kGradeOrderParam,
-        direction: kAscendantDirection,
-      ),
-    ),
-    OrderChoice(
-      label: 'Les plus difficiles',
-      orderParam: const OrderParam(
-        name: kGradeOrderParam,
-        direction: kDescendantDirection,
-      ),
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return BbSortButton(
-      choices: choices,
+      choices: [
+        OrderChoice(
+          label: AppLocalizations.of(context).theMostRecent,
+          orderParam: const OrderParam(
+            name: kIdOrderParam,
+            direction: kDescendantDirection,
+          ),
+        ),
+        OrderChoice(
+          label: AppLocalizations.of(context).theEasiest,
+          orderParam: const OrderParam(
+            name: kGradeOrderParam,
+            direction: kAscendantDirection,
+          ),
+        ),
+        OrderChoice(
+          label: AppLocalizations.of(context).theHardest,
+          orderParam: const OrderParam(
+            name: kGradeOrderParam,
+            direction: kDescendantDirection,
+          ),
+        ),
+      ],
       onChanged: (value) => {
         context.read<BoulderOrderBloc>().add(
               BoulderOrderEvent(

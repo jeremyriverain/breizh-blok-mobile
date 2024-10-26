@@ -164,7 +164,7 @@ class _BbBoulderListBuilderState extends State<BbBoulderListBuilder> {
                             if (topHeaderWidget != null) topHeaderWidget,
                             Row(
                               children: [
-                                BbBoulderListBuilderSortButton(),
+                                const BbBoulderListBuilderSortButton(),
                                 if (widget.showFilterButton)
                                   const BbBoulderListBuilderFilterButton(),
                                 Expanded(

@@ -3,6 +3,7 @@ import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BbBoulderListBuilderFilterGrade extends StatefulWidget {
@@ -67,8 +68,8 @@ class _BbBoulderListBuilderFilterGradeState
               Text.rich(
                 TextSpan(
                   children: <TextSpan>[
-                    const TextSpan(
-                      text: 'Cotation min: ',
+                    TextSpan(
+                      text: '${AppLocalizations.of(context).minGrade}: ',
                     ),
                     TextSpan(
                       text: widget
@@ -86,8 +87,8 @@ class _BbBoulderListBuilderFilterGradeState
               Text.rich(
                 TextSpan(
                   children: <TextSpan>[
-                    const TextSpan(
-                      text: 'max: ',
+                    TextSpan(
+                      text: '${AppLocalizations.of(context).max}: ',
                     ),
                     TextSpan(
                       text: widget.allGrades

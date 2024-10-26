@@ -1,7 +1,46 @@
 {
   "@@locale": "fr",
+  "anErrorOccured": "Une erreur est survenue",
+  "@anErrorOccured": {},
+  "checkYourConnection": "Vérifiez votre connexion internet et essayez à nouveau",
+  "@checkYourConnection": {},
+  "errorOccuredWhileFetchingBoulders": "Une erreur est survenue lors de la récupération des blocs",
+  "@errorOccuredWhileFetchingBoulders": {},
+  "fetchingData": "Récupération des données en cours",
+  "@fetchingData": {},
+  "filter": "Filtrer",
+  "@filter": {},
   "language": "Langage",
-  "sort": "Trier",
   "@language": {},
-  "@sort": {}
+  "max": "max",
+  "@max": {},
+  "minGrade": "Cotation min",
+  "@minGrade": {},
+  "nBoulders": "{count, plural, =1{bloc} other{blocs}}",
+  "@nBoulders": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "noConnection": "Aucune connexion",
+  "@noConnection": {},
+  "noResults": "Aucun résultat",
+  "@noResults": {},
+  "noResultsMatchYourSearchCriteria": "Aucun résultat ne correspond à vos critères de recherche",
+  "@noResultsMatchYourSearchCriteria": {},
+  "returnToTheTop": "Revenir en haut",
+  "@returnToTheTop": {},
+  "sort": "Trier",
+  "@sort": {},
+  "theEasiest": "Les plus faciles",
+  "@theEasiest": {},
+  "theHardest": "Les plus difficiles",
+  "@theHardest": {},
+  "theMostRecent": "Les plus récents",
+  "@theMostRecent": {},
+  "tryAgain": "Essayer à nouveau",
+  "@tryAgain": {}
 }

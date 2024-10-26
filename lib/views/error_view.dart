@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:breizh_blok_mobile/components/bb_generic_error_indicator.dart';
+import 'package:breizh_blok_mobile/components/bb_error_indicator.dart';
 import 'package:flutter/material.dart';
 
 class ErrorView extends StatelessWidget {
@@ -17,7 +17,7 @@ class ErrorView extends StatelessWidget {
         title: const Text(''),
       ),
       body: Center(
-        child: BbGenericErrorIndicator(
+        child: BbErrorIndicator(
           onTryAgain: onTryAgain,
         ),
       ),

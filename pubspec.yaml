@@ -79,7 +79,6 @@ flutter:
   assets:
     - assets/confused-face.png
     - assets/empty-box.png
-    - assets/frustrated-face.png
     - assets/parking-icon.png
     - assets/fr_flag.svg
     - assets/gb_flag.svg

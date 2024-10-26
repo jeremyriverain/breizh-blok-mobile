@@ -36,7 +36,7 @@ class ProfileLanguageSwitcher extends StatelessWidget {
           focusedBorder: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         ),
-        label: Text(AppLocalizations.of(context)!.language),
+        label: Text(AppLocalizations.of(context).language),
         initialSelection: currentLocale,
         onSelected: (String? newValue) {
           if (newValue == null) {

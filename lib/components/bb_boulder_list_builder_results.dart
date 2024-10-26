@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BbBoulderListBuilderResults extends StatelessWidget {
   const BbBoulderListBuilderResults({
@@ -19,7 +20,9 @@ class BbBoulderListBuilderResults extends StatelessWidget {
                 text: '$totalItems ',
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              TextSpan(text: totalItems > 1 ? 'blocs' : 'bloc'),
+              TextSpan(
+                text: AppLocalizations.of(context).nBoulders(count: totalItems),
+              ),
             ],
           ),
         ),

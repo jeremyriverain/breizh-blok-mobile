@@ -41,7 +41,7 @@ class _BbSortButtonState extends State<BbSortButton> {
           const SizedBox(
             width: 5,
           ),
-          Text(AppLocalizations.of(context)!.sort),
+          Text(AppLocalizations.of(context).sort),
         ],
       ),
       onPressed: () {

@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -155,14 +156,14 @@ class _BbBoulderMapState extends State<BbBoulderMap> {
                     padding: const EdgeInsets.all(12),
                     child: Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           flex: 3,
                           child: Padding(
-                            padding: EdgeInsets.only(right: 1),
+                            padding: const EdgeInsets.only(right: 1),
                             child: Text(
-                              // ignore: lines_longer_than_80_chars
-                              'Une erreur est survenue lors de la récupération des blocs',
-                              style: TextStyle(
+                              AppLocalizations.of(context)
+                                  .errorOccuredWhileFetchingBoulders,
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),

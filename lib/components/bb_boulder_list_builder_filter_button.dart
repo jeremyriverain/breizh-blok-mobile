@@ -3,6 +3,7 @@ import 'package:breizh_blok_mobile/components/bb_boulder_list_builder_filter_mod
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BbBoulderListBuilderFilterButton extends StatelessWidget {
   const BbBoulderListBuilderFilterButton({
@@ -15,13 +16,13 @@ class BbBoulderListBuilderFilterButton extends StatelessWidget {
       builder: (context, state) {
         final button = TextButton(
           key: const Key('boulder-list-filter-button'),
-          child: const Row(
+          child: Row(
             children: [
-              Icon(CupertinoIcons.line_horizontal_3_decrease),
-              SizedBox(
+              const Icon(CupertinoIcons.line_horizontal_3_decrease),
+              const SizedBox(
                 width: 5,
               ),
-              Text('Filtrer'),
+              Text(AppLocalizations.of(context).filter),
             ],
           ),
           onPressed: () {
