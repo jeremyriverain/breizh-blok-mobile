@@ -13,14 +13,14 @@ class ProfileLanguageSwitcher extends StatelessWidget {
   final String currentLocale;
 
   final languages = {
-    'en': {
-      'name': 'English',
-      'flag': 'assets/gb_flag.svg',
-    },
-    'fr': {
-      'name': 'Français',
-      'flag': 'assets/fr_flag.svg',
-    },
+    'en': (
+      name: 'English',
+      flag: 'assets/gb_flag.svg',
+    ),
+    'fr': (
+      name: 'Français',
+      flag: 'assets/fr_flag.svg',
+    ),
   };
 
   @override
@@ -51,7 +51,7 @@ class ProfileLanguageSwitcher extends StatelessWidget {
           children: [
             const SizedBox(width: 8),
             SvgPicture.asset(
-              languages[currentLocale]!['flag']!,
+              languages[currentLocale]!.flag,
               width: 27,
               height: 18,
             ),
@@ -61,9 +61,9 @@ class ProfileLanguageSwitcher extends StatelessWidget {
             languages.entries.map<DropdownMenuEntry<String>>((entry) {
           return DropdownMenuEntry<String>(
             value: entry.key,
-            label: entry.value['name']!,
+            label: entry.value.name,
             leadingIcon: SvgPicture.asset(
-              entry.value['flag']!,
+              entry.value.flag,
               width: 24,
               height: 16,
             ),
