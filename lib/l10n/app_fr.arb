@@ -1,4 +1,7 @@
 {
   "@@locale": "fr",
-  "sort": "trier"
+  "language": "Langage",
+  "sort": "Trier",
+  "@language": {},
+  "@sort": {}
 }

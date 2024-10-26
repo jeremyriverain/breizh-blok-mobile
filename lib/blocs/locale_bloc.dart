@@ -2,6 +2,7 @@ import 'package:breizh_blok_mobile/constants.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
@@ -18,6 +19,27 @@ class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
       await prefs.setString(kLocalePrefs, event.locale.languageCode);
     });
   }
+
+  static Future<LocaleBloc> create() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final localePref = prefs.getString(kLocalePrefs);
+
+    if (localePref == null) {
+      return LocaleBloc(
+        locale: WidgetsBinding.instance.platformDispatcher.locale,
+      );
+    }
+
+    final localeFromPref = Locale(localePref);
+
+    if (AppLocalizations.supportedLocales.contains(localeFromPref)) {
+      return LocaleBloc(locale: localeFromPref);
+    }
+
+    return LocaleBloc(locale: const Locale('fr'));
+  }
+
   final Locale locale;
 }
 

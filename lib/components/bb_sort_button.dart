@@ -3,7 +3,6 @@ import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class BbSortButton extends StatefulWidget {
   const BbSortButton({
@@ -42,7 +41,7 @@ class _BbSortButtonState extends State<BbSortButton> {
           const SizedBox(
             width: 5,
           ),
-          Text(toBeginningOfSentenceCase(AppLocalizations.of(context)!.sort)),
+          Text(AppLocalizations.of(context)!.sort),
         ],
       ),
       onPressed: () {

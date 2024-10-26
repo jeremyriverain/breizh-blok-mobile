@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileLanguageSwitcher extends StatelessWidget {
@@ -35,7 +36,7 @@ class ProfileLanguageSwitcher extends StatelessWidget {
           focusedBorder: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         ),
-        label: const Text('Langage'),
+        label: Text(AppLocalizations.of(context)!.language),
         initialSelection: currentLocale,
         onSelected: (String? newValue) {
           if (newValue == null) {

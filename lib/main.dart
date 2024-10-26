@@ -11,7 +11,6 @@ import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
-import 'package:breizh_blok_mobile/get_locale_service.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
@@ -85,7 +84,7 @@ Future<void> main({
 
   final appShareContentService = shareContentService ?? ShareContentService();
 
-  final locale = await (GetLocaleService())();
+  final localeBloc = await LocaleBloc.create();
 
   await SentryFlutter.init(
     (options) {
@@ -155,7 +154,7 @@ Future<void> main({
                   mapPermissionBloc ?? MapPermissionBloc(),
             ),
             BlocProvider<LocaleBloc>(
-              create: (context) => LocaleBloc(locale: locale),
+              create: (context) => localeBloc,
             ),
           ],
           child: LocationProvider(

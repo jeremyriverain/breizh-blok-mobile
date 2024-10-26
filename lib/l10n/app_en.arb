@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
-  "sort": "sort",
+  "language": "Language",
+  "sort": "Sort",
+  "@language": {},
   "@sort": {}
 }

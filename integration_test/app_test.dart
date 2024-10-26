@@ -12,6 +12,7 @@ import 'package:breizh_blok_mobile/components/bb_map_launcher_button.dart';
 import 'package:breizh_blok_mobile/components/bb_share_button.dart';
 import 'package:breizh_blok_mobile/components/boulder_details_associated_item.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_item.dart';
+import 'package:breizh_blok_mobile/constants.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/main.dart' as app;
@@ -58,6 +59,7 @@ void main() async {
   setUp(() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(TermsOfUseBloc.termsOfUseAcceptanceKey, true);
+    await prefs.setString(kLocalePrefs, 'fr');
     await clearDatabase(database);
     mockShareContentService.sharedContents.clear();
   });
@@ -122,6 +124,29 @@ void main() async {
     }
     timer.cancel();
   }
+
+  testWidgets('i can switch between english and french',
+      (WidgetTester tester) async {
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString(kLocalePrefs), equals('fr'));
+
+    await runApplication(tester: tester);
+    await tester.tap(find.text('Mon profil').first);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Langage'), findsOneWidget);
+
+    await tester.tap(find.byType(DropdownMenu<String>));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('English').last);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Langage'), findsNothing);
+    expect(find.text('Language'), findsOneWidget);
+
+    expect(prefs.getString(kLocalePrefs), equals('en'));
+  });
 
   testWidgets('requests are persisted to a local database', (tester) async {
     final storedRequests = await database.select(database.dbRequests).get();
