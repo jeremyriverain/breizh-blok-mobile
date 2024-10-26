@@ -5,11 +5,13 @@ import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
+import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
+import 'package:breizh_blok_mobile/get_locale_service.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
@@ -83,6 +85,8 @@ Future<void> main({
 
   final appShareContentService = shareContentService ?? ShareContentService();
 
+  final locale = await (GetLocaleService())();
+
   await SentryFlutter.init(
     (options) {
       options
@@ -149,6 +153,9 @@ Future<void> main({
             BlocProvider<MapPermissionBloc>(
               create: (BuildContext context) =>
                   mapPermissionBloc ?? MapPermissionBloc(),
+            ),
+            BlocProvider<LocaleBloc>(
+              create: (context) => LocaleBloc(locale: locale),
             ),
           ],
           child: LocationProvider(

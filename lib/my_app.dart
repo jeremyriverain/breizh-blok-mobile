@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
 import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/views/boulder_area_details_view.dart';
@@ -128,6 +129,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: context.watch<LocaleBloc>().state.locale,
     );
   }
 }

@@ -8,3 +8,5 @@ const kDefaultInitialPosition = LatLng(
 const kSizeSimpleMarker = 75;
 
 const kParkingIcon = 'assets/parking-icon.png';
+
+const kLocalePrefs = 'locale';

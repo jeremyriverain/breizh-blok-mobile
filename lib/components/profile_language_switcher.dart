@@ -1,15 +1,17 @@
+import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LanguageSwitcherTile extends StatelessWidget {
-  LanguageSwitcherTile({
+class ProfileLanguageSwitcher extends StatelessWidget {
+  ProfileLanguageSwitcher({
     required this.currentLocale,
     super.key,
   });
 
   final String currentLocale;
 
-  final Map<String, Map<String, String>> languages = {
+  final languages = {
     'en': {
       'name': 'English',
       'flag': 'assets/gb_flag.svg',
@@ -35,7 +37,14 @@ class LanguageSwitcherTile extends StatelessWidget {
         ),
         label: const Text('Langage'),
         initialSelection: currentLocale,
-        onSelected: (String? newValue) {},
+        onSelected: (String? newValue) {
+          if (newValue == null) {
+            return;
+          }
+          context
+              .read<LocaleBloc>()
+              .add(LocaleUpdated(locale: Locale(newValue)));
+        },
         leadingIcon: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

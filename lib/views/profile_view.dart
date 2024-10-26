@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/components/language_switcher_tile.dart';
+import 'package:breizh_blok_mobile/components/profile_language_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,7 +18,7 @@ class ProfileView extends StatelessWidget {
               context.pushNamed('downloads');
             },
           ),
-          LanguageSwitcherTile(
+          ProfileLanguageSwitcher(
             currentLocale: Localizations.localeOf(context).languageCode,
           ),
         ],
