@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/components/bb_map_launcher_button.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -12,6 +13,9 @@ void main() {
 
   MaterialApp mountMapLauncherButton() {
     return MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: const Locale('fr'),
       home: Scaffold(
         appBar: AppBar(
           actions: [

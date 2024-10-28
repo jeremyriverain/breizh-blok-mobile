@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/map_directions.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 class BbMapLauncherButton extends StatelessWidget {
@@ -8,12 +9,12 @@ class BbMapLauncherButton extends StatelessWidget {
     required this.destination,
     required this.destinationTitle,
     super.key,
-    this.labelButton = 'Itinéraire',
+    this.labelButton,
   });
 
   final Location destination;
   final String destinationTitle;
-  final String labelButton;
+  final String? labelButton;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class BbMapLauncherButton extends StatelessWidget {
             ),
           ),
           icon: const Icon(Icons.directions),
-          label: Text(labelButton),
+          label: Text(labelButton ?? AppLocalizations.of(context).itinerary),
         );
       },
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BbMapErrorMessage extends StatelessWidget {
   const BbMapErrorMessage({super.key});
@@ -9,7 +10,7 @@ class BbMapErrorMessage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(25),
         child: Text(
-          "Une erreur est survenue pendant l'affichage de la carte",
+          AppLocalizations.of(context).errorOccuredWhileDisplayingMap,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Colors.red,

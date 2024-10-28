@@ -26,8 +26,11 @@ class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
     final localePref = prefs.getString(kLocalePrefs);
 
     if (localePref == null) {
+      final platformLocale = WidgetsBinding.instance.platformDispatcher.locale;
       return LocaleBloc(
-        locale: WidgetsBinding.instance.platformDispatcher.locale,
+        locale: AppLocalizations.supportedLocales.contains(platformLocale)
+            ? platformLocale
+            : const Locale('fr'),
       );
     }
 
