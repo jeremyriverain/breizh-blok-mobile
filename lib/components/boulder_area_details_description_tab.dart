@@ -2,6 +2,7 @@ import 'package:breizh_blok_mobile/components/bb_bar_chart.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details_map.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderAreaDetailsDescriptionTab extends StatefulWidget {
   const BoulderAreaDetailsDescriptionTab({
@@ -37,7 +38,7 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetailsDescriptionTab> {
             Padding(
               padding: const EdgeInsets.only(right: 10, left: 10, top: 20),
               child: BbBarChart(
-                title: 'Répartition des blocs',
+                title: AppLocalizations.of(context).distributionOfBoulders,
                 data: numberOfBouldersGroupedByGrade,
               ),
             ),

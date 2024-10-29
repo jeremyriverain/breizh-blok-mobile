@@ -6,6 +6,8 @@
   "@checkYourConnection": {},
   "closeTheModal": "Close the modal",
   "@closeTheModal": {},
+  "distributionOfBoulders": "Distribution of boulders",
+  "@distributionOfBoulders": {},
   "errorOccuredWhileDisplayingMap": "An error occured while displaying the map",
   "@errorOccuredWhileDisplayingMap": {},
   "errorOccuredWhileFetchingBoulders": "An error occured while fetching boulders",
