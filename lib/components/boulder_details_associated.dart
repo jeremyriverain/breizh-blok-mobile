@@ -10,6 +10,7 @@ import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderDetailsAssociated extends StatefulWidget {
   const BoulderDetailsAssociated({
@@ -89,8 +90,8 @@ class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 5, 10, 15),
                 child: Text(
-                  // ignore: lines_longer_than_80_chars
-                  '${boulders.items.length == 2 ? "Bloc" : "Blocs"} sur le même rocher',
+                  AppLocalizations.of(context)
+                      .nBouldersOnTheSameRock(count: boulders.items.length - 1),
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
@@ -102,13 +103,12 @@ class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
             ],
           );
         } else if (snapshot.hasError) {
-          return const Padding(
-            padding: EdgeInsets.all(10),
+          return Padding(
+            padding: const EdgeInsets.all(10),
             child: Center(
               child: Text(
-                // ignore: lines_longer_than_80_chars
-                'Une erreur est survenue lors de la récupération des blocs associés.',
-                style: TextStyle(
+                AppLocalizations.of(context).errorOccuredWhileFetchingBoulders,
+                style: const TextStyle(
                   color: Colors.red,
                 ),
               ),

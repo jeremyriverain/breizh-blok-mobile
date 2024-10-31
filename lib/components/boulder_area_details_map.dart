@@ -10,6 +10,7 @@ import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_launcher/map_launcher.dart';
 
@@ -26,6 +27,8 @@ class BoulderAreaDetailsMap extends StatelessWidget {
   Widget build(BuildContext context) {
     final parkingLocation = boulderArea.parkingLocation;
 
+    final localizations = AppLocalizations.of(context);
+
     return Column(
       children: [
         Padding(
@@ -33,11 +36,11 @@ class BoulderAreaDetailsMap extends StatelessWidget {
           child: BbMapLauncherButton(
             destination: location,
             destinationTitle: parkingLocation != null
-                ? 'Parking du secteur ${boulderArea.name}'
-                : 'Secteur ${boulderArea.name}',
-            labelButton:
-                // ignore: lines_longer_than_80_chars
-                'Itinéraire vers le ${parkingLocation != null ? 'parking' : 'secteur'}',
+                ? '${localizations.parkingOfTheBoulderArea} ${boulderArea.name}'
+                : '${localizations.boulderArea} ${boulderArea.name}',
+            labelButton: parkingLocation != null
+                ? localizations.itineraryToTheParking
+                : localizations.itineraryToTheBoulderArea,
           ),
         ),
         Expanded(
@@ -83,7 +86,8 @@ class BoulderAreaDetailsMap extends StatelessWidget {
                               onMapSelectedFn: MapDirections.showDirections(
                                 destination: parkingLocation,
                                 destinationTitle:
-                                    'Parking du secteur ${boulderArea.name}',
+                                    // ignore: lines_longer_than_80_chars
+                                    '${localizations.parkingOfTheBoulderArea} ${boulderArea.name}',
                               ),
                             );
                           },

@@ -2,10 +2,16 @@
   "@@locale": "fr",
   "anErrorOccured": "Une erreur est survenue",
   "@anErrorOccured": {},
+  "boulderArea": "Secteur",
+  "@boulderArea": {},
+  "boulders": "Blocs",
+  "@boulders": {},
   "checkYourConnection": "Vérifiez votre connexion internet et essayez à nouveau",
   "@checkYourConnection": {},
   "closeTheModal": "Fermer la boîte de dialogue",
   "@closeTheModal": {},
+  "description": "Description",
+  "@description": {},
   "distributionOfBoulders": "Répartition des blocs",
   "@distributionOfBoulders": {},
   "errorOccuredWhileDisplayingMap": "Une erreur est survenue pendant l'affichage de la carte",
@@ -18,6 +24,10 @@
   "@filter": {},
   "itinerary": "Itinéraire",
   "@itinerary": {},
+  "itineraryToTheBoulderArea": "Itinéraire vers le secteur",
+  "@itineraryToTheBoulderArea": {},
+  "itineraryToTheParking": "Itinéraire vers le parking",
+  "@itineraryToTheParking": {},
   "language": "Langage",
   "@language": {},
   "max": "max",
@@ -33,12 +43,23 @@
       }
     }
   },
+  "nBouldersOnTheSameRock": "{count, plural, =1{Bloc sur le même rocher} other{Blocs sur le même rocher}}",
+  "@nBouldersOnTheSameRock": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
   "noConnection": "Aucune connexion",
   "@noConnection": {},
   "noResults": "Aucun résultat",
   "@noResults": {},
   "noResultsMatchYourSearchCriteria": "Aucun résultat ne correspond à vos critères de recherche",
   "@noResultsMatchYourSearchCriteria": {},
+  "parkingOfTheBoulderArea": "Parking du secteur",
+  "@parkingOfTheBoulderArea": {},
   "returnToTheTop": "Revenir en haut",
   "@returnToTheTop": {},
   "share": "Partager",

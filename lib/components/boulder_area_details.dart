@@ -8,6 +8,7 @@ import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderAreaDetails extends StatefulWidget {
   const BoulderAreaDetails({
@@ -27,7 +28,7 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
   void initState() {
     _tabController = TabController(
       vsync: this,
-      length: _tabs.length,
+      length: 2,
       initialIndex: _currentIndex,
     );
 
@@ -47,13 +48,6 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
     super.initState();
   }
 
-  final _tabs = [
-    const Tab(text: 'Blocs'),
-    const Tab(
-      text: 'Description',
-    ),
-  ];
-
   int _currentIndex = 0;
 
   late TabController _tabController;
@@ -66,13 +60,22 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
+    final tabs = [
+      Tab(text: localizations.boulders),
+      Tab(
+        text: localizations.description,
+      ),
+    ];
+
     final tabViews = [
       BoulderAreaDetailsListTab(boulderArea: widget.boulderArea),
       BoulderAreaDetailsDescriptionTab(boulderArea: widget.boulderArea),
     ];
 
     return DefaultTabController(
-      length: _tabs.length,
+      length: tabs.length,
       child: Scaffold(
         appBar: AppBar(
           key: const Key('boulder-area-details-app-bar'),
@@ -102,7 +105,7 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
           ],
           bottom: TabBar(
             controller: _tabController,
-            tabs: _tabs,
+            tabs: tabs,
           ),
         ),
         body: Padding(
