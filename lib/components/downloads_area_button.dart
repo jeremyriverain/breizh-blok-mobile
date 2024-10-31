@@ -9,6 +9,7 @@ import 'package:drift/isolate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class DownloadsAreaButton extends StatelessWidget {
@@ -86,7 +87,7 @@ class DownloadsAreaButton extends StatelessWidget {
               GestureDetector(
                 onTap: () => _onChanged(context, !valueCheckbox),
                 child: Text(
-                  'TÉLÉCHARGER',
+                  AppLocalizations.of(context).download.toUpperCase(),
                   key: key,
                 ),
               ),

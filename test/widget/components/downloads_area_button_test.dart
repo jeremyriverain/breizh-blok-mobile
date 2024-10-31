@@ -10,6 +10,7 @@ import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -44,6 +45,9 @@ void main() {
     await tester.runAsync(() async {
       await tester.pumpWidget(
         MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: const Locale('fr'),
           home: Scaffold(
             body: MultiRepositoryProvider(
               providers: [

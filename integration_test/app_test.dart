@@ -636,7 +636,7 @@ void main() async {
         findsOneWidget,
       );
 
-      await tester.tap(find.byTooltip("Quitter la galerie d'images"));
+      await tester.tap(find.byTooltip("Fermer la galerie d'images"));
 
       await tester.pumpAndSettle();
     }

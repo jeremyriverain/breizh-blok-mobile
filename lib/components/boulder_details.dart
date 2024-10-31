@@ -7,6 +7,7 @@ import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class BoulderDetails extends StatelessWidget {
@@ -37,16 +38,16 @@ class BoulderDetails extends StatelessWidget {
           if (description != null)
             ListTile(
               title: Text(description),
-              leading: const Text('Description'),
+              leading: Text(AppLocalizations.of(context).description),
             ),
           if (grade != null)
             ListTile(
               title: Text(grade.name),
-              leading: const Text('Cotation'),
+              leading: Text(AppLocalizations.of(context).grade),
             ),
           ListTile(
             title: Text(boulder.rock.boulderArea.municipality.name),
-            leading: const Text('Commune'),
+            leading: Text(AppLocalizations.of(context).municipality),
             key: const Key('municipality-details-link'),
             onTap: offlineFirst
                 ? null
@@ -63,7 +64,7 @@ class BoulderDetails extends StatelessWidget {
           ),
           ListTile(
             title: Text(boulder.rock.boulderArea.name),
-            leading: const Text('Secteur'),
+            leading: Text(AppLocalizations.of(context).boulderArea),
             key: const Key('boulder-area-details-link'),
             onTap: () {
               final routeName = offlineFirst

@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/components/bb_line_boulder_image.dart';
 import 'package:breizh_blok_mobile/models/line_boulder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -96,7 +97,7 @@ class _GalleryPhotoViewWrapperState extends State<_GalleryPhotoViewWrapper> {
             Container(
               padding: const EdgeInsets.all(20),
               child: Text(
-                'Image ${currentIndex + 1}/${widget.galleryItems.length}',
+                '${AppLocalizations.of(context).image} ${currentIndex + 1}/${widget.galleryItems.length}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 17,
@@ -113,7 +114,7 @@ class _GalleryPhotoViewWrapperState extends State<_GalleryPhotoViewWrapper> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  tooltip: "Quitter la galerie d'images",
+                  tooltip: AppLocalizations.of(context).closeTheGallery,
                   icon: const Icon(
                     Icons.close,
                     color: Colors.white,
