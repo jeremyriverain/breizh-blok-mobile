@@ -5,6 +5,7 @@ import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/views/error_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class DownloadView extends StatefulWidget {
@@ -36,9 +37,9 @@ class _DownloadViewState extends State<DownloadView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Téléchargements',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).downloads,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -50,12 +51,10 @@ class _DownloadViewState extends State<DownloadView> {
 
           if (data != null) {
             if (data.isEmpty) {
-              return const Center(
+              return Center(
                 child: BbEmptyListIndicator(
-                  title: 'Aucun téléchargement',
-                  message: '''
-Il est possible de télécharger des secteurs
-        de bloc afin de pouvoir y accéder même sans connexion internet.''',
+                  title: AppLocalizations.of(context).noDownload,
+                  message: AppLocalizations.of(context).noDownloadHelper,
                 ),
               );
             }

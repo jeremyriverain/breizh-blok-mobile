@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class BbBoulderListBuilderTile extends StatelessWidget {
@@ -59,9 +60,11 @@ class BbBoulderListBuilderTile extends StatelessWidget {
                           Text.rich(
                             TextSpan(
                               children: <TextSpan>[
-                                const TextSpan(
-                                  text: 'Secteur: ',
-                                  style: TextStyle(
+                                TextSpan(
+                                  text:
+                                      // ignore: lines_longer_than_80_chars
+                                      '${AppLocalizations.of(context).boulderArea}: ',
+                                  style: const TextStyle(
                                     color: Colors.black54,
                                   ),
                                 ),
@@ -75,9 +78,11 @@ class BbBoulderListBuilderTile extends StatelessWidget {
                           Text.rich(
                             TextSpan(
                               children: <TextSpan>[
-                                const TextSpan(
-                                  text: 'Commune: ',
-                                  style: TextStyle(color: Colors.black54),
+                                TextSpan(
+                                  text:
+                                      // ignore: lines_longer_than_80_chars
+                                      '${AppLocalizations.of(context).municipality}: ',
+                                  style: const TextStyle(color: Colors.black54),
                                 ),
                                 TextSpan(
                                   text: boulder

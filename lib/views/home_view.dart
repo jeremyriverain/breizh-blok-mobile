@@ -14,6 +14,7 @@ import 'package:breizh_blok_mobile/views/home_municipalities_view.dart';
 import 'package:breizh_blok_mobile/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({
@@ -48,17 +49,17 @@ class HomeView extends StatelessWidget {
             appBar: switch (currentIndex) {
               0 => const BoulderListAppBar(),
               2 => AppBar(
-                  title: const Text(
-                    'Communes répertoriées',
-                    style: TextStyle(
+                  title: Text(
+                    AppLocalizations.of(context).municipalities,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               3 => AppBar(
-                  title: const Text(
-                    'Mon profil',
-                    style: TextStyle(
+                  title: Text(
+                    AppLocalizations.of(context).myProfile,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -90,22 +91,22 @@ class HomeView extends StatelessWidget {
             ),
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              items: const <BottomNavigationBarItem>[
+              items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.terrain),
-                  label: 'Blocs',
+                  icon: const Icon(Icons.terrain),
+                  label: AppLocalizations.of(context).boulders,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.map),
-                  label: 'Carte',
+                  icon: const Icon(Icons.map),
+                  label: AppLocalizations.of(context).map,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.scatter_plot),
-                  label: 'Sites',
+                  icon: const Icon(Icons.scatter_plot),
+                  label: AppLocalizations.of(context).areas,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle),
-                  label: 'Mon profil',
+                  icon: const Icon(Icons.account_circle),
+                  label: AppLocalizations.of(context).myProfile,
                 ),
               ],
               onTap: (index) =>
@@ -135,15 +136,14 @@ class HomeView extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              const Text(
-                "Conditions d'utilisation",
+              Text(
+                AppLocalizations.of(context).termsOfUse,
               ),
             ],
           ),
         ),
-        content: const Text(
-          // ignore: lines_longer_than_80_chars
-          "L'escalade est un sport à risque. Sa pratique est sous l'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d'accident.",
+        content: Text(
+          AppLocalizations.of(context).termsOfUseContent,
         ),
         actions: <Widget>[
           TextButton(
@@ -151,7 +151,7 @@ class HomeView extends StatelessWidget {
               context.read<TermsOfUseBloc>().add(TermsOfUseAccepted());
               Navigator.pop(context);
             },
-            child: const Text("J'accepte"),
+            child: Text(AppLocalizations.of(context).iAccept),
           ),
         ],
       ),

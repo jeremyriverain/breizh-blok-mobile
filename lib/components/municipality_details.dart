@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/components/bb_share_button.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_boulder_area_item.dart';
 import 'package:breizh_blok_mobile/components/municipality_details_map.dart';
+import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,12 @@ class MunicipalityDetails extends StatelessWidget {
           ),
           actions: [
             BbShareButton(
-              content: municipality.shareableContent,
+              content: AppLocalizations.of(context).shareableMunicipality(
+                municipalityName: municipality.name,
+                municipalityIri: IriParser.id(
+                  municipality.iri,
+                ),
+              ),
             ),
           ],
           bottom: TabBar(

@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MunicipalityDetailsMap extends StatefulWidget {
@@ -86,7 +87,7 @@ class MunicipalityDetailsMapState extends State<MunicipalityDetailsMap> {
                   icon: icon,
                   infoWindow: InfoWindow(
                     title: e.name,
-                    snippet: e.computeStatsAsString(),
+                    snippet: e.nBouldersRated(AppLocalizations.of(context)),
                   ),
                 );
               },

@@ -15,6 +15,7 @@ void main() {
       MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
+        locale: const Locale('fr'),
         home: DownloadView(
           database: AppDatabase(
             NativeDatabase.memory(),

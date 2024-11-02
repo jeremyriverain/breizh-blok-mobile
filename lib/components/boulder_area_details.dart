@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/components/bb_lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/components/bb_share_button.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details_description_tab.dart';
 import 'package:breizh_blok_mobile/components/boulder_area_details_list_tab.dart';
+import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +101,13 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
           ),
           actions: [
             BbShareButton(
-              content: widget.boulderArea.shareableContent,
+              content: AppLocalizations.of(context).shareableBoulderArea(
+                boulderAreaName: widget.boulderArea.name,
+                municipalityName: widget.boulderArea.municipality.name,
+                boulderAreaIri: IriParser.id(
+                  widget.boulderArea.iri,
+                ),
+              ),
             ),
           ],
           bottom: TabBar(

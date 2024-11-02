@@ -1,5 +1,4 @@
 import 'package:breizh_blok_mobile/constants.dart';
-import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:equatable/equatable.dart';
@@ -67,8 +66,4 @@ class Municipality extends Equatable {
       );
     }
   }
-
-  String get shareableContent => '''
-Breizh Blok recommande les blocs de $name.
-Voir https://breizh-blok.fr/municipalities/${IriParser.id(iri)}''';
 }

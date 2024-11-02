@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class NotFoundView extends StatelessWidget {
@@ -19,16 +20,16 @@ class NotFoundView extends StatelessWidget {
                 color: Colors.grey,
               ),
               const SizedBox(height: 20),
-              const Text(
-                '404 - Page non trouvée',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context).pageNotFound,
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
-                "La page que vous recherchez n'existe pas ou a été déplacée.",
+              Text(
+                AppLocalizations.of(context).pageNotFoundDescription,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -38,7 +39,7 @@ class NotFoundView extends StatelessWidget {
                 onPressed: () {
                   context.push('/');
                 },
-                child: const Text("Aller à l'accueil"),
+                child: Text(AppLocalizations.of(context).goToHomepage),
               ),
             ],
           ),

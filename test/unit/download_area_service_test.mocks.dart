@@ -36,8 +36,8 @@ class _FakeCacheManager_0 extends _i1.SmartFake implements _i2.CacheManager {
         );
 }
 
-class _FakeCacheStore_1 extends _i1.SmartFake implements _i3.CacheStore {
-  _FakeCacheStore_1(
+class _FakeConfig_1 extends _i1.SmartFake implements _i2.Config {
+  _FakeConfig_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -46,8 +46,8 @@ class _FakeCacheStore_1 extends _i1.SmartFake implements _i3.CacheStore {
         );
 }
 
-class _FakeWebHelper_2 extends _i1.SmartFake implements _i4.WebHelper {
-  _FakeWebHelper_2(
+class _FakeCacheStore_2 extends _i1.SmartFake implements _i3.CacheStore {
+  _FakeCacheStore_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -56,8 +56,8 @@ class _FakeWebHelper_2 extends _i1.SmartFake implements _i4.WebHelper {
         );
 }
 
-class _FakeFile_3 extends _i1.SmartFake implements _i5.File {
-  _FakeFile_3(
+class _FakeWebHelper_3 extends _i1.SmartFake implements _i4.WebHelper {
+  _FakeWebHelper_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -66,8 +66,18 @@ class _FakeFile_3 extends _i1.SmartFake implements _i5.File {
         );
 }
 
-class _FakeFileInfo_4 extends _i1.SmartFake implements _i2.FileInfo {
-  _FakeFileInfo_4(
+class _FakeFile_4 extends _i1.SmartFake implements _i5.File {
+  _FakeFile_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFileInfo_5 extends _i1.SmartFake implements _i2.FileInfo {
+  _FakeFileInfo_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -99,13 +109,25 @@ class MockImageBoulderCache extends _i1.Mock implements _i6.ImageBoulderCache {
 /// See the documentation for Mockito's code generation for more information.
 class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
   @override
+  _i2.Config get config => (super.noSuchMethod(
+        Invocation.getter(#config),
+        returnValue: _FakeConfig_1(
+          this,
+          Invocation.getter(#config),
+        ),
+        returnValueForMissingStub: _FakeConfig_1(
+          this,
+          Invocation.getter(#config),
+        ),
+      ) as _i2.Config);
+  @override
   _i3.CacheStore get store => (super.noSuchMethod(
         Invocation.getter(#store),
-        returnValue: _FakeCacheStore_1(
+        returnValue: _FakeCacheStore_2(
           this,
           Invocation.getter(#store),
         ),
-        returnValueForMissingStub: _FakeCacheStore_1(
+        returnValueForMissingStub: _FakeCacheStore_2(
           this,
           Invocation.getter(#store),
         ),
@@ -113,11 +135,11 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
   @override
   _i4.WebHelper get webHelper => (super.noSuchMethod(
         Invocation.getter(#webHelper),
-        returnValue: _FakeWebHelper_2(
+        returnValue: _FakeWebHelper_3(
           this,
           Invocation.getter(#webHelper),
         ),
-        returnValueForMissingStub: _FakeWebHelper_2(
+        returnValueForMissingStub: _FakeWebHelper_3(
           this,
           Invocation.getter(#webHelper),
         ),
@@ -137,7 +159,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             #headers: headers,
           },
         ),
-        returnValue: _i7.Future<_i5.File>.value(_FakeFile_3(
+        returnValue: _i7.Future<_i5.File>.value(_FakeFile_4(
           this,
           Invocation.method(
             #getSingleFile,
@@ -148,7 +170,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             },
           ),
         )),
-        returnValueForMissingStub: _i7.Future<_i5.File>.value(_FakeFile_3(
+        returnValueForMissingStub: _i7.Future<_i5.File>.value(_FakeFile_4(
           this,
           Invocation.method(
             #getSingleFile,
@@ -215,7 +237,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             #force: force,
           },
         ),
-        returnValue: _i7.Future<_i2.FileInfo>.value(_FakeFileInfo_4(
+        returnValue: _i7.Future<_i2.FileInfo>.value(_FakeFileInfo_5(
           this,
           Invocation.method(
             #downloadFile,
@@ -228,7 +250,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i2.FileInfo>.value(_FakeFileInfo_4(
+            _i7.Future<_i2.FileInfo>.value(_FakeFileInfo_5(
           this,
           Invocation.method(
             #downloadFile,
@@ -288,7 +310,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             #fileExtension: fileExtension,
           },
         ),
-        returnValue: _i7.Future<_i5.File>.value(_FakeFile_3(
+        returnValue: _i7.Future<_i5.File>.value(_FakeFile_4(
           this,
           Invocation.method(
             #putFile,
@@ -304,7 +326,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             },
           ),
         )),
-        returnValueForMissingStub: _i7.Future<_i5.File>.value(_FakeFile_3(
+        returnValueForMissingStub: _i7.Future<_i5.File>.value(_FakeFile_4(
           this,
           Invocation.method(
             #putFile,
@@ -344,7 +366,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             #fileExtension: fileExtension,
           },
         ),
-        returnValue: _i7.Future<_i5.File>.value(_FakeFile_3(
+        returnValue: _i7.Future<_i5.File>.value(_FakeFile_4(
           this,
           Invocation.method(
             #putFileStream,
@@ -360,7 +382,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             },
           ),
         )),
-        returnValueForMissingStub: _i7.Future<_i5.File>.value(_FakeFile_3(
+        returnValueForMissingStub: _i7.Future<_i5.File>.value(_FakeFile_4(
           this,
           Invocation.method(
             #putFileStream,

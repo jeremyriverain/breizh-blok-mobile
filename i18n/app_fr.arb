@@ -2,6 +2,8 @@
   "@@locale": "fr",
   "anErrorOccured": "Une erreur est survenue",
   "@anErrorOccured": {},
+  "areas": "Sites",
+  "@areas": {},
   "sortedAlphabetically": "A - Z",
   "@sortedAlphabetically": {},
   "boulderArea": "Secteur",
@@ -24,6 +26,8 @@
   "@distributionOfBoulders": {},
   "download": "Télécharger",
   "@download": {},
+  "downloads": "Téléchargements",
+  "@downloads": {},
   "downloadedRecently": "Téléchargés récemment",
   "@downloadedRecently": {},
   "errorOccuredWhileDisplayingMap": "Une erreur est survenue pendant l'affichage de la carte",
@@ -34,8 +38,12 @@
   "@fetchingData": {},
   "filter": "Filtrer",
   "@filter": {},
+  "goToHomepage": "Aller à l'accueil",
+  "@goToHomepage": {},
   "grade": "Cotation",
   "@grade": {},
+  "iAccept": "J'accepte",
+  "@iAccept": {},
   "image": "Image",
   "@image": {},
   "itinerary": "Itinéraire",
@@ -52,8 +60,12 @@
   "@max": {},
   "minGrade": "Cotation min",
   "@minGrade": {},
+  "municipalities": "Communes",
+  "@municipalities": {},
   "municipality": "Commune",
   "@municipality": {},
+  "myProfile": "Mon profil",
+  "@myProfile": {},
   "nBoulders": "{count, plural, =1{bloc} other{blocs}}",
   "@nBoulders": {
     "placeholders": {
@@ -72,12 +84,47 @@
       }
     }
   },
+  "nBouldersRated": "{count, plural, =1{{count} bloc en {grade}} other{{count} blocs en {grade}}}",
+  "@nBouldersRated": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      },
+      "grade": {
+        "type": "String"
+      }
+    }
+  },
+  "nBouldersRatedBetween": "{count} blocs du {minGrade} au {maxGrade}",
+  "@nBouldersRatedBetween": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      },
+      "minGrade": {
+        "type": "String"
+      },
+      "maxGrade": {
+        "type": "String"
+      }
+    }
+  },
   "noConnection": "Aucune connexion",
   "@noConnection": {},
+  "noDownload": "Aucun téléchargement",
+  "@noDownload": {},
+  "noDownloadHelper": "Il est possible de télécharger des secteurs de bloc afin de pouvoir y accéder même sans connexion internet.",
+  "@noDownloadHelper": {},
   "noResults": "Aucun résultat",
   "@noResults": {},
   "noResultsMatchYourSearchCriteria": "Aucun résultat ne correspond à vos critères de recherche",
   "@noResultsMatchYourSearchCriteria": {},
+  "pageNotFound": "404 - Page non trouvée",
+  "@pageNotFound": {},
+  "pageNotFoundDescription": "La page que vous recherchez n'existe pas ou a été déplacée.",
+  "@pageNotFoundDescription": {},
   "parkingOfTheBoulderArea": "Parking du secteur",
   "@parkingOfTheBoulderArea": {},
   "returnToTheTop": "Revenir en haut",
@@ -86,10 +133,53 @@
   "@searchForBoulders": {},
   "share": "Partager",
   "@share": {},
+  "shareableBoulder": "Breizh Blok recommande le bloc {boulderName} dans le secteur {boulderAreaName}. Voir https://breizh-blok.fr/boulders/{boulderIri}",
+  "@shareableBoulder": {
+    "placeholders": {
+      "boulderName": {
+        "type": "String"
+      },
+      "boulderAreaName": {
+        "type": "String"
+      },
+      "boulderIri": {
+        "type": "String"
+      }
+    }
+  },
+  "shareableBoulderArea": "Breizh Blok recommande le secteur {boulderAreaName} à {municipalityName}. Voir https://breizh-blok.fr/boulder-areas/{boulderAreaIri}",
+  "@shareableBoulderArea": {
+    "placeholders": {
+      "boulderAreaName": {
+        "type": "String"
+      },
+      "municipalityName": {
+        "type": "String"
+      },
+      "boulderAreaIri": {
+        "type": "String"
+      }
+    }
+  },
+  "shareableMunicipality": "Breizh Blok recommande les blocs de {municipalityName}. Voir https://breizh-blok.fr/municipalities/{municipalityIri}",
+  "@shareableMunicipality": {
+    "placeholders": {
+      "municipalityName": {
+        "type": "String"
+      },
+      "municipalityIri": {
+        "type": "String"
+      }
+    }
+  },
   "sort": "Trier",
   "@sort": {},
   "sortBy": "Trier par",
   "@sortBy": {},
+  "termsOfUse": "Conditions d'utilisation",
+  "@termsOfUse": {},
+  "termsOfUseContent": "L'escalade est un sport à risque. Sa pratique est sous l'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d'accident.",
+  "@termsOfUseContent": {},
   "theEasiest": "Les plus faciles",
   "@theEasiest": {},
   "theHardest": "Les plus difficiles",

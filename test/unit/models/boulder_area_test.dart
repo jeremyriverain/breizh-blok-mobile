@@ -3,10 +3,20 @@ import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('BoulderArea', () {
+    late AppLocalizations localizations;
+
+    setUp(() async {
+      localizations = await AppLocalizations.delegate.load(
+        const Locale('fr'),
+      );
+    });
+
     final boulderAreaRef = BoulderArea(
       iri: '/boulder_areas/1',
       name: 'Menez Ham',
@@ -46,86 +56,91 @@ void main() {
       });
     });
 
-    group('computeStatsAsString', () {
+    group('nBouldersRated', () {
       final boulderAreaRef = BoulderArea(
         iri: '/boulder_areas/1',
         name: 'Menez Ham',
         municipality: Municipality(iri: '/municipalities/1', name: 'Kerlouan'),
       );
 
-      group('_computeStats', () {
-        test('returns null if numberOfBoulders equals 0 or is null', () {
-          expect(boulderAreaRef.computeStatsAsString(), null);
+      test('returns null if numberOfBoulders equals 0 or is null', () {
+        expect(boulderAreaRef.nBouldersRated(localizations), null);
 
-          final boulderArea2 = boulderAreaRef.copyWith(numberOfBoulders: 0);
+        final boulderArea2 = boulderAreaRef.copyWith(numberOfBoulders: 0);
 
-          expect(boulderArea2.numberOfBoulders, 0);
-          expect(boulderArea2.computeStatsAsString(), null);
-        });
-
-        test('return "n blocs"', () {
-          final boulderArea = boulderAreaRef.copyWith(numberOfBoulders: 1);
-
-          expect(boulderArea.numberOfBoulders, 1);
-          expect(boulderArea.computeStatsAsString(), '1 bloc');
-
-          final boulderArea2 = boulderAreaRef.copyWith(numberOfBoulders: 5);
-
-          expect(boulderArea2.numberOfBoulders, 5);
-          expect(boulderArea2.computeStatsAsString(), '5 blocs');
-
-          final boulderArea3 = boulderAreaRef.copyWith(
-            numberOfBoulders: 5,
-            lowestGrade: const Grade(iri: '', name: '5c'),
-          );
-
-          expect(boulderArea3.numberOfBoulders, 5);
-          expect(boulderArea3.lowestGrade?.name, '5c');
-          expect(boulderArea3.highestGrade, null);
-          expect(boulderArea3.computeStatsAsString(), '5 blocs');
-
-          final boulderArea4 = boulderAreaRef.copyWith(
-            numberOfBoulders: 5,
-            highestGrade: const Grade(iri: '', name: '5c'),
-          );
-
-          expect(boulderArea4.numberOfBoulders, 5);
-          expect(boulderArea4.highestGrade?.name, '5c');
-          expect(boulderArea4.lowestGrade, null);
-          expect(boulderArea4.computeStatsAsString(), '5 blocs');
-        });
-
-        test('return "n blocs en ..."', () {
-          final boulderArea = boulderAreaRef.copyWith(
-            numberOfBoulders: 5,
-            lowestGrade: const Grade(iri: '', name: '5c'),
-            highestGrade: const Grade(iri: '', name: '5c'),
-          );
-
-          expect(boulderArea.numberOfBoulders, 5);
-          expect(boulderArea.lowestGrade?.name, '5c');
-          expect(boulderArea.highestGrade?.name, '5c');
-          expect(boulderArea.computeStatsAsString(), '5 blocs en 5c');
-
-          final boulderArea2 = boulderAreaRef.copyWith(
-            numberOfBoulders: 5,
-            lowestGrade: const Grade(iri: '', name: '5a'),
-            highestGrade: const Grade(iri: '', name: '5c'),
-          );
-
-          expect(boulderArea2.numberOfBoulders, 5);
-          expect(boulderArea2.highestGrade?.name, '5c');
-          expect(boulderArea2.lowestGrade?.name, '5a');
-          expect(boulderArea2.computeStatsAsString(), '5 blocs du 5a au 5c');
-        });
+        expect(boulderArea2.numberOfBoulders, 0);
+        expect(boulderArea2.nBouldersRated(localizations), null);
       });
-    });
 
-    test('shareableContent contains correct deep link', () {
-      expect(
-        boulderAreaRef.shareableContent,
-        contains('https://breizh-blok.fr/boulder-areas/1'),
-      );
+      test('return "n blocs"', () {
+        final boulderArea = boulderAreaRef.copyWith(numberOfBoulders: 1);
+
+        expect(boulderArea.numberOfBoulders, 1);
+        expect(boulderArea.nBouldersRated(localizations), '1 bloc');
+
+        final boulderArea2 = boulderAreaRef.copyWith(numberOfBoulders: 5);
+
+        expect(boulderArea2.numberOfBoulders, 5);
+        expect(boulderArea2.nBouldersRated(localizations), '5 blocs');
+
+        final boulderArea3 = boulderAreaRef.copyWith(
+          numberOfBoulders: 5,
+          lowestGrade: const Grade(iri: '', name: '5c'),
+        );
+
+        expect(boulderArea3.numberOfBoulders, 5);
+        expect(boulderArea3.lowestGrade?.name, '5c');
+        expect(boulderArea3.highestGrade, null);
+        expect(boulderArea3.nBouldersRated(localizations), '5 blocs');
+
+        final boulderArea4 = boulderAreaRef.copyWith(
+          numberOfBoulders: 5,
+          highestGrade: const Grade(iri: '', name: '5c'),
+        );
+
+        expect(boulderArea4.numberOfBoulders, 5);
+        expect(boulderArea4.highestGrade?.name, '5c');
+        expect(boulderArea4.lowestGrade, null);
+        expect(boulderArea4.nBouldersRated(localizations), '5 blocs');
+      });
+
+      test('return "n blocs en ..."', () {
+        final boulderArea = boulderAreaRef.copyWith(
+          numberOfBoulders: 5,
+          lowestGrade: const Grade(iri: '', name: '5c'),
+          highestGrade: const Grade(iri: '', name: '5c'),
+        );
+
+        expect(boulderArea.numberOfBoulders, 5);
+        expect(boulderArea.lowestGrade?.name, '5c');
+        expect(boulderArea.highestGrade?.name, '5c');
+        expect(boulderArea.nBouldersRated(localizations), '5 blocs en 5c');
+
+        final boulderArea2 = boulderAreaRef.copyWith(
+          numberOfBoulders: 5,
+          lowestGrade: const Grade(iri: '', name: '5a'),
+          highestGrade: const Grade(iri: '', name: '5c'),
+        );
+
+        expect(boulderArea2.numberOfBoulders, 5);
+        expect(boulderArea2.highestGrade?.name, '5c');
+        expect(boulderArea2.lowestGrade?.name, '5a');
+        expect(
+          boulderArea2.nBouldersRated(localizations),
+          '5 blocs du 5a au 5c',
+        );
+
+        final boulderArea3 = boulderAreaRef.copyWith(
+          numberOfBoulders: 1,
+          lowestGrade: const Grade(iri: '', name: '5c'),
+          highestGrade: const Grade(iri: '', name: '6a'),
+        );
+
+        expect(boulderArea3.numberOfBoulders, 1);
+        expect(boulderArea3.lowestGrade?.name, '5c');
+        expect(boulderArea3.highestGrade?.name, '6a');
+        expect(boulderArea3.nBouldersRated(localizations), '1 bloc en 5c');
+      });
     });
   });
 }

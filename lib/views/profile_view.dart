@@ -1,5 +1,6 @@
 import 'package:breizh_blok_mobile/components/profile_language_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileView extends StatelessWidget {
@@ -10,8 +11,8 @@ class ProfileView extends StatelessWidget {
       body: Column(
         children: [
           ListTile(
-            title: const Text(
-              'Téléchargements',
+            title: Text(
+              AppLocalizations.of(context).downloads,
             ),
             leading: const Icon(Icons.download_outlined),
             onTap: () {

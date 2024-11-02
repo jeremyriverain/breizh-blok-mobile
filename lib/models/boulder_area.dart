@@ -1,9 +1,9 @@
 import 'package:breizh_blok_mobile/constants.dart';
-import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderArea extends Equatable {
   const BoulderArea({
@@ -124,24 +124,26 @@ class BoulderArea extends Equatable {
     }
   }
 
-  String? computeStatsAsString() {
+  String? nBouldersRated(AppLocalizations localizations) {
     final numBoulders = numberOfBoulders;
     final minGrade = lowestGrade;
     final maxGrade = highestGrade;
     if (numBoulders != null && numBoulders > 0) {
-      final result = '$numBoulders bloc${numBoulders > 1 ? 's' : ''}';
       if (minGrade == null || maxGrade == null) {
-        return result;
+        return '$numBoulders ${localizations.nBoulders(count: numBoulders)}';
       }
-      if (minGrade.name == maxGrade.name) {
-        return '$result en ${minGrade.name}';
+      if (numBoulders == 1 || minGrade.name == maxGrade.name) {
+        return localizations.nBouldersRated(
+          count: numBoulders,
+          grade: minGrade.name,
+        );
       }
-      return '$result du ${minGrade.name} au ${maxGrade.name}';
+      return localizations.nBouldersRatedBetween(
+        count: numBoulders,
+        minGrade: minGrade.name,
+        maxGrade: maxGrade.name,
+      );
     }
     return null;
   }
-
-  String get shareableContent => '''
-Breizh Blok recommande le secteur $name à ${municipality.name}.
-Voir https://breizh-blok.fr/boulder-areas/${IriParser.id(iri)}''';
 }

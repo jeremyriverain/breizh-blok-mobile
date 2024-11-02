@@ -1,6 +1,8 @@
 import 'package:breizh_blok_mobile/components/bb_share_button.dart';
+import 'package:breizh_blok_mobile/iri_parser.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderDetailsNavbar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -27,7 +29,13 @@ class BoulderDetailsNavbar extends StatelessWidget
       ),
       actions: [
         BbShareButton(
-          content: boulder.shareableContent,
+          content: AppLocalizations.of(context).shareableBoulder(
+            boulderName: boulder.name,
+            boulderAreaName: boulder.rock.boulderArea.name,
+            boulderIri: IriParser.id(
+              boulder.iri,
+            ),
+          ),
         ),
       ],
     );

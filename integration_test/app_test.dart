@@ -1304,7 +1304,7 @@ by clicking on the "scroll to to the top" button''',
     await tester.tap(find.text('Sites').first);
     await tester.pumpAndSettle();
 
-    expect(find.text('Communes répertoriées'), findsOneWidget);
+    expect(find.text('Communes'), findsOneWidget);
     expect(find.text(departmentReference.name), findsOneWidget);
     expect(find.text(municipalityReference.name), findsOneWidget);
 
