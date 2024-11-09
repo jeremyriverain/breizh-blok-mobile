@@ -10,3 +10,7 @@ const kSizeSimpleMarker = 75;
 const kParkingIcon = 'assets/parking-icon.png';
 
 const kLocalePrefs = 'locale';
+
+const kRequestDefaultTimeout = Duration(
+  seconds: int.fromEnvironment('REQUEST_TIMEOUT', defaultValue: 7),
+);

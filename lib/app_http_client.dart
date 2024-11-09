@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:breizh_blok_mobile/database/app_database.dart';
+import 'package:breizh_blok_mobile/constants.dart';
+import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
-
-const kRequestDefaultTimeout =
-    Duration(seconds: int.fromEnvironment('REQUEST_TIMEOUT', defaultValue: 7));
 
 class AppHttpClient {
   AppHttpClient({
