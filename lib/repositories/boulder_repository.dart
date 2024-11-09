@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:breizh_blok_mobile/app_http_client.dart';
+import 'package:breizh_blok_mobile/constants.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/query_param_factory.dart';

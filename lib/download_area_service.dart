@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/app_http_client.dart';
-import 'package:breizh_blok_mobile/database/app_database.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
+import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
