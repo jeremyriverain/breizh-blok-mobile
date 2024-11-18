@@ -24,7 +24,7 @@ jobs:
 
     - name: Build APK with Flutter
       run: |
-        flutter build apk --dart-define=API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }} --dart-define=GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }} --debug
+        flutter build apk --dart-define=API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }} --dart-define=GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }} --dart-define=BREIZH_BLOK_MIX_PANEL_TOKEN=${{ secrets.BREIZH_BLOK_MIX_PANEL_TOKEN }} --debug
     - name: Create debug and test APKa
       run: |
         cd android
@@ -32,9 +32,10 @@ jobs:
 
         API_HOST_BASE64=$(echo -n "API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }}" | base64)
         GMAPS_KEY_BASE64=$(echo -n "GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }}" | base64)
+        BREIZH_BLOK_MIX_PANEL_TOKEN_BASE64=$(echo -n "GMAPS_KEY=${{ secrets.BREIZH_BLOK_MIX_PANEL_TOKEN }}" | base64)
         
         ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/integration_test/app_test.dart" \
-          -Pdart-defines="$API_HOST_BASE64,$GMAPS_KEY_BASE64"
+          -Pdart-defines="$API_HOST_BASE64,$GMAPS_KEY_BASE64,$BREIZH_BLOK_MIX_PANEL_TOKEN_BASE64"
     
     - name: Run Tests in Firebase Test Lab
       run: |

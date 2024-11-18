@@ -6,15 +6,13 @@ import 'package:breizh_blok_mobile/presentation/widgets/bb_empty_list_indicator.
 import 'package:breizh_blok_mobile/presentation/widgets/downloads_sort_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class DownloadView extends StatefulWidget {
   const DownloadView({
-    required this.database,
     super.key,
   });
-
-  final AppDatabase database;
 
   @override
   State<DownloadView> createState() => _DownloadViewState();
@@ -24,7 +22,8 @@ class _DownloadViewState extends State<DownloadView> {
   Future<List<DownloadedBoulderArea>> _findDownloads(
     OrderParam orderParam,
   ) async {
-    final response = await widget.database.allDownloads(orderParam: orderParam);
+    final response =
+        await GetIt.I<AppDatabase>().allDownloads(orderParam: orderParam);
     return response;
   }
 

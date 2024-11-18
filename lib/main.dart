@@ -28,6 +28,7 @@ import 'package:drift/native.dart';
 import 'package:flutter/material.dart' hide HttpClientProvider;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:path/path.dart' as p;
@@ -44,17 +45,19 @@ Future<void> main({
 
   final termsOfUseBloc = TermsOfUseBloc();
 
-  final appDatabase = database ??
-      AppDatabase(
-        LazyDatabase(() async {
-          final dbFolder = await getApplicationDocumentsDirectory();
-          final file = File(p.join(dbFolder.path, 'db.sqlite'));
-          return NativeDatabase.createInBackground(file);
-        }),
-      );
+  final localDatabase = GetIt.I.registerSingleton<AppDatabase>(
+    database ??
+        AppDatabase(
+          LazyDatabase(() async {
+            final dbFolder = await getApplicationDocumentsDirectory();
+            final file = File(p.join(dbFolder.path, 'db.sqlite'));
+            return NativeDatabase.createInBackground(file);
+          }),
+        ),
+  );
 
   final httpClient = AppHttpClient(
-    database: appDatabase,
+    database: localDatabase,
   );
 
   final imageBoulderCache = ImageBoulderCache();
@@ -120,7 +123,7 @@ Future<void> main({
             create: (context) => MunicipalityRepository(httpClient: httpClient),
           ),
           RepositoryProvider<AppDatabase>(
-            create: (context) => appDatabase,
+            create: (context) => localDatabase,
           ),
           RepositoryProvider<AppHttpClient>(
             create: (context) => httpClient,
@@ -165,9 +168,7 @@ Future<void> main({
           ],
           child: LocationProvider(
             locationInstance: Location.instance,
-            child: MyApp(
-              database: appDatabase,
-            ),
+            child: MyApp(),
           ),
         ),
       ),

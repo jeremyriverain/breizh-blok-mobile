@@ -1,5 +1,4 @@
 import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
 import 'package:breizh_blok_mobile/presentation/views/boulder_area_details_view.dart';
 import 'package:breizh_blok_mobile/presentation/views/boulder_details_view.dart';
@@ -13,19 +12,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class MyApp extends StatelessWidget {
-  MyApp({
-    required this.database,
-    super.key,
-  }) : router = GoRouter(
+  MyApp({super.key})
+      : router = GoRouter(
           routes: [
             GoRoute(
               path: '/',
               name: 'boulder_list',
               builder: (context, state) => RepositoryProvider(
                 create: (context) => RequestStrategy(),
-                child: HomeView(
-                  database: database,
-                ),
+                child: const HomeView(),
               ),
               routes: [
                 GoRoute(
@@ -106,9 +101,7 @@ class MyApp extends StatelessWidget {
               builder: (context, state) {
                 return RepositoryProvider(
                   create: (context) => RequestStrategy(),
-                  child: DownloadView(
-                    database: database,
-                  ),
+                  child: const DownloadView(),
                 );
               },
             ),
@@ -116,7 +109,6 @@ class MyApp extends StatelessWidget {
           initialLocation: '/',
         );
 
-  final AppDatabase database;
   final GoRouter router;
 
   @override

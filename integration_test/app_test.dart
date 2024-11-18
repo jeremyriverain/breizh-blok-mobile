@@ -28,6 +28,7 @@ import 'package:drift/native.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -62,6 +63,7 @@ void main() async {
     await prefs.setString(kLocalePrefs, 'fr');
     await clearDatabase(database);
     mockShareContentService.sharedContents.clear();
+    await GetIt.I.reset();
   });
 
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;

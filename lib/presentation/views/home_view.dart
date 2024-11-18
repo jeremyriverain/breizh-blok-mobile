@@ -5,7 +5,6 @@ import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:breizh_blok_mobile/presentation/views/home_map_view.dart';
 import 'package:breizh_blok_mobile/presentation/views/home_municipalities_view.dart';
 import 'package:breizh_blok_mobile/presentation/views/profile_view.dart';
@@ -17,12 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({
-    required this.database,
-    super.key,
-  });
-
-  final AppDatabase database;
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

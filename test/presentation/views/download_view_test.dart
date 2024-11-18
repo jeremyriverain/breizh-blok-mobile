@@ -5,22 +5,28 @@ import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
 
+  setUp(() async {
+    await GetIt.I.reset();
+  });
+
   testWidgets('display fallback content if there is no downloads',
       (WidgetTester tester) async {
+    GetIt.I.registerSingleton(
+      AppDatabase(
+        NativeDatabase.memory(),
+      ),
+    );
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: const Locale('fr'),
-        home: DownloadView(
-          database: AppDatabase(
-            NativeDatabase.memory(),
-          ),
-        ),
+        locale: Locale('fr'),
+        home: DownloadView(),
       ),
     );
 
@@ -61,8 +67,10 @@ void main() {
   }
 
   testWidgets('display downloads', (WidgetTester tester) async {
-    final database = AppDatabase(
-      NativeDatabase.memory(),
+    final database = GetIt.I.registerSingleton(
+      AppDatabase(
+        NativeDatabase.memory(),
+      ),
     );
 
     await createDownload(
@@ -73,14 +81,12 @@ void main() {
     );
 
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: const Locale('fr'),
+        locale: Locale('fr'),
         home: Scaffold(
-          body: DownloadView(
-            database: database,
-          ),
+          body: DownloadView(),
         ),
       ),
     );
@@ -113,8 +119,10 @@ void main() {
 
   testWidgets('sort downloaded boulder areas', (WidgetTester tester) async {
     await tester.runAsync(() async {
-      final database = AppDatabase(
-        NativeDatabase.memory(),
+      final database = GetIt.I.registerSingleton(
+        AppDatabase(
+          NativeDatabase.memory(),
+        ),
       );
 
       await Future.wait([
@@ -154,14 +162,12 @@ void main() {
       ]);
 
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: const Locale('fr'),
+          locale: Locale('fr'),
           home: Scaffold(
-            body: DownloadView(
-              database: database,
-            ),
+            body: DownloadView(),
           ),
         ),
       );
