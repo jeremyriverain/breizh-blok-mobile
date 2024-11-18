@@ -12,7 +12,6 @@ import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/local_db/app_database.dart';
-import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/presentation/my_app.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
@@ -134,6 +133,9 @@ Future<void> main({
           RepositoryProvider<ShareContentServiceInterface>(
             create: (context) => appShareContentService,
           ),
+          RepositoryProvider<Location>(
+            create: (context) => Location.instance,
+          ),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -166,10 +168,7 @@ Future<void> main({
               create: (context) => localeBloc,
             ),
           ],
-          child: LocationProvider(
-            locationInstance: Location.instance,
-            child: MyApp(),
-          ),
+          child: const MyApp(),
         ),
       ),
     ),

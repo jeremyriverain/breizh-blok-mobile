@@ -1,5 +1,4 @@
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -23,7 +22,7 @@ class _BbMapState extends State<BbMap> {
 
   @override
   void didChangeDependencies() {
-    locationInstance = LocationProvider.of(context).locationInstance;
+    locationInstance = context.read<Location>();
     futurePermission ??= requestPermission();
     super.didChangeDependencies();
   }

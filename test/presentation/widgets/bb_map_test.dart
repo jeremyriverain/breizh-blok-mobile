@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/presentation/widgets/bb_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,8 +26,8 @@ void main() {
         MaterialApp(
           home: BlocProvider(
             create: (context) => mapPermissionBloc,
-            child: LocationProvider(
-              locationInstance: location,
+            child: RepositoryProvider<Location>(
+              create: (context) => location,
               child: Builder(
                 builder: (context) {
                   return const BbMap(
@@ -68,8 +67,8 @@ void main() {
         MaterialApp(
           home: BlocProvider(
             create: (context) => mapPermissionBloc,
-            child: LocationProvider(
-              locationInstance: location,
+            child: RepositoryProvider<Location>(
+              create: (context) => location,
               child: Builder(
                 builder: (context) {
                   return const BbMap(
@@ -126,8 +125,8 @@ void main() {
         MaterialApp(
           home: BlocProvider(
             create: (context) => mapPermissionBloc,
-            child: LocationProvider(
-              locationInstance: location,
+            child: RepositoryProvider<Location>(
+              create: (context) => location,
               child: Builder(
                 builder: (context) {
                   return const BbMap(
