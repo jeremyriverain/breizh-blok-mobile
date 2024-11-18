@@ -14,6 +14,12 @@ PODS:
     - Flutter
   - map_launcher (0.0.1):
     - Flutter
+  - Mixpanel-swift (4.3.0):
+    - Mixpanel-swift/Complete (= 4.3.0)
+  - Mixpanel-swift/Complete (4.3.0)
+  - mixpanel_flutter (2.3.3):
+    - Flutter
+    - Mixpanel-swift (= 4.3.0)
   - package_info_plus (0.4.5):
     - Flutter
   - path_provider_foundation (0.0.1):
@@ -54,6 +60,7 @@ DEPENDENCIES:
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - map_launcher (from `.symlinks/plugins/map_launcher/ios`)
+  - mixpanel_flutter (from `.symlinks/plugins/mixpanel_flutter/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - sentry_flutter (from `.symlinks/plugins/sentry_flutter/ios`)
@@ -65,6 +72,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - GoogleMaps
+    - Mixpanel-swift
     - Sentry
     - sqlite3
 
@@ -79,6 +87,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/location/ios"
   map_launcher:
     :path: ".symlinks/plugins/map_launcher/ios"
+  mixpanel_flutter:
+    :path: ".symlinks/plugins/mixpanel_flutter/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
@@ -101,6 +111,8 @@ SPEC CHECKSUMS:
   integration_test: ce0a3ffa1de96d1a89ca0ac26fca7ea18a749ef4
   location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
   map_launcher: e325db1261d029ff33e08e03baccffe09593ffea
+  Mixpanel-swift: 2192b9a24cf41b870749e4e0e10fbc9822bb2b4a
+  mixpanel_flutter: 455c6c7906a0bd21b609b32fef390245187068a6
   package_info_plus: fd030dabf36271f146f1f3beacd48f564b0f17f7
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   Sentry: f8374b5415bc38dfb5645941b3ae31230fbeae57

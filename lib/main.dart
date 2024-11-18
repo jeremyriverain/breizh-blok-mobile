@@ -29,6 +29,7 @@ import 'package:flutter/material.dart' hide HttpClientProvider;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
+import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -85,6 +86,11 @@ Future<void> main({
   final appShareContentService = shareContentService ?? ShareContentService();
 
   final localeBloc = await LocaleBloc.create();
+
+  await Mixpanel.init(
+    const String.fromEnvironment('MIX_PANEL_TOKEN'),
+    trackAutomaticEvents: false,
+  );
 
   await SentryFlutter.init(
     (options) {

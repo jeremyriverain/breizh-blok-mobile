@@ -19,7 +19,7 @@ Installez [FVM](https://fvm.app/) qui est utilisé comme gestionnaire de version
 ### Démarrer l'application en mode DEV
 
 ```bash
-fvm flutter run --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --debug
+fvm flutter run --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN_DEV" --debug
 ```
 
 ### Analyse statique de code
@@ -37,19 +37,19 @@ fvm flutter test
 ### Exécuter les tests E2E
 
 ```bash
-fvm flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="REQUEST_TIMEOUT=20"
+fvm flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="REQUEST_TIMEOUT=20" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN_DEV"
 ```
 
 ### Compiler pour Android
 
 ```bash
-fvm flutter build appbundle --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN"
+fvm flutter build appbundle --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN"
 ```
 
 ### Compiler pour iOS
 
 ```bash
-fvm flutter build ipa --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN"
+fvm flutter build ipa --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN"
 ```
 
 ### Exécuter la génération de code
