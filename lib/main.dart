@@ -13,7 +13,7 @@ import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
-import 'package:breizh_blok_mobile/presentation/my_app.dart';
+import 'package:breizh_blok_mobile/navigation/app_router.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
@@ -22,12 +22,15 @@ import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/share_content_service.dart';
 import 'package:breizh_blok_mobile/share_content_service_interface.dart';
+import 'package:breizh_blok_mobile/tracking_service.dart';
+import 'package:breizh_blok_mobile/ui/my_app.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart' hide HttpClientProvider;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:path/path.dart' as p;
@@ -89,10 +92,16 @@ Future<void> main({
 
   final localeBloc = await LocaleBloc.create();
 
-  await Mixpanel.init(
-    const String.fromEnvironment('MIX_PANEL_TOKEN'),
-    trackAutomaticEvents: false,
+  GetIt.I.registerSingleton<Mixpanel>(
+    await Mixpanel.init(
+      const String.fromEnvironment('MIX_PANEL_TOKEN'),
+      trackAutomaticEvents: false,
+    ),
   );
+
+  GetIt.I.registerSingleton<TrackingService>(TrackingService());
+
+  GetIt.I.registerSingleton<GoRouter>(AppRouter()());
 
   await SentryFlutter.init(
     (options) {
