@@ -12,9 +12,8 @@ import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/local_db/app_database.dart';
-import 'package:breizh_blok_mobile/location_provider.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
-import 'package:breizh_blok_mobile/presentation/my_app.dart';
+import 'package:breizh_blok_mobile/navigation/app_router.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
@@ -23,12 +22,17 @@ import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/share_content_service.dart';
 import 'package:breizh_blok_mobile/share_content_service_interface.dart';
+import 'package:breizh_blok_mobile/tracking_service.dart';
+import 'package:breizh_blok_mobile/ui/my_app.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart' hide HttpClientProvider;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
+import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -37,23 +41,26 @@ Future<void> main({
   MapPermissionBloc? mapPermissionBloc,
   ShareContentServiceInterface? shareContentService,
   AppDatabase? database,
+  Mixpanel? mixpanel,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   final termsOfUseBloc = TermsOfUseBloc();
 
-  final appDatabase = database ??
-      AppDatabase(
-        LazyDatabase(() async {
-          final dbFolder = await getApplicationDocumentsDirectory();
-          final file = File(p.join(dbFolder.path, 'db.sqlite'));
-          return NativeDatabase.createInBackground(file);
-        }),
-      );
+  final localDatabase = GetIt.I.registerSingleton<AppDatabase>(
+    database ??
+        AppDatabase(
+          LazyDatabase(() async {
+            final dbFolder = await getApplicationDocumentsDirectory();
+            final file = File(p.join(dbFolder.path, 'db.sqlite'));
+            return NativeDatabase.createInBackground(file);
+          }),
+        ),
+  );
 
   final httpClient = AppHttpClient(
-    database: appDatabase,
+    database: localDatabase,
   );
 
   final imageBoulderCache = ImageBoulderCache();
@@ -86,6 +93,18 @@ Future<void> main({
 
   final localeBloc = await LocaleBloc.create();
 
+  GetIt.I.registerSingleton<Mixpanel>(
+    mixpanel ??
+        await Mixpanel.init(
+          const String.fromEnvironment('MIX_PANEL_TOKEN'),
+          trackAutomaticEvents: true,
+        ),
+  );
+
+  GetIt.I.registerSingleton<TrackingService>(TrackingService());
+
+  GetIt.I.registerSingleton<GoRouter>(AppRouter()());
+
   await SentryFlutter.init(
     (options) {
       options
@@ -114,7 +133,7 @@ Future<void> main({
             create: (context) => MunicipalityRepository(httpClient: httpClient),
           ),
           RepositoryProvider<AppDatabase>(
-            create: (context) => appDatabase,
+            create: (context) => localDatabase,
           ),
           RepositoryProvider<AppHttpClient>(
             create: (context) => httpClient,
@@ -124,6 +143,9 @@ Future<void> main({
           ),
           RepositoryProvider<ShareContentServiceInterface>(
             create: (context) => appShareContentService,
+          ),
+          RepositoryProvider<Location>(
+            create: (context) => Location.instance,
           ),
         ],
         child: MultiBlocProvider(
@@ -157,12 +179,7 @@ Future<void> main({
               create: (context) => localeBloc,
             ),
           ],
-          child: LocationProvider(
-            locationInstance: Location.instance,
-            child: MyApp(
-              database: appDatabase,
-            ),
-          ),
+          child: const MyApp(),
         ),
       ),
     ),
