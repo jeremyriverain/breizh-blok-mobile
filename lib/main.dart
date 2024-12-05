@@ -41,6 +41,7 @@ Future<void> main({
   MapPermissionBloc? mapPermissionBloc,
   ShareContentServiceInterface? shareContentService,
   AppDatabase? database,
+  Mixpanel? mixpanel,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -93,10 +94,11 @@ Future<void> main({
   final localeBloc = await LocaleBloc.create();
 
   GetIt.I.registerSingleton<Mixpanel>(
-    await Mixpanel.init(
-      const String.fromEnvironment('MIX_PANEL_TOKEN'),
-      trackAutomaticEvents: false,
-    ),
+    mixpanel ??
+        await Mixpanel.init(
+          const String.fromEnvironment('MIX_PANEL_TOKEN'),
+          trackAutomaticEvents: true,
+        ),
   );
 
   GetIt.I.registerSingleton<TrackingService>(TrackingService());

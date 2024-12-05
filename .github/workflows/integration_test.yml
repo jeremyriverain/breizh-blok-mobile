@@ -8,36 +8,35 @@ jobs:
     name: Run integration Tests
     runs-on: ubuntu-latest
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents: "read"
+      id-token: "write"
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - uses: 'google-github-actions/auth@v2'
-      with:
-        project_id: ${{ secrets.GCLOUD_PROJECT_ID_TEST }}
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_TEST }}
-        service_account: ${{ secrets.SERVICE_ACCOUNT_TEST }}
+      - uses: "google-github-actions/auth@v2"
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID_TEST }}
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_TEST }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_TEST }}
 
-    - uses: ./.github/actions/setup
+      - uses: ./.github/actions/setup
 
-    - name: Build APK with Flutter
-      run: |
-        flutter build apk --dart-define=API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }} --dart-define=GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }} --dart-define=BREIZH_BLOK_MIX_PANEL_TOKEN=${{ secrets.BREIZH_BLOK_MIX_PANEL_TOKEN }} --debug
-    - name: Create debug and test APKa
-      run: |
-        cd android
-        ./gradlew app:assembleAndroidTest
+      - name: Build APK with Flutter
+        run: |
+          flutter build apk --dart-define=API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }} --dart-define=GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }} --dart-define=BREIZH_BLOK_MIX_PANEL_TOKEN=${{ secrets.BREIZH_BLOK_MIX_PANEL_TOKEN }} --debug
+      - name: Create debug and test APKa
+        run: |
+          cd android
+          ./gradlew app:assembleAndroidTest
 
-        API_HOST_BASE64=$(echo -n "API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }}" | base64)
-        GMAPS_KEY_BASE64=$(echo -n "GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }}" | base64)
-        BREIZH_BLOK_MIX_PANEL_TOKEN_BASE64=$(echo -n "GMAPS_KEY=${{ secrets.BREIZH_BLOK_MIX_PANEL_TOKEN }}" | base64)
-        
-        ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/integration_test/app_test.dart" \
-          -Pdart-defines="$API_HOST_BASE64,$GMAPS_KEY_BASE64,$BREIZH_BLOK_MIX_PANEL_TOKEN_BASE64"
-    
-    - name: Run Tests in Firebase Test Lab
-      run: |
-         gcloud firebase test android models list
-         gcloud firebase test android run --app build/app/outputs/apk/debug/app-debug.apk --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk --timeout 10m --device "model=shiba,version=34"
+          API_HOST_BASE64=$(echo -n "API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }}" | base64)
+          GMAPS_KEY_BASE64=$(echo -n "GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }}" | base64)
+
+          ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/integration_test/app_test.dart" \
+            -Pdart-defines="$API_HOST_BASE64,$GMAPS_KEY_BASE64"
+
+      - name: Run Tests in Firebase Test Lab
+        run: |
+          gcloud firebase test android models list
+          gcloud firebase test android run --app build/app/outputs/apk/debug/app-debug.apk --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk --timeout 10m --device "model=shiba,version=34"
