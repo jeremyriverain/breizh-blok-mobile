@@ -165,15 +165,27 @@ void main() async {
         'page_viewed',
         properties: {
           'path': '/',
+          'navigationType': 'push',
         },
       ),
-    ).called(2);
+    ).called(1);
 
     verify(
       mockMixpanel.track(
         'page_viewed',
         properties: {
           'path': '/boulders/${boulderReference.id}',
+          'navigationType': 'push',
+        },
+      ),
+    ).called(1);
+
+    verify(
+      mockMixpanel.track(
+        'page_viewed',
+        properties: {
+          'path': '/',
+          'navigationType': 'pop',
         },
       ),
     ).called(1);

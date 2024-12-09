@@ -18,17 +18,19 @@ class AppRouterObserver extends NavigatorObserver {
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPush(route, previousRoute);
 
-    GetIt.I<TrackingService>().trackPageViewed(path: location);
+    GetIt.I<TrackingService>().trackPageViewed(
+      path: location,
+      navigationType: 'push',
+    );
   }
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPop(route, previousRoute);
 
-    final context = route.navigator?.context;
-
-    if (context != null) {
-      GetIt.I<TrackingService>().trackPageViewed(path: location);
-    }
+    GetIt.I<TrackingService>().trackPageViewed(
+      path: location,
+      navigationType: 'pop',
+    );
   }
 }

@@ -19,13 +19,11 @@ void main() {
     GetIt.I.registerSingleton<Mixpanel>(mockMixpanel);
   });
   test('call mixpanel track API when trackPageViewed is called', () async {
-    TrackingService().trackPageViewed(path: '/foo');
+    TrackingService().trackPageViewed(path: '/foo', navigationType: 'foo');
     verify(
       mockMixpanel.track(
         'page_viewed',
-        properties: {
-          'path': '/foo',
-        },
+        properties: {'path': '/foo', 'navigationType': 'foo'},
       ),
     ).called(1);
   });
@@ -44,7 +42,8 @@ void main() {
     });
 
     expect(
-      () async => TrackingService().trackPageViewed(path: '/foo'),
+      () async => TrackingService()
+          .trackPageViewed(path: '/foo', navigationType: 'foo'),
       returnsNormally,
     );
 
@@ -53,6 +52,7 @@ void main() {
         'page_viewed',
         properties: {
           'path': '/foo',
+          'navigationType': 'foo',
         },
       ),
     ).called(1);

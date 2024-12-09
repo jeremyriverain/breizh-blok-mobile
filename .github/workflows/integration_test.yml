@@ -24,7 +24,7 @@ jobs:
 
       - name: Build APK with Flutter
         run: |
-          flutter build apk --dart-define=API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }} --dart-define=GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }} --dart-define=BREIZH_BLOK_MIX_PANEL_TOKEN=${{ secrets.BREIZH_BLOK_MIX_PANEL_TOKEN }} --debug
+          flutter build apk --dart-define=API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }} --dart-define=GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }} --debug
       - name: Create debug and test APKa
         run: |
           cd android
