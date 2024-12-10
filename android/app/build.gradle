@@ -39,6 +39,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    namespace 'fr.geekco.boulders'
     compileSdkVersion flutter.compileSdkVersion
 
     compileOptions {
