@@ -17,12 +17,12 @@ import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/share_content_service.dart';
-import 'package:breizh_blok_mobile/ui/widgets/bb_boulder_list_builder_tile.dart';
-import 'package:breizh_blok_mobile/ui/widgets/bb_line_boulder_image.dart';
-import 'package:breizh_blok_mobile/ui/widgets/bb_map_launcher_button.dart';
-import 'package:breizh_blok_mobile/ui/widgets/bb_share_button.dart';
-import 'package:breizh_blok_mobile/ui/widgets/boulder_details_associated_item.dart';
-import 'package:breizh_blok_mobile/ui/widgets/municipality_details_boulder_area_item.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated_item.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_tile.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
+import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_boulder_area_item.dart';
 import 'package:drift/drift.dart'
     show StringExpressionOperators, Value, driftRuntimeOptions;
 import 'package:drift/native.dart';
@@ -154,7 +154,7 @@ void main() async {
     await runApplication(tester: tester);
 
     // tap on the first tile and show details
-    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
+    await tester.tap(find.byType(BoulderListBuilderTile).first);
     await tester.pumpAndSettle();
 
     await tester.tap(find.byType(BackButton).first);
@@ -243,7 +243,7 @@ void main() async {
     print('ref boulder: ${boulderReference.name}');
     print(boulderReference.iri);
     expect(boulderRequest, isNull);
-    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
+    await tester.tap(find.byType(BoulderListBuilderTile).first);
 
     await tester.pumpAndSettle();
 
@@ -488,7 +488,7 @@ void main() async {
 
     expect(
       find.descendant(
-        of: find.byType(BbBoulderListBuilderTile).first,
+        of: find.byType(BoulderListBuilderTile).first,
         matching: find.textContaining('5a boulder', findRichText: true),
       ),
       findsOneWidget,
@@ -496,7 +496,7 @@ void main() async {
 
     expect(
       find.descendant(
-        of: find.byType(BbBoulderListBuilderTile).at(1),
+        of: find.byType(BoulderListBuilderTile).at(1),
         matching: find.textContaining('6a boulder', findRichText: true),
       ),
       findsOneWidget,
@@ -504,7 +504,7 @@ void main() async {
 
     expect(
       find.descendant(
-        of: find.byType(BbBoulderListBuilderTile).at(2),
+        of: find.byType(BoulderListBuilderTile).at(2),
         matching:
             find.textContaining('boulder without grade', findRichText: true),
       ),
@@ -556,7 +556,7 @@ void main() async {
       ),
     );
 
-    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
+    await tester.tap(find.byType(BoulderListBuilderTile).first);
     await tester.pumpAndSettle();
 
     expect(
@@ -655,18 +655,18 @@ void main() async {
     );
 
     expect(
-      find.byType(BbLineBoulderImage),
+      find.byType(LineBoulderImage),
       findsWidgets,
     );
 
     // SHOW PAGE
 
     // tap on the first tile and show details
-    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
+    await tester.tap(find.byType(BoulderListBuilderTile).first);
 
     await tester.pumpAndSettle();
 
-    await tester.tap(find.byType(BbShareButton).first);
+    await tester.tap(find.byType(ShareButton).first);
 
     await tester.pumpAndSettle();
 
@@ -689,11 +689,11 @@ void main() async {
 
     if (boulderReference.lineBoulders.isNotEmpty) {
       expect(
-        find.byType(BbLineBoulderImage),
+        find.byType(LineBoulderImage),
         findsWidgets,
       );
 
-      await tester.tap(find.byType(BbLineBoulderImage).first);
+      await tester.tap(find.byType(LineBoulderImage).first);
 
       await tester.pumpAndSettle();
 
@@ -776,7 +776,7 @@ void main() async {
 
     expect(find.text(searchedBoulder), findsOneWidget);
 
-    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
+    await tester.tap(find.byType(BoulderListBuilderTile).first);
 
     expect(find.text(searchedBoulder), findsOneWidget);
     await tester.pumpAndSettle();
@@ -896,19 +896,19 @@ void main() async {
     print('found elements: ${gradeFinder.evaluate().length}');
     expect(
       gradeFinder.evaluate().length,
-      equals(find.byType(BbBoulderListBuilderTile).evaluate().length),
+      equals(find.byType(BoulderListBuilderTile).evaluate().length),
     );
   });
 
   testWidgets('sort boulders', (WidgetTester tester) async {
-    BbBoulderListBuilderTile getBoulderListTileAt(int index) {
+    BoulderListBuilderTile getBoulderListTileAt(int index) {
       return find
           .byWidgetPredicate(
-            (Widget widget) => widget is BbBoulderListBuilderTile,
+            (Widget widget) => widget is BoulderListBuilderTile,
           )
           .evaluate()
           .elementAt(index)
-          .widget as BbBoulderListBuilderTile;
+          .widget as BoulderListBuilderTile;
     }
 
     final boulderRepository = BoulderRepository(
@@ -1024,7 +1024,7 @@ by clicking on the "scroll to to the top" button''',
     expect(boulderReference, isNot(null));
     await runApplication(tester: tester);
     // tap on the first tile and show details
-    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
+    await tester.tap(find.byType(BoulderListBuilderTile).first);
     await tester.pumpAndSettle();
 
     await tester.scrollUntilVisible(
@@ -1127,7 +1127,7 @@ by clicking on the "scroll to to the top" button''',
       findsOneWidget,
     );
 
-    await tester.tap(find.byType(BbShareButton).first);
+    await tester.tap(find.byType(ShareButton).first);
 
     await tester.pumpAndSettle();
 
@@ -1164,7 +1164,7 @@ by clicking on the "scroll to to the top" button''',
     expect(boulderReference, isNot(null));
     await runApplication(tester: tester);
     // tap on the first tile and show details
-    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
+    await tester.tap(find.byType(BoulderListBuilderTile).first);
     await tester.pumpAndSettle();
 
     await tester.scrollUntilVisible(
@@ -1208,7 +1208,7 @@ by clicking on the "scroll to to the top" button''',
       findsOneWidget,
     );
 
-    await tester.tap(find.byType(BbShareButton).first);
+    await tester.tap(find.byType(ShareButton).first);
 
     await tester.pumpAndSettle();
 
@@ -1229,7 +1229,7 @@ by clicking on the "scroll to to the top" button''',
       findsOneWidget,
     );
 
-    expect(find.byType(BbMapLauncherButton), findsOneWidget);
+    expect(find.byType(MapLauncherButton), findsOneWidget);
 
     expect(
       find.byType(GoogleMap),
@@ -1241,17 +1241,17 @@ by clicking on the "scroll to to the top" button''',
       (WidgetTester tester) async {
     // prior to test, I fetch boulders to retrieve a reference
     // and assert boulders details dynamically
-    BbBoulderListBuilderTile getBoulderListTileAt(
+    BoulderListBuilderTile getBoulderListTileAt(
       CommonFinders find,
       int index,
     ) {
       return find
           .byWidgetPredicate(
-            (Widget widget) => widget is BbBoulderListBuilderTile,
+            (Widget widget) => widget is BoulderListBuilderTile,
           )
           .evaluate()
           .elementAt(index)
-          .widget as BbBoulderListBuilderTile;
+          .widget as BoulderListBuilderTile;
     }
 
     Future<void> sortByLabel({required String label}) async {
@@ -1272,7 +1272,7 @@ by clicking on the "scroll to to the top" button''',
     expect(boulderReference, isNot(null));
     await runApplication(tester: tester);
     // tap on the first tile and show details
-    await tester.tap(find.byType(BbBoulderListBuilderTile).first);
+    await tester.tap(find.byType(BoulderListBuilderTile).first);
     await tester.pumpAndSettle();
 
     await tester.scrollUntilVisible(

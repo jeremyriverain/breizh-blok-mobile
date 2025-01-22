@@ -7,8 +7,8 @@ import 'package:breizh_blok_mobile/constants.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
-import 'package:breizh_blok_mobile/ui/widgets/bb_boulder_list_builder.dart';
-import 'package:breizh_blok_mobile/ui/widgets/bb_modal_closing_button.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,10 +97,10 @@ class MapMarker {
                     return FractionallySizedBox(
                       heightFactor: 0.8,
                       child: Scaffold(
-                        floatingActionButton: const BbModalClosingButton(),
+                        floatingActionButton: const ModalClosingButton(),
                         floatingActionButtonLocation:
                             FloatingActionButtonLocation.endTop,
-                        body: BbBoulderListBuilder(
+                        body: BoulderListBuilder(
                           boulderFilterBloc:
                               BoulderFilterBloc(BoulderFilterState()),
                           onPageRequested: (int page) {

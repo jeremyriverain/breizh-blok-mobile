@@ -13,20 +13,20 @@ import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
-import 'package:breizh_blok_mobile/navigation/app_router.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/repositories/department_repository.dart';
 import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
+import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/share_content_service.dart';
 import 'package:breizh_blok_mobile/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/tracking_service.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:flutter/material.dart' hide HttpClientProvider;
+import 'package:flutter/material.dart' hide HttpClientProvider, Router;
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -103,7 +103,7 @@ Future<void> main({
 
   GetIt.I.registerSingleton<TrackingService>(TrackingService());
 
-  GetIt.I.registerSingleton<GoRouter>(AppRouter()());
+  GetIt.I.registerSingleton<GoRouter>(Router()());
 
   await SentryFlutter.init(
     (options) {
