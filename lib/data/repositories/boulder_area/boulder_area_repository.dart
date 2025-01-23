@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/app_http_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/collection_items.dart';
-import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
 
 class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
   BoulderAreaRepository({
@@ -11,7 +11,7 @@ class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
   });
 
   @override
-  final AppHttpClient httpClient;
+  final ApiClient httpClient;
 
   @override
   Future<BoulderArea> find(
@@ -32,7 +32,7 @@ class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
   }
 
   @override
-  Future<CollectionItems<BoulderArea>> findBy({
+  Future<PaginatedCollection<BoulderArea>> findBy({
     Map<String, List<String>>? queryParams,
   }) {
     throw UnimplementedError();

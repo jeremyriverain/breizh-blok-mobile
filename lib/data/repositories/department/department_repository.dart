@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/app_http_client.dart';
-import 'package:breizh_blok_mobile/models/collection_items.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.dart';
+import 'package:breizh_blok_mobile/data/repositories/query_param_factory.dart';
 import 'package:breizh_blok_mobile/models/department.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
-import 'package:breizh_blok_mobile/query_param_factory.dart';
-import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
 import 'package:flutter/foundation.dart';
 
 class DepartmentRepository implements ApiRepositoryInterface<Department> {
   DepartmentRepository({required this.httpClient});
 
   @override
-  final AppHttpClient httpClient;
+  final ApiClient httpClient;
 
   @override
-  Future<CollectionItems<Department>> findBy({
+  Future<PaginatedCollection<Department>> findBy({
     Map<String, List<String>>? queryParams,
   }) async {
     final query = QueryParamFactory.stringify(queryParams: queryParams);
@@ -32,7 +32,7 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
     return compute(_parseDepartments, response);
   }
 
-  Future<CollectionItems<Department>> findAll() {
+  Future<PaginatedCollection<Department>> findAll() {
     return findBy(
       queryParams: {
         'exists[municipalities.boulderAreas.rocks.boulders]': ['true'],
@@ -48,8 +48,8 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
   }
 }
 
-CollectionItems<Department> _parseDepartments(String responseBody) {
-  return CollectionItems.fromApi(
+PaginatedCollection<Department> _parseDepartments(String responseBody) {
+  return PaginatedCollection.fromApi(
     jsonDecode(responseBody) as Map<String, dynamic>,
     Department.fromJson,
   );

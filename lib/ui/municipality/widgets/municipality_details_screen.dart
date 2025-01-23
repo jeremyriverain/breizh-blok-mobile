@@ -1,5 +1,5 @@
+import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
-import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/loading_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/not_found_screen.dart';

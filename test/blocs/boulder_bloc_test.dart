@@ -1,25 +1,25 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/models/rock.dart';
-import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-@GenerateNiceMocks([MockSpec<AppHttpClient>(), MockSpec<BoulderRepository>()])
+@GenerateNiceMocks([MockSpec<ApiClient>(), MockSpec<BoulderRepository>()])
 import './boulder_bloc_test.mocks.dart';
 
 void main() {
-  final mockHttpClient = MockAppHttpClient();
+  final mockHttpClient = MockApiClient();
   final mockBoulderRepository = MockBoulderRepository();
 
   setUp(() {
@@ -111,7 +111,7 @@ void main() {
             ),
           ),
         ).thenAnswer((_) async {
-          return CollectionItems<Boulder>(
+          return PaginatedCollection<Boulder>(
             items: [
               boulder5a,
               boulder6a,
@@ -166,7 +166,7 @@ void main() {
             ),
           ),
         ).thenAnswer((_) async {
-          return CollectionItems<Boulder>(
+          return PaginatedCollection<Boulder>(
             items: [
               boulder5a,
               boulder6a,
@@ -221,7 +221,7 @@ void main() {
             ),
           ),
         ).thenAnswer((_) async {
-          return CollectionItems<Boulder>(
+          return PaginatedCollection<Boulder>(
             items: [
               boulder5a,
               boulder6a,
@@ -277,7 +277,7 @@ void main() {
             ),
           ),
         ).thenAnswer((_) async {
-          return CollectionItems<Boulder>(
+          return PaginatedCollection<Boulder>(
             items: [
               boulder5a,
               boulder5aPlus,
@@ -330,7 +330,7 @@ void main() {
             ),
           ),
         ).thenAnswer((_) async {
-          return CollectionItems<Boulder>(
+          return PaginatedCollection<Boulder>(
             items: [
               boulder5a,
               boulder5aPlus,

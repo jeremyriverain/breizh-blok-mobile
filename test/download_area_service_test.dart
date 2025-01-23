@@ -1,7 +1,7 @@
-import 'package:breizh_blok_mobile/app_http_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/location.dart';
 import 'package:breizh_blok_mobile/models/municipality.dart';
@@ -43,7 +43,7 @@ void main() {
     );
   });
   final database = AppDatabase(NativeDatabase.memory());
-  final httpClient = AppHttpClient(
+  final httpClient = ApiClient(
     database: database,
     httpClient: mockClient,
   );

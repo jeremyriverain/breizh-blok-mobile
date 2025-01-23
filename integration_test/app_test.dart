@@ -3,19 +3,19 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/constants.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/iri_parser.dart';
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:breizh_blok_mobile/main.dart' as app;
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
-import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
-import 'package:breizh_blok_mobile/repositories/department_repository.dart';
-import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
-import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/share_content_service.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated_item.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_tile.dart';
@@ -54,7 +54,7 @@ void main() async {
   };
 
   final database = AppDatabase(NativeDatabase.memory());
-  final httpClient = AppHttpClient(database: database);
+  final httpClient = ApiClient(database: database);
 
   final mockShareContentService = MockShareContentService();
   final mockMixpanel = MockMixpanel();

@@ -1,19 +1,19 @@
+import 'package:breizh_blok_mobile/data/data_sources/api/model/boulder/boulder_api_response.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/download_area_service.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
-import 'package:breizh_blok_mobile/models/response.dart';
-import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-typedef BoulderState = Response<CollectionItems<Boulder>>;
+typedef BoulderState = BoulderApiResponse<PaginatedCollection<Boulder>>;
 
 class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
   BoulderBloc({
     required this.repository,
-  }) : super(const Response()) {
+  }) : super(const BoulderApiResponse()) {
     on<BoulderRequested>(
       (event, emit) async {
         final queryParams = <String, List<String>>{
@@ -48,13 +48,13 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
             queryParams: queryParams,
           );
           emit(
-            Response(
+            BoulderApiResponse(
               data: data,
             ),
           );
         } catch (error) {
           emit(
-            Response(
+            BoulderApiResponse(
               error: error,
             ),
           );
@@ -103,13 +103,13 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
           );
 
           emit(
-            Response(
+            BoulderApiResponse(
               data: data,
             ),
           );
         } catch (error) {
           emit(
-            Response(
+            BoulderApiResponse(
               error: error,
             ),
           );

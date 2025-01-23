@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/app_http_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/repositories/query_param_factory.dart';
 import 'package:breizh_blok_mobile/models/boulder_marker.dart';
-import 'package:breizh_blok_mobile/query_param_factory.dart';
 
 class BoulderMarkerRepository {
   BoulderMarkerRepository({
     required this.httpClient,
   });
 
-  final AppHttpClient httpClient;
+  final ApiClient httpClient;
 
   Future<List<BoulderMarker>> findBy({
     Map<String, List<String>>? queryParams,

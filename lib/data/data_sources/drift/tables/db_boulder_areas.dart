@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/local_db/tables/db_requests.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/tables/db_requests.dart';
 import 'package:drift/drift.dart';
 
 class DbBoulderAreas extends Table {

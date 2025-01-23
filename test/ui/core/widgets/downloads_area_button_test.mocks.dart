@@ -5,9 +5,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 
-import 'package:breizh_blok_mobile/app_http_client.dart' as _i8;
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart'
+    as _i8;
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart'
+    as _i2;
 import 'package:breizh_blok_mobile/image_boulder_cache.dart' as _i12;
-import 'package:breizh_blok_mobile/local_db/app_database.dart' as _i2;
 import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart' as _i10;
 import 'package:breizh_blok_mobile/models/order_param.dart' as _i11;
 import 'package:drift/drift.dart' as _i4;
@@ -275,10 +277,10 @@ class _FakeCacheManager_22 extends _i1.SmartFake implements _i7.CacheManager {
         );
 }
 
-/// A class which mocks [AppHttpClient].
+/// A class which mocks [ApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppHttpClient extends _i1.Mock implements _i8.AppHttpClient {
+class MockApiClient extends _i1.Mock implements _i8.ApiClient {
   @override
   _i2.AppDatabase get database => (super.noSuchMethod(
         Invocation.getter(#database),

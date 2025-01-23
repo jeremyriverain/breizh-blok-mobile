@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:breizh_blok_mobile/constants.dart';
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
 
-class AppHttpClient {
-  AppHttpClient({
+class ApiClient {
+  ApiClient({
     required this.database,
     http.Client? httpClient,
   }) : httpClient = httpClient ?? http.Client();

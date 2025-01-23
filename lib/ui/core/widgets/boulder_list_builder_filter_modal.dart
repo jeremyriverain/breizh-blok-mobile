@@ -1,6 +1,6 @@
-import 'package:breizh_blok_mobile/models/collection_items.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
-import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_grade.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ class BoulderListBuilderFilterModal extends StatelessWidget {
     super.key,
   });
 
-  Future<CollectionItems<Grade>> _fetch(BuildContext context) {
+  Future<PaginatedCollection<Grade>> _fetch(BuildContext context) {
     return context.read<GradeRepository>().findAll();
   }
 
@@ -24,7 +24,7 @@ class BoulderListBuilderFilterModal extends StatelessWidget {
         future: _fetch(context),
         builder: (
           BuildContext context,
-          AsyncSnapshot<CollectionItems<Grade>> snapshot,
+          AsyncSnapshot<PaginatedCollection<Grade>> snapshot,
         ) {
           final data = snapshot.data;
 

@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
 import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/empty_list_indicator.dart';

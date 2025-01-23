@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/local_db/tables/db_boulder_areas.dart';
-import 'package:breizh_blok_mobile/local_db/tables/db_requests.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/tables/db_boulder_areas.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/tables/db_requests.dart';
 import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:drift/drift.dart';

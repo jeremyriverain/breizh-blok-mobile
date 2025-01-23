@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/query_param_factory.dart';
+import 'package:breizh_blok_mobile/data/repositories/query_param_factory.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

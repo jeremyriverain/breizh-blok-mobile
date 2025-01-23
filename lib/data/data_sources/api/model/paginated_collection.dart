@@ -1,11 +1,11 @@
-class CollectionItems<T> {
-  const CollectionItems({
+class PaginatedCollection<T> {
+  const PaginatedCollection({
     required this.items,
     required this.totalItems,
     this.nextPage,
   });
 
-  factory CollectionItems.fromApi(
+  factory PaginatedCollection.fromApi(
     Map<String, dynamic> json,
     T Function(Map<String, dynamic>) callbackItem,
   ) {
@@ -22,7 +22,7 @@ class CollectionItems<T> {
         }) {
       nextPage = extractPage(nextPageUrl);
     }
-    return CollectionItems(
+    return PaginatedCollection(
       items: items,
       totalItems: json['hydra:totalItems'] as int,
       nextPage: nextPage,
@@ -32,12 +32,12 @@ class CollectionItems<T> {
   final int totalItems;
   final int? nextPage;
 
-  CollectionItems<T> copyWith({
+  PaginatedCollection<T> copyWith({
     List<T>? items,
     int? totalItems,
     int? nextPage,
   }) {
-    return CollectionItems(
+    return PaginatedCollection(
       items: items ?? this.items,
       totalItems: totalItems ?? this.totalItems,
       nextPage: nextPage ?? this.nextPage,

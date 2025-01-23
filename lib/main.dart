@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:breizh_blok_mobile/app_http_client.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
@@ -10,15 +9,16 @@ import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
-import 'package:breizh_blok_mobile/repositories/boulder_area_repository.dart';
-import 'package:breizh_blok_mobile/repositories/boulder_marker_repository.dart';
-import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
-import 'package:breizh_blok_mobile/repositories/department_repository.dart';
-import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
-import 'package:breizh_blok_mobile/repositories/municipality_repository.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/share_content_service.dart';
 import 'package:breizh_blok_mobile/share_content_service_interface.dart';
@@ -59,7 +59,7 @@ Future<void> main({
         ),
   );
 
-  final httpClient = AppHttpClient(
+  final httpClient = ApiClient(
     database: localDatabase,
   );
 
@@ -135,7 +135,7 @@ Future<void> main({
           RepositoryProvider<AppDatabase>(
             create: (context) => localDatabase,
           ),
-          RepositoryProvider<AppHttpClient>(
+          RepositoryProvider<ApiClient>(
             create: (context) => httpClient,
           ),
           RepositoryProvider<ImageBoulderCache>(

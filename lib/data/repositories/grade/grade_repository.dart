@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/app_http_client.dart';
-import 'package:breizh_blok_mobile/models/collection_items.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.dart';
+import 'package:breizh_blok_mobile/data/repositories/query_param_factory.dart';
 import 'package:breizh_blok_mobile/models/grade.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
-import 'package:breizh_blok_mobile/query_param_factory.dart';
-import 'package:breizh_blok_mobile/repositories/api_repository_interface.dart';
 import 'package:flutter/foundation.dart';
 
 class GradeRepository implements ApiRepositoryInterface<Grade> {
   GradeRepository({required this.httpClient});
 
   @override
-  final AppHttpClient httpClient;
+  final ApiClient httpClient;
 
   @override
-  Future<CollectionItems<Grade>> findBy({
+  Future<PaginatedCollection<Grade>> findBy({
     Map<String, List<String>>? queryParams,
   }) async {
     final query = QueryParamFactory.stringify(queryParams: queryParams);
@@ -32,7 +32,7 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
     return compute(_parseGrades, response);
   }
 
-  Future<CollectionItems<Grade>> findAll() async {
+  Future<PaginatedCollection<Grade>> findAll() async {
     return findBy(
       queryParams: findAllQueryParams,
     );
@@ -50,8 +50,8 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
   }
 }
 
-CollectionItems<Grade> _parseGrades(String responseBody) {
-  return CollectionItems.fromApi(
+PaginatedCollection<Grade> _parseGrades(String responseBody) {
+  return PaginatedCollection.fromApi(
     jsonDecode(responseBody) as Map<String, dynamic>,
     Grade.fromJson,
   );

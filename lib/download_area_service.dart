@@ -1,9 +1,9 @@
-import 'package:breizh_blok_mobile/app_http_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
+import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
 import 'package:breizh_blok_mobile/image_boulder_cache.dart';
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
 import 'package:breizh_blok_mobile/models/boulder_area.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
-import 'package:breizh_blok_mobile/repositories/grade_repository.dart';
 import 'package:drift/drift.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -15,7 +15,7 @@ class DownloadAreaService {
   });
 
   final AppDatabase database;
-  final AppHttpClient httpClient;
+  final ApiClient httpClient;
   final ImageBoulderCache imageBoulderCache;
 
   static final regexpImage = RegExp(

@@ -2,8 +2,8 @@
 
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/app_http_client.dart';
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -27,7 +27,7 @@ void main() {
         );
       });
       final database = AppDatabase(NativeDatabase.memory());
-      final httpClient = AppHttpClient(
+      final httpClient = ApiClient(
         database: database,
         httpClient: mockClient,
       );
@@ -76,7 +76,7 @@ void main() {
         throw http.ClientException('client exception');
       });
       final database = AppDatabase(NativeDatabase.memory());
-      final httpClient = AppHttpClient(
+      final httpClient = ApiClient(
         database: database,
         httpClient: mockClient,
       );
@@ -100,7 +100,7 @@ void main() {
         throw http.ClientException('client exception');
       });
       final database = AppDatabase(NativeDatabase.memory());
-      final httpClient = AppHttpClient(
+      final httpClient = ApiClient(
         database: database,
         httpClient: mockClient,
       );
@@ -124,7 +124,7 @@ void main() {
         throw const HttpExceptionWithStatus(404, 'not found');
       });
       final database = AppDatabase(NativeDatabase.memory());
-      final httpClient = AppHttpClient(
+      final httpClient = ApiClient(
         database: database,
         httpClient: mockClient,
       );
@@ -156,7 +156,7 @@ void main() {
       });
 
       final database = AppDatabase(NativeDatabase.memory());
-      final httpClient = AppHttpClient(
+      final httpClient = ApiClient(
         database: database,
         httpClient: mockClient,
       );
@@ -198,7 +198,7 @@ even if the attempt to persist the response from the network fails''',
       });
 
       final database = AppDatabase(NativeDatabase.memory());
-      final httpClient = AppHttpClient(
+      final httpClient = ApiClient(
         database: database,
         httpClient: mockClient,
       );
@@ -237,7 +237,7 @@ even if the attempt to persist the response from the network fails''',
       });
 
       final database = AppDatabase(NativeDatabase.memory());
-      final httpClient = AppHttpClient(
+      final httpClient = ApiClient(
         database: database,
         httpClient: mockClient,
       );
@@ -259,7 +259,7 @@ even if the attempt to persist the response from the network fails''',
 
   test('normalizeRequestPath sorts query parameters alphabetically', () {
     final database = AppDatabase(NativeDatabase.memory());
-    final httpClient = AppHttpClient(
+    final httpClient = ApiClient(
       database: database,
       httpClient: http.Client(),
     );

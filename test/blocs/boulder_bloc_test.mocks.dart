@@ -5,11 +5,15 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i7;
 
-import 'package:breizh_blok_mobile/app_http_client.dart' as _i4;
-import 'package:breizh_blok_mobile/local_db/app_database.dart' as _i2;
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart'
+    as _i4;
+import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart'
+    as _i6;
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart'
+    as _i2;
+import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart'
+    as _i9;
 import 'package:breizh_blok_mobile/models/boulder.dart' as _i5;
-import 'package:breizh_blok_mobile/models/collection_items.dart' as _i6;
-import 'package:breizh_blok_mobile/repositories/boulder_repository.dart' as _i9;
 import 'package:http/http.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i8;
@@ -47,8 +51,8 @@ class _FakeClient_1 extends _i1.SmartFake implements _i3.Client {
         );
 }
 
-class _FakeAppHttpClient_2 extends _i1.SmartFake implements _i4.AppHttpClient {
-  _FakeAppHttpClient_2(
+class _FakeApiClient_2 extends _i1.SmartFake implements _i4.ApiClient {
+  _FakeApiClient_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -67,9 +71,9 @@ class _FakeBoulder_3 extends _i1.SmartFake implements _i5.Boulder {
         );
 }
 
-class _FakeCollectionItems_4<T> extends _i1.SmartFake
-    implements _i6.CollectionItems<T> {
-  _FakeCollectionItems_4(
+class _FakePaginatedCollection_4<T> extends _i1.SmartFake
+    implements _i6.PaginatedCollection<T> {
+  _FakePaginatedCollection_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -78,10 +82,10 @@ class _FakeCollectionItems_4<T> extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [AppHttpClient].
+/// A class which mocks [ApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAppHttpClient extends _i1.Mock implements _i4.AppHttpClient {
+class MockApiClient extends _i1.Mock implements _i4.ApiClient {
   @override
   _i2.AppDatabase get database => (super.noSuchMethod(
         Invocation.getter(#database),
@@ -177,17 +181,17 @@ class MockAppHttpClient extends _i1.Mock implements _i4.AppHttpClient {
 /// See the documentation for Mockito's code generation for more information.
 class MockBoulderRepository extends _i1.Mock implements _i9.BoulderRepository {
   @override
-  _i4.AppHttpClient get httpClient => (super.noSuchMethod(
+  _i4.ApiClient get httpClient => (super.noSuchMethod(
         Invocation.getter(#httpClient),
-        returnValue: _FakeAppHttpClient_2(
+        returnValue: _FakeApiClient_2(
           this,
           Invocation.getter(#httpClient),
         ),
-        returnValueForMissingStub: _FakeAppHttpClient_2(
+        returnValueForMissingStub: _FakeApiClient_2(
           this,
           Invocation.getter(#httpClient),
         ),
-      ) as _i4.AppHttpClient);
+      ) as _i4.ApiClient);
   @override
   _i7.Future<_i5.Boulder> find(String? id) => (super.noSuchMethod(
         Invocation.method(
@@ -210,7 +214,7 @@ class MockBoulderRepository extends _i1.Mock implements _i9.BoulderRepository {
         )),
       ) as _i7.Future<_i5.Boulder>);
   @override
-  _i7.Future<_i6.CollectionItems<_i5.Boulder>> findBy({
+  _i7.Future<_i6.PaginatedCollection<_i5.Boulder>> findBy({
     Map<String, List<String>>? queryParams,
     bool? offlineFirst = false,
     Duration? timeout,
@@ -225,8 +229,8 @@ class MockBoulderRepository extends _i1.Mock implements _i9.BoulderRepository {
             #timeout: timeout,
           },
         ),
-        returnValue: _i7.Future<_i6.CollectionItems<_i5.Boulder>>.value(
-            _FakeCollectionItems_4<_i5.Boulder>(
+        returnValue: _i7.Future<_i6.PaginatedCollection<_i5.Boulder>>.value(
+            _FakePaginatedCollection_4<_i5.Boulder>(
           this,
           Invocation.method(
             #findBy,
@@ -239,8 +243,8 @@ class MockBoulderRepository extends _i1.Mock implements _i9.BoulderRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<_i6.CollectionItems<_i5.Boulder>>.value(
-                _FakeCollectionItems_4<_i5.Boulder>(
+            _i7.Future<_i6.PaginatedCollection<_i5.Boulder>>.value(
+                _FakePaginatedCollection_4<_i5.Boulder>(
           this,
           Invocation.method(
             #findBy,
@@ -252,5 +256,5 @@ class MockBoulderRepository extends _i1.Mock implements _i9.BoulderRepository {
             },
           ),
         )),
-      ) as _i7.Future<_i6.CollectionItems<_i5.Boulder>>);
+      ) as _i7.Future<_i6.PaginatedCollection<_i5.Boulder>>);
 }

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/app_http_client.dart';
-import 'package:breizh_blok_mobile/local_db/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/models/boulder.dart';
-import 'package:breizh_blok_mobile/models/collection_items.dart';
 import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/models/request_strategy.dart';
-import 'package:breizh_blok_mobile/repositories/boulder_repository.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +27,7 @@ class BoulderDetailsAssociated extends StatefulWidget {
 
 class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
     with AutomaticKeepAliveClientMixin {
-  Future<CollectionItems<Boulder>> _findBoulders(BuildContext context) {
+  Future<PaginatedCollection<Boulder>> _findBoulders(BuildContext context) {
     if (!context.read<RequestStrategy>().offlineFirst) {
       return context.read<BoulderRepository>().findBy(
         queryParams: {
@@ -49,7 +49,7 @@ class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
       if (bouldersPath == null) {
         throw Exception('boulders property should be defined');
       }
-      return context.read<AppHttpClient>().get(
+      return context.read<ApiClient>().get(
             Uri.parse(bouldersPath),
             offlineFirst: true,
           );
@@ -60,7 +60,7 @@ class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
               // ignore: avoid_dynamic_calls
               .where((json) => json['rock']['@id'] == widget.boulder.rock.iri)
               .toList();
-      return CollectionItems(
+      return PaginatedCollection(
         items: bouldersJson
             .map((json) => Boulder.fromJson(json as Map<String, dynamic>))
             .toList()
@@ -73,7 +73,7 @@ class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return FutureBuilder<CollectionItems<Boulder>>(
+    return FutureBuilder<PaginatedCollection<Boulder>>(
       future: _findBoulders(context),
       builder: (context, snapshot) {
         if (snapshot.hasData) {

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class Response<T> extends Equatable {
-  const Response({
+class BoulderApiResponse<T> extends Equatable {
+  const BoulderApiResponse({
     this.data,
     this.error,
   });
