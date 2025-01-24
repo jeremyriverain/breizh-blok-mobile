@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
-import 'package:breizh_blok_mobile/share_content_service.dart';
-import 'package:breizh_blok_mobile/share_content_service_interface.dart';
+import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
+import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

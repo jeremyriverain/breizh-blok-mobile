@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/tracking_service.dart';
+import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';

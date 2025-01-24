@@ -3,10 +3,9 @@ import 'dart:ui' as ui;
 import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
-import 'package:breizh_blok_mobile/constants.dart';
-import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/boulder_marker.dart';
-import 'package:breizh_blok_mobile/models/request_strategy.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +13,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+const kSizeSimpleMarker = 75;
 
 class MapMarker {
   static Future<BitmapDescriptor> getMarkerBitmap(

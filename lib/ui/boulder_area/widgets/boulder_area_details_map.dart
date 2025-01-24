@@ -1,10 +1,10 @@
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
-import 'package:breizh_blok_mobile/constants.dart';
-import 'package:breizh_blok_mobile/map_directions.dart';
-import 'package:breizh_blok_mobile/map_marker.dart';
-import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/location.dart';
-import 'package:breizh_blok_mobile/models/request_strategy.dart';
+import 'package:breizh_blok_mobile/config/assets.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/map/map_directions.dart';
+import 'package:breizh_blok_mobile/domain/models/map/map_marker.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_map.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_error_message.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
@@ -46,7 +46,7 @@ class BoulderAreaDetailsMap extends StatelessWidget {
         Expanded(
           child: FutureBuilder(
             future: Future.wait([
-              MapMarker.getMarkerIconFromAsset(path: kParkingIcon),
+              MapMarker.getMarkerIconFromAsset(path: Assets.parkingIcon),
               MapLauncher.installedMaps,
             ]),
             builder: (context, AsyncSnapshot<List<Object>> snapshot) {

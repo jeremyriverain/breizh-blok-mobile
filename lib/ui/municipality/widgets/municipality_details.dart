@@ -1,6 +1,6 @@
-import 'package:breizh_blok_mobile/iri_parser.dart';
-import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/municipality.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_boulder_area_item.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_map.dart';

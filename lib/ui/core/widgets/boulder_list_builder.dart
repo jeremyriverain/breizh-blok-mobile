@@ -4,11 +4,11 @@ import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/boulder/boulder_api_response.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
-import 'package:breizh_blok_mobile/models/boulder.dart';
-import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_back_to_top_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_results.dart';
@@ -95,7 +95,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
             _pagingController.refresh();
           },
         ),
-        BlocListener<BoulderOrderBloc, OrderParam>(
+        BlocListener<BoulderOrderBloc, ApiOrderParam>(
           listener: (context, state) {
             _pagingController.refresh();
           },

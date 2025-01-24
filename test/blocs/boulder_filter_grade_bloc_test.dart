@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
-import 'package:breizh_blok_mobile/models/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/grade.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

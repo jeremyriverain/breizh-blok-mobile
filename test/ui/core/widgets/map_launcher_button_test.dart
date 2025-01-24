@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, avoid_dynamic_calls
 
-import 'package:breizh_blok_mobile/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/location.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

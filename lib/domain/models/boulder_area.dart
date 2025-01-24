@@ -1,7 +1,6 @@
-import 'package:breizh_blok_mobile/constants.dart';
-import 'package:breizh_blok_mobile/models/grade.dart';
-import 'package:breizh_blok_mobile/models/location.dart';
-import 'package:breizh_blok_mobile/models/municipality.dart';
+import 'package:breizh_blok_mobile/domain/models/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

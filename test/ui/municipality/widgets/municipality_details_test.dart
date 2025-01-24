@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
 
-import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/grade.dart';
-import 'package:breizh_blok_mobile/models/municipality.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

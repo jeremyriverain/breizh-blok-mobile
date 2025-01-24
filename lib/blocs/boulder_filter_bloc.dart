@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

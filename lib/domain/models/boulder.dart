@@ -1,6 +1,6 @@
-import 'package:breizh_blok_mobile/models/grade.dart';
-import 'package:breizh_blok_mobile/models/line_boulder.dart';
-import 'package:breizh_blok_mobile/models/rock.dart';
+import 'package:breizh_blok_mobile/domain/models/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/line_boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/rock.dart';
 import 'package:equatable/equatable.dart';
 
 class Boulder extends Equatable {

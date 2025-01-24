@@ -1,41 +1,41 @@
-import 'package:breizh_blok_mobile/models/order_choice.dart';
-import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_choice.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/sort_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final radioListTileType = const RadioListTile<OrderParam>(
-    value: OrderParam(name: '', direction: ''),
-    groupValue: OrderParam(name: '', direction: ''),
+  final radioListTileType = const RadioListTile<ApiOrderParam>(
+    value: ApiOrderParam(name: '', direction: ''),
+    groupValue: ApiOrderParam(name: '', direction: ''),
     onChanged: null,
   ).runtimeType;
 
-  List<RadioListTile<OrderParam>> findTiles() {
+  List<RadioListTile<ApiOrderParam>> findTiles() {
     return find
         .byType(radioListTileType)
         .evaluate()
         .map<Widget>((Element element) => element.widget)
-        .cast<RadioListTile<OrderParam>>()
+        .cast<RadioListTile<ApiOrderParam>>()
         .toList();
   }
 
   final choices = [
-    OrderChoice(
+    ApiOrderChoice(
       label: 'label 1',
-      orderParam: const OrderParam(direction: 'bar', name: 'foo'),
+      orderParam: const ApiOrderParam(direction: 'bar', name: 'foo'),
     ),
-    OrderChoice(
+    ApiOrderChoice(
       label: 'label 2',
-      orderParam: const OrderParam(direction: 'foo', name: 'bar'),
+      orderParam: const ApiOrderParam(direction: 'foo', name: 'bar'),
     ),
   ];
 
   testWidgets('I can select specific radio tile', (WidgetTester tester) async {
     const defaultLabel = 'Afficher en 1er:';
 
-    OrderParam? result;
+    ApiOrderParam? result;
 
     await tester.pumpWidget(
       MaterialApp(

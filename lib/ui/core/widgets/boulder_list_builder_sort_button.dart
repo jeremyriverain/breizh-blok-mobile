@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
-import 'package:breizh_blok_mobile/models/order_choice.dart';
-import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_choice.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/sort_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,23 +16,23 @@ class BoulderListBuilderSortButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SortButton(
       choices: [
-        OrderChoice(
+        ApiOrderChoice(
           label: AppLocalizations.of(context).theMostRecent,
-          orderParam: const OrderParam(
+          orderParam: const ApiOrderParam(
             name: kIdOrderParam,
             direction: kDescendantDirection,
           ),
         ),
-        OrderChoice(
+        ApiOrderChoice(
           label: AppLocalizations.of(context).theEasiest,
-          orderParam: const OrderParam(
+          orderParam: const ApiOrderParam(
             name: kGradeOrderParam,
             direction: kAscendantDirection,
           ),
         ),
-        OrderChoice(
+        ApiOrderChoice(
           label: AppLocalizations.of(context).theHardest,
-          orderParam: const OrderParam(
+          orderParam: const ApiOrderParam(
             name: kGradeOrderParam,
             direction: kDescendantDirection,
           ),

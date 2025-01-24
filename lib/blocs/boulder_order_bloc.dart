@@ -1,7 +1,7 @@
-import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BoulderOrderBloc extends Bloc<BoulderOrderEvent, OrderParam> {
+class BoulderOrderBloc extends Bloc<BoulderOrderEvent, ApiOrderParam> {
   BoulderOrderBloc(super.initialState) {
     on<BoulderOrderEvent>(
       (event, emit) {
@@ -14,5 +14,5 @@ class BoulderOrderBloc extends Bloc<BoulderOrderEvent, OrderParam> {
 class BoulderOrderEvent {
   BoulderOrderEvent(this.order);
 
-  final OrderParam order;
+  final ApiOrderParam order;
 }

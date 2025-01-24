@@ -1,3 +1,10 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+const kDefaultInitialPosition = LatLng(
+  48.066152,
+  -2.967056,
+);
+
 class Location {
   Location({required this.latitude, required this.longitude});
 

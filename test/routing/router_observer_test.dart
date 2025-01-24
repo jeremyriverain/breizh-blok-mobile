@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/routing/router_observer.dart';
-import 'package:breizh_blok_mobile/tracking_service.dart';
+import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';

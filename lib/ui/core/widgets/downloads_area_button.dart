@@ -1,10 +1,10 @@
 import 'dart:isolate';
 
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
-import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
-import 'package:breizh_blok_mobile/download_area_service.dart';
-import 'package:breizh_blok_mobile/image_boulder_cache.dart';
-import 'package:breizh_blok_mobile/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
+import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
 import 'package:drift/isolate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,6 +1,6 @@
-import 'package:breizh_blok_mobile/iri_parser.dart';
-import 'package:breizh_blok_mobile/models/boulder.dart';
-import 'package:breizh_blok_mobile/models/request_strategy.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_map.dart';

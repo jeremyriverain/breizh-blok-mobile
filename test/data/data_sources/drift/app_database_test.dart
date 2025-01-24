@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
-import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/model/downloaded_boulder_area.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';

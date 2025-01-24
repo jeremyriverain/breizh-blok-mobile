@@ -3,9 +3,9 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:breizh_blok_mobile/models/boulder_area.dart' as _i2;
-import 'package:breizh_blok_mobile/models/location.dart' as _i3;
-import 'package:breizh_blok_mobile/models/rock.dart' as _i4;
+import 'package:breizh_blok_mobile/domain/models/boulder_area.dart' as _i2;
+import 'package:breizh_blok_mobile/domain/models/location.dart' as _i3;
+import 'package:breizh_blok_mobile/domain/models/rock.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
 

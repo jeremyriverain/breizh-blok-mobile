@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/models/order_choice.dart';
-import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_choice.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,17 +13,17 @@ class SortButton extends StatefulWidget {
     this.initialSelected,
   });
 
-  final List<OrderChoice> choices;
-  final void Function(OrderParam) onChanged;
+  final List<ApiOrderChoice> choices;
+  final void Function(ApiOrderParam) onChanged;
   final String label;
-  final OrderParam? initialSelected;
+  final ApiOrderParam? initialSelected;
 
   @override
   State<SortButton> createState() => _SortButtonState();
 }
 
 class _SortButtonState extends State<SortButton> {
-  OrderParam? _value;
+  ApiOrderParam? _value;
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _SortButtonState extends State<SortButton> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   for (final orderChoice in widget.choices)
-                    RadioListTile<OrderParam>(
+                    RadioListTile<ApiOrderParam>(
                       value: orderChoice.orderParam,
                       groupValue: _value,
                       onChanged: (value) {

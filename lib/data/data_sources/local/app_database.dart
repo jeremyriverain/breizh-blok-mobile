@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/data/data_sources/drift/tables/db_boulder_areas.dart';
-import 'package:breizh_blok_mobile/data/data_sources/drift/tables/db_requests.dart';
-import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart';
-import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/model/downloaded_boulder_area.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/tables/db_boulder_areas.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/tables/db_requests.dart';
 import 'package:drift/drift.dart';
 
 part 'app_database.g.dart';
@@ -29,8 +29,10 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Future<List<DownloadedBoulderArea>> allDownloads({
-    OrderParam orderParam =
-        const OrderParam(direction: kDescendantDirection, name: kIdOrderParam),
+    ApiOrderParam orderParam = const ApiOrderParam(
+      direction: kDescendantDirection,
+      name: kIdOrderParam,
+    ),
   }) async {
     final rows = await select(dbBoulderAreas).join([
       innerJoin(

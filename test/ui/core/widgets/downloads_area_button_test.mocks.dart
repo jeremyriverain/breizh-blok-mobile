@@ -7,11 +7,14 @@ import 'dart:async' as _i6;
 
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart'
     as _i8;
-import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart'
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart'
+    as _i11;
+import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart'
     as _i2;
-import 'package:breizh_blok_mobile/image_boulder_cache.dart' as _i12;
-import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart' as _i10;
-import 'package:breizh_blok_mobile/models/order_param.dart' as _i11;
+import 'package:breizh_blok_mobile/data/data_sources/local/model/downloaded_boulder_area.dart'
+    as _i10;
+import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart'
+    as _i12;
 import 'package:drift/drift.dart' as _i4;
 import 'package:drift/src/runtime/executor/stream_queries.dart' as _i5;
 import 'package:flutter_cache_manager/flutter_cache_manager.dart' as _i7;
@@ -557,7 +560,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
       ) as _i6.Future<int>);
   @override
   _i6.Future<List<_i10.DownloadedBoulderArea>> allDownloads(
-          {_i11.OrderParam? orderParam = const _i11.OrderParam(
+          {_i11.ApiOrderParam? orderParam = const _i11.ApiOrderParam(
             direction: r'desc',
             name: r'order[id]',
           )}) =>

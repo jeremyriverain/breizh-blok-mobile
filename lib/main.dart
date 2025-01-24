@@ -10,19 +10,19 @@ import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
-import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
-import 'package:breizh_blok_mobile/image_boulder_cache.dart';
-import 'package:breizh_blok_mobile/models/order_param.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
-import 'package:breizh_blok_mobile/share_content_service.dart';
-import 'package:breizh_blok_mobile/share_content_service_interface.dart';
-import 'package:breizh_blok_mobile/tracking_service.dart';
+import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
+import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
+import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -74,7 +74,7 @@ Future<void> main({
   );
 
   final boulderOrderBloc = BoulderOrderBloc(
-    const OrderParam(
+    const ApiOrderParam(
       direction: kDescendantDirection,
       name: kIdOrderParam,
     ),

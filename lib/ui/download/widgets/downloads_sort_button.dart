@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/models/order_choice.dart';
-import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_choice.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/sort_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,33 +12,33 @@ class DownloadsSortButton extends StatelessWidget {
     super.key,
   });
 
-  final void Function(OrderParam orderParam) onChanged;
+  final void Function(ApiOrderParam orderParam) onChanged;
 
-  final OrderParam initialSelected;
+  final ApiOrderParam initialSelected;
 
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
 
     final choices = [
-      OrderChoice(
+      ApiOrderChoice(
         label: localizations.downloadedRecently,
         orderParam: initialSelected,
       ),
-      OrderChoice(
+      ApiOrderChoice(
         label:
             // ignore: lines_longer_than_80_chars
             '${localizations.sortedAlphabetically} (${localizations.boulderArea.toLowerCase()})',
-        orderParam: const OrderParam(
+        orderParam: const ApiOrderParam(
           direction: kAscendantDirection,
           name: 'boulderAreaName',
         ),
       ),
-      OrderChoice(
+      ApiOrderChoice(
         label:
             // ignore: lines_longer_than_80_chars
             '${localizations.sortedAlphabetically} (${localizations.municipality.toLowerCase()})',
-        orderParam: const OrderParam(
+        orderParam: const ApiOrderParam(
           direction: kAscendantDirection,
           name: 'municipalityName',
         ),

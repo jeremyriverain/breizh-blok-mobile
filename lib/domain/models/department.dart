@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/models/municipality.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality.dart';
 
 class Department {
   Department({

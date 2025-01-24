@@ -1,6 +1,6 @@
-import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
-import 'package:breizh_blok_mobile/models/downloaded_boulder_area.dart';
-import 'package:breizh_blok_mobile/models/order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/model/downloaded_boulder_area.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/empty_list_indicator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloads_sort_button.dart';
@@ -20,14 +20,14 @@ class DownloadScreen extends StatefulWidget {
 
 class _DownloadScreenState extends State<DownloadScreen> {
   Future<List<DownloadedBoulderArea>> _findDownloads(
-    OrderParam orderParam,
+    ApiOrderParam orderParam,
   ) async {
     final response =
         await GetIt.I<AppDatabase>().allDownloads(orderParam: orderParam);
     return response;
   }
 
-  var _orderParam = const OrderParam(
+  var _orderParam = const ApiOrderParam(
     name: kIdOrderParam,
     direction: kDescendantDirection,
   );
@@ -65,7 +65,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                     if (index == 0)
                       DownloadsSortButton(
                         initialSelected: _orderParam,
-                        onChanged: (OrderParam orderParam) {
+                        onChanged: (ApiOrderParam orderParam) {
                           setState(() {
                             _orderParam = orderParam;
                           });

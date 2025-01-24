@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
-import 'package:breizh_blok_mobile/models/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/grade.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

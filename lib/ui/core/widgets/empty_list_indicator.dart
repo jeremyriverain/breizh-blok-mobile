@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/exception_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,6 +19,6 @@ class EmptyListIndicator extends StatelessWidget {
         title: title ?? AppLocalizations.of(context).noResults,
         message: message ??
             AppLocalizations.of(context).noResultsMatchYourSearchCriteria,
-        assetName: 'assets/empty-box.png',
+        assetName: Assets.notFoundImage,
       );
 }

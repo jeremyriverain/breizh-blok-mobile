@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/constants.dart';
-import 'package:breizh_blok_mobile/map_directions.dart';
-import 'package:breizh_blok_mobile/map_marker.dart';
-import 'package:breizh_blok_mobile/models/boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/map/map_directions.dart';
+import 'package:breizh_blok_mobile/domain/models/map/map_marker.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_error_message.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/foundation.dart';

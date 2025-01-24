@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
-import 'package:breizh_blok_mobile/models/boulder_marker.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_marker.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

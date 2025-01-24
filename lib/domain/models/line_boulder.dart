@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/models/image.dart';
+import 'package:breizh_blok_mobile/domain/models/image.dart';
 
 class LineBoulder {
   LineBoulder({

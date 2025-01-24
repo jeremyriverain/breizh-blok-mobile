@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/download_screen.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
-import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
-import 'package:breizh_blok_mobile/models/boulder.dart';
-import 'package:breizh_blok_mobile/models/request_strategy.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_navbar.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';

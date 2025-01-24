@@ -1,10 +1,10 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
-import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart';
-import 'package:breizh_blok_mobile/download_area_service.dart';
-import 'package:breizh_blok_mobile/image_boulder_cache.dart';
-import 'package:breizh_blok_mobile/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/models/location.dart';
-import 'package:breizh_blok_mobile/models/municipality.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
+import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';

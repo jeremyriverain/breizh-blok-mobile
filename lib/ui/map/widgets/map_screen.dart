@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
-import 'package:breizh_blok_mobile/map_marker.dart';
+import 'package:breizh_blok_mobile/domain/models/map/map_marker.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -9,11 +9,11 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart'
     as _i4;
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart'
     as _i6;
-import 'package:breizh_blok_mobile/data/data_sources/drift/app_database.dart'
+import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart'
     as _i2;
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart'
     as _i9;
-import 'package:breizh_blok_mobile/models/boulder.dart' as _i5;
+import 'package:breizh_blok_mobile/domain/models/boulder.dart' as _i5;
 import 'package:http/http.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i8;

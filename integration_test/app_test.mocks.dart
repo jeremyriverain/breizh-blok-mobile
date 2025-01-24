@@ -5,7 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:breizh_blok_mobile/share_content_service.dart' as _i6;
+import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart'
+    as _i6;
 import 'package:mixpanel_flutter/mixpanel_flutter.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
