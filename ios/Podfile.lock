@@ -25,11 +25,11 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - Sentry/HybridSDK (8.36.0)
-  - sentry_flutter (8.9.0):
+  - Sentry/HybridSDK (8.42.0)
+  - sentry_flutter (8.12.0):
     - Flutter
     - FlutterMacOS
-    - Sentry/HybridSDK (= 8.36.0)
+    - Sentry/HybridSDK (= 8.42.0)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -70,7 +70,7 @@ DEPENDENCIES:
   - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/ios`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - GoogleMaps
     - Mixpanel-swift
     - Sentry
@@ -106,23 +106,23 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  google_maps_flutter_ios: abdac20d6ce8931f6ebc5f46616df241bfaa2cfd
+  google_maps_flutter_ios: e523ee12cfa731f83c9200bd54f331bdbfd76a73
   GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
-  integration_test: ce0a3ffa1de96d1a89ca0ac26fca7ea18a749ef4
-  location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
-  map_launcher: e325db1261d029ff33e08e03baccffe09593ffea
+  integration_test: d5929033778cc4991a187e4e1a85396fa4f59b3a
+  location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
+  map_launcher: b429f5dc548985f011d7c840f269cd2ee3b5d45e
   Mixpanel-swift: 2192b9a24cf41b870749e4e0e10fbc9822bb2b4a
-  mixpanel_flutter: 455c6c7906a0bd21b609b32fef390245187068a6
-  package_info_plus: fd030dabf36271f146f1f3beacd48f564b0f17f7
-  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  Sentry: f8374b5415bc38dfb5645941b3ae31230fbeae57
-  sentry_flutter: 0eb93e5279eb41e2392212afe1ccd2fecb4f8cbe
-  share_plus: 8875f4f2500512ea181eef553c3e27dba5135aad
-  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
-  sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
+  mixpanel_flutter: d84097a22c87f32fbe1c7f4991c8c357f18016c1
+  package_info_plus: 5076a1ce937258be9d2d41781a0e9cd71f19a82f
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  Sentry: 38ed8bf38eab5812787274bf591e528074c19e02
+  sentry_flutter: a72ca0eb6e78335db7c4ddcddd1b9f6c8ed5b764
+  share_plus: 011d6fb4f9d2576b83179a3a5c5e323202cdabcf
+  shared_preferences_foundation: 4e65c567e7877037d328829a522222c938bf308c
+  sqflite: c35dad70033b8862124f8337cc994a809fcd9fa3
   sqlite3: e0a0623a33a20a47cb5921552aebc6e9e437dc91
-  sqlite3_flutter_libs: 0d61e18fab1bed977dbd2d2fc76a726044ca00e7
+  sqlite3_flutter_libs: cee62b73837dafa9c7dedc7445db17bd2f41107c
 
 PODFILE CHECKSUM: 11eef7367984e3579585a872ba2d9cb0a619829a
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

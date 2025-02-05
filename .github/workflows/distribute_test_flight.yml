@@ -1,0 +1,66 @@
+name: Distribute on Test Flight
+
+on:
+  workflow_dispatch: ~
+
+jobs:
+  distribute_test_flight:
+    name: Distribute on Test Flight
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup
+      - name: Set Keychain path
+        run: echo "KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db" >> $GITHUB_ENV
+
+      - name: Create keychain
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          echo $KEYCHAIN_PATH
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          security default-keychain -s $KEYCHAIN_PATH
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      - name: distribute
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          set -e
+          flutter doctor --verbose
+          cd ios
+          touch .env.local
+          echo "APPLE_ID=${{secrets.APPLE_ID}}" > .env.local
+          touch gc_keys.json
+          echo ${{ secrets.FASTLANE_GOOGLE_SERVICE_ACCOUNT }} | base64 -d > gc_keys.json
+          bundle install && bundle exec fastlane certificates
+
+          cd ../
+
+          build_number="$(date +%s)"
+          echo "build-number: $build_number"
+
+          mkdir -p ~/private_keys
+          echo ${{ secrets.APPLE_STORE_PRIVATE_KEY }} | base64 -d > ~/private_keys/AuthKey_${{secrets.APP_STORE_API_KEY_ID}}.p8
+
+          flutter build ipa \
+            --verbose \
+            --build-number=$build_number \
+            --dart-define="API_HOST=${{secrets.BREIZH_BLOK_API_HOST_RELEASE}}" \
+            --dart-define="GMAPS_KEY=${{secrets.BREIZH_BLOK_GMAPS_KEY_RELEASE}}" \
+            --dart-define="SENTRY_DSN=${{secrets.BREIZH_BLOK_SENTRY_DSN_RELEASE}}" \
+            --dart-define="MIX_PANEL_TOKEN=${{secrets.BREIZH_BLOK_MIX_PANEL_TOKEN_RELEASE}}" \
+            --release \
+            --export-options-plist=ios/buildInfo.plist
+
+          xcrun altool --upload-app --type ios -f build/ios/ipa/Breizh\ Blok.ipa --apiKey "${{secrets.APP_STORE_API_KEY_ID}}" --apiIssuer "${{secrets.APP_STORE_API_KEY_ISSUER_ID}}"

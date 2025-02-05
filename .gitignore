@@ -39,10 +39,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/fastlane/report.xml
+/android/.env.local
 
-_*.md
-
-integration_test/screenshots
+/ios/fastlane/report.xml
+/ios/.env.local
+/ios/gc_keys.json
 
 # FVM Version Cache
 .fvm/

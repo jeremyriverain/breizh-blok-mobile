@@ -1,0 +1,12 @@
+require 'dotenv'
+
+Dotenv.overload('./../.env', './../.env.local')
+
+app_identifier(ENV['APP_IDENTIFIER']) # The bundle identifier of your app
+apple_id(ENV['APPLE_ID']) # Your Apple Developer Portal username
+
+team_id("XV7D9WGT3H")
+
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
