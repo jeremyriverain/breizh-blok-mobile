@@ -1,0 +1,31 @@
+name: Distribute Android App with Firebase App Distribution
+
+on:
+  workflow_dispatch: ~
+
+jobs:
+  distribute_android_app_with_firebase_app_distribution:
+    name: Distribute Android App with Firebase App Distribution
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: "google-github-actions/auth@v2"
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID_TEST }}
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_TEST }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_TEST }}
+
+      - uses: ./.github/actions/setup
+
+      - name: Build AAB
+        run: |
+          echo "building AAB"
+
+      - name: Distribute App with Firebase App Distribution
+        run: |
+          echo "distributing app"
