@@ -40,12 +40,6 @@ fvm flutter test
 fvm flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="REQUEST_TIMEOUT=20" 
 ```
 
-### Compiler pour Android
-
-```bash
-fvm flutter build appbundle --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="SENTRY_DSN=$BREIZH_BLOK_SENTRY_DSN" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN"
-```
-
 ### Exécuter la génération de code
 
 ```bash

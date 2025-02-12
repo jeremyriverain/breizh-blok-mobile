@@ -16,16 +16,36 @@ jobs:
 
       - uses: "google-github-actions/auth@v2"
         with:
-          project_id: ${{ secrets.GCLOUD_PROJECT_ID_TEST }}
-          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_TEST }}
-          service_account: ${{ secrets.SERVICE_ACCOUNT_TEST }}
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID_RELEASE }}
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_RELEASE }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_RELEASE }}
 
       - uses: ./.github/actions/setup
+      - name: Set keystore path
+        run: echo "SIGNING_STORE_PATH=$RUNNER_TEMP/keystore.jks" >> $GITHUB_ENV
 
-      - name: Build AAB
+      - name: Build appbundle
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
         run: |
-          echo "building AAB"
+          echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
+
+          build_number="$(date +%s)"
+          echo "build-number: $build_number"
+
+          flutter build appbundle \
+            --build-number=$build_number \
+            --dart-define="API_HOST=${{secrets.BREIZH_BLOK_API_HOST_RELEASE}}" \
+            --dart-define="GMAPS_KEY=${{secrets.BREIZH_BLOK_GMAPS_KEY_RELEASE}}" \
+            --dart-define="SENTRY_DSN=${{secrets.BREIZH_BLOK_SENTRY_DSN_RELEASE}}" \
+            --dart-define="MIX_PANEL_TOKEN=${{secrets.BREIZH_BLOK_MIX_PANEL_TOKEN_RELEASE}}" \
+            --release
+
+      - name: Install Firebase
+        run: npm install -g firebase-tools
 
       - name: Distribute App with Firebase App Distribution
         run: |
-          echo "distributing app"
+          firebase appdistribution:distribute build/app/outputs/bundle/release/app-release.aab --app ${{ secrets.FIREBASE_ANDROID_APP_ID }} --groups me
