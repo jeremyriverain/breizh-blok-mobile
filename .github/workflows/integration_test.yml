@@ -22,8 +22,16 @@ jobs:
 
       - uses: ./.github/actions/setup
 
+      - name: Set keystore path
+        run: echo "SIGNING_STORE_PATH=$RUNNER_TEMP/keystore.jks" >> $GITHUB_ENV
+
       - name: Build APK with Flutter
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
         run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
           flutter build apk --dart-define=API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }} --dart-define=GMAPS_KEY=${{ secrets.BREIZH_BLOK_GMAPS_KEY }} --debug
       - name: Create debug and test APKa
         run: |
