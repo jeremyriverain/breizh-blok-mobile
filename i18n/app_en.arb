@@ -1,71 +1,69 @@
 {
   "@@locale": "en",
   "anErrorOccured": "An error occured",
-  "@anErrorOccured": {},
   "areas": "Areas",
-  "@areas": {},
-  "sortedAlphabetically": "A - Z",
-  "@sortedAlphabetically": {},
+  "betweenXAndYMeters": "between {min} and {max} meters",
+  "@betweenXAndYMeters": {
+    "placeholders": {
+      "min": {
+        "type": "num",
+        "format": "compact"
+      },
+      "max": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
   "boulderArea": "Boulder area",
-  "@boulderArea": {},
   "boulderAreas": "Boulder areas",
-  "@boulderAreas": {},
   "boulders": "Boulders",
-  "@boulders": {},
   "checkYourConnection": "Check your internet connection and try again",
-  "@checkYourConnection": {},
   "clear": "Clear",
-  "@clear": {},
   "closeTheGallery": "Close the gallery",
-  "@closeTheGallery": {},
   "closeTheModal": "Close the modal",
-  "@closeTheModal": {},
   "description": "Description",
-  "@description": {},
   "distributionOfBoulders": "Distribution of the boulders",
-  "@distributionOfBoulders": {},
   "download": "Download",
-  "@download": {},
   "downloads": "Downloads",
-  "@downloads": {},
   "downloadedRecently": "Downloaded recently",
-  "@downloadedRecently": {},
   "errorOccuredWhileDisplayingMap": "An error occured while displaying the map",
-  "@errorOccuredWhileDisplayingMap": {},
   "errorOccuredWhileFetchingBoulders": "An error occured while fetching boulders",
-  "@errorOccuredWhileFetchingBoulders": {},
   "fetchingData": "Fetching data",
-  "@fetchingData": {},
   "filter": "Filter",
-  "@filter": {},
   "goToHomepage": "Go to homepage",
-  "@goToHomepage": {},
   "grade": "Grade",
-  "@grade": {},
+  "height": "Height",
   "iAccept": "I accept",
-  "@iAccept": {},
   "image": "Image",
-  "@image": {},
   "itinerary": "Itinerary",
-  "@itinerary": {},
   "itineraryToTheBoulderArea": "Itinerary to the boulder area",
-  "@itineraryToTheBoulderArea": {},
   "itineraryToTheParking": "Itinerary to parking",
-  "@itineraryToTheParking": {},
   "language": "Language",
-  "@language": {},
+  "lessThanNMeters": "Less than {value} meters",
+  "@lessThanNMeters": {
+    "placeholders": {
+      "value": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
   "map": "Map",
-  "@map": {},
   "max": "max",
-  "@max": {},
   "minGrade": "Min grade",
-  "@minGrade": {},
+  "moreThanNMeters": "More than {value} meters",
+  "@moreThanNMeters": {
+    "placeholders": {
+      "value": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
   "municipalities": "Municipalities",
-  "@municipalities": {},
   "municipality": "Municipality",
-  "@municipality": {},
   "myProfile": "My profile",
-  "@myProfile": {},
   "nBoulders": "{count, plural, =1{boulder} other{boulders}}",
   "@nBoulders": {
     "placeholders": {
@@ -112,27 +110,16 @@
     }
   },
   "noConnection": "No connection",
-  "@noConnection": {},
   "noDownload": "There is no download",
-  "@noDownload": {},
   "noDownloadHelper": "It is possible to download boulder areas in order to be able to access it without an internet connection",
-  "@noDownloadHelper": {},
   "noResults": "No results",
-  "@noResults": {},
   "noResultsMatchYourSearchCriteria": "No results match your search criteria",
-  "@noResultsMatchYourSearchCriteria": {},
   "pageNotFound": "404 - Page not found",
-  "@pageNotFound": {},
   "pageNotFoundDescription": "The page you are looking for does not exist or has been moved.",
-  "@pageNotFoundDescription": {},
   "parkingOfTheBoulderArea": "Parking of ",
-  "@parkingOfTheBoulderArea": {},
   "returnToTheTop": "Return to the top",
-  "@returnToTheTop": {},
   "searchForBoulders": "Search for boulders",
-  "@searchForBoulders": {},
   "share": "Share",
-  "@share": {},
   "shareableBoulder": "Breizh Blok recommends the boulder {boulderName} in {boulderAreaName}. More info on https://breizh-blok.fr/boulders/{boulderIri}",
   "@shareableBoulder": {
     "placeholders": {
@@ -173,19 +160,12 @@
     }
   },
   "sort": "Sort",
-  "@sort": {},
+  "sortedAlphabetically": "A - Z",
   "sortBy": "Sort by",
-  "@sortBy": {},
   "termsOfUse": "Terms of use",
-  "@termsOfUse": {},
   "termsOfUseContent": "Bouldering is a dangerous activity. Its practice is under the entire responsibility of the practitioners. Breizh Blok declines all responsibility in the event of an accident.",
-  "@termsOfUseContent": {},
   "theEasiest": "The easiest",
-  "@theEasiest": {},
   "theHardest": "The hardest",
-  "@theHardest": {},
   "theMostRecent": "The most recent",
-  "@theMostRecent": {},
-  "tryAgain": "Try again",
-  "@tryAgain": {}
+  "tryAgain": "Try again"
 }

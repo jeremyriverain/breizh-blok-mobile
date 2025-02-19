@@ -1,4 +1,5 @@
 import 'package:breizh_blok_mobile/domain/models/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/height_boulder.dart';
 import 'package:breizh_blok_mobile/domain/models/line_boulder.dart';
 import 'package:breizh_blok_mobile/domain/models/rock.dart';
 import 'package:equatable/equatable.dart';
@@ -11,6 +12,7 @@ class Boulder extends Equatable {
     List<LineBoulder>? lineBoulders,
     this.grade,
     this.description,
+    this.height,
   })  : lineBoulders = lineBoulders ?? [],
         id = iri.replaceAll('/boulders/', '');
 
@@ -30,6 +32,9 @@ class Boulder extends Equatable {
           : null,
       rock: Rock.fromJson(json['rock'] as Map<String, dynamic>),
       description: json['description'] as String?,
+      height: json['height'] != null
+          ? HeightBoulder.fromJson(json['height'] as Map<String, dynamic>)
+          : null,
     );
   }
   final String id;
@@ -39,6 +44,7 @@ class Boulder extends Equatable {
   final Grade? grade;
   final Rock rock;
   final String? description;
+  final HeightBoulder? height;
 
   @override
   List<Object?> get props => [iri];

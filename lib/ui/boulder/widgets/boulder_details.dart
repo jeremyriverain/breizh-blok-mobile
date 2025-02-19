@@ -2,6 +2,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_map.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
@@ -21,6 +22,7 @@ class BoulderDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final grade = boulder.grade;
+    final height = boulder.height;
     final description = boulder.description;
     final offlineFirst = context.read<RequestStrategy>().offlineFirst;
 
@@ -45,6 +47,7 @@ class BoulderDetails extends StatelessWidget {
               title: Text(grade.name),
               leading: Text(AppLocalizations.of(context).grade),
             ),
+          if (height != null) BoulderDetailsHeight(height: height),
           ListTile(
             title: Text(boulder.rock.boulderArea.municipality.name),
             leading: Text(AppLocalizations.of(context).municipality),
