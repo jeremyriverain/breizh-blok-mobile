@@ -12,6 +12,11 @@ class BoulderAreaDetailsDescriptionTab extends StatefulWidget {
 
   final BoulderArea boulderArea;
 
+  int? get numberOfBoulders {
+    return boulderArea.numberOfBouldersGroupedByGrade?.values
+        .reduce((total, current) => total + current);
+  }
+
   @override
   State<BoulderAreaDetailsDescriptionTab> createState() =>
       _BoulderAreaDetailsState();
@@ -22,6 +27,8 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetailsDescriptionTab> {
   Widget build(BuildContext context) {
     final numberOfBouldersGroupedByGrade =
         widget.boulderArea.numberOfBouldersGroupedByGrade;
+
+    final numOfBoulders = widget.numberOfBoulders;
 
     return SingleChildScrollView(
       child: Column(
@@ -38,7 +45,10 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetailsDescriptionTab> {
             Padding(
               padding: const EdgeInsets.only(right: 10, left: 10, top: 20),
               child: MyBarChart(
-                title: AppLocalizations.of(context).distributionOfBoulders,
+                title: numOfBoulders != null
+                    ? AppLocalizations.of(context)
+                        .distributionOfNBoulders(num: numOfBoulders)
+                    : AppLocalizations.of(context).distributionOfBoulders,
                 data: numberOfBouldersGroupedByGrade,
               ),
             ),

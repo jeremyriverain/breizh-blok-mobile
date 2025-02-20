@@ -24,6 +24,15 @@
   "closeTheModal": "Close the modal",
   "description": "Description",
   "distributionOfBoulders": "Distribution of the boulders",
+  "distributionOfNBoulders": "Distribution of the {num} boulders",
+  "@distributionOfNBoulders": {
+    "placeholders": {
+      "num": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
   "download": "Download",
   "downloads": "Downloads",
   "downloadedRecently": "Downloaded recently",

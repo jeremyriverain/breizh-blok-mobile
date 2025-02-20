@@ -24,6 +24,15 @@
   "closeTheModal": "Fermer la boîte de dialogue",
   "description": "Description",
   "distributionOfBoulders": "Répartition des blocs",
+  "distributionOfNBoulders": "Répartition des {num} blocs",
+  "@distributionOfNBoulders": {
+    "placeholders": {
+      "num": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
   "download": "Télécharger",
   "downloads": "Téléchargements",
   "downloadedRecently": "Téléchargés récemment",
