@@ -10,11 +10,11 @@ import 'package:breizh_blok_mobile/domain/models/municipality.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/downloads_area_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../widget_test_utils.dart';
 @GenerateNiceMocks([
   MockSpec<ApiClient>(),
   MockSpec<AppDatabase>(),
@@ -43,33 +43,27 @@ void main() {
     streamController.add(null);
 
     await tester.runAsync(() async {
-      await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: const Locale('fr'),
-          home: Scaffold(
-            body: MultiRepositoryProvider(
-              providers: [
-                RepositoryProvider(
-                  // ignore: unnecessary_cast
-                  create: (context) => database as AppDatabase,
-                ),
-                RepositoryProvider(
-                  create: (context) => downloadAreaService,
-                ),
-              ],
-              child: DownloadsAreaButton(
-                boulderArea: BoulderArea(
-                  iri: '/foo',
-                  name: 'foo',
-                  municipality: Municipality(
-                    iri: '/bar',
-                    name: 'bar',
-                    boulderAreas: const <BoulderArea>[],
-                    centroid: Location(latitude: 0, longitude: 0),
-                  ),
-                ),
+      await myPumpAndSettle(
+        tester,
+        widget: MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider(
+              // ignore: unnecessary_cast
+              create: (context) => database as AppDatabase,
+            ),
+            RepositoryProvider(
+              create: (context) => downloadAreaService,
+            ),
+          ],
+          child: DownloadsAreaButton(
+            boulderArea: BoulderArea(
+              iri: '/foo',
+              name: 'foo',
+              municipality: Municipality(
+                iri: '/bar',
+                name: 'bar',
+                boulderAreas: const <BoulderArea>[],
+                centroid: Location(latitude: 0, longitude: 0),
               ),
             ),
           ),

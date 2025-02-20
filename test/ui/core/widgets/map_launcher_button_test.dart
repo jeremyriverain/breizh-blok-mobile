@@ -4,30 +4,13 @@ import 'package:breizh_blok_mobile/domain/models/location.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../../../widget_test_utils.dart';
 
 void main() {
   final destination = Location(latitude: 56, longitude: 87);
   const destinationTitle = 'my destination';
-
-  MaterialApp mountMapLauncherButton() {
-    return MaterialApp(
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: const Locale('fr'),
-      home: Scaffold(
-        appBar: AppBar(
-          actions: [
-            MapLauncherButton(
-              destination: destination,
-              destinationTitle: destinationTitle,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   testWidgets('button does not show up if there is no installed map',
       (tester) async {
@@ -47,10 +30,13 @@ void main() {
       },
     );
 
-    // Create the widget by telling the tester to build it.
-    await tester.pumpWidget(mountMapLauncherButton());
-
-    await tester.pumpAndSettle();
+    await myPumpAndSettle(
+      tester,
+      widget: MapLauncherButton(
+        destination: destination,
+        destinationTitle: destinationTitle,
+      ),
+    );
 
     expect(logs[0].method, equals('getInstalledMaps'));
 
@@ -83,10 +69,13 @@ void main() {
       return null;
     });
 
-    // Create the widget by telling the tester to build it.
-    await tester.pumpWidget(mountMapLauncherButton());
-
-    await tester.pumpAndSettle();
+    await myPumpAndSettle(
+      tester,
+      widget: MapLauncherButton(
+        destination: destination,
+        destinationTitle: destinationTitle,
+      ),
+    );
 
     expect(logs[0].method, equals('getInstalledMaps'));
 

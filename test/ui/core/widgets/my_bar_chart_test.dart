@@ -5,27 +5,17 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
+import '../../../widget_test_utils.dart';
 @GenerateNiceMocks([MockSpec<TitleMeta>()])
 import 'my_bar_chart_test.mocks.dart';
 
 void main() {
-  MaterialApp mountWidget({required Map<String, int> data}) {
-    return MaterialApp(
-      home: MyBarChart(
-        title: 'foo',
-        data: data,
-      ),
-    );
-  }
-
   testWidgets('BoulderAreaBarChart', (tester) async {
-    await tester.pumpWidget(
-      mountWidget(
-        data: {'5a': 2, '6a': 3, '7b+': 1},
-      ),
+    await myPumpAndSettle(
+      tester,
+      widget:
+          const MyBarChart(title: 'foo', data: {'5a': 2, '6a': 3, '7b+': 1}),
     );
-
-    await tester.pumpAndSettle();
 
     expect(find.textContaining('foo'), findsOneWidget);
 

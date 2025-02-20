@@ -10,6 +10,7 @@ import 'package:location/location.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../widget_test_utils.dart';
 @GenerateNiceMocks([MockSpec<Location>()])
 import 'my_map_test.mocks.dart';
 
@@ -22,22 +23,20 @@ void main() {
         ..add(RequestPermissionEvent(hasDenied: true));
       final location = MockLocation();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: BlocProvider(
-            create: (context) => mapPermissionBloc,
-            child: RepositoryProvider<Location>(
-              create: (context) => location,
-              child: Builder(
-                builder: (context) {
-                  return const MyMap(
-                    map: GoogleMap(
-                      initialCameraPosition:
-                          CameraPosition(target: LatLng(0, 0)),
-                    ),
-                  );
-                },
-              ),
+      await myPumpAndSettle(
+        tester,
+        widget: BlocProvider(
+          create: (context) => mapPermissionBloc,
+          child: RepositoryProvider<Location>(
+            create: (context) => location,
+            child: Builder(
+              builder: (context) {
+                return const MyMap(
+                  map: GoogleMap(
+                    initialCameraPosition: CameraPosition(target: LatLng(0, 0)),
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -63,22 +62,20 @@ void main() {
       when(location.requestPermission())
           .thenAnswer((_) async => requestPermissionMockResult);
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: BlocProvider(
-            create: (context) => mapPermissionBloc,
-            child: RepositoryProvider<Location>(
-              create: (context) => location,
-              child: Builder(
-                builder: (context) {
-                  return const MyMap(
-                    map: GoogleMap(
-                      initialCameraPosition:
-                          CameraPosition(target: LatLng(0, 0)),
-                    ),
-                  );
-                },
-              ),
+      await myPumpAndSettle(
+        tester,
+        widget: BlocProvider(
+          create: (context) => mapPermissionBloc,
+          child: RepositoryProvider<Location>(
+            create: (context) => location,
+            child: Builder(
+              builder: (context) {
+                return const MyMap(
+                  map: GoogleMap(
+                    initialCameraPosition: CameraPosition(target: LatLng(0, 0)),
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -121,22 +118,20 @@ void main() {
       when(location.serviceEnabled()).thenAnswer((_) async => true);
       when(location.hasPermission()).thenAnswer((_) async => permissionGranted);
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: BlocProvider(
-            create: (context) => mapPermissionBloc,
-            child: RepositoryProvider<Location>(
-              create: (context) => location,
-              child: Builder(
-                builder: (context) {
-                  return const MyMap(
-                    map: GoogleMap(
-                      initialCameraPosition:
-                          CameraPosition(target: LatLng(0, 0)),
-                    ),
-                  );
-                },
-              ),
+      await myPumpAndSettle(
+        tester,
+        widget: BlocProvider(
+          create: (context) => mapPermissionBloc,
+          child: RepositoryProvider<Location>(
+            create: (context) => location,
+            child: Builder(
+              builder: (context) {
+                return const MyMap(
+                  map: GoogleMap(
+                    initialCameraPosition: CameraPosition(target: LatLng(0, 0)),
+                  ),
+                );
+              },
             ),
           ),
         ),
