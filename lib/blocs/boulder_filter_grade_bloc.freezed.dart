@@ -12,7 +12,8 @@ part of 'boulder_filter_grade_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$BoulderFilterGradeState {
@@ -25,16 +26,19 @@ mixin _$BoulderFilterGradeState {
 
 /// @nodoc
 abstract class $BoulderFilterGradeStateCopyWith<$Res> {
-  factory $BoulderFilterGradeStateCopyWith(BoulderFilterGradeState value,
-          $Res Function(BoulderFilterGradeState) then) =
-      _$BoulderFilterGradeStateCopyWithImpl<$Res, BoulderFilterGradeState>;
+  factory $BoulderFilterGradeStateCopyWith(
+    BoulderFilterGradeState value,
+    $Res Function(BoulderFilterGradeState) then,
+  ) = _$BoulderFilterGradeStateCopyWithImpl<$Res, BoulderFilterGradeState>;
   @useResult
   $Res call({Set<Grade> grades});
 }
 
 /// @nodoc
-class _$BoulderFilterGradeStateCopyWithImpl<$Res,
-        $Val extends BoulderFilterGradeState>
+class _$BoulderFilterGradeStateCopyWithImpl<
+  $Res,
+  $Val extends BoulderFilterGradeState
+>
     implements $BoulderFilterGradeStateCopyWith<$Res> {
   _$BoulderFilterGradeStateCopyWithImpl(this._value, this._then);
 
@@ -45,15 +49,17 @@ class _$BoulderFilterGradeStateCopyWithImpl<$Res,
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? grades = null,
-  }) {
-    return _then(_value.copyWith(
-      grades: null == grades
-          ? _value.grades
-          : grades // ignore: cast_nullable_to_non_nullable
-              as Set<Grade>,
-    ) as $Val);
+  $Res call({Object? grades = null}) {
+    return _then(
+      _value.copyWith(
+            grades:
+                null == grades
+                    ? _value.grades
+                    : grades // ignore: cast_nullable_to_non_nullable
+                        as Set<Grade>,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -61,9 +67,9 @@ class _$BoulderFilterGradeStateCopyWithImpl<$Res,
 abstract class _$$BoulderFilterGradeStateImplCopyWith<$Res>
     implements $BoulderFilterGradeStateCopyWith<$Res> {
   factory _$$BoulderFilterGradeStateImplCopyWith(
-          _$BoulderFilterGradeStateImpl value,
-          $Res Function(_$BoulderFilterGradeStateImpl) then) =
-      __$$BoulderFilterGradeStateImplCopyWithImpl<$Res>;
+    _$BoulderFilterGradeStateImpl value,
+    $Res Function(_$BoulderFilterGradeStateImpl) then,
+  ) = __$$BoulderFilterGradeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Set<Grade> grades});
@@ -71,34 +77,38 @@ abstract class _$$BoulderFilterGradeStateImplCopyWith<$Res>
 
 /// @nodoc
 class __$$BoulderFilterGradeStateImplCopyWithImpl<$Res>
-    extends _$BoulderFilterGradeStateCopyWithImpl<$Res,
-        _$BoulderFilterGradeStateImpl>
+    extends
+        _$BoulderFilterGradeStateCopyWithImpl<
+          $Res,
+          _$BoulderFilterGradeStateImpl
+        >
     implements _$$BoulderFilterGradeStateImplCopyWith<$Res> {
   __$$BoulderFilterGradeStateImplCopyWithImpl(
-      _$BoulderFilterGradeStateImpl _value,
-      $Res Function(_$BoulderFilterGradeStateImpl) _then)
-      : super(_value, _then);
+    _$BoulderFilterGradeStateImpl _value,
+    $Res Function(_$BoulderFilterGradeStateImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? grades = null,
-  }) {
-    return _then(_$BoulderFilterGradeStateImpl(
-      grades: null == grades
-          ? _value._grades
-          : grades // ignore: cast_nullable_to_non_nullable
-              as Set<Grade>,
-    ));
+  $Res call({Object? grades = null}) {
+    return _then(
+      _$BoulderFilterGradeStateImpl(
+        grades:
+            null == grades
+                ? _value._grades
+                : grades // ignore: cast_nullable_to_non_nullable
+                    as Set<Grade>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$BoulderFilterGradeStateImpl implements _BoulderFilterGradeState {
-  const _$BoulderFilterGradeStateImpl(
-      {final Set<Grade> grades = const <Grade>{}})
-      : _grades = grades;
+  const _$BoulderFilterGradeStateImpl({
+    final Set<Grade> grades = const <Grade>{},
+  }) : _grades = grades;
 
   final Set<Grade> _grades;
   @override
@@ -130,8 +140,9 @@ class _$BoulderFilterGradeStateImpl implements _BoulderFilterGradeState {
   @override
   @pragma('vm:prefer-inline')
   _$$BoulderFilterGradeStateImplCopyWith<_$BoulderFilterGradeStateImpl>
-      get copyWith => __$$BoulderFilterGradeStateImplCopyWithImpl<
-          _$BoulderFilterGradeStateImpl>(this, _$identity);
+  get copyWith => __$$BoulderFilterGradeStateImplCopyWithImpl<
+    _$BoulderFilterGradeStateImpl
+  >(this, _$identity);
 }
 
 abstract class _BoulderFilterGradeState implements BoulderFilterGradeState {
@@ -143,5 +154,5 @@ abstract class _BoulderFilterGradeState implements BoulderFilterGradeState {
   @override
   @JsonKey(ignore: true)
   _$$BoulderFilterGradeStateImplCopyWith<_$BoulderFilterGradeStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

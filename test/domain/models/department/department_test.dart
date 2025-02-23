@@ -12,12 +12,7 @@ void main() {
       });
       expect(department.iri, equals('/departments/departmentId'));
       expect(department.name, equals('Morbihan'));
-      expect(
-        department.municipalities,
-        equals(
-          const <Municipality>[],
-        ),
-      );
+      expect(department.municipalities, equals(const <Municipality>[]));
     });
   });
 }

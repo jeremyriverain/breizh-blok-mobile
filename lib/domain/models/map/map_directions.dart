@@ -4,21 +4,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 class MapDirections {
-  static void Function({
-    required AvailableMap map,
-  }) showDirections({
+  static void Function({required AvailableMap map}) showDirections({
     required Location destination,
     required String destinationTitle,
   }) {
-    return ({
-      required AvailableMap map,
-    }) =>
-        {
-          map.showDirections(
-            destination: Coords(destination.latitude, destination.longitude),
-            destinationTitle: destinationTitle,
-          ),
-        };
+    return ({required AvailableMap map}) => {
+      map.showDirections(
+        destination: Coords(destination.latitude, destination.longitude),
+        destinationTitle: destinationTitle,
+      ),
+    };
   }
 
   static Future<void> openMapsSheet({

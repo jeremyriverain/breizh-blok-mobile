@@ -4,10 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 part 'location.freezed.dart';
 part 'location.g.dart';
 
-const kDefaultInitialPosition = LatLng(
-  48.066152,
-  -2.967056,
-);
+const kDefaultInitialPosition = LatLng(48.066152, -2.967056);
 
 @freezed
 abstract class Location with _$Location {

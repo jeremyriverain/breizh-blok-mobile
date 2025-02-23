@@ -7,15 +7,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'boulder_marker_bloc.freezed.dart';
 
 class BoulderMarkerBloc extends Bloc<BoulderMarkerEvent, BoulderMarkerState> {
-  BoulderMarkerBloc({
-    required this.repository,
-  }) : super(
-          const BoulderMarkerState(
-            markers: [],
-            isLoading: false,
-            error: '',
-          ),
-        ) {
+  BoulderMarkerBloc({required this.repository})
+    : super(
+        const BoulderMarkerState(markers: [], isLoading: false, error: ''),
+      ) {
     on<BoulderMarkerRequested>((event, emit) async {
       try {
         emit(state.copyWith(isLoading: true, error: ''));
@@ -24,32 +19,21 @@ class BoulderMarkerBloc extends Bloc<BoulderMarkerEvent, BoulderMarkerState> {
         final Map<String, List<String>> queryParams = {
           'pagination': ['false'],
           'groups[]': ['Boulder:map'],
-          'rock.boulderArea.id[]': event.filterState.boulderAreas
-              .map((e) => e.iri.replaceAll('/boulder_areas/', ''))
-              .toList(),
+          'rock.boulderArea.id[]':
+              event.filterState.boulderAreas
+                  .map((e) => e.iri.replaceAll('/boulder_areas/', ''))
+                  .toList(),
         };
 
         final data = await repository.findBy(
           queryParams: queryParams,
           offlineFirst: event.offlineFirst,
         );
-        emit(
-          state.copyWith(
-            markers: data,
-          ),
-        );
+        emit(state.copyWith(markers: data));
       } catch (error) {
-        emit(
-          state.copyWith(
-            error: error.toString(),
-          ),
-        );
+        emit(state.copyWith(error: error.toString()));
       } finally {
-        emit(
-          state.copyWith(
-            isLoading: false,
-          ),
-        );
+        emit(state.copyWith(isLoading: false));
       }
     });
   }

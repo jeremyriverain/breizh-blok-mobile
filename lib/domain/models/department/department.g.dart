@@ -10,7 +10,8 @@ _$DepartmentImpl _$$DepartmentImplFromJson(Map<String, dynamic> json) =>
     _$DepartmentImpl(
       iri: json['@id'] as String,
       name: json['name'] as String,
-      municipalities: (json['municipalities'] as List<dynamic>?)
+      municipalities:
+          (json['municipalities'] as List<dynamic>?)
               ?.map((e) => Municipality.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <Municipality>[],

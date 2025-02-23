@@ -8,9 +8,7 @@ import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
 import 'package:flutter/foundation.dart';
 
 class BoulderRepository implements ApiRepositoryInterface<Boulder> {
-  BoulderRepository({
-    required this.httpClient,
-  });
+  BoulderRepository({required this.httpClient});
 
   @override
   final ApiClient httpClient;
@@ -18,16 +16,11 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
   @override
   Future<Boulder> find(String id) async {
     final response = await httpClient.get(
-      Uri.https(
-        const String.fromEnvironment('API_HOST'),
-        '/boulders/$id',
-      ),
+      Uri.https(const String.fromEnvironment('API_HOST'), '/boulders/$id'),
     );
 
     final json = jsonDecode(response);
-    return Boulder.fromJson(
-      json as Map<String, dynamic>,
-    );
+    return Boulder.fromJson(json as Map<String, dynamic>);
   }
 
   @override

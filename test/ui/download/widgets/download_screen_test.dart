@@ -15,13 +15,10 @@ void main() {
     await GetIt.I.reset();
   });
 
-  testWidgets('display fallback content if there is no downloads',
-      (WidgetTester tester) async {
-    GetIt.I.registerSingleton(
-      AppDatabase(
-        NativeDatabase.memory(),
-      ),
-    );
+  testWidgets('display fallback content if there is no downloads', (
+    WidgetTester tester,
+  ) async {
+    GetIt.I.registerSingleton(AppDatabase(NativeDatabase.memory()));
 
     await myPumpAndSettle(tester, widget: const DownloadScreen());
 
@@ -34,18 +31,21 @@ void main() {
     required String municipalityName,
     required String boulderAreaIri,
   }) async {
-    await Future.wait(
-      [
-        database.into(database.dbBoulderAreas).insert(
-              DbBoulderAreasCompanion.insert(
-                iri: boulderAreaIri,
-                downloadProgress: 100,
-              ),
+    await Future.wait([
+      database
+          .into(database.dbBoulderAreas)
+          .insert(
+            DbBoulderAreasCompanion.insert(
+              iri: boulderAreaIri,
+              downloadProgress: 100,
             ),
-        database.into(database.dbRequests).insert(
-              DbRequest(
-                requestPath: boulderAreaIri,
-                responseBody: '''
+          ),
+      database
+          .into(database.dbRequests)
+          .insert(
+            DbRequest(
+              requestPath: boulderAreaIri,
+              responseBody: '''
 {
   "name": "$boulerAreaName",
   "municipality": {
@@ -53,17 +53,14 @@ void main() {
   }
 }
 ''',
-              ),
             ),
-      ],
-    );
+          ),
+    ]);
   }
 
   testWidgets('display downloads', (WidgetTester tester) async {
     final database = GetIt.I.registerSingleton(
-      AppDatabase(
-        NativeDatabase.memory(),
-      ),
+      AppDatabase(NativeDatabase.memory()),
     );
 
     await createDownload(
@@ -79,10 +76,7 @@ void main() {
     expect(
       find.descendant(
         of: find.byKey(const Key('/foo')),
-        matching: find.textContaining(
-          'Petit paradis',
-          findRichText: true,
-        ),
+        matching: find.textContaining('Petit paradis', findRichText: true),
       ),
       findsOneWidget,
     );
@@ -90,10 +84,7 @@ void main() {
     expect(
       find.descendant(
         of: find.byKey(const Key('/foo')),
-        matching: find.textContaining(
-          'Kerlouan',
-          findRichText: true,
-        ),
+        matching: find.textContaining('Kerlouan', findRichText: true),
       ),
       findsOneWidget,
     );
@@ -102,9 +93,7 @@ void main() {
   testWidgets('sort downloaded boulder areas', (WidgetTester tester) async {
     await tester.runAsync(() async {
       final database = GetIt.I.registerSingleton(
-        AppDatabase(
-          NativeDatabase.memory(),
-        ),
+        AppDatabase(NativeDatabase.memory()),
       );
 
       await Future.wait([

@@ -18,15 +18,19 @@ class _MunicipalityListScreenState extends State<MunicipalityListScreen> {
     return context.read<DepartmentRepository>().findAll();
   }
 
-  PaginatedCollection<Department> data =
-      const PaginatedCollection(items: [], totalItems: 0);
+  PaginatedCollection<Department> data = const PaginatedCollection(
+    items: [],
+    totalItems: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _fetch(context),
-      builder:
-          (context, AsyncSnapshot<PaginatedCollection<Department>> snapshot) {
+      builder: (
+        context,
+        AsyncSnapshot<PaginatedCollection<Department>> snapshot,
+      ) {
         final data = snapshot.data;
         if (data != null) {
           this.data = data;
@@ -51,8 +55,10 @@ class _MunicipalityListScreenState extends State<MunicipalityListScreen> {
                         context.pushNamed(
                           'municipality_details',
                           pathParameters: {
-                            'id': municipality.iri
-                                .replaceAll('/municipalities/', ''),
+                            'id': municipality.iri.replaceAll(
+                              '/municipalities/',
+                              '',
+                            ),
                           },
                         );
                       },
@@ -72,9 +78,7 @@ class _MunicipalityListScreenState extends State<MunicipalityListScreen> {
           );
         }
 
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

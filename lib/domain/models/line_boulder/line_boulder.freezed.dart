@@ -12,7 +12,8 @@ part of 'line_boulder.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 LineBoulder _$LineBoulderFromJson(Map<String, dynamic> json) {
   return _LineBoulder.fromJson(json);
@@ -34,11 +35,15 @@ mixin _$LineBoulder {
 /// @nodoc
 abstract class $LineBoulderCopyWith<$Res> {
   factory $LineBoulderCopyWith(
-          LineBoulder value, $Res Function(LineBoulder) then) =
-      _$LineBoulderCopyWithImpl<$Res, LineBoulder>;
+    LineBoulder value,
+    $Res Function(LineBoulder) then,
+  ) = _$LineBoulderCopyWithImpl<$Res, LineBoulder>;
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri, String smoothLine, Image rockImage});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String smoothLine,
+    Image rockImage,
+  });
 
   $ImageCopyWith<$Res> get rockImage;
 }
@@ -60,20 +65,26 @@ class _$LineBoulderCopyWithImpl<$Res, $Val extends LineBoulder>
     Object? smoothLine = null,
     Object? rockImage = null,
   }) {
-    return _then(_value.copyWith(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      smoothLine: null == smoothLine
-          ? _value.smoothLine
-          : smoothLine // ignore: cast_nullable_to_non_nullable
-              as String,
-      rockImage: null == rockImage
-          ? _value.rockImage
-          : rockImage // ignore: cast_nullable_to_non_nullable
-              as Image,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            iri:
+                null == iri
+                    ? _value.iri
+                    : iri // ignore: cast_nullable_to_non_nullable
+                        as String,
+            smoothLine:
+                null == smoothLine
+                    ? _value.smoothLine
+                    : smoothLine // ignore: cast_nullable_to_non_nullable
+                        as String,
+            rockImage:
+                null == rockImage
+                    ? _value.rockImage
+                    : rockImage // ignore: cast_nullable_to_non_nullable
+                        as Image,
+          )
+          as $Val,
+    );
   }
 
   @override
@@ -89,12 +100,16 @@ class _$LineBoulderCopyWithImpl<$Res, $Val extends LineBoulder>
 abstract class _$$LineBoulderImplCopyWith<$Res>
     implements $LineBoulderCopyWith<$Res> {
   factory _$$LineBoulderImplCopyWith(
-          _$LineBoulderImpl value, $Res Function(_$LineBoulderImpl) then) =
-      __$$LineBoulderImplCopyWithImpl<$Res>;
+    _$LineBoulderImpl value,
+    $Res Function(_$LineBoulderImpl) then,
+  ) = __$$LineBoulderImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri, String smoothLine, Image rockImage});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String smoothLine,
+    Image rockImage,
+  });
 
   @override
   $ImageCopyWith<$Res> get rockImage;
@@ -105,8 +120,9 @@ class __$$LineBoulderImplCopyWithImpl<$Res>
     extends _$LineBoulderCopyWithImpl<$Res, _$LineBoulderImpl>
     implements _$$LineBoulderImplCopyWith<$Res> {
   __$$LineBoulderImplCopyWithImpl(
-      _$LineBoulderImpl _value, $Res Function(_$LineBoulderImpl) _then)
-      : super(_value, _then);
+    _$LineBoulderImpl _value,
+    $Res Function(_$LineBoulderImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -115,30 +131,36 @@ class __$$LineBoulderImplCopyWithImpl<$Res>
     Object? smoothLine = null,
     Object? rockImage = null,
   }) {
-    return _then(_$LineBoulderImpl(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      smoothLine: null == smoothLine
-          ? _value.smoothLine
-          : smoothLine // ignore: cast_nullable_to_non_nullable
-              as String,
-      rockImage: null == rockImage
-          ? _value.rockImage
-          : rockImage // ignore: cast_nullable_to_non_nullable
-              as Image,
-    ));
+    return _then(
+      _$LineBoulderImpl(
+        iri:
+            null == iri
+                ? _value.iri
+                : iri // ignore: cast_nullable_to_non_nullable
+                    as String,
+        smoothLine:
+            null == smoothLine
+                ? _value.smoothLine
+                : smoothLine // ignore: cast_nullable_to_non_nullable
+                    as String,
+        rockImage:
+            null == rockImage
+                ? _value.rockImage
+                : rockImage // ignore: cast_nullable_to_non_nullable
+                    as Image,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$LineBoulderImpl implements _LineBoulder {
-  const _$LineBoulderImpl(
-      {@JsonKey(name: '@id') required this.iri,
-      required this.smoothLine,
-      required this.rockImage});
+  const _$LineBoulderImpl({
+    @JsonKey(name: '@id') required this.iri,
+    required this.smoothLine,
+    required this.rockImage,
+  });
 
   factory _$LineBoulderImpl.fromJson(Map<String, dynamic> json) =>
       _$$LineBoulderImplFromJson(json);
@@ -180,17 +202,16 @@ class _$LineBoulderImpl implements _LineBoulder {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LineBoulderImplToJson(
-      this,
-    );
+    return _$$LineBoulderImplToJson(this);
   }
 }
 
 abstract class _LineBoulder implements LineBoulder {
-  const factory _LineBoulder(
-      {@JsonKey(name: '@id') required final String iri,
-      required final String smoothLine,
-      required final Image rockImage}) = _$LineBoulderImpl;
+  const factory _LineBoulder({
+    @JsonKey(name: '@id') required final String iri,
+    required final String smoothLine,
+    required final Image rockImage,
+  }) = _$LineBoulderImpl;
 
   factory _LineBoulder.fromJson(Map<String, dynamic> json) =
       _$LineBoulderImpl.fromJson;

@@ -12,23 +12,23 @@ void main() {
   const destination = Location(latitude: 56, longitude: 87);
   const destinationTitle = 'my destination';
 
-  testWidgets('button does not show up if there is no installed map',
-      (tester) async {
+  testWidgets('button does not show up if there is no installed map', (
+    tester,
+  ) async {
     final logs = <MethodCall>[];
 
     const channel = MethodChannel('map_launcher');
 
-    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
-      channel,
-      (MethodCall methodCall) async {
-        print(methodCall);
-        logs.add(methodCall);
-        if (methodCall.method == 'getInstalledMaps') {
-          return [];
-        }
-        return null;
-      },
-    );
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
+      MethodCall methodCall,
+    ) async {
+      print(methodCall);
+      logs.add(methodCall);
+      if (methodCall.method == 'getInstalledMaps') {
+        return [];
+      }
+      return null;
+    });
 
     await myPumpAndSettle(
       tester,
@@ -44,61 +44,57 @@ void main() {
   });
 
   testWidgets(
-      'I can launch a map by opening a bottom sheet and selecting one map',
-      (tester) async {
-    final logs = <MethodCall>[];
+    'I can launch a map by opening a bottom sheet and selecting one map',
+    (tester) async {
+      final logs = <MethodCall>[];
 
-    const channel = MethodChannel('map_launcher');
+      const channel = MethodChannel('map_launcher');
 
-    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel,
-        (MethodCall methodCall) async {
-      print(methodCall);
-      logs.add(methodCall);
-      if (methodCall.method == 'getInstalledMaps') {
-        return [
-          {
-            'mapName': 'Google Maps',
-            'mapType': 'google',
-          },
-          {
-            'mapName': 'Apple map',
-            'mapType': 'apple',
-          }
-        ];
-      }
-      return null;
-    });
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
+        MethodCall methodCall,
+      ) async {
+        print(methodCall);
+        logs.add(methodCall);
+        if (methodCall.method == 'getInstalledMaps') {
+          return [
+            {'mapName': 'Google Maps', 'mapType': 'google'},
+            {'mapName': 'Apple map', 'mapType': 'apple'},
+          ];
+        }
+        return null;
+      });
 
-    await myPumpAndSettle(
-      tester,
-      widget: const MapLauncherButton(
-        destination: destination,
-        destinationTitle: destinationTitle,
-      ),
-    );
+      await myPumpAndSettle(
+        tester,
+        widget: const MapLauncherButton(
+          destination: destination,
+          destinationTitle: destinationTitle,
+        ),
+      );
 
-    expect(logs[0].method, equals('getInstalledMaps'));
+      expect(logs[0].method, equals('getInstalledMaps'));
 
-    final mapLauncherButton = find.byKey(const Key('map-launcher-button'));
+      final mapLauncherButton = find.byKey(const Key('map-launcher-button'));
 
-    expect(mapLauncherButton, findsOneWidget);
+      expect(mapLauncherButton, findsOneWidget);
 
-    await tester.tap(mapLauncherButton);
+      await tester.tap(mapLauncherButton);
 
-    await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
-    await tester.tap(find.textContaining('Google Maps', findRichText: true));
+      await tester.tap(find.textContaining('Google Maps', findRichText: true));
 
-    expect(logs[1].method, equals('showDirections'));
-    expect(logs[1].arguments['mapType'], equals('google'));
-    expect(logs[1].arguments['destinationTitle'], equals(destinationTitle));
-    expect(
-      logs[1].arguments['destinationLatitude'],
-      equals(destination.latitude.toString()),
-    );
-    expect(
-      logs[1].arguments['destinationLongitude'],
-      equals(destination.longitude.toString()),
-    );
-  });
+      expect(logs[1].method, equals('showDirections'));
+      expect(logs[1].arguments['mapType'], equals('google'));
+      expect(logs[1].arguments['destinationTitle'], equals(destinationTitle));
+      expect(
+        logs[1].arguments['destinationLatitude'],
+        equals(destination.latitude.toString()),
+      );
+      expect(
+        logs[1].arguments['destinationLongitude'],
+        equals(destination.longitude.toString()),
+      );
+    },
+  );
 }

@@ -12,7 +12,8 @@ part of 'boulder_marker_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$BoulderMarkerState {
@@ -28,8 +29,9 @@ mixin _$BoulderMarkerState {
 /// @nodoc
 abstract class $BoulderMarkerStateCopyWith<$Res> {
   factory $BoulderMarkerStateCopyWith(
-          BoulderMarkerState value, $Res Function(BoulderMarkerState) then) =
-      _$BoulderMarkerStateCopyWithImpl<$Res, BoulderMarkerState>;
+    BoulderMarkerState value,
+    $Res Function(BoulderMarkerState) then,
+  ) = _$BoulderMarkerStateCopyWithImpl<$Res, BoulderMarkerState>;
   @useResult
   $Res call({List<BoulderMarker> markers, bool isLoading, String error});
 }
@@ -51,29 +53,36 @@ class _$BoulderMarkerStateCopyWithImpl<$Res, $Val extends BoulderMarkerState>
     Object? isLoading = null,
     Object? error = null,
   }) {
-    return _then(_value.copyWith(
-      markers: null == markers
-          ? _value.markers
-          : markers // ignore: cast_nullable_to_non_nullable
-              as List<BoulderMarker>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: null == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            markers:
+                null == markers
+                    ? _value.markers
+                    : markers // ignore: cast_nullable_to_non_nullable
+                        as List<BoulderMarker>,
+            isLoading:
+                null == isLoading
+                    ? _value.isLoading
+                    : isLoading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            error:
+                null == error
+                    ? _value.error
+                    : error // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$BoulderMarkerStateImplCopyWith<$Res>
     implements $BoulderMarkerStateCopyWith<$Res> {
-  factory _$$BoulderMarkerStateImplCopyWith(_$BoulderMarkerStateImpl value,
-          $Res Function(_$BoulderMarkerStateImpl) then) =
-      __$$BoulderMarkerStateImplCopyWithImpl<$Res>;
+  factory _$$BoulderMarkerStateImplCopyWith(
+    _$BoulderMarkerStateImpl value,
+    $Res Function(_$BoulderMarkerStateImpl) then,
+  ) = __$$BoulderMarkerStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<BoulderMarker> markers, bool isLoading, String error});
@@ -83,9 +92,10 @@ abstract class _$$BoulderMarkerStateImplCopyWith<$Res>
 class __$$BoulderMarkerStateImplCopyWithImpl<$Res>
     extends _$BoulderMarkerStateCopyWithImpl<$Res, _$BoulderMarkerStateImpl>
     implements _$$BoulderMarkerStateImplCopyWith<$Res> {
-  __$$BoulderMarkerStateImplCopyWithImpl(_$BoulderMarkerStateImpl _value,
-      $Res Function(_$BoulderMarkerStateImpl) _then)
-      : super(_value, _then);
+  __$$BoulderMarkerStateImplCopyWithImpl(
+    _$BoulderMarkerStateImpl _value,
+    $Res Function(_$BoulderMarkerStateImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -94,31 +104,36 @@ class __$$BoulderMarkerStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? error = null,
   }) {
-    return _then(_$BoulderMarkerStateImpl(
-      markers: null == markers
-          ? _value._markers
-          : markers // ignore: cast_nullable_to_non_nullable
-              as List<BoulderMarker>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: null == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return _then(
+      _$BoulderMarkerStateImpl(
+        markers:
+            null == markers
+                ? _value._markers
+                : markers // ignore: cast_nullable_to_non_nullable
+                    as List<BoulderMarker>,
+        isLoading:
+            null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        error:
+            null == error
+                ? _value.error
+                : error // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$BoulderMarkerStateImpl implements _BoulderMarkerState {
-  const _$BoulderMarkerStateImpl(
-      {required final List<BoulderMarker> markers,
-      required this.isLoading,
-      required this.error})
-      : _markers = markers;
+  const _$BoulderMarkerStateImpl({
+    required final List<BoulderMarker> markers,
+    required this.isLoading,
+    required this.error,
+  }) : _markers = markers;
 
   final List<BoulderMarker> _markers;
   @override
@@ -150,22 +165,29 @@ class _$BoulderMarkerStateImpl implements _BoulderMarkerState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_markers), isLoading, error);
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_markers),
+    isLoading,
+    error,
+  );
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BoulderMarkerStateImplCopyWith<_$BoulderMarkerStateImpl> get copyWith =>
       __$$BoulderMarkerStateImplCopyWithImpl<_$BoulderMarkerStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _BoulderMarkerState implements BoulderMarkerState {
-  const factory _BoulderMarkerState(
-      {required final List<BoulderMarker> markers,
-      required final bool isLoading,
-      required final String error}) = _$BoulderMarkerStateImpl;
+  const factory _BoulderMarkerState({
+    required final List<BoulderMarker> markers,
+    required final bool isLoading,
+    required final String error,
+  }) = _$BoulderMarkerStateImpl;
 
   @override
   List<BoulderMarker> get markers;

@@ -10,13 +10,15 @@ _$MunicipalityImpl _$$MunicipalityImplFromJson(Map<String, dynamic> json) =>
     _$MunicipalityImpl(
       iri: json['@id'] as String,
       name: json['name'] as String,
-      boulderAreas: (json['boulderAreas'] as List<dynamic>?)
+      boulderAreas:
+          (json['boulderAreas'] as List<dynamic>?)
               ?.map((e) => BoulderArea.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <BoulderArea>[],
-      centroid: json['centroid'] == null
-          ? null
-          : Location.fromJson(json['centroid'] as Map<String, dynamic>),
+      centroid:
+          json['centroid'] == null
+              ? null
+              : Location.fromJson(json['centroid'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$MunicipalityImplToJson(_$MunicipalityImpl instance) =>

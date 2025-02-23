@@ -8,21 +8,14 @@ void main() {
       'default state OK',
       build: TabBloc.new,
       verify: (TabBloc bloc) {
-        expect(
-          bloc.state,
-          0,
-        );
+        expect(bloc.state, 0);
       },
     );
 
     blocTest<TabBloc, int>(
       'TabUpdated event OK',
       build: TabBloc.new,
-      act: (TabBloc bloc) => bloc.add(
-        TabUpdated(
-          activeTab: 1,
-        ),
-      ),
+      act: (TabBloc bloc) => bloc.add(TabUpdated(activeTab: 1)),
       expect: () => [1],
     );
   });

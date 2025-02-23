@@ -6,16 +6,11 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('Rock', () {
     test('fromJson', () {
-      final rock = Rock.fromJson(
-        const {
-          '@id': '/rocks/rockId',
-          'location': {'latitude': '4', 'longitude': '2'},
-          'boulderArea': {
-            '@id': '/boulder_areas/boulderAreaId',
-            'name': 'foo',
-          },
-        },
-      );
+      final rock = Rock.fromJson(const {
+        '@id': '/rocks/rockId',
+        'location': {'latitude': '4', 'longitude': '2'},
+        'boulderArea': {'@id': '/boulder_areas/boulderAreaId', 'name': 'foo'},
+      });
       expect(rock.iri, '/rocks/rockId');
       expect(rock.location, const Location(latitude: 4, longitude: 2));
       expect(

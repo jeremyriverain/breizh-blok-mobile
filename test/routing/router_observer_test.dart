@@ -8,50 +8,47 @@ import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-@GenerateNiceMocks([
-  MockSpec<Mixpanel>(),
-])
+@GenerateNiceMocks([MockSpec<Mixpanel>()])
 import 'router_observer_test.mocks.dart';
 
 void main() {
   group('RouterObserver', () {
-    testWidgets('track page viewed when navigate to a new route',
-        (tester) async {
+    testWidgets('track page viewed when navigate to a new route', (
+      tester,
+    ) async {
       final router = GoRouter(
         routes: [
           GoRoute(
             path: '/foo',
             name: 'foo',
-            builder: (context, state) => Scaffold(
-              appBar: AppBar(
-                title: const Text('foo'),
-              ),
-              body: Column(
-                children: [
-                  ElevatedButton(
-                    child: const Text('go to bar'),
-                    onPressed: () {
-                      context.push('/bar');
-                    },
+            builder:
+                (context, state) => Scaffold(
+                  appBar: AppBar(title: const Text('foo')),
+                  body: Column(
+                    children: [
+                      ElevatedButton(
+                        child: const Text('go to bar'),
+                        onPressed: () {
+                          context.push('/bar');
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
           ),
           GoRoute(
             path: '/bar',
             name: 'bar',
-            builder: (context, state) => Scaffold(
-              appBar: AppBar(
-                title: const Text('bar'),
-              ),
-              body: ElevatedButton(
-                child: const Text('return to foo'),
-                onPressed: () {
-                  context.pop();
-                },
-              ),
-            ),
+            builder:
+                (context, state) => Scaffold(
+                  appBar: AppBar(title: const Text('bar')),
+                  body: ElevatedButton(
+                    child: const Text('return to foo'),
+                    onPressed: () {
+                      context.pop();
+                    },
+                  ),
+                ),
           ),
         ],
         initialLocation: '/foo',
@@ -77,10 +74,7 @@ void main() {
       verify(
         mockMixpanel.track(
           'page_viewed',
-          properties: {
-            'path': '/foo',
-            'navigationType': 'push',
-          },
+          properties: {'path': '/foo', 'navigationType': 'push'},
         ),
       ).called(1);
 
@@ -90,10 +84,7 @@ void main() {
       verify(
         mockMixpanel.track(
           'page_viewed',
-          properties: {
-            'path': '/bar',
-            'navigationType': 'push',
-          },
+          properties: {'path': '/bar', 'navigationType': 'push'},
         ),
       ).called(1);
 
@@ -103,10 +94,7 @@ void main() {
       verify(
         mockMixpanel.track(
           'page_viewed',
-          properties: {
-            'path': '/foo',
-            'navigationType': 'pop',
-          },
+          properties: {'path': '/foo', 'navigationType': 'pop'},
         ),
       ).called(1);
     });

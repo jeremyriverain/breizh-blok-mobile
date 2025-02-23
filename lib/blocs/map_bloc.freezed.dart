@@ -12,7 +12,8 @@ part of 'map_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$MapState {
@@ -44,20 +45,22 @@ class _$MapStateCopyWithImpl<$Res, $Val extends MapState>
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? mapZoom = null,
-    Object? mapLatLng = null,
-  }) {
-    return _then(_value.copyWith(
-      mapZoom: null == mapZoom
-          ? _value.mapZoom
-          : mapZoom // ignore: cast_nullable_to_non_nullable
-              as double,
-      mapLatLng: null == mapLatLng
-          ? _value.mapLatLng
-          : mapLatLng // ignore: cast_nullable_to_non_nullable
-              as LatLng,
-    ) as $Val);
+  $Res call({Object? mapZoom = null, Object? mapLatLng = null}) {
+    return _then(
+      _value.copyWith(
+            mapZoom:
+                null == mapZoom
+                    ? _value.mapZoom
+                    : mapZoom // ignore: cast_nullable_to_non_nullable
+                        as double,
+            mapLatLng:
+                null == mapLatLng
+                    ? _value.mapLatLng
+                    : mapLatLng // ignore: cast_nullable_to_non_nullable
+                        as LatLng,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -65,8 +68,9 @@ class _$MapStateCopyWithImpl<$Res, $Val extends MapState>
 abstract class _$$MapStateImplCopyWith<$Res>
     implements $MapStateCopyWith<$Res> {
   factory _$$MapStateImplCopyWith(
-          _$MapStateImpl value, $Res Function(_$MapStateImpl) then) =
-      __$$MapStateImplCopyWithImpl<$Res>;
+    _$MapStateImpl value,
+    $Res Function(_$MapStateImpl) then,
+  ) = __$$MapStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double mapZoom, LatLng mapLatLng});
@@ -77,25 +81,27 @@ class __$$MapStateImplCopyWithImpl<$Res>
     extends _$MapStateCopyWithImpl<$Res, _$MapStateImpl>
     implements _$$MapStateImplCopyWith<$Res> {
   __$$MapStateImplCopyWithImpl(
-      _$MapStateImpl _value, $Res Function(_$MapStateImpl) _then)
-      : super(_value, _then);
+    _$MapStateImpl _value,
+    $Res Function(_$MapStateImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? mapZoom = null,
-    Object? mapLatLng = null,
-  }) {
-    return _then(_$MapStateImpl(
-      mapZoom: null == mapZoom
-          ? _value.mapZoom
-          : mapZoom // ignore: cast_nullable_to_non_nullable
-              as double,
-      mapLatLng: null == mapLatLng
-          ? _value.mapLatLng
-          : mapLatLng // ignore: cast_nullable_to_non_nullable
-              as LatLng,
-    ));
+  $Res call({Object? mapZoom = null, Object? mapLatLng = null}) {
+    return _then(
+      _$MapStateImpl(
+        mapZoom:
+            null == mapZoom
+                ? _value.mapZoom
+                : mapZoom // ignore: cast_nullable_to_non_nullable
+                    as double,
+        mapLatLng:
+            null == mapLatLng
+                ? _value.mapLatLng
+                : mapLatLng // ignore: cast_nullable_to_non_nullable
+                    as LatLng,
+      ),
+    );
   }
 }
 
@@ -135,9 +141,10 @@ class _$MapStateImpl implements _MapState {
 }
 
 abstract class _MapState implements MapState {
-  const factory _MapState(
-      {required final double mapZoom,
-      required final LatLng mapLatLng}) = _$MapStateImpl;
+  const factory _MapState({
+    required final double mapZoom,
+    required final LatLng mapLatLng,
+  }) = _$MapStateImpl;
 
   @override
   double get mapZoom;

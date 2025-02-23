@@ -9,10 +9,8 @@ const kRequestDefaultTimeout = Duration(
 );
 
 class ApiClient {
-  ApiClient({
-    required this.database,
-    http.Client? httpClient,
-  }) : httpClient = httpClient ?? http.Client();
+  ApiClient({required this.database, http.Client? httpClient})
+    : httpClient = httpClient ?? http.Client();
 
   final AppDatabase database;
   final http.Client httpClient;
@@ -27,19 +25,13 @@ class ApiClient {
 
     Future<http.Response> persistentFetch() async {
       final response = await httpClient
-          .get(
-            uri,
-            headers: headers,
-          )
+          .get(uri, headers: headers)
           .timeout(timeout);
 
       if (response.statusCode == 200) {
         unawaited(
           database.createOrUpdateRequest(
-            DbRequest(
-              requestPath: requestPath,
-              responseBody: response.body,
-            ),
+            DbRequest(requestPath: requestPath, responseBody: response.body),
           ),
         );
       }
@@ -83,8 +75,8 @@ class ApiClient {
   }
 
   String normalizeRequestPath(Uri uri) {
-    final query =
-        (uri.query.split('&')..sort((a, b) => a.compareTo(b))).join('&');
+    final query = (uri.query.split('&')
+      ..sort((a, b) => a.compareTo(b))).join('&');
     return '${uri.path}${uri.query.isEmpty ? '' : "?$query"}';
   }
 }

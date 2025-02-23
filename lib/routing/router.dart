@@ -16,10 +16,11 @@ class Router {
         GoRoute(
           path: '/',
           name: 'boulder_list',
-          builder: (context, state) => RepositoryProvider(
-            create: (context) => RequestStrategy(),
-            child: const BoulderListScreen(),
-          ),
+          builder:
+              (context, state) => RepositoryProvider(
+                create: (context) => RequestStrategy(),
+                child: const BoulderListScreen(),
+              ),
           routes: [
             GoRoute(
               path: 'boulders/:id',
@@ -76,9 +77,7 @@ class Router {
           builder: (context, state) {
             return RepositoryProvider<RequestStrategy>(
               create: (context) => RequestStrategy(offlineFirst: true),
-              child: BoulderAreaDetailsScreen(
-                id: state.pathParameters['id']!,
-              ),
+              child: BoulderAreaDetailsScreen(id: state.pathParameters['id']!),
             );
           },
         ),

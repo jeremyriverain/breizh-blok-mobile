@@ -1,7 +1,7 @@
 import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
 import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'boulder_area.freezed.dart';

@@ -5,13 +5,11 @@ void main() {
   group('Image', () {
     group('fromJson', () {
       test('full property OK', () {
-        final image = Image.fromJson(
-          const {
-            'filterUrl': 'filterUrl',
-            'contentUrl': 'contentUrl',
-            'imageDimensions': ['1', '2'],
-          },
-        );
+        final image = Image.fromJson(const {
+          'filterUrl': 'filterUrl',
+          'contentUrl': 'contentUrl',
+          'imageDimensions': ['1', '2'],
+        });
         expect(image.contentUrl, equals('contentUrl'));
         expect(image.filterUrl, equals('filterUrl'));
         expect(image.width, equals(1));
@@ -19,27 +17,22 @@ void main() {
       });
 
       test('filterUrl not present', () {
-        final image = Image.fromJson(
-          const {
-            'contentUrl': 'contentUrl',
-          },
-        );
+        final image = Image.fromJson(const {'contentUrl': 'contentUrl'});
         expect(image.filterUrl, isNull);
       });
 
-      test('''
+      test(
+        '''
 Given imageDimensions is null,
 Then width and height are null
-''', () {
-        final image = Image.fromJson(
-          const {
-            'contentUrl': 'contentUrl',
-          },
-        );
-        expect(image.imageDimensions, isNull);
-        expect(image.width, isNull);
-        expect(image.height, isNull);
-      });
+''',
+        () {
+          final image = Image.fromJson(const {'contentUrl': 'contentUrl'});
+          expect(image.imageDimensions, isNull);
+          expect(image.width, isNull);
+          expect(image.height, isNull);
+        },
+      );
     });
   });
 }

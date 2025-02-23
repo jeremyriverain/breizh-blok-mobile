@@ -33,9 +33,7 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
   }
 
   Future<PaginatedCollection<Grade>> findAll() async {
-    return findBy(
-      queryParams: findAllQueryParams,
-    );
+    return findBy(queryParams: findAllQueryParams);
   }
 
   static const findAllQueryParams = {

@@ -15,8 +15,9 @@ void main() {
       expect: () => [false],
       verify: (TermsOfUseBloc bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
-        final hasAccepted =
-            sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
+        final hasAccepted = sharedPreferences.getBool(
+          TermsOfUseBloc.termsOfUseAcceptanceKey,
+        );
         expect(hasAccepted, null);
       },
     );
@@ -34,8 +35,9 @@ void main() {
       expect: () => [false],
       verify: (TermsOfUseBloc bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
-        final hasAccepted =
-            sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
+        final hasAccepted = sharedPreferences.getBool(
+          TermsOfUseBloc.termsOfUseAcceptanceKey,
+        );
         expect(hasAccepted, false);
       },
     );
@@ -53,8 +55,9 @@ void main() {
       expect: () => [true],
       verify: (TermsOfUseBloc bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
-        final hasAccepted =
-            sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
+        final hasAccepted = sharedPreferences.getBool(
+          TermsOfUseBloc.termsOfUseAcceptanceKey,
+        );
         expect(hasAccepted, true);
       },
     );
@@ -72,8 +75,9 @@ void main() {
       expect: () => [true],
       verify: (TermsOfUseBloc bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
-        final hasAccepted =
-            sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
+        final hasAccepted = sharedPreferences.getBool(
+          TermsOfUseBloc.termsOfUseAcceptanceKey,
+        );
         expect(hasAccepted, true);
       },
     );

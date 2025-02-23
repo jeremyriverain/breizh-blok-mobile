@@ -1,7 +1,7 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderListAppBarSearchField extends StatefulWidget {
   const BoulderListAppBarSearchField({super.key});
@@ -56,20 +56,19 @@ class _BoulderListAppBarSearchFieldState
       },
       decoration: InputDecoration(
         hintText: AppLocalizations.of(context).searchForBoulders,
-        suffixIcon: showCancelIcon
-            ? IconButton(
-                tooltip: AppLocalizations.of(context).clear,
-                icon: const Icon(
-                  Icons.cancel,
-                ),
-                onPressed: () {
-                  _controller.text = '';
-                  context
-                      .read<BoulderFilterBloc>()
-                      .add(BoulderFilterSearched(''));
-                },
-              )
-            : null,
+        suffixIcon:
+            showCancelIcon
+                ? IconButton(
+                  tooltip: AppLocalizations.of(context).clear,
+                  icon: const Icon(Icons.cancel),
+                  onPressed: () {
+                    _controller.text = '';
+                    context.read<BoulderFilterBloc>().add(
+                      BoulderFilterSearched(''),
+                    );
+                  },
+                )
+                : null,
         border: InputBorder.none,
         filled: true,
       ),

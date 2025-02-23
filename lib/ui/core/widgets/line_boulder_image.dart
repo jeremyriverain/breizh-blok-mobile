@@ -9,10 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LineBoulderImage extends StatelessWidget {
-  const LineBoulderImage({
-    required this.lineBoulder,
-    super.key,
-  });
+  const LineBoulderImage({required this.lineBoulder, super.key});
   final LineBoulder lineBoulder;
 
   @override
@@ -20,31 +17,31 @@ class LineBoulderImage extends StatelessWidget {
     if (lineBoulder.rockImage.filterUrl == null ||
         lineBoulder.rockImage.width == null ||
         lineBoulder.rockImage.height == null) {
-      return const SizedBox(
-        height: 0,
-      );
+      return const SizedBox(height: 0);
     }
 
     final image = Image(
       image: CachedNetworkImageProvider(
         Uri.https(
           const String.fromEnvironment('API_HOST'),
-          (lineBoulder.rockImage.filterUrl ?? '')
-              .replaceAll('%filter%', 'scale_md'),
+          (lineBoulder.rockImage.filterUrl ?? '').replaceAll(
+            '%filter%',
+            'scale_md',
+          ),
         ).toString(),
         cacheManager: context.read<ImageBoulderCache>().cache,
       ),
     );
     final completer = Completer<ui.Image>();
-    image.image.resolve(ImageConfiguration.empty).addListener(
-      ImageStreamListener(
-        (ImageInfo image, bool synchronousCall) {
-          if (!completer.isCompleted) {
-            completer.complete(image.image);
-          }
-        },
-      ),
-    );
+    image.image
+        .resolve(ImageConfiguration.empty)
+        .addListener(
+          ImageStreamListener((ImageInfo image, bool synchronousCall) {
+            if (!completer.isCompleted) {
+              completer.complete(image.image);
+            }
+          }),
+        );
 
     return FutureBuilder<ui.Image>(
       future: completer.future,
@@ -60,8 +57,7 @@ class LineBoulderImage extends StatelessWidget {
               child: Stack(
                 children: [
                   image,
-                  SvgPicture.string(
-                    '''
+                  SvgPicture.string('''
 <svg
                            width="$width"
                            height="$height"
@@ -73,19 +69,17 @@ class LineBoulderImage extends StatelessWidget {
                                stroke="red"
                                stroke-width="6px">
                                </path>
-                       </svg>''',
-                  ),
+                       </svg>'''),
                 ],
               ),
             ),
           );
         } else {
           return AspectRatio(
-            aspectRatio: (lineBoulder.rockImage.width ?? 4) /
+            aspectRatio:
+                (lineBoulder.rockImage.width ?? 4) /
                 (lineBoulder.rockImage.height ?? 3),
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
+            child: const Center(child: CircularProgressIndicator()),
           );
         }
       },

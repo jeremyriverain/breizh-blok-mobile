@@ -3,11 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderOrderBloc extends Bloc<BoulderOrderEvent, ApiOrderParam> {
   BoulderOrderBloc(super.initialState) {
-    on<BoulderOrderEvent>(
-      (event, emit) {
-        emit(event.order);
-      },
-    );
+    on<BoulderOrderEvent>((event, emit) {
+      emit(event.order);
+    });
   }
 }
 

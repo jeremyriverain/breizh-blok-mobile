@@ -22,9 +22,7 @@ class _MapScreenState extends State<MapScreen> {
     return BoulderMap(
       initialZoom: context.read<MapBloc>().state.mapZoom,
       initialPosition: context.read<MapBloc>().state.mapLatLng,
-      boulderMarkerBuilder: MapMarker.markerBuilderFactory(
-        context,
-      ),
+      boulderMarkerBuilder: MapMarker.markerBuilderFactory(context),
     );
   }
 }

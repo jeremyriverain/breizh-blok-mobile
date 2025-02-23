@@ -1,14 +1,12 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderListBuilderFilterButton extends StatelessWidget {
-  const BoulderListBuilderFilterButton({
-    super.key,
-  });
+  const BoulderListBuilderFilterButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +17,7 @@ class BoulderListBuilderFilterButton extends StatelessWidget {
           child: Row(
             children: [
               const Icon(CupertinoIcons.line_horizontal_3_decrease),
-              const SizedBox(
-                width: 5,
-              ),
+              const SizedBox(width: 5),
               Text(AppLocalizations.of(context).filter),
             ],
           ),

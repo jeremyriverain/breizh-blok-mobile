@@ -17,10 +17,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class BoulderAreaDetailsScreen extends StatefulWidget {
-  const BoulderAreaDetailsScreen({
-    required this.id,
-    super.key,
-  });
+  const BoulderAreaDetailsScreen({required this.id, super.key});
   final String id;
 
   @override
@@ -32,9 +29,9 @@ class _BoulderAreaDetailsScreenState extends State<BoulderAreaDetailsScreen> {
   Future<BoulderArea> _findBoulderArea(BuildContext context) {
     final offlineFirst = context.read<RequestStrategy>().offlineFirst;
     return context.read<BoulderAreaRepository>().find(
-          widget.id,
-          offlineFirst: offlineFirst,
-        );
+      widget.id,
+      offlineFirst: offlineFirst,
+    );
   }
 
   @override
@@ -46,11 +43,7 @@ class _BoulderAreaDetailsScreenState extends State<BoulderAreaDetailsScreen> {
         if (boulderArea != null) {
           final location = boulderArea.resolveLocation();
           final boulderFilterBloc = BoulderFilterBloc(
-            BoulderFilterState(
-              boulderAreas: {
-                boulderArea,
-              },
-            ),
+            BoulderFilterState(boulderAreas: {boulderArea}),
           );
 
           final boulderMarkerBloc = BoulderMarkerBloc(
@@ -64,10 +57,7 @@ class _BoulderAreaDetailsScreenState extends State<BoulderAreaDetailsScreen> {
           final mapBloc = MapBloc(
             initialState: MapState(
               mapZoom: 14.5,
-              mapLatLng: LatLng(
-                location.latitude,
-                location.longitude,
-              ),
+              mapLatLng: LatLng(location.latitude, location.longitude),
             ),
           );
 
@@ -76,17 +66,13 @@ class _BoulderAreaDetailsScreenState extends State<BoulderAreaDetailsScreen> {
               BlocProvider<BoulderMarkerBloc>(
                 create: (context) => boulderMarkerBloc,
               ),
-              BlocProvider<MapBloc>(
-                create: (context) => mapBloc,
-              ),
+              BlocProvider<MapBloc>(create: (context) => mapBloc),
               BlocProvider<BoulderBloc>(create: (context) => boulderBloc),
               BlocProvider<BoulderFilterBloc>(
                 create: (context) => boulderFilterBloc,
               ),
             ],
-            child: BoulderAreaDetails(
-              boulderArea: boulderArea,
-            ),
+            child: BoulderAreaDetails(boulderArea: boulderArea),
           );
         } else if (snapshot.hasError) {
           final error = snapshot.error;

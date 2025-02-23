@@ -5,10 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class MyMap extends StatefulWidget {
-  const MyMap({
-    required this.map,
-    super.key,
-  });
+  const MyMap({required this.map, super.key});
 
   final GoogleMap map;
 
@@ -59,17 +56,19 @@ class _MyMapState extends State<MyMap> {
     var permissionGranted = await locationInstance.hasPermission();
 
     if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await locationInstance.requestPermission().then(
-        (permissionStatus) {
-          context.read<MapPermissionBloc>().add(
-                RequestPermissionEvent(
-                  hasDenied: permissionStatus == PermissionStatus.denied ||
-                      permissionStatus == PermissionStatus.deniedForever,
-                ),
-              );
-          return permissionStatus;
-        },
-      );
+      permissionGranted = await locationInstance.requestPermission().then((
+        permissionStatus,
+      ) {
+        // ignore: use_build_context_synchronously
+        context.read<MapPermissionBloc>().add(
+          RequestPermissionEvent(
+            hasDenied:
+                permissionStatus == PermissionStatus.denied ||
+                permissionStatus == PermissionStatus.deniedForever,
+          ),
+        );
+        return permissionStatus;
+      });
     }
   }
 }

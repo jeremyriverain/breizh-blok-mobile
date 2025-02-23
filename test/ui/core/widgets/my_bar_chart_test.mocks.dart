@@ -21,13 +21,8 @@ import 'package:mockito/src/dummies.dart' as _i3;
 // ignore_for_file: subtype_of_sealed_class
 
 class _FakeSideTitles_0 extends _i1.SmartFake implements _i2.SideTitles {
-  _FakeSideTitles_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeSideTitles_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [TitleMeta].
@@ -35,63 +30,79 @@ class _FakeSideTitles_0 extends _i1.SmartFake implements _i2.SideTitles {
 /// See the documentation for Mockito's code generation for more information.
 class MockTitleMeta extends _i1.Mock implements _i2.TitleMeta {
   @override
-  double get min => (super.noSuchMethod(
-        Invocation.getter(#min),
-        returnValue: 0.0,
-        returnValueForMissingStub: 0.0,
-      ) as double);
+  double get min =>
+      (super.noSuchMethod(
+            Invocation.getter(#min),
+            returnValue: 0.0,
+            returnValueForMissingStub: 0.0,
+          )
+          as double);
   @override
-  double get max => (super.noSuchMethod(
-        Invocation.getter(#max),
-        returnValue: 0.0,
-        returnValueForMissingStub: 0.0,
-      ) as double);
+  double get max =>
+      (super.noSuchMethod(
+            Invocation.getter(#max),
+            returnValue: 0.0,
+            returnValueForMissingStub: 0.0,
+          )
+          as double);
   @override
-  double get parentAxisSize => (super.noSuchMethod(
-        Invocation.getter(#parentAxisSize),
-        returnValue: 0.0,
-        returnValueForMissingStub: 0.0,
-      ) as double);
+  double get parentAxisSize =>
+      (super.noSuchMethod(
+            Invocation.getter(#parentAxisSize),
+            returnValue: 0.0,
+            returnValueForMissingStub: 0.0,
+          )
+          as double);
   @override
-  double get axisPosition => (super.noSuchMethod(
-        Invocation.getter(#axisPosition),
-        returnValue: 0.0,
-        returnValueForMissingStub: 0.0,
-      ) as double);
+  double get axisPosition =>
+      (super.noSuchMethod(
+            Invocation.getter(#axisPosition),
+            returnValue: 0.0,
+            returnValueForMissingStub: 0.0,
+          )
+          as double);
   @override
-  double get appliedInterval => (super.noSuchMethod(
-        Invocation.getter(#appliedInterval),
-        returnValue: 0.0,
-        returnValueForMissingStub: 0.0,
-      ) as double);
+  double get appliedInterval =>
+      (super.noSuchMethod(
+            Invocation.getter(#appliedInterval),
+            returnValue: 0.0,
+            returnValueForMissingStub: 0.0,
+          )
+          as double);
   @override
-  _i2.SideTitles get sideTitles => (super.noSuchMethod(
-        Invocation.getter(#sideTitles),
-        returnValue: _FakeSideTitles_0(
-          this,
-          Invocation.getter(#sideTitles),
-        ),
-        returnValueForMissingStub: _FakeSideTitles_0(
-          this,
-          Invocation.getter(#sideTitles),
-        ),
-      ) as _i2.SideTitles);
+  _i2.SideTitles get sideTitles =>
+      (super.noSuchMethod(
+            Invocation.getter(#sideTitles),
+            returnValue: _FakeSideTitles_0(
+              this,
+              Invocation.getter(#sideTitles),
+            ),
+            returnValueForMissingStub: _FakeSideTitles_0(
+              this,
+              Invocation.getter(#sideTitles),
+            ),
+          )
+          as _i2.SideTitles);
   @override
-  String get formattedValue => (super.noSuchMethod(
-        Invocation.getter(#formattedValue),
-        returnValue: _i3.dummyValue<String>(
-          this,
-          Invocation.getter(#formattedValue),
-        ),
-        returnValueForMissingStub: _i3.dummyValue<String>(
-          this,
-          Invocation.getter(#formattedValue),
-        ),
-      ) as String);
+  String get formattedValue =>
+      (super.noSuchMethod(
+            Invocation.getter(#formattedValue),
+            returnValue: _i3.dummyValue<String>(
+              this,
+              Invocation.getter(#formattedValue),
+            ),
+            returnValueForMissingStub: _i3.dummyValue<String>(
+              this,
+              Invocation.getter(#formattedValue),
+            ),
+          )
+          as String);
   @override
-  _i2.AxisSide get axisSide => (super.noSuchMethod(
-        Invocation.getter(#axisSide),
-        returnValue: _i2.AxisSide.left,
-        returnValueForMissingStub: _i2.AxisSide.left,
-      ) as _i2.AxisSide);
+  _i2.AxisSide get axisSide =>
+      (super.noSuchMethod(
+            Invocation.getter(#axisSide),
+            returnValue: _i2.AxisSide.left,
+            returnValueForMissingStub: _i2.AxisSide.left,
+          )
+          as _i2.AxisSide);
 }

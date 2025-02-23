@@ -29,10 +29,6 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    verify(
-      mockShareContentService.share(
-        'foo',
-      ),
-    ).called(1);
+    verify(mockShareContentService.share('foo')).called(1);
   });
 }

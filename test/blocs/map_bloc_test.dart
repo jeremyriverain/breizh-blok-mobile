@@ -12,29 +12,21 @@ void main() {
       verify: (MapBloc bloc) {
         expect(
           bloc.state,
-          const MapState(
-            mapZoom: 7,
-            mapLatLng: kDefaultInitialPosition,
-          ),
+          const MapState(mapZoom: 7, mapLatLng: kDefaultInitialPosition),
         );
       },
     );
 
     blocTest<MapBloc, MapState>(
       'initial state OK',
-      build: () => MapBloc(
-        initialState: const MapState(
-          mapZoom: 5,
-          mapLatLng: LatLng(10, 20),
-        ),
-      ),
+      build:
+          () => MapBloc(
+            initialState: const MapState(mapZoom: 5, mapLatLng: LatLng(10, 20)),
+          ),
       verify: (MapBloc bloc) {
         expect(
           bloc.state,
-          const MapState(
-            mapZoom: 5,
-            mapLatLng: LatLng(10, 20),
-          ),
+          const MapState(mapZoom: 5, mapLatLng: LatLng(10, 20)),
         );
       },
     );
@@ -42,18 +34,10 @@ void main() {
     blocTest<MapBloc, MapState>(
       'MapUpdated event OK',
       build: MapBloc.new,
-      act: (MapBloc bloc) => bloc.add(
-        MapUpdated(
-          mapZoom: 5,
-          mapLatLng: const LatLng(10, 20),
-        ),
-      ),
-      expect: () => [
-        const MapState(
-          mapZoom: 5,
-          mapLatLng: LatLng(10, 20),
-        ),
-      ],
+      act:
+          (MapBloc bloc) =>
+              bloc.add(MapUpdated(mapZoom: 5, mapLatLng: const LatLng(10, 20))),
+      expect: () => [const MapState(mapZoom: 5, mapLatLng: LatLng(10, 20))],
     );
   });
 }

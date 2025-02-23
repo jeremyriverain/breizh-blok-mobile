@@ -11,17 +11,20 @@ _$BoulderImpl _$$BoulderImplFromJson(Map<String, dynamic> json) =>
       iri: json['@id'] as String,
       name: json['name'] as String,
       rock: Rock.fromJson(json['rock'] as Map<String, dynamic>),
-      lineBoulders: (json['lineBoulders'] as List<dynamic>?)
+      lineBoulders:
+          (json['lineBoulders'] as List<dynamic>?)
               ?.map((e) => LineBoulder.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <LineBoulder>[],
-      grade: json['grade'] == null
-          ? null
-          : Grade.fromJson(json['grade'] as Map<String, dynamic>),
+      grade:
+          json['grade'] == null
+              ? null
+              : Grade.fromJson(json['grade'] as Map<String, dynamic>),
       description: json['description'] as String?,
-      height: json['height'] == null
-          ? null
-          : HeightBoulder.fromJson(json['height'] as Map<String, dynamic>),
+      height:
+          json['height'] == null
+              ? null
+              : HeightBoulder.fromJson(json['height'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$BoulderImplToJson(_$BoulderImpl instance) =>

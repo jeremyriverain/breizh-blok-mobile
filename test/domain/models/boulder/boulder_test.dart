@@ -30,9 +30,7 @@ void main() {
         'lineBoulders': [
           {
             '@id': '/line_boulders/lineBoulderId',
-            'rockImage': {
-              'contentUrl': 'contentUrl',
-            },
+            'rockImage': {'contentUrl': 'contentUrl'},
             'smoothLine': 'smoothLine',
           },
         ],
@@ -41,12 +39,7 @@ void main() {
       expect(boulder.id, 'boulderId');
       expect(
         boulder.grade,
-        equals(
-          const Grade(
-            iri: '/grades/gradeId',
-            name: '7a+',
-          ),
-        ),
+        equals(const Grade(iri: '/grades/gradeId', name: '7a+')),
       );
       expect(
         boulder.rock,
@@ -61,25 +54,20 @@ void main() {
                 name: 'Kerlouan',
               ),
             ),
-            location: Location(
-              latitude: 48,
-              longitude: -4,
-            ),
+            location: Location(latitude: 48, longitude: -4),
           ),
         ),
       );
 
       expect(
         boulder.lineBoulders,
-        equals(
-          const [
-            LineBoulder(
-              iri: '/line_boulders/lineBoulderId',
-              smoothLine: 'smoothLine',
-              rockImage: Image(contentUrl: 'contentUrl'),
-            ),
-          ],
-        ),
+        equals(const [
+          LineBoulder(
+            iri: '/line_boulders/lineBoulderId',
+            smoothLine: 'smoothLine',
+            rockImage: Image(contentUrl: 'contentUrl'),
+          ),
+        ]),
       );
     });
   });

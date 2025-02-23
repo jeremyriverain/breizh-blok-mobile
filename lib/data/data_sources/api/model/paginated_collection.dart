@@ -9,17 +9,13 @@ class PaginatedCollection<T> {
     Map<String, dynamic> json,
     T Function(Map<String, dynamic>) callbackItem,
   ) {
-    final items = (json['hydra:member'] as List<dynamic>)
-        .map<T>((item) => callbackItem(item as Map<String, dynamic>))
-        .toList();
+    final items =
+        (json['hydra:member'] as List<dynamic>)
+            .map<T>((item) => callbackItem(item as Map<String, dynamic>))
+            .toList();
 
     int? nextPage;
-    if (json
-        case {
-          'hydra:view': {
-            'hydra:next': final String nextPageUrl,
-          },
-        }) {
+    if (json case {'hydra:view': {'hydra:next': final String nextPageUrl}}) {
       nextPage = extractPage(nextPageUrl);
     }
     return PaginatedCollection(

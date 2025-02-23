@@ -12,7 +12,8 @@ part of 'boulder_area.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 BoulderArea _$BoulderAreaFromJson(Map<String, dynamic> json) {
   return _BoulderArea.fromJson(json);
@@ -42,20 +43,22 @@ mixin _$BoulderArea {
 /// @nodoc
 abstract class $BoulderAreaCopyWith<$Res> {
   factory $BoulderAreaCopyWith(
-          BoulderArea value, $Res Function(BoulderArea) then) =
-      _$BoulderAreaCopyWithImpl<$Res, BoulderArea>;
+    BoulderArea value,
+    $Res Function(BoulderArea) then,
+  ) = _$BoulderAreaCopyWithImpl<$Res, BoulderArea>;
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      String name,
-      Municipality? municipality,
-      Location? centroid,
-      Location? parkingLocation,
-      String? description,
-      int? numberOfBoulders,
-      Grade? lowestGrade,
-      Grade? highestGrade,
-      Map<String, int>? numberOfBouldersGroupedByGrade});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String name,
+    Municipality? municipality,
+    Location? centroid,
+    Location? parkingLocation,
+    String? description,
+    int? numberOfBoulders,
+    Grade? lowestGrade,
+    Grade? highestGrade,
+    Map<String, int>? numberOfBouldersGroupedByGrade,
+  });
 
   $MunicipalityCopyWith<$Res>? get municipality;
   $LocationCopyWith<$Res>? get centroid;
@@ -88,48 +91,61 @@ class _$BoulderAreaCopyWithImpl<$Res, $Val extends BoulderArea>
     Object? highestGrade = freezed,
     Object? numberOfBouldersGroupedByGrade = freezed,
   }) {
-    return _then(_value.copyWith(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      municipality: freezed == municipality
-          ? _value.municipality
-          : municipality // ignore: cast_nullable_to_non_nullable
-              as Municipality?,
-      centroid: freezed == centroid
-          ? _value.centroid
-          : centroid // ignore: cast_nullable_to_non_nullable
-              as Location?,
-      parkingLocation: freezed == parkingLocation
-          ? _value.parkingLocation
-          : parkingLocation // ignore: cast_nullable_to_non_nullable
-              as Location?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      numberOfBoulders: freezed == numberOfBoulders
-          ? _value.numberOfBoulders
-          : numberOfBoulders // ignore: cast_nullable_to_non_nullable
-              as int?,
-      lowestGrade: freezed == lowestGrade
-          ? _value.lowestGrade
-          : lowestGrade // ignore: cast_nullable_to_non_nullable
-              as Grade?,
-      highestGrade: freezed == highestGrade
-          ? _value.highestGrade
-          : highestGrade // ignore: cast_nullable_to_non_nullable
-              as Grade?,
-      numberOfBouldersGroupedByGrade: freezed == numberOfBouldersGroupedByGrade
-          ? _value.numberOfBouldersGroupedByGrade
-          : numberOfBouldersGroupedByGrade // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            iri:
+                null == iri
+                    ? _value.iri
+                    : iri // ignore: cast_nullable_to_non_nullable
+                        as String,
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            municipality:
+                freezed == municipality
+                    ? _value.municipality
+                    : municipality // ignore: cast_nullable_to_non_nullable
+                        as Municipality?,
+            centroid:
+                freezed == centroid
+                    ? _value.centroid
+                    : centroid // ignore: cast_nullable_to_non_nullable
+                        as Location?,
+            parkingLocation:
+                freezed == parkingLocation
+                    ? _value.parkingLocation
+                    : parkingLocation // ignore: cast_nullable_to_non_nullable
+                        as Location?,
+            description:
+                freezed == description
+                    ? _value.description
+                    : description // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            numberOfBoulders:
+                freezed == numberOfBoulders
+                    ? _value.numberOfBoulders
+                    : numberOfBoulders // ignore: cast_nullable_to_non_nullable
+                        as int?,
+            lowestGrade:
+                freezed == lowestGrade
+                    ? _value.lowestGrade
+                    : lowestGrade // ignore: cast_nullable_to_non_nullable
+                        as Grade?,
+            highestGrade:
+                freezed == highestGrade
+                    ? _value.highestGrade
+                    : highestGrade // ignore: cast_nullable_to_non_nullable
+                        as Grade?,
+            numberOfBouldersGroupedByGrade:
+                freezed == numberOfBouldersGroupedByGrade
+                    ? _value.numberOfBouldersGroupedByGrade
+                    : numberOfBouldersGroupedByGrade // ignore: cast_nullable_to_non_nullable
+                        as Map<String, int>?,
+          )
+          as $Val,
+    );
   }
 
   @override
@@ -197,21 +213,23 @@ class _$BoulderAreaCopyWithImpl<$Res, $Val extends BoulderArea>
 abstract class _$$BoulderAreaImplCopyWith<$Res>
     implements $BoulderAreaCopyWith<$Res> {
   factory _$$BoulderAreaImplCopyWith(
-          _$BoulderAreaImpl value, $Res Function(_$BoulderAreaImpl) then) =
-      __$$BoulderAreaImplCopyWithImpl<$Res>;
+    _$BoulderAreaImpl value,
+    $Res Function(_$BoulderAreaImpl) then,
+  ) = __$$BoulderAreaImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      String name,
-      Municipality? municipality,
-      Location? centroid,
-      Location? parkingLocation,
-      String? description,
-      int? numberOfBoulders,
-      Grade? lowestGrade,
-      Grade? highestGrade,
-      Map<String, int>? numberOfBouldersGroupedByGrade});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String name,
+    Municipality? municipality,
+    Location? centroid,
+    Location? parkingLocation,
+    String? description,
+    int? numberOfBoulders,
+    Grade? lowestGrade,
+    Grade? highestGrade,
+    Map<String, int>? numberOfBouldersGroupedByGrade,
+  });
 
   @override
   $MunicipalityCopyWith<$Res>? get municipality;
@@ -230,8 +248,9 @@ class __$$BoulderAreaImplCopyWithImpl<$Res>
     extends _$BoulderAreaCopyWithImpl<$Res, _$BoulderAreaImpl>
     implements _$$BoulderAreaImplCopyWith<$Res> {
   __$$BoulderAreaImplCopyWithImpl(
-      _$BoulderAreaImpl _value, $Res Function(_$BoulderAreaImpl) _then)
-      : super(_value, _then);
+    _$BoulderAreaImpl _value,
+    $Res Function(_$BoulderAreaImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -247,67 +266,79 @@ class __$$BoulderAreaImplCopyWithImpl<$Res>
     Object? highestGrade = freezed,
     Object? numberOfBouldersGroupedByGrade = freezed,
   }) {
-    return _then(_$BoulderAreaImpl(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      municipality: freezed == municipality
-          ? _value.municipality
-          : municipality // ignore: cast_nullable_to_non_nullable
-              as Municipality?,
-      centroid: freezed == centroid
-          ? _value.centroid
-          : centroid // ignore: cast_nullable_to_non_nullable
-              as Location?,
-      parkingLocation: freezed == parkingLocation
-          ? _value.parkingLocation
-          : parkingLocation // ignore: cast_nullable_to_non_nullable
-              as Location?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      numberOfBoulders: freezed == numberOfBoulders
-          ? _value.numberOfBoulders
-          : numberOfBoulders // ignore: cast_nullable_to_non_nullable
-              as int?,
-      lowestGrade: freezed == lowestGrade
-          ? _value.lowestGrade
-          : lowestGrade // ignore: cast_nullable_to_non_nullable
-              as Grade?,
-      highestGrade: freezed == highestGrade
-          ? _value.highestGrade
-          : highestGrade // ignore: cast_nullable_to_non_nullable
-              as Grade?,
-      numberOfBouldersGroupedByGrade: freezed == numberOfBouldersGroupedByGrade
-          ? _value._numberOfBouldersGroupedByGrade
-          : numberOfBouldersGroupedByGrade // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>?,
-    ));
+    return _then(
+      _$BoulderAreaImpl(
+        iri:
+            null == iri
+                ? _value.iri
+                : iri // ignore: cast_nullable_to_non_nullable
+                    as String,
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        municipality:
+            freezed == municipality
+                ? _value.municipality
+                : municipality // ignore: cast_nullable_to_non_nullable
+                    as Municipality?,
+        centroid:
+            freezed == centroid
+                ? _value.centroid
+                : centroid // ignore: cast_nullable_to_non_nullable
+                    as Location?,
+        parkingLocation:
+            freezed == parkingLocation
+                ? _value.parkingLocation
+                : parkingLocation // ignore: cast_nullable_to_non_nullable
+                    as Location?,
+        description:
+            freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        numberOfBoulders:
+            freezed == numberOfBoulders
+                ? _value.numberOfBoulders
+                : numberOfBoulders // ignore: cast_nullable_to_non_nullable
+                    as int?,
+        lowestGrade:
+            freezed == lowestGrade
+                ? _value.lowestGrade
+                : lowestGrade // ignore: cast_nullable_to_non_nullable
+                    as Grade?,
+        highestGrade:
+            freezed == highestGrade
+                ? _value.highestGrade
+                : highestGrade // ignore: cast_nullable_to_non_nullable
+                    as Grade?,
+        numberOfBouldersGroupedByGrade:
+            freezed == numberOfBouldersGroupedByGrade
+                ? _value._numberOfBouldersGroupedByGrade
+                : numberOfBouldersGroupedByGrade // ignore: cast_nullable_to_non_nullable
+                    as Map<String, int>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$BoulderAreaImpl extends _BoulderArea {
-  const _$BoulderAreaImpl(
-      {@JsonKey(name: '@id') required this.iri,
-      required this.name,
-      this.municipality,
-      this.centroid,
-      this.parkingLocation,
-      this.description,
-      this.numberOfBoulders,
-      this.lowestGrade,
-      this.highestGrade,
-      final Map<String, int>? numberOfBouldersGroupedByGrade})
-      : _numberOfBouldersGroupedByGrade = numberOfBouldersGroupedByGrade,
-        super._();
+  const _$BoulderAreaImpl({
+    @JsonKey(name: '@id') required this.iri,
+    required this.name,
+    this.municipality,
+    this.centroid,
+    this.parkingLocation,
+    this.description,
+    this.numberOfBoulders,
+    this.lowestGrade,
+    this.highestGrade,
+    final Map<String, int>? numberOfBouldersGroupedByGrade,
+  }) : _numberOfBouldersGroupedByGrade = numberOfBouldersGroupedByGrade,
+       super._();
 
   factory _$BoulderAreaImpl.fromJson(Map<String, dynamic> json) =>
       _$$BoulderAreaImplFromJson(json);
@@ -369,24 +400,26 @@ class _$BoulderAreaImpl extends _BoulderArea {
             (identical(other.highestGrade, highestGrade) ||
                 other.highestGrade == highestGrade) &&
             const DeepCollectionEquality().equals(
-                other._numberOfBouldersGroupedByGrade,
-                _numberOfBouldersGroupedByGrade));
+              other._numberOfBouldersGroupedByGrade,
+              _numberOfBouldersGroupedByGrade,
+            ));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      iri,
-      name,
-      municipality,
-      centroid,
-      parkingLocation,
-      description,
-      numberOfBoulders,
-      lowestGrade,
-      highestGrade,
-      const DeepCollectionEquality().hash(_numberOfBouldersGroupedByGrade));
+    runtimeType,
+    iri,
+    name,
+    municipality,
+    centroid,
+    parkingLocation,
+    description,
+    numberOfBoulders,
+    lowestGrade,
+    highestGrade,
+    const DeepCollectionEquality().hash(_numberOfBouldersGroupedByGrade),
+  );
 
   @JsonKey(ignore: true)
   @override
@@ -396,25 +429,23 @@ class _$BoulderAreaImpl extends _BoulderArea {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BoulderAreaImplToJson(
-      this,
-    );
+    return _$$BoulderAreaImplToJson(this);
   }
 }
 
 abstract class _BoulderArea extends BoulderArea {
-  const factory _BoulderArea(
-          {@JsonKey(name: '@id') required final String iri,
-          required final String name,
-          final Municipality? municipality,
-          final Location? centroid,
-          final Location? parkingLocation,
-          final String? description,
-          final int? numberOfBoulders,
-          final Grade? lowestGrade,
-          final Grade? highestGrade,
-          final Map<String, int>? numberOfBouldersGroupedByGrade}) =
-      _$BoulderAreaImpl;
+  const factory _BoulderArea({
+    @JsonKey(name: '@id') required final String iri,
+    required final String name,
+    final Municipality? municipality,
+    final Location? centroid,
+    final Location? parkingLocation,
+    final String? description,
+    final int? numberOfBoulders,
+    final Grade? lowestGrade,
+    final Grade? highestGrade,
+    final Map<String, int>? numberOfBouldersGroupedByGrade,
+  }) = _$BoulderAreaImpl;
   const _BoulderArea._() : super._();
 
   factory _BoulderArea.fromJson(Map<String, dynamic> json) =

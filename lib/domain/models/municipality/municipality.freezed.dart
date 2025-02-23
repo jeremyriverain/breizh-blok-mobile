@@ -12,7 +12,8 @@ part of 'municipality.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Municipality _$MunicipalityFromJson(Map<String, dynamic> json) {
   return _Municipality.fromJson(json);
@@ -35,14 +36,16 @@ mixin _$Municipality {
 /// @nodoc
 abstract class $MunicipalityCopyWith<$Res> {
   factory $MunicipalityCopyWith(
-          Municipality value, $Res Function(Municipality) then) =
-      _$MunicipalityCopyWithImpl<$Res, Municipality>;
+    Municipality value,
+    $Res Function(Municipality) then,
+  ) = _$MunicipalityCopyWithImpl<$Res, Municipality>;
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      String name,
-      List<BoulderArea> boulderAreas,
-      Location? centroid});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String name,
+    List<BoulderArea> boulderAreas,
+    Location? centroid,
+  });
 
   $LocationCopyWith<$Res>? get centroid;
 }
@@ -65,24 +68,31 @@ class _$MunicipalityCopyWithImpl<$Res, $Val extends Municipality>
     Object? boulderAreas = null,
     Object? centroid = freezed,
   }) {
-    return _then(_value.copyWith(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      boulderAreas: null == boulderAreas
-          ? _value.boulderAreas
-          : boulderAreas // ignore: cast_nullable_to_non_nullable
-              as List<BoulderArea>,
-      centroid: freezed == centroid
-          ? _value.centroid
-          : centroid // ignore: cast_nullable_to_non_nullable
-              as Location?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            iri:
+                null == iri
+                    ? _value.iri
+                    : iri // ignore: cast_nullable_to_non_nullable
+                        as String,
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            boulderAreas:
+                null == boulderAreas
+                    ? _value.boulderAreas
+                    : boulderAreas // ignore: cast_nullable_to_non_nullable
+                        as List<BoulderArea>,
+            centroid:
+                freezed == centroid
+                    ? _value.centroid
+                    : centroid // ignore: cast_nullable_to_non_nullable
+                        as Location?,
+          )
+          as $Val,
+    );
   }
 
   @override
@@ -102,15 +112,17 @@ class _$MunicipalityCopyWithImpl<$Res, $Val extends Municipality>
 abstract class _$$MunicipalityImplCopyWith<$Res>
     implements $MunicipalityCopyWith<$Res> {
   factory _$$MunicipalityImplCopyWith(
-          _$MunicipalityImpl value, $Res Function(_$MunicipalityImpl) then) =
-      __$$MunicipalityImplCopyWithImpl<$Res>;
+    _$MunicipalityImpl value,
+    $Res Function(_$MunicipalityImpl) then,
+  ) = __$$MunicipalityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      String name,
-      List<BoulderArea> boulderAreas,
-      Location? centroid});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String name,
+    List<BoulderArea> boulderAreas,
+    Location? centroid,
+  });
 
   @override
   $LocationCopyWith<$Res>? get centroid;
@@ -121,8 +133,9 @@ class __$$MunicipalityImplCopyWithImpl<$Res>
     extends _$MunicipalityCopyWithImpl<$Res, _$MunicipalityImpl>
     implements _$$MunicipalityImplCopyWith<$Res> {
   __$$MunicipalityImplCopyWithImpl(
-      _$MunicipalityImpl _value, $Res Function(_$MunicipalityImpl) _then)
-      : super(_value, _then);
+    _$MunicipalityImpl _value,
+    $Res Function(_$MunicipalityImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -132,37 +145,43 @@ class __$$MunicipalityImplCopyWithImpl<$Res>
     Object? boulderAreas = null,
     Object? centroid = freezed,
   }) {
-    return _then(_$MunicipalityImpl(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      boulderAreas: null == boulderAreas
-          ? _value._boulderAreas
-          : boulderAreas // ignore: cast_nullable_to_non_nullable
-              as List<BoulderArea>,
-      centroid: freezed == centroid
-          ? _value.centroid
-          : centroid // ignore: cast_nullable_to_non_nullable
-              as Location?,
-    ));
+    return _then(
+      _$MunicipalityImpl(
+        iri:
+            null == iri
+                ? _value.iri
+                : iri // ignore: cast_nullable_to_non_nullable
+                    as String,
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        boulderAreas:
+            null == boulderAreas
+                ? _value._boulderAreas
+                : boulderAreas // ignore: cast_nullable_to_non_nullable
+                    as List<BoulderArea>,
+        centroid:
+            freezed == centroid
+                ? _value.centroid
+                : centroid // ignore: cast_nullable_to_non_nullable
+                    as Location?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$MunicipalityImpl extends _Municipality {
-  const _$MunicipalityImpl(
-      {@JsonKey(name: '@id') required this.iri,
-      required this.name,
-      final List<BoulderArea> boulderAreas = const <BoulderArea>[],
-      this.centroid})
-      : _boulderAreas = boulderAreas,
-        super._();
+  const _$MunicipalityImpl({
+    @JsonKey(name: '@id') required this.iri,
+    required this.name,
+    final List<BoulderArea> boulderAreas = const <BoulderArea>[],
+    this.centroid,
+  }) : _boulderAreas = boulderAreas,
+       super._();
 
   factory _$MunicipalityImpl.fromJson(Map<String, dynamic> json) =>
       _$$MunicipalityImplFromJson(json);
@@ -196,16 +215,23 @@ class _$MunicipalityImpl extends _Municipality {
             other is _$MunicipalityImpl &&
             (identical(other.iri, iri) || other.iri == iri) &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality()
-                .equals(other._boulderAreas, _boulderAreas) &&
+            const DeepCollectionEquality().equals(
+              other._boulderAreas,
+              _boulderAreas,
+            ) &&
             (identical(other.centroid, centroid) ||
                 other.centroid == centroid));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, iri, name,
-      const DeepCollectionEquality().hash(_boulderAreas), centroid);
+  int get hashCode => Object.hash(
+    runtimeType,
+    iri,
+    name,
+    const DeepCollectionEquality().hash(_boulderAreas),
+    centroid,
+  );
 
   @JsonKey(ignore: true)
   @override
@@ -215,18 +241,17 @@ class _$MunicipalityImpl extends _Municipality {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MunicipalityImplToJson(
-      this,
-    );
+    return _$$MunicipalityImplToJson(this);
   }
 }
 
 abstract class _Municipality extends Municipality {
-  const factory _Municipality(
-      {@JsonKey(name: '@id') required final String iri,
-      required final String name,
-      final List<BoulderArea> boulderAreas,
-      final Location? centroid}) = _$MunicipalityImpl;
+  const factory _Municipality({
+    @JsonKey(name: '@id') required final String iri,
+    required final String name,
+    final List<BoulderArea> boulderAreas,
+    final Location? centroid,
+  }) = _$MunicipalityImpl;
   const _Municipality._() : super._();
 
   factory _Municipality.fromJson(Map<String, dynamic> json) =

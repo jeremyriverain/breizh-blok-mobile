@@ -1,11 +1,8 @@
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderListBuilderBackToTopButton extends StatelessWidget {
-  const BoulderListBuilderBackToTopButton({
-    required this.onPressed,
-    super.key,
-  });
+  const BoulderListBuilderBackToTopButton({required this.onPressed, super.key});
   final void Function() onPressed;
 
   @override

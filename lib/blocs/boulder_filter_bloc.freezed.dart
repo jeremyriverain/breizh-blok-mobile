@@ -12,7 +12,8 @@ part of 'boulder_filter_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$BoulderFilterState {
@@ -27,8 +28,9 @@ mixin _$BoulderFilterState {
 /// @nodoc
 abstract class $BoulderFilterStateCopyWith<$Res> {
   factory $BoulderFilterStateCopyWith(
-          BoulderFilterState value, $Res Function(BoulderFilterState) then) =
-      _$BoulderFilterStateCopyWithImpl<$Res, BoulderFilterState>;
+    BoulderFilterState value,
+    $Res Function(BoulderFilterState) then,
+  ) = _$BoulderFilterStateCopyWithImpl<$Res, BoulderFilterState>;
   @useResult
   $Res call({String? term, Set<BoulderArea> boulderAreas});
 }
@@ -45,29 +47,32 @@ class _$BoulderFilterStateCopyWithImpl<$Res, $Val extends BoulderFilterState>
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? term = freezed,
-    Object? boulderAreas = null,
-  }) {
-    return _then(_value.copyWith(
-      term: freezed == term
-          ? _value.term
-          : term // ignore: cast_nullable_to_non_nullable
-              as String?,
-      boulderAreas: null == boulderAreas
-          ? _value.boulderAreas
-          : boulderAreas // ignore: cast_nullable_to_non_nullable
-              as Set<BoulderArea>,
-    ) as $Val);
+  $Res call({Object? term = freezed, Object? boulderAreas = null}) {
+    return _then(
+      _value.copyWith(
+            term:
+                freezed == term
+                    ? _value.term
+                    : term // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            boulderAreas:
+                null == boulderAreas
+                    ? _value.boulderAreas
+                    : boulderAreas // ignore: cast_nullable_to_non_nullable
+                        as Set<BoulderArea>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$BoulderFilterStateImplCopyWith<$Res>
     implements $BoulderFilterStateCopyWith<$Res> {
-  factory _$$BoulderFilterStateImplCopyWith(_$BoulderFilterStateImpl value,
-          $Res Function(_$BoulderFilterStateImpl) then) =
-      __$$BoulderFilterStateImplCopyWithImpl<$Res>;
+  factory _$$BoulderFilterStateImplCopyWith(
+    _$BoulderFilterStateImpl value,
+    $Res Function(_$BoulderFilterStateImpl) then,
+  ) = __$$BoulderFilterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? term, Set<BoulderArea> boulderAreas});
@@ -77,35 +82,38 @@ abstract class _$$BoulderFilterStateImplCopyWith<$Res>
 class __$$BoulderFilterStateImplCopyWithImpl<$Res>
     extends _$BoulderFilterStateCopyWithImpl<$Res, _$BoulderFilterStateImpl>
     implements _$$BoulderFilterStateImplCopyWith<$Res> {
-  __$$BoulderFilterStateImplCopyWithImpl(_$BoulderFilterStateImpl _value,
-      $Res Function(_$BoulderFilterStateImpl) _then)
-      : super(_value, _then);
+  __$$BoulderFilterStateImplCopyWithImpl(
+    _$BoulderFilterStateImpl _value,
+    $Res Function(_$BoulderFilterStateImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? term = freezed,
-    Object? boulderAreas = null,
-  }) {
-    return _then(_$BoulderFilterStateImpl(
-      term: freezed == term
-          ? _value.term
-          : term // ignore: cast_nullable_to_non_nullable
-              as String?,
-      boulderAreas: null == boulderAreas
-          ? _value._boulderAreas
-          : boulderAreas // ignore: cast_nullable_to_non_nullable
-              as Set<BoulderArea>,
-    ));
+  $Res call({Object? term = freezed, Object? boulderAreas = null}) {
+    return _then(
+      _$BoulderFilterStateImpl(
+        term:
+            freezed == term
+                ? _value.term
+                : term // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        boulderAreas:
+            null == boulderAreas
+                ? _value._boulderAreas
+                : boulderAreas // ignore: cast_nullable_to_non_nullable
+                    as Set<BoulderArea>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$BoulderFilterStateImpl implements _BoulderFilterState {
-  const _$BoulderFilterStateImpl(
-      {this.term, final Set<BoulderArea> boulderAreas = const <BoulderArea>{}})
-      : _boulderAreas = boulderAreas;
+  const _$BoulderFilterStateImpl({
+    this.term,
+    final Set<BoulderArea> boulderAreas = const <BoulderArea>{},
+  }) : _boulderAreas = boulderAreas;
 
   @override
   final String? term;
@@ -129,26 +137,34 @@ class _$BoulderFilterStateImpl implements _BoulderFilterState {
         (other.runtimeType == runtimeType &&
             other is _$BoulderFilterStateImpl &&
             (identical(other.term, term) || other.term == term) &&
-            const DeepCollectionEquality()
-                .equals(other._boulderAreas, _boulderAreas));
+            const DeepCollectionEquality().equals(
+              other._boulderAreas,
+              _boulderAreas,
+            ));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, term, const DeepCollectionEquality().hash(_boulderAreas));
+    runtimeType,
+    term,
+    const DeepCollectionEquality().hash(_boulderAreas),
+  );
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BoulderFilterStateImplCopyWith<_$BoulderFilterStateImpl> get copyWith =>
       __$$BoulderFilterStateImplCopyWithImpl<_$BoulderFilterStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _BoulderFilterState implements BoulderFilterState {
-  const factory _BoulderFilterState(
-      {final String? term,
-      final Set<BoulderArea> boulderAreas}) = _$BoulderFilterStateImpl;
+  const factory _BoulderFilterState({
+    final String? term,
+    final Set<BoulderArea> boulderAreas,
+  }) = _$BoulderFilterStateImpl;
 
   @override
   String? get term;

@@ -6,17 +6,13 @@ part 'boulder_filter_bloc.freezed.dart';
 
 class BoulderFilterBloc extends Bloc<BoulderFilterEvent, BoulderFilterState> {
   BoulderFilterBloc(super.initialState) {
-    on<BoulderFilterSearched>(
-      (event, emit) {
-        emit(state.copyWith(term: event.term));
-      },
-    );
+    on<BoulderFilterSearched>((event, emit) {
+      emit(state.copyWith(term: event.term));
+    });
 
-    on<BoulderFilterLocation>(
-      (event, emit) {
-        emit(state.copyWith(boulderAreas: event.boulderAreas));
-      },
-    );
+    on<BoulderFilterLocation>((event, emit) {
+      emit(state.copyWith(boulderAreas: event.boulderAreas));
+    });
   }
 }
 

@@ -20,8 +20,8 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Future<DbRequest?> requestById(String id) {
-    return (select(dbRequests)..where((t) => t.requestPath.equals(id)))
-        .getSingleOrNull();
+    return (select(dbRequests)
+      ..where((t) => t.requestPath.equals(id))).getSingleOrNull();
   }
 
   Future<int> createOrUpdateBoulderArea(DbBoulderArea boulderArea) {
@@ -34,49 +34,53 @@ class AppDatabase extends _$AppDatabase {
       name: kIdOrderParam,
     ),
   }) async {
-    final rows = await select(dbBoulderAreas).join([
-      innerJoin(
-        dbRequests,
-        dbRequests.requestPath.equalsExp(dbBoulderAreas.iri),
-      ),
-    ]).get();
+    final rows =
+        await select(dbBoulderAreas).join([
+          innerJoin(
+            dbRequests,
+            dbRequests.requestPath.equalsExp(dbBoulderAreas.iri),
+          ),
+        ]).get();
 
-    return rows.where((row) {
-      final request = row.readTable(dbRequests);
-      final boulderArea = row.readTable(dbBoulderAreas);
-      if (boulderArea.downloadProgress != 100) {
-        return false;
-      }
-      try {
-        final json = jsonDecode(request.responseBody);
-        if (json
-            case {
-              'name': final String _,
-              'municipality': final Map<String, dynamic> municipalityJson
-            }) {
-          if (municipalityJson case {'name': final String _}) {
-            return true;
+    return rows
+        .where((row) {
+          final request = row.readTable(dbRequests);
+          final boulderArea = row.readTable(dbBoulderAreas);
+          if (boulderArea.downloadProgress != 100) {
+            return false;
           }
-          return false;
-        }
-        return false;
-      } catch (e) {
-        return false;
-      }
-    }).map((row) {
-      final json = jsonDecode(row.readTable(dbRequests).responseBody)
-          as Map<String, dynamic>;
+          try {
+            final json = jsonDecode(request.responseBody);
+            if (json case {
+              'name': final String _,
+              'municipality': final Map<String, dynamic> municipalityJson,
+            }) {
+              if (municipalityJson case {'name': final String _}) {
+                return true;
+              }
+              return false;
+            }
+            return false;
+          } catch (e) {
+            return false;
+          }
+        })
+        .map((row) {
+          final json =
+              jsonDecode(row.readTable(dbRequests).responseBody)
+                  as Map<String, dynamic>;
 
-      final dbBoulderArea = row.readTable(dbBoulderAreas);
+          final dbBoulderArea = row.readTable(dbBoulderAreas);
 
-      return DownloadedBoulderArea(
-        boulderAreaName: json['name'] as String,
-        boulderAreaIri: row.readTable(dbBoulderAreas).iri,
-        // ignore: avoid_dynamic_calls
-        municipalityName: json['municipality']['name'] as String,
-        downloadedAt: dbBoulderArea.downloadedAt,
-      );
-    }).toList()
+          return DownloadedBoulderArea(
+            boulderAreaName: json['name'] as String,
+            boulderAreaIri: row.readTable(dbBoulderAreas).iri,
+            // ignore: avoid_dynamic_calls
+            municipalityName: json['municipality']['name'] as String,
+            downloadedAt: dbBoulderArea.downloadedAt,
+          );
+        })
+        .toList()
       ..sort((a, b) {
         final c = orderParam.direction == kAscendantDirection ? a : b;
         final d = orderParam.direction == kAscendantDirection ? b : a;
@@ -90,7 +94,7 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Stream<DbBoulderArea?> watchDownload(String iri) {
-    return (select(dbBoulderAreas)..where((t) => t.iri.equals(iri)))
-        .watchSingleOrNull();
+    return (select(dbBoulderAreas)
+      ..where((t) => t.iri.equals(iri))).watchSingleOrNull();
   }
 }

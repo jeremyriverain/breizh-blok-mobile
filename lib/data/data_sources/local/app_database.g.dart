@@ -9,18 +9,28 @@ class $DbRequestsTable extends DbRequests
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $DbRequestsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _requestPathMeta =
-      const VerificationMeta('requestPath');
+  static const VerificationMeta _requestPathMeta = const VerificationMeta(
+    'requestPath',
+  );
   @override
   late final GeneratedColumn<String> requestPath = GeneratedColumn<String>(
-      'request_path', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _responseBodyMeta =
-      const VerificationMeta('responseBody');
+    'request_path',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _responseBodyMeta = const VerificationMeta(
+    'responseBody',
+  );
   @override
   late final GeneratedColumn<String> responseBody = GeneratedColumn<String>(
-      'response_body', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'response_body',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<GeneratedColumn> get $columns => [requestPath, responseBody];
   @override
@@ -29,23 +39,31 @@ class $DbRequestsTable extends DbRequests
   String get actualTableName => $name;
   static const String $name = 'db_requests';
   @override
-  VerificationContext validateIntegrity(Insertable<DbRequest> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<DbRequest> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('request_path')) {
       context.handle(
+        _requestPathMeta,
+        requestPath.isAcceptableOrUnknown(
+          data['request_path']!,
           _requestPathMeta,
-          requestPath.isAcceptableOrUnknown(
-              data['request_path']!, _requestPathMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_requestPathMeta);
     }
     if (data.containsKey('response_body')) {
       context.handle(
+        _responseBodyMeta,
+        responseBody.isAcceptableOrUnknown(
+          data['response_body']!,
           _responseBodyMeta,
-          responseBody.isAcceptableOrUnknown(
-              data['response_body']!, _responseBodyMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_responseBodyMeta);
     }
@@ -58,10 +76,16 @@ class $DbRequestsTable extends DbRequests
   DbRequest map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DbRequest(
-      requestPath: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}request_path'])!,
-      responseBody: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}response_body'])!,
+      requestPath:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}request_path'],
+          )!,
+      responseBody:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}response_body'],
+          )!,
     );
   }
 
@@ -90,8 +114,10 @@ class DbRequest extends DataClass implements Insertable<DbRequest> {
     );
   }
 
-  factory DbRequest.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory DbRequest.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DbRequest(
       requestPath: serializer.fromJson<String>(json['requestPath']),
@@ -108,9 +134,9 @@ class DbRequest extends DataClass implements Insertable<DbRequest> {
   }
 
   DbRequest copyWith({String? requestPath, String? responseBody}) => DbRequest(
-        requestPath: requestPath ?? this.requestPath,
-        responseBody: responseBody ?? this.responseBody,
-      );
+    requestPath: requestPath ?? this.requestPath,
+    responseBody: responseBody ?? this.responseBody,
+  );
   @override
   String toString() {
     return (StringBuffer('DbRequest(')
@@ -143,8 +169,8 @@ class DbRequestsCompanion extends UpdateCompanion<DbRequest> {
     required String requestPath,
     required String responseBody,
     this.rowid = const Value.absent(),
-  })  : requestPath = Value(requestPath),
-        responseBody = Value(responseBody);
+  }) : requestPath = Value(requestPath),
+       responseBody = Value(responseBody);
   static Insertable<DbRequest> custom({
     Expression<String>? requestPath,
     Expression<String>? responseBody,
@@ -157,10 +183,11 @@ class DbRequestsCompanion extends UpdateCompanion<DbRequest> {
     });
   }
 
-  DbRequestsCompanion copyWith(
-      {Value<String>? requestPath,
-      Value<String>? responseBody,
-      Value<int>? rowid}) {
+  DbRequestsCompanion copyWith({
+    Value<String>? requestPath,
+    Value<String>? responseBody,
+    Value<int>? rowid,
+  }) {
     return DbRequestsCompanion(
       requestPath: requestPath ?? this.requestPath,
       responseBody: responseBody ?? this.responseBody,
@@ -203,67 +230,101 @@ class $DbBoulderAreasTable extends DbBoulderAreas
   static const VerificationMeta _iriMeta = const VerificationMeta('iri');
   @override
   late final GeneratedColumn<String> iri = GeneratedColumn<String>(
-      'iri', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _downloadProgressMeta =
-      const VerificationMeta('downloadProgress');
+    'iri',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _downloadProgressMeta = const VerificationMeta(
+    'downloadProgress',
+  );
   @override
   late final GeneratedColumn<int> downloadProgress = GeneratedColumn<int>(
-      'download_progress', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _bouldersMeta =
-      const VerificationMeta('boulders');
+    'download_progress',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bouldersMeta = const VerificationMeta(
+    'boulders',
+  );
   @override
   late final GeneratedColumn<String> boulders = GeneratedColumn<String>(
-      'boulders', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES db_requests (request_path)'));
-  static const VerificationMeta _downloadedAtMeta =
-      const VerificationMeta('downloadedAt');
+    'boulders',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES db_requests (request_path)',
+    ),
+  );
+  static const VerificationMeta _downloadedAtMeta = const VerificationMeta(
+    'downloadedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> downloadedAt = GeneratedColumn<DateTime>(
-      'downloaded_at', aliasedName, false,
-      type: DriftSqlType.dateTime,
-      requiredDuringInsert: false,
-      defaultValue: currentDateAndTime);
+    'downloaded_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [iri, downloadProgress, boulders, downloadedAt];
+  List<GeneratedColumn> get $columns => [
+    iri,
+    downloadProgress,
+    boulders,
+    downloadedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'db_boulder_areas';
   @override
-  VerificationContext validateIntegrity(Insertable<DbBoulderArea> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<DbBoulderArea> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('iri')) {
       context.handle(
-          _iriMeta, iri.isAcceptableOrUnknown(data['iri']!, _iriMeta));
+        _iriMeta,
+        iri.isAcceptableOrUnknown(data['iri']!, _iriMeta),
+      );
     } else if (isInserting) {
       context.missing(_iriMeta);
     }
     if (data.containsKey('download_progress')) {
       context.handle(
+        _downloadProgressMeta,
+        downloadProgress.isAcceptableOrUnknown(
+          data['download_progress']!,
           _downloadProgressMeta,
-          downloadProgress.isAcceptableOrUnknown(
-              data['download_progress']!, _downloadProgressMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_downloadProgressMeta);
     }
     if (data.containsKey('boulders')) {
-      context.handle(_bouldersMeta,
-          boulders.isAcceptableOrUnknown(data['boulders']!, _bouldersMeta));
+      context.handle(
+        _bouldersMeta,
+        boulders.isAcceptableOrUnknown(data['boulders']!, _bouldersMeta),
+      );
     }
     if (data.containsKey('downloaded_at')) {
       context.handle(
+        _downloadedAtMeta,
+        downloadedAt.isAcceptableOrUnknown(
+          data['downloaded_at']!,
           _downloadedAtMeta,
-          downloadedAt.isAcceptableOrUnknown(
-              data['downloaded_at']!, _downloadedAtMeta));
+        ),
+      );
     }
     return context;
   }
@@ -274,14 +335,25 @@ class $DbBoulderAreasTable extends DbBoulderAreas
   DbBoulderArea map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DbBoulderArea(
-      iri: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}iri'])!,
-      downloadProgress: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}download_progress'])!,
-      boulders: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}boulders']),
-      downloadedAt: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}downloaded_at'])!,
+      iri:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}iri'],
+          )!,
+      downloadProgress:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}download_progress'],
+          )!,
+      boulders: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}boulders'],
+      ),
+      downloadedAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}downloaded_at'],
+          )!,
     );
   }
 
@@ -296,11 +368,12 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
   final int downloadProgress;
   final String? boulders;
   final DateTime downloadedAt;
-  const DbBoulderArea(
-      {required this.iri,
-      required this.downloadProgress,
-      this.boulders,
-      required this.downloadedAt});
+  const DbBoulderArea({
+    required this.iri,
+    required this.downloadProgress,
+    this.boulders,
+    required this.downloadedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -317,15 +390,18 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
     return DbBoulderAreasCompanion(
       iri: Value(iri),
       downloadProgress: Value(downloadProgress),
-      boulders: boulders == null && nullToAbsent
-          ? const Value.absent()
-          : Value(boulders),
+      boulders:
+          boulders == null && nullToAbsent
+              ? const Value.absent()
+              : Value(boulders),
       downloadedAt: Value(downloadedAt),
     );
   }
 
-  factory DbBoulderArea.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory DbBoulderArea.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DbBoulderArea(
       iri: serializer.fromJson<String>(json['iri']),
@@ -345,17 +421,17 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
     };
   }
 
-  DbBoulderArea copyWith(
-          {String? iri,
-          int? downloadProgress,
-          Value<String?> boulders = const Value.absent(),
-          DateTime? downloadedAt}) =>
-      DbBoulderArea(
-        iri: iri ?? this.iri,
-        downloadProgress: downloadProgress ?? this.downloadProgress,
-        boulders: boulders.present ? boulders.value : this.boulders,
-        downloadedAt: downloadedAt ?? this.downloadedAt,
-      );
+  DbBoulderArea copyWith({
+    String? iri,
+    int? downloadProgress,
+    Value<String?> boulders = const Value.absent(),
+    DateTime? downloadedAt,
+  }) => DbBoulderArea(
+    iri: iri ?? this.iri,
+    downloadProgress: downloadProgress ?? this.downloadProgress,
+    boulders: boulders.present ? boulders.value : this.boulders,
+    downloadedAt: downloadedAt ?? this.downloadedAt,
+  );
   @override
   String toString() {
     return (StringBuffer('DbBoulderArea(')
@@ -399,8 +475,8 @@ class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
     this.boulders = const Value.absent(),
     this.downloadedAt = const Value.absent(),
     this.rowid = const Value.absent(),
-  })  : iri = Value(iri),
-        downloadProgress = Value(downloadProgress);
+  }) : iri = Value(iri),
+       downloadProgress = Value(downloadProgress);
   static Insertable<DbBoulderArea> custom({
     Expression<String>? iri,
     Expression<int>? downloadProgress,
@@ -417,12 +493,13 @@ class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
     });
   }
 
-  DbBoulderAreasCompanion copyWith(
-      {Value<String>? iri,
-      Value<int>? downloadProgress,
-      Value<String?>? boulders,
-      Value<DateTime>? downloadedAt,
-      Value<int>? rowid}) {
+  DbBoulderAreasCompanion copyWith({
+    Value<String>? iri,
+    Value<int>? downloadProgress,
+    Value<String?>? boulders,
+    Value<DateTime>? downloadedAt,
+    Value<int>? rowid,
+  }) {
     return DbBoulderAreasCompanion(
       iri: iri ?? this.iri,
       downloadProgress: downloadProgress ?? this.downloadProgress,
@@ -474,8 +551,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [dbRequests, dbBoulderAreas];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    dbRequests,
+    dbBoulderAreas,
+  ];
   @override
   DriftDatabaseOptions get options =>
       const DriftDatabaseOptions(storeDateTimeAsText: true);

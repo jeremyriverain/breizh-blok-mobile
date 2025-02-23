@@ -7,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderListBuilderFilterModal extends StatelessWidget {
-  const BoulderListBuilderFilterModal({
-    super.key,
-  });
+  const BoulderListBuilderFilterModal({super.key});
 
   Future<PaginatedCollection<Grade>> _fetch(BuildContext context) {
     return context.read<GradeRepository>().findAll();
@@ -35,16 +33,12 @@ class BoulderListBuilderFilterModal extends StatelessWidget {
                   constraints: const BoxConstraints(maxWidth: 400),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       BoulderListBuilderFilterGrade(
                         key: const Key('boulder-list-filter-grade'),
                         allGrades: data,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),

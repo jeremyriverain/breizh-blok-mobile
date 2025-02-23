@@ -15,10 +15,7 @@ void main() {
       BoulderArea(
         iri: '/boulder_areas/1',
         name: 'Le chenal',
-        municipality: Municipality(
-          iri: '/municipalities/0',
-          name: 'generic',
-        ),
+        municipality: Municipality(iri: '/municipalities/0', name: 'generic'),
         numberOfBoulders: 4,
         lowestGrade: Grade(iri: '', name: '5c'),
         highestGrade: Grade(iri: '', name: '6c'),
@@ -26,10 +23,7 @@ void main() {
       BoulderArea(
         iri: '/boulder_areas/2',
         name: 'Mars',
-        municipality: Municipality(
-          iri: '/municipalities/0',
-          name: 'generic',
-        ),
+        municipality: Municipality(iri: '/municipalities/0', name: 'generic'),
       ),
     ];
 

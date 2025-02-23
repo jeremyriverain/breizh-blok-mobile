@@ -5,9 +5,7 @@ import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-@GenerateNiceMocks([
-  MockSpec<Mixpanel>(),
-])
+@GenerateNiceMocks([MockSpec<Mixpanel>()])
 import './tracking_service_test.mocks.dart';
 
 void main() {
@@ -28,33 +26,29 @@ void main() {
     ).called(1);
   });
 
-  test('does not throw exception even if mixpanel throws an exception',
-      () async {
-    when(
-      mockMixpanel.track(
-        'page_viewed',
-        properties: {
-          'path': '/foo',
-        },
-      ),
-    ).thenAnswer((_) async {
-      throw Exception('foo');
-    });
+  test(
+    'does not throw exception even if mixpanel throws an exception',
+    () async {
+      when(
+        mockMixpanel.track('page_viewed', properties: {'path': '/foo'}),
+      ).thenAnswer((_) async {
+        throw Exception('foo');
+      });
 
-    expect(
-      () async => TrackingService()
-          .trackPageViewed(path: '/foo', navigationType: 'foo'),
-      returnsNormally,
-    );
+      expect(
+        () async => TrackingService().trackPageViewed(
+          path: '/foo',
+          navigationType: 'foo',
+        ),
+        returnsNormally,
+      );
 
-    verify(
-      mockMixpanel.track(
-        'page_viewed',
-        properties: {
-          'path': '/foo',
-          'navigationType': 'foo',
-        },
-      ),
-    ).called(1);
-  });
+      verify(
+        mockMixpanel.track(
+          'page_viewed',
+          properties: {'path': '/foo', 'navigationType': 'foo'},
+        ),
+      ).called(1);
+    },
+  );
 }

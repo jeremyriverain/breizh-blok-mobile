@@ -12,7 +12,8 @@ part of 'map_permission_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$MapPermissionState {
@@ -27,8 +28,9 @@ mixin _$MapPermissionState {
 /// @nodoc
 abstract class $MapPermissionStateCopyWith<$Res> {
   factory $MapPermissionStateCopyWith(
-          MapPermissionState value, $Res Function(MapPermissionState) then) =
-      _$MapPermissionStateCopyWithImpl<$Res, MapPermissionState>;
+    MapPermissionState value,
+    $Res Function(MapPermissionState) then,
+  ) = _$MapPermissionStateCopyWithImpl<$Res, MapPermissionState>;
   @useResult
   $Res call({bool hasRequested, bool hasDenied});
 }
@@ -45,29 +47,32 @@ class _$MapPermissionStateCopyWithImpl<$Res, $Val extends MapPermissionState>
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? hasRequested = null,
-    Object? hasDenied = null,
-  }) {
-    return _then(_value.copyWith(
-      hasRequested: null == hasRequested
-          ? _value.hasRequested
-          : hasRequested // ignore: cast_nullable_to_non_nullable
-              as bool,
-      hasDenied: null == hasDenied
-          ? _value.hasDenied
-          : hasDenied // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+  $Res call({Object? hasRequested = null, Object? hasDenied = null}) {
+    return _then(
+      _value.copyWith(
+            hasRequested:
+                null == hasRequested
+                    ? _value.hasRequested
+                    : hasRequested // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            hasDenied:
+                null == hasDenied
+                    ? _value.hasDenied
+                    : hasDenied // ignore: cast_nullable_to_non_nullable
+                        as bool,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$MapPermissionStateImplCopyWith<$Res>
     implements $MapPermissionStateCopyWith<$Res> {
-  factory _$$MapPermissionStateImplCopyWith(_$MapPermissionStateImpl value,
-          $Res Function(_$MapPermissionStateImpl) then) =
-      __$$MapPermissionStateImplCopyWithImpl<$Res>;
+  factory _$$MapPermissionStateImplCopyWith(
+    _$MapPermissionStateImpl value,
+    $Res Function(_$MapPermissionStateImpl) then,
+  ) = __$$MapPermissionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool hasRequested, bool hasDenied});
@@ -77,35 +82,38 @@ abstract class _$$MapPermissionStateImplCopyWith<$Res>
 class __$$MapPermissionStateImplCopyWithImpl<$Res>
     extends _$MapPermissionStateCopyWithImpl<$Res, _$MapPermissionStateImpl>
     implements _$$MapPermissionStateImplCopyWith<$Res> {
-  __$$MapPermissionStateImplCopyWithImpl(_$MapPermissionStateImpl _value,
-      $Res Function(_$MapPermissionStateImpl) _then)
-      : super(_value, _then);
+  __$$MapPermissionStateImplCopyWithImpl(
+    _$MapPermissionStateImpl _value,
+    $Res Function(_$MapPermissionStateImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? hasRequested = null,
-    Object? hasDenied = null,
-  }) {
-    return _then(_$MapPermissionStateImpl(
-      hasRequested: null == hasRequested
-          ? _value.hasRequested
-          : hasRequested // ignore: cast_nullable_to_non_nullable
-              as bool,
-      hasDenied: null == hasDenied
-          ? _value.hasDenied
-          : hasDenied // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+  $Res call({Object? hasRequested = null, Object? hasDenied = null}) {
+    return _then(
+      _$MapPermissionStateImpl(
+        hasRequested:
+            null == hasRequested
+                ? _value.hasRequested
+                : hasRequested // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        hasDenied:
+            null == hasDenied
+                ? _value.hasDenied
+                : hasDenied // ignore: cast_nullable_to_non_nullable
+                    as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$MapPermissionStateImpl extends _MapPermissionState {
-  const _$MapPermissionStateImpl(
-      {this.hasRequested = false, this.hasDenied = false})
-      : super._();
+  const _$MapPermissionStateImpl({
+    this.hasRequested = false,
+    this.hasDenied = false,
+  }) : super._();
 
   @override
   @JsonKey()
@@ -138,13 +146,16 @@ class _$MapPermissionStateImpl extends _MapPermissionState {
   @pragma('vm:prefer-inline')
   _$$MapPermissionStateImplCopyWith<_$MapPermissionStateImpl> get copyWith =>
       __$$MapPermissionStateImplCopyWithImpl<_$MapPermissionStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _MapPermissionState extends MapPermissionState {
-  const factory _MapPermissionState(
-      {final bool hasRequested,
-      final bool hasDenied}) = _$MapPermissionStateImpl;
+  const factory _MapPermissionState({
+    final bool hasRequested,
+    final bool hasDenied,
+  }) = _$MapPermissionStateImpl;
   const _MapPermissionState._() : super._();
 
   @override

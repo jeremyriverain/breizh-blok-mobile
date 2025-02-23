@@ -9,5 +9,6 @@ analyzer:
     - test/**/*.mocks.dart
     - "**/*.g.dart"
     - "**/*.freezed.dart"
+    - "lib/i18n/app_localizations_*.dart"
   errors:
     invalid_annotation_target: ignore

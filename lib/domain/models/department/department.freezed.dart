@@ -12,7 +12,8 @@ part of 'department.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Department _$DepartmentFromJson(Map<String, dynamic> json) {
   return _Department.fromJson(json);
@@ -34,13 +35,15 @@ mixin _$Department {
 /// @nodoc
 abstract class $DepartmentCopyWith<$Res> {
   factory $DepartmentCopyWith(
-          Department value, $Res Function(Department) then) =
-      _$DepartmentCopyWithImpl<$Res, Department>;
+    Department value,
+    $Res Function(Department) then,
+  ) = _$DepartmentCopyWithImpl<$Res, Department>;
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      String name,
-      List<Municipality> municipalities});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String name,
+    List<Municipality> municipalities,
+  });
 }
 
 /// @nodoc
@@ -60,20 +63,26 @@ class _$DepartmentCopyWithImpl<$Res, $Val extends Department>
     Object? name = null,
     Object? municipalities = null,
   }) {
-    return _then(_value.copyWith(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      municipalities: null == municipalities
-          ? _value.municipalities
-          : municipalities // ignore: cast_nullable_to_non_nullable
-              as List<Municipality>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            iri:
+                null == iri
+                    ? _value.iri
+                    : iri // ignore: cast_nullable_to_non_nullable
+                        as String,
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            municipalities:
+                null == municipalities
+                    ? _value.municipalities
+                    : municipalities // ignore: cast_nullable_to_non_nullable
+                        as List<Municipality>,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -81,14 +90,16 @@ class _$DepartmentCopyWithImpl<$Res, $Val extends Department>
 abstract class _$$DepartmentImplCopyWith<$Res>
     implements $DepartmentCopyWith<$Res> {
   factory _$$DepartmentImplCopyWith(
-          _$DepartmentImpl value, $Res Function(_$DepartmentImpl) then) =
-      __$$DepartmentImplCopyWithImpl<$Res>;
+    _$DepartmentImpl value,
+    $Res Function(_$DepartmentImpl) then,
+  ) = __$$DepartmentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      String name,
-      List<Municipality> municipalities});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String name,
+    List<Municipality> municipalities,
+  });
 }
 
 /// @nodoc
@@ -96,8 +107,9 @@ class __$$DepartmentImplCopyWithImpl<$Res>
     extends _$DepartmentCopyWithImpl<$Res, _$DepartmentImpl>
     implements _$$DepartmentImplCopyWith<$Res> {
   __$$DepartmentImplCopyWithImpl(
-      _$DepartmentImpl _value, $Res Function(_$DepartmentImpl) _then)
-      : super(_value, _then);
+    _$DepartmentImpl _value,
+    $Res Function(_$DepartmentImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -106,31 +118,36 @@ class __$$DepartmentImplCopyWithImpl<$Res>
     Object? name = null,
     Object? municipalities = null,
   }) {
-    return _then(_$DepartmentImpl(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      municipalities: null == municipalities
-          ? _value._municipalities
-          : municipalities // ignore: cast_nullable_to_non_nullable
-              as List<Municipality>,
-    ));
+    return _then(
+      _$DepartmentImpl(
+        iri:
+            null == iri
+                ? _value.iri
+                : iri // ignore: cast_nullable_to_non_nullable
+                    as String,
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        municipalities:
+            null == municipalities
+                ? _value._municipalities
+                : municipalities // ignore: cast_nullable_to_non_nullable
+                    as List<Municipality>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$DepartmentImpl implements _Department {
-  const _$DepartmentImpl(
-      {@JsonKey(name: '@id') required this.iri,
-      required this.name,
-      final List<Municipality> municipalities = const <Municipality>[]})
-      : _municipalities = municipalities;
+  const _$DepartmentImpl({
+    @JsonKey(name: '@id') required this.iri,
+    required this.name,
+    final List<Municipality> municipalities = const <Municipality>[],
+  }) : _municipalities = municipalities;
 
   factory _$DepartmentImpl.fromJson(Map<String, dynamic> json) =>
       _$$DepartmentImplFromJson(json);
@@ -161,14 +178,20 @@ class _$DepartmentImpl implements _Department {
             other is _$DepartmentImpl &&
             (identical(other.iri, iri) || other.iri == iri) &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality()
-                .equals(other._municipalities, _municipalities));
+            const DeepCollectionEquality().equals(
+              other._municipalities,
+              _municipalities,
+            ));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, iri, name,
-      const DeepCollectionEquality().hash(_municipalities));
+  int get hashCode => Object.hash(
+    runtimeType,
+    iri,
+    name,
+    const DeepCollectionEquality().hash(_municipalities),
+  );
 
   @JsonKey(ignore: true)
   @override
@@ -178,17 +201,16 @@ class _$DepartmentImpl implements _Department {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DepartmentImplToJson(
-      this,
-    );
+    return _$$DepartmentImplToJson(this);
   }
 }
 
 abstract class _Department implements Department {
-  const factory _Department(
-      {@JsonKey(name: '@id') required final String iri,
-      required final String name,
-      final List<Municipality> municipalities}) = _$DepartmentImpl;
+  const factory _Department({
+    @JsonKey(name: '@id') required final String iri,
+    required final String name,
+    final List<Municipality> municipalities,
+  }) = _$DepartmentImpl;
 
   factory _Department.fromJson(Map<String, dynamic> json) =
       _$DepartmentImpl.fromJson;

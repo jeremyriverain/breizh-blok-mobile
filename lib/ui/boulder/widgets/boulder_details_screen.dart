@@ -31,9 +31,7 @@ class BoulderDetailsScreen extends StatefulWidget {
 class _BoulderDetailsScreenState extends State<BoulderDetailsScreen> {
   Future<Boulder> _findBoulder(BuildContext context) {
     if (!context.read<RequestStrategy>().offlineFirst) {
-      return context.read<BoulderRepository>().find(
-            widget.id,
-          );
+      return context.read<BoulderRepository>().find(widget.id);
     }
 
     final boulderAreaIri = widget.boulderAreaIri;
@@ -43,29 +41,27 @@ class _BoulderDetailsScreenState extends State<BoulderDetailsScreen> {
 
     final database = context.read<AppDatabase>();
     return (database.select(database.dbBoulderAreas)
-          ..where(
-            (tbl) => tbl.iri.equals(boulderAreaIri),
-          ))
+          ..where((tbl) => tbl.iri.equals(boulderAreaIri)))
         .getSingle()
         .then((dbBoulderArea) {
-      final bouldersPath = dbBoulderArea.boulders;
-      if (bouldersPath == null) {
-        throw Exception('boulders property should be defined');
-      }
-      return context.read<ApiClient>().get(
+          final bouldersPath = dbBoulderArea.boulders;
+          if (bouldersPath == null) {
+            throw Exception('boulders property should be defined');
+          }
+          // ignore: use_build_context_synchronously
+          return context.read<ApiClient>().get(
             Uri.parse(bouldersPath),
             offlineFirst: true,
           );
-    }).then((response) {
-      final boulderJson =
+        })
+        .then((response) {
+          final boulderJson =
           // ignore: avoid_dynamic_calls
           (jsonDecode(response)['hydra:member'] as List<dynamic>)
-              // ignore: avoid_dynamic_calls
-              .singleWhere((json) => json['@id'] == '/boulders/${widget.id}');
-      return Boulder.fromJson(
-        boulderJson as Map<String, dynamic>,
-      );
-    });
+          // ignore: avoid_dynamic_calls
+          .singleWhere((json) => json['@id'] == '/boulders/${widget.id}');
+          return Boulder.fromJson(boulderJson as Map<String, dynamic>);
+        });
   }
 
   @override

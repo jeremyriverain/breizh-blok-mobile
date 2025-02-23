@@ -14,10 +14,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_launcher/map_launcher.dart' hide MapType;
 
 class BoulderDetailsMap extends StatefulWidget {
-  const BoulderDetailsMap({
-    required this.boulder,
-    super.key,
-  });
+  const BoulderDetailsMap({required this.boulder, super.key});
 
   final Boulder boulder;
 
@@ -85,9 +82,7 @@ class BoulderDetailsMapState extends State<BoulderDetailsMap> {
               ),
             },
             gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{
-              Factory<OneSequenceGestureRecognizer>(
-                EagerGestureRecognizer.new,
-              ),
+              Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new),
             },
           ),
         );

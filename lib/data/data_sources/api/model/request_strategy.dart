@@ -1,7 +1,5 @@
 class RequestStrategy {
-  RequestStrategy({
-    this.offlineFirst = false,
-  });
+  RequestStrategy({this.offlineFirst = false});
 
   final bool offlineFirst;
 }

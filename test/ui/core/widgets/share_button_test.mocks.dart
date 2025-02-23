@@ -24,13 +24,8 @@ import 'package:share_plus/share_plus.dart' as _i2;
 // ignore_for_file: subtype_of_sealed_class
 
 class _FakeShareResult_0 extends _i1.SmartFake implements _i2.ShareResult {
-  _FakeShareResult_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeShareResult_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [ShareContentService].
@@ -39,25 +34,15 @@ class _FakeShareResult_0 extends _i1.SmartFake implements _i2.ShareResult {
 class MockShareContentService extends _i1.Mock
     implements _i3.ShareContentService {
   @override
-  _i4.Future<_i2.ShareResult> share(String? text) => (super.noSuchMethod(
-        Invocation.method(
-          #share,
-          [text],
-        ),
-        returnValue: _i4.Future<_i2.ShareResult>.value(_FakeShareResult_0(
-          this,
-          Invocation.method(
-            #share,
-            [text],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.ShareResult>.value(_FakeShareResult_0(
-          this,
-          Invocation.method(
-            #share,
-            [text],
-          ),
-        )),
-      ) as _i4.Future<_i2.ShareResult>);
+  _i4.Future<_i2.ShareResult> share(String? text) =>
+      (super.noSuchMethod(
+            Invocation.method(#share, [text]),
+            returnValue: _i4.Future<_i2.ShareResult>.value(
+              _FakeShareResult_0(this, Invocation.method(#share, [text])),
+            ),
+            returnValueForMissingStub: _i4.Future<_i2.ShareResult>.value(
+              _FakeShareResult_0(this, Invocation.method(#share, [text])),
+            ),
+          )
+          as _i4.Future<_i2.ShareResult>);
 }

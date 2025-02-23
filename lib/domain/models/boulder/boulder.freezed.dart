@@ -12,7 +12,8 @@ part of 'boulder.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Boulder _$BoulderFromJson(Map<String, dynamic> json) {
   return _Boulder.fromJson(json);
@@ -39,14 +40,15 @@ abstract class $BoulderCopyWith<$Res> {
   factory $BoulderCopyWith(Boulder value, $Res Function(Boulder) then) =
       _$BoulderCopyWithImpl<$Res, Boulder>;
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      String name,
-      Rock rock,
-      List<LineBoulder> lineBoulders,
-      Grade? grade,
-      String? description,
-      HeightBoulder? height});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String name,
+    Rock rock,
+    List<LineBoulder> lineBoulders,
+    Grade? grade,
+    String? description,
+    HeightBoulder? height,
+  });
 
   $RockCopyWith<$Res> get rock;
   $GradeCopyWith<$Res>? get grade;
@@ -74,36 +76,46 @@ class _$BoulderCopyWithImpl<$Res, $Val extends Boulder>
     Object? description = freezed,
     Object? height = freezed,
   }) {
-    return _then(_value.copyWith(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      rock: null == rock
-          ? _value.rock
-          : rock // ignore: cast_nullable_to_non_nullable
-              as Rock,
-      lineBoulders: null == lineBoulders
-          ? _value.lineBoulders
-          : lineBoulders // ignore: cast_nullable_to_non_nullable
-              as List<LineBoulder>,
-      grade: freezed == grade
-          ? _value.grade
-          : grade // ignore: cast_nullable_to_non_nullable
-              as Grade?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      height: freezed == height
-          ? _value.height
-          : height // ignore: cast_nullable_to_non_nullable
-              as HeightBoulder?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            iri:
+                null == iri
+                    ? _value.iri
+                    : iri // ignore: cast_nullable_to_non_nullable
+                        as String,
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            rock:
+                null == rock
+                    ? _value.rock
+                    : rock // ignore: cast_nullable_to_non_nullable
+                        as Rock,
+            lineBoulders:
+                null == lineBoulders
+                    ? _value.lineBoulders
+                    : lineBoulders // ignore: cast_nullable_to_non_nullable
+                        as List<LineBoulder>,
+            grade:
+                freezed == grade
+                    ? _value.grade
+                    : grade // ignore: cast_nullable_to_non_nullable
+                        as Grade?,
+            description:
+                freezed == description
+                    ? _value.description
+                    : description // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            height:
+                freezed == height
+                    ? _value.height
+                    : height // ignore: cast_nullable_to_non_nullable
+                        as HeightBoulder?,
+          )
+          as $Val,
+    );
   }
 
   @override
@@ -142,18 +154,20 @@ class _$BoulderCopyWithImpl<$Res, $Val extends Boulder>
 /// @nodoc
 abstract class _$$BoulderImplCopyWith<$Res> implements $BoulderCopyWith<$Res> {
   factory _$$BoulderImplCopyWith(
-          _$BoulderImpl value, $Res Function(_$BoulderImpl) then) =
-      __$$BoulderImplCopyWithImpl<$Res>;
+    _$BoulderImpl value,
+    $Res Function(_$BoulderImpl) then,
+  ) = __$$BoulderImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      String name,
-      Rock rock,
-      List<LineBoulder> lineBoulders,
-      Grade? grade,
-      String? description,
-      HeightBoulder? height});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    String name,
+    Rock rock,
+    List<LineBoulder> lineBoulders,
+    Grade? grade,
+    String? description,
+    HeightBoulder? height,
+  });
 
   @override
   $RockCopyWith<$Res> get rock;
@@ -168,8 +182,9 @@ class __$$BoulderImplCopyWithImpl<$Res>
     extends _$BoulderCopyWithImpl<$Res, _$BoulderImpl>
     implements _$$BoulderImplCopyWith<$Res> {
   __$$BoulderImplCopyWithImpl(
-      _$BoulderImpl _value, $Res Function(_$BoulderImpl) _then)
-      : super(_value, _then);
+    _$BoulderImpl _value,
+    $Res Function(_$BoulderImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -182,52 +197,61 @@ class __$$BoulderImplCopyWithImpl<$Res>
     Object? description = freezed,
     Object? height = freezed,
   }) {
-    return _then(_$BoulderImpl(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      rock: null == rock
-          ? _value.rock
-          : rock // ignore: cast_nullable_to_non_nullable
-              as Rock,
-      lineBoulders: null == lineBoulders
-          ? _value._lineBoulders
-          : lineBoulders // ignore: cast_nullable_to_non_nullable
-              as List<LineBoulder>,
-      grade: freezed == grade
-          ? _value.grade
-          : grade // ignore: cast_nullable_to_non_nullable
-              as Grade?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      height: freezed == height
-          ? _value.height
-          : height // ignore: cast_nullable_to_non_nullable
-              as HeightBoulder?,
-    ));
+    return _then(
+      _$BoulderImpl(
+        iri:
+            null == iri
+                ? _value.iri
+                : iri // ignore: cast_nullable_to_non_nullable
+                    as String,
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        rock:
+            null == rock
+                ? _value.rock
+                : rock // ignore: cast_nullable_to_non_nullable
+                    as Rock,
+        lineBoulders:
+            null == lineBoulders
+                ? _value._lineBoulders
+                : lineBoulders // ignore: cast_nullable_to_non_nullable
+                    as List<LineBoulder>,
+        grade:
+            freezed == grade
+                ? _value.grade
+                : grade // ignore: cast_nullable_to_non_nullable
+                    as Grade?,
+        description:
+            freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        height:
+            freezed == height
+                ? _value.height
+                : height // ignore: cast_nullable_to_non_nullable
+                    as HeightBoulder?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$BoulderImpl extends _Boulder {
-  const _$BoulderImpl(
-      {@JsonKey(name: '@id') required this.iri,
-      required this.name,
-      required this.rock,
-      final List<LineBoulder> lineBoulders = const <LineBoulder>[],
-      this.grade,
-      this.description,
-      this.height})
-      : _lineBoulders = lineBoulders,
-        super._();
+  const _$BoulderImpl({
+    @JsonKey(name: '@id') required this.iri,
+    required this.name,
+    required this.rock,
+    final List<LineBoulder> lineBoulders = const <LineBoulder>[],
+    this.grade,
+    this.description,
+    this.height,
+  }) : _lineBoulders = lineBoulders,
+       super._();
 
   factory _$BoulderImpl.fromJson(Map<String, dynamic> json) =>
       _$$BoulderImplFromJson(json);
@@ -268,8 +292,10 @@ class _$BoulderImpl extends _Boulder {
             (identical(other.iri, iri) || other.iri == iri) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.rock, rock) || other.rock == rock) &&
-            const DeepCollectionEquality()
-                .equals(other._lineBoulders, _lineBoulders) &&
+            const DeepCollectionEquality().equals(
+              other._lineBoulders,
+              _lineBoulders,
+            ) &&
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -279,14 +305,15 @@ class _$BoulderImpl extends _Boulder {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      iri,
-      name,
-      rock,
-      const DeepCollectionEquality().hash(_lineBoulders),
-      grade,
-      description,
-      height);
+    runtimeType,
+    iri,
+    name,
+    rock,
+    const DeepCollectionEquality().hash(_lineBoulders),
+    grade,
+    description,
+    height,
+  );
 
   @JsonKey(ignore: true)
   @override
@@ -296,21 +323,20 @@ class _$BoulderImpl extends _Boulder {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BoulderImplToJson(
-      this,
-    );
+    return _$$BoulderImplToJson(this);
   }
 }
 
 abstract class _Boulder extends Boulder {
-  const factory _Boulder(
-      {@JsonKey(name: '@id') required final String iri,
-      required final String name,
-      required final Rock rock,
-      final List<LineBoulder> lineBoulders,
-      final Grade? grade,
-      final String? description,
-      final HeightBoulder? height}) = _$BoulderImpl;
+  const factory _Boulder({
+    @JsonKey(name: '@id') required final String iri,
+    required final String name,
+    required final Rock rock,
+    final List<LineBoulder> lineBoulders,
+    final Grade? grade,
+    final String? description,
+    final HeightBoulder? height,
+  }) = _$BoulderImpl;
   const _Boulder._() : super._();
 
   factory _Boulder.fromJson(Map<String, dynamic> json) = _$BoulderImpl.fromJson;

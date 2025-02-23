@@ -17,8 +17,9 @@ void main() {
     blocTest<MapPermissionBloc, MapPermissionState>(
       'dont deny permission',
       build: MapPermissionBloc.new,
-      act: (MapPermissionBloc bloc) =>
-          bloc.add(RequestPermissionEvent(hasDenied: false)),
+      act:
+          (MapPermissionBloc bloc) =>
+              bloc.add(RequestPermissionEvent(hasDenied: false)),
       verify: (MapPermissionBloc bloc) async {
         expect(bloc.state.hasRequested, true);
         expect(bloc.state.hasDenied, false);
@@ -29,10 +30,11 @@ void main() {
     blocTest<MapPermissionBloc, MapPermissionState>(
       'deny permission',
       build: MapPermissionBloc.new,
-      act: (MapPermissionBloc bloc) =>
-          bloc.add(RequestPermissionEvent(hasDenied: true)),
-      expect: () =>
-          [const MapPermissionState(hasRequested: true, hasDenied: true)],
+      act:
+          (MapPermissionBloc bloc) =>
+              bloc.add(RequestPermissionEvent(hasDenied: true)),
+      expect:
+          () => [const MapPermissionState(hasRequested: true, hasDenied: true)],
     );
   });
 }

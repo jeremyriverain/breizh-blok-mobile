@@ -12,7 +12,8 @@ part of 'image.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Image _$ImageFromJson(Map<String, dynamic> json) {
   return _Image.fromJson(json);
@@ -34,8 +35,11 @@ abstract class $ImageCopyWith<$Res> {
   factory $ImageCopyWith(Image value, $Res Function(Image) then) =
       _$ImageCopyWithImpl<$Res, Image>;
   @useResult
-  $Res call(
-      {String contentUrl, String? filterUrl, List<String>? imageDimensions});
+  $Res call({
+    String contentUrl,
+    String? filterUrl,
+    List<String>? imageDimensions,
+  });
 }
 
 /// @nodoc
@@ -55,32 +59,42 @@ class _$ImageCopyWithImpl<$Res, $Val extends Image>
     Object? filterUrl = freezed,
     Object? imageDimensions = freezed,
   }) {
-    return _then(_value.copyWith(
-      contentUrl: null == contentUrl
-          ? _value.contentUrl
-          : contentUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      filterUrl: freezed == filterUrl
-          ? _value.filterUrl
-          : filterUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageDimensions: freezed == imageDimensions
-          ? _value.imageDimensions
-          : imageDimensions // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            contentUrl:
+                null == contentUrl
+                    ? _value.contentUrl
+                    : contentUrl // ignore: cast_nullable_to_non_nullable
+                        as String,
+            filterUrl:
+                freezed == filterUrl
+                    ? _value.filterUrl
+                    : filterUrl // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            imageDimensions:
+                freezed == imageDimensions
+                    ? _value.imageDimensions
+                    : imageDimensions // ignore: cast_nullable_to_non_nullable
+                        as List<String>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$ImageImplCopyWith<$Res> implements $ImageCopyWith<$Res> {
   factory _$$ImageImplCopyWith(
-          _$ImageImpl value, $Res Function(_$ImageImpl) then) =
-      __$$ImageImplCopyWithImpl<$Res>;
+    _$ImageImpl value,
+    $Res Function(_$ImageImpl) then,
+  ) = __$$ImageImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String contentUrl, String? filterUrl, List<String>? imageDimensions});
+  $Res call({
+    String contentUrl,
+    String? filterUrl,
+    List<String>? imageDimensions,
+  });
 }
 
 /// @nodoc
@@ -88,8 +102,9 @@ class __$$ImageImplCopyWithImpl<$Res>
     extends _$ImageCopyWithImpl<$Res, _$ImageImpl>
     implements _$$ImageImplCopyWith<$Res> {
   __$$ImageImplCopyWithImpl(
-      _$ImageImpl _value, $Res Function(_$ImageImpl) _then)
-      : super(_value, _then);
+    _$ImageImpl _value,
+    $Res Function(_$ImageImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -98,32 +113,37 @@ class __$$ImageImplCopyWithImpl<$Res>
     Object? filterUrl = freezed,
     Object? imageDimensions = freezed,
   }) {
-    return _then(_$ImageImpl(
-      contentUrl: null == contentUrl
-          ? _value.contentUrl
-          : contentUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      filterUrl: freezed == filterUrl
-          ? _value.filterUrl
-          : filterUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageDimensions: freezed == imageDimensions
-          ? _value._imageDimensions
-          : imageDimensions // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-    ));
+    return _then(
+      _$ImageImpl(
+        contentUrl:
+            null == contentUrl
+                ? _value.contentUrl
+                : contentUrl // ignore: cast_nullable_to_non_nullable
+                    as String,
+        filterUrl:
+            freezed == filterUrl
+                ? _value.filterUrl
+                : filterUrl // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        imageDimensions:
+            freezed == imageDimensions
+                ? _value._imageDimensions
+                : imageDimensions // ignore: cast_nullable_to_non_nullable
+                    as List<String>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$ImageImpl extends _Image {
-  const _$ImageImpl(
-      {required this.contentUrl,
-      this.filterUrl,
-      final List<String>? imageDimensions})
-      : _imageDimensions = imageDimensions,
-        super._();
+  const _$ImageImpl({
+    required this.contentUrl,
+    this.filterUrl,
+    final List<String>? imageDimensions,
+  }) : _imageDimensions = imageDimensions,
+       super._();
 
   factory _$ImageImpl.fromJson(Map<String, dynamic> json) =>
       _$$ImageImplFromJson(json);
@@ -156,14 +176,20 @@ class _$ImageImpl extends _Image {
                 other.contentUrl == contentUrl) &&
             (identical(other.filterUrl, filterUrl) ||
                 other.filterUrl == filterUrl) &&
-            const DeepCollectionEquality()
-                .equals(other._imageDimensions, _imageDimensions));
+            const DeepCollectionEquality().equals(
+              other._imageDimensions,
+              _imageDimensions,
+            ));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, contentUrl, filterUrl,
-      const DeepCollectionEquality().hash(_imageDimensions));
+  int get hashCode => Object.hash(
+    runtimeType,
+    contentUrl,
+    filterUrl,
+    const DeepCollectionEquality().hash(_imageDimensions),
+  );
 
   @JsonKey(ignore: true)
   @override
@@ -173,17 +199,16 @@ class _$ImageImpl extends _Image {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ImageImplToJson(
-      this,
-    );
+    return _$$ImageImplToJson(this);
   }
 }
 
 abstract class _Image extends Image {
-  const factory _Image(
-      {required final String contentUrl,
-      final String? filterUrl,
-      final List<String>? imageDimensions}) = _$ImageImpl;
+  const factory _Image({
+    required final String contentUrl,
+    final String? filterUrl,
+    final List<String>? imageDimensions,
+  }) = _$ImageImpl;
   const _Image._() : super._();
 
   factory _Image.fromJson(Map<String, dynamic> json) = _$ImageImpl.fromJson;

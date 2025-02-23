@@ -50,9 +50,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
 
   @override
   void initState() {
-    _bloc = BoulderBloc(
-      repository: context.read<BoulderRepository>(),
-    );
+    _bloc = BoulderBloc(repository: context.read<BoulderRepository>());
 
     _pagingController.addPageRequestListener((pageKey) {
       _bloc.add(widget.onPageRequested(pageKey));
@@ -124,9 +122,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
         ),
       ],
       child: RefreshIndicator(
-        onRefresh: () => Future.sync(
-          _pagingController.refresh,
-        ),
+        onRefresh: () => Future.sync(_pagingController.refresh),
         child: SafeArea(
           child: Stack(
             children: [
@@ -140,15 +136,14 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                   right: 10,
                   top: 5,
                 ),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 16,
-                ),
+                separatorBuilder:
+                    (context, index) => const SizedBox(height: 16),
                 builderDelegate: PagedChildBuilderDelegate<Boulder>(
-                  noItemsFoundIndicatorBuilder: (context) =>
-                      const EmptyListIndicator(),
-                  firstPageErrorIndicatorBuilder: (context) => ErrorIndicator(
-                    onTryAgain: _pagingController.refresh,
-                  ),
+                  noItemsFoundIndicatorBuilder:
+                      (context) => const EmptyListIndicator(),
+                  firstPageErrorIndicatorBuilder:
+                      (context) =>
+                          ErrorIndicator(onTryAgain: _pagingController.refresh),
                   itemBuilder: (context, boulder, index) {
                     final tile = BoulderListBuilderTile(
                       boulder: boulder,
@@ -179,9 +174,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                               ],
                             ),
                             if (bottomHeaderWidget != null) bottomHeaderWidget,
-                            const SizedBox(
-                              height: 10,
-                            ),
+                            const SizedBox(height: 10),
                             tile,
                           ],
                         ),

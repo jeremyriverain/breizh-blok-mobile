@@ -12,7 +12,8 @@ part of 'locale_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$LocaleState {
@@ -26,8 +27,9 @@ mixin _$LocaleState {
 /// @nodoc
 abstract class $LocaleStateCopyWith<$Res> {
   factory $LocaleStateCopyWith(
-          LocaleState value, $Res Function(LocaleState) then) =
-      _$LocaleStateCopyWithImpl<$Res, LocaleState>;
+    LocaleState value,
+    $Res Function(LocaleState) then,
+  ) = _$LocaleStateCopyWithImpl<$Res, LocaleState>;
   @useResult
   $Res call({Locale locale});
 }
@@ -44,15 +46,17 @@ class _$LocaleStateCopyWithImpl<$Res, $Val extends LocaleState>
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? locale = null,
-  }) {
-    return _then(_value.copyWith(
-      locale: null == locale
-          ? _value.locale
-          : locale // ignore: cast_nullable_to_non_nullable
-              as Locale,
-    ) as $Val);
+  $Res call({Object? locale = null}) {
+    return _then(
+      _value.copyWith(
+            locale:
+                null == locale
+                    ? _value.locale
+                    : locale // ignore: cast_nullable_to_non_nullable
+                        as Locale,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -60,8 +64,9 @@ class _$LocaleStateCopyWithImpl<$Res, $Val extends LocaleState>
 abstract class _$$LocaleStateImplCopyWith<$Res>
     implements $LocaleStateCopyWith<$Res> {
   factory _$$LocaleStateImplCopyWith(
-          _$LocaleStateImpl value, $Res Function(_$LocaleStateImpl) then) =
-      __$$LocaleStateImplCopyWithImpl<$Res>;
+    _$LocaleStateImpl value,
+    $Res Function(_$LocaleStateImpl) then,
+  ) = __$$LocaleStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Locale locale});
@@ -72,20 +77,22 @@ class __$$LocaleStateImplCopyWithImpl<$Res>
     extends _$LocaleStateCopyWithImpl<$Res, _$LocaleStateImpl>
     implements _$$LocaleStateImplCopyWith<$Res> {
   __$$LocaleStateImplCopyWithImpl(
-      _$LocaleStateImpl _value, $Res Function(_$LocaleStateImpl) _then)
-      : super(_value, _then);
+    _$LocaleStateImpl _value,
+    $Res Function(_$LocaleStateImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? locale = null,
-  }) {
-    return _then(_$LocaleStateImpl(
-      locale: null == locale
-          ? _value.locale
-          : locale // ignore: cast_nullable_to_non_nullable
-              as Locale,
-    ));
+  $Res call({Object? locale = null}) {
+    return _then(
+      _$LocaleStateImpl(
+        locale:
+            null == locale
+                ? _value.locale
+                : locale // ignore: cast_nullable_to_non_nullable
+                    as Locale,
+      ),
+    );
   }
 }
 

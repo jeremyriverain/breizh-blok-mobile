@@ -50,28 +50,27 @@ class DownloadAreaService {
 
   Future<void> removeDownload(String iri) async {
     try {
-      final storedBoulderArea = await (database.select(database.dbBoulderAreas)
-            ..where((tbl) => tbl.iri.equals(iri)))
-          .getSingleOrNull();
+      final storedBoulderArea =
+          await (database.select(database.dbBoulderAreas)
+            ..where((tbl) => tbl.iri.equals(iri))).getSingleOrNull();
       if (storedBoulderArea == null) {
         return;
       }
 
       final deletions = [
         (database.delete(database.dbBoulderAreas)
-              ..where((tbl) => tbl.iri.equals(iri)))
-            .go(),
+          ..where((tbl) => tbl.iri.equals(iri))).go(),
         (database.delete(database.dbRequests)
-              ..where((tbl) => tbl.requestPath.equals(iri)))
-            .go(),
+          ..where((tbl) => tbl.requestPath.equals(iri))).go(),
       ];
 
       final bouldersRequestPath = storedBoulderArea.boulders;
 
       if (bouldersRequestPath != null) {
-        final bouldersRequest = await (database.select(database.dbRequests)
-              ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
-            .getSingle();
+        final bouldersRequest =
+            await (database.select(database.dbRequests)..where(
+              (tbl) => tbl.requestPath.equals(bouldersRequestPath),
+            )).getSingle();
 
         final imageUrls = extractImages(bouldersRequest.responseBody);
 
@@ -86,22 +85,20 @@ class DownloadAreaService {
 
         deletions.add(
           (database.delete(database.dbRequests)
-                ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
-              .go(),
+            ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath))).go(),
         );
       }
 
       await Future.wait(deletions);
     } catch (exception, stackTrace) {
-      await Sentry.captureException(
-        exception,
-        stackTrace: stackTrace,
-      );
+      await Sentry.captureException(exception, stackTrace: stackTrace);
     }
   }
 
   Future<void> download(BoulderArea boulderArea) async {
-    await database.into(database.dbBoulderAreas).insert(
+    await database
+        .into(database.dbBoulderAreas)
+        .insert(
           DbBoulderAreasCompanion.insert(
             iri: boulderArea.iri,
             downloadProgress: 0,
@@ -109,27 +106,25 @@ class DownloadAreaService {
         );
 
     try {
-      final [bouldersRequestPath, _, _] = await Future.wait(
-        [
-          _fetchAllBoulders(boulderArea),
-          _fetchBoulderAreaDetails(boulderArea),
-          _fetchGrades(),
-        ],
-      );
+      final [bouldersRequestPath, _, _] = await Future.wait([
+        _fetchAllBoulders(boulderArea),
+        _fetchBoulderAreaDetails(boulderArea),
+        _fetchGrades(),
+      ]);
 
       const minDownloadProgress = 10;
 
       await (database.update(database.dbBoulderAreas)
-            ..where((tbl) => tbl.iri.equals(boulderArea.iri)))
-          .write(
+        ..where((tbl) => tbl.iri.equals(boulderArea.iri))).write(
         const DbBoulderAreasCompanion(
           downloadProgress: Value(minDownloadProgress),
         ),
       );
 
-      final bouldersRequest = await (database.select(database.dbRequests)
-            ..where((tbl) => tbl.requestPath.equals(bouldersRequestPath)))
-          .getSingle();
+      final bouldersRequest =
+          await (database.select(database.dbRequests)..where(
+            (tbl) => tbl.requestPath.equals(bouldersRequestPath),
+          )).getSingle();
 
       final imageUrls = extractImages(bouldersRequest.responseBody);
 
@@ -144,8 +139,7 @@ class DownloadAreaService {
         );
         downloadedImages++;
         await (database.update(database.dbBoulderAreas)
-              ..where((tbl) => tbl.iri.equals(boulderArea.iri)))
-            .write(
+          ..where((tbl) => tbl.iri.equals(boulderArea.iri))).write(
           DbBoulderAreasCompanion(
             downloadProgress: Value(
               minDownloadProgress +
@@ -158,8 +152,7 @@ class DownloadAreaService {
       }
 
       await (database.update(database.dbBoulderAreas)
-            ..where((tbl) => tbl.iri.equals(boulderArea.iri)))
-          .write(
+        ..where((tbl) => tbl.iri.equals(boulderArea.iri))).write(
         DbBoulderAreasCompanion.insert(
           iri: boulderArea.iri,
           downloadProgress: 100,
@@ -167,10 +160,7 @@ class DownloadAreaService {
         ),
       );
     } catch (exception, stackTrace) {
-      await Sentry.captureException(
-        exception,
-        stackTrace: stackTrace,
-      );
+      await Sentry.captureException(exception, stackTrace: stackTrace);
     }
   }
 
@@ -191,10 +181,7 @@ class DownloadAreaService {
 
   Future<String> _fetchBoulderAreaDetails(BoulderArea boulderArea) async {
     return httpClient.get(
-      Uri.https(
-        const String.fromEnvironment('API_HOST'),
-        boulderArea.iri,
-      ),
+      Uri.https(const String.fromEnvironment('API_HOST'), boulderArea.iri),
       offlineFirst: true,
     );
   }

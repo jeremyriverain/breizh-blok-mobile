@@ -18,11 +18,7 @@ void main() {
     blocTest<BoulderFilterBloc, BoulderFilterState>(
       'BoulderFilterSearched event OK',
       build: () => BoulderFilterBloc(const BoulderFilterState()),
-      act: (BoulderFilterBloc bloc) => bloc.add(
-        BoulderFilterSearched(
-          'cre',
-        ),
-      ),
+      act: (BoulderFilterBloc bloc) => bloc.add(BoulderFilterSearched('cre')),
       expect: () => [const BoulderFilterState(term: 'cre')],
     );
 
@@ -35,20 +31,13 @@ void main() {
     blocTest<BoulderFilterBloc, BoulderFilterState>(
       'BoulderFilterLocation event OK',
       build: () => BoulderFilterBloc(const BoulderFilterState()),
-      act: (BoulderFilterBloc bloc) => bloc.add(
-        BoulderFilterLocation(
-          {
-            referenceBoulderArea,
-          },
-        ),
-      ),
-      expect: () => [
-        BoulderFilterState(
-          boulderAreas: {
-            referenceBoulderArea,
-          },
-        ),
-      ],
+      act:
+          (BoulderFilterBloc bloc) =>
+              bloc.add(BoulderFilterLocation({referenceBoulderArea})),
+      expect:
+          () => [
+            BoulderFilterState(boulderAreas: {referenceBoulderArea}),
+          ],
     );
   });
 }

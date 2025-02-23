@@ -2,8 +2,8 @@ import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart'
 import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
 import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -11,9 +11,7 @@ void main() {
     late AppLocalizations localizations;
 
     setUp(() async {
-      localizations = await AppLocalizations.delegate.load(
-        const Locale('fr'),
-      );
+      localizations = await AppLocalizations.delegate.load(const Locale('fr'));
     });
 
     const boulderAreaRef = BoulderArea(
@@ -23,8 +21,10 @@ void main() {
     );
 
     test('copyWith', () {
-      const municipality =
-          Municipality(iri: '/municipalities/23', name: 'Plaintel');
+      const municipality = Municipality(
+        iri: '/municipalities/23',
+        name: 'Plaintel',
+      );
       final boulderArea = boulderAreaRef.copyWith(municipality: municipality);
       expect(boulderArea.municipality?.name, 'Plaintel');
     });
@@ -46,13 +46,15 @@ void main() {
         expect(b.resolveLocation().latitude, 90);
       });
 
-      test('return default initial position if no parking location or centroid',
-          () {
-        expect(
-          boulderAreaRef.resolveLocation().latitude,
-          kDefaultInitialPosition.latitude,
-        );
-      });
+      test(
+        'return default initial position if no parking location or centroid',
+        () {
+          expect(
+            boulderAreaRef.resolveLocation().latitude,
+            kDefaultInitialPosition.latitude,
+          );
+        },
+      );
     });
 
     group('nBouldersRated', () {

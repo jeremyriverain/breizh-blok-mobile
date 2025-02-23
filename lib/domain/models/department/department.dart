@@ -13,7 +13,5 @@ abstract class Department with _$Department {
   }) = _Department;
 
   factory Department.fromJson(Map<String, Object?> json) =>
-      _$DepartmentFromJson(
-        json,
-      );
+      _$DepartmentFromJson(json);
 }

@@ -29,10 +29,7 @@ class MapPermissionBloc extends Bloc<MapPermissionEvent, MapPermissionState> {
   MapPermissionBloc() : super(const MapPermissionState()) {
     on<RequestPermissionEvent>(
       (event, emit) => emit(
-        MapPermissionState(
-          hasRequested: true,
-          hasDenied: event.hasDenied,
-        ),
+        MapPermissionState(hasRequested: true, hasDenied: event.hasDenied),
       ),
     );
   }

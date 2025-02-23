@@ -7,10 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class BoulderDetailsAssociatedItem extends StatelessWidget {
-  const BoulderDetailsAssociatedItem({
-    required this.boulder,
-    super.key,
-  });
+  const BoulderDetailsAssociatedItem({required this.boulder, super.key});
 
   final Boulder boulder;
 
@@ -25,11 +22,10 @@ class BoulderDetailsAssociatedItem extends StatelessWidget {
           context.pushNamed(
             routeName,
             pathParameters: {'id': boulder.id},
-            queryParameters: offlineFirst
-                ? {
-                    'boulderAreaIri': boulder.rock.boulderArea.iri,
-                  }
-                : {},
+            queryParameters:
+                offlineFirst
+                    ? {'boulderAreaIri': boulder.rock.boulderArea.iri}
+                    : {},
           );
         },
         child: Padding(
@@ -44,9 +40,7 @@ class BoulderDetailsAssociatedItem extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(20, 0, 2, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        BoulderTileTitle(boulder: boulder),
-                      ],
+                      children: <Widget>[BoulderTileTitle(boulder: boulder)],
                     ),
                   ),
                 ),

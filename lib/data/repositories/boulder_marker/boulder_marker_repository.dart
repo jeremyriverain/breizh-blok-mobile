@@ -5,9 +5,7 @@ import 'package:breizh_blok_mobile/data/repositories/query_param_factory.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_marker.dart';
 
 class BoulderMarkerRepository {
-  BoulderMarkerRepository({
-    required this.httpClient,
-  });
+  BoulderMarkerRepository({required this.httpClient});
 
   final ApiClient httpClient;
 

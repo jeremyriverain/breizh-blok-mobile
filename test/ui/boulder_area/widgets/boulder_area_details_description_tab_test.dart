@@ -25,10 +25,7 @@ void main() {
         ),
       );
 
-      expect(
-        find.text('Répartition des 3 blocs'),
-        findsOneWidget,
-      );
+      expect(find.text('Répartition des 3 blocs'), findsOneWidget);
     });
   });
 }

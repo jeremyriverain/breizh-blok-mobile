@@ -6,9 +6,7 @@ import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.da
 import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
 
 class MunicipalityRepository implements ApiRepositoryInterface<Municipality> {
-  MunicipalityRepository({
-    required this.httpClient,
-  });
+  MunicipalityRepository({required this.httpClient});
 
   @override
   final ApiClient httpClient;
@@ -20,9 +18,7 @@ class MunicipalityRepository implements ApiRepositoryInterface<Municipality> {
         '/municipalities/$id',
       ),
     );
-    return Municipality.fromJson(
-      jsonDecode(response) as Map<String, dynamic>,
-    );
+    return Municipality.fromJson(jsonDecode(response) as Map<String, dynamic>);
   }
 
   @override

@@ -10,10 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderAreaDetailsListTab extends StatelessWidget {
-  const BoulderAreaDetailsListTab({
-    required this.boulderArea,
-    super.key,
-  });
+  const BoulderAreaDetailsListTab({required this.boulderArea, super.key});
 
   final BoulderArea boulderArea;
 
@@ -42,9 +39,7 @@ class BoulderAreaDetailsListTab extends StatelessWidget {
           grades: grades,
         );
       },
-      bottomHeaderWidget: DownloadsAreaButton(
-        boulderArea: boulderArea,
-      ),
+      bottomHeaderWidget: DownloadsAreaButton(boulderArea: boulderArea),
       showLocationinfo: false,
     );
   }

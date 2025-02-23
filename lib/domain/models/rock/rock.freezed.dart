@@ -12,7 +12,8 @@ part of 'rock.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Rock _$RockFromJson(Map<String, dynamic> json) {
   return _Rock.fromJson(json);
@@ -35,10 +36,11 @@ abstract class $RockCopyWith<$Res> {
   factory $RockCopyWith(Rock value, $Res Function(Rock) then) =
       _$RockCopyWithImpl<$Res, Rock>;
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      BoulderArea boulderArea,
-      Location location});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    BoulderArea boulderArea,
+    Location location,
+  });
 
   $BoulderAreaCopyWith<$Res> get boulderArea;
   $LocationCopyWith<$Res> get location;
@@ -61,20 +63,26 @@ class _$RockCopyWithImpl<$Res, $Val extends Rock>
     Object? boulderArea = null,
     Object? location = null,
   }) {
-    return _then(_value.copyWith(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      boulderArea: null == boulderArea
-          ? _value.boulderArea
-          : boulderArea // ignore: cast_nullable_to_non_nullable
-              as BoulderArea,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as Location,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            iri:
+                null == iri
+                    ? _value.iri
+                    : iri // ignore: cast_nullable_to_non_nullable
+                        as String,
+            boulderArea:
+                null == boulderArea
+                    ? _value.boulderArea
+                    : boulderArea // ignore: cast_nullable_to_non_nullable
+                        as BoulderArea,
+            location:
+                null == location
+                    ? _value.location
+                    : location // ignore: cast_nullable_to_non_nullable
+                        as Location,
+          )
+          as $Val,
+    );
   }
 
   @override
@@ -97,14 +105,16 @@ class _$RockCopyWithImpl<$Res, $Val extends Rock>
 /// @nodoc
 abstract class _$$RockImplCopyWith<$Res> implements $RockCopyWith<$Res> {
   factory _$$RockImplCopyWith(
-          _$RockImpl value, $Res Function(_$RockImpl) then) =
-      __$$RockImplCopyWithImpl<$Res>;
+    _$RockImpl value,
+    $Res Function(_$RockImpl) then,
+  ) = __$$RockImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      BoulderArea boulderArea,
-      Location location});
+  $Res call({
+    @JsonKey(name: '@id') String iri,
+    BoulderArea boulderArea,
+    Location location,
+  });
 
   @override
   $BoulderAreaCopyWith<$Res> get boulderArea;
@@ -117,7 +127,7 @@ class __$$RockImplCopyWithImpl<$Res>
     extends _$RockCopyWithImpl<$Res, _$RockImpl>
     implements _$$RockImplCopyWith<$Res> {
   __$$RockImplCopyWithImpl(_$RockImpl _value, $Res Function(_$RockImpl) _then)
-      : super(_value, _then);
+    : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -126,31 +136,36 @@ class __$$RockImplCopyWithImpl<$Res>
     Object? boulderArea = null,
     Object? location = null,
   }) {
-    return _then(_$RockImpl(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      boulderArea: null == boulderArea
-          ? _value.boulderArea
-          : boulderArea // ignore: cast_nullable_to_non_nullable
-              as BoulderArea,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as Location,
-    ));
+    return _then(
+      _$RockImpl(
+        iri:
+            null == iri
+                ? _value.iri
+                : iri // ignore: cast_nullable_to_non_nullable
+                    as String,
+        boulderArea:
+            null == boulderArea
+                ? _value.boulderArea
+                : boulderArea // ignore: cast_nullable_to_non_nullable
+                    as BoulderArea,
+        location:
+            null == location
+                ? _value.location
+                : location // ignore: cast_nullable_to_non_nullable
+                    as Location,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$RockImpl extends _Rock {
-  const _$RockImpl(
-      {@JsonKey(name: '@id') required this.iri,
-      required this.boulderArea,
-      required this.location})
-      : super._();
+  const _$RockImpl({
+    @JsonKey(name: '@id') required this.iri,
+    required this.boulderArea,
+    required this.location,
+  }) : super._();
 
   factory _$RockImpl.fromJson(Map<String, dynamic> json) =>
       _$$RockImplFromJson(json);
@@ -192,17 +207,16 @@ class _$RockImpl extends _Rock {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RockImplToJson(
-      this,
-    );
+    return _$$RockImplToJson(this);
   }
 }
 
 abstract class _Rock extends Rock {
-  const factory _Rock(
-      {@JsonKey(name: '@id') required final String iri,
-      required final BoulderArea boulderArea,
-      required final Location location}) = _$RockImpl;
+  const factory _Rock({
+    @JsonKey(name: '@id') required final String iri,
+    required final BoulderArea boulderArea,
+    required final Location location,
+  }) = _$RockImpl;
   const _Rock._() : super._();
 
   factory _Rock.fromJson(Map<String, dynamic> json) = _$RockImpl.fromJson;

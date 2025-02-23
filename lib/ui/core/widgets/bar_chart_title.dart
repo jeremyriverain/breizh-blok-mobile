@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BarChartTitle extends StatelessWidget {
-  const BarChartTitle({
-    required this.title,
-    super.key,
-  });
+  const BarChartTitle({required this.title, super.key});
 
   final String title;
 
@@ -14,9 +11,9 @@ class BarChartTitle extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+        style: Theme.of(
+          context,
+        ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         textAlign: TextAlign.center,
       ),
     );

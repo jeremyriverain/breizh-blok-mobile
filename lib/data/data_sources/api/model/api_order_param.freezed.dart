@@ -12,7 +12,8 @@ part of 'api_order_param.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ApiOrderParam {
@@ -27,8 +28,9 @@ mixin _$ApiOrderParam {
 /// @nodoc
 abstract class $ApiOrderParamCopyWith<$Res> {
   factory $ApiOrderParamCopyWith(
-          ApiOrderParam value, $Res Function(ApiOrderParam) then) =
-      _$ApiOrderParamCopyWithImpl<$Res, ApiOrderParam>;
+    ApiOrderParam value,
+    $Res Function(ApiOrderParam) then,
+  ) = _$ApiOrderParamCopyWithImpl<$Res, ApiOrderParam>;
   @useResult
   $Res call({String name, String direction});
 }
@@ -45,20 +47,22 @@ class _$ApiOrderParamCopyWithImpl<$Res, $Val extends ApiOrderParam>
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? name = null,
-    Object? direction = null,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      direction: null == direction
-          ? _value.direction
-          : direction // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+  $Res call({Object? name = null, Object? direction = null}) {
+    return _then(
+      _value.copyWith(
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            direction:
+                null == direction
+                    ? _value.direction
+                    : direction // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -66,8 +70,9 @@ class _$ApiOrderParamCopyWithImpl<$Res, $Val extends ApiOrderParam>
 abstract class _$$ApiOrderParamImplCopyWith<$Res>
     implements $ApiOrderParamCopyWith<$Res> {
   factory _$$ApiOrderParamImplCopyWith(
-          _$ApiOrderParamImpl value, $Res Function(_$ApiOrderParamImpl) then) =
-      __$$ApiOrderParamImplCopyWithImpl<$Res>;
+    _$ApiOrderParamImpl value,
+    $Res Function(_$ApiOrderParamImpl) then,
+  ) = __$$ApiOrderParamImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String direction});
@@ -78,25 +83,27 @@ class __$$ApiOrderParamImplCopyWithImpl<$Res>
     extends _$ApiOrderParamCopyWithImpl<$Res, _$ApiOrderParamImpl>
     implements _$$ApiOrderParamImplCopyWith<$Res> {
   __$$ApiOrderParamImplCopyWithImpl(
-      _$ApiOrderParamImpl _value, $Res Function(_$ApiOrderParamImpl) _then)
-      : super(_value, _then);
+    _$ApiOrderParamImpl _value,
+    $Res Function(_$ApiOrderParamImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? name = null,
-    Object? direction = null,
-  }) {
-    return _then(_$ApiOrderParamImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      direction: null == direction
-          ? _value.direction
-          : direction // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+  $Res call({Object? name = null, Object? direction = null}) {
+    return _then(
+      _$ApiOrderParamImpl(
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        direction:
+            null == direction
+                ? _value.direction
+                : direction // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
   }
 }
 
@@ -136,9 +143,10 @@ class _$ApiOrderParamImpl implements _ApiOrderParam {
 }
 
 abstract class _ApiOrderParam implements ApiOrderParam {
-  const factory _ApiOrderParam(
-      {required final String name,
-      required final String direction}) = _$ApiOrderParamImpl;
+  const factory _ApiOrderParam({
+    required final String name,
+    required final String direction,
+  }) = _$ApiOrderParamImpl;
 
   @override
   String get name;

@@ -12,7 +12,8 @@ part of 'boulder_api_response.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$BoulderApiResponse {
@@ -27,8 +28,9 @@ mixin _$BoulderApiResponse {
 /// @nodoc
 abstract class $BoulderApiResponseCopyWith<$Res> {
   factory $BoulderApiResponseCopyWith(
-          BoulderApiResponse value, $Res Function(BoulderApiResponse) then) =
-      _$BoulderApiResponseCopyWithImpl<$Res, BoulderApiResponse>;
+    BoulderApiResponse value,
+    $Res Function(BoulderApiResponse) then,
+  ) = _$BoulderApiResponseCopyWithImpl<$Res, BoulderApiResponse>;
   @useResult
   $Res call({PaginatedCollection<Boulder>? data, Object? error});
 }
@@ -45,26 +47,28 @@ class _$BoulderApiResponseCopyWithImpl<$Res, $Val extends BoulderApiResponse>
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? data = freezed,
-    Object? error = freezed,
-  }) {
-    return _then(_value.copyWith(
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as PaginatedCollection<Boulder>?,
-      error: freezed == error ? _value.error : error,
-    ) as $Val);
+  $Res call({Object? data = freezed, Object? error = freezed}) {
+    return _then(
+      _value.copyWith(
+            data:
+                freezed == data
+                    ? _value.data
+                    : data // ignore: cast_nullable_to_non_nullable
+                        as PaginatedCollection<Boulder>?,
+            error: freezed == error ? _value.error : error,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$BoulderApiResponseImplCopyWith<$Res>
     implements $BoulderApiResponseCopyWith<$Res> {
-  factory _$$BoulderApiResponseImplCopyWith(_$BoulderApiResponseImpl value,
-          $Res Function(_$BoulderApiResponseImpl) then) =
-      __$$BoulderApiResponseImplCopyWithImpl<$Res>;
+  factory _$$BoulderApiResponseImplCopyWith(
+    _$BoulderApiResponseImpl value,
+    $Res Function(_$BoulderApiResponseImpl) then,
+  ) = __$$BoulderApiResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({PaginatedCollection<Boulder>? data, Object? error});
@@ -74,23 +78,24 @@ abstract class _$$BoulderApiResponseImplCopyWith<$Res>
 class __$$BoulderApiResponseImplCopyWithImpl<$Res>
     extends _$BoulderApiResponseCopyWithImpl<$Res, _$BoulderApiResponseImpl>
     implements _$$BoulderApiResponseImplCopyWith<$Res> {
-  __$$BoulderApiResponseImplCopyWithImpl(_$BoulderApiResponseImpl _value,
-      $Res Function(_$BoulderApiResponseImpl) _then)
-      : super(_value, _then);
+  __$$BoulderApiResponseImplCopyWithImpl(
+    _$BoulderApiResponseImpl _value,
+    $Res Function(_$BoulderApiResponseImpl) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? data = freezed,
-    Object? error = freezed,
-  }) {
-    return _then(_$BoulderApiResponseImpl(
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as PaginatedCollection<Boulder>?,
-      error: freezed == error ? _value.error : error,
-    ));
+  $Res call({Object? data = freezed, Object? error = freezed}) {
+    return _then(
+      _$BoulderApiResponseImpl(
+        data:
+            freezed == data
+                ? _value.data
+                : data // ignore: cast_nullable_to_non_nullable
+                    as PaginatedCollection<Boulder>?,
+        error: freezed == error ? _value.error : error,
+      ),
+    );
   }
 }
 
@@ -120,20 +125,26 @@ class _$BoulderApiResponseImpl implements _BoulderApiResponse {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, data, const DeepCollectionEquality().hash(error));
+    runtimeType,
+    data,
+    const DeepCollectionEquality().hash(error),
+  );
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BoulderApiResponseImplCopyWith<_$BoulderApiResponseImpl> get copyWith =>
       __$$BoulderApiResponseImplCopyWithImpl<_$BoulderApiResponseImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _BoulderApiResponse implements BoulderApiResponse {
-  const factory _BoulderApiResponse(
-      {final PaginatedCollection<Boulder>? data,
-      final Object? error}) = _$BoulderApiResponseImpl;
+  const factory _BoulderApiResponse({
+    final PaginatedCollection<Boulder>? data,
+    final Object? error,
+  }) = _$BoulderApiResponseImpl;
 
   @override
   PaginatedCollection<Boulder>? get data;
