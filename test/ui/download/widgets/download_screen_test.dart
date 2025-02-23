@@ -3,9 +3,10 @@ import 'package:breizh_blok_mobile/ui/download/widgets/download_screen.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+
+import '../../../widget_test_utils.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
@@ -21,16 +22,8 @@ void main() {
         NativeDatabase.memory(),
       ),
     );
-    await tester.pumpWidget(
-      const MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: Locale('fr'),
-        home: DownloadScreen(),
-      ),
-    );
 
-    await tester.pumpAndSettle();
+    await myPumpAndSettle(tester, widget: const DownloadScreen());
 
     expect(find.text('Aucun téléchargement'), findsOneWidget);
   });
@@ -80,18 +73,7 @@ void main() {
       boulderAreaIri: '/foo',
     );
 
-    await tester.pumpWidget(
-      const MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: Locale('fr'),
-        home: Scaffold(
-          body: DownloadScreen(),
-        ),
-      ),
-    );
-
-    await tester.pumpAndSettle();
+    await myPumpAndSettle(tester, widget: const DownloadScreen());
 
     expect(find.byType(ListTile), findsOneWidget);
     expect(
@@ -161,18 +143,7 @@ void main() {
         ),
       ]);
 
-      await tester.pumpWidget(
-        const MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: Locale('fr'),
-          home: Scaffold(
-            body: DownloadScreen(),
-          ),
-        ),
-      );
-
-      await tester.pumpAndSettle();
+      await myPumpAndSettle(tester, widget: const DownloadScreen());
 
       expect(find.byType(ListTile), findsNWidgets(4));
 

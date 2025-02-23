@@ -1,16 +1,17 @@
 // ignore_for_file: avoid_print
 
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/grade.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../../../widget_test_utils.dart';
 
 void main() {
   testWidgets('MunicipalityDetails', (tester) async {
-    final boulderAreas = [
+    const boulderAreas = [
       BoulderArea(
         iri: '/boulder_areas/1',
         name: 'Le chenal',
@@ -19,8 +20,8 @@ void main() {
           name: 'generic',
         ),
         numberOfBoulders: 4,
-        lowestGrade: const Grade(iri: '', name: '5c'),
-        highestGrade: const Grade(iri: '', name: '6c'),
+        lowestGrade: Grade(iri: '', name: '5c'),
+        highestGrade: Grade(iri: '', name: '6c'),
       ),
       BoulderArea(
         iri: '/boulder_areas/2',
@@ -31,22 +32,17 @@ void main() {
         ),
       ),
     ];
-    await tester.pumpWidget(
-      MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: const Locale('fr'),
-        home: MunicipalityDetails(
-          municipality: Municipality(
-            name: 'Kerlouan',
-            iri: '/municipalities/1',
-            boulderAreas: boulderAreas,
-          ),
+
+    await myPumpAndSettle(
+      tester,
+      widget: MunicipalityDetails(
+        municipality: const Municipality(
+          name: 'Kerlouan',
+          iri: '/municipalities/1',
+          boulderAreas: boulderAreas,
         ),
       ),
     );
-
-    await tester.pumpAndSettle();
 
     expect(find.widgetWithText(ListTile, 'Le chenal'), findsOneWidget);
     find.widgetWithText(ListTile, '10 blocs du 5c au 6c');

@@ -1,20 +1,13 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class DownloadedBoulderArea extends Equatable {
-  const DownloadedBoulderArea({
-    required this.boulderAreaName,
-    required this.municipalityName,
-    required this.boulderAreaIri,
-    required this.downloadedAt,
-  });
+part 'downloaded_boulder_area.freezed.dart';
 
-  final String boulderAreaName;
-  final String municipalityName;
-  final String boulderAreaIri;
-  final DateTime downloadedAt;
-
-  @override
-  List<Object?> get props => [
-        boulderAreaIri,
-      ];
+@freezed
+abstract class DownloadedBoulderArea with _$DownloadedBoulderArea {
+  const factory DownloadedBoulderArea({
+    required String boulderAreaName,
+    required String municipalityName,
+    required String boulderAreaIri,
+    required DateTime downloadedAt,
+  }) = _DownloadedBoulderArea;
 }

@@ -1,7 +1,9 @@
-import 'package:breizh_blok_mobile/domain/models/location.dart';
-import 'package:equatable/equatable.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+part 'map_bloc.freezed.dart';
 
 class MapBloc extends Bloc<MapEvent, MapState> {
   MapBloc({
@@ -36,25 +38,10 @@ class MapUpdated extends MapEvent {
   final LatLng mapLatLng;
 }
 
-class MapState extends Equatable {
-  const MapState({
-    required this.mapZoom,
-    required this.mapLatLng,
-  });
-
-  final double mapZoom;
-  final LatLng mapLatLng;
-
-  @override
-  List<Object?> get props => [mapZoom, mapLatLng];
-
-  MapState copyWith({
-    double? mapZoom,
-    LatLng? mapLatLng,
-  }) {
-    return MapState(
-      mapZoom: mapZoom ?? this.mapZoom,
-      mapLatLng: mapLatLng ?? this.mapLatLng,
-    );
-  }
+@freezed
+abstract class MapState with _$MapState {
+  const factory MapState({
+    required double mapZoom,
+    required LatLng mapLatLng,
+  }) = _MapState;
 }

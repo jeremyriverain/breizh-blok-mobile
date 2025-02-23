@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
-import 'package:breizh_blok_mobile/domain/models/department.dart';
+import 'package:breizh_blok_mobile/domain/models/department/department.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

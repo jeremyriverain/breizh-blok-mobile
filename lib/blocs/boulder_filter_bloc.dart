@@ -1,6 +1,8 @@
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
-import 'package:equatable/equatable.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'boulder_filter_bloc.freezed.dart';
 
 class BoulderFilterBloc extends Bloc<BoulderFilterEvent, BoulderFilterState> {
   BoulderFilterBloc(super.initialState) {
@@ -32,25 +34,10 @@ class BoulderFilterLocation extends BoulderFilterEvent {
   final Set<BoulderArea> boulderAreas;
 }
 
-class BoulderFilterState extends Equatable {
-  BoulderFilterState({
-    this.term,
-    Set<BoulderArea>? boulderAreas,
-  }) : boulderAreas = boulderAreas ?? <BoulderArea>{};
-
-  final String? term;
-  final Set<BoulderArea> boulderAreas;
-
-  @override
-  List<Object?> get props => [term, boulderAreas];
-
-  BoulderFilterState copyWith({
+@freezed
+abstract class BoulderFilterState with _$BoulderFilterState {
+  const factory BoulderFilterState({
     String? term,
-    Set<BoulderArea>? boulderAreas,
-  }) {
-    return BoulderFilterState(
-      term: term ?? this.term,
-      boulderAreas: boulderAreas ?? this.boulderAreas,
-    );
-  }
+    @Default(<BoulderArea>{}) Set<BoulderArea> boulderAreas,
+  }) = _BoulderFilterState;
 }

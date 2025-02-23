@@ -1,14 +1,13 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/boulder/boulder_api_response.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-typedef BoulderState = BoulderApiResponse<PaginatedCollection<Boulder>>;
+typedef BoulderState = BoulderApiResponse;
 
 class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
   BoulderBloc({

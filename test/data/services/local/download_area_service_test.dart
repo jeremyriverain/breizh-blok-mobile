@@ -2,9 +2,9 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/location.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -48,13 +48,12 @@ void main() {
     httpClient: mockClient,
   );
 
-  final boulderArea = BoulderArea(
+  const boulderArea = BoulderArea(
     iri: '/boulder_areas/3',
     name: 'foo',
     municipality: Municipality(
       iri: '/bar',
       name: 'bar',
-      boulderAreas: const <BoulderArea>[],
       centroid: Location(latitude: 0, longitude: 0),
     ),
   );
@@ -101,13 +100,12 @@ void main() {
 
     // download
     await downloadAreaService.download(
-      BoulderArea(
+      const BoulderArea(
         iri: '/boulder_areas/3',
         name: 'foo',
         municipality: Municipality(
           iri: '/bar',
           name: 'bar',
-          boulderAreas: const <BoulderArea>[],
           centroid: Location(latitude: 0, longitude: 0),
         ),
       ),

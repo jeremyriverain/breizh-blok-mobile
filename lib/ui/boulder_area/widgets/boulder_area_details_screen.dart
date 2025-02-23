@@ -6,7 +6,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/loading_screen.dart';

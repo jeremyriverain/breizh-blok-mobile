@@ -4,17 +4,17 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/location.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/downloads_area_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../widget_test_utils.dart';
 @GenerateNiceMocks([
   MockSpec<ApiClient>(),
   MockSpec<AppDatabase>(),
@@ -43,33 +43,26 @@ void main() {
     streamController.add(null);
 
     await tester.runAsync(() async {
-      await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: const Locale('fr'),
-          home: Scaffold(
-            body: MultiRepositoryProvider(
-              providers: [
-                RepositoryProvider(
-                  // ignore: unnecessary_cast
-                  create: (context) => database as AppDatabase,
-                ),
-                RepositoryProvider(
-                  create: (context) => downloadAreaService,
-                ),
-              ],
-              child: DownloadsAreaButton(
-                boulderArea: BoulderArea(
-                  iri: '/foo',
-                  name: 'foo',
-                  municipality: Municipality(
-                    iri: '/bar',
-                    name: 'bar',
-                    boulderAreas: const <BoulderArea>[],
-                    centroid: Location(latitude: 0, longitude: 0),
-                  ),
-                ),
+      await myPumpAndSettle(
+        tester,
+        widget: MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider(
+              // ignore: unnecessary_cast
+              create: (context) => database as AppDatabase,
+            ),
+            RepositoryProvider(
+              create: (context) => downloadAreaService,
+            ),
+          ],
+          child: const DownloadsAreaButton(
+            boulderArea: BoulderArea(
+              iri: '/foo',
+              name: 'foo',
+              municipality: Municipality(
+                iri: '/bar',
+                name: 'bar',
+                centroid: Location(latitude: 0, longitude: 0),
               ),
             ),
           ),

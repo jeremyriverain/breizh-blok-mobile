@@ -6,7 +6,7 @@ import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_marker.dart';
-import 'package:breizh_blok_mobile/domain/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/domain/models/map/map_marker.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_map_loading_indicator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';

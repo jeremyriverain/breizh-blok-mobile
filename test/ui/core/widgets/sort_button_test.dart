@@ -2,8 +2,9 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_choice.
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/sort_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../../../widget_test_utils.dart';
 
 void main() {
   final radioListTileType = const RadioListTile<ApiOrderParam>(
@@ -37,19 +38,13 @@ void main() {
 
     ApiOrderParam? result;
 
-    await tester.pumpWidget(
-      MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: const Locale('fr'),
-        home: SortButton(
-          choices: choices,
-          onChanged: (value) => {result = value},
-        ),
+    await myPumpAndSettle(
+      tester,
+      widget: SortButton(
+        choices: choices,
+        onChanged: (value) => {result = value},
       ),
     );
-
-    await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('sort-button')));
     await tester.pumpAndSettle();
@@ -80,20 +75,16 @@ void main() {
       'the initial selected value is checked, the default label is displayed',
       (WidgetTester tester) async {
     const label = 'Sort by';
-    await tester.pumpWidget(
-      MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: SortButton(
-          choices: choices,
-          initialSelected: choices[1].orderParam,
-          onChanged: (p0) => {},
-          label: label,
-        ),
+
+    await myPumpAndSettle(
+      tester,
+      widget: SortButton(
+        choices: choices,
+        initialSelected: choices[1].orderParam,
+        onChanged: (p0) => {},
+        label: label,
       ),
     );
-
-    await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('sort-button')));
     await tester.pumpAndSettle();

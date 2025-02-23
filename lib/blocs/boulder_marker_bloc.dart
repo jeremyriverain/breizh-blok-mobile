@@ -1,8 +1,10 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_marker.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'boulder_marker_bloc.freezed.dart';
 
 class BoulderMarkerBloc extends Bloc<BoulderMarkerEvent, BoulderMarkerState> {
   BoulderMarkerBloc({
@@ -66,29 +68,11 @@ class BoulderMarkerRequested extends BoulderMarkerEvent {
   final bool offlineFirst;
 }
 
-class BoulderMarkerState extends Equatable {
-  const BoulderMarkerState({
-    required this.markers,
-    required this.isLoading,
-    required this.error,
-  });
-
-  final List<BoulderMarker> markers;
-  final bool isLoading;
-  final String error;
-
-  @override
-  List<Object?> get props => [markers, isLoading, error];
-
-  BoulderMarkerState copyWith({
-    List<BoulderMarker>? markers,
-    bool? isLoading,
-    String? error,
-  }) {
-    return BoulderMarkerState(
-      markers: markers ?? this.markers,
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-    );
-  }
+@freezed
+abstract class BoulderMarkerState with _$BoulderMarkerState {
+  const factory BoulderMarkerState({
+    required List<BoulderMarker> markers,
+    required bool isLoading,
+    required String error,
+  }) = _BoulderMarkerState;
 }

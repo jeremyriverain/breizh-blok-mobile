@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/domain/models/map/map_marker.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_error_message.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';

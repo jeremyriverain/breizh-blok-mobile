@@ -1,13 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
-import 'package:breizh_blok_mobile/domain/models/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('BoulderFilterGradeBloc', () {
     blocTest<BoulderFilterGradeBloc, BoulderFilterGradeState>(
       'default state OK',
-      build: () => BoulderFilterGradeBloc(BoulderFilterGradeState()),
+      build: () => BoulderFilterGradeBloc(const BoulderFilterGradeState()),
       verify: (BoulderFilterGradeBloc bloc) {
         expect(bloc.state.grades, <Grade>{});
       },
@@ -20,7 +20,7 @@ void main() {
 
     blocTest<BoulderFilterGradeBloc, BoulderFilterGradeState>(
       'BoulderFilterGrade event OK',
-      build: () => BoulderFilterGradeBloc(BoulderFilterGradeState()),
+      build: () => BoulderFilterGradeBloc(const BoulderFilterGradeState()),
       act: (BoulderFilterGradeBloc bloc) => bloc.add(
         BoulderFilterGradeEvent(
           {
