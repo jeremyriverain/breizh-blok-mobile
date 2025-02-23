@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/domain/models/height_boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/height_boulder/height_boulder.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:flutter_test/flutter_test.dart';
 

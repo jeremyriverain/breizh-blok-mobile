@@ -4,7 +4,7 @@ import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
@@ -103,7 +103,7 @@ class MapMarker {
                             FloatingActionButtonLocation.endTop,
                         body: BoulderListBuilder(
                           boulderFilterBloc:
-                              BoulderFilterBloc(BoulderFilterState()),
+                              BoulderFilterBloc(const BoulderFilterState()),
                           onPageRequested: (int page) {
                             final orderParam =
                                 context.read<BoulderOrderBloc>().state;

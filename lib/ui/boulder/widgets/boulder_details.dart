@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
@@ -25,6 +25,7 @@ class BoulderDetails extends StatelessWidget {
     final height = boulder.height;
     final description = boulder.description;
     final offlineFirst = context.read<RequestStrategy>().offlineFirst;
+    final municipality = boulder.rock.boulderArea.municipality;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -48,23 +49,24 @@ class BoulderDetails extends StatelessWidget {
               leading: Text(AppLocalizations.of(context).grade),
             ),
           if (height != null) BoulderDetailsHeight(height: height),
-          ListTile(
-            title: Text(boulder.rock.boulderArea.municipality.name),
-            leading: Text(AppLocalizations.of(context).municipality),
-            key: const Key('municipality-details-link'),
-            onTap: offlineFirst
-                ? null
-                : () {
-                    context.pushNamed(
-                      'municipality_details',
-                      pathParameters: {
-                        'id': IriParser.id(
-                          boulder.rock.boulderArea.municipality.iri,
-                        ),
-                      },
-                    );
-                  },
-          ),
+          if (municipality != null)
+            ListTile(
+              title: Text(municipality.name),
+              leading: Text(AppLocalizations.of(context).municipality),
+              key: const Key('municipality-details-link'),
+              onTap: offlineFirst
+                  ? null
+                  : () {
+                      context.pushNamed(
+                        'municipality_details',
+                        pathParameters: {
+                          'id': IriParser.id(
+                            municipality.iri,
+                          ),
+                        },
+                      );
+                    },
+            ),
           ListTile(
             title: Text(boulder.rock.boulderArea.name),
             leading: Text(AppLocalizations.of(context).boulderArea),

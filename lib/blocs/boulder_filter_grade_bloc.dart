@@ -1,6 +1,8 @@
-import 'package:breizh_blok_mobile/domain/models/grade.dart';
-import 'package:equatable/equatable.dart';
+import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'boulder_filter_grade_bloc.freezed.dart';
 
 class BoulderFilterGradeBloc
     extends Bloc<BoulderFilterGradeEvent, BoulderFilterGradeState> {
@@ -17,11 +19,9 @@ class BoulderFilterGradeEvent {
   final Set<Grade> grades;
 }
 
-class BoulderFilterGradeState extends Equatable {
-  BoulderFilterGradeState({Set<Grade>? grades}) : grades = grades ?? <Grade>{};
-
-  final Set<Grade> grades;
-
-  @override
-  List<Object?> get props => [grades];
+@freezed
+abstract class BoulderFilterGradeState with _$BoulderFilterGradeState {
+  const factory BoulderFilterGradeState({
+    @Default(<Grade>{}) Set<Grade> grades,
+  }) = _BoulderFilterGradeState;
 }

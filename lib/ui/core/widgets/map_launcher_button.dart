@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/domain/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/domain/models/map/map_directions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

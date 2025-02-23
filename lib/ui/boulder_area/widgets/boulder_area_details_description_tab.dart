@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_map.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_bar_chart.dart';
 import 'package:flutter/material.dart';

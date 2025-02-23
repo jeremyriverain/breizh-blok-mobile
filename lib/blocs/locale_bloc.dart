@@ -1,8 +1,10 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+part 'locale_bloc.freezed.dart';
 
 const kLocalePrefs = 'locale';
 
@@ -57,13 +59,9 @@ class LocaleUpdated extends LocaleEvent {
   final Locale locale;
 }
 
-class LocaleState extends Equatable {
-  const LocaleState({
-    required this.locale,
-  });
-
-  final Locale locale;
-
-  @override
-  List<Object?> get props => [locale];
+@freezed
+abstract class LocaleState with _$LocaleState {
+  const factory LocaleState({
+    required Locale locale,
+  }) = _LocaleState;
 }

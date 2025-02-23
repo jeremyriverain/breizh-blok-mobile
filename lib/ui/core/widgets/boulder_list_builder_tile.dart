@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_tile_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_tile_title.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +19,7 @@ class BoulderListBuilderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final municipality = boulder.rock.boulderArea.municipality;
     return Semantics(
       label: 'Voir le détail du bloc "${boulder.name}"',
       child: InkWell(
@@ -74,7 +75,7 @@ class BoulderListBuilderTile extends StatelessWidget {
                               ],
                             ),
                           ),
-                        if (showLocationInfo)
+                        if (showLocationInfo && municipality != null)
                           Text.rich(
                             TextSpan(
                               children: <TextSpan>[
@@ -85,8 +86,7 @@ class BoulderListBuilderTile extends StatelessWidget {
                                   style: const TextStyle(color: Colors.black54),
                                 ),
                                 TextSpan(
-                                  text: boulder
-                                      .rock.boulderArea.municipality.name,
+                                  text: municipality.name,
                                 ),
                               ],
                             ),

@@ -1,13 +1,13 @@
-import 'package:equatable/equatable.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class BoulderApiResponse<T> extends Equatable {
-  const BoulderApiResponse({
-    this.data,
-    this.error,
-  });
-  final T? data;
-  final Object? error;
+part 'boulder_api_response.freezed.dart';
 
-  @override
-  List<Object?> get props => [data, error];
+@freezed
+abstract class BoulderApiResponse with _$BoulderApiResponse {
+  const factory BoulderApiResponse({
+    PaginatedCollection<Boulder>? data,
+    Object? error,
+  }) = _BoulderApiResponse;
 }

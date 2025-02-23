@@ -4,9 +4,9 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/location.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/downloads_area_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,14 +55,13 @@ void main() {
               create: (context) => downloadAreaService,
             ),
           ],
-          child: DownloadsAreaButton(
+          child: const DownloadsAreaButton(
             boulderArea: BoulderArea(
               iri: '/foo',
               name: 'foo',
               municipality: Municipality(
                 iri: '/bar',
                 name: 'bar',
-                boulderAreas: const <BoulderArea>[],
                 centroid: Location(latitude: 0, longitude: 0),
               ),
             ),

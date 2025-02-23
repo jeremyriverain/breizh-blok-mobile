@@ -70,7 +70,7 @@ Future<void> main({
   final mapBloc = MapBloc();
 
   final boulderFilterBloc = BoulderFilterBloc(
-    BoulderFilterState(),
+    const BoulderFilterState(),
   );
 
   final boulderOrderBloc = BoulderOrderBloc(
@@ -81,7 +81,7 @@ Future<void> main({
   );
 
   final boulderFilterGradeBloc =
-      BoulderFilterGradeBloc(BoulderFilterGradeState());
+      BoulderFilterGradeBloc(const BoulderFilterGradeState());
   final boulderMarkerRepository =
       BoulderMarkerRepository(httpClient: httpClient);
 

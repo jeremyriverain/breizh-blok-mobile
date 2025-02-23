@@ -2,7 +2,8 @@ import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_description_tab.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_list_tab.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/lazy_indexed_stack.dart';
@@ -18,6 +19,7 @@ class BoulderAreaDetails extends StatefulWidget {
   });
 
   final BoulderArea boulderArea;
+  Municipality? get municipality => boulderArea.municipality;
 
   @override
   State<BoulderAreaDetails> createState() => _BoulderAreaDetailsState();
@@ -75,6 +77,8 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
       BoulderAreaDetailsDescriptionTab(boulderArea: widget.boulderArea),
     ];
 
+    final municipality = widget.municipality;
+
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
@@ -91,9 +95,10 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    TextSpan(
-                      text: ' (${widget.boulderArea.municipality.name})',
-                    ),
+                    if (municipality != null)
+                      TextSpan(
+                        text: ' (${municipality.name})',
+                      ),
                   ],
                 ),
               ),
@@ -103,7 +108,7 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
             ShareButton(
               content: AppLocalizations.of(context).shareableBoulderArea(
                 boulderAreaName: widget.boulderArea.name,
-                municipalityName: widget.boulderArea.municipality.name,
+                municipalityName: widget.boulderArea.municipality?.name ?? '',
                 boulderAreaIri: IriParser.id(
                   widget.boulderArea.iri,
                 ),
