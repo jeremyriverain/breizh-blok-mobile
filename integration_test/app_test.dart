@@ -14,7 +14,7 @@ import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/main.dart' as app;
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated_item.dart';
@@ -648,7 +648,7 @@ void main() async {
 
     expect(
       find.text(
-        'Commune: ${boulderReference.rock.boulderArea.municipality.name}',
+        'Commune: ${boulderReference.rock.boulderArea.municipality?.name}',
         findRichText: true,
       ),
       findsWidgets,
@@ -729,7 +729,7 @@ void main() async {
 
     expect(
       find.textContaining(
-        boulderReference.rock.boulderArea.municipality.name,
+        boulderReference.rock.boulderArea.municipality?.name ?? 'foo',
       ),
       findsOneWidget,
     );
@@ -1049,13 +1049,13 @@ by clicking on the "scroll to to the top" button''',
 
     print(
       // ignore: lines_longer_than_80_chars
-      'municipality ref => ${boulderReference.rock.boulderArea.municipality.name}',
+      'municipality ref => ${boulderReference.rock.boulderArea.municipality?.name}',
     );
     expect(
       find.descendant(
         of: find.byKey(const Key('municipality-details-app-bar')),
         matching: find.textContaining(
-          boulderReference.rock.boulderArea.municipality.name,
+          boulderReference.rock.boulderArea.municipality?.name ?? 'foo',
           findRichText: true,
         ),
       ),
@@ -1070,13 +1070,15 @@ by clicking on the "scroll to to the top" button''',
       httpClient: httpClient,
     );
     print(
-      'municipality IRI: ${boulderReference.rock.boulderArea.municipality.iri}',
+      // ignore: lines_longer_than_80_chars
+      'municipality IRI: ${boulderReference.rock.boulderArea.municipality?.iri}',
     );
     final municipalityReference = await municipalityRepository.find(
-      boulderReference.rock.boulderArea.municipality.iri.replaceAll(
-        '/municipalities/',
-        '',
-      ),
+      boulderReference.rock.boulderArea.municipality?.id ??
+          'foo'.replaceAll(
+            '/municipalities/',
+            '',
+          ),
     );
     expect(municipalityReference.iri, isNotNull);
     await boulderRepository.findBy(queryParams: defaultBoulderQueryParams);

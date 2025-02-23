@@ -1,26 +1,17 @@
 import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileLanguageSwitcher extends StatelessWidget {
-  ProfileLanguageSwitcher({
-    required this.currentLocale,
-    super.key,
-  });
+  ProfileLanguageSwitcher({required this.currentLocale, super.key});
 
   final String currentLocale;
 
   final languages = {
-    'en': (
-      name: 'English',
-      flag: 'assets/gb_flag.svg',
-    ),
-    'fr': (
-      name: 'Français',
-      flag: 'assets/fr_flag.svg',
-    ),
+    'en': (name: 'English', flag: 'assets/gb_flag.svg'),
+    'fr': (name: 'Français', flag: 'assets/fr_flag.svg'),
   };
 
   @override
@@ -42,9 +33,9 @@ class ProfileLanguageSwitcher extends StatelessWidget {
           if (newValue == null) {
             return;
           }
-          context
-              .read<LocaleBloc>()
-              .add(LocaleUpdated(locale: Locale(newValue)));
+          context.read<LocaleBloc>().add(
+            LocaleUpdated(locale: Locale(newValue)),
+          );
         },
         leadingIcon: Row(
           mainAxisSize: MainAxisSize.min,
@@ -59,16 +50,16 @@ class ProfileLanguageSwitcher extends StatelessWidget {
         ),
         dropdownMenuEntries:
             languages.entries.map<DropdownMenuEntry<String>>((entry) {
-          return DropdownMenuEntry<String>(
-            value: entry.key,
-            label: entry.value.name,
-            leadingIcon: SvgPicture.asset(
-              entry.value.flag,
-              width: 24,
-              height: 16,
-            ),
-          );
-        }).toList(),
+              return DropdownMenuEntry<String>(
+                value: entry.key,
+                label: entry.value.name,
+                leadingIcon: SvgPicture.asset(
+                  entry.value.flag,
+                  width: 24,
+                  height: 16,
+                ),
+              );
+            }).toList(),
       ),
     );
   }

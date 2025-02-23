@@ -1,15 +1,12 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderDetailsNavbar extends StatelessWidget
     implements PreferredSizeWidget {
-  const BoulderDetailsNavbar({
-    required this.boulder,
-    super.key,
-  });
+  const BoulderDetailsNavbar({required this.boulder, super.key});
 
   final Boulder boulder;
 
@@ -22,9 +19,7 @@ class BoulderDetailsNavbar extends StatelessWidget
       title: FittedBox(
         child: Text(
           boulder.name,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       actions: [
@@ -32,9 +27,7 @@ class BoulderDetailsNavbar extends StatelessWidget
           content: AppLocalizations.of(context).shareableBoulder(
             boulderName: boulder.name,
             boulderAreaName: boulder.rock.boulderArea.name,
-            boulderIri: IriParser.id(
-              boulder.iri,
-            ),
+            boulderIri: IriParser.id(boulder.iri),
           ),
         ),
       ],

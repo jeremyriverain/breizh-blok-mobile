@@ -1,36 +1,32 @@
-import 'package:breizh_blok_mobile/domain/models/line_boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/line_boulder/line_boulder.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class BoulderDetailsLineBoulders extends StatelessWidget {
-  const BoulderDetailsLineBoulders({
-    required this.lineBoulders,
-    super.key,
-  });
+  const BoulderDetailsLineBoulders({required this.lineBoulders, super.key});
 
   final List<LineBoulder> lineBoulders;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: lineBoulders
-          .asMap()
-          .entries
-          .map<Widget>(
-            (entry) => Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: InkWell(
-                onTap: () => {_open(context, entry.key)},
-                child: LineBoulderImage(
-                  lineBoulder: entry.value,
+      children:
+          lineBoulders
+              .asMap()
+              .entries
+              .map<Widget>(
+                (entry) => Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: InkWell(
+                    onTap: () => {_open(context, entry.key)},
+                    child: LineBoulderImage(lineBoulder: entry.value),
+                  ),
                 ),
-              ),
-            ),
-          )
-          .toList(),
+              )
+              .toList(),
     );
   }
 
@@ -38,24 +34,21 @@ class BoulderDetailsLineBoulders extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute<_GalleryPhotoViewWrapper>(
-        builder: (context) => _GalleryPhotoViewWrapper(
-          galleryItems: lineBoulders,
-          initialIndex: index,
-        ),
+        builder:
+            (context) => _GalleryPhotoViewWrapper(
+              galleryItems: lineBoulders,
+              initialIndex: index,
+            ),
       ),
     );
   }
 }
 
 class _GalleryPhotoViewWrapper extends StatefulWidget {
-  _GalleryPhotoViewWrapper({
-    required this.galleryItems,
-    this.initialIndex = 0,
-  }) : pageController = PageController(initialPage: initialIndex);
+  _GalleryPhotoViewWrapper({required this.galleryItems, this.initialIndex = 0})
+    : pageController = PageController(initialPage: initialIndex);
 
-  final backgroundDecoration = const BoxDecoration(
-    color: Colors.black,
-  );
+  final backgroundDecoration = const BoxDecoration(color: Colors.black);
   final int initialIndex;
   final PageController pageController;
   final List<LineBoulder> galleryItems;
@@ -98,10 +91,7 @@ class _GalleryPhotoViewWrapperState extends State<_GalleryPhotoViewWrapper> {
               padding: const EdgeInsets.all(20),
               child: Text(
                 '${AppLocalizations.of(context).image} ${currentIndex + 1}/${widget.galleryItems.length}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                ),
+                style: const TextStyle(color: Colors.white, fontSize: 17),
               ),
             ),
             Positioned(
@@ -115,11 +105,7 @@ class _GalleryPhotoViewWrapperState extends State<_GalleryPhotoViewWrapper> {
                     Navigator.of(context).pop();
                   },
                   tooltip: AppLocalizations.of(context).closeTheGallery,
-                  icon: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 35,
-                  ),
+                  icon: const Icon(Icons.close, color: Colors.white, size: 35),
                 ),
               ),
             ),
@@ -137,14 +123,9 @@ class _GalleryPhotoViewWrapperState extends State<_GalleryPhotoViewWrapper> {
       child: SizedBox(
         width: width,
         height: height,
-        child: LineBoulderImage(
-          lineBoulder: item,
-        ),
+        child: LineBoulderImage(lineBoulder: item),
       ),
-      childSize: Size(
-        width,
-        height,
-      ),
+      childSize: Size(width, height),
       initialScale: PhotoViewComputedScale.contained,
       minScale: PhotoViewComputedScale.contained * (0.5 + index / 10),
       maxScale: PhotoViewComputedScale.covered * 4.1,

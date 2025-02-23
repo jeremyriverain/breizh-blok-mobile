@@ -1,18 +1,16 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/downloaded_boulder_area.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/empty_list_indicator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloads_sort_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class DownloadScreen extends StatefulWidget {
-  const DownloadScreen({
-    super.key,
-  });
+  const DownloadScreen({super.key});
 
   @override
   State<DownloadScreen> createState() => _DownloadScreenState();
@@ -22,8 +20,9 @@ class _DownloadScreenState extends State<DownloadScreen> {
   Future<List<DownloadedBoulderArea>> _findDownloads(
     ApiOrderParam orderParam,
   ) async {
-    final response =
-        await GetIt.I<AppDatabase>().allDownloads(orderParam: orderParam);
+    final response = await GetIt.I<AppDatabase>().allDownloads(
+      orderParam: orderParam,
+    );
     return response;
   }
 
@@ -38,9 +37,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context).downloads,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: FutureBuilder(
@@ -80,9 +77,10 @@ class _DownloadScreenState extends State<DownloadScreen> {
                         context.pushNamed(
                           'downloaded_boulder_area_details',
                           pathParameters: {
-                            'id': data[index]
-                                .boulderAreaIri
-                                .replaceAll('/boulder_areas/', ''),
+                            'id': data[index].boulderAreaIri.replaceAll(
+                              '/boulder_areas/',
+                              '',
+                            ),
                           },
                         );
                       },
@@ -96,9 +94,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
             return const ErrorScreen();
           }
 
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

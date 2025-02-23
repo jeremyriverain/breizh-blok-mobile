@@ -6,15 +6,15 @@ import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_marker.dart';
-import 'package:breizh_blok_mobile/domain/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/domain/models/map/map_marker.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_map_loading_indicator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -66,17 +66,18 @@ class _BoulderMapState extends State<BoulderMap> {
     }
   }
 
-  Future<Marker> Function(Cluster<BoulderMarker>) get boulderMarkerBuilder =>
-      (cluster) async {
-        return Marker(
-          markerId: MarkerId(cluster.getId()),
-          position: cluster.location,
-          icon: await MapMarker.getMarkerBitmap(
-            cluster.isMultiple ? 125 : 75,
-            text: cluster.isMultiple ? cluster.count.toString() : null,
-          ),
-        );
-      };
+  Future<Marker> Function(Cluster<BoulderMarker>) get boulderMarkerBuilder => (
+    cluster,
+  ) async {
+    return Marker(
+      markerId: MarkerId(cluster.getId()),
+      position: cluster.location,
+      icon: await MapMarker.getMarkerBitmap(
+        cluster.isMultiple ? 125 : 75,
+        text: cluster.isMultiple ? cluster.count.toString() : null,
+      ),
+    );
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -109,23 +110,16 @@ class _BoulderMapState extends State<BoulderMap> {
                 2,
           );
 
+          // ignore: use_build_context_synchronously
           context.read<MapBloc>().add(
-                MapUpdated(
-                  mapZoom: zoom,
-                  mapLatLng: centerLatLng,
-                ),
-              );
+            MapUpdated(mapZoom: zoom, mapLatLng: centerLatLng),
+          );
         });
       },
       onCameraMove: _manager.onCameraMove,
-      markers: {
-        ...boulderMarkers,
-        ...widget.markers,
-      },
+      markers: {...boulderMarkers, ...widget.markers},
       gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{
-        Factory<OneSequenceGestureRecognizer>(
-          EagerGestureRecognizer.new,
-        ),
+        Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new),
       },
     );
 
@@ -140,9 +134,7 @@ class _BoulderMapState extends State<BoulderMap> {
               listener: (context, state) {
                 _manager.setItems(state.markers);
               },
-              child: MyMap(
-                map: map,
-              ),
+              child: MyMap(map: map),
             ),
             if (state.isLoading == true) const BoulderMapLoadingIndicator(),
             if (state.error.isNotEmpty)
@@ -161,11 +153,10 @@ class _BoulderMapState extends State<BoulderMap> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 1),
                             child: Text(
-                              AppLocalizations.of(context)
-                                  .errorOccuredWhileFetchingBoulders,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
+                              AppLocalizations.of(
+                                context,
+                              ).errorOccuredWhileFetchingBoulders,
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
@@ -175,15 +166,15 @@ class _BoulderMapState extends State<BoulderMap> {
                             child: const Text('Réessayer'),
                             onPressed: () {
                               context.read<BoulderMarkerBloc>().add(
-                                    BoulderMarkerRequested(
-                                      filterState: context
-                                          .read<BoulderFilterBloc>()
-                                          .state,
-                                      offlineFirst: context
+                                BoulderMarkerRequested(
+                                  filterState:
+                                      context.read<BoulderFilterBloc>().state,
+                                  offlineFirst:
+                                      context
                                           .read<RequestStrategy>()
                                           .offlineFirst,
-                                    ),
-                                  );
+                                ),
+                              );
                             },
                           ),
                         ),

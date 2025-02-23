@@ -1,7 +1,11 @@
 arb-dir: i18n
 template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
+output-dir: lib/i18n
+
 preferred-supported-locales:
   - fr
 nullable-getter: false
 use-named-parameters: true
+
+synthetic-package: false

@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/domain/models/map/map_marker.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_error_message.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MunicipalityDetailsMap extends StatefulWidget {
@@ -38,9 +38,7 @@ class MunicipalityDetailsMapState extends State<MunicipalityDetailsMap> {
     );
 
     final map = FutureBuilder(
-      future: Future.wait([
-        MapMarker.getMarkerBitmap(kSizeSimpleMarker),
-      ]),
+      future: Future.wait([MapMarker.getMarkerBitmap(kSizeSimpleMarker)]),
       builder: (context, AsyncSnapshot<List<Object>> snapshot) {
         if (snapshot.hasError) {
           return const MapErrorMessage();
@@ -71,30 +69,25 @@ class MunicipalityDetailsMapState extends State<MunicipalityDetailsMap> {
               if (widget.boulderAreas.isNotEmpty) {
                 final c = await _controller.future;
                 await c.showMarkerInfoWindow(
-                  MarkerId(
-                    widget.boulderAreas.last.iri,
-                  ),
+                  MarkerId(widget.boulderAreas.last.iri),
                 );
               }
             },
-            markers: widget.boulderAreas.map(
-              (e) {
-                final location = e.resolveLocation();
-                return Marker(
-                  markerId: MarkerId(e.iri),
-                  position: LatLng(location.latitude, location.longitude),
-                  icon: icon,
-                  infoWindow: InfoWindow(
-                    title: e.name,
-                    snippet: e.nBouldersRated(AppLocalizations.of(context)),
-                  ),
-                );
-              },
-            ).toSet(),
+            markers:
+                widget.boulderAreas.map((e) {
+                  final location = e.resolveLocation();
+                  return Marker(
+                    markerId: MarkerId(e.iri),
+                    position: LatLng(location.latitude, location.longitude),
+                    icon: icon,
+                    infoWindow: InfoWindow(
+                      title: e.name,
+                      snippet: e.nBouldersRated(AppLocalizations.of(context)),
+                    ),
+                  );
+                }).toSet(),
             gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{
-              Factory<OneSequenceGestureRecognizer>(
-                EagerGestureRecognizer.new,
-              ),
+              Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new),
             },
           ),
         );

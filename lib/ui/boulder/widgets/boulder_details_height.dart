@@ -1,12 +1,9 @@
-import 'package:breizh_blok_mobile/domain/models/height_boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/height_boulder/height_boulder.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderDetailsHeight extends StatelessWidget {
-  const BoulderDetailsHeight({
-    required this.height,
-    super.key,
-  });
+  const BoulderDetailsHeight({required this.height, super.key});
 
   final HeightBoulder height;
 
@@ -26,9 +23,6 @@ class BoulderDetailsHeight extends StatelessWidget {
       return translator.moreThanNMeters(value: min);
     }
 
-    return ListTile(
-      title: Text(title()),
-      leading: Text(translator.height),
-    );
+    return ListTile(title: Text(title()), leading: Text(translator.height));
   }
 }

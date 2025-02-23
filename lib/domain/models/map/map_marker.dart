@@ -4,7 +4,7 @@ import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_marker.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
@@ -32,16 +32,17 @@ class MapMarker {
       ..drawCircle(Offset(size / 2, size / 2), size / 2.8, paint1);
 
     if (text != null) {
-      final painter = TextPainter(textDirection: TextDirection.ltr)
-        ..text = TextSpan(
-          text: text,
-          style: TextStyle(
-            fontSize: size / 3,
-            color: Colors.white,
-            fontWeight: FontWeight.normal,
-          ),
-        )
-        ..layout();
+      final painter =
+          TextPainter(textDirection: TextDirection.ltr)
+            ..text = TextSpan(
+              text: text,
+              style: TextStyle(
+                fontSize: size / 3,
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+              ),
+            )
+            ..layout();
       painter.paint(
         canvas,
         Offset(size / 2 - painter.width / 2, size / 2 - painter.height / 2),
@@ -58,9 +59,7 @@ class MapMarker {
     required String path,
     int width = 110,
   }) async {
-    return BitmapDescriptor.fromBytes(
-      await _getBytesFromAsset(path, width),
-    );
+    return BitmapDescriptor.fromBytes(await _getBytesFromAsset(path, width));
   }
 
   static Future<Uint8List> _getBytesFromAsset(String path, int width) async {
@@ -70,9 +69,9 @@ class MapMarker {
       targetWidth: width,
     );
     final fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
-        .buffer
-        .asUint8List();
+    return (await fi.image.toByteData(
+      format: ui.ImageByteFormat.png,
+    ))!.buffer.asUint8List();
   }
 
   static Future<Marker> Function(Cluster<BoulderMarker>) markerBuilderFactory(
@@ -90,9 +89,7 @@ class MapMarker {
             isScrollControlled: true,
             builder: (BuildContext context) {
               return RepositoryProvider(
-                create: (_) => RequestStrategy(
-                  offlineFirst: offlineFirst,
-                ),
+                create: (_) => RequestStrategy(offlineFirst: offlineFirst),
                 child: Builder(
                   builder: (context) {
                     return FractionallySizedBox(
@@ -102,15 +99,17 @@ class MapMarker {
                         floatingActionButtonLocation:
                             FloatingActionButtonLocation.endTop,
                         body: BoulderListBuilder(
-                          boulderFilterBloc:
-                              BoulderFilterBloc(BoulderFilterState()),
+                          boulderFilterBloc: BoulderFilterBloc(
+                            const BoulderFilterState(),
+                          ),
                           onPageRequested: (int page) {
                             final orderParam =
                                 context.read<BoulderOrderBloc>().state;
 
-                            final boulderIds = cluster.items
-                                .map((e) => e.id.toString())
-                                .toSet();
+                            final boulderIds =
+                                cluster.items
+                                    .map((e) => e.id.toString())
+                                    .toSet();
 
                             if (boulderArea != null && offlineFirst) {
                               return DbBouldersRequested(

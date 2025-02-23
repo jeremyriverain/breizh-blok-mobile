@@ -1,16 +1,13 @@
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
-import 'package:breizh_blok_mobile/domain/models/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BoulderListBuilderFilterGrade extends StatefulWidget {
-  const BoulderListBuilderFilterGrade({
-    required this.allGrades,
-    super.key,
-  });
+  const BoulderListBuilderFilterGrade({required this.allGrades, super.key});
 
   final PaginatedCollection<Grade> allGrades;
 
@@ -26,27 +23,32 @@ class _BoulderListBuilderFilterGradeState
   @override
   void initState() {
     super.initState();
-    final selectedGrades = context
-        .read<BoulderFilterGradeBloc>()
-        .state
-        .grades
-        .toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
+    final selectedGrades =
+        context.read<BoulderFilterGradeBloc>().state.grades.toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
 
     if (selectedGrades.isEmpty) {
-      _currentRangeValues =
-          SfRangeValues(0.0, (widget.allGrades.items.length - 1).toDouble());
+      _currentRangeValues = SfRangeValues(
+        0.0,
+        (widget.allGrades.items.length - 1).toDouble(),
+      );
     } else {
-      final startIndex = widget.allGrades.items
-          .indexWhere((element) => element.iri == selectedGrades.first.iri);
-      final endIndex = widget.allGrades.items
-          .indexWhere((element) => element.iri == selectedGrades.last.iri);
+      final startIndex = widget.allGrades.items.indexWhere(
+        (element) => element.iri == selectedGrades.first.iri,
+      );
+      final endIndex = widget.allGrades.items.indexWhere(
+        (element) => element.iri == selectedGrades.last.iri,
+      );
       if (startIndex != -1 && endIndex != -1) {
-        _currentRangeValues =
-            SfRangeValues(startIndex.toDouble(), endIndex.toDouble());
+        _currentRangeValues = SfRangeValues(
+          startIndex.toDouble(),
+          endIndex.toDouble(),
+        );
       } else {
-        _currentRangeValues =
-            SfRangeValues(0.0, (widget.allGrades.items.length - 1).toDouble());
+        _currentRangeValues = SfRangeValues(
+          0.0,
+          (widget.allGrades.items.length - 1).toDouble(),
+        );
       }
     }
   }
@@ -72,13 +74,12 @@ class _BoulderListBuilderFilterGradeState
                       text: '${AppLocalizations.of(context).minGrade}: ',
                     ),
                     TextSpan(
-                      text: widget
-                          .allGrades
-                          .items[(_currentRangeValues.start as num).toInt()]
-                          .name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      text:
+                          widget
+                              .allGrades
+                              .items[(_currentRangeValues.start as num).toInt()]
+                              .name,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -87,15 +88,14 @@ class _BoulderListBuilderFilterGradeState
               Text.rich(
                 TextSpan(
                   children: <TextSpan>[
+                    TextSpan(text: '${AppLocalizations.of(context).max}: '),
                     TextSpan(
-                      text: '${AppLocalizations.of(context).max}: ',
-                    ),
-                    TextSpan(
-                      text: widget.allGrades
-                          .items[(_currentRangeValues.end as num).toInt()].name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      text:
+                          widget
+                              .allGrades
+                              .items[(_currentRangeValues.end as num).toInt()]
+                              .name,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -126,16 +126,16 @@ class _BoulderListBuilderFilterGradeState
                 if (startIndex != 0 ||
                     endIndex != widget.allGrades.totalItems - 1) {
                   newValues = {
-                    ...widget.allGrades.items
-                        .getRange(startIndex, endIndex + 1),
+                    ...widget.allGrades.items.getRange(
+                      startIndex,
+                      endIndex + 1,
+                    ),
                   };
                 }
 
                 context.read<BoulderFilterGradeBloc>().add(
-                      BoulderFilterGradeEvent(
-                        newValues,
-                      ),
-                    );
+                  BoulderFilterGradeEvent(newValues),
+                );
               } else {
                 throw StateError(
                   'values.start and values.end should be number',

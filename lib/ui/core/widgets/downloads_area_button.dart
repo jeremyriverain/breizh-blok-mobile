@@ -4,19 +4,16 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:drift/isolate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class DownloadsAreaButton extends StatelessWidget {
-  const DownloadsAreaButton({
-    required this.boulderArea,
-    super.key,
-  });
+  const DownloadsAreaButton({required this.boulderArea, super.key});
 
   final BoulderArea boulderArea;
 
@@ -47,10 +44,7 @@ class DownloadsAreaButton extends StatelessWidget {
         await database.close();
       });
     } catch (exception, stackTrace) {
-      await Sentry.captureException(
-        exception,
-        stackTrace: stackTrace,
-      );
+      await Sentry.captureException(exception, stackTrace: stackTrace);
     }
   }
 
@@ -68,9 +62,10 @@ class DownloadsAreaButton extends StatelessWidget {
           final data = snapshot.data;
           final valueCheckbox = data != null;
 
-          final key = data != null && data.downloadProgress == 100
-              ? const Key('area_downloaded')
-              : null;
+          final key =
+              data != null && data.downloadProgress == 100
+                  ? const Key('area_downloaded')
+                  : null;
           return Row(
             children: [
               Padding(
@@ -99,19 +94,17 @@ class DownloadsAreaButton extends StatelessWidget {
                     height: 15,
                     child: CircularProgressIndicator(
                       strokeWidth: 3,
-                      value: data.downloadProgress == 0
-                          ? null
-                          : data.downloadProgress / 100,
+                      value:
+                          data.downloadProgress == 0
+                              ? null
+                              : data.downloadProgress / 100,
                     ),
                   ),
                 ),
             ],
           );
         }
-        return const SizedBox(
-          height: 15,
-          width: 15,
-        );
+        return const SizedBox(height: 15, width: 15);
       },
     );
   }

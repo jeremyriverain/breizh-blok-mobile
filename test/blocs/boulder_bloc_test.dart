@@ -5,12 +5,12 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.d
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/grade.dart';
-import 'package:breizh_blok_mobile/domain/models/location.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality.dart';
-import 'package:breizh_blok_mobile/domain/models/rock.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
+import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
+import 'package:breizh_blok_mobile/domain/models/rock/rock.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -28,13 +28,12 @@ void main() {
   });
   group('BoulderBloc', () {
     const idBoulderArea = '3';
-    final boulderArea = BoulderArea(
+    const boulderArea = BoulderArea(
       iri: '/boulder_areas/$idBoulderArea',
       name: 'foo',
       municipality: Municipality(
         iri: '/bar',
         name: 'bar',
-        boulderAreas: const [],
       ),
     );
 
@@ -49,7 +48,7 @@ void main() {
         rock: Rock(
           boulderArea: boulderArea,
           iri: id,
-          location: Location(latitude: 0, longitude: 0),
+          location: const Location(latitude: 0, longitude: 0),
         ),
       );
     }

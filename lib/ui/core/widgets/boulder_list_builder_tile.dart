@@ -1,10 +1,10 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_tile_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_tile_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class BoulderListBuilderTile extends StatelessWidget {
@@ -19,6 +19,7 @@ class BoulderListBuilderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final municipality = boulder.rock.boulderArea.municipality;
     return Semantics(
       label: 'Voir le détail du bloc "${boulder.name}"',
       child: InkWell(
@@ -29,11 +30,10 @@ class BoulderListBuilderTile extends StatelessWidget {
           context.pushNamed(
             routeName,
             pathParameters: {'id': boulder.id},
-            queryParameters: offlineFirst
-                ? {
-                    'boulderAreaIri': boulder.rock.boulderArea.iri,
-                  }
-                : {},
+            queryParameters:
+                offlineFirst
+                    ? {'boulderAreaIri': boulder.rock.boulderArea.iri}
+                    : {},
           );
         },
         child: Padding(
@@ -42,11 +42,7 @@ class BoulderListBuilderTile extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Stack(
-                  children: [
-                    BoulderTileImage(boulder: boulder),
-                  ],
-                ),
+                Stack(children: [BoulderTileImage(boulder: boulder)]),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 2, 0),
@@ -64,17 +60,13 @@ class BoulderListBuilderTile extends StatelessWidget {
                                   text:
                                       // ignore: lines_longer_than_80_chars
                                       '${AppLocalizations.of(context).boulderArea}: ',
-                                  style: const TextStyle(
-                                    color: Colors.black54,
-                                  ),
+                                  style: const TextStyle(color: Colors.black54),
                                 ),
-                                TextSpan(
-                                  text: boulder.rock.boulderArea.name,
-                                ),
+                                TextSpan(text: boulder.rock.boulderArea.name),
                               ],
                             ),
                           ),
-                        if (showLocationInfo)
+                        if (showLocationInfo && municipality != null)
                           Text.rich(
                             TextSpan(
                               children: <TextSpan>[
@@ -84,10 +76,7 @@ class BoulderListBuilderTile extends StatelessWidget {
                                       '${AppLocalizations.of(context).municipality}: ',
                                   style: const TextStyle(color: Colors.black54),
                                 ),
-                                TextSpan(
-                                  text: boulder
-                                      .rock.boulderArea.municipality.name,
-                                ),
+                                TextSpan(text: municipality.name),
                               ],
                             ),
                             key: const Key('boulder-list-tile-municipality'),

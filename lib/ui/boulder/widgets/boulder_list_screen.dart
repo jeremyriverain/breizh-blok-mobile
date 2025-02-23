@@ -5,6 +5,7 @@ import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_app_bar.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/lazy_indexed_stack.dart';
@@ -13,7 +14,6 @@ import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_list_scr
 import 'package:breizh_blok_mobile/ui/profile/widgets/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderListScreen extends StatelessWidget {
   const BoulderListScreen({super.key});
@@ -33,32 +33,28 @@ class BoulderListScreen extends StatelessWidget {
           if (context.read<BoulderMarkerBloc>().state.markers.isEmpty &&
               currentIndex == 0) {
             context.read<BoulderMarkerBloc>().add(
-                  BoulderMarkerRequested(
-                    filterState: context.read<BoulderFilterBloc>().state,
-                  ),
-                );
+              BoulderMarkerRequested(
+                filterState: context.read<BoulderFilterBloc>().state,
+              ),
+            );
           }
 
           return Scaffold(
             appBar: switch (currentIndex) {
               0 => const BoulderListAppBar(),
               2 => AppBar(
-                  title: Text(
-                    AppLocalizations.of(context).municipalities,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                title: Text(
+                  AppLocalizations.of(context).municipalities,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
+              ),
               3 => AppBar(
-                  title: Text(
-                    AppLocalizations.of(context).myProfile,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                title: Text(
+                  AppLocalizations.of(context).myProfile,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-              (_) => null
+              ),
+              (_) => null,
             },
             body: LazyIndexedStack(
               index: currentIndex,
@@ -103,8 +99,9 @@ class BoulderListScreen extends StatelessWidget {
                   label: AppLocalizations.of(context).myProfile,
                 ),
               ],
-              onTap: (index) =>
-                  context.read<TabBloc>().add(TabUpdated(activeTab: index)),
+              onTap:
+                  (index) =>
+                      context.read<TabBloc>().add(TabUpdated(activeTab: index)),
               currentIndex: currentIndex,
             ),
           );
@@ -117,38 +114,33 @@ class BoulderListScreen extends StatelessWidget {
     return showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (BuildContext context) => AlertDialog.adaptive(
-        key: const Key('terms-of-use'),
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Row(
-            children: [
-              Icon(
-                Icons.warning,
-                color: Theme.of(context).colorScheme.error,
+      builder:
+          (BuildContext context) => AlertDialog.adaptive(
+            key: const Key('terms-of-use'),
+            title: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.warning,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  const SizedBox(width: 5),
+                  Text(AppLocalizations.of(context).termsOfUse),
+                ],
               ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                AppLocalizations.of(context).termsOfUse,
+            ),
+            content: Text(AppLocalizations.of(context).termsOfUseContent),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  context.read<TermsOfUseBloc>().add(TermsOfUseAccepted());
+                  Navigator.pop(context);
+                },
+                child: Text(AppLocalizations.of(context).iAccept),
               ),
             ],
           ),
-        ),
-        content: Text(
-          AppLocalizations.of(context).termsOfUseContent,
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              context.read<TermsOfUseBloc>().add(TermsOfUseAccepted());
-              Navigator.pop(context);
-            },
-            child: Text(AppLocalizations.of(context).iAccept),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -1,8 +1,8 @@
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_map.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_bar_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderAreaDetailsDescriptionTab extends StatefulWidget {
   const BoulderAreaDetailsDescriptionTab({
@@ -13,8 +13,9 @@ class BoulderAreaDetailsDescriptionTab extends StatefulWidget {
   final BoulderArea boulderArea;
 
   int? get numberOfBoulders {
-    return boulderArea.numberOfBouldersGroupedByGrade?.values
-        .reduce((total, current) => total + current);
+    return boulderArea.numberOfBouldersGroupedByGrade?.values.reduce(
+      (total, current) => total + current,
+    );
   }
 
   @override
@@ -45,17 +46,17 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetailsDescriptionTab> {
             Padding(
               padding: const EdgeInsets.only(right: 10, left: 10, top: 20),
               child: MyBarChart(
-                title: numOfBoulders != null
-                    ? AppLocalizations.of(context)
-                        .distributionOfNBoulders(num: numOfBoulders)
-                    : AppLocalizations.of(context).distributionOfBoulders,
+                title:
+                    numOfBoulders != null
+                        ? AppLocalizations.of(
+                          context,
+                        ).distributionOfNBoulders(num: numOfBoulders)
+                        : AppLocalizations.of(context).distributionOfBoulders,
                 data: numberOfBouldersGroupedByGrade,
               ),
             ),
           Padding(
-            padding: const EdgeInsets.all(
-              20,
-            ),
+            padding: const EdgeInsets.all(20),
             child: SizedBox(
               height: 800,
               child: BoulderAreaDetailsMap(boulderArea: widget.boulderArea),

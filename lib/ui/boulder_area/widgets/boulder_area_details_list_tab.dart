@@ -3,7 +3,7 @@ import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/downloads_area_button.dart';
 import 'package:flutter/material.dart';

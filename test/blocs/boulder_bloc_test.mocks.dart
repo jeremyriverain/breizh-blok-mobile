@@ -13,7 +13,7 @@ import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart'
     as _i2;
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart'
     as _i9;
-import 'package:breizh_blok_mobile/domain/models/boulder.dart' as _i5;
+import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart' as _i5;
 import 'package:http/http.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i8;

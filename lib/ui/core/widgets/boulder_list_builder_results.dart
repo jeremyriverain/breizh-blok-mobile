@@ -1,11 +1,8 @@
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BoulderListBuilderResults extends StatelessWidget {
-  const BoulderListBuilderResults({
-    required this.totalItems,
-    super.key,
-  });
+  const BoulderListBuilderResults({required this.totalItems, super.key});
   final int totalItems;
 
   @override

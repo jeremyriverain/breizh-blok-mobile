@@ -1,6 +1,6 @@
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/profile/widgets/profile_language_switcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -11,9 +11,7 @@ class ProfileScreen extends StatelessWidget {
       body: Column(
         children: [
           ListTile(
-            title: Text(
-              AppLocalizations.of(context).downloads,
-            ),
+            title: Text(AppLocalizations.of(context).downloads),
             leading: const Icon(Icons.download_outlined),
             onTap: () {
               context.pushNamed('downloads');

@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, avoid_dynamic_calls
 
-import 'package:breizh_blok_mobile/domain/models/location.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../widget_test_utils.dart';
 
 void main() {
-  final destination = Location(latitude: 56, longitude: 87);
+  const destination = Location(latitude: 56, longitude: 87);
   const destinationTitle = 'my destination';
 
   testWidgets('button does not show up if there is no installed map',
@@ -32,7 +32,7 @@ void main() {
 
     await myPumpAndSettle(
       tester,
-      widget: MapLauncherButton(
+      widget: const MapLauncherButton(
         destination: destination,
         destinationTitle: destinationTitle,
       ),
@@ -71,7 +71,7 @@ void main() {
 
     await myPumpAndSettle(
       tester,
-      widget: MapLauncherButton(
+      widget: const MapLauncherButton(
         destination: destination,
         destinationTitle: destinationTitle,
       ),
