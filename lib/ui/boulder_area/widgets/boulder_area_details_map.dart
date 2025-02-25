@@ -35,6 +35,7 @@ class BoulderAreaDetailsMap extends StatelessWidget {
             destination: location,
             destinationTitle:
                 parkingLocation != null
+                    // ignore: lines_longer_than_80_chars
                     ? '${localizations.parkingOfTheBoulderArea} ${boulderArea.name}'
                     : '${localizations.boulderArea} ${boulderArea.name}',
             labelButton:

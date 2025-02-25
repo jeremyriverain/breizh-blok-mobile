@@ -44,6 +44,7 @@ class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
           if (bouldersPath == null) {
             throw Exception('boulders property should be defined');
           }
+          // ignore: use_build_context_synchronously
           return context.read<ApiClient>().get(
             Uri.parse(bouldersPath),
             offlineFirst: true,
@@ -53,8 +54,8 @@ class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
           final bouldersJson =
               // ignore: avoid_dynamic_calls
               (jsonDecode(response)['hydra:member'] as List<dynamic>)
-                  // ignore: avoid_dynamic_calls
                   .where(
+                    // ignore: avoid_dynamic_calls
                     (json) => json['rock']['@id'] == widget.boulder.rock.iri,
                   )
                   .toList();
