@@ -59,9 +59,7 @@ Future<void> main({
         ),
   );
 
-  final httpClient = ApiClient(
-    database: localDatabase,
-  );
+  final httpClient = ApiClient(database: localDatabase);
 
   final imageBoulderCache = ImageBoulderCache();
 
@@ -69,21 +67,18 @@ Future<void> main({
 
   final mapBloc = MapBloc();
 
-  final boulderFilterBloc = BoulderFilterBloc(
-    const BoulderFilterState(),
-  );
+  final boulderFilterBloc = BoulderFilterBloc(const BoulderFilterState());
 
   final boulderOrderBloc = BoulderOrderBloc(
-    const ApiOrderParam(
-      direction: kDescendantDirection,
-      name: kIdOrderParam,
-    ),
+    const ApiOrderParam(direction: kDescendantDirection, name: kIdOrderParam),
   );
 
-  final boulderFilterGradeBloc =
-      BoulderFilterGradeBloc(const BoulderFilterGradeState());
-  final boulderMarkerRepository =
-      BoulderMarkerRepository(httpClient: httpClient);
+  final boulderFilterGradeBloc = BoulderFilterGradeBloc(
+    const BoulderFilterGradeState(),
+  );
+  final boulderMarkerRepository = BoulderMarkerRepository(
+    httpClient: httpClient,
+  );
 
   final boulderMarkerBloc = BoulderMarkerBloc(
     repository: boulderMarkerRepository,
@@ -111,77 +106,78 @@ Future<void> main({
         ..dsn = options.dsn = const String.fromEnvironment('SENTRY_DSN')
         ..tracesSampleRate = 0;
     },
-    appRunner: () => runApp(
-      MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider<BoulderAreaRepository>(
-            create: (context) => BoulderAreaRepository(httpClient: httpClient),
-          ),
-          RepositoryProvider<BoulderMarkerRepository>(
-            create: (context) => boulderMarkerRepository,
-          ),
-          RepositoryProvider<BoulderRepository>(
-            create: (context) => BoulderRepository(httpClient: httpClient),
-          ),
-          RepositoryProvider<DepartmentRepository>(
-            create: (context) => DepartmentRepository(httpClient: httpClient),
-          ),
-          RepositoryProvider<GradeRepository>(
-            create: (context) => GradeRepository(httpClient: httpClient),
-          ),
-          RepositoryProvider<MunicipalityRepository>(
-            create: (context) => MunicipalityRepository(httpClient: httpClient),
-          ),
-          RepositoryProvider<AppDatabase>(
-            create: (context) => localDatabase,
-          ),
-          RepositoryProvider<ApiClient>(
-            create: (context) => httpClient,
-          ),
-          RepositoryProvider<ImageBoulderCache>(
-            create: (context) => imageBoulderCache,
-          ),
-          RepositoryProvider<ShareContentServiceInterface>(
-            create: (context) => appShareContentService,
-          ),
-          RepositoryProvider<Location>(
-            create: (context) => Location.instance,
-          ),
-        ],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider<TermsOfUseBloc>(
-              create: (BuildContext context) => termsOfUseBloc,
+    appRunner:
+        () => runApp(
+          MultiRepositoryProvider(
+            providers: [
+              RepositoryProvider<BoulderAreaRepository>(
+                create:
+                    (context) => BoulderAreaRepository(httpClient: httpClient),
+              ),
+              RepositoryProvider<BoulderMarkerRepository>(
+                create: (context) => boulderMarkerRepository,
+              ),
+              RepositoryProvider<BoulderRepository>(
+                create: (context) => BoulderRepository(httpClient: httpClient),
+              ),
+              RepositoryProvider<DepartmentRepository>(
+                create:
+                    (context) => DepartmentRepository(httpClient: httpClient),
+              ),
+              RepositoryProvider<GradeRepository>(
+                create: (context) => GradeRepository(httpClient: httpClient),
+              ),
+              RepositoryProvider<MunicipalityRepository>(
+                create:
+                    (context) => MunicipalityRepository(httpClient: httpClient),
+              ),
+              RepositoryProvider<AppDatabase>(
+                create: (context) => localDatabase,
+              ),
+              RepositoryProvider<ApiClient>(create: (context) => httpClient),
+              RepositoryProvider<ImageBoulderCache>(
+                create: (context) => imageBoulderCache,
+              ),
+              RepositoryProvider<ShareContentServiceInterface>(
+                create: (context) => appShareContentService,
+              ),
+              RepositoryProvider<Location>(
+                create: (context) => Location.instance,
+              ),
+            ],
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider<TermsOfUseBloc>(
+                  create: (BuildContext context) => termsOfUseBloc,
+                ),
+                BlocProvider<BoulderFilterBloc>(
+                  create: (BuildContext context) => boulderFilterBloc,
+                ),
+                BlocProvider<BoulderOrderBloc>(
+                  create: (BuildContext context) => boulderOrderBloc,
+                ),
+                BlocProvider<BoulderFilterGradeBloc>(
+                  create: (BuildContext context) => boulderFilterGradeBloc,
+                ),
+                BlocProvider<BoulderMarkerBloc>(
+                  create: (BuildContext context) => boulderMarkerBloc,
+                ),
+                BlocProvider<TabBloc>(
+                  create: (BuildContext context) => tabBloc,
+                ),
+                BlocProvider<MapBloc>(
+                  create: (BuildContext context) => mapBloc,
+                ),
+                BlocProvider<MapPermissionBloc>(
+                  create:
+                      (BuildContext context) =>
+                          mapPermissionBloc ?? MapPermissionBloc(),
+                ),
+                BlocProvider<LocaleBloc>(create: (context) => localeBloc),
+              ],
+              child: const MyApp(),
             ),
-            BlocProvider<BoulderFilterBloc>(
-              create: (BuildContext context) => boulderFilterBloc,
-            ),
-            BlocProvider<BoulderOrderBloc>(
-              create: (BuildContext context) => boulderOrderBloc,
-            ),
-            BlocProvider<BoulderFilterGradeBloc>(
-              create: (BuildContext context) => boulderFilterGradeBloc,
-            ),
-            BlocProvider<BoulderMarkerBloc>(
-              create: (BuildContext context) => boulderMarkerBloc,
-            ),
-            BlocProvider<TabBloc>(
-              create: (BuildContext context) => tabBloc,
-            ),
-            BlocProvider<MapBloc>(
-              create: (BuildContext context) => mapBloc,
-            ),
-            BlocProvider<MapPermissionBloc>(
-              create: (BuildContext context) =>
-                  mapPermissionBloc ?? MapPermissionBloc(),
-            ),
-            BlocProvider<LocaleBloc>(
-              create: (context) => localeBloc,
-            ),
-          ],
-          child: const MyApp(),
+          ),
         ),
-      ),
-    ),
   );
 }
