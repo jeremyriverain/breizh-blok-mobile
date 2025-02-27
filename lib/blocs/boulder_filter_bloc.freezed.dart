@@ -51,6 +51,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$BoulderFilterStateCopyWithImpl<$Res>
@@ -121,6 +122,7 @@ abstract mixin class _$BoulderFilterStateCopyWith<$Res> implements $BoulderFilte
 $Res call({
  String? term, Set<BoulderArea> boulderAreas
 });
+
 
 
 

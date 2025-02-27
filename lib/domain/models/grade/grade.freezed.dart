@@ -54,6 +54,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$GradeCopyWithImpl<$Res>
@@ -121,6 +122,7 @@ abstract mixin class _$GradeCopyWith<$Res> implements $GradeCopyWith<$Res> {
 $Res call({
 @JsonKey(name: '@id') String iri, String name
 });
+
 
 
 

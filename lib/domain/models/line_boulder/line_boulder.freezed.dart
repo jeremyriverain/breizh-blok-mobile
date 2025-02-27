@@ -53,6 +53,7 @@ $Res call({
 });
 
 
+$ImageCopyWith<$Res> get rockImage;
 
 }
 /// @nodoc
@@ -73,7 +74,16 @@ as String,rockImage: null == rockImage ? _self.rockImage : rockImage // ignore: 
 as Image,
   ));
 }
-
+/// Create a copy of LineBoulder
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ImageCopyWith<$Res> get rockImage {
+  
+  return $ImageCopyWith<$Res>(_self.rockImage, (value) {
+    return _then(_self.copyWith(rockImage: value));
+  });
+}
 }
 
 
@@ -125,6 +135,7 @@ $Res call({
 });
 
 
+@override $ImageCopyWith<$Res> get rockImage;
 
 }
 /// @nodoc
@@ -146,7 +157,16 @@ as Image,
   ));
 }
 
-
+/// Create a copy of LineBoulder
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ImageCopyWith<$Res> get rockImage {
+  
+  return $ImageCopyWith<$Res>(_self.rockImage, (value) {
+    return _then(_self.copyWith(rockImage: value));
+  });
+}
 }
 
 // dart format on

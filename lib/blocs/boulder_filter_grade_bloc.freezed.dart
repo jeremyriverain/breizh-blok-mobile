@@ -51,6 +51,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$BoulderFilterGradeStateCopyWithImpl<$Res>
@@ -119,6 +120,7 @@ abstract mixin class _$BoulderFilterGradeStateCopyWith<$Res> implements $Boulder
 $Res call({
  Set<Grade> grades
 });
+
 
 
 

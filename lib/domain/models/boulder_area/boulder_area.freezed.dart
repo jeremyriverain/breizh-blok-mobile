@@ -53,6 +53,7 @@ $Res call({
 });
 
 
+$MunicipalityCopyWith<$Res>? get municipality;$LocationCopyWith<$Res>? get centroid;$LocationCopyWith<$Res>? get parkingLocation;$GradeCopyWith<$Res>? get lowestGrade;$GradeCopyWith<$Res>? get highestGrade;
 
 }
 /// @nodoc
@@ -80,7 +81,67 @@ as Grade?,numberOfBouldersGroupedByGrade: freezed == numberOfBouldersGroupedByGr
 as Map<String, int>?,
   ));
 }
+/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MunicipalityCopyWith<$Res>? get municipality {
+    if (_self.municipality == null) {
+    return null;
+  }
 
+  return $MunicipalityCopyWith<$Res>(_self.municipality!, (value) {
+    return _then(_self.copyWith(municipality: value));
+  });
+}/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocationCopyWith<$Res>? get centroid {
+    if (_self.centroid == null) {
+    return null;
+  }
+
+  return $LocationCopyWith<$Res>(_self.centroid!, (value) {
+    return _then(_self.copyWith(centroid: value));
+  });
+}/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocationCopyWith<$Res>? get parkingLocation {
+    if (_self.parkingLocation == null) {
+    return null;
+  }
+
+  return $LocationCopyWith<$Res>(_self.parkingLocation!, (value) {
+    return _then(_self.copyWith(parkingLocation: value));
+  });
+}/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GradeCopyWith<$Res>? get lowestGrade {
+    if (_self.lowestGrade == null) {
+    return null;
+  }
+
+  return $GradeCopyWith<$Res>(_self.lowestGrade!, (value) {
+    return _then(_self.copyWith(lowestGrade: value));
+  });
+}/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GradeCopyWith<$Res>? get highestGrade {
+    if (_self.highestGrade == null) {
+    return null;
+  }
+
+  return $GradeCopyWith<$Res>(_self.highestGrade!, (value) {
+    return _then(_self.copyWith(highestGrade: value));
+  });
+}
 }
 
 
@@ -147,6 +208,7 @@ $Res call({
 });
 
 
+@override $MunicipalityCopyWith<$Res>? get municipality;@override $LocationCopyWith<$Res>? get centroid;@override $LocationCopyWith<$Res>? get parkingLocation;@override $GradeCopyWith<$Res>? get lowestGrade;@override $GradeCopyWith<$Res>? get highestGrade;
 
 }
 /// @nodoc
@@ -175,7 +237,67 @@ as Map<String, int>?,
   ));
 }
 
+/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MunicipalityCopyWith<$Res>? get municipality {
+    if (_self.municipality == null) {
+    return null;
+  }
 
+  return $MunicipalityCopyWith<$Res>(_self.municipality!, (value) {
+    return _then(_self.copyWith(municipality: value));
+  });
+}/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocationCopyWith<$Res>? get centroid {
+    if (_self.centroid == null) {
+    return null;
+  }
+
+  return $LocationCopyWith<$Res>(_self.centroid!, (value) {
+    return _then(_self.copyWith(centroid: value));
+  });
+}/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocationCopyWith<$Res>? get parkingLocation {
+    if (_self.parkingLocation == null) {
+    return null;
+  }
+
+  return $LocationCopyWith<$Res>(_self.parkingLocation!, (value) {
+    return _then(_self.copyWith(parkingLocation: value));
+  });
+}/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GradeCopyWith<$Res>? get lowestGrade {
+    if (_self.lowestGrade == null) {
+    return null;
+  }
+
+  return $GradeCopyWith<$Res>(_self.lowestGrade!, (value) {
+    return _then(_self.copyWith(lowestGrade: value));
+  });
+}/// Create a copy of BoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GradeCopyWith<$Res>? get highestGrade {
+    if (_self.highestGrade == null) {
+    return null;
+  }
+
+  return $GradeCopyWith<$Res>(_self.highestGrade!, (value) {
+    return _then(_self.copyWith(highestGrade: value));
+  });
+}
 }
 
 // dart format on

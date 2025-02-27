@@ -51,6 +51,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$DownloadedBoulderAreaCopyWithImpl<$Res>
@@ -119,6 +120,7 @@ abstract mixin class _$DownloadedBoulderAreaCopyWith<$Res> implements $Downloade
 $Res call({
  String boulderAreaName, String municipalityName, String boulderAreaIri, DateTime downloadedAt
 });
+
 
 
 

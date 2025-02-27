@@ -51,6 +51,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$MapStateCopyWithImpl<$Res>
@@ -115,6 +116,7 @@ abstract mixin class _$MapStateCopyWith<$Res> implements $MapStateCopyWith<$Res>
 $Res call({
  double mapZoom, LatLng mapLatLng
 });
+
 
 
 

@@ -54,6 +54,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$HeightBoulderCopyWithImpl<$Res>
@@ -123,6 +124,7 @@ abstract mixin class _$HeightBoulderCopyWith<$Res> implements $HeightBoulderCopy
 $Res call({
 @JsonKey(name: '@id') String iri, int min, int? max
 });
+
 
 
 

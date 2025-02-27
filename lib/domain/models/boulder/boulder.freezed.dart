@@ -53,6 +53,7 @@ $Res call({
 });
 
 
+$RockCopyWith<$Res> get rock;$GradeCopyWith<$Res>? get grade;$HeightBoulderCopyWith<$Res>? get height;
 
 }
 /// @nodoc
@@ -77,7 +78,40 @@ as String?,height: freezed == height ? _self.height : height // ignore: cast_nul
 as HeightBoulder?,
   ));
 }
+/// Create a copy of Boulder
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RockCopyWith<$Res> get rock {
+  
+  return $RockCopyWith<$Res>(_self.rock, (value) {
+    return _then(_self.copyWith(rock: value));
+  });
+}/// Create a copy of Boulder
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GradeCopyWith<$Res>? get grade {
+    if (_self.grade == null) {
+    return null;
+  }
 
+  return $GradeCopyWith<$Res>(_self.grade!, (value) {
+    return _then(_self.copyWith(grade: value));
+  });
+}/// Create a copy of Boulder
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$HeightBoulderCopyWith<$Res>? get height {
+    if (_self.height == null) {
+    return null;
+  }
+
+  return $HeightBoulderCopyWith<$Res>(_self.height!, (value) {
+    return _then(_self.copyWith(height: value));
+  });
+}
 }
 
 
@@ -139,6 +173,7 @@ $Res call({
 });
 
 
+@override $RockCopyWith<$Res> get rock;@override $GradeCopyWith<$Res>? get grade;@override $HeightBoulderCopyWith<$Res>? get height;
 
 }
 /// @nodoc
@@ -164,7 +199,40 @@ as HeightBoulder?,
   ));
 }
 
+/// Create a copy of Boulder
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RockCopyWith<$Res> get rock {
+  
+  return $RockCopyWith<$Res>(_self.rock, (value) {
+    return _then(_self.copyWith(rock: value));
+  });
+}/// Create a copy of Boulder
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GradeCopyWith<$Res>? get grade {
+    if (_self.grade == null) {
+    return null;
+  }
 
+  return $GradeCopyWith<$Res>(_self.grade!, (value) {
+    return _then(_self.copyWith(grade: value));
+  });
+}/// Create a copy of Boulder
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$HeightBoulderCopyWith<$Res>? get height {
+    if (_self.height == null) {
+    return null;
+  }
+
+  return $HeightBoulderCopyWith<$Res>(_self.height!, (value) {
+    return _then(_self.copyWith(height: value));
+  });
+}
 }
 
 // dart format on

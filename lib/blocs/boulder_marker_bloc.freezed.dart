@@ -51,6 +51,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$BoulderMarkerStateCopyWithImpl<$Res>
@@ -123,6 +124,7 @@ abstract mixin class _$BoulderMarkerStateCopyWith<$Res> implements $BoulderMarke
 $Res call({
  List<BoulderMarker> markers, bool isLoading, String error
 });
+
 
 
 

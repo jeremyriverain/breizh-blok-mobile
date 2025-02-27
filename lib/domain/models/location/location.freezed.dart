@@ -54,6 +54,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$LocationCopyWithImpl<$Res>
@@ -121,6 +122,7 @@ abstract mixin class _$LocationCopyWith<$Res> implements $LocationCopyWith<$Res>
 $Res call({
 @JsonKey(fromJson: double.parse) double latitude,@JsonKey(fromJson: double.parse) double longitude
 });
+
 
 
 

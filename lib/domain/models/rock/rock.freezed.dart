@@ -53,6 +53,7 @@ $Res call({
 });
 
 
+$BoulderAreaCopyWith<$Res> get boulderArea;$LocationCopyWith<$Res> get location;
 
 }
 /// @nodoc
@@ -73,7 +74,25 @@ as BoulderArea,location: null == location ? _self.location : location // ignore:
 as Location,
   ));
 }
-
+/// Create a copy of Rock
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BoulderAreaCopyWith<$Res> get boulderArea {
+  
+  return $BoulderAreaCopyWith<$Res>(_self.boulderArea, (value) {
+    return _then(_self.copyWith(boulderArea: value));
+  });
+}/// Create a copy of Rock
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocationCopyWith<$Res> get location {
+  
+  return $LocationCopyWith<$Res>(_self.location, (value) {
+    return _then(_self.copyWith(location: value));
+  });
+}
 }
 
 
@@ -125,6 +144,7 @@ $Res call({
 });
 
 
+@override $BoulderAreaCopyWith<$Res> get boulderArea;@override $LocationCopyWith<$Res> get location;
 
 }
 /// @nodoc
@@ -146,7 +166,25 @@ as Location,
   ));
 }
 
-
+/// Create a copy of Rock
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BoulderAreaCopyWith<$Res> get boulderArea {
+  
+  return $BoulderAreaCopyWith<$Res>(_self.boulderArea, (value) {
+    return _then(_self.copyWith(boulderArea: value));
+  });
+}/// Create a copy of Rock
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocationCopyWith<$Res> get location {
+  
+  return $LocationCopyWith<$Res>(_self.location, (value) {
+    return _then(_self.copyWith(location: value));
+  });
+}
 }
 
 // dart format on

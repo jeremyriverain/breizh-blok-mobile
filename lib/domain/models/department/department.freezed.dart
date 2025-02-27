@@ -54,6 +54,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$DepartmentCopyWithImpl<$Res>
@@ -129,6 +130,7 @@ abstract mixin class _$DepartmentCopyWith<$Res> implements $DepartmentCopyWith<$
 $Res call({
 @JsonKey(name: '@id') String iri, String name, List<Municipality> municipalities
 });
+
 
 
 

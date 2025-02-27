@@ -53,6 +53,7 @@ $Res call({
 });
 
 
+$LocationCopyWith<$Res>? get centroid;
 
 }
 /// @nodoc
@@ -74,7 +75,19 @@ as List<BoulderArea>,centroid: freezed == centroid ? _self.centroid : centroid /
 as Location?,
   ));
 }
+/// Create a copy of Municipality
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocationCopyWith<$Res>? get centroid {
+    if (_self.centroid == null) {
+    return null;
+  }
 
+  return $LocationCopyWith<$Res>(_self.centroid!, (value) {
+    return _then(_self.copyWith(centroid: value));
+  });
+}
 }
 
 
@@ -133,6 +146,7 @@ $Res call({
 });
 
 
+@override $LocationCopyWith<$Res>? get centroid;
 
 }
 /// @nodoc
@@ -155,7 +169,19 @@ as Location?,
   ));
 }
 
+/// Create a copy of Municipality
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LocationCopyWith<$Res>? get centroid {
+    if (_self.centroid == null) {
+    return null;
+  }
 
+  return $LocationCopyWith<$Res>(_self.centroid!, (value) {
+    return _then(_self.copyWith(centroid: value));
+  });
+}
 }
 
 // dart format on

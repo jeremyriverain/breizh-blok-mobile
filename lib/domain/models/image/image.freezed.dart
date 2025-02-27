@@ -54,6 +54,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$ImageCopyWithImpl<$Res>
@@ -131,6 +132,7 @@ abstract mixin class _$ImageCopyWith<$Res> implements $ImageCopyWith<$Res> {
 $Res call({
  String contentUrl, String? filterUrl, List<String>? imageDimensions
 });
+
 
 
 

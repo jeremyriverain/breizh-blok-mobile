@@ -51,6 +51,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$ApiOrderParamCopyWithImpl<$Res>
@@ -115,6 +116,7 @@ abstract mixin class _$ApiOrderParamCopyWith<$Res> implements $ApiOrderParamCopy
 $Res call({
  String name, String direction
 });
+
 
 
 

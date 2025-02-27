@@ -51,6 +51,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$BoulderApiResponseCopyWithImpl<$Res>
@@ -114,6 +115,7 @@ abstract mixin class _$BoulderApiResponseCopyWith<$Res> implements $BoulderApiRe
 $Res call({
  PaginatedCollection<Boulder>? data, Object? error
 });
+
 
 
 

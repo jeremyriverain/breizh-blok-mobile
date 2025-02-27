@@ -51,6 +51,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$LocaleStateCopyWithImpl<$Res>
@@ -113,6 +114,7 @@ abstract mixin class _$LocaleStateCopyWith<$Res> implements $LocaleStateCopyWith
 $Res call({
  Locale locale
 });
+
 
 
 

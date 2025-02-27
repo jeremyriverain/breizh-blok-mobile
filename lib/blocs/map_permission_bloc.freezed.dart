@@ -51,6 +51,7 @@ $Res call({
 
 
 
+
 }
 /// @nodoc
 class _$MapPermissionStateCopyWithImpl<$Res>
@@ -115,6 +116,7 @@ abstract mixin class _$MapPermissionStateCopyWith<$Res> implements $MapPermissio
 $Res call({
  bool hasRequested, bool hasDenied
 });
+
 
 
 

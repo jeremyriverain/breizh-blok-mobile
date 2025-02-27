@@ -63,7 +63,7 @@ dev_dependencies:
   drift_dev: ^2.12.1
   flutter_test:
     sdk: flutter
-  freezed: ^3.0.0
+  freezed: ^3.0.2
   integration_test:
     sdk: flutter
   json_serializable: ^6.9.4
