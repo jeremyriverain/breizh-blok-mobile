@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,213 +10,143 @@ part of 'rock.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Rock _$RockFromJson(Map<String, dynamic> json) {
-  return _Rock.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Rock {
-  @JsonKey(name: '@id')
-  String get iri => throw _privateConstructorUsedError;
-  BoulderArea get boulderArea => throw _privateConstructorUsedError;
-  Location get location => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $RockCopyWith<Rock> get copyWith => throw _privateConstructorUsedError;
+@JsonKey(name: '@id') String get iri; BoulderArea get boulderArea; Location get location;
+/// Create a copy of Rock
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RockCopyWith<Rock> get copyWith => _$RockCopyWithImpl<Rock>(this as Rock, _$identity);
+
+  /// Serializes this Rock to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Rock&&(identical(other.iri, iri) || other.iri == iri)&&(identical(other.boulderArea, boulderArea) || other.boulderArea == boulderArea)&&(identical(other.location, location) || other.location == location));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,iri,boulderArea,location);
+
+@override
+String toString() {
+  return 'Rock(iri: $iri, boulderArea: $boulderArea, location: $location)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $RockCopyWith<$Res> {
-  factory $RockCopyWith(Rock value, $Res Function(Rock) then) =
-      _$RockCopyWithImpl<$Res, Rock>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      BoulderArea boulderArea,
-      Location location});
+abstract mixin class $RockCopyWith<$Res>  {
+  factory $RockCopyWith(Rock value, $Res Function(Rock) _then) = _$RockCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: '@id') String iri, BoulderArea boulderArea, Location location
+});
 
-  $BoulderAreaCopyWith<$Res> get boulderArea;
-  $LocationCopyWith<$Res> get location;
+
+
 }
-
 /// @nodoc
-class _$RockCopyWithImpl<$Res, $Val extends Rock>
+class _$RockCopyWithImpl<$Res>
     implements $RockCopyWith<$Res> {
-  _$RockCopyWithImpl(this._value, this._then);
+  _$RockCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Rock _self;
+  final $Res Function(Rock) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? iri = null,
-    Object? boulderArea = null,
-    Object? location = null,
-  }) {
-    return _then(_value.copyWith(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      boulderArea: null == boulderArea
-          ? _value.boulderArea
-          : boulderArea // ignore: cast_nullable_to_non_nullable
-              as BoulderArea,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as Location,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BoulderAreaCopyWith<$Res> get boulderArea {
-    return $BoulderAreaCopyWith<$Res>(_value.boulderArea, (value) {
-      return _then(_value.copyWith(boulderArea: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $LocationCopyWith<$Res> get location {
-    return $LocationCopyWith<$Res>(_value.location, (value) {
-      return _then(_value.copyWith(location: value) as $Val);
-    });
-  }
+/// Create a copy of Rock
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? iri = null,Object? boulderArea = null,Object? location = null,}) {
+  return _then(_self.copyWith(
+iri: null == iri ? _self.iri : iri // ignore: cast_nullable_to_non_nullable
+as String,boulderArea: null == boulderArea ? _self.boulderArea : boulderArea // ignore: cast_nullable_to_non_nullable
+as BoulderArea,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
+as Location,
+  ));
 }
 
-/// @nodoc
-abstract class _$$RockImplCopyWith<$Res> implements $RockCopyWith<$Res> {
-  factory _$$RockImplCopyWith(
-          _$RockImpl value, $Res Function(_$RockImpl) then) =
-      __$$RockImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: '@id') String iri,
-      BoulderArea boulderArea,
-      Location location});
-
-  @override
-  $BoulderAreaCopyWith<$Res> get boulderArea;
-  @override
-  $LocationCopyWith<$Res> get location;
 }
 
-/// @nodoc
-class __$$RockImplCopyWithImpl<$Res>
-    extends _$RockCopyWithImpl<$Res, _$RockImpl>
-    implements _$$RockImplCopyWith<$Res> {
-  __$$RockImplCopyWithImpl(_$RockImpl _value, $Res Function(_$RockImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? iri = null,
-    Object? boulderArea = null,
-    Object? location = null,
-  }) {
-    return _then(_$RockImpl(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      boulderArea: null == boulderArea
-          ? _value.boulderArea
-          : boulderArea // ignore: cast_nullable_to_non_nullable
-              as BoulderArea,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as Location,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$RockImpl extends _Rock {
-  const _$RockImpl(
-      {@JsonKey(name: '@id') required this.iri,
-      required this.boulderArea,
-      required this.location})
-      : super._();
 
-  factory _$RockImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RockImplFromJson(json);
+class _Rock extends Rock {
+  const _Rock({@JsonKey(name: '@id') required this.iri, required this.boulderArea, required this.location}): super._();
+  factory _Rock.fromJson(Map<String, dynamic> json) => _$RockFromJson(json);
 
-  @override
-  @JsonKey(name: '@id')
-  final String iri;
-  @override
-  final BoulderArea boulderArea;
-  @override
-  final Location location;
+@override@JsonKey(name: '@id') final  String iri;
+@override final  BoulderArea boulderArea;
+@override final  Location location;
 
-  @override
-  String toString() {
-    return 'Rock(iri: $iri, boulderArea: $boulderArea, location: $location)';
-  }
+/// Create a copy of Rock
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RockCopyWith<_Rock> get copyWith => __$RockCopyWithImpl<_Rock>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RockImpl &&
-            (identical(other.iri, iri) || other.iri == iri) &&
-            (identical(other.boulderArea, boulderArea) ||
-                other.boulderArea == boulderArea) &&
-            (identical(other.location, location) ||
-                other.location == location));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, iri, boulderArea, location);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RockImplCopyWith<_$RockImpl> get copyWith =>
-      __$$RockImplCopyWithImpl<_$RockImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RockImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$RockToJson(this, );
 }
 
-abstract class _Rock extends Rock {
-  const factory _Rock(
-      {@JsonKey(name: '@id') required final String iri,
-      required final BoulderArea boulderArea,
-      required final Location location}) = _$RockImpl;
-  const _Rock._() : super._();
-
-  factory _Rock.fromJson(Map<String, dynamic> json) = _$RockImpl.fromJson;
-
-  @override
-  @JsonKey(name: '@id')
-  String get iri;
-  @override
-  BoulderArea get boulderArea;
-  @override
-  Location get location;
-  @override
-  @JsonKey(ignore: true)
-  _$$RockImplCopyWith<_$RockImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Rock&&(identical(other.iri, iri) || other.iri == iri)&&(identical(other.boulderArea, boulderArea) || other.boulderArea == boulderArea)&&(identical(other.location, location) || other.location == location));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,iri,boulderArea,location);
+
+@override
+String toString() {
+  return 'Rock(iri: $iri, boulderArea: $boulderArea, location: $location)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RockCopyWith<$Res> implements $RockCopyWith<$Res> {
+  factory _$RockCopyWith(_Rock value, $Res Function(_Rock) _then) = __$RockCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: '@id') String iri, BoulderArea boulderArea, Location location
+});
+
+
+
+}
+/// @nodoc
+class __$RockCopyWithImpl<$Res>
+    implements _$RockCopyWith<$Res> {
+  __$RockCopyWithImpl(this._self, this._then);
+
+  final _Rock _self;
+  final $Res Function(_Rock) _then;
+
+/// Create a copy of Rock
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? iri = null,Object? boulderArea = null,Object? location = null,}) {
+  return _then(_Rock(
+iri: null == iri ? _self.iri : iri // ignore: cast_nullable_to_non_nullable
+as String,boulderArea: null == boulderArea ? _self.boulderArea : boulderArea // ignore: cast_nullable_to_non_nullable
+as BoulderArea,location: null == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
+as Location,
+  ));
+}
+
+
+}
+
+// dart format on

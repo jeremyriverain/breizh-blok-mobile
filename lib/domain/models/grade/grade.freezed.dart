@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,161 +10,140 @@ part of 'grade.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Grade _$GradeFromJson(Map<String, dynamic> json) {
-  return _Grade.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Grade {
-  @JsonKey(name: '@id')
-  String get iri => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $GradeCopyWith<Grade> get copyWith => throw _privateConstructorUsedError;
+@JsonKey(name: '@id') String get iri; String get name;
+/// Create a copy of Grade
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$GradeCopyWith<Grade> get copyWith => _$GradeCopyWithImpl<Grade>(this as Grade, _$identity);
+
+  /// Serializes this Grade to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Grade&&(identical(other.iri, iri) || other.iri == iri)&&(identical(other.name, name) || other.name == name));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,iri,name);
+
+@override
+String toString() {
+  return 'Grade(iri: $iri, name: $name)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $GradeCopyWith<$Res> {
-  factory $GradeCopyWith(Grade value, $Res Function(Grade) then) =
-      _$GradeCopyWithImpl<$Res, Grade>;
-  @useResult
-  $Res call({@JsonKey(name: '@id') String iri, String name});
-}
+abstract mixin class $GradeCopyWith<$Res>  {
+  factory $GradeCopyWith(Grade value, $Res Function(Grade) _then) = _$GradeCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: '@id') String iri, String name
+});
 
+
+
+}
 /// @nodoc
-class _$GradeCopyWithImpl<$Res, $Val extends Grade>
+class _$GradeCopyWithImpl<$Res>
     implements $GradeCopyWith<$Res> {
-  _$GradeCopyWithImpl(this._value, this._then);
+  _$GradeCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Grade _self;
+  final $Res Function(Grade) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? iri = null,
-    Object? name = null,
-  }) {
-    return _then(_value.copyWith(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
+/// Create a copy of Grade
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? iri = null,Object? name = null,}) {
+  return _then(_self.copyWith(
+iri: null == iri ? _self.iri : iri // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$GradeImplCopyWith<$Res> implements $GradeCopyWith<$Res> {
-  factory _$$GradeImplCopyWith(
-          _$GradeImpl value, $Res Function(_$GradeImpl) then) =
-      __$$GradeImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({@JsonKey(name: '@id') String iri, String name});
 }
 
-/// @nodoc
-class __$$GradeImplCopyWithImpl<$Res>
-    extends _$GradeCopyWithImpl<$Res, _$GradeImpl>
-    implements _$$GradeImplCopyWith<$Res> {
-  __$$GradeImplCopyWithImpl(
-      _$GradeImpl _value, $Res Function(_$GradeImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? iri = null,
-    Object? name = null,
-  }) {
-    return _then(_$GradeImpl(
-      iri: null == iri
-          ? _value.iri
-          : iri // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$GradeImpl implements _Grade {
-  const _$GradeImpl(
-      {@JsonKey(name: '@id') required this.iri, required this.name});
 
-  factory _$GradeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$GradeImplFromJson(json);
+class _Grade implements Grade {
+  const _Grade({@JsonKey(name: '@id') required this.iri, required this.name});
+  factory _Grade.fromJson(Map<String, dynamic> json) => _$GradeFromJson(json);
 
-  @override
-  @JsonKey(name: '@id')
-  final String iri;
-  @override
-  final String name;
+@override@JsonKey(name: '@id') final  String iri;
+@override final  String name;
 
-  @override
-  String toString() {
-    return 'Grade(iri: $iri, name: $name)';
-  }
+/// Create a copy of Grade
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$GradeCopyWith<_Grade> get copyWith => __$GradeCopyWithImpl<_Grade>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GradeImpl &&
-            (identical(other.iri, iri) || other.iri == iri) &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, iri, name);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GradeImplCopyWith<_$GradeImpl> get copyWith =>
-      __$$GradeImplCopyWithImpl<_$GradeImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$GradeImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$GradeToJson(this, );
 }
 
-abstract class _Grade implements Grade {
-  const factory _Grade(
-      {@JsonKey(name: '@id') required final String iri,
-      required final String name}) = _$GradeImpl;
-
-  factory _Grade.fromJson(Map<String, dynamic> json) = _$GradeImpl.fromJson;
-
-  @override
-  @JsonKey(name: '@id')
-  String get iri;
-  @override
-  String get name;
-  @override
-  @JsonKey(ignore: true)
-  _$$GradeImplCopyWith<_$GradeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Grade&&(identical(other.iri, iri) || other.iri == iri)&&(identical(other.name, name) || other.name == name));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,iri,name);
+
+@override
+String toString() {
+  return 'Grade(iri: $iri, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$GradeCopyWith<$Res> implements $GradeCopyWith<$Res> {
+  factory _$GradeCopyWith(_Grade value, $Res Function(_Grade) _then) = __$GradeCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: '@id') String iri, String name
+});
+
+
+
+}
+/// @nodoc
+class __$GradeCopyWithImpl<$Res>
+    implements _$GradeCopyWith<$Res> {
+  __$GradeCopyWithImpl(this._self, this._then);
+
+  final _Grade _self;
+  final $Res Function(_Grade) _then;
+
+/// Create a copy of Grade
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? iri = null,Object? name = null,}) {
+  return _then(_Grade(
+iri: null == iri ? _self.iri : iri // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

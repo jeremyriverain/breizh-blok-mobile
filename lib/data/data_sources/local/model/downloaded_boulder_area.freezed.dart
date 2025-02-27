@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,197 +10,140 @@ part of 'downloaded_boulder_area.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$DownloadedBoulderArea {
-  String get boulderAreaName => throw _privateConstructorUsedError;
-  String get municipalityName => throw _privateConstructorUsedError;
-  String get boulderAreaIri => throw _privateConstructorUsedError;
-  DateTime get downloadedAt => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
-  $DownloadedBoulderAreaCopyWith<DownloadedBoulderArea> get copyWith =>
-      throw _privateConstructorUsedError;
+ String get boulderAreaName; String get municipalityName; String get boulderAreaIri; DateTime get downloadedAt;
+/// Create a copy of DownloadedBoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DownloadedBoulderAreaCopyWith<DownloadedBoulderArea> get copyWith => _$DownloadedBoulderAreaCopyWithImpl<DownloadedBoulderArea>(this as DownloadedBoulderArea, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DownloadedBoulderArea&&(identical(other.boulderAreaName, boulderAreaName) || other.boulderAreaName == boulderAreaName)&&(identical(other.municipalityName, municipalityName) || other.municipalityName == municipalityName)&&(identical(other.boulderAreaIri, boulderAreaIri) || other.boulderAreaIri == boulderAreaIri)&&(identical(other.downloadedAt, downloadedAt) || other.downloadedAt == downloadedAt));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,boulderAreaName,municipalityName,boulderAreaIri,downloadedAt);
+
+@override
+String toString() {
+  return 'DownloadedBoulderArea(boulderAreaName: $boulderAreaName, municipalityName: $municipalityName, boulderAreaIri: $boulderAreaIri, downloadedAt: $downloadedAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $DownloadedBoulderAreaCopyWith<$Res> {
-  factory $DownloadedBoulderAreaCopyWith(DownloadedBoulderArea value,
-          $Res Function(DownloadedBoulderArea) then) =
-      _$DownloadedBoulderAreaCopyWithImpl<$Res, DownloadedBoulderArea>;
-  @useResult
-  $Res call(
-      {String boulderAreaName,
-      String municipalityName,
-      String boulderAreaIri,
-      DateTime downloadedAt});
-}
+abstract mixin class $DownloadedBoulderAreaCopyWith<$Res>  {
+  factory $DownloadedBoulderAreaCopyWith(DownloadedBoulderArea value, $Res Function(DownloadedBoulderArea) _then) = _$DownloadedBoulderAreaCopyWithImpl;
+@useResult
+$Res call({
+ String boulderAreaName, String municipalityName, String boulderAreaIri, DateTime downloadedAt
+});
 
+
+
+}
 /// @nodoc
-class _$DownloadedBoulderAreaCopyWithImpl<$Res,
-        $Val extends DownloadedBoulderArea>
+class _$DownloadedBoulderAreaCopyWithImpl<$Res>
     implements $DownloadedBoulderAreaCopyWith<$Res> {
-  _$DownloadedBoulderAreaCopyWithImpl(this._value, this._then);
+  _$DownloadedBoulderAreaCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final DownloadedBoulderArea _self;
+  final $Res Function(DownloadedBoulderArea) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? boulderAreaName = null,
-    Object? municipalityName = null,
-    Object? boulderAreaIri = null,
-    Object? downloadedAt = null,
-  }) {
-    return _then(_value.copyWith(
-      boulderAreaName: null == boulderAreaName
-          ? _value.boulderAreaName
-          : boulderAreaName // ignore: cast_nullable_to_non_nullable
-              as String,
-      municipalityName: null == municipalityName
-          ? _value.municipalityName
-          : municipalityName // ignore: cast_nullable_to_non_nullable
-              as String,
-      boulderAreaIri: null == boulderAreaIri
-          ? _value.boulderAreaIri
-          : boulderAreaIri // ignore: cast_nullable_to_non_nullable
-              as String,
-      downloadedAt: null == downloadedAt
-          ? _value.downloadedAt
-          : downloadedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ) as $Val);
-  }
+/// Create a copy of DownloadedBoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? boulderAreaName = null,Object? municipalityName = null,Object? boulderAreaIri = null,Object? downloadedAt = null,}) {
+  return _then(_self.copyWith(
+boulderAreaName: null == boulderAreaName ? _self.boulderAreaName : boulderAreaName // ignore: cast_nullable_to_non_nullable
+as String,municipalityName: null == municipalityName ? _self.municipalityName : municipalityName // ignore: cast_nullable_to_non_nullable
+as String,boulderAreaIri: null == boulderAreaIri ? _self.boulderAreaIri : boulderAreaIri // ignore: cast_nullable_to_non_nullable
+as String,downloadedAt: null == downloadedAt ? _self.downloadedAt : downloadedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
 }
 
-/// @nodoc
-abstract class _$$DownloadedBoulderAreaImplCopyWith<$Res>
-    implements $DownloadedBoulderAreaCopyWith<$Res> {
-  factory _$$DownloadedBoulderAreaImplCopyWith(
-          _$DownloadedBoulderAreaImpl value,
-          $Res Function(_$DownloadedBoulderAreaImpl) then) =
-      __$$DownloadedBoulderAreaImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String boulderAreaName,
-      String municipalityName,
-      String boulderAreaIri,
-      DateTime downloadedAt});
 }
 
-/// @nodoc
-class __$$DownloadedBoulderAreaImplCopyWithImpl<$Res>
-    extends _$DownloadedBoulderAreaCopyWithImpl<$Res,
-        _$DownloadedBoulderAreaImpl>
-    implements _$$DownloadedBoulderAreaImplCopyWith<$Res> {
-  __$$DownloadedBoulderAreaImplCopyWithImpl(_$DownloadedBoulderAreaImpl _value,
-      $Res Function(_$DownloadedBoulderAreaImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? boulderAreaName = null,
-    Object? municipalityName = null,
-    Object? boulderAreaIri = null,
-    Object? downloadedAt = null,
-  }) {
-    return _then(_$DownloadedBoulderAreaImpl(
-      boulderAreaName: null == boulderAreaName
-          ? _value.boulderAreaName
-          : boulderAreaName // ignore: cast_nullable_to_non_nullable
-              as String,
-      municipalityName: null == municipalityName
-          ? _value.municipalityName
-          : municipalityName // ignore: cast_nullable_to_non_nullable
-              as String,
-      boulderAreaIri: null == boulderAreaIri
-          ? _value.boulderAreaIri
-          : boulderAreaIri // ignore: cast_nullable_to_non_nullable
-              as String,
-      downloadedAt: null == downloadedAt
-          ? _value.downloadedAt
-          : downloadedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
-  }
-}
 
 /// @nodoc
 
-class _$DownloadedBoulderAreaImpl implements _DownloadedBoulderArea {
-  const _$DownloadedBoulderAreaImpl(
-      {required this.boulderAreaName,
-      required this.municipalityName,
-      required this.boulderAreaIri,
-      required this.downloadedAt});
 
-  @override
-  final String boulderAreaName;
-  @override
-  final String municipalityName;
-  @override
-  final String boulderAreaIri;
-  @override
-  final DateTime downloadedAt;
+class _DownloadedBoulderArea implements DownloadedBoulderArea {
+  const _DownloadedBoulderArea({required this.boulderAreaName, required this.municipalityName, required this.boulderAreaIri, required this.downloadedAt});
+  
 
-  @override
-  String toString() {
-    return 'DownloadedBoulderArea(boulderAreaName: $boulderAreaName, municipalityName: $municipalityName, boulderAreaIri: $boulderAreaIri, downloadedAt: $downloadedAt)';
-  }
+@override final  String boulderAreaName;
+@override final  String municipalityName;
+@override final  String boulderAreaIri;
+@override final  DateTime downloadedAt;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DownloadedBoulderAreaImpl &&
-            (identical(other.boulderAreaName, boulderAreaName) ||
-                other.boulderAreaName == boulderAreaName) &&
-            (identical(other.municipalityName, municipalityName) ||
-                other.municipalityName == municipalityName) &&
-            (identical(other.boulderAreaIri, boulderAreaIri) ||
-                other.boulderAreaIri == boulderAreaIri) &&
-            (identical(other.downloadedAt, downloadedAt) ||
-                other.downloadedAt == downloadedAt));
-  }
+/// Create a copy of DownloadedBoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DownloadedBoulderAreaCopyWith<_DownloadedBoulderArea> get copyWith => __$DownloadedBoulderAreaCopyWithImpl<_DownloadedBoulderArea>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, boulderAreaName,
-      municipalityName, boulderAreaIri, downloadedAt);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DownloadedBoulderAreaImplCopyWith<_$DownloadedBoulderAreaImpl>
-      get copyWith => __$$DownloadedBoulderAreaImplCopyWithImpl<
-          _$DownloadedBoulderAreaImpl>(this, _$identity);
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DownloadedBoulderArea&&(identical(other.boulderAreaName, boulderAreaName) || other.boulderAreaName == boulderAreaName)&&(identical(other.municipalityName, municipalityName) || other.municipalityName == municipalityName)&&(identical(other.boulderAreaIri, boulderAreaIri) || other.boulderAreaIri == boulderAreaIri)&&(identical(other.downloadedAt, downloadedAt) || other.downloadedAt == downloadedAt));
 }
 
-abstract class _DownloadedBoulderArea implements DownloadedBoulderArea {
-  const factory _DownloadedBoulderArea(
-      {required final String boulderAreaName,
-      required final String municipalityName,
-      required final String boulderAreaIri,
-      required final DateTime downloadedAt}) = _$DownloadedBoulderAreaImpl;
 
-  @override
-  String get boulderAreaName;
-  @override
-  String get municipalityName;
-  @override
-  String get boulderAreaIri;
-  @override
-  DateTime get downloadedAt;
-  @override
-  @JsonKey(ignore: true)
-  _$$DownloadedBoulderAreaImplCopyWith<_$DownloadedBoulderAreaImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,boulderAreaName,municipalityName,boulderAreaIri,downloadedAt);
+
+@override
+String toString() {
+  return 'DownloadedBoulderArea(boulderAreaName: $boulderAreaName, municipalityName: $municipalityName, boulderAreaIri: $boulderAreaIri, downloadedAt: $downloadedAt)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DownloadedBoulderAreaCopyWith<$Res> implements $DownloadedBoulderAreaCopyWith<$Res> {
+  factory _$DownloadedBoulderAreaCopyWith(_DownloadedBoulderArea value, $Res Function(_DownloadedBoulderArea) _then) = __$DownloadedBoulderAreaCopyWithImpl;
+@override @useResult
+$Res call({
+ String boulderAreaName, String municipalityName, String boulderAreaIri, DateTime downloadedAt
+});
+
+
+
+}
+/// @nodoc
+class __$DownloadedBoulderAreaCopyWithImpl<$Res>
+    implements _$DownloadedBoulderAreaCopyWith<$Res> {
+  __$DownloadedBoulderAreaCopyWithImpl(this._self, this._then);
+
+  final _DownloadedBoulderArea _self;
+  final $Res Function(_DownloadedBoulderArea) _then;
+
+/// Create a copy of DownloadedBoulderArea
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? boulderAreaName = null,Object? municipalityName = null,Object? boulderAreaIri = null,Object? downloadedAt = null,}) {
+  return _then(_DownloadedBoulderArea(
+boulderAreaName: null == boulderAreaName ? _self.boulderAreaName : boulderAreaName // ignore: cast_nullable_to_non_nullable
+as String,municipalityName: null == municipalityName ? _self.municipalityName : municipalityName // ignore: cast_nullable_to_non_nullable
+as String,boulderAreaIri: null == boulderAreaIri ? _self.boulderAreaIri : boulderAreaIri // ignore: cast_nullable_to_non_nullable
+as String,downloadedAt: null == downloadedAt ? _self.downloadedAt : downloadedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,175 +10,140 @@ part of 'location.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Location _$LocationFromJson(Map<String, dynamic> json) {
-  return _Location.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Location {
-  @JsonKey(fromJson: double.parse)
-  double get latitude => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: double.parse)
-  double get longitude => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $LocationCopyWith<Location> get copyWith =>
-      throw _privateConstructorUsedError;
+@JsonKey(fromJson: double.parse) double get latitude;@JsonKey(fromJson: double.parse) double get longitude;
+/// Create a copy of Location
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LocationCopyWith<Location> get copyWith => _$LocationCopyWithImpl<Location>(this as Location, _$identity);
+
+  /// Serializes this Location to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Location&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,latitude,longitude);
+
+@override
+String toString() {
+  return 'Location(latitude: $latitude, longitude: $longitude)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $LocationCopyWith<$Res> {
-  factory $LocationCopyWith(Location value, $Res Function(Location) then) =
-      _$LocationCopyWithImpl<$Res, Location>;
-  @useResult
-  $Res call(
-      {@JsonKey(fromJson: double.parse) double latitude,
-      @JsonKey(fromJson: double.parse) double longitude});
-}
+abstract mixin class $LocationCopyWith<$Res>  {
+  factory $LocationCopyWith(Location value, $Res Function(Location) _then) = _$LocationCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(fromJson: double.parse) double latitude,@JsonKey(fromJson: double.parse) double longitude
+});
 
+
+
+}
 /// @nodoc
-class _$LocationCopyWithImpl<$Res, $Val extends Location>
+class _$LocationCopyWithImpl<$Res>
     implements $LocationCopyWith<$Res> {
-  _$LocationCopyWithImpl(this._value, this._then);
+  _$LocationCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Location _self;
+  final $Res Function(Location) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? latitude = null,
-    Object? longitude = null,
-  }) {
-    return _then(_value.copyWith(
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-    ) as $Val);
-  }
+/// Create a copy of Location
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? latitude = null,Object? longitude = null,}) {
+  return _then(_self.copyWith(
+latitude: null == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as double,longitude: null == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
 }
 
-/// @nodoc
-abstract class _$$LocationImplCopyWith<$Res>
-    implements $LocationCopyWith<$Res> {
-  factory _$$LocationImplCopyWith(
-          _$LocationImpl value, $Res Function(_$LocationImpl) then) =
-      __$$LocationImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(fromJson: double.parse) double latitude,
-      @JsonKey(fromJson: double.parse) double longitude});
 }
 
-/// @nodoc
-class __$$LocationImplCopyWithImpl<$Res>
-    extends _$LocationCopyWithImpl<$Res, _$LocationImpl>
-    implements _$$LocationImplCopyWith<$Res> {
-  __$$LocationImplCopyWithImpl(
-      _$LocationImpl _value, $Res Function(_$LocationImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? latitude = null,
-    Object? longitude = null,
-  }) {
-    return _then(_$LocationImpl(
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$LocationImpl implements _Location {
-  const _$LocationImpl(
-      {@JsonKey(fromJson: double.parse) required this.latitude,
-      @JsonKey(fromJson: double.parse) required this.longitude});
 
-  factory _$LocationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LocationImplFromJson(json);
+class _Location implements Location {
+  const _Location({@JsonKey(fromJson: double.parse) required this.latitude, @JsonKey(fromJson: double.parse) required this.longitude});
+  factory _Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 
-  @override
-  @JsonKey(fromJson: double.parse)
-  final double latitude;
-  @override
-  @JsonKey(fromJson: double.parse)
-  final double longitude;
+@override@JsonKey(fromJson: double.parse) final  double latitude;
+@override@JsonKey(fromJson: double.parse) final  double longitude;
 
-  @override
-  String toString() {
-    return 'Location(latitude: $latitude, longitude: $longitude)';
-  }
+/// Create a copy of Location
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LocationCopyWith<_Location> get copyWith => __$LocationCopyWithImpl<_Location>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LocationImpl &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, latitude, longitude);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
-      __$$LocationImplCopyWithImpl<_$LocationImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LocationImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$LocationToJson(this, );
 }
 
-abstract class _Location implements Location {
-  const factory _Location(
-          {@JsonKey(fromJson: double.parse) required final double latitude,
-          @JsonKey(fromJson: double.parse) required final double longitude}) =
-      _$LocationImpl;
-
-  factory _Location.fromJson(Map<String, dynamic> json) =
-      _$LocationImpl.fromJson;
-
-  @override
-  @JsonKey(fromJson: double.parse)
-  double get latitude;
-  @override
-  @JsonKey(fromJson: double.parse)
-  double get longitude;
-  @override
-  @JsonKey(ignore: true)
-  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Location&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,latitude,longitude);
+
+@override
+String toString() {
+  return 'Location(latitude: $latitude, longitude: $longitude)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
+  factory _$LocationCopyWith(_Location value, $Res Function(_Location) _then) = __$LocationCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(fromJson: double.parse) double latitude,@JsonKey(fromJson: double.parse) double longitude
+});
+
+
+
+}
+/// @nodoc
+class __$LocationCopyWithImpl<$Res>
+    implements _$LocationCopyWith<$Res> {
+  __$LocationCopyWithImpl(this._self, this._then);
+
+  final _Location _self;
+  final $Res Function(_Location) _then;
+
+/// Create a copy of Location
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? latitude = null,Object? longitude = null,}) {
+  return _then(_Location(
+latitude: null == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as double,longitude: null == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
+// dart format on

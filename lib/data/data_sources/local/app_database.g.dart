@@ -9,18 +9,28 @@ class $DbRequestsTable extends DbRequests
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $DbRequestsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _requestPathMeta =
-      const VerificationMeta('requestPath');
+  static const VerificationMeta _requestPathMeta = const VerificationMeta(
+    'requestPath',
+  );
   @override
   late final GeneratedColumn<String> requestPath = GeneratedColumn<String>(
-      'request_path', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _responseBodyMeta =
-      const VerificationMeta('responseBody');
+    'request_path',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _responseBodyMeta = const VerificationMeta(
+    'responseBody',
+  );
   @override
   late final GeneratedColumn<String> responseBody = GeneratedColumn<String>(
-      'response_body', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'response_body',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<GeneratedColumn> get $columns => [requestPath, responseBody];
   @override
@@ -29,23 +39,31 @@ class $DbRequestsTable extends DbRequests
   String get actualTableName => $name;
   static const String $name = 'db_requests';
   @override
-  VerificationContext validateIntegrity(Insertable<DbRequest> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<DbRequest> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('request_path')) {
       context.handle(
+        _requestPathMeta,
+        requestPath.isAcceptableOrUnknown(
+          data['request_path']!,
           _requestPathMeta,
-          requestPath.isAcceptableOrUnknown(
-              data['request_path']!, _requestPathMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_requestPathMeta);
     }
     if (data.containsKey('response_body')) {
       context.handle(
+        _responseBodyMeta,
+        responseBody.isAcceptableOrUnknown(
+          data['response_body']!,
           _responseBodyMeta,
-          responseBody.isAcceptableOrUnknown(
-              data['response_body']!, _responseBodyMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_responseBodyMeta);
     }
@@ -58,10 +76,16 @@ class $DbRequestsTable extends DbRequests
   DbRequest map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DbRequest(
-      requestPath: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}request_path'])!,
-      responseBody: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}response_body'])!,
+      requestPath:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}request_path'],
+          )!,
+      responseBody:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}response_body'],
+          )!,
     );
   }
 
@@ -90,8 +114,10 @@ class DbRequest extends DataClass implements Insertable<DbRequest> {
     );
   }
 
-  factory DbRequest.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory DbRequest.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DbRequest(
       requestPath: serializer.fromJson<String>(json['requestPath']),
@@ -108,16 +134,17 @@ class DbRequest extends DataClass implements Insertable<DbRequest> {
   }
 
   DbRequest copyWith({String? requestPath, String? responseBody}) => DbRequest(
-        requestPath: requestPath ?? this.requestPath,
-        responseBody: responseBody ?? this.responseBody,
-      );
+    requestPath: requestPath ?? this.requestPath,
+    responseBody: responseBody ?? this.responseBody,
+  );
   DbRequest copyWithCompanion(DbRequestsCompanion data) {
     return DbRequest(
       requestPath:
           data.requestPath.present ? data.requestPath.value : this.requestPath,
-      responseBody: data.responseBody.present
-          ? data.responseBody.value
-          : this.responseBody,
+      responseBody:
+          data.responseBody.present
+              ? data.responseBody.value
+              : this.responseBody,
     );
   }
 
@@ -153,8 +180,8 @@ class DbRequestsCompanion extends UpdateCompanion<DbRequest> {
     required String requestPath,
     required String responseBody,
     this.rowid = const Value.absent(),
-  })  : requestPath = Value(requestPath),
-        responseBody = Value(responseBody);
+  }) : requestPath = Value(requestPath),
+       responseBody = Value(responseBody);
   static Insertable<DbRequest> custom({
     Expression<String>? requestPath,
     Expression<String>? responseBody,
@@ -167,10 +194,11 @@ class DbRequestsCompanion extends UpdateCompanion<DbRequest> {
     });
   }
 
-  DbRequestsCompanion copyWith(
-      {Value<String>? requestPath,
-      Value<String>? responseBody,
-      Value<int>? rowid}) {
+  DbRequestsCompanion copyWith({
+    Value<String>? requestPath,
+    Value<String>? responseBody,
+    Value<int>? rowid,
+  }) {
     return DbRequestsCompanion(
       requestPath: requestPath ?? this.requestPath,
       responseBody: responseBody ?? this.responseBody,
@@ -213,67 +241,101 @@ class $DbBoulderAreasTable extends DbBoulderAreas
   static const VerificationMeta _iriMeta = const VerificationMeta('iri');
   @override
   late final GeneratedColumn<String> iri = GeneratedColumn<String>(
-      'iri', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _downloadProgressMeta =
-      const VerificationMeta('downloadProgress');
+    'iri',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _downloadProgressMeta = const VerificationMeta(
+    'downloadProgress',
+  );
   @override
   late final GeneratedColumn<int> downloadProgress = GeneratedColumn<int>(
-      'download_progress', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _bouldersMeta =
-      const VerificationMeta('boulders');
+    'download_progress',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bouldersMeta = const VerificationMeta(
+    'boulders',
+  );
   @override
   late final GeneratedColumn<String> boulders = GeneratedColumn<String>(
-      'boulders', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES db_requests (request_path)'));
-  static const VerificationMeta _downloadedAtMeta =
-      const VerificationMeta('downloadedAt');
+    'boulders',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES db_requests (request_path)',
+    ),
+  );
+  static const VerificationMeta _downloadedAtMeta = const VerificationMeta(
+    'downloadedAt',
+  );
   @override
   late final GeneratedColumn<DateTime> downloadedAt = GeneratedColumn<DateTime>(
-      'downloaded_at', aliasedName, false,
-      type: DriftSqlType.dateTime,
-      requiredDuringInsert: false,
-      defaultValue: currentDateAndTime);
+    'downloaded_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [iri, downloadProgress, boulders, downloadedAt];
+  List<GeneratedColumn> get $columns => [
+    iri,
+    downloadProgress,
+    boulders,
+    downloadedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'db_boulder_areas';
   @override
-  VerificationContext validateIntegrity(Insertable<DbBoulderArea> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<DbBoulderArea> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('iri')) {
       context.handle(
-          _iriMeta, iri.isAcceptableOrUnknown(data['iri']!, _iriMeta));
+        _iriMeta,
+        iri.isAcceptableOrUnknown(data['iri']!, _iriMeta),
+      );
     } else if (isInserting) {
       context.missing(_iriMeta);
     }
     if (data.containsKey('download_progress')) {
       context.handle(
+        _downloadProgressMeta,
+        downloadProgress.isAcceptableOrUnknown(
+          data['download_progress']!,
           _downloadProgressMeta,
-          downloadProgress.isAcceptableOrUnknown(
-              data['download_progress']!, _downloadProgressMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_downloadProgressMeta);
     }
     if (data.containsKey('boulders')) {
-      context.handle(_bouldersMeta,
-          boulders.isAcceptableOrUnknown(data['boulders']!, _bouldersMeta));
+      context.handle(
+        _bouldersMeta,
+        boulders.isAcceptableOrUnknown(data['boulders']!, _bouldersMeta),
+      );
     }
     if (data.containsKey('downloaded_at')) {
       context.handle(
+        _downloadedAtMeta,
+        downloadedAt.isAcceptableOrUnknown(
+          data['downloaded_at']!,
           _downloadedAtMeta,
-          downloadedAt.isAcceptableOrUnknown(
-              data['downloaded_at']!, _downloadedAtMeta));
+        ),
+      );
     }
     return context;
   }
@@ -284,14 +346,25 @@ class $DbBoulderAreasTable extends DbBoulderAreas
   DbBoulderArea map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DbBoulderArea(
-      iri: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}iri'])!,
-      downloadProgress: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}download_progress'])!,
-      boulders: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}boulders']),
-      downloadedAt: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}downloaded_at'])!,
+      iri:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}iri'],
+          )!,
+      downloadProgress:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}download_progress'],
+          )!,
+      boulders: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}boulders'],
+      ),
+      downloadedAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}downloaded_at'],
+          )!,
     );
   }
 
@@ -306,11 +379,12 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
   final int downloadProgress;
   final String? boulders;
   final DateTime downloadedAt;
-  const DbBoulderArea(
-      {required this.iri,
-      required this.downloadProgress,
-      this.boulders,
-      required this.downloadedAt});
+  const DbBoulderArea({
+    required this.iri,
+    required this.downloadProgress,
+    this.boulders,
+    required this.downloadedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -327,15 +401,18 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
     return DbBoulderAreasCompanion(
       iri: Value(iri),
       downloadProgress: Value(downloadProgress),
-      boulders: boulders == null && nullToAbsent
-          ? const Value.absent()
-          : Value(boulders),
+      boulders:
+          boulders == null && nullToAbsent
+              ? const Value.absent()
+              : Value(boulders),
       downloadedAt: Value(downloadedAt),
     );
   }
 
-  factory DbBoulderArea.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory DbBoulderArea.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DbBoulderArea(
       iri: serializer.fromJson<String>(json['iri']),
@@ -355,27 +432,29 @@ class DbBoulderArea extends DataClass implements Insertable<DbBoulderArea> {
     };
   }
 
-  DbBoulderArea copyWith(
-          {String? iri,
-          int? downloadProgress,
-          Value<String?> boulders = const Value.absent(),
-          DateTime? downloadedAt}) =>
-      DbBoulderArea(
-        iri: iri ?? this.iri,
-        downloadProgress: downloadProgress ?? this.downloadProgress,
-        boulders: boulders.present ? boulders.value : this.boulders,
-        downloadedAt: downloadedAt ?? this.downloadedAt,
-      );
+  DbBoulderArea copyWith({
+    String? iri,
+    int? downloadProgress,
+    Value<String?> boulders = const Value.absent(),
+    DateTime? downloadedAt,
+  }) => DbBoulderArea(
+    iri: iri ?? this.iri,
+    downloadProgress: downloadProgress ?? this.downloadProgress,
+    boulders: boulders.present ? boulders.value : this.boulders,
+    downloadedAt: downloadedAt ?? this.downloadedAt,
+  );
   DbBoulderArea copyWithCompanion(DbBoulderAreasCompanion data) {
     return DbBoulderArea(
       iri: data.iri.present ? data.iri.value : this.iri,
-      downloadProgress: data.downloadProgress.present
-          ? data.downloadProgress.value
-          : this.downloadProgress,
+      downloadProgress:
+          data.downloadProgress.present
+              ? data.downloadProgress.value
+              : this.downloadProgress,
       boulders: data.boulders.present ? data.boulders.value : this.boulders,
-      downloadedAt: data.downloadedAt.present
-          ? data.downloadedAt.value
-          : this.downloadedAt,
+      downloadedAt:
+          data.downloadedAt.present
+              ? data.downloadedAt.value
+              : this.downloadedAt,
     );
   }
 
@@ -422,8 +501,8 @@ class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
     this.boulders = const Value.absent(),
     this.downloadedAt = const Value.absent(),
     this.rowid = const Value.absent(),
-  })  : iri = Value(iri),
-        downloadProgress = Value(downloadProgress);
+  }) : iri = Value(iri),
+       downloadProgress = Value(downloadProgress);
   static Insertable<DbBoulderArea> custom({
     Expression<String>? iri,
     Expression<int>? downloadProgress,
@@ -440,12 +519,13 @@ class DbBoulderAreasCompanion extends UpdateCompanion<DbBoulderArea> {
     });
   }
 
-  DbBoulderAreasCompanion copyWith(
-      {Value<String>? iri,
-      Value<int>? downloadProgress,
-      Value<String?>? boulders,
-      Value<DateTime>? downloadedAt,
-      Value<int>? rowid}) {
+  DbBoulderAreasCompanion copyWith({
+    Value<String>? iri,
+    Value<int>? downloadProgress,
+    Value<String?>? boulders,
+    Value<DateTime>? downloadedAt,
+    Value<int>? rowid,
+  }) {
     return DbBoulderAreasCompanion(
       iri: iri ?? this.iri,
       downloadProgress: downloadProgress ?? this.downloadProgress,
@@ -498,42 +578,55 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [dbRequests, dbBoulderAreas];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    dbRequests,
+    dbBoulderAreas,
+  ];
   @override
   DriftDatabaseOptions get options =>
       const DriftDatabaseOptions(storeDateTimeAsText: true);
 }
 
-typedef $$DbRequestsTableCreateCompanionBuilder = DbRequestsCompanion Function({
-  required String requestPath,
-  required String responseBody,
-  Value<int> rowid,
-});
-typedef $$DbRequestsTableUpdateCompanionBuilder = DbRequestsCompanion Function({
-  Value<String> requestPath,
-  Value<String> responseBody,
-  Value<int> rowid,
-});
+typedef $$DbRequestsTableCreateCompanionBuilder =
+    DbRequestsCompanion Function({
+      required String requestPath,
+      required String responseBody,
+      Value<int> rowid,
+    });
+typedef $$DbRequestsTableUpdateCompanionBuilder =
+    DbRequestsCompanion Function({
+      Value<String> requestPath,
+      Value<String> responseBody,
+      Value<int> rowid,
+    });
 
 final class $$DbRequestsTableReferences
     extends BaseReferences<_$AppDatabase, $DbRequestsTable, DbRequest> {
   $$DbRequestsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static MultiTypedResultKey<$DbBoulderAreasTable, List<DbBoulderArea>>
-      _dbBoulderAreasRefsTable(_$AppDatabase db) =>
-          MultiTypedResultKey.fromTable(db.dbBoulderAreas,
-              aliasName: $_aliasNameGenerator(
-                  db.dbRequests.requestPath, db.dbBoulderAreas.boulders));
+  _dbBoulderAreasRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.dbBoulderAreas,
+    aliasName: $_aliasNameGenerator(
+      db.dbRequests.requestPath,
+      db.dbBoulderAreas.boulders,
+    ),
+  );
 
   $$DbBoulderAreasTableProcessedTableManager get dbBoulderAreasRefs {
-    final manager = $$DbBoulderAreasTableTableManager($_db, $_db.dbBoulderAreas)
-        .filter((f) => f.boulders.requestPath
-            .sqlEquals($_itemColumn<String>('request_path')!));
+    final manager = $$DbBoulderAreasTableTableManager(
+      $_db,
+      $_db.dbBoulderAreas,
+    ).filter(
+      (f) => f.boulders.requestPath.sqlEquals(
+        $_itemColumn<String>('request_path')!,
+      ),
+    );
 
     final cache = $_typedResult.readTableOrNull(_dbBoulderAreasRefsTable($_db));
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
@@ -547,29 +640,37 @@ class $$DbRequestsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<String> get requestPath => $composableBuilder(
-      column: $table.requestPath, builder: (column) => ColumnFilters(column));
+    column: $table.requestPath,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get responseBody => $composableBuilder(
-      column: $table.responseBody, builder: (column) => ColumnFilters(column));
+    column: $table.responseBody,
+    builder: (column) => ColumnFilters(column),
+  );
 
   Expression<bool> dbBoulderAreasRefs(
-      Expression<bool> Function($$DbBoulderAreasTableFilterComposer f) f) {
+    Expression<bool> Function($$DbBoulderAreasTableFilterComposer f) f,
+  ) {
     final $$DbBoulderAreasTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.requestPath,
-        referencedTable: $db.dbBoulderAreas,
-        getReferencedColumn: (t) => t.boulders,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$DbBoulderAreasTableFilterComposer(
-              $db: $db,
-              $table: $db.dbBoulderAreas,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.requestPath,
+      referencedTable: $db.dbBoulderAreas,
+      getReferencedColumn: (t) => t.boulders,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DbBoulderAreasTableFilterComposer(
+            $db: $db,
+            $table: $db.dbBoulderAreas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 }
@@ -584,11 +685,14 @@ class $$DbRequestsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<String> get requestPath => $composableBuilder(
-      column: $table.requestPath, builder: (column) => ColumnOrderings(column));
+    column: $table.requestPath,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get responseBody => $composableBuilder(
-      column: $table.responseBody,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.responseBody,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$DbRequestsTableAnnotationComposer
@@ -601,157 +705,195 @@ class $$DbRequestsTableAnnotationComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   GeneratedColumn<String> get requestPath => $composableBuilder(
-      column: $table.requestPath, builder: (column) => column);
+    column: $table.requestPath,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get responseBody => $composableBuilder(
-      column: $table.responseBody, builder: (column) => column);
+    column: $table.responseBody,
+    builder: (column) => column,
+  );
 
   Expression<T> dbBoulderAreasRefs<T extends Object>(
-      Expression<T> Function($$DbBoulderAreasTableAnnotationComposer a) f) {
+    Expression<T> Function($$DbBoulderAreasTableAnnotationComposer a) f,
+  ) {
     final $$DbBoulderAreasTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.requestPath,
-        referencedTable: $db.dbBoulderAreas,
-        getReferencedColumn: (t) => t.boulders,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$DbBoulderAreasTableAnnotationComposer(
-              $db: $db,
-              $table: $db.dbBoulderAreas,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.requestPath,
+      referencedTable: $db.dbBoulderAreas,
+      getReferencedColumn: (t) => t.boulders,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DbBoulderAreasTableAnnotationComposer(
+            $db: $db,
+            $table: $db.dbBoulderAreas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return f(composer);
   }
 }
 
-class $$DbRequestsTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $DbRequestsTable,
-    DbRequest,
-    $$DbRequestsTableFilterComposer,
-    $$DbRequestsTableOrderingComposer,
-    $$DbRequestsTableAnnotationComposer,
-    $$DbRequestsTableCreateCompanionBuilder,
-    $$DbRequestsTableUpdateCompanionBuilder,
-    (DbRequest, $$DbRequestsTableReferences),
-    DbRequest,
-    PrefetchHooks Function({bool dbBoulderAreasRefs})> {
+class $$DbRequestsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $DbRequestsTable,
+          DbRequest,
+          $$DbRequestsTableFilterComposer,
+          $$DbRequestsTableOrderingComposer,
+          $$DbRequestsTableAnnotationComposer,
+          $$DbRequestsTableCreateCompanionBuilder,
+          $$DbRequestsTableUpdateCompanionBuilder,
+          (DbRequest, $$DbRequestsTableReferences),
+          DbRequest,
+          PrefetchHooks Function({bool dbBoulderAreasRefs})
+        > {
   $$DbRequestsTableTableManager(_$AppDatabase db, $DbRequestsTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $$DbRequestsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$DbRequestsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$DbRequestsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<String> requestPath = const Value.absent(),
-            Value<String> responseBody = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DbRequestsCompanion(
-            requestPath: requestPath,
-            responseBody: responseBody,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String requestPath,
-            required String responseBody,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DbRequestsCompanion.insert(
-            requestPath: requestPath,
-            responseBody: responseBody,
-            rowid: rowid,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable(table),
-                    $$DbRequestsTableReferences(db, table, e)
-                  ))
-              .toList(),
+          createFilteringComposer:
+              () => $$DbRequestsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () => $$DbRequestsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () => $$DbRequestsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> requestPath = const Value.absent(),
+                Value<String> responseBody = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => DbRequestsCompanion(
+                requestPath: requestPath,
+                responseBody: responseBody,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String requestPath,
+                required String responseBody,
+                Value<int> rowid = const Value.absent(),
+              }) => DbRequestsCompanion.insert(
+                requestPath: requestPath,
+                responseBody: responseBody,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          $$DbRequestsTableReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
           prefetchHooksCallback: ({dbBoulderAreasRefs = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [
-                if (dbBoulderAreasRefs) db.dbBoulderAreas
+                if (dbBoulderAreasRefs) db.dbBoulderAreas,
               ],
               addJoins: null,
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (dbBoulderAreasRefs)
-                    await $_getPrefetchedData<DbRequest, $DbRequestsTable,
-                            DbBoulderArea>(
-                        currentTable: table,
-                        referencedTable: $$DbRequestsTableReferences
-                            ._dbBoulderAreasRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$DbRequestsTableReferences(db, table, p0)
-                                .dbBoulderAreasRefs,
-                        referencedItemsForCurrentItem:
-                            (item, referencedItems) => referencedItems
-                                .where((e) => e.boulders == item.requestPath),
-                        typedResults: items)
+                    await $_getPrefetchedData<
+                      DbRequest,
+                      $DbRequestsTable,
+                      DbBoulderArea
+                    >(
+                      currentTable: table,
+                      referencedTable: $$DbRequestsTableReferences
+                          ._dbBoulderAreasRefsTable(db),
+                      managerFromTypedResult:
+                          (p0) =>
+                              $$DbRequestsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).dbBoulderAreasRefs,
+                      referencedItemsForCurrentItem:
+                          (item, referencedItems) => referencedItems.where(
+                            (e) => e.boulders == item.requestPath,
+                          ),
+                      typedResults: items,
+                    ),
                 ];
               },
             );
           },
-        ));
+        ),
+      );
 }
 
-typedef $$DbRequestsTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $DbRequestsTable,
-    DbRequest,
-    $$DbRequestsTableFilterComposer,
-    $$DbRequestsTableOrderingComposer,
-    $$DbRequestsTableAnnotationComposer,
-    $$DbRequestsTableCreateCompanionBuilder,
-    $$DbRequestsTableUpdateCompanionBuilder,
-    (DbRequest, $$DbRequestsTableReferences),
-    DbRequest,
-    PrefetchHooks Function({bool dbBoulderAreasRefs})>;
-typedef $$DbBoulderAreasTableCreateCompanionBuilder = DbBoulderAreasCompanion
-    Function({
-  required String iri,
-  required int downloadProgress,
-  Value<String?> boulders,
-  Value<DateTime> downloadedAt,
-  Value<int> rowid,
-});
-typedef $$DbBoulderAreasTableUpdateCompanionBuilder = DbBoulderAreasCompanion
-    Function({
-  Value<String> iri,
-  Value<int> downloadProgress,
-  Value<String?> boulders,
-  Value<DateTime> downloadedAt,
-  Value<int> rowid,
-});
+typedef $$DbRequestsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $DbRequestsTable,
+      DbRequest,
+      $$DbRequestsTableFilterComposer,
+      $$DbRequestsTableOrderingComposer,
+      $$DbRequestsTableAnnotationComposer,
+      $$DbRequestsTableCreateCompanionBuilder,
+      $$DbRequestsTableUpdateCompanionBuilder,
+      (DbRequest, $$DbRequestsTableReferences),
+      DbRequest,
+      PrefetchHooks Function({bool dbBoulderAreasRefs})
+    >;
+typedef $$DbBoulderAreasTableCreateCompanionBuilder =
+    DbBoulderAreasCompanion Function({
+      required String iri,
+      required int downloadProgress,
+      Value<String?> boulders,
+      Value<DateTime> downloadedAt,
+      Value<int> rowid,
+    });
+typedef $$DbBoulderAreasTableUpdateCompanionBuilder =
+    DbBoulderAreasCompanion Function({
+      Value<String> iri,
+      Value<int> downloadProgress,
+      Value<String?> boulders,
+      Value<DateTime> downloadedAt,
+      Value<int> rowid,
+    });
 
 final class $$DbBoulderAreasTableReferences
     extends BaseReferences<_$AppDatabase, $DbBoulderAreasTable, DbBoulderArea> {
   $$DbBoulderAreasTableReferences(
-      super.$_db, super.$_table, super.$_typedResult);
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
 
   static $DbRequestsTable _bouldersTable(_$AppDatabase db) =>
-      db.dbRequests.createAlias($_aliasNameGenerator(
-          db.dbBoulderAreas.boulders, db.dbRequests.requestPath));
+      db.dbRequests.createAlias(
+        $_aliasNameGenerator(
+          db.dbBoulderAreas.boulders,
+          db.dbRequests.requestPath,
+        ),
+      );
 
   $$DbRequestsTableProcessedTableManager? get boulders {
     final $_column = $_itemColumn<String>('boulders');
     if ($_column == null) return null;
-    final manager = $$DbRequestsTableTableManager($_db, $_db.dbRequests)
-        .filter((f) => f.requestPath.sqlEquals($_column));
+    final manager = $$DbRequestsTableTableManager(
+      $_db,
+      $_db.dbRequests,
+    ).filter((f) => f.requestPath.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_bouldersTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
@@ -765,32 +907,40 @@ class $$DbBoulderAreasTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<String> get iri => $composableBuilder(
-      column: $table.iri, builder: (column) => ColumnFilters(column));
+    column: $table.iri,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get downloadProgress => $composableBuilder(
-      column: $table.downloadProgress,
-      builder: (column) => ColumnFilters(column));
+    column: $table.downloadProgress,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get downloadedAt => $composableBuilder(
-      column: $table.downloadedAt, builder: (column) => ColumnFilters(column));
+    column: $table.downloadedAt,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $$DbRequestsTableFilterComposer get boulders {
     final $$DbRequestsTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.boulders,
-        referencedTable: $db.dbRequests,
-        getReferencedColumn: (t) => t.requestPath,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$DbRequestsTableFilterComposer(
-              $db: $db,
-              $table: $db.dbRequests,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.boulders,
+      referencedTable: $db.dbRequests,
+      getReferencedColumn: (t) => t.requestPath,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DbRequestsTableFilterComposer(
+            $db: $db,
+            $table: $db.dbRequests,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -805,33 +955,40 @@ class $$DbBoulderAreasTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<String> get iri => $composableBuilder(
-      column: $table.iri, builder: (column) => ColumnOrderings(column));
+    column: $table.iri,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get downloadProgress => $composableBuilder(
-      column: $table.downloadProgress,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.downloadProgress,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<DateTime> get downloadedAt => $composableBuilder(
-      column: $table.downloadedAt,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.downloadedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $$DbRequestsTableOrderingComposer get boulders {
     final $$DbRequestsTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.boulders,
-        referencedTable: $db.dbRequests,
-        getReferencedColumn: (t) => t.requestPath,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$DbRequestsTableOrderingComposer(
-              $db: $db,
-              $table: $db.dbRequests,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.boulders,
+      referencedTable: $db.dbRequests,
+      getReferencedColumn: (t) => t.requestPath,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DbRequestsTableOrderingComposer(
+            $db: $db,
+            $table: $db.dbRequests,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
@@ -849,116 +1006,141 @@ class $$DbBoulderAreasTableAnnotationComposer
       $composableBuilder(column: $table.iri, builder: (column) => column);
 
   GeneratedColumn<int> get downloadProgress => $composableBuilder(
-      column: $table.downloadProgress, builder: (column) => column);
+    column: $table.downloadProgress,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<DateTime> get downloadedAt => $composableBuilder(
-      column: $table.downloadedAt, builder: (column) => column);
+    column: $table.downloadedAt,
+    builder: (column) => column,
+  );
 
   $$DbRequestsTableAnnotationComposer get boulders {
     final $$DbRequestsTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.boulders,
-        referencedTable: $db.dbRequests,
-        getReferencedColumn: (t) => t.requestPath,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$DbRequestsTableAnnotationComposer(
-              $db: $db,
-              $table: $db.dbRequests,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+      composer: this,
+      getCurrentColumn: (t) => t.boulders,
+      referencedTable: $db.dbRequests,
+      getReferencedColumn: (t) => t.requestPath,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$DbRequestsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.dbRequests,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
     return composer;
   }
 }
 
-class $$DbBoulderAreasTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $DbBoulderAreasTable,
-    DbBoulderArea,
-    $$DbBoulderAreasTableFilterComposer,
-    $$DbBoulderAreasTableOrderingComposer,
-    $$DbBoulderAreasTableAnnotationComposer,
-    $$DbBoulderAreasTableCreateCompanionBuilder,
-    $$DbBoulderAreasTableUpdateCompanionBuilder,
-    (DbBoulderArea, $$DbBoulderAreasTableReferences),
-    DbBoulderArea,
-    PrefetchHooks Function({bool boulders})> {
+class $$DbBoulderAreasTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $DbBoulderAreasTable,
+          DbBoulderArea,
+          $$DbBoulderAreasTableFilterComposer,
+          $$DbBoulderAreasTableOrderingComposer,
+          $$DbBoulderAreasTableAnnotationComposer,
+          $$DbBoulderAreasTableCreateCompanionBuilder,
+          $$DbBoulderAreasTableUpdateCompanionBuilder,
+          (DbBoulderArea, $$DbBoulderAreasTableReferences),
+          DbBoulderArea,
+          PrefetchHooks Function({bool boulders})
+        > {
   $$DbBoulderAreasTableTableManager(
-      _$AppDatabase db, $DbBoulderAreasTable table)
-      : super(TableManagerState(
+    _$AppDatabase db,
+    $DbBoulderAreasTable table,
+  ) : super(
+        TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $$DbBoulderAreasTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$DbBoulderAreasTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$DbBoulderAreasTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<String> iri = const Value.absent(),
-            Value<int> downloadProgress = const Value.absent(),
-            Value<String?> boulders = const Value.absent(),
-            Value<DateTime> downloadedAt = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DbBoulderAreasCompanion(
-            iri: iri,
-            downloadProgress: downloadProgress,
-            boulders: boulders,
-            downloadedAt: downloadedAt,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String iri,
-            required int downloadProgress,
-            Value<String?> boulders = const Value.absent(),
-            Value<DateTime> downloadedAt = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DbBoulderAreasCompanion.insert(
-            iri: iri,
-            downloadProgress: downloadProgress,
-            boulders: boulders,
-            downloadedAt: downloadedAt,
-            rowid: rowid,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable(table),
-                    $$DbBoulderAreasTableReferences(db, table, e)
-                  ))
-              .toList(),
+          createFilteringComposer:
+              () => $$DbBoulderAreasTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () =>
+                  $$DbBoulderAreasTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () => $$DbBoulderAreasTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> iri = const Value.absent(),
+                Value<int> downloadProgress = const Value.absent(),
+                Value<String?> boulders = const Value.absent(),
+                Value<DateTime> downloadedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => DbBoulderAreasCompanion(
+                iri: iri,
+                downloadProgress: downloadProgress,
+                boulders: boulders,
+                downloadedAt: downloadedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String iri,
+                required int downloadProgress,
+                Value<String?> boulders = const Value.absent(),
+                Value<DateTime> downloadedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => DbBoulderAreasCompanion.insert(
+                iri: iri,
+                downloadProgress: downloadProgress,
+                boulders: boulders,
+                downloadedAt: downloadedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          $$DbBoulderAreasTableReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
           prefetchHooksCallback: ({boulders = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
               addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
+                T extends TableManagerState<
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic
+                >
+              >(state) {
                 if (boulders) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.boulders,
-                    referencedTable:
-                        $$DbBoulderAreasTableReferences._bouldersTable(db),
-                    referencedColumn: $$DbBoulderAreasTableReferences
-                        ._bouldersTable(db)
-                        .requestPath,
-                  ) as T;
+                  state =
+                      state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.boulders,
+                            referencedTable: $$DbBoulderAreasTableReferences
+                                ._bouldersTable(db),
+                            referencedColumn:
+                                $$DbBoulderAreasTableReferences
+                                    ._bouldersTable(db)
+                                    .requestPath,
+                          )
+                          as T;
                 }
 
                 return state;
@@ -968,21 +1150,24 @@ class $$DbBoulderAreasTableTableManager extends RootTableManager<
               },
             );
           },
-        ));
+        ),
+      );
 }
 
-typedef $$DbBoulderAreasTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $DbBoulderAreasTable,
-    DbBoulderArea,
-    $$DbBoulderAreasTableFilterComposer,
-    $$DbBoulderAreasTableOrderingComposer,
-    $$DbBoulderAreasTableAnnotationComposer,
-    $$DbBoulderAreasTableCreateCompanionBuilder,
-    $$DbBoulderAreasTableUpdateCompanionBuilder,
-    (DbBoulderArea, $$DbBoulderAreasTableReferences),
-    DbBoulderArea,
-    PrefetchHooks Function({bool boulders})>;
+typedef $$DbBoulderAreasTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $DbBoulderAreasTable,
+      DbBoulderArea,
+      $$DbBoulderAreasTableFilterComposer,
+      $$DbBoulderAreasTableOrderingComposer,
+      $$DbBoulderAreasTableAnnotationComposer,
+      $$DbBoulderAreasTableCreateCompanionBuilder,
+      $$DbBoulderAreasTableUpdateCompanionBuilder,
+      (DbBoulderArea, $$DbBoulderAreasTableReferences),
+      DbBoulderArea,
+      PrefetchHooks Function({bool boulders})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;

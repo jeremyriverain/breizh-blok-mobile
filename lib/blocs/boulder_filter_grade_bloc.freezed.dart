@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,139 +10,137 @@ part of 'boulder_filter_grade_bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$BoulderFilterGradeState {
-  Set<Grade> get grades => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
-  $BoulderFilterGradeStateCopyWith<BoulderFilterGradeState> get copyWith =>
-      throw _privateConstructorUsedError;
+ Set<Grade> get grades;
+/// Create a copy of BoulderFilterGradeState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$BoulderFilterGradeStateCopyWith<BoulderFilterGradeState> get copyWith => _$BoulderFilterGradeStateCopyWithImpl<BoulderFilterGradeState>(this as BoulderFilterGradeState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BoulderFilterGradeState&&const DeepCollectionEquality().equals(other.grades, grades));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(grades));
+
+@override
+String toString() {
+  return 'BoulderFilterGradeState(grades: $grades)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $BoulderFilterGradeStateCopyWith<$Res> {
-  factory $BoulderFilterGradeStateCopyWith(BoulderFilterGradeState value,
-          $Res Function(BoulderFilterGradeState) then) =
-      _$BoulderFilterGradeStateCopyWithImpl<$Res, BoulderFilterGradeState>;
-  @useResult
-  $Res call({Set<Grade> grades});
-}
+abstract mixin class $BoulderFilterGradeStateCopyWith<$Res>  {
+  factory $BoulderFilterGradeStateCopyWith(BoulderFilterGradeState value, $Res Function(BoulderFilterGradeState) _then) = _$BoulderFilterGradeStateCopyWithImpl;
+@useResult
+$Res call({
+ Set<Grade> grades
+});
 
+
+
+}
 /// @nodoc
-class _$BoulderFilterGradeStateCopyWithImpl<$Res,
-        $Val extends BoulderFilterGradeState>
+class _$BoulderFilterGradeStateCopyWithImpl<$Res>
     implements $BoulderFilterGradeStateCopyWith<$Res> {
-  _$BoulderFilterGradeStateCopyWithImpl(this._value, this._then);
+  _$BoulderFilterGradeStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final BoulderFilterGradeState _self;
+  final $Res Function(BoulderFilterGradeState) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? grades = null,
-  }) {
-    return _then(_value.copyWith(
-      grades: null == grades
-          ? _value.grades
-          : grades // ignore: cast_nullable_to_non_nullable
-              as Set<Grade>,
-    ) as $Val);
-  }
+/// Create a copy of BoulderFilterGradeState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? grades = null,}) {
+  return _then(_self.copyWith(
+grades: null == grades ? _self.grades : grades // ignore: cast_nullable_to_non_nullable
+as Set<Grade>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$BoulderFilterGradeStateImplCopyWith<$Res>
-    implements $BoulderFilterGradeStateCopyWith<$Res> {
-  factory _$$BoulderFilterGradeStateImplCopyWith(
-          _$BoulderFilterGradeStateImpl value,
-          $Res Function(_$BoulderFilterGradeStateImpl) then) =
-      __$$BoulderFilterGradeStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Set<Grade> grades});
 }
 
-/// @nodoc
-class __$$BoulderFilterGradeStateImplCopyWithImpl<$Res>
-    extends _$BoulderFilterGradeStateCopyWithImpl<$Res,
-        _$BoulderFilterGradeStateImpl>
-    implements _$$BoulderFilterGradeStateImplCopyWith<$Res> {
-  __$$BoulderFilterGradeStateImplCopyWithImpl(
-      _$BoulderFilterGradeStateImpl _value,
-      $Res Function(_$BoulderFilterGradeStateImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? grades = null,
-  }) {
-    return _then(_$BoulderFilterGradeStateImpl(
-      grades: null == grades
-          ? _value._grades
-          : grades // ignore: cast_nullable_to_non_nullable
-              as Set<Grade>,
-    ));
-  }
-}
 
 /// @nodoc
 
-class _$BoulderFilterGradeStateImpl implements _BoulderFilterGradeState {
-  const _$BoulderFilterGradeStateImpl(
-      {final Set<Grade> grades = const <Grade>{}})
-      : _grades = grades;
 
-  final Set<Grade> _grades;
-  @override
-  @JsonKey()
-  Set<Grade> get grades {
-    if (_grades is EqualUnmodifiableSetView) return _grades;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_grades);
-  }
+class _BoulderFilterGradeState implements BoulderFilterGradeState {
+  const _BoulderFilterGradeState({final  Set<Grade> grades = const <Grade>{}}): _grades = grades;
+  
 
-  @override
-  String toString() {
-    return 'BoulderFilterGradeState(grades: $grades)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BoulderFilterGradeStateImpl &&
-            const DeepCollectionEquality().equals(other._grades, _grades));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_grades));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$BoulderFilterGradeStateImplCopyWith<_$BoulderFilterGradeStateImpl>
-      get copyWith => __$$BoulderFilterGradeStateImplCopyWithImpl<
-          _$BoulderFilterGradeStateImpl>(this, _$identity);
+ final  Set<Grade> _grades;
+@override@JsonKey() Set<Grade> get grades {
+  if (_grades is EqualUnmodifiableSetView) return _grades;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_grades);
 }
 
-abstract class _BoulderFilterGradeState implements BoulderFilterGradeState {
-  const factory _BoulderFilterGradeState({final Set<Grade> grades}) =
-      _$BoulderFilterGradeStateImpl;
 
-  @override
-  Set<Grade> get grades;
-  @override
-  @JsonKey(ignore: true)
-  _$$BoulderFilterGradeStateImplCopyWith<_$BoulderFilterGradeStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+/// Create a copy of BoulderFilterGradeState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$BoulderFilterGradeStateCopyWith<_BoulderFilterGradeState> get copyWith => __$BoulderFilterGradeStateCopyWithImpl<_BoulderFilterGradeState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BoulderFilterGradeState&&const DeepCollectionEquality().equals(other._grades, _grades));
 }
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_grades));
+
+@override
+String toString() {
+  return 'BoulderFilterGradeState(grades: $grades)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$BoulderFilterGradeStateCopyWith<$Res> implements $BoulderFilterGradeStateCopyWith<$Res> {
+  factory _$BoulderFilterGradeStateCopyWith(_BoulderFilterGradeState value, $Res Function(_BoulderFilterGradeState) _then) = __$BoulderFilterGradeStateCopyWithImpl;
+@override @useResult
+$Res call({
+ Set<Grade> grades
+});
+
+
+
+}
+/// @nodoc
+class __$BoulderFilterGradeStateCopyWithImpl<$Res>
+    implements _$BoulderFilterGradeStateCopyWith<$Res> {
+  __$BoulderFilterGradeStateCopyWithImpl(this._self, this._then);
+
+  final _BoulderFilterGradeState _self;
+  final $Res Function(_BoulderFilterGradeState) _then;
+
+/// Create a copy of BoulderFilterGradeState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? grades = null,}) {
+  return _then(_BoulderFilterGradeState(
+grades: null == grades ? _self._grades : grades // ignore: cast_nullable_to_non_nullable
+as Set<Grade>,
+  ));
+}
+
+
+}
+
+// dart format on

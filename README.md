@@ -45,3 +45,9 @@ fvm flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST"
 ```bash
 fvm dart run build_runner build
 ```
+
+### Générer les icônes
+
+```bash
+fvm dart run flutter_launcher_icons
+```
