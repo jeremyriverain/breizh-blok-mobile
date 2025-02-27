@@ -46,15 +46,15 @@ dependencies:
   intl: ^0.19.0
   json_annotation: ^4.9.0
   location: ^8.0.0
-  map_launcher: ^3.1.0
-  mixpanel_flutter: ^2.3.3
+  map_launcher: ^3.5.0
+  mixpanel_flutter: ^2.3.4
   path: ^1.8.3
-  path_provider: ^2.0.0
-  photo_view: ^0.14.0
-  sentry_flutter: ^8.12.0
+  path_provider: ^2.1.5
+  photo_view: ^0.15.0
+  sentry_flutter: ^8.13.2
   share_plus: ^10.1.4
-  shared_preferences: ^2.2.2
-  sqlite3_flutter_libs: ^0.5.0
+  shared_preferences: ^2.5.2
+  sqlite3_flutter_libs: ^0.5.31
   syncfusion_flutter_sliders: ^24.1.47
 
 dev_dependencies:
