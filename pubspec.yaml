@@ -55,7 +55,7 @@ dependencies:
   share_plus: ^10.1.4
   shared_preferences: ^2.5.2
   sqlite3_flutter_libs: ^0.5.31
-  syncfusion_flutter_sliders: ^24.1.47
+  syncfusion_flutter_sliders: ^28.2.7
 
 dev_dependencies:
   bloc_test: ^10.0.0
