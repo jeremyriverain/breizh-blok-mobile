@@ -1,10 +1,14 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/download/widgets/download_screen.dart';
 import 'package:breizh_blok_mobile/ui/profile/widgets/profile_language_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+
+  static const route = (path: '/profile', name: 'profile');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
             title: Text(AppLocalizations.of(context).downloads),
             leading: const Icon(Icons.download_outlined),
             onTap: () {
-              context.pushNamed('downloads');
+              context.pushNamed(DownloadScreen.route.name);
             },
           ),
           ProfileLanguageSwitcher(

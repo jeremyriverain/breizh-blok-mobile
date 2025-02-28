@@ -1,12 +1,12 @@
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_area_details_layout.dart';
 import 'package:flutter/material.dart';
 
-class BoulderAreaDetailsScreen extends StatelessWidget {
-  const BoulderAreaDetailsScreen({required this.id, super.key});
+class DownloadedBoulderAreaDetailsScreen extends StatelessWidget {
+  const DownloadedBoulderAreaDetailsScreen({required this.id, super.key});
 
   static const route = (
-    path: 'boulder-areas/:id',
-    name: 'boulder_area_details',
+    path: '/downloads/boulders-area/:id',
+    name: 'downloaded_boulder_area_details',
   );
 
   final String id;

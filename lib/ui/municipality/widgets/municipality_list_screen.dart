@@ -2,6 +2,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collect
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/domain/models/department/department.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_indicator.dart';
+import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,15 +19,19 @@ class _MunicipalityListScreenState extends State<MunicipalityListScreen> {
     return context.read<DepartmentRepository>().findAll();
   }
 
-  PaginatedCollection<Department> data =
-      const PaginatedCollection(items: [], totalItems: 0);
+  PaginatedCollection<Department> data = const PaginatedCollection(
+    items: [],
+    totalItems: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _fetch(context),
-      builder:
-          (context, AsyncSnapshot<PaginatedCollection<Department>> snapshot) {
+      builder: (
+        context,
+        AsyncSnapshot<PaginatedCollection<Department>> snapshot,
+      ) {
         final data = snapshot.data;
         if (data != null) {
           this.data = data;
@@ -49,10 +54,12 @@ class _MunicipalityListScreenState extends State<MunicipalityListScreen> {
                       trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () {
                         context.pushNamed(
-                          'municipality_details',
+                          MunicipalityDetailsScreen.route.name,
                           pathParameters: {
-                            'id': municipality.iri
-                                .replaceAll('/municipalities/', ''),
+                            'id': municipality.iri.replaceAll(
+                              '/municipalities/',
+                              '',
+                            ),
                           },
                         );
                       },
@@ -72,9 +79,7 @@ class _MunicipalityListScreenState extends State<MunicipalityListScreen> {
           );
         }
 
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

@@ -4,6 +4,8 @@ import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dar
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/download_screen.dart';
+import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
+import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/profile/widgets/profile_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,16 +16,17 @@ class Router {
     return GoRouter(
       routes: [
         GoRoute(
-          path: '/',
-          name: 'boulder_list',
-          builder: (context, state) => RepositoryProvider(
-            create: (context) => RequestStrategy(),
-            child: const BoulderListScreen(),
-          ),
+          path: BoulderListScreen.route.path,
+          name: BoulderListScreen.route.name,
+          builder:
+              (context, state) => RepositoryProvider(
+                create: (context) => RequestStrategy(),
+                child: const BoulderListScreen(),
+              ),
           routes: [
             GoRoute(
-              path: 'boulders/:id',
-              name: 'boulder_details',
+              path: BoulderDetailsScreen.route.path,
+              name: BoulderDetailsScreen.route.name,
               builder: (context, state) {
                 return RepositoryProvider(
                   create: (context) => RequestStrategy(),
@@ -32,8 +35,8 @@ class Router {
               },
             ),
             GoRoute(
-              path: 'boulder-areas/:id',
-              name: 'boulder_area_details',
+              path: BoulderAreaDetailsScreen.route.path,
+              name: BoulderAreaDetailsScreen.route.name,
               builder: (context, state) {
                 return RepositoryProvider(
                   create: (context) => RequestStrategy(),
@@ -44,8 +47,8 @@ class Router {
               },
             ),
             GoRoute(
-              path: 'municipalities/:id',
-              name: 'municipality_details',
+              path: MunicipalityDetailsScreen.route.path,
+              name: MunicipalityDetailsScreen.route.name,
               builder: (context, state) {
                 return RepositoryProvider(
                   create: (context) => RequestStrategy(),
@@ -58,12 +61,12 @@ class Router {
           ],
         ),
         GoRoute(
-          path: '/downloads/boulders/:id',
-          name: 'downloaded_boulder_details',
+          path: DownloadedBoulderDetailsScreen.route.path,
+          name: DownloadedBoulderDetailsScreen.route.name,
           builder: (context, state) {
             return RepositoryProvider<RequestStrategy>(
               create: (context) => RequestStrategy(offlineFirst: true),
-              child: BoulderDetailsScreen(
+              child: DownloadedBoulderDetailsScreen(
                 id: state.pathParameters['id']!,
                 boulderAreaIri: state.uri.queryParameters['boulderAreaIri'],
               ),
@@ -71,20 +74,20 @@ class Router {
           },
         ),
         GoRoute(
-          path: '/downloads/boulders-area/:id',
-          name: 'downloaded_boulder_area_details',
+          path: DownloadedBoulderAreaDetailsScreen.route.path,
+          name: DownloadedBoulderAreaDetailsScreen.route.name,
           builder: (context, state) {
             return RepositoryProvider<RequestStrategy>(
               create: (context) => RequestStrategy(offlineFirst: true),
-              child: BoulderAreaDetailsScreen(
+              child: DownloadedBoulderAreaDetailsScreen(
                 id: state.pathParameters['id']!,
               ),
             );
           },
         ),
         GoRoute(
-          path: '/profile',
-          name: 'profile',
+          path: ProfileScreen.route.path,
+          name: ProfileScreen.route.name,
           builder: (context, state) {
             return RepositoryProvider(
               create: (context) => RequestStrategy(),
@@ -93,8 +96,8 @@ class Router {
           },
         ),
         GoRoute(
-          path: '/downloads',
-          name: 'downloads',
+          path: DownloadScreen.route.path,
+          name: DownloadScreen.route.name,
           builder: (context, state) {
             return RepositoryProvider(
               create: (context) => RequestStrategy(),
@@ -103,7 +106,7 @@ class Router {
           },
         ),
       ],
-      initialLocation: '/',
+      initialLocation: BoulderListScreen.route.path,
       observers: [RouterObserver()],
     );
   }

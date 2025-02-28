@@ -9,10 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class MunicipalityDetailsScreen extends StatefulWidget {
-  const MunicipalityDetailsScreen({
-    required this.id,
-    super.key,
-  });
+  const MunicipalityDetailsScreen({required this.id, super.key});
+
+  static const route = (
+    path: 'municipalities/:id',
+    name: 'municipality_details',
+  );
+
   final String id;
 
   @override

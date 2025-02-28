@@ -1,5 +1,6 @@
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,7 +21,7 @@ class MunicipalityDetailsBoulderAreaItem extends StatelessWidget {
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {
         context.pushNamed(
-          'boulder_area_details',
+          BoulderAreaDetailsScreen.route.name,
           pathParameters: {
             'id': boulderArea.iri.replaceAll('/boulder_areas/', ''),
           },

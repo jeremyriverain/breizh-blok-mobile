@@ -1,14 +1,17 @@
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_details_layout.dart';
 import 'package:flutter/material.dart';
 
-class BoulderDetailsScreen extends StatelessWidget {
-  const BoulderDetailsScreen({
+class DownloadedBoulderDetailsScreen extends StatelessWidget {
+  const DownloadedBoulderDetailsScreen({
     required this.id,
     this.boulderAreaIri,
     super.key,
   });
 
-  static const route = (path: 'boulders/:id', name: 'boulder_details');
+  static const route = (
+    path: '/downloads/boulders/:id',
+    name: 'downloaded_boulder_details',
+  );
 
   final String id;
   final String? boulderAreaIri;

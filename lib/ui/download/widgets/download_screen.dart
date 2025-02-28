@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/data/data_sources/local/model/downloaded_boul
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/empty_list_indicator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';
+import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloads_sort_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -11,6 +12,8 @@ import 'package:go_router/go_router.dart';
 
 class DownloadScreen extends StatefulWidget {
   const DownloadScreen({super.key});
+
+  static const route = (path: '/downloads', name: 'downloads');
 
   @override
   State<DownloadScreen> createState() => _DownloadScreenState();
@@ -75,7 +78,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                       trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () {
                         context.pushNamed(
-                          'downloaded_boulder_area_details',
+                          DownloadedBoulderAreaDetailsScreen.route.name,
                           pathParameters: {
                             'id': data[index].boulderAreaIri.replaceAll(
                               '/boulder_areas/',

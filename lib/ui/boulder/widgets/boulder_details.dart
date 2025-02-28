@@ -5,7 +5,10 @@ import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
+import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
+import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
+import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -55,7 +58,7 @@ class BoulderDetails extends StatelessWidget {
                       ? null
                       : () {
                         context.pushNamed(
-                          'municipality_details',
+                          MunicipalityDetailsScreen.route.name,
                           pathParameters: {
                             'id': IriParser.id(municipality.iri),
                           },
@@ -69,8 +72,8 @@ class BoulderDetails extends StatelessWidget {
             onTap: () {
               final routeName =
                   offlineFirst
-                      ? 'downloaded_boulder_area_details'
-                      : 'boulder_area_details';
+                      ? DownloadedBoulderAreaDetailsScreen.route.name
+                      : BoulderAreaDetailsScreen.route.name;
               context.pushNamed(
                 routeName,
                 pathParameters: {

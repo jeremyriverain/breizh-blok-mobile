@@ -1,8 +1,10 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_tile_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_tile_title.dart';
+import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +28,9 @@ class BoulderListBuilderTile extends StatelessWidget {
         onTap: () {
           final offlineFirst = context.read<RequestStrategy>().offlineFirst;
           final routeName =
-              offlineFirst ? 'downloaded_boulder_details' : 'boulder_details';
+              offlineFirst
+                  ? DownloadedBoulderDetailsScreen.route.name
+                  : BoulderDetailsScreen.route.name;
           context.pushNamed(
             routeName,
             pathParameters: {'id': boulder.id},

@@ -17,6 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BoulderListScreen extends StatelessWidget {
   const BoulderListScreen({super.key});
 
+  static const route = (path: '/', name: 'boulder_list');
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<TermsOfUseBloc, bool?>(
