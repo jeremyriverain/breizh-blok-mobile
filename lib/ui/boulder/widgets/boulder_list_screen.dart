@@ -1,7 +1,6 @@
 import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
@@ -30,14 +29,6 @@ class BoulderListScreen extends StatelessWidget {
         builder: (context, state) {
           final currentIndex = state;
           context.read<TermsOfUseBloc>().add(TermsOfUseAcceptanceRequested());
-          if (context.read<BoulderMarkerBloc>().state.markers.isEmpty &&
-              currentIndex == 0) {
-            context.read<BoulderMarkerBloc>().add(
-              BoulderMarkerRequested(
-                filterState: context.read<BoulderFilterBloc>().state,
-              ),
-            );
-          }
 
           return Scaffold(
             appBar: switch (currentIndex) {

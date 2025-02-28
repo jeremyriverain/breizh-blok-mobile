@@ -62,7 +62,6 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        manifestPlaceholders.GMAPS_KEY = dartEnvironmentVariables.GMAPS_KEY    
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

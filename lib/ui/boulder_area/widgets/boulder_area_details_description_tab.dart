@@ -1,6 +1,5 @@
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_map.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_bar_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -57,10 +56,7 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetailsDescriptionTab> {
             ),
           Padding(
             padding: const EdgeInsets.all(20),
-            child: SizedBox(
-              height: 800,
-              child: BoulderAreaDetailsMap(boulderArea: widget.boulderArea),
-            ),
+            child: SizedBox(height: 800, child: Container(color: Colors.red)),
           ),
         ],
       ),

@@ -16,7 +16,6 @@ import GoogleMaps
       dartDefinesDictionary[values[0]] = values[1]
     }
 
-    GMSServices.provideAPIKey(dartDefinesDictionary["GMAPS_KEY"]!)
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
