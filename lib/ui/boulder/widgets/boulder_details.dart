@@ -60,7 +60,8 @@ class BoulderDetails extends StatelessWidget {
                         context.pushNamed(
                           MunicipalityDetailsScreen.route.name,
                           pathParameters: {
-                            'id': IriParser.id(municipality.iri),
+                            MunicipalityDetailsScreen.idParameterName:
+                                IriParser.id(municipality.iri),
                           },
                         );
                       },
@@ -77,7 +78,11 @@ class BoulderDetails extends StatelessWidget {
               context.pushNamed(
                 routeName,
                 pathParameters: {
-                  'id': IriParser.id(boulder.rock.boulderArea.iri),
+                  offlineFirst
+                      ? DownloadedBoulderAreaDetailsScreen.idParameterName
+                      : BoulderAreaDetailsScreen.idParameterName: IriParser.id(
+                    boulder.rock.boulderArea.iri,
+                  ),
                 },
               );
             },

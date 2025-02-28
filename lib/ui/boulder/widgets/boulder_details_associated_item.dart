@@ -25,7 +25,12 @@ class BoulderDetailsAssociatedItem extends StatelessWidget {
                   : BoulderDetailsScreen.route.name;
           context.pushNamed(
             routeName,
-            pathParameters: {'id': boulder.id},
+            pathParameters: {
+              offlineFirst
+                      ? DownloadedBoulderDetailsScreen.idParameterName
+                      : BoulderDetailsScreen.idParameterName:
+                  boulder.id,
+            },
             queryParameters:
                 offlineFirst
                     ? {'boulderAreaIri': boulder.rock.boulderArea.iri}

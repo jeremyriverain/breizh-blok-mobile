@@ -23,6 +23,7 @@
   "closeTheGallery": "Fermer la galerie d'images",
   "closeTheModal": "Fermer la boîte de dialogue",
   "description": "Description",
+  "displayFirst": "Afficher en 1er:",
   "distributionOfBoulders": "Répartition des blocs",
   "distributionOfNBoulders": "Répartition des {num} blocs",
   "@distributionOfNBoulders": {

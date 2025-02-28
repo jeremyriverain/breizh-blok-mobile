@@ -83,7 +83,7 @@ Future<void> main({
 
   GetIt.I.registerSingleton<TrackingService>(TrackingService());
 
-  GetIt.I.registerSingleton<GoRouter>(router);
+  GetIt.I.registerSingleton<GoRouter>(Router()());
 
   await SentryFlutter.init(
     (options) {

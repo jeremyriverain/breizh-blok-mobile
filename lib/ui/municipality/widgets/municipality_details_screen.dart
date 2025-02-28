@@ -12,9 +12,11 @@ class MunicipalityDetailsScreen extends StatefulWidget {
   const MunicipalityDetailsScreen({required this.id, super.key});
 
   static const route = (
-    path: 'municipalities/:id',
+    path: '/:$idParameterName',
     name: 'municipality_details',
   );
+
+  static const idParameterName = 'municipalityId';
 
   final String id;
 

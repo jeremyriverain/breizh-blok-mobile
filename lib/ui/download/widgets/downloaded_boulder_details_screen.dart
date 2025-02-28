@@ -9,9 +9,11 @@ class DownloadedBoulderDetailsScreen extends StatelessWidget {
   });
 
   static const route = (
-    path: '/downloads/boulders/:id',
+    path: '/boulders/:$idParameterName',
     name: 'downloaded_boulder_details',
   );
+
+  static const idParameterName = 'downloadedBoulderId';
 
   final String id;
   final String? boulderAreaIri;

@@ -5,9 +5,11 @@ class BoulderAreaDetailsScreen extends StatelessWidget {
   const BoulderAreaDetailsScreen({required this.id, super.key});
 
   static const route = (
-    path: 'boulder-areas/:id',
+    path: '/boulder-areas/:$idParameterName',
     name: 'boulder_area_details',
   );
+
+  static const idParameterName = 'boulderAreaId';
 
   final String id;
 

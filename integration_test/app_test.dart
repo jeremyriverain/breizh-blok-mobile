@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, avoid_dynamic_calls
+// ignore_for_file: avoid_print, avoid_dynamic_calls, lines_longer_than_80_chars
 
 import 'dart:async';
 import 'dart:convert';
@@ -260,9 +260,6 @@ void main() async {
     expect(find.text('Téléchargements'), findsOneWidget);
     expect(find.text('Aucun téléchargement'), findsOneWidget);
 
-    (tester.state(find.byType(Navigator)) as NavigatorState).pop();
-    await tester.pumpAndSettle();
-
     await tester.tap(find.text('Sites').first);
     await tester.pumpAndSettle();
 
@@ -294,16 +291,14 @@ void main() async {
 
     expect(find.byKey(const Key('area_downloaded')), findsOneWidget);
 
-    final navigator =
-        (tester.state(find.byType(Navigator)) as NavigatorState)..pop();
-    await tester.pumpAndSettle();
-    navigator.pop();
-    await tester.pumpAndSettle();
-
     await tester.tap(find.text('Mon profil').first);
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Téléchargements').first);
-    await tester.pumpAndSettle();
+    // await tester.tap(find.text('Mon profil').first);
+    // await tester.pumpAndSettle();
+    // await tester.tap(find.text('Téléchargements'));
+    // await tester.pumpAndSettle();
+
+    expect(find.text('Téléchargements'), findsOneWidget);
 
     expect(
       find.descendant(
@@ -379,7 +374,7 @@ void main() async {
       findsOneWidget,
     );
 
-    navigator.pop();
+    await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
 
     await tester.pump(const Duration(seconds: 6));
@@ -393,7 +388,6 @@ void main() async {
       findsOneWidget,
     );
 
-    // ignore: lines_longer_than_80_chars
     final requestBodyReference =
         jsonDecode(dbRequest.responseBody) as Map<String, dynamic>;
 
@@ -466,7 +460,7 @@ void main() async {
     );
 
     await sortByLabel(tester: tester, label: 'Les plus récents');
-    navigator.pop();
+    await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
 
     await tester.pump(const Duration(seconds: 5));
@@ -863,8 +857,8 @@ void main() async {
 
   testWidgets(
     '''
-can quickly go to the top of the screen if I scroll,
-by clicking on the "scroll to to the top" button''',
+  can quickly go to the top of the screen if I scroll,
+  by clicking on the "scroll to to the top" button''',
     (WidgetTester tester) async {
       await runApplication(tester: tester);
       const keyBackToTopButton = Key('boulder-list-back-to-top-button');
@@ -892,7 +886,6 @@ by clicking on the "scroll to to the top" button''',
     },
   );
 
-  // ignore: lines_longer_than_80_chars
   testWidgets('I go to the municipality details page from the boulder details page', (
     WidgetTester tester,
   ) async {
@@ -924,7 +917,6 @@ by clicking on the "scroll to to the top" button''',
     await tester.pumpAndSettle();
 
     print(
-      // ignore: lines_longer_than_80_chars
       'municipality ref => ${boulderReference.rock.boulderArea.municipality?.name}',
     );
     expect(
@@ -946,7 +938,6 @@ by clicking on the "scroll to to the top" button''',
       httpClient: httpClient,
     );
     print(
-      // ignore: lines_longer_than_80_chars
       'municipality IRI: ${boulderReference.rock.boulderArea.municipality?.iri}',
     );
     final municipalityReference = await municipalityRepository.find(

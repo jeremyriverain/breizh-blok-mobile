@@ -27,73 +27,31 @@ final _profileShellNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'profileShell',
 );
 
-final router = GoRouter(
-  navigatorKey: _rootNavigatorKey,
-  initialLocation: BoulderListScreen.route.path,
-  observers: [RouterObserver()],
-  routes: [
-    StatefulShellRoute.indexedStack(
-      builder: (_, __, navigationShell) {
-        return ScaffoldWithNestedNavigation(navigationShell);
-      },
-      branches: <StatefulShellBranch>[
-        StatefulShellBranch(
-          navigatorKey: _boulderListShellNavigatorKey,
-          routes: <RouteBase>[
-            GoRoute(
-              path: BoulderListScreen.route.path,
-              name: BoulderListScreen.route.name,
-              pageBuilder:
-                  (_, _) => NoTransitionPage(
-                    child: RepositoryProvider(
-                      create: (context) => RequestStrategy(),
-                      child: const BoulderListScreen(),
-                    ),
-                  ),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _mapShellNavigatorKey,
-          routes: <RouteBase>[
-            GoRoute(
-              path: MapScreen.route.path,
-              name: MapScreen.route.name,
-              pageBuilder:
-                  (_, _) => NoTransitionPage(
-                    child: RepositoryProvider(
-                      create: (context) => RequestStrategy(offlineFirst: true),
-                      child: const MapScreen(),
-                    ),
-                  ),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _sitesShellNavigatorKey,
-          routes: <RouteBase>[
-            GoRoute(
-              path: MunicipalityListScreen.route.path,
-              name: MunicipalityListScreen.route.name,
-              pageBuilder:
-                  (_, __) => NoTransitionPage(
-                    child: RepositoryProvider(
-                      create: (context) => RequestStrategy(),
-                      child: const MunicipalityListScreen(),
-                    ),
-                  ),
-              routes: [
+class Router {
+  GoRouter call() {
+    return GoRouter(
+      navigatorKey: _rootNavigatorKey,
+      initialLocation: BoulderListScreen.route.path,
+      routes: [
+        StatefulShellRoute.indexedStack(
+          builder: (_, __, navigationShell) {
+            return ScaffoldWithNestedNavigation(navigationShell);
+          },
+          branches: <StatefulShellBranch>[
+            StatefulShellBranch(
+              navigatorKey: _boulderListShellNavigatorKey,
+              observers: [RouterObserver()],
+              routes: <RouteBase>[
                 GoRoute(
-                  path: MunicipalityDetailsScreen.route.path,
-                  name: MunicipalityDetailsScreen.route.name,
-                  builder: (context, state) {
-                    return RepositoryProvider(
-                      create: (context) => RequestStrategy(),
-                      child: MunicipalityDetailsScreen(
-                        id: state.pathParameters['id']!,
+                  path: BoulderListScreen.route.path,
+                  name: BoulderListScreen.route.name,
+                  pageBuilder:
+                      (_, _) => NoTransitionPage(
+                        child: RepositoryProvider(
+                          create: (context) => RequestStrategy(),
+                          child: const BoulderListScreen(),
+                        ),
                       ),
-                    );
-                  },
                   routes: [
                     GoRoute(
                       path: BoulderAreaDetailsScreen.route.path,
@@ -102,19 +60,142 @@ final router = GoRouter(
                         return RepositoryProvider(
                           create: (context) => RequestStrategy(),
                           child: BoulderAreaDetailsScreen(
-                            id: state.pathParameters['id']!,
+                            id:
+                                state.pathParameters[BoulderAreaDetailsScreen
+                                    .idParameterName]!,
                           ),
+                        );
+                      },
+                    ),
+                    GoRoute(
+                      path: BoulderDetailsScreen.route.path,
+                      name: BoulderDetailsScreen.route.name,
+                      builder: (context, state) {
+                        return RepositoryProvider(
+                          create: (context) => RequestStrategy(),
+                          child: BoulderDetailsScreen(
+                            id:
+                                state.pathParameters[BoulderDetailsScreen
+                                    .idParameterName]!,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _mapShellNavigatorKey,
+              observers: [RouterObserver()],
+              routes: <RouteBase>[
+                GoRoute(
+                  path: MapScreen.route.path,
+                  name: MapScreen.route.name,
+                  pageBuilder:
+                      (_, _) => NoTransitionPage(
+                        child: RepositoryProvider(
+                          create:
+                              (context) => RequestStrategy(offlineFirst: true),
+                          child: const MapScreen(),
+                        ),
+                      ),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _sitesShellNavigatorKey,
+              observers: [RouterObserver()],
+              routes: <RouteBase>[
+                GoRoute(
+                  path: MunicipalityListScreen.route.path,
+                  name: MunicipalityListScreen.route.name,
+                  pageBuilder:
+                      (_, __) => NoTransitionPage(
+                        child: RepositoryProvider(
+                          create: (context) => RequestStrategy(),
+                          child: const MunicipalityListScreen(),
+                        ),
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: MunicipalityDetailsScreen.route.path,
+                      name: MunicipalityDetailsScreen.route.name,
+                      builder: (context, state) {
+                        return RepositoryProvider(
+                          create: (context) => RequestStrategy(),
+                          child: MunicipalityDetailsScreen(
+                            id:
+                                state.pathParameters[MunicipalityDetailsScreen
+                                    .idParameterName]!,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _profileShellNavigatorKey,
+              observers: [RouterObserver()],
+              routes: <RouteBase>[
+                GoRoute(
+                  path: ProfileScreen.route.path,
+                  name: ProfileScreen.route.name,
+                  pageBuilder:
+                      (_, __) => NoTransitionPage(
+                        child: RepositoryProvider(
+                          create: (context) => RequestStrategy(),
+                          child: const ProfileScreen(),
+                        ),
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: DownloadScreen.route.path,
+                      name: DownloadScreen.route.name,
+                      builder: (context, state) {
+                        return RepositoryProvider<RequestStrategy>(
+                          create:
+                              (context) => RequestStrategy(offlineFirst: true),
+                          child: const DownloadScreen(),
                         );
                       },
                       routes: [
                         GoRoute(
-                          path: BoulderDetailsScreen.route.path,
-                          name: BoulderDetailsScreen.route.name,
+                          path: DownloadedBoulderDetailsScreen.route.path,
+                          name: DownloadedBoulderDetailsScreen.route.name,
                           builder: (context, state) {
-                            return RepositoryProvider(
-                              create: (context) => RequestStrategy(),
-                              child: BoulderDetailsScreen(
-                                id: state.pathParameters['id']!,
+                            return RepositoryProvider<RequestStrategy>(
+                              create:
+                                  (context) =>
+                                      RequestStrategy(offlineFirst: true),
+                              child: DownloadedBoulderDetailsScreen(
+                                id:
+                                    state
+                                        // ignore: lines_longer_than_80_chars
+                                        .pathParameters[DownloadedBoulderDetailsScreen
+                                        .idParameterName]!,
+                                boulderAreaIri:
+                                    state.uri.queryParameters['boulderAreaIri'],
+                              ),
+                            );
+                          },
+                        ),
+                        GoRoute(
+                          path: DownloadedBoulderAreaDetailsScreen.route.path,
+                          name: DownloadedBoulderAreaDetailsScreen.route.name,
+                          builder: (context, state) {
+                            return RepositoryProvider<RequestStrategy>(
+                              create:
+                                  (context) =>
+                                      RequestStrategy(offlineFirst: true),
+                              child: DownloadedBoulderAreaDetailsScreen(
+                                id:
+                                    state
+                                        // ignore: lines_longer_than_80_chars
+                                        .pathParameters[DownloadedBoulderAreaDetailsScreen
+                                        .idParameterName]!,
                               ),
                             );
                           },
@@ -127,65 +208,7 @@ final router = GoRouter(
             ),
           ],
         ),
-        StatefulShellBranch(
-          navigatorKey: _profileShellNavigatorKey,
-          routes: <RouteBase>[
-            GoRoute(
-              path: ProfileScreen.route.path,
-              name: ProfileScreen.route.name,
-              pageBuilder:
-                  (_, __) => NoTransitionPage(
-                    child: RepositoryProvider(
-                      create: (context) => RequestStrategy(),
-                      child: const ProfileScreen(),
-                    ),
-                  ),
-              routes: [
-                GoRoute(
-                  path: DownloadScreen.route.path,
-                  name: DownloadScreen.route.name,
-                  builder: (context, state) {
-                    return RepositoryProvider<RequestStrategy>(
-                      create: (context) => RequestStrategy(offlineFirst: true),
-                      child: const DownloadScreen(),
-                    );
-                  },
-                  routes: [
-                    GoRoute(
-                      path: DownloadedBoulderDetailsScreen.route.path,
-                      name: DownloadedBoulderDetailsScreen.route.name,
-                      builder: (context, state) {
-                        return RepositoryProvider<RequestStrategy>(
-                          create:
-                              (context) => RequestStrategy(offlineFirst: true),
-                          child: DownloadedBoulderDetailsScreen(
-                            id: state.pathParameters['id']!,
-                            boulderAreaIri:
-                                state.uri.queryParameters['boulderAreaIri'],
-                          ),
-                        );
-                      },
-                    ),
-                    GoRoute(
-                      path: DownloadedBoulderAreaDetailsScreen.route.path,
-                      name: DownloadedBoulderAreaDetailsScreen.route.name,
-                      builder: (context, state) {
-                        return RepositoryProvider<RequestStrategy>(
-                          create:
-                              (context) => RequestStrategy(offlineFirst: true),
-                          child: DownloadedBoulderAreaDetailsScreen(
-                            id: state.pathParameters['id']!,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
       ],
-    ),
-  ],
-);
+    );
+  }
+}

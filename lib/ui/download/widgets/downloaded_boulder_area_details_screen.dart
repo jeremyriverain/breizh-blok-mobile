@@ -5,9 +5,11 @@ class DownloadedBoulderAreaDetailsScreen extends StatelessWidget {
   const DownloadedBoulderAreaDetailsScreen({required this.id, super.key});
 
   static const route = (
-    path: '/downloads/boulders-area/:id',
+    path: '/boulders-area/:$idParameterName',
     name: 'downloaded_boulder_area_details',
   );
+
+  static const idParameterName = 'downloadedBoulderAreaId';
 
   final String id;
 

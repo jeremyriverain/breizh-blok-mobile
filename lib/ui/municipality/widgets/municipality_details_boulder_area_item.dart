@@ -23,7 +23,8 @@ class MunicipalityDetailsBoulderAreaItem extends StatelessWidget {
         context.pushNamed(
           BoulderAreaDetailsScreen.route.name,
           pathParameters: {
-            'id': boulderArea.iri.replaceAll('/boulder_areas/', ''),
+            BoulderAreaDetailsScreen.idParameterName: boulderArea.iri
+                .replaceAll('/boulder_areas/', ''),
           },
         );
       },

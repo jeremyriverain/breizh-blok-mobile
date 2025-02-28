@@ -66,7 +66,8 @@ class _MunicipalityListScreenState extends State<MunicipalityListScreen> {
                           context.pushNamed(
                             MunicipalityDetailsScreen.route.name,
                             pathParameters: {
-                              'id': municipality.iri.replaceAll(
+                              MunicipalityDetailsScreen
+                                  .idParameterName: municipality.iri.replaceAll(
                                 '/municipalities/',
                                 '',
                               ),

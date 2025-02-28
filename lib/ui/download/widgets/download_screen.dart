@@ -80,10 +80,9 @@ class _DownloadScreenState extends State<DownloadScreen> {
                         context.pushNamed(
                           DownloadedBoulderAreaDetailsScreen.route.name,
                           pathParameters: {
-                            'id': data[index].boulderAreaIri.replaceAll(
-                              '/boulder_areas/',
-                              '',
-                            ),
+                            DownloadedBoulderAreaDetailsScreen
+                                .idParameterName: data[index].boulderAreaIri
+                                .replaceAll('/boulder_areas/', ''),
                           },
                         );
                       },
