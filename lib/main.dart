@@ -5,7 +5,6 @@ import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
@@ -60,8 +59,6 @@ Future<void> main({
 
   final imageBoulderCache = ImageBoulderCache();
 
-  final tabBloc = TabBloc();
-
   final boulderFilterBloc = BoulderFilterBloc(const BoulderFilterState());
 
   final boulderOrderBloc = BoulderOrderBloc(
@@ -86,7 +83,7 @@ Future<void> main({
 
   GetIt.I.registerSingleton<TrackingService>(TrackingService());
 
-  GetIt.I.registerSingleton<GoRouter>(Router()());
+  GetIt.I.registerSingleton<GoRouter>(router);
 
   await SentryFlutter.init(
     (options) {
@@ -143,9 +140,6 @@ Future<void> main({
                 ),
                 BlocProvider<BoulderFilterGradeBloc>(
                   create: (BuildContext context) => boulderFilterGradeBloc,
-                ),
-                BlocProvider<TabBloc>(
-                  create: (BuildContext context) => tabBloc,
                 ),
                 BlocProvider<MapPermissionBloc>(
                   create:
