@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_description_tab.dart';
@@ -25,10 +23,7 @@ void main() {
         ),
       );
 
-      expect(
-        find.text('Répartition des 3 blocs'),
-        findsOneWidget,
-      );
+      expect(find.text('Répartition des 3 blocs'), findsOneWidget);
     });
   });
 }

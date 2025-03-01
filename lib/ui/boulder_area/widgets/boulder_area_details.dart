@@ -1,7 +1,4 @@
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
@@ -10,7 +7,6 @@ import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_
 import 'package:breizh_blok_mobile/ui/core/widgets/lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderAreaDetails extends StatefulWidget {
   const BoulderAreaDetails({required this.boulderArea, super.key});
@@ -39,12 +35,6 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
         });
       }
     });
-    context.read<BoulderMarkerBloc>().add(
-      BoulderMarkerRequested(
-        filterState: context.read<BoulderFilterBloc>().state,
-        offlineFirst: context.read<RequestStrategy>().offlineFirst,
-      ),
-    );
     super.initState();
   }
 

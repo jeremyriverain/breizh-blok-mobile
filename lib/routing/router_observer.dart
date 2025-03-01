@@ -7,9 +7,10 @@ class RouterObserver extends NavigatorObserver {
   String get location {
     final lastMatch =
         GetIt.I<GoRouter>().routerDelegate.currentConfiguration.last;
-    final matchList = lastMatch is ImperativeRouteMatch
-        ? lastMatch.matches
-        : GetIt.I<GoRouter>().routerDelegate.currentConfiguration;
+    final matchList =
+        lastMatch is ImperativeRouteMatch
+            ? lastMatch.matches
+            : GetIt.I<GoRouter>().routerDelegate.currentConfiguration;
     final location = matchList.uri.toString();
     return location;
   }
@@ -17,6 +18,9 @@ class RouterObserver extends NavigatorObserver {
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPush(route, previousRoute);
+
+    debugPrint('didPush');
+    debugPrint(location);
 
     GetIt.I<TrackingService>().trackPageViewed(
       path: location,
@@ -27,6 +31,9 @@ class RouterObserver extends NavigatorObserver {
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPop(route, previousRoute);
+
+    debugPrint('didPop');
+    debugPrint(location);
 
     GetIt.I<TrackingService>().trackPageViewed(
       path: location,

@@ -55,6 +55,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get description => 'Description';
 
   @override
+  String get displayFirst => 'Afficher en 1er:';
+
+  @override
   String get distributionOfBoulders => 'Répartition des blocs';
 
   @override

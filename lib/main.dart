@@ -2,12 +2,9 @@ import 'dart:io';
 
 import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_marker_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/map_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/tab_bloc.dart';
 import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
@@ -15,7 +12,6 @@ import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
-import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
@@ -63,10 +59,6 @@ Future<void> main({
 
   final imageBoulderCache = ImageBoulderCache();
 
-  final tabBloc = TabBloc();
-
-  final mapBloc = MapBloc();
-
   final boulderFilterBloc = BoulderFilterBloc(const BoulderFilterState());
 
   final boulderOrderBloc = BoulderOrderBloc(
@@ -75,13 +67,6 @@ Future<void> main({
 
   final boulderFilterGradeBloc = BoulderFilterGradeBloc(
     const BoulderFilterGradeState(),
-  );
-  final boulderMarkerRepository = BoulderMarkerRepository(
-    httpClient: httpClient,
-  );
-
-  final boulderMarkerBloc = BoulderMarkerBloc(
-    repository: boulderMarkerRepository,
   );
 
   final appShareContentService = shareContentService ?? ShareContentService();
@@ -113,9 +98,6 @@ Future<void> main({
               RepositoryProvider<BoulderAreaRepository>(
                 create:
                     (context) => BoulderAreaRepository(httpClient: httpClient),
-              ),
-              RepositoryProvider<BoulderMarkerRepository>(
-                create: (context) => boulderMarkerRepository,
               ),
               RepositoryProvider<BoulderRepository>(
                 create: (context) => BoulderRepository(httpClient: httpClient),
@@ -158,15 +140,6 @@ Future<void> main({
                 ),
                 BlocProvider<BoulderFilterGradeBloc>(
                   create: (BuildContext context) => boulderFilterGradeBloc,
-                ),
-                BlocProvider<BoulderMarkerBloc>(
-                  create: (BuildContext context) => boulderMarkerBloc,
-                ),
-                BlocProvider<TabBloc>(
-                  create: (BuildContext context) => tabBloc,
-                ),
-                BlocProvider<MapBloc>(
-                  create: (BuildContext context) => mapBloc,
                 ),
                 BlocProvider<MapPermissionBloc>(
                   create:
