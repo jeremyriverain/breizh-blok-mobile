@@ -293,10 +293,6 @@ void main() async {
 
     await tester.tap(find.text('Mon profil').first);
     await tester.pumpAndSettle();
-    // await tester.tap(find.text('Mon profil').first);
-    // await tester.pumpAndSettle();
-    // await tester.tap(find.text('Téléchargements'));
-    // await tester.pumpAndSettle();
 
     expect(find.text('Téléchargements'), findsOneWidget);
 

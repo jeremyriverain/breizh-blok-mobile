@@ -4,7 +4,6 @@ import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart'
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_description_tab.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_list_tab.dart';
-import 'package:breizh_blok_mobile/ui/core/widgets/lazy_indexed_stack.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:flutter/material.dart';
 
@@ -57,49 +56,44 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
       Tab(text: localizations.description),
     ];
 
-    final tabViews = [
-      BoulderAreaDetailsListTab(boulderArea: widget.boulderArea),
-      BoulderAreaDetailsDescriptionTab(boulderArea: widget.boulderArea),
-    ];
-
     final municipality = widget.municipality;
 
-    return DefaultTabController(
-      length: tabs.length,
-      child: Scaffold(
-        appBar: AppBar(
-          key: const Key('boulder-area-details-app-bar'),
-          title: Column(
-            children: [
-              Text.rich(
-                TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: widget.boulderArea.name,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    if (municipality != null)
-                      TextSpan(text: ' (${municipality.name})'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            ShareButton(
-              content: AppLocalizations.of(context).shareableBoulderArea(
-                boulderAreaName: widget.boulderArea.name,
-                municipalityName: widget.boulderArea.municipality?.name ?? '',
-                boulderAreaIri: IriParser.id(widget.boulderArea.iri),
+    return Scaffold(
+      appBar: AppBar(
+        key: const Key('boulder-area-details-app-bar'),
+        title: Column(
+          children: [
+            Text.rich(
+              TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: widget.boulderArea.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  if (municipality != null)
+                    TextSpan(text: ' (${municipality.name})'),
+                ],
               ),
             ),
           ],
-          bottom: TabBar(controller: _tabController, tabs: tabs),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: LazyIndexedStack(index: _currentIndex, children: tabViews),
-        ),
+        actions: [
+          ShareButton(
+            content: AppLocalizations.of(context).shareableBoulderArea(
+              boulderAreaName: widget.boulderArea.name,
+              municipalityName: widget.boulderArea.municipality?.name ?? '',
+              boulderAreaIri: IriParser.id(widget.boulderArea.iri),
+            ),
+          ),
+        ],
+        bottom: TabBar(controller: _tabController, tabs: tabs),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          BoulderAreaDetailsListTab(boulderArea: widget.boulderArea),
+          BoulderAreaDetailsDescriptionTab(boulderArea: widget.boulderArea),
+        ],
       ),
     );
   }

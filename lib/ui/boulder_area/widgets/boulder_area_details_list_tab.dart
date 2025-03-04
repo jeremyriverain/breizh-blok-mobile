@@ -9,16 +9,21 @@ import 'package:breizh_blok_mobile/ui/core/widgets/downloads_area_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BoulderAreaDetailsListTab extends StatelessWidget {
-  const BoulderAreaDetailsListTab({
-    required this.boulderArea,
-    super.key,
-  });
+class BoulderAreaDetailsListTab extends StatefulWidget {
+  const BoulderAreaDetailsListTab({required this.boulderArea, super.key});
 
   final BoulderArea boulderArea;
 
   @override
+  State<BoulderAreaDetailsListTab> createState() =>
+      _BoulderAreaDetailsListTabState();
+}
+
+class _BoulderAreaDetailsListTabState extends State<BoulderAreaDetailsListTab>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BoulderListBuilder(
       boulderFilterBloc: context.read<BoulderFilterBloc>(),
       onPageRequested: (int page) {
@@ -27,7 +32,7 @@ class BoulderAreaDetailsListTab extends StatelessWidget {
 
         if (context.read<RequestStrategy>().offlineFirst) {
           return DbBouldersRequested(
-            boulderArea: boulderArea,
+            boulderArea: widget.boulderArea,
             orderParam: orderBlocState,
             grades: grades,
           );
@@ -42,10 +47,11 @@ class BoulderAreaDetailsListTab extends StatelessWidget {
           grades: grades,
         );
       },
-      bottomHeaderWidget: DownloadsAreaButton(
-        boulderArea: boulderArea,
-      ),
+      bottomHeaderWidget: DownloadsAreaButton(boulderArea: widget.boulderArea),
       showLocationinfo: false,
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -17,7 +17,7 @@ class DownloadsAreaButton extends StatelessWidget {
 
   final BoulderArea boulderArea;
 
-  Future<void> _onChanged(BuildContext context, bool value) async {
+  Future<void> _onChanged(BuildContext context, {required bool value}) async {
     final token = RootIsolateToken.instance;
 
     final connection =
@@ -60,52 +60,73 @@ class DownloadsAreaButton extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active ||
             snapshot.connectionState == ConnectionState.done) {
           final data = snapshot.data;
-          final valueCheckbox = data != null;
+          final isDownload = data != null;
 
-          final key =
-              data != null && data.downloadProgress == 100
-                  ? const Key('area_downloaded')
-                  : null;
-          return Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Transform.scale(
-                  alignment: Alignment.centerRight,
-                  scale: .8,
-                  child: Switch(
-                    value: valueCheckbox,
-                    onChanged: (value) => _onChanged(context, value),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => _onChanged(context, !valueCheckbox),
-                child: Text(
-                  AppLocalizations.of(context).download.toUpperCase(),
-                  key: key,
-                ),
-              ),
-              if (data != null && data.downloadProgress != 100)
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: SizedBox(
-                    width: 15,
-                    height: 15,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 3,
-                      value:
-                          data.downloadProgress == 0
-                              ? null
-                              : data.downloadProgress / 100,
-                    ),
-                  ),
-                ),
-            ],
+          return _DownloadButton(
+            isDownload: isDownload,
+            onChanged: _onChanged,
+            downloadProgress: data?.downloadProgress,
           );
         }
-        return const SizedBox(height: 15, width: 15);
+        return const _DownloadButton(isDownload: false);
       },
+    );
+  }
+}
+
+class _DownloadButton extends StatelessWidget {
+  const _DownloadButton({
+    required this.isDownload,
+    this.downloadProgress,
+    this.onChanged,
+  });
+
+  final int? downloadProgress;
+  final bool isDownload;
+  final Future<void> Function(BuildContext context, {required bool value})?
+  onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final onChanged = this.onChanged;
+    final downloadProgress = this.downloadProgress;
+
+    final key = downloadProgress == 100 ? const Key('area_downloaded') : null;
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: Switch(
+            value: isDownload,
+            onChanged:
+                onChanged != null
+                    ? (value) => onChanged(context, value: value)
+                    : null,
+          ),
+        ),
+        GestureDetector(
+          onTap:
+              onChanged != null
+                  ? () => onChanged(context, value: !isDownload)
+                  : null,
+          child: Text(
+            AppLocalizations.of(context).download.toUpperCase(),
+            key: key,
+          ),
+        ),
+        if (downloadProgress != null && downloadProgress != 100)
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: SizedBox(
+              width: 15,
+              height: 15,
+              child: CircularProgressIndicator(
+                strokeWidth: 3,
+                value: downloadProgress == 0 ? null : downloadProgress / 100,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }
