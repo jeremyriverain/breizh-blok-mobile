@@ -9,13 +9,13 @@ class SortButton extends StatefulWidget {
     required this.choices,
     required this.onChanged,
     super.key,
-    this.label = 'Afficher en 1er:',
+    this.label,
     this.initialSelected,
   });
 
   final List<ApiOrderChoice> choices;
   final void Function(ApiOrderParam) onChanged;
-  final String label;
+  final String? label;
   final ApiOrderParam? initialSelected;
 
   @override
@@ -49,7 +49,10 @@ class _SortButtonState extends State<SortButton> {
               (dialogContext) => AlertDialog(
                 alignment: Alignment.topCenter,
                 contentPadding: EdgeInsets.zero,
-                title: Text(widget.label),
+                title: Text(
+                  widget.label ??
+                      AppLocalizations.of(dialogContext).displayFirst,
+                ),
                 content: Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Column(
@@ -67,7 +70,7 @@ class _SortButtonState extends State<SortButton> {
                               _value = value;
                             });
                             widget.onChanged(value);
-                            Navigator.of(context).pop();
+                            Navigator.of(dialogContext).pop();
                           },
                           title: Text(orderChoice.label),
                         ),

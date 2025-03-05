@@ -1,4 +1,5 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,7 +32,7 @@ class NotFoundScreen extends StatelessWidget {
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
-                  context.push('/');
+                  context.push(BoulderListScreen.route.path);
                 },
                 child: Text(AppLocalizations.of(context).goToHomepage),
               ),

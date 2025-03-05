@@ -7,7 +7,6 @@ Application mobile (disponible sur iOS et Android) répertoriant les blocs d'esc
 Définissez les variables d'environnement suivantes:
 
 - `BREIZH_BLOK_API_HOST` (hôte de l'API, par exemple `api.example.com`)
-- `BREIZH_BLOK_GMAPS_KEY` (clé API pour Google Maps)
 - `BREIZH_BLOK_SENTRY_DSN` (facultatif. adresse DSN fournie par Sentry)
 
 ## Pré-requis
@@ -19,7 +18,7 @@ Installez [FVM](https://fvm.app/) qui est utilisé comme gestionnaire de version
 ### Démarrer l'application en mode DEV
 
 ```bash
-fvm flutter run --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN_DEV" --debug
+fvm flutter run --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN_DEV" --debug
 ```
 
 ### Analyse statique de code
@@ -37,7 +36,7 @@ fvm flutter test
 ### Exécuter les tests E2E
 
 ```bash
-fvm flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="GMAPS_KEY=$BREIZH_BLOK_GMAPS_KEY" --dart-define="REQUEST_TIMEOUT=20" 
+fvm flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="REQUEST_TIMEOUT=20" 
 ```
 
 ### Exécuter la génération de code

@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_map.dart';
+import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_itinerary_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_bar_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -12,24 +12,27 @@ class BoulderAreaDetailsDescriptionTab extends StatefulWidget {
 
   final BoulderArea boulderArea;
 
+  @override
+  State<BoulderAreaDetailsDescriptionTab> createState() =>
+      _BoulderAreaDetailsDescriptionTabState();
+}
+
+class _BoulderAreaDetailsDescriptionTabState
+    extends State<BoulderAreaDetailsDescriptionTab>
+    with AutomaticKeepAliveClientMixin {
   int? get numberOfBoulders {
-    return boulderArea.numberOfBouldersGroupedByGrade?.values.reduce(
+    return widget.boulderArea.numberOfBouldersGroupedByGrade?.values.reduce(
       (total, current) => total + current,
     );
   }
 
   @override
-  State<BoulderAreaDetailsDescriptionTab> createState() =>
-      _BoulderAreaDetailsState();
-}
-
-class _BoulderAreaDetailsState extends State<BoulderAreaDetailsDescriptionTab> {
-  @override
   Widget build(BuildContext context) {
+    super.build(context);
     final numberOfBouldersGroupedByGrade =
         widget.boulderArea.numberOfBouldersGroupedByGrade;
 
-    final numOfBoulders = widget.numberOfBoulders;
+    final numOfBoulders = numberOfBoulders;
 
     return SingleChildScrollView(
       child: Column(
@@ -56,14 +59,18 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetailsDescriptionTab> {
               ),
             ),
           Padding(
-            padding: const EdgeInsets.all(20),
-            child: SizedBox(
-              height: 800,
-              child: BoulderAreaDetailsMap(boulderArea: widget.boulderArea),
+            padding: const EdgeInsets.only(top: 28, bottom: 8),
+            child: BoulderAreaDetailsItineraryButton(
+              boulderArea: widget.boulderArea,
             ),
           ),
+
+          SizedBox(height: 800, child: Container(color: Colors.red)),
         ],
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

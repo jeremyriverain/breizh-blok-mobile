@@ -41,9 +41,9 @@ abstract class BoulderArea with _$BoulderArea {
         longitude: centroid.longitude,
       );
     } else {
-      return Location(
-        latitude: kDefaultInitialPosition.latitude,
-        longitude: kDefaultInitialPosition.longitude,
+      return const Location(
+        latitude: kDefaultLatitude,
+        longitude: kDefaultLongitude,
       );
     }
   }

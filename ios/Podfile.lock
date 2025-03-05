@@ -1,13 +1,5 @@
 PODS:
   - Flutter (1.0.0)
-  - google_maps_flutter_ios (0.0.1):
-    - Flutter
-    - GoogleMaps (< 8.0)
-  - GoogleMaps (7.4.0):
-    - GoogleMaps/Maps (= 7.4.0)
-  - GoogleMaps/Base (7.4.0)
-  - GoogleMaps/Maps (7.4.0):
-    - GoogleMaps/Base
   - integration_test (0.0.1):
     - Flutter
   - location (0.0.1):
@@ -60,7 +52,6 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - google_maps_flutter_ios (from `.symlinks/plugins/google_maps_flutter_ios/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - map_launcher (from `.symlinks/plugins/map_launcher/ios`)
@@ -75,7 +66,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - GoogleMaps
     - Mixpanel-swift
     - Sentry
     - sqlite3
@@ -83,8 +73,6 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  google_maps_flutter_ios:
-    :path: ".symlinks/plugins/google_maps_flutter_ios/ios"
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
   location:
@@ -110,8 +98,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  google_maps_flutter_ios: e523ee12cfa731f83c9200bd54f331bdbfd76a73
-  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
   location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
   map_launcher: fe43bda6720bb73c12fcc1bdd86123ff49a4d4d6
