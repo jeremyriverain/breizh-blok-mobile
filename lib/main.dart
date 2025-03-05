@@ -13,6 +13,7 @@ import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_c
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
@@ -125,6 +126,13 @@ Future<void> main({
               ),
               RepositoryProvider<Location>(
                 create: (context) => Location.instance,
+              ),
+              RepositoryProvider<DownloadedBoulderRepository>(
+                create:
+                    (context) => DownloadedBoulderRepository(
+                      httpClient: httpClient,
+                      database: localDatabase,
+                    ),
               ),
             ],
             child: MultiBlocProvider(

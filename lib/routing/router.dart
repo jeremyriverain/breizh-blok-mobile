@@ -177,7 +177,11 @@ class Router {
                                         .pathParameters[DownloadedBoulderDetailsScreen
                                         .idParameterName]!,
                                 boulderAreaIri:
-                                    state.uri.queryParameters['boulderAreaIri'],
+                                    state
+                                        .uri
+                                        // ignore: lines_longer_than_80_chars
+                                        .queryParameters[DownloadedBoulderDetailsScreen
+                                        .boulderAreaIriParameterName]!,
                               ),
                             );
                           },
