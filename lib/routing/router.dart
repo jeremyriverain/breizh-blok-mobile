@@ -4,12 +4,12 @@ import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dar
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/scaffold_nested_navigation.dart';
+import 'package:breizh_blok_mobile/ui/department/widgets/department_list_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/download_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/map/widgets/map_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
-import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_list_screen.dart';
 import 'package:breizh_blok_mobile/ui/profile/widgets/profile_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -108,13 +108,13 @@ class Router {
               observers: [RouterObserver()],
               routes: <RouteBase>[
                 GoRoute(
-                  path: MunicipalityListScreen.route.path,
-                  name: MunicipalityListScreen.route.name,
+                  path: DepartmentListScreen.route.path,
+                  name: DepartmentListScreen.route.name,
                   pageBuilder:
                       (_, __) => NoTransitionPage(
                         child: RepositoryProvider(
                           create: (context) => RequestStrategy(),
-                          child: const MunicipalityListScreen(),
+                          child: const DepartmentListScreen(),
                         ),
                       ),
                   routes: [
