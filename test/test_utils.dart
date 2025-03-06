@@ -18,5 +18,10 @@ const fakeBoulder = Boulder(
 const fakeDepartment = Department(
   iri: '/departments/foo',
   name: 'Finistère',
-  municipalities: [Municipality(iri: '/municipalities/foo', name: 'Kerlouan')],
+  municipalities: [fakeMunicipality],
+);
+
+const fakeMunicipality = Municipality(
+  iri: '/municipalities/foo',
+  name: 'Kerlouan',
 );
