@@ -485,7 +485,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
           )
           as _i6.Future<int>);
   @override
-  _i6.Future<List<_i10.DownloadedBoulderArea>> allDownloads({
+  _i6.Stream<List<_i10.DownloadedBoulderArea>> allDownloads({
     _i11.ApiOrderParam? orderParam = const _i11.ApiOrderParam(
       direction: 'desc',
       name: 'order[id]',
@@ -493,15 +493,11 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
   }) =>
       (super.noSuchMethod(
             Invocation.method(#allDownloads, [], {#orderParam: orderParam}),
-            returnValue: _i6.Future<List<_i10.DownloadedBoulderArea>>.value(
-              <_i10.DownloadedBoulderArea>[],
-            ),
+            returnValue: _i6.Stream<List<_i10.DownloadedBoulderArea>>.empty(),
             returnValueForMissingStub:
-                _i6.Future<List<_i10.DownloadedBoulderArea>>.value(
-                  <_i10.DownloadedBoulderArea>[],
-                ),
+                _i6.Stream<List<_i10.DownloadedBoulderArea>>.empty(),
           )
-          as _i6.Future<List<_i10.DownloadedBoulderArea>>);
+          as _i6.Stream<List<_i10.DownloadedBoulderArea>>);
   @override
   _i6.Stream<_i2.DbBoulderArea?> watchDownload(String? iri) =>
       (super.noSuchMethod(

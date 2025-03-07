@@ -306,10 +306,10 @@ $ApiOrderParamCopyWith<$Res> get orderParam {
 
 
 class ListDownloadedBoulderAreasError extends ListDownloadedBoulderAreasStates {
-  const ListDownloadedBoulderAreasError({this.error}): super._();
+  const ListDownloadedBoulderAreasError({required this.orderParam}): super._();
   
 
- final  Object? error;
+ final  ApiOrderParam orderParam;
 
 /// Create a copy of ListDownloadedBoulderAreasStates
 /// with the given fields replaced by the non-null parameter values.
@@ -321,16 +321,16 @@ $ListDownloadedBoulderAreasErrorCopyWith<ListDownloadedBoulderAreasError> get co
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ListDownloadedBoulderAreasError&&const DeepCollectionEquality().equals(other.error, error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ListDownloadedBoulderAreasError&&(identical(other.orderParam, orderParam) || other.orderParam == orderParam));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode => Object.hash(runtimeType,orderParam);
 
 @override
 String toString() {
-  return 'ListDownloadedBoulderAreasStates.error(error: $error)';
+  return 'ListDownloadedBoulderAreasStates.error(orderParam: $orderParam)';
 }
 
 
@@ -341,11 +341,11 @@ abstract mixin class $ListDownloadedBoulderAreasErrorCopyWith<$Res> implements $
   factory $ListDownloadedBoulderAreasErrorCopyWith(ListDownloadedBoulderAreasError value, $Res Function(ListDownloadedBoulderAreasError) _then) = _$ListDownloadedBoulderAreasErrorCopyWithImpl;
 @useResult
 $Res call({
- Object? error
+ ApiOrderParam orderParam
 });
 
 
-
+$ApiOrderParamCopyWith<$Res> get orderParam;
 
 }
 /// @nodoc
@@ -358,13 +358,23 @@ class _$ListDownloadedBoulderAreasErrorCopyWithImpl<$Res>
 
 /// Create a copy of ListDownloadedBoulderAreasStates
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? error = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? orderParam = null,}) {
   return _then(ListDownloadedBoulderAreasError(
-error: freezed == error ? _self.error : error ,
+orderParam: null == orderParam ? _self.orderParam : orderParam // ignore: cast_nullable_to_non_nullable
+as ApiOrderParam,
   ));
 }
 
-
+/// Create a copy of ListDownloadedBoulderAreasStates
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ApiOrderParamCopyWith<$Res> get orderParam {
+  
+  return $ApiOrderParamCopyWith<$Res>(_self.orderParam, (value) {
+    return _then(_self.copyWith(orderParam: value));
+  });
+}
 }
 
 // dart format on

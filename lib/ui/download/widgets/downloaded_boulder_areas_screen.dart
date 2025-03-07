@@ -2,7 +2,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.d
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/empty_list_indicator.dart';
-import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/error_indicator.dart';
 import 'package:breizh_blok_mobile/ui/download/view_models/list_downloaded_boulder_areas_view_model.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloads_sort_button.dart';
@@ -94,7 +94,18 @@ class DownloadedBoulderAreasScreen extends StatelessWidget {
                         );
                       },
                     ),
-              ListDownloadedBoulderAreasError() => const ErrorScreen(),
+              ListDownloadedBoulderAreasError(:final orderParam) => Center(
+                child: ErrorIndicator(
+                  onTryAgain:
+                      () => context
+                          .read<ListDownloadedBoulderAreasViewModel>()
+                          .add(
+                            ListDownloadedBoulderAreasEvents.requested(
+                              orderParam: orderParam,
+                            ),
+                          ),
+                ),
+              ),
             };
           },
         ),

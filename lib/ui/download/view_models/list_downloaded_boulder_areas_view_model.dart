@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/downloaded_boulder_area.dart';
@@ -20,19 +22,30 @@ class ListDownloadedBoulderAreasViewModel
           {
             try {
               emit(const ListDownloadedBoulderAreasLoading());
-              final boulderAreas = await _findAll(orderParam: orderParam);
-              emit(
-                ListDownloadedBoulderAreasOK(
-                  boulderAreas: boulderAreas,
-                  orderParam: orderParam,
-                ),
+
+              await _streamSubscription?.cancel();
+
+              final stream = _getDownloadsStream(orderParam: orderParam);
+              _streamSubscription = stream.listen((event) => {});
+
+              await emit.forEach(
+                stream,
+                onData:
+                    (boulderAreas) => ListDownloadedBoulderAreasOK(
+                      boulderAreas: boulderAreas,
+                      orderParam: orderParam,
+                    ),
+                onError:
+                    (_, _) =>
+                        ListDownloadedBoulderAreasError(orderParam: orderParam),
               );
             } catch (e) {
-              emit(ListDownloadedBoulderAreasError(error: e));
+              emit(ListDownloadedBoulderAreasError(orderParam: orderParam));
             }
           }
       }
     });
+
     add(
       const ListDownloadedBoulderAreasRequested(
         orderParam: ApiOrderParam(
@@ -45,10 +58,18 @@ class ListDownloadedBoulderAreasViewModel
 
   final AppDatabase database;
 
-  Future<List<DownloadedBoulderArea>> _findAll({
+  StreamSubscription<List<DownloadedBoulderArea>>? _streamSubscription;
+
+  Stream<List<DownloadedBoulderArea>> _getDownloadsStream({
     required ApiOrderParam orderParam,
-  }) async {
+  }) {
     return database.allDownloads(orderParam: orderParam);
+  }
+
+  @override
+  Future<void> close() async {
+    await _streamSubscription?.cancel();
+    return super.close();
   }
 }
 
@@ -73,6 +94,7 @@ sealed class ListDownloadedBoulderAreasStates
     required List<DownloadedBoulderArea> boulderAreas,
     required ApiOrderParam orderParam,
   }) = ListDownloadedBoulderAreasOK;
-  const factory ListDownloadedBoulderAreasStates.error({Object? error}) =
-      ListDownloadedBoulderAreasError;
+  const factory ListDownloadedBoulderAreasStates.error({
+    required ApiOrderParam orderParam,
+  }) = ListDownloadedBoulderAreasError;
 }

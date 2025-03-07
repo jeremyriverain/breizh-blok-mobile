@@ -251,4 +251,40 @@ void main() {
       );
     });
   });
+
+  testWidgets('List of downloads is reactive', (WidgetTester tester) async {
+    final database = GetIt.I.registerSingleton(
+      AppDatabase(NativeDatabase.memory()),
+    );
+
+    await myPumpAndSettle(tester, widget: const DownloadedBoulderAreasScreen());
+
+    expect(find.text('Aucun téléchargement'), findsOneWidget);
+
+    await createDownload(
+      database,
+      municipalityName: 'Kerlouan',
+      boulerAreaName: 'Petit paradis',
+      boulderAreaIri: '/foo',
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.byType(ListTile), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('/foo')),
+        matching: find.textContaining('Petit paradis', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('/foo')),
+        matching: find.textContaining('Kerlouan', findRichText: true),
+      ),
+      findsOneWidget,
+    );
+  });
 }
