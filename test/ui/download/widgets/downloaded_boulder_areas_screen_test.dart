@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
-import 'package:breizh_blok_mobile/ui/download/widgets/download_screen.dart';
+import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +15,12 @@ void main() {
     await GetIt.I.reset();
   });
 
-  testWidgets('display fallback content if there is no downloads',
-      (WidgetTester tester) async {
-    GetIt.I.registerSingleton(
-      AppDatabase(
-        NativeDatabase.memory(),
-      ),
-    );
+  testWidgets('display fallback content if there is no downloads', (
+    WidgetTester tester,
+  ) async {
+    GetIt.I.registerSingleton(AppDatabase(NativeDatabase.memory()));
 
-    await myPumpAndSettle(tester, widget: const DownloadScreen());
+    await myPumpAndSettle(tester, widget: const DownloadedBoulderAreasScreen());
 
     expect(find.text('Aucun téléchargement'), findsOneWidget);
   });
@@ -34,18 +31,21 @@ void main() {
     required String municipalityName,
     required String boulderAreaIri,
   }) async {
-    await Future.wait(
-      [
-        database.into(database.dbBoulderAreas).insert(
-              DbBoulderAreasCompanion.insert(
-                iri: boulderAreaIri,
-                downloadProgress: 100,
-              ),
+    await Future.wait([
+      database
+          .into(database.dbBoulderAreas)
+          .insert(
+            DbBoulderAreasCompanion.insert(
+              iri: boulderAreaIri,
+              downloadProgress: 100,
             ),
-        database.into(database.dbRequests).insert(
-              DbRequest(
-                requestPath: boulderAreaIri,
-                responseBody: '''
+          ),
+      database
+          .into(database.dbRequests)
+          .insert(
+            DbRequest(
+              requestPath: boulderAreaIri,
+              responseBody: '''
 {
   "name": "$boulerAreaName",
   "municipality": {
@@ -53,17 +53,14 @@ void main() {
   }
 }
 ''',
-              ),
             ),
-      ],
-    );
+          ),
+    ]);
   }
 
   testWidgets('display downloads', (WidgetTester tester) async {
     final database = GetIt.I.registerSingleton(
-      AppDatabase(
-        NativeDatabase.memory(),
-      ),
+      AppDatabase(NativeDatabase.memory()),
     );
 
     await createDownload(
@@ -73,16 +70,13 @@ void main() {
       boulderAreaIri: '/foo',
     );
 
-    await myPumpAndSettle(tester, widget: const DownloadScreen());
+    await myPumpAndSettle(tester, widget: const DownloadedBoulderAreasScreen());
 
     expect(find.byType(ListTile), findsOneWidget);
     expect(
       find.descendant(
         of: find.byKey(const Key('/foo')),
-        matching: find.textContaining(
-          'Petit paradis',
-          findRichText: true,
-        ),
+        matching: find.textContaining('Petit paradis', findRichText: true),
       ),
       findsOneWidget,
     );
@@ -90,10 +84,7 @@ void main() {
     expect(
       find.descendant(
         of: find.byKey(const Key('/foo')),
-        matching: find.textContaining(
-          'Kerlouan',
-          findRichText: true,
-        ),
+        matching: find.textContaining('Kerlouan', findRichText: true),
       ),
       findsOneWidget,
     );
@@ -102,9 +93,7 @@ void main() {
   testWidgets('sort downloaded boulder areas', (WidgetTester tester) async {
     await tester.runAsync(() async {
       final database = GetIt.I.registerSingleton(
-        AppDatabase(
-          NativeDatabase.memory(),
-        ),
+        AppDatabase(NativeDatabase.memory()),
       );
 
       await Future.wait([
@@ -143,7 +132,10 @@ void main() {
         ),
       ]);
 
-      await myPumpAndSettle(tester, widget: const DownloadScreen());
+      await myPumpAndSettle(
+        tester,
+        widget: const DownloadedBoulderAreasScreen(),
+      );
 
       expect(find.byType(ListTile), findsNWidgets(4));
 

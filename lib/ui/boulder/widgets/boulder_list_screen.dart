@@ -1,8 +1,8 @@
-import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_app_bar.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_grade_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

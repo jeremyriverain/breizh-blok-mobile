@@ -3,9 +3,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
@@ -18,6 +15,9 @@ import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/main.dart' as app;
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated_item.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/locale_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/map_permission_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_tile.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';

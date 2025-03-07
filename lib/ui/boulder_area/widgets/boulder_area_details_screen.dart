@@ -1,9 +1,9 @@
-import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/view_models/boulder_area_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/loading_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/not_found_screen.dart';

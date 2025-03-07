@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:breizh_blok_mobile/blocs/boulder_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/boulder/boulder_api_response.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_grade_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_back_to_top_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_results.dart';
@@ -50,9 +50,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
 
   @override
   void initState() {
-    _bloc = BoulderBloc(
-      repository: context.read<BoulderRepository>(),
-    );
+    _bloc = BoulderBloc(repository: context.read<BoulderRepository>());
 
     _pagingController.addPageRequestListener((pageKey) {
       _bloc.add(widget.onPageRequested(pageKey));
@@ -124,9 +122,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
         ),
       ],
       child: RefreshIndicator(
-        onRefresh: () => Future.sync(
-          _pagingController.refresh,
-        ),
+        onRefresh: () => Future.sync(_pagingController.refresh),
         child: SafeArea(
           child: Stack(
             children: [
@@ -140,15 +136,14 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                   right: 10,
                   top: 5,
                 ),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 16,
-                ),
+                separatorBuilder:
+                    (context, index) => const SizedBox(height: 16),
                 builderDelegate: PagedChildBuilderDelegate<Boulder>(
-                  noItemsFoundIndicatorBuilder: (context) =>
-                      const EmptyListIndicator(),
-                  firstPageErrorIndicatorBuilder: (context) => ErrorIndicator(
-                    onTryAgain: _pagingController.refresh,
-                  ),
+                  noItemsFoundIndicatorBuilder:
+                      (context) => const EmptyListIndicator(),
+                  firstPageErrorIndicatorBuilder:
+                      (context) =>
+                          ErrorIndicator(onTryAgain: _pagingController.refresh),
                   itemBuilder: (context, boulder, index) {
                     final tile = BoulderListBuilderTile(
                       boulder: boulder,
@@ -179,9 +174,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                               ],
                             ),
                             if (bottomHeaderWidget != null) bottomHeaderWidget,
-                            const SizedBox(
-                              height: 10,
-                            ),
+                            const SizedBox(height: 10),
                             tile,
                           ],
                         ),

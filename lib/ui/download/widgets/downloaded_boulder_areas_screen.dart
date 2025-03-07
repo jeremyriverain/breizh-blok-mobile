@@ -10,16 +10,18 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-class DownloadScreen extends StatefulWidget {
-  const DownloadScreen({super.key});
+class DownloadedBoulderAreasScreen extends StatefulWidget {
+  const DownloadedBoulderAreasScreen({super.key});
 
   static const route = (path: '/downloads', name: 'downloads');
 
   @override
-  State<DownloadScreen> createState() => _DownloadScreenState();
+  State<DownloadedBoulderAreasScreen> createState() =>
+      _DownloadedBoulderAreasScreenState();
 }
 
-class _DownloadScreenState extends State<DownloadScreen> {
+class _DownloadedBoulderAreasScreenState
+    extends State<DownloadedBoulderAreasScreen> {
   Future<List<DownloadedBoulderArea>> _findDownloads(
     ApiOrderParam orderParam,
   ) async {

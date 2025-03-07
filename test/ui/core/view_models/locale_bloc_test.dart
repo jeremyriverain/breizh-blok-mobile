@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
-import 'package:breizh_blok_mobile/blocs/locale_bloc.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/locale_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';

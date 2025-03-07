@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/download/widgets/download_screen.dart';
+import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:breizh_blok_mobile/ui/profile/widgets/profile_language_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
             title: Text(AppLocalizations.of(context).downloads),
             leading: const Icon(Icons.download_outlined),
             onTap: () {
-              context.pushNamed(DownloadScreen.route.name);
+              context.pushNamed(DownloadedBoulderAreasScreen.route.name);
             },
           ),
           ProfileLanguageSwitcher(

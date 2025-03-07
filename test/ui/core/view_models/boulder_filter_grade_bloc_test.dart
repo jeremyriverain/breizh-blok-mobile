@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_grade_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -13,24 +13,18 @@ void main() {
       },
     );
 
-    const referenceGrade = Grade(
-      iri: '1',
-      name: '6a',
-    );
+    const referenceGrade = Grade(iri: '1', name: '6a');
 
     blocTest<BoulderFilterGradeBloc, BoulderFilterGradeState>(
       'BoulderFilterGrade event OK',
       build: () => BoulderFilterGradeBloc(const BoulderFilterGradeState()),
-      act: (BoulderFilterGradeBloc bloc) => bloc.add(
-        BoulderFilterGradeEvent(
-          {
-            referenceGrade,
-          },
-        ),
-      ),
-      expect: () => [
-        BoulderFilterGradeState(grades: {referenceGrade}),
-      ],
+      act:
+          (BoulderFilterGradeBloc bloc) =>
+              bloc.add(BoulderFilterGradeEvent({referenceGrade})),
+      expect:
+          () => [
+            BoulderFilterGradeState(grades: {referenceGrade}),
+          ],
     );
   });
 }

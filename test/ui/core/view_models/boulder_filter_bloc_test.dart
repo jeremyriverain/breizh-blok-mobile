@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:breizh_blok_mobile/blocs/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -18,11 +18,7 @@ void main() {
     blocTest<BoulderFilterBloc, BoulderFilterState>(
       'BoulderFilterSearched event OK',
       build: () => BoulderFilterBloc(const BoulderFilterState()),
-      act: (BoulderFilterBloc bloc) => bloc.add(
-        BoulderFilterSearched(
-          'cre',
-        ),
-      ),
+      act: (BoulderFilterBloc bloc) => bloc.add(BoulderFilterSearched('cre')),
       expect: () => [const BoulderFilterState(term: 'cre')],
     );
 
@@ -35,20 +31,13 @@ void main() {
     blocTest<BoulderFilterBloc, BoulderFilterState>(
       'BoulderFilterLocation event OK',
       build: () => BoulderFilterBloc(const BoulderFilterState()),
-      act: (BoulderFilterBloc bloc) => bloc.add(
-        BoulderFilterLocation(
-          {
-            referenceBoulderArea,
-          },
-        ),
-      ),
-      expect: () => [
-        BoulderFilterState(
-          boulderAreas: {
-            referenceBoulderArea,
-          },
-        ),
-      ],
+      act:
+          (BoulderFilterBloc bloc) =>
+              bloc.add(BoulderFilterLocation({referenceBoulderArea})),
+      expect:
+          () => [
+            BoulderFilterState(boulderAreas: {referenceBoulderArea}),
+          ],
     );
   });
 }

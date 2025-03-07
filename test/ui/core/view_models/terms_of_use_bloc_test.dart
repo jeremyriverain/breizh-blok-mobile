@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:breizh_blok_mobile/blocs/terms_of_use_bloc.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/terms_of_use_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,8 +15,9 @@ void main() {
       expect: () => [false],
       verify: (TermsOfUseBloc bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
-        final hasAccepted =
-            sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
+        final hasAccepted = sharedPreferences.getBool(
+          TermsOfUseBloc.termsOfUseAcceptanceKey,
+        );
         expect(hasAccepted, null);
       },
     );
@@ -34,8 +35,9 @@ void main() {
       expect: () => [false],
       verify: (TermsOfUseBloc bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
-        final hasAccepted =
-            sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
+        final hasAccepted = sharedPreferences.getBool(
+          TermsOfUseBloc.termsOfUseAcceptanceKey,
+        );
         expect(hasAccepted, false);
       },
     );
@@ -53,8 +55,9 @@ void main() {
       expect: () => [true],
       verify: (TermsOfUseBloc bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
-        final hasAccepted =
-            sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
+        final hasAccepted = sharedPreferences.getBool(
+          TermsOfUseBloc.termsOfUseAcceptanceKey,
+        );
         expect(hasAccepted, true);
       },
     );
@@ -72,8 +75,9 @@ void main() {
       expect: () => [true],
       verify: (TermsOfUseBloc bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
-        final hasAccepted =
-            sharedPreferences.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey);
+        final hasAccepted = sharedPreferences.getBool(
+          TermsOfUseBloc.termsOfUseAcceptanceKey,
+        );
         expect(hasAccepted, true);
       },
     );

@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/blocs/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

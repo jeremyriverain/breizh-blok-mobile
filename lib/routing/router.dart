@@ -5,8 +5,8 @@ import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/scaffold_nested_navigation.dart';
 import 'package:breizh_blok_mobile/ui/department/widgets/department_list_screen.dart';
-import 'package:breizh_blok_mobile/ui/download/widgets/download_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
+import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/map/widgets/map_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
@@ -152,13 +152,13 @@ class Router {
                       ),
                   routes: [
                     GoRoute(
-                      path: DownloadScreen.route.path,
-                      name: DownloadScreen.route.name,
+                      path: DownloadedBoulderAreasScreen.route.path,
+                      name: DownloadedBoulderAreasScreen.route.name,
                       builder: (context, state) {
                         return RepositoryProvider<RequestStrategy>(
                           create:
                               (context) => RequestStrategy(offlineFirst: true),
-                          child: const DownloadScreen(),
+                          child: const DownloadedBoulderAreasScreen(),
                         );
                       },
                       routes: [
