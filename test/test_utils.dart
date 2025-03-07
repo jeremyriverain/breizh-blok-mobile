@@ -10,7 +10,7 @@ const fakeBoulder = Boulder(
   name: 'Obelix',
   rock: Rock(
     iri: '/rocks/foo',
-    boulderArea: BoulderArea(iri: '/boulder_areas/foo', name: 'Kerlouan'),
+    boulderArea: fakeBoulderArea,
     location: Location(latitude: 49, longitude: 49),
   ),
 );
@@ -25,3 +25,5 @@ const fakeMunicipality = Municipality(
   iri: '/municipalities/foo',
   name: 'Kerlouan',
 );
+
+const fakeBoulderArea = BoulderArea(iri: '/boulder_areas/foo', name: 'Cremiou');
