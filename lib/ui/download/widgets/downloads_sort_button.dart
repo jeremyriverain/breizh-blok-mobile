@@ -23,7 +23,10 @@ class DownloadsSortButton extends StatelessWidget {
     final choices = [
       ApiOrderChoice(
         label: localizations.downloadedRecently,
-        orderParam: initialSelected,
+        orderParam: const ApiOrderParam(
+          name: kIdOrderParam,
+          direction: kDescendantDirection,
+        ),
       ),
       ApiOrderChoice(
         label:
