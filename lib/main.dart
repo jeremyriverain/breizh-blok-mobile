@@ -26,7 +26,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:location/location.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -123,9 +122,6 @@ Future<void> main({
               ),
               RepositoryProvider<ShareContentServiceInterface>(
                 create: (context) => appShareContentService,
-              ),
-              RepositoryProvider<Location>(
-                create: (context) => Location.instance,
               ),
               RepositoryProvider<DownloadedBoulderRepository>(
                 create:
