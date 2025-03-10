@@ -18,8 +18,6 @@ import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_bloc.dart'
 import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/view_models/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/view_models/locale_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -33,17 +31,15 @@ import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main({
-  MapPermissionBloc? mapPermissionBloc,
   ShareContentServiceInterface? shareContentService,
   AppDatabase? database,
   Mixpanel? mixpanel,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
-  final termsOfUseBloc = TermsOfUseBloc();
 
   final localDatabase = GetIt.I.registerSingleton<AppDatabase>(
     database ??
@@ -85,6 +81,10 @@ Future<void> main({
   GetIt.I.registerSingleton<TrackingService>(TrackingService());
 
   GetIt.I.registerSingleton<GoRouter>(Router()());
+
+  GetIt.I.registerSingleton<SharedPreferences>(
+    await SharedPreferences.getInstance(),
+  );
 
   await SentryFlutter.init(
     (options) {
@@ -137,9 +137,6 @@ Future<void> main({
             ],
             child: MultiBlocProvider(
               providers: [
-                BlocProvider<TermsOfUseBloc>(
-                  create: (BuildContext context) => termsOfUseBloc,
-                ),
                 BlocProvider<BoulderFilterBloc>(
                   create: (BuildContext context) => boulderFilterBloc,
                 ),
@@ -148,11 +145,6 @@ Future<void> main({
                 ),
                 BlocProvider<BoulderFilterGradeBloc>(
                   create: (BuildContext context) => boulderFilterGradeBloc,
-                ),
-                BlocProvider<MapPermissionBloc>(
-                  create:
-                      (BuildContext context) =>
-                          mapPermissionBloc ?? MapPermissionBloc(),
                 ),
                 BlocProvider<LocaleBloc>(create: (context) => localeBloc),
               ],

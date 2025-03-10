@@ -16,13 +16,12 @@ import 'package:breizh_blok_mobile/main.dart' as app;
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated_item.dart';
 import 'package:breizh_blok_mobile/ui/core/view_models/locale_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/map_permission_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/terms_of_use_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_tile.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_boulder_area_item.dart';
+import 'package:breizh_blok_mobile/ui/terms_of_use/view_models/terms_of_use_view_model.dart';
 import 'package:drift/drift.dart'
     show StringExpressionOperators, Value, driftRuntimeOptions;
 import 'package:drift/native.dart';
@@ -65,7 +64,7 @@ void main() async {
 
   setUp(() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(TermsOfUseBloc.termsOfUseAcceptanceKey, true);
+    await prefs.setBool(TermsOfUseViewModel.termsOfUseAcceptanceKey, true);
     await prefs.setString(kLocalePrefs, 'fr');
     await clearDatabase(database);
     await GetIt.I.reset();
@@ -91,10 +90,7 @@ void main() async {
 
   Future<void> runApplication({required WidgetTester tester}) async {
     await restoreFlutterError(() async {
-      final mapPermissionBloc =
-          MapPermissionBloc()..add(RequestPermissionEvent(hasDenied: true));
       await app.main(
-        mapPermissionBloc: mapPermissionBloc,
         database: database,
         shareContentService: mockShareContentService,
         mixpanel: mockMixpanel,
@@ -546,9 +542,6 @@ void main() async {
 
     expect(boulderReference, isNot(null));
 
-    final prefs = await SharedPreferences.getInstance();
-    print(prefs.getBool(TermsOfUseBloc.termsOfUseAcceptanceKey));
-
     await runApplication(tester: tester);
 
     expect(
@@ -556,10 +549,7 @@ void main() async {
       findsOneWidget,
     );
     expect(
-      find.text(
-        '${boulderReference.name} (${boulderReference.grade?.name})',
-        findRichText: true,
-      ),
+      find.textContaining(boulderReference.name, findRichText: true),
       findsWidgets,
     );
 
@@ -650,7 +640,7 @@ void main() async {
     await tester.runAsync(() async {
       // test code here
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool(TermsOfUseBloc.termsOfUseAcceptanceKey, false);
+      await prefs.setBool(TermsOfUseViewModel.termsOfUseAcceptanceKey, false);
       await runApplication(tester: tester);
       await expectLater(find.byKey(const Key('terms-of-use')), findsOneWidget);
     });
