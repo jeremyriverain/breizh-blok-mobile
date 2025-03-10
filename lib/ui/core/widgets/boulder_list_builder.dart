@@ -4,10 +4,10 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.d
 import 'package:breizh_blok_mobile/data/data_sources/api/model/boulder/boulder_api_response.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_grade_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_order_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_grade_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_back_to_top_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_results.dart';

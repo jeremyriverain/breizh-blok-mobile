@@ -2,7 +2,7 @@
 
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_grade_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_grade.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

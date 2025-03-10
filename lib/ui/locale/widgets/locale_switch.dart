@@ -1,11 +1,11 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/locale_bloc.dart';
+import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProfileLanguageSwitcher extends StatelessWidget {
-  ProfileLanguageSwitcher({required this.currentLocale, super.key});
+class LocaleSwitch extends StatelessWidget {
+  LocaleSwitch({required this.currentLocale, super.key});
 
   final String currentLocale;
 
@@ -33,7 +33,7 @@ class ProfileLanguageSwitcher extends StatelessWidget {
           if (newValue == null) {
             return;
           }
-          context.read<LocaleBloc>().add(
+          context.read<LocaleViewModel>().add(
             LocaleUpdated(locale: Locale(newValue)),
           );
         },

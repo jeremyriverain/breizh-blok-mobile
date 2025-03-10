@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-part 'locale_bloc.freezed.dart';
+part 'locale_view_model.freezed.dart';
 
 const kLocalePrefs = 'locale';
 
-class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
-  LocaleBloc({required this.locale}) : super(LocaleState(locale: locale)) {
+class LocaleViewModel extends Bloc<LocaleEvent, LocaleState> {
+  LocaleViewModel({required this.locale}) : super(LocaleState(locale: locale)) {
     on<LocaleUpdated>((event, emit) async {
       emit(LocaleState(locale: event.locale));
       final prefs = await SharedPreferences.getInstance();
@@ -17,14 +17,14 @@ class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
     });
   }
 
-  static Future<LocaleBloc> create() async {
+  static Future<LocaleViewModel> create() async {
     final prefs = await SharedPreferences.getInstance();
 
     final localePref = prefs.getString(kLocalePrefs);
 
     if (localePref == null) {
       final platformLocale = WidgetsBinding.instance.platformDispatcher.locale;
-      return LocaleBloc(
+      return LocaleViewModel(
         locale:
             AppLocalizations.supportedLocales.contains(platformLocale)
                 ? platformLocale
@@ -35,10 +35,10 @@ class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
     final localeFromPref = Locale(localePref);
 
     if (AppLocalizations.supportedLocales.contains(localeFromPref)) {
-      return LocaleBloc(locale: localeFromPref);
+      return LocaleViewModel(locale: localeFromPref);
     }
 
-    return LocaleBloc(locale: const Locale('fr'));
+    return LocaleViewModel(locale: const Locale('fr'));
   }
 
   final Locale locale;

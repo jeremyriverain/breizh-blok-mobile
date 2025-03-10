@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/locale_bloc.dart';
+import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: context.watch<LocaleBloc>().state.locale,
+      locale: context.watch<LocaleViewModel>().state.locale,
     );
   }
 }

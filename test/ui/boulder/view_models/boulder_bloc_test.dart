@@ -10,7 +10,7 @@ import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
 import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/domain/models/rock/rock.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

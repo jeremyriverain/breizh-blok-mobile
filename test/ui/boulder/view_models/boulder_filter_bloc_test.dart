@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

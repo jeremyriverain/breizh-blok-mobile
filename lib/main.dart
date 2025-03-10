@@ -14,10 +14,10 @@ import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_filter_grade_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/boulder_order_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/view_models/locale_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_grade_bloc.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_order_bloc.dart';
+import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -68,7 +68,7 @@ Future<void> main({
 
   final appShareContentService = shareContentService ?? ShareContentService();
 
-  final localeBloc = await LocaleBloc.create();
+  final localeBloc = await LocaleViewModel.create();
 
   GetIt.I.registerSingleton<Mixpanel>(
     mixpanel ??
@@ -146,7 +146,7 @@ Future<void> main({
                 BlocProvider<BoulderFilterGradeBloc>(
                   create: (BuildContext context) => boulderFilterGradeBloc,
                 ),
-                BlocProvider<LocaleBloc>(create: (context) => localeBloc),
+                BlocProvider<LocaleViewModel>(create: (context) => localeBloc),
               ],
               child: const MyApp(),
             ),
