@@ -26,6 +26,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -39,6 +40,9 @@ Future<void> main({
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  const mapboxToken = String.fromEnvironment('MAPBOX_TOKEN');
+  MapboxOptions.setAccessToken(mapboxToken);
 
   final localDatabase = GetIt.I.registerSingleton<AppDatabase>(
     database ??

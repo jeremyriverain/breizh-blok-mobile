@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 class MapScreen extends StatelessWidget {
   const MapScreen({super.key});
@@ -7,6 +8,6 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.red);
+    return const MapWidget();
   }
 }

@@ -18,7 +18,7 @@ Installez [FVM](https://fvm.app/) qui est utilisé comme gestionnaire de version
 ### Démarrer l'application en mode DEV
 
 ```bash
-fvm flutter run --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN_DEV" --debug
+fvm flutter run --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN_DEV" --dart-define="MAPBOX_TOKEN=$BREIZH_BLOK_MAPBOX_TOKEN" --debug
 ```
 
 ### Analyse statique de code
@@ -36,7 +36,7 @@ fvm flutter test
 ### Exécuter les tests E2E
 
 ```bash
-fvm flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="REQUEST_TIMEOUT=20" 
+fvm flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="REQUEST_TIMEOUT=20" --dart-define="MAPBOX_TOKEN=$BREIZH_BLOK_MAPBOX_TOKEN" 
 ```
 
 ### Exécuter la génération de code

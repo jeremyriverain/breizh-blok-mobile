@@ -39,9 +39,10 @@ jobs:
           ./gradlew app:assembleAndroidTest
 
           API_HOST_BASE64=$(echo -n "API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }}" | base64)
+          MAPBOX_TOKEN64=$(echo -n "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN_TEST }}" | base64)
 
           ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/integration_test/app_test.dart" \
-            -Pdart-defines="$API_HOST_BASE64"
+            -Pdart-defines="$API_HOST_BASE64,$MAPBOX_TOKEN64"
 
       - name: Run Tests in Firebase Test Lab
         run: |
