@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:breizh_blok_mobile/config/env_vars.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
@@ -21,21 +22,14 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
     final query = QueryParamFactory.stringify(queryParams: queryParams);
 
     final response = await httpClient.get(
-      Uri(
-        scheme: 'https',
-        host: const String.fromEnvironment('API_HOST'),
-        path: 'grades',
-        query: query,
-      ),
+      Uri(scheme: 'https', host: EnvVars.apiHost, path: 'grades', query: query),
       offlineFirst: true,
     );
     return compute(_parseGrades, response);
   }
 
   Future<PaginatedCollection<Grade>> findAll() async {
-    return findBy(
-      queryParams: findAllQueryParams,
-    );
+    return findBy(queryParams: findAllQueryParams);
   }
 
   static const findAllQueryParams = {

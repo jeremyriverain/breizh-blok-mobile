@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart'
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_boulder_area_item.dart';
+import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_map.dart';
 import 'package:flutter/material.dart';
 
 class MunicipalityDetails extends StatelessWidget {
@@ -38,7 +39,7 @@ class MunicipalityDetails extends StatelessWidget {
           );
         },
       ),
-      Container(color: Colors.red),
+      const MunicipalityMap(),
     ];
     return DefaultTabController(
       key: const Key('municipality-details'),

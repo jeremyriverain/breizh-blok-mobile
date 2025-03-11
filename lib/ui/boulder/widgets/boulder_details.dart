@@ -5,6 +5,7 @@ import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_map.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
@@ -98,7 +99,7 @@ class BoulderDetails extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 300, child: Container(color: Colors.red)),
+          const SizedBox(height: 300, child: BoulderDetailsMap()),
           const SizedBox(height: 20),
           BoulderDetailsAssociated(boulder: boulder),
           const SizedBox(height: 20),
