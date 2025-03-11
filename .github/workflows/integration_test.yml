@@ -32,17 +32,17 @@ jobs:
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
-          flutter build apk --dart-define=API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }} --debug
+          flutter build apk --dart-define="API_HOST=${{ secrets.BREIZH_BLOK_API_HOST_TEST }}" --dart-define="MAPBOX_TOKEN=${{secrets.MAPBOX_TOKEN_TEST}}" --debug
       - name: Create debug and test APKa
         run: |
           cd android
           ./gradlew app:assembleAndroidTest
 
-          API_HOST_BASE64=$(echo -n "API_HOST=${{ secrets.BREIZH_BLOK_API_HOST }}" | base64)
-          MAPBOX_TOKEN64=$(echo -n "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN_TEST }}" | base64)
+          API_HOST=$(echo -n "API_HOST=${{ secrets.BREIZH_BLOK_API_HOST_TEST }}" | base64)
+          MAPBOX_TOKEN=$(echo -n "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN_TEST }}" | base64)
 
           ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/integration_test/app_test.dart" \
-            -Pdart-defines="$API_HOST_BASE64,$MAPBOX_TOKEN64"
+            -Pdart-defines="$API_HOST,$MAPBOX_TOKEN"
 
       - name: Run Tests in Firebase Test Lab
         run: |

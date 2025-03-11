@@ -99,7 +99,7 @@ class BoulderDetails extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 300, child: BoulderDetailsMap()),
+          SizedBox(height: 450, child: BoulderDetailsMap(boulder: boulder)),
           const SizedBox(height: 20),
           BoulderDetailsAssociated(boulder: boulder),
           const SizedBox(height: 20),

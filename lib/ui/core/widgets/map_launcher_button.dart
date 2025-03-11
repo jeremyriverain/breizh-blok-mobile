@@ -24,7 +24,7 @@ class MapLauncherButton extends StatelessWidget {
         if (!snapshot.hasData || snapshot.hasError || snapshot.data!.isEmpty) {
           return Container();
         }
-        return ElevatedButton.icon(
+        return FilledButton.icon(
           key: const Key('map-launcher-button'),
           onPressed:
               () => MapDirections.openMapsSheet(

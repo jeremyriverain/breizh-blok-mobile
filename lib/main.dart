@@ -94,58 +94,65 @@ Future<void> main({
     },
     appRunner:
         () => runApp(
-          MultiRepositoryProvider(
-            providers: [
-              RepositoryProvider<BoulderAreaRepository>(
-                create:
-                    (context) => BoulderAreaRepository(httpClient: httpClient),
-              ),
-              RepositoryProvider<BoulderRepository>(
-                create: (context) => BoulderRepository(httpClient: httpClient),
-              ),
-              RepositoryProvider<DepartmentRepository>(
-                create:
-                    (context) => DepartmentRepository(httpClient: httpClient),
-              ),
-              RepositoryProvider<GradeRepository>(
-                create: (context) => GradeRepository(httpClient: httpClient),
-              ),
-              RepositoryProvider<MunicipalityRepository>(
-                create:
-                    (context) => MunicipalityRepository(httpClient: httpClient),
-              ),
-              RepositoryProvider<AppDatabase>(
-                create: (context) => localDatabase,
-              ),
-              RepositoryProvider<ApiClient>(create: (context) => httpClient),
-              RepositoryProvider<ImageBoulderCache>(
-                create: (context) => imageBoulderCache,
-              ),
-              RepositoryProvider<ShareContentServiceInterface>(
-                create: (context) => appShareContentService,
-              ),
-              RepositoryProvider<DownloadedBoulderRepository>(
-                create:
-                    (context) => DownloadedBoulderRepository(
-                      httpClient: httpClient,
-                      database: localDatabase,
-                    ),
-              ),
-            ],
-            child: MultiBlocProvider(
+          SentryWidget(
+            child: MultiRepositoryProvider(
               providers: [
-                BlocProvider<BoulderFilterBloc>(
-                  create: (BuildContext context) => boulderFilterBloc,
+                RepositoryProvider<BoulderAreaRepository>(
+                  create:
+                      (context) =>
+                          BoulderAreaRepository(httpClient: httpClient),
                 ),
-                BlocProvider<BoulderOrderBloc>(
-                  create: (BuildContext context) => boulderOrderBloc,
+                RepositoryProvider<BoulderRepository>(
+                  create:
+                      (context) => BoulderRepository(httpClient: httpClient),
                 ),
-                BlocProvider<BoulderFilterGradeBloc>(
-                  create: (BuildContext context) => boulderFilterGradeBloc,
+                RepositoryProvider<DepartmentRepository>(
+                  create:
+                      (context) => DepartmentRepository(httpClient: httpClient),
                 ),
-                BlocProvider<LocaleViewModel>(create: (context) => localeBloc),
+                RepositoryProvider<GradeRepository>(
+                  create: (context) => GradeRepository(httpClient: httpClient),
+                ),
+                RepositoryProvider<MunicipalityRepository>(
+                  create:
+                      (context) =>
+                          MunicipalityRepository(httpClient: httpClient),
+                ),
+                RepositoryProvider<AppDatabase>(
+                  create: (context) => localDatabase,
+                ),
+                RepositoryProvider<ApiClient>(create: (context) => httpClient),
+                RepositoryProvider<ImageBoulderCache>(
+                  create: (context) => imageBoulderCache,
+                ),
+                RepositoryProvider<ShareContentServiceInterface>(
+                  create: (context) => appShareContentService,
+                ),
+                RepositoryProvider<DownloadedBoulderRepository>(
+                  create:
+                      (context) => DownloadedBoulderRepository(
+                        httpClient: httpClient,
+                        database: localDatabase,
+                      ),
+                ),
               ],
-              child: const MyApp(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider<BoulderFilterBloc>(
+                    create: (BuildContext context) => boulderFilterBloc,
+                  ),
+                  BlocProvider<BoulderOrderBloc>(
+                    create: (BuildContext context) => boulderOrderBloc,
+                  ),
+                  BlocProvider<BoulderFilterGradeBloc>(
+                    create: (BuildContext context) => boulderFilterGradeBloc,
+                  ),
+                  BlocProvider<LocaleViewModel>(
+                    create: (context) => localeBloc,
+                  ),
+                ],
+                child: const MyApp(),
+              ),
             ),
           ),
         ),

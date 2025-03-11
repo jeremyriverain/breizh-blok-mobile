@@ -65,10 +65,7 @@ class MunicipalityDetails extends StatelessWidget {
           ],
           bottom: TabBar(tabs: tabs),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: TabBarView(children: tabViews),
-        ),
+        body: TabBarView(children: tabViews),
       ),
     );
   }

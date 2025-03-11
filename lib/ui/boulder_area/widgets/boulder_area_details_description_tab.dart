@@ -1,7 +1,5 @@
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_itinerary_button.dart';
-import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_map.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_bar_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -59,14 +57,6 @@ class _BoulderAreaDetailsDescriptionTabState
                 data: numberOfBouldersGroupedByGrade,
               ),
             ),
-          Padding(
-            padding: const EdgeInsets.only(top: 28, bottom: 8),
-            child: BoulderAreaDetailsItineraryButton(
-              boulderArea: widget.boulderArea,
-            ),
-          ),
-
-          const SizedBox(height: 800, child: BoulderAreaDetailsMap()),
         ],
       ),
     );

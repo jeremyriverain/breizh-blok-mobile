@@ -30,6 +30,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -983,6 +984,7 @@ void main() async {
 
     await tester.tap(find.textContaining('Carte').first);
     await tester.pumpAndSettle();
+    expect(find.byType(MapWidget), findsOneWidget);
   });
 
   testWidgets(
@@ -1052,7 +1054,11 @@ void main() async {
 
       expect(find.byType(BarChart), findsOneWidget);
 
+      await tester.tap(find.textContaining('Carte').first);
+      await tester.pumpAndSettle();
+
       expect(find.byType(MapLauncherButton), findsOneWidget);
+      expect(find.byType(MapWidget), findsOneWidget);
     },
   );
 

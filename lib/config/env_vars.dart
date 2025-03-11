@@ -1,4 +1,4 @@
-class EnvVars {
+abstract class EnvVars {
   static String get apiHost => const String.fromEnvironment('API_HOST');
   static String get mapboxToken => const String.fromEnvironment('MAPBOX_TOKEN');
   static String get mixPanelToken =>

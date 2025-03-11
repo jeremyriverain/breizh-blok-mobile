@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart'
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_description_tab.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_list_tab.dart';
+import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_map_tab.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
   void initState() {
     _tabController = TabController(
       vsync: this,
-      length: 2,
+      length: 3,
       initialIndex: _currentIndex,
     );
 
@@ -54,6 +55,7 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
     final tabs = [
       Tab(text: localizations.boulders),
       Tab(text: localizations.description),
+      Tab(text: localizations.map),
     ];
 
     final municipality = widget.municipality;
@@ -93,6 +95,7 @@ class _BoulderAreaDetailsState extends State<BoulderAreaDetails>
         children: [
           BoulderAreaDetailsListTab(boulderArea: widget.boulderArea),
           BoulderAreaDetailsDescriptionTab(boulderArea: widget.boulderArea),
+          BoulderAreaDetailsMapTab(boulderArea: widget.boulderArea),
         ],
       ),
     );
