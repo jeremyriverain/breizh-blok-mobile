@@ -52,3 +52,6 @@ app.*.map.json
 
 .env.local
 lib/config/env.g.dart
+**/*.mocks.dart
+**/*.g.dart
+**/*.freezed.dart
