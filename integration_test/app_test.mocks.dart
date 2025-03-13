@@ -50,11 +50,13 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
     Invocation.method(#setServerURL, [serverURL]),
     returnValueForMissingStub: null,
   );
+
   @override
   void setLoggingEnabled(bool? loggingEnabled) => super.noSuchMethod(
     Invocation.method(#setLoggingEnabled, [loggingEnabled]),
     returnValueForMissingStub: null,
   );
+
   @override
   void setUseIpAddressForGeolocation(bool? useIpAddressForGeolocation) =>
       super.noSuchMethod(
@@ -63,6 +65,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
         ]),
         returnValueForMissingStub: null,
       );
+
   @override
   _i4.Future<bool?> hasOptedOutTracking() =>
       (super.noSuchMethod(
@@ -71,21 +74,25 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<bool?>.value(),
           )
           as _i4.Future<bool?>);
+
   @override
   void optInTracking() => super.noSuchMethod(
     Invocation.method(#optInTracking, []),
     returnValueForMissingStub: null,
   );
+
   @override
   void optOutTracking() => super.noSuchMethod(
     Invocation.method(#optOutTracking, []),
     returnValueForMissingStub: null,
   );
+
   @override
   void setFlushBatchSize(int? flushBatchSize) => super.noSuchMethod(
     Invocation.method(#setFlushBatchSize, [flushBatchSize]),
     returnValueForMissingStub: null,
   );
+
   @override
   _i4.Future<void> identify(String? distinctId) =>
       (super.noSuchMethod(
@@ -94,11 +101,13 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+
   @override
   void alias(String? alias, String? distinctId) => super.noSuchMethod(
     Invocation.method(#alias, [alias, distinctId]),
     returnValueForMissingStub: null,
   );
+
   @override
   _i4.Future<void> track(
     String? eventName, {
@@ -110,6 +119,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+
   @override
   _i2.People getPeople() =>
       (super.noSuchMethod(
@@ -121,6 +131,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             ),
           )
           as _i2.People);
+
   @override
   _i4.Future<void> trackWithGroups(
     String? eventName,
@@ -137,11 +148,13 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+
   @override
   void setGroup(String? groupKey, dynamic groupID) => super.noSuchMethod(
     Invocation.method(#setGroup, [groupKey, groupID]),
     returnValueForMissingStub: null,
   );
+
   @override
   _i2.MixpanelGroup getGroup(String? groupKey, dynamic groupID) =>
       (super.noSuchMethod(
@@ -156,21 +169,25 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             ),
           )
           as _i2.MixpanelGroup);
+
   @override
   void addGroup(String? groupKey, dynamic groupID) => super.noSuchMethod(
     Invocation.method(#addGroup, [groupKey, groupID]),
     returnValueForMissingStub: null,
   );
+
   @override
   void removeGroup(String? groupKey, dynamic groupID) => super.noSuchMethod(
     Invocation.method(#removeGroup, [groupKey, groupID]),
     returnValueForMissingStub: null,
   );
+
   @override
   void deleteGroup(String? groupKey, dynamic groupID) => super.noSuchMethod(
     Invocation.method(#deleteGroup, [groupKey, groupID]),
     returnValueForMissingStub: null,
   );
+
   @override
   _i4.Future<void> registerSuperProperties(Map<String, dynamic>? properties) =>
       (super.noSuchMethod(
@@ -179,6 +196,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+
   @override
   _i4.Future<void> registerSuperPropertiesOnce(
     Map<String, dynamic>? properties,
@@ -189,6 +207,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+
   @override
   _i4.Future<void> unregisterSuperProperty(String? propertyName) =>
       (super.noSuchMethod(
@@ -197,6 +216,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+
   @override
   _i4.Future<Map<dynamic, dynamic>?> getSuperProperties() =>
       (super.noSuchMethod(
@@ -206,6 +226,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
                 _i4.Future<Map<dynamic, dynamic>?>.value(),
           )
           as _i4.Future<Map<dynamic, dynamic>?>);
+
   @override
   _i4.Future<void> clearSuperProperties() =>
       (super.noSuchMethod(
@@ -214,11 +235,13 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+
   @override
   void timeEvent(String? eventName) => super.noSuchMethod(
     Invocation.method(#timeEvent, [eventName]),
     returnValueForMissingStub: null,
   );
+
   @override
   _i4.Future<double?> eventElapsedTime(String? eventName) =>
       (super.noSuchMethod(
@@ -227,6 +250,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<double?>.value(),
           )
           as _i4.Future<double?>);
+
   @override
   _i4.Future<void> reset() =>
       (super.noSuchMethod(
@@ -235,6 +259,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
           as _i4.Future<void>);
+
   @override
   _i4.Future<String> getDistinctId() =>
       (super.noSuchMethod(
@@ -253,6 +278,7 @@ class MockMixpanel extends _i1.Mock implements _i2.Mixpanel {
             ),
           )
           as _i4.Future<String>);
+
   @override
   _i4.Future<void> flush() =>
       (super.noSuchMethod(

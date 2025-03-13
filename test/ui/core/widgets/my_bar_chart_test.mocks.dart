@@ -38,6 +38,7 @@ class MockTitleMeta extends _i1.Mock implements _i2.TitleMeta {
             returnValueForMissingStub: 0.0,
           )
           as double);
+
   @override
   double get max =>
       (super.noSuchMethod(
@@ -46,6 +47,7 @@ class MockTitleMeta extends _i1.Mock implements _i2.TitleMeta {
             returnValueForMissingStub: 0.0,
           )
           as double);
+
   @override
   double get parentAxisSize =>
       (super.noSuchMethod(
@@ -54,6 +56,7 @@ class MockTitleMeta extends _i1.Mock implements _i2.TitleMeta {
             returnValueForMissingStub: 0.0,
           )
           as double);
+
   @override
   double get axisPosition =>
       (super.noSuchMethod(
@@ -62,6 +65,7 @@ class MockTitleMeta extends _i1.Mock implements _i2.TitleMeta {
             returnValueForMissingStub: 0.0,
           )
           as double);
+
   @override
   double get appliedInterval =>
       (super.noSuchMethod(
@@ -70,6 +74,7 @@ class MockTitleMeta extends _i1.Mock implements _i2.TitleMeta {
             returnValueForMissingStub: 0.0,
           )
           as double);
+
   @override
   _i2.SideTitles get sideTitles =>
       (super.noSuchMethod(
@@ -84,6 +89,7 @@ class MockTitleMeta extends _i1.Mock implements _i2.TitleMeta {
             ),
           )
           as _i2.SideTitles);
+
   @override
   String get formattedValue =>
       (super.noSuchMethod(
@@ -98,6 +104,7 @@ class MockTitleMeta extends _i1.Mock implements _i2.TitleMeta {
             ),
           )
           as String);
+
   @override
   _i2.AxisSide get axisSide =>
       (super.noSuchMethod(

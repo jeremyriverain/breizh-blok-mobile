@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/config/env_vars.dart';
+import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
@@ -76,7 +76,7 @@ class DownloadAreaService {
         final imageUrls = extractImages(bouldersRequest.responseBody);
 
         for (final pathImage in List<String>.from(imageUrls)) {
-          await removeImage(Uri.https(EnvVars.apiHost, pathImage).toString());
+          await removeImage(Uri.https(Env.apiHost, pathImage).toString());
         }
 
         deletions.add(
@@ -127,7 +127,7 @@ class DownloadAreaService {
       var downloadedImages = 0;
 
       for (final pathImage in List<String>.from(imageUrls)) {
-        await downloadImage(Uri.https(EnvVars.apiHost, pathImage).toString());
+        await downloadImage(Uri.https(Env.apiHost, pathImage).toString());
         downloadedImages++;
         await (database.update(database.dbBoulderAreas)
           ..where((tbl) => tbl.iri.equals(boulderArea.iri))).write(
@@ -157,7 +157,7 @@ class DownloadAreaService {
 
   Future<String> _fetchAllBoulders(BoulderArea boulderArea) async {
     final uri = Uri.https(
-      EnvVars.apiHost,
+      Env.apiHost,
       '/boulders',
       DownloadAreaService.bouldersQueryParamsOf(boulderArea: boulderArea),
     );
@@ -172,14 +172,14 @@ class DownloadAreaService {
 
   Future<String> _fetchBoulderAreaDetails(BoulderArea boulderArea) async {
     return httpClient.get(
-      Uri.https(EnvVars.apiHost, boulderArea.iri),
+      Uri.https(Env.apiHost, boulderArea.iri),
       offlineFirst: true,
     );
   }
 
   Future<String> _fetchGrades() async {
     return httpClient.get(
-      Uri.https(EnvVars.apiHost, '/grades', GradeRepository.findAllQueryParams),
+      Uri.https(Env.apiHost, '/grades', GradeRepository.findAllQueryParams),
       offlineFirst: true,
     );
   }

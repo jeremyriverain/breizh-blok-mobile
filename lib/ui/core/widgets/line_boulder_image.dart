@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
-import 'package:breizh_blok_mobile/config/env_vars.dart';
+import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/domain/models/line_boulder/line_boulder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -24,7 +24,7 @@ class LineBoulderImage extends StatelessWidget {
     final image = Image(
       image: CachedNetworkImageProvider(
         Uri.https(
-          EnvVars.apiHost,
+          Env.apiHost,
           (lineBoulder.rockImage.filterUrl ?? '').replaceAll(
             '%filter%',
             'scale_md',

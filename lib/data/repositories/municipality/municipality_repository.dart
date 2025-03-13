@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/config/env_vars.dart';
+import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.dart';
@@ -14,7 +14,7 @@ class MunicipalityRepository implements ApiRepositoryInterface<Municipality> {
   @override
   Future<Municipality> find(String id) async {
     final response = await httpClient.get(
-      Uri.https(EnvVars.apiHost, '/municipalities/$id'),
+      Uri.https(Env.apiHost, '/municipalities/$id'),
     );
     return Municipality.fromJson(jsonDecode(response) as Map<String, dynamic>);
   }

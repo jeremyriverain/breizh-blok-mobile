@@ -61,6 +61,7 @@ class MockMunicipalityRepository extends _i1.Mock
             ),
           )
           as _i2.ApiClient);
+
   @override
   _i6.Future<_i3.Municipality> find(String? id) =>
       (super.noSuchMethod(
@@ -73,6 +74,7 @@ class MockMunicipalityRepository extends _i1.Mock
             ),
           )
           as _i6.Future<_i3.Municipality>);
+
   @override
   _i6.Future<_i4.PaginatedCollection<_i3.Municipality>> findBy({
     Map<String, List<String>>? queryParams,

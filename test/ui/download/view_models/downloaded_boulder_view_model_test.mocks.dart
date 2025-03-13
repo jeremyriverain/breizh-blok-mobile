@@ -59,6 +59,7 @@ class MockDownloadedBoulderRepository extends _i1.Mock
             ),
           )
           as _i2.AppDatabase);
+
   @override
   _i3.ApiClient get httpClient =>
       (super.noSuchMethod(
@@ -70,6 +71,7 @@ class MockDownloadedBoulderRepository extends _i1.Mock
             ),
           )
           as _i3.ApiClient);
+
   @override
   _i6.Future<_i4.Boulder> find({
     required String? boulderAreaIri,

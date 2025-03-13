@@ -73,6 +73,7 @@ class MockApiClient extends _i1.Mock implements _i4.ApiClient {
             ),
           )
           as _i2.AppDatabase);
+
   @override
   _i3.Client get httpClient =>
       (super.noSuchMethod(
@@ -84,6 +85,7 @@ class MockApiClient extends _i1.Mock implements _i4.ApiClient {
             ),
           )
           as _i3.Client);
+
   @override
   _i7.Future<String> get(
     Uri? uri, {
@@ -131,6 +133,7 @@ class MockApiClient extends _i1.Mock implements _i4.ApiClient {
             ),
           )
           as _i7.Future<String>);
+
   @override
   String normalizeRequestPath(Uri? uri) =>
       (super.noSuchMethod(
@@ -162,6 +165,7 @@ class MockBoulderRepository extends _i1.Mock implements _i9.BoulderRepository {
             ),
           )
           as _i4.ApiClient);
+
   @override
   _i7.Future<_i5.Boulder> find(String? id) =>
       (super.noSuchMethod(
@@ -174,6 +178,7 @@ class MockBoulderRepository extends _i1.Mock implements _i9.BoulderRepository {
             ),
           )
           as _i7.Future<_i5.Boulder>);
+
   @override
   _i7.Future<_i6.PaginatedCollection<_i5.Boulder>> findBy({
     Map<String, List<String>>? queryParams,

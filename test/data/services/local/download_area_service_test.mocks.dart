@@ -90,6 +90,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             ),
           )
           as _i2.Config);
+
   @override
   _i3.CacheStore get store =>
       (super.noSuchMethod(
@@ -101,6 +102,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             ),
           )
           as _i3.CacheStore);
+
   @override
   _i4.WebHelper get webHelper =>
       (super.noSuchMethod(
@@ -112,6 +114,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             ),
           )
           as _i4.WebHelper);
+
   @override
   _i7.Future<_i5.File> getSingleFile(
     String? url, {
@@ -146,6 +149,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             ),
           )
           as _i7.Future<_i5.File>);
+
   @override
   _i7.Stream<_i2.FileInfo> getFile(
     String? url, {
@@ -158,6 +162,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             returnValueForMissingStub: _i7.Stream<_i2.FileInfo>.empty(),
           )
           as _i7.Stream<_i2.FileInfo>);
+
   @override
   _i7.Stream<_i2.FileResponse> getFileStream(
     String? url, {
@@ -175,6 +180,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             returnValueForMissingStub: _i7.Stream<_i2.FileResponse>.empty(),
           )
           as _i7.Stream<_i2.FileResponse>);
+
   @override
   _i7.Future<_i2.FileInfo> downloadFile(
     String? url, {
@@ -210,6 +216,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             ),
           )
           as _i7.Future<_i2.FileInfo>);
+
   @override
   _i7.Future<_i2.FileInfo?> getFileFromCache(
     String? key, {
@@ -225,6 +232,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             returnValueForMissingStub: _i7.Future<_i2.FileInfo?>.value(),
           )
           as _i7.Future<_i2.FileInfo?>);
+
   @override
   _i7.Future<_i2.FileInfo?> getFileFromMemory(String? key) =>
       (super.noSuchMethod(
@@ -233,6 +241,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             returnValueForMissingStub: _i7.Future<_i2.FileInfo?>.value(),
           )
           as _i7.Future<_i2.FileInfo?>);
+
   @override
   _i7.Future<_i5.File> putFile(
     String? url,
@@ -285,6 +294,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             ),
           )
           as _i7.Future<_i5.File>);
+
   @override
   _i7.Future<_i5.File> putFileStream(
     String? url,
@@ -337,6 +347,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             ),
           )
           as _i7.Future<_i5.File>);
+
   @override
   _i7.Future<void> removeFile(String? key) =>
       (super.noSuchMethod(
@@ -345,6 +356,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             returnValueForMissingStub: _i7.Future<void>.value(),
           )
           as _i7.Future<void>);
+
   @override
   _i7.Future<void> emptyCache() =>
       (super.noSuchMethod(
@@ -353,6 +365,7 @@ class MockCacheManager extends _i1.Mock implements _i2.CacheManager {
             returnValueForMissingStub: _i7.Future<void>.value(),
           )
           as _i7.Future<void>);
+
   @override
   _i7.Future<void> dispose() =>
       (super.noSuchMethod(

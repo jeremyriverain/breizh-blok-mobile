@@ -61,6 +61,7 @@ class MockBoulderAreaRepository extends _i1.Mock
             ),
           )
           as _i2.ApiClient);
+
   @override
   _i6.Future<_i3.BoulderArea> find(String? id, {bool? offlineFirst = false}) =>
       (super.noSuchMethod(
@@ -79,6 +80,7 @@ class MockBoulderAreaRepository extends _i1.Mock
             ),
           )
           as _i6.Future<_i3.BoulderArea>);
+
   @override
   _i6.Future<_i4.PaginatedCollection<_i3.BoulderArea>> findBy({
     Map<String, List<String>>? queryParams,

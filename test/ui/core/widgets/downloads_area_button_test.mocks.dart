@@ -190,6 +190,7 @@ class MockApiClient extends _i1.Mock implements _i8.ApiClient {
             ),
           )
           as _i2.AppDatabase);
+
   @override
   _i3.Client get httpClient =>
       (super.noSuchMethod(
@@ -201,6 +202,7 @@ class MockApiClient extends _i1.Mock implements _i8.ApiClient {
             ),
           )
           as _i3.Client);
+
   @override
   _i6.Future<String> get(
     Uri? uri, {
@@ -248,6 +250,7 @@ class MockApiClient extends _i1.Mock implements _i8.ApiClient {
             ),
           )
           as _i6.Future<String>);
+
   @override
   String normalizeRequestPath(Uri? uri) =>
       (super.noSuchMethod(
@@ -276,6 +279,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: 0,
           )
           as int);
+
   @override
   _i2.$DbRequestsTable get dbRequests =>
       (super.noSuchMethod(
@@ -290,6 +294,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i2.$DbRequestsTable);
+
   @override
   _i2.$DbBoulderAreasTable get dbBoulderAreas =>
       (super.noSuchMethod(
@@ -304,6 +309,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i2.$DbBoulderAreasTable);
+
   @override
   _i2.$AppDatabaseManager get managers =>
       (super.noSuchMethod(
@@ -318,6 +324,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i2.$AppDatabaseManager);
+
   @override
   Iterable<_i4.TableInfo<_i4.Table, Object?>> get allTables =>
       (super.noSuchMethod(
@@ -326,6 +333,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: <_i4.TableInfo<_i4.Table, Object?>>[],
           )
           as Iterable<_i4.TableInfo<_i4.Table, Object?>>);
+
   @override
   List<_i4.DatabaseSchemaEntity> get allSchemaEntities =>
       (super.noSuchMethod(
@@ -334,6 +342,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: <_i4.DatabaseSchemaEntity>[],
           )
           as List<_i4.DatabaseSchemaEntity>);
+
   @override
   _i4.DriftDatabaseOptions get options =>
       (super.noSuchMethod(
@@ -348,6 +357,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.DriftDatabaseOptions);
+
   @override
   _i4.GeneratedDatabase get attachedDatabase =>
       (super.noSuchMethod(
@@ -362,6 +372,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.GeneratedDatabase);
+
   @override
   _i4.MigrationStrategy get migration =>
       (super.noSuchMethod(
@@ -376,6 +387,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.MigrationStrategy);
+
   @override
   _i4.StreamQueryUpdateRules get streamUpdateRules =>
       (super.noSuchMethod(
@@ -390,6 +402,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.StreamQueryUpdateRules);
+
   @override
   _i4.DatabaseConnection get connection =>
       (super.noSuchMethod(
@@ -404,6 +417,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.DatabaseConnection);
+
   @override
   _i4.SqlTypes get typeMapping =>
       (super.noSuchMethod(
@@ -418,6 +432,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.SqlTypes);
+
   @override
   _i4.QueryExecutor get executor =>
       (super.noSuchMethod(
@@ -432,6 +447,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.QueryExecutor);
+
   @override
   _i5.StreamQueryStore get streamQueries =>
       (super.noSuchMethod(
@@ -446,6 +462,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i5.StreamQueryStore);
+
   @override
   _i4.DatabaseConnectionUser get resolvedEngine =>
       (super.noSuchMethod(
@@ -460,6 +477,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.DatabaseConnectionUser);
+
   @override
   _i6.Future<int> createOrUpdateRequest(_i2.DbRequest? request) =>
       (super.noSuchMethod(
@@ -468,6 +486,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Future<int>.value(0),
           )
           as _i6.Future<int>);
+
   @override
   _i6.Future<_i2.DbRequest?> requestById(String? id) =>
       (super.noSuchMethod(
@@ -476,6 +495,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Future<_i2.DbRequest?>.value(),
           )
           as _i6.Future<_i2.DbRequest?>);
+
   @override
   _i6.Future<int> createOrUpdateBoulderArea(_i2.DbBoulderArea? boulderArea) =>
       (super.noSuchMethod(
@@ -484,6 +504,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Future<int>.value(0),
           )
           as _i6.Future<int>);
+
   @override
   _i6.Stream<List<_i10.DownloadedBoulderArea>> allDownloads({
     _i11.ApiOrderParam? orderParam = const _i11.ApiOrderParam(
@@ -498,6 +519,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 _i6.Stream<List<_i10.DownloadedBoulderArea>>.empty(),
           )
           as _i6.Stream<List<_i10.DownloadedBoulderArea>>);
+
   @override
   _i6.Stream<_i2.DbBoulderArea?> watchDownload(String? iri) =>
       (super.noSuchMethod(
@@ -506,6 +528,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Stream<_i2.DbBoulderArea?>.empty(),
           )
           as _i6.Stream<_i2.DbBoulderArea?>);
+
   @override
   _i4.Migrator createMigrator() =>
       (super.noSuchMethod(
@@ -520,6 +543,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.Migrator);
+
   @override
   _i6.Future<void> beforeOpen(
     _i4.QueryExecutor? executor,
@@ -531,6 +555,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Future<void>.value(),
           )
           as _i6.Future<void>);
+
   @override
   _i6.Future<void> close() =>
       (super.noSuchMethod(
@@ -539,6 +564,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Future<void>.value(),
           )
           as _i6.Future<void>);
+
   @override
   _i6.Stream<T> createStream<T extends Object>(
     _i5.QueryStreamFetcher<T>? stmt,
@@ -549,6 +575,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Stream<T>.empty(),
           )
           as _i6.Stream<T>);
+
   @override
   T alias<T, D>(_i4.ResultSetImplementation<T, D>? table, String? alias) =>
       (super.noSuchMethod(
@@ -563,17 +590,20 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as T);
+
   @override
   void markTablesUpdated(Iterable<_i4.TableInfo<_i4.Table, dynamic>>? tables) =>
       super.noSuchMethod(
         Invocation.method(#markTablesUpdated, [tables]),
         returnValueForMissingStub: null,
       );
+
   @override
   void notifyUpdates(Set<_i4.TableUpdate>? updates) => super.noSuchMethod(
     Invocation.method(#notifyUpdates, [updates]),
     returnValueForMissingStub: null,
   );
+
   @override
   _i6.Stream<Set<_i4.TableUpdate>> tableUpdates([
     _i4.TableUpdateQuery? query = const _i4.TableUpdateQuery.any(),
@@ -584,6 +614,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Stream<Set<_i4.TableUpdate>>.empty(),
           )
           as _i6.Stream<Set<_i4.TableUpdate>>);
+
   @override
   _i6.Future<T> doWhenOpened<T>(
     _i6.FutureOr<T> Function(_i4.QueryExecutor)? fn,
@@ -610,6 +641,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 _FakeFuture_14<T>(this, Invocation.method(#doWhenOpened, [fn])),
           )
           as _i6.Future<T>);
+
   @override
   _i4.InsertStatement<T, D> into<T extends _i4.Table, D>(
     _i4.TableInfo<T, D>? table,
@@ -626,6 +658,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.InsertStatement<T, D>);
+
   @override
   _i4.UpdateStatement<Tbl, R> update<Tbl extends _i4.Table, R>(
     _i4.TableInfo<Tbl, R>? table,
@@ -642,6 +675,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.UpdateStatement<Tbl, R>);
+
   @override
   _i4.SimpleSelectStatement<T, R> select<T extends _i4.HasResultSet, R>(
     _i4.ResultSetImplementation<T, R>? table, {
@@ -659,6 +693,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.SimpleSelectStatement<T, R>);
+
   @override
   _i4.JoinedSelectStatement<T, R> selectOnly<T extends _i4.HasResultSet, R>(
     _i4.ResultSetImplementation<T, R>? table, {
@@ -676,6 +711,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.JoinedSelectStatement<T, R>);
+
   @override
   _i4.BaseSelectStatement<_i4.TypedResult> selectExpressions(
     Iterable<_i4.Expression<Object>>? columns,
@@ -693,6 +729,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 ),
           )
           as _i4.BaseSelectStatement<_i4.TypedResult>);
+
   @override
   _i4.DeleteStatement<T, D> delete<T extends _i4.Table, D>(
     _i4.TableInfo<T, D>? table,
@@ -709,6 +746,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.DeleteStatement<T, D>);
+
   @override
   _i6.Future<int> customUpdate(
     String? query, {
@@ -730,6 +768,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Future<int>.value(0),
           )
           as _i6.Future<int>);
+
   @override
   _i6.Future<int> customInsert(
     String? query, {
@@ -746,6 +785,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Future<int>.value(0),
           )
           as _i6.Future<int>);
+
   @override
   _i6.Future<List<_i4.QueryRow>> customWriteReturning(
     String? query, {
@@ -769,6 +809,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i6.Future<List<_i4.QueryRow>>);
+
   @override
   _i4.Selectable<_i4.QueryRow> customSelect(
     String? query, {
@@ -799,6 +840,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.Selectable<_i4.QueryRow>);
+
   @override
   _i4.Selectable<_i4.QueryRow> customSelectQuery(
     String? query, {
@@ -829,6 +871,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.Selectable<_i4.QueryRow>);
+
   @override
   _i6.Future<void> customStatement(String? statement, [List<dynamic>? args]) =>
       (super.noSuchMethod(
@@ -837,6 +880,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Future<void>.value(),
           )
           as _i6.Future<void>);
+
   @override
   _i6.Future<T> transaction<T>(
     _i6.Future<T> Function()? action, {
@@ -890,6 +934,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 ),
           )
           as _i6.Future<T>);
+
   @override
   _i6.Future<T> exclusively<T>(_i6.Future<T> Function()? action) =>
       (super.noSuchMethod(
@@ -920,6 +965,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 ),
           )
           as _i6.Future<T>);
+
   @override
   _i6.Future<void> batch(_i6.FutureOr<void> Function(_i4.Batch)? runInBatch) =>
       (super.noSuchMethod(
@@ -928,6 +974,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             returnValueForMissingStub: _i6.Future<void>.value(),
           )
           as _i6.Future<void>);
+
   @override
   _i6.Future<T> runWithInterceptor<T>(
     _i6.Future<T> Function()? action, {
@@ -981,6 +1028,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
                 ),
           )
           as _i6.Future<T>);
+
   @override
   _i4.GenerationContext $write(
     _i4.Component? component, {
@@ -1017,6 +1065,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.GenerationContext);
+
   @override
   _i4.GenerationContext $writeInsertable(
     _i4.TableInfo<_i4.Table, dynamic>? table,
@@ -1047,6 +1096,7 @@ class MockAppDatabase extends _i1.Mock implements _i2.AppDatabase {
             ),
           )
           as _i4.GenerationContext);
+
   @override
   String $expandVar(int? start, int? amount) =>
       (super.noSuchMethod(

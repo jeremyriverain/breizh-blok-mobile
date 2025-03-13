@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/config/env_vars.dart';
+import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.dart';
@@ -17,7 +17,7 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
   @override
   Future<Boulder> find(String id) async {
     final response = await httpClient.get(
-      Uri.https(EnvVars.apiHost, '/boulders/$id'),
+      Uri.https(Env.apiHost, '/boulders/$id'),
     );
 
     final json = jsonDecode(response);
@@ -32,12 +32,7 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
   }) async {
     final query = QueryParamFactory.stringify(queryParams: queryParams);
     final response = await httpClient.get(
-      Uri(
-        scheme: 'https',
-        host: EnvVars.apiHost,
-        path: '/boulders',
-        query: query,
-      ),
+      Uri(scheme: 'https', host: Env.apiHost, path: '/boulders', query: query),
       offlineFirst: offlineFirst,
       timeout: timeout ?? kRequestDefaultTimeout,
     );

@@ -61,6 +61,7 @@ class MockDepartmentRepository extends _i1.Mock
             ),
           )
           as _i2.ApiClient);
+
   @override
   _i6.Future<_i3.PaginatedCollection<_i4.Department>> findBy({
     Map<String, List<String>>? queryParams,
@@ -83,6 +84,7 @@ class MockDepartmentRepository extends _i1.Mock
                 ),
           )
           as _i6.Future<_i3.PaginatedCollection<_i4.Department>>);
+
   @override
   _i6.Future<_i3.PaginatedCollection<_i4.Department>> findAll() =>
       (super.noSuchMethod(
@@ -103,6 +105,7 @@ class MockDepartmentRepository extends _i1.Mock
                 ),
           )
           as _i6.Future<_i3.PaginatedCollection<_i4.Department>>);
+
   @override
   _i6.Future<_i4.Department> find(String? id) =>
       (super.noSuchMethod(

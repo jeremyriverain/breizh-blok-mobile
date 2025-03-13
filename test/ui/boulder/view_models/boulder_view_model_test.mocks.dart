@@ -59,6 +59,7 @@ class MockBoulderRepository extends _i1.Mock implements _i5.BoulderRepository {
             ),
           )
           as _i2.ApiClient);
+
   @override
   _i6.Future<_i3.Boulder> find(String? id) =>
       (super.noSuchMethod(
@@ -71,6 +72,7 @@ class MockBoulderRepository extends _i1.Mock implements _i5.BoulderRepository {
             ),
           )
           as _i6.Future<_i3.Boulder>);
+
   @override
   _i6.Future<_i4.PaginatedCollection<_i3.Boulder>> findBy({
     Map<String, List<String>>? queryParams,

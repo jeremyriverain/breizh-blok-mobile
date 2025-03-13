@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:breizh_blok_mobile/config/env_vars.dart';
+import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
@@ -42,7 +42,7 @@ Future<void> main({
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  MapboxOptions.setAccessToken(EnvVars.mapboxToken);
+  MapboxOptions.setAccessToken(Env.mapboxToken);
 
   final localDatabase = GetIt.I.registerSingleton<AppDatabase>(
     database ??
@@ -75,7 +75,7 @@ Future<void> main({
 
   GetIt.I.registerSingleton<Mixpanel>(
     mixpanel ??
-        await Mixpanel.init(EnvVars.mixPanelToken, trackAutomaticEvents: true),
+        await Mixpanel.init(Env.mixPanelToken, trackAutomaticEvents: true),
   );
 
   GetIt.I.registerSingleton<TrackingService>(TrackingService());
@@ -89,7 +89,7 @@ Future<void> main({
   await SentryFlutter.init(
     (options) {
       options
-        ..dsn = options.dsn = EnvVars.sentryDsn
+        ..dsn = options.dsn = Env.sentryDsn
         ..tracesSampleRate = 0;
     },
     appRunner:

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/config/env_vars.dart';
+import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
@@ -24,7 +24,7 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
     final response = await httpClient.get(
       Uri(
         scheme: 'https',
-        host: EnvVars.apiHost,
+        host: Env.apiHost,
         path: 'departments',
         query: query,
       ),
