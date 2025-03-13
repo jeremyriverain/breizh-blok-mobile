@@ -11,7 +11,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/install
+
+      - name: Build runner
+        env:
+          BREIZH_BLOK_API_HOST: ${{secrets.BREIZH_BLOK_API_HOST_RELEASE}}
+          BREIZH_BLOK_SENTRY_URL: ${{secrets.BREIZH_BLOK_SENTRY_DSN_RELEASE}}
+          BREIZH_BLOK_MIX_PANEL_TOKEN: ${{secrets.BREIZH_BLOK_MIX_PANEL_TOKEN_RELEASE}}
+          BREIZH_BLOK_MAPBOX_TOKEN: ${{secrets.MAPBOX_TOKEN_RELEASE}}
+        run: dart run build_runner build
+
       - name: Set Keychain path
         run: echo "KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db" >> $GITHUB_ENV
 
@@ -56,10 +65,6 @@ jobs:
           flutter build ipa \
             --verbose \
             --build-number=$build_number \
-            --dart-define="API_HOST=${{secrets.BREIZH_BLOK_API_HOST_RELEASE}}" \
-            --dart-define="SENTRY_DSN=${{secrets.BREIZH_BLOK_SENTRY_DSN_RELEASE}}" \
-            --dart-define="MIX_PANEL_TOKEN=${{secrets.BREIZH_BLOK_MIX_PANEL_TOKEN_RELEASE}}" \
-            --dart-define="MAPBOX_TOKEN=${{secrets.MAPBOX_TOKEN_RELEASE}}" \
             --release \
             --export-options-plist=ios/buildInfo.plist
 

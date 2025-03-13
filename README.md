@@ -2,23 +2,30 @@
 
 Application mobile (disponible sur iOS et Android) répertoriant les blocs d'escalade en Bretagne
 
-## Configuration
-
-Définissez les variables d'environnement suivantes:
-
-- `BREIZH_BLOK_API_HOST` (hôte de l'API, par exemple `api.example.com`)
-- `BREIZH_BLOK_SENTRY_DSN` (facultatif. adresse DSN fournie par Sentry)
-
 ## Pré-requis
 
 Installez [FVM](https://fvm.app/) qui est utilisé comme gestionnaire de versions de Dart et Flutter.
+
+## Installation
+
+Définissez dans votre environnement les variables d'environnement suivantes:
+
+- BREIZH_BLOK_API_HOST
+- BREIZH_BLOK_MIX_PANEL_TOKEN
+- BREIZH_BLOK_MAPBOX_TOKEN
+- BREIZH_BLOK_SENTRY_URL
+
+```bash
+fvm flutter pub get
+fvm dart run build_runner build
+```
 
 ## Commandes utiles
 
 ### Démarrer l'application en mode DEV
 
 ```bash
-fvm flutter run --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="MIX_PANEL_TOKEN=$BREIZH_BLOK_MIX_PANEL_TOKEN_DEV" --dart-define="MAPBOX_TOKEN=$BREIZH_BLOK_MAPBOX_TOKEN" --debug
+fvm flutter run --debug
 ```
 
 ### Analyse statique de code
@@ -36,13 +43,7 @@ fvm flutter test
 ### Exécuter les tests E2E
 
 ```bash
-fvm flutter test integration_test --dart-define="API_HOST=$BREIZH_BLOK_API_HOST" --dart-define="REQUEST_TIMEOUT=20" --dart-define="MAPBOX_TOKEN=$BREIZH_BLOK_MAPBOX_TOKEN" 
-```
-
-### Exécuter la génération de code
-
-```bash
-fvm dart run build_runner build
+fvm flutter test integration_test --dart-define="REQUEST_TIMEOUT=20"
 ```
 
 ### Générer les icônes

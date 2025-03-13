@@ -9,7 +9,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/install
+
+      - name: Build runner
+        env:
+          BREIZH_BLOK_API_HOST: ${{secrets.BREIZH_BLOK_API_HOST_TEST}}
+          BREIZH_BLOK_MIX_PANEL_TOKEN: ${{secrets.MIX_PANEL_TOKEN_TEST}}
+          BREIZH_BLOK_MAPBOX_TOKEN: ${{secrets.MAPBOX_TOKEN_TEST}}
+          BREIZH_BLOK_SENTRY_URL: ""
+        run: dart run build_runner build
 
       - name: Analyze
         run: |

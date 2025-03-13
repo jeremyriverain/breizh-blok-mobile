@@ -20,7 +20,15 @@ jobs:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_TEST }}
           service_account: ${{ secrets.SERVICE_ACCOUNT_TEST }}
 
-      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/install
+
+      - name: Build runner
+        env:
+          BREIZH_BLOK_API_HOST: ${{secrets.BREIZH_BLOK_API_HOST_TEST}}
+          BREIZH_BLOK_MIX_PANEL_TOKEN: ${{secrets.MIX_PANEL_TOKEN_TEST}}
+          BREIZH_BLOK_MAPBOX_TOKEN: ${{secrets.MAPBOX_TOKEN_TEST}}
+          BREIZH_BLOK_SENTRY_URL: ""
+        run: dart run build_runner build
 
       - name: Set keystore path
         run: echo "SIGNING_STORE_PATH=$RUNNER_TEMP/keystore.jks" >> $GITHUB_ENV
@@ -32,17 +40,13 @@ jobs:
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
-          flutter build apk --dart-define="API_HOST=${{ secrets.BREIZH_BLOK_API_HOST_TEST }}" --dart-define="MAPBOX_TOKEN=${{secrets.MAPBOX_TOKEN_TEST}}" --debug
+          flutter build apk --debug
       - name: Create debug and test APKa
         run: |
           cd android
           ./gradlew app:assembleAndroidTest
 
-          API_HOST=$(echo -n "API_HOST=${{ secrets.BREIZH_BLOK_API_HOST_TEST }}" | base64)
-          MAPBOX_TOKEN=$(echo -n "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN_TEST }}" | base64)
-
-          ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/integration_test/app_test.dart" \
-            -Pdart-defines="$API_HOST,$MAPBOX_TOKEN"
+          ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/integration_test/app_test.dart"
 
       - name: Run Tests in Firebase Test Lab
         run: |
@@ -51,5 +55,4 @@ jobs:
             --app build/app/outputs/apk/debug/app-debug.apk \
             --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
             --timeout 10m \
-            --device "model=shiba,version=34" \
-            --environment-variables "API-HOST=${{secrets.BREIZH_BLOK_API_HOST_TEST}},MAPBOX_TOKEN=${{secrets.MAPBOX_TOKEN_TEST}}"
+            --device "model=shiba,version=34"

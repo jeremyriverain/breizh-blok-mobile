@@ -1,4 +1,4 @@
-name: Setup Flutter Environment
+name: Install Flutter Environment
 description: Setup Flutter SDK and install dependencies
 runs:
   using: "composite"
