@@ -39,7 +39,7 @@ Future<void> main({
   AppDatabase? database,
   Mixpanel? mixpanel,
 }) async {
-  WidgetsFlutterBinding.ensureInitialized();
+  SentryWidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   MapboxOptions.setAccessToken(Env.mapboxToken);
