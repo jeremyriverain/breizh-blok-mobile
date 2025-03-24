@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,8 @@ class LocaleSwitch extends StatelessWidget {
   final String currentLocale;
 
   final languages = {
-    'en': (name: 'English', flag: 'assets/gb_flag.svg'),
-    'fr': (name: 'Français', flag: 'assets/fr_flag.svg'),
+    'en': (name: 'English', flag: Assets.flagEnglish),
+    'fr': (name: 'Français', flag: Assets.flagFrench),
   };
 
   @override

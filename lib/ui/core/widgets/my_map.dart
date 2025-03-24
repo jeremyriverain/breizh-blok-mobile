@@ -7,34 +7,64 @@ import 'package:flutter/material.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-class MyMap extends StatelessWidget {
+class MyMap extends StatefulWidget {
   const MyMap({super.key, this.cameraOptions, this.onMapCreated});
 
   final CameraOptions? cameraOptions;
   final void Function(MapboxMap)? onMapCreated;
 
   @override
+  State<MyMap> createState() => _MyMapState();
+}
+
+class _MyMapState extends State<MyMap> {
+  late MapboxMap _mapboxMap;
+
+  final _defaultStyle = MapboxStyles.OUTDOORS;
+
+  @override
   Widget build(BuildContext context) {
-    return MapWidget(
-      styleUri: MapboxStyles.STANDARD_SATELLITE,
-      cameraOptions: cameraOptions,
-      gestureRecognizers: const {
-        Factory<EagerGestureRecognizer>(EagerGestureRecognizer.new),
-      },
-      onMapCreated: (mapboxMap) async {
-        try {
-          await mapboxMap.style.setStyleImportConfigProperties('basemap', {
-            'showPedestrianRoads': true,
-            'showRoadLabels': true,
-            'showPlaceLabels': true,
-          });
-          onMapCreated?.call(mapboxMap);
-        } catch (exception, stackTrace) {
-          await Sentry.captureException(exception, stackTrace: stackTrace);
-        }
-      },
+    return RepaintBoundary(
+      child: Stack(
+        children: [
+          MapWidget(
+            styleUri: _defaultStyle,
+            cameraOptions: widget.cameraOptions,
+            gestureRecognizers: const {
+              Factory<EagerGestureRecognizer>(EagerGestureRecognizer.new),
+            },
+            onMapCreated: (mapboxMap) async {
+              try {
+                _mapboxMap = mapboxMap;
+                await _mapboxMap.attribution.updateSettings(
+                  AttributionSettings(enabled: false),
+                );
+                widget.onMapCreated?.call(_mapboxMap);
+              } catch (exception, stackTrace) {
+                await Sentry.captureException(
+                  exception,
+                  stackTrace: stackTrace,
+                );
+              }
+            },
+          ),
+          Positioned(
+            right: 5,
+            bottom: 5,
+            child: IconButton.filledTonal(
+              onPressed: () async {
+                final currentStyle = await _mapboxMap.style.getStyleURI();
+                if (currentStyle == _defaultStyle) {
+                  await _mapboxMap.style.setStyleURI(MapboxStyles.SATELLITE);
+                } else {
+                  await _mapboxMap.style.setStyleURI(_defaultStyle);
+                }
+              },
+              icon: const Icon(Icons.layers),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-
-class MapMarker {}

@@ -4,4 +4,4 @@ flutter_launcher_icons:
   min_sdk_android: 20
   remove_alpha_ios: true
   # background_color_ios: '#000000'
-  image_path: "assets/BBlogo-contourblanc.png"
+  image_path: "assets/logo/BBlogo-contourblanc.png"
