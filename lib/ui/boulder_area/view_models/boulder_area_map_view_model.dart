@@ -21,7 +21,7 @@ class BoulderAreaMapViewModel
             emit(
               BoulderAreaMapOK(
                 onClickParking:
-                    parkingLocation == null
+                    parkingLocation == null || availableMaps.isEmpty
                         ? null
                         : (context) async {
                           await MapDirections.openMapsSheet(

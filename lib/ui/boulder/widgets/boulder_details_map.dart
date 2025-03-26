@@ -57,7 +57,7 @@ class BoulderDetailsMap extends StatelessWidget {
                 pointAnnotationManager.addOnPointAnnotationClickListener(
                   _AnnotationClickListener(
                     onAnnotationClick: (annotation) {
-                      state.onClickMarker(context);
+                      state.onClickMarker?.call(context);
                     },
                   ),
                 );

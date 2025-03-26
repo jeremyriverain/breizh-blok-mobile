@@ -26,4 +26,8 @@ const fakeMunicipality = Municipality(
   name: 'Kerlouan',
 );
 
-const fakeBoulderArea = BoulderArea(iri: '/boulder_areas/foo', name: 'Cremiou');
+const fakeBoulderArea = BoulderArea(
+  iri: '/boulder_areas/foo',
+  name: 'Cremiou',
+  parkingLocation: Location(latitude: 2, longitude: 3),
+);
