@@ -40,6 +40,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get boulders => 'Blocs';
 
   @override
+  String get changeStyleMap => 'Modifier le style de la carte';
+
+  @override
   String get checkYourConnection => 'Vérifiez votre connexion internet et essayez à nouveau';
 
   @override

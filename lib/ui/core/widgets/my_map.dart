@@ -1,6 +1,7 @@
 // import 'dart:typed_data';
 // import 'dart:ui' as ui;
 
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,10 @@ class _MyMapState extends State<MyMap> {
                   await _mapboxMap.style.setStyleURI(_defaultStyle);
                 }
               },
-              icon: const Icon(Icons.layers),
+              icon: Icon(
+                Icons.layers,
+                semanticLabel: AppLocalizations.of(context).changeStyleMap,
+              ),
             ),
           ),
         ],

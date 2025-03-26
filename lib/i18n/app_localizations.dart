@@ -131,6 +131,12 @@ abstract class AppLocalizations {
   /// **'Boulders'**
   String get boulders;
 
+  /// No description provided for @changeStyleMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Change style map'**
+  String get changeStyleMap;
+
   /// No description provided for @checkYourConnection.
   ///
   /// In en, this message translates to:

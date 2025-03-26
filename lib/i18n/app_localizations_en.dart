@@ -40,6 +40,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get boulders => 'Boulders';
 
   @override
+  String get changeStyleMap => 'Change style map';
+
+  @override
   String get checkYourConnection => 'Check your internet connection and try again';
 
   @override
