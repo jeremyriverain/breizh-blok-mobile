@@ -101,6 +101,12 @@ abstract class AppLocalizations {
   /// **'An error occured'**
   String get anErrorOccured;
 
+  /// No description provided for @anErrorOccuredWhileDisplayingMap.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occured while displaying the map'**
+  String get anErrorOccuredWhileDisplayingMap;
+
   /// No description provided for @areas.
   ///
   /// In en, this message translates to:

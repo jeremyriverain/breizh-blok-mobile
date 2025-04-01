@@ -94,7 +94,11 @@ class BoulderAreaDetailsMapTab extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(AppLocalizations.of(context).anErrorOccured),
+                        Text(
+                          AppLocalizations.of(
+                            context,
+                          ).anErrorOccuredWhileDisplayingMap,
+                        ),
                         OutlinedButton(
                           onPressed: () {
                             context.read<BoulderAreaMapViewModel>().add(

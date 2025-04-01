@@ -12,6 +12,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get anErrorOccured => 'Une erreur est survenue';
 
   @override
+  String get anErrorOccuredWhileDisplayingMap => 'An error occured while displaying the map';
+
+  @override
   String get areas => 'Sites';
 
   @override
