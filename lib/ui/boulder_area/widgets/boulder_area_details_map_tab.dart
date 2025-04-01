@@ -1,7 +1,10 @@
 import 'package:breizh_blok_mobile/config/assets.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/models/location/location.dart';
 import 'package:breizh_blok_mobile/extensions.dart';
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/view_models/boulder_area_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_itinerary_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
@@ -25,7 +28,12 @@ class BoulderAreaDetailsMapTab extends StatelessWidget {
         Expanded(
           child: BlocProvider(
             create:
-                (context) => BoulderAreaMapViewModel(boulderArea: boulderArea),
+                (context) => BoulderAreaMapViewModel(
+                  boulderArea: boulderArea,
+                  boulderMarkerRepository: BoulderMarkerRepository(
+                    httpClient: context.read<ApiClient>(),
+                  ),
+                ),
             child: BlocBuilder<BoulderAreaMapViewModel, BoulderAreaMapStates>(
               builder: (context, state) {
                 return switch (state) {
@@ -81,6 +89,22 @@ class BoulderAreaDetailsMapTab extends StatelessWidget {
                             );
                       }
                     },
+                  ),
+                  BoulderAreaMapError() => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(AppLocalizations.of(context).anErrorOccured),
+                        OutlinedButton(
+                          onPressed: () {
+                            context.read<BoulderAreaMapViewModel>().add(
+                              const BoulderAreaMapInit(),
+                            );
+                          },
+                          child: Text(AppLocalizations.of(context).tryAgain),
+                        ),
+                      ],
+                    ),
                   ),
                 };
               },

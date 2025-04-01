@@ -27,6 +27,8 @@ abstract class BoulderArea with _$BoulderArea {
   factory BoulderArea.fromJson(Map<String, Object?> json) =>
       _$BoulderAreaFromJson(json);
 
+  String get id => iri.replaceAll('/boulder_areas/', '');
+
   Location resolveLocation() {
     final centroid = this.centroid;
     final parkingLocation = this.parkingLocation;

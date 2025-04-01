@@ -1,20 +1,76 @@
 // ignore_for_file: avoid_dynamic_calls
 
+import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/models/boulder_marker/boulder_marker.dart';
+import 'package:breizh_blok_mobile/domain/models/location/location.dart';
+import 'package:breizh_blok_mobile/domain/models/rock_marker/rock_marker.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/view_models/boulder_area_map_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../../test_utils.dart';
 import '../../../widget_test_utils.dart';
 
+@GenerateNiceMocks([MockSpec<BoulderMarkerRepository>()])
+import 'boulder_area_map_view_model_test.mocks.dart';
+
 void main() {
   group('BoulderAreaMapViewModel', () {
-    Widget getTestWidget({BoulderArea boulderArea = fakeBoulderArea}) {
+    late BoulderMarkerRepository boulderMarkerRepository;
+    late List<MethodCall> logs;
+
+    setUp(() {
+      boulderMarkerRepository = MockBoulderMarkerRepository();
+    });
+
+    tearDown(() {
+      logs.clear();
+    });
+
+    void mockMapLauncher({
+      required WidgetTester tester,
+      List<Map<String, String>> installedMaps = const [],
+    }) {
+      logs = <MethodCall>[];
+
+      const channel = MethodChannel('map_launcher');
+
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
+        MethodCall methodCall,
+      ) async {
+        logs.add(methodCall);
+        if (methodCall.method == 'getInstalledMaps') {
+          return installedMaps;
+        }
+        return null;
+      });
+    }
+
+    void mockBoulderMarkerRepository({required BoulderArea boulderArea}) {
+      when(
+        boulderMarkerRepository.findByBoulderArea(boulderArea: boulderArea),
+      ).thenAnswer((_) async {
+        return [
+          const BoulderMarker(
+            id: 1,
+            rock: RockMarker(location: Location(latitude: 1, longitude: 2)),
+          ),
+        ];
+      });
+    }
+
+    Widget getTestWidget({required BoulderArea boulderArea}) {
       return BlocProvider(
-        create: (context) => BoulderAreaMapViewModel(boulderArea: boulderArea),
+        create:
+            (context) => BoulderAreaMapViewModel(
+              boulderArea: boulderArea,
+              boulderMarkerRepository: boulderMarkerRepository,
+            ),
         child: BlocBuilder<BoulderAreaMapViewModel, BoulderAreaMapStates>(
           builder: (context, state) {
             return switch (state) {
@@ -25,6 +81,7 @@ void main() {
                 },
                 child: const Text('open maps'),
               ),
+              BoulderAreaMapError() => const Text('error'),
             };
           },
         ),
@@ -34,23 +91,19 @@ void main() {
     testWidgets('when it initializes, then it retrieves installed maps', (
       tester,
     ) async {
-      final logs = <MethodCall>[];
+      mockBoulderMarkerRepository(boulderArea: fakeBoulderArea);
 
-      const channel = MethodChannel('map_launcher');
-
-      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
-        MethodCall methodCall,
-      ) async {
-        logs.add(methodCall);
-        if (methodCall.method == 'getInstalledMaps') {
-          return [
-            {'mapName': 'Google Maps', 'mapType': 'google'},
-            {'mapName': 'Apple map', 'mapType': 'apple'},
-          ];
-        }
-        return null;
-      });
-      await myPumpAndSettle(tester, widget: getTestWidget());
+      mockMapLauncher(
+        tester: tester,
+        installedMaps: [
+          {'mapName': 'Google Maps', 'mapType': 'google'},
+          {'mapName': 'Apple map', 'mapType': 'apple'},
+        ],
+      );
+      await myPumpAndSettle(
+        tester,
+        widget: getTestWidget(boulderArea: fakeBoulderArea),
+      );
 
       await tester.tap(find.text('open maps'));
 
@@ -79,21 +132,14 @@ void main() {
     testWidgets(
       'if there is no available map, then the modal does not display',
       (tester) async {
-        final logs = <MethodCall>[];
+        mockBoulderMarkerRepository(boulderArea: fakeBoulderArea);
 
-        const channel = MethodChannel('map_launcher');
+        mockMapLauncher(tester: tester);
 
-        tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
-          channel,
-          (MethodCall methodCall) async {
-            logs.add(methodCall);
-            if (methodCall.method == 'getInstalledMaps') {
-              return [];
-            }
-            return null;
-          },
+        await myPumpAndSettle(
+          tester,
+          widget: getTestWidget(boulderArea: fakeBoulderArea),
         );
-        await myPumpAndSettle(tester, widget: getTestWidget());
 
         await tester.tap(find.text('open maps'));
 
@@ -106,21 +152,15 @@ void main() {
     testWidgets('if parkingLocation is null, then the modal does not display', (
       tester,
     ) async {
-      final logs = <MethodCall>[];
+      mockBoulderMarkerRepository(boulderArea: fakeBoulderArea);
 
-      const channel = MethodChannel('map_launcher');
+      mockMapLauncher(
+        tester: tester,
+        installedMaps: [
+          {'mapName': 'Google Maps', 'mapType': 'google'},
+        ],
+      );
 
-      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
-        MethodCall methodCall,
-      ) async {
-        logs.add(methodCall);
-        if (methodCall.method == 'getInstalledMaps') {
-          return [
-            {'mapName': 'Google Maps', 'mapType': 'google'},
-          ];
-        }
-        return null;
-      });
       await myPumpAndSettle(
         tester,
         widget: getTestWidget(
@@ -133,6 +173,39 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('maps-modal-bottom-sheet')), findsNothing);
+    });
+
+    testWidgets('it transitions from idle to error if there is an error', (
+      tester,
+    ) async {
+      mockMapLauncher(tester: tester);
+
+      when(
+        boulderMarkerRepository.findByBoulderArea(boulderArea: fakeBoulderArea),
+      ).thenThrow(Exception());
+
+      await myPump(tester, widget: getTestWidget(boulderArea: fakeBoulderArea));
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+      await tester.pump();
+
+      expect(find.text('error'), findsOneWidget);
+    });
+
+    testWidgets('fetches boulder markers when initializing', (tester) async {
+      mockBoulderMarkerRepository(boulderArea: fakeBoulderArea);
+      mockMapLauncher(tester: tester);
+
+      await myPump(tester, widget: getTestWidget(boulderArea: fakeBoulderArea));
+
+      await tester.pump();
+
+      verify(
+        boulderMarkerRepository.findByBoulderArea(boulderArea: fakeBoulderArea),
+      ).called(1);
+
+      verifyNoMoreInteractions(boulderMarkerRepository);
     });
   });
 }
