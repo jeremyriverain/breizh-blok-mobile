@@ -50,6 +50,7 @@ class BoulderAreaMapViewModel
                   clusterSource: _getClusterSource(
                     boulderMarkers: boulderMarkers as List<BoulderMarker>,
                   ),
+                  boulderMarkers: boulderMarkers,
                 ),
               );
             } catch (e) {
@@ -97,6 +98,7 @@ sealed class BoulderAreaMapStates with _$BoulderAreaMapStates {
   const factory BoulderAreaMapStates.ok({
     required Future<void> Function(BuildContext context)? onClickParking,
     required Map<String, dynamic> clusterSource,
+    required List<BoulderMarker> boulderMarkers,
   }) = BoulderAreaMapOK;
   const factory BoulderAreaMapStates.error() = BoulderAreaMapError;
 }

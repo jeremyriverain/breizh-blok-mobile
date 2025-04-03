@@ -14,12 +14,15 @@ class MyMap extends StatefulWidget {
     this.cameraOptions,
     this.onMapCreated,
     this.onStyleLoadedListener,
+    this.onTapListener,
   });
 
   final CameraOptions? cameraOptions;
   final void Function(MapboxMap)? onMapCreated;
   final void Function(MapboxMap mapboxMap, StyleLoadedEventData)?
   onStyleLoadedListener;
+  final void Function(MapboxMap mapboxMap, MapContentGestureContext)?
+  onTapListener;
 
   @override
   State<MyMap> createState() => _MyMapState();
@@ -49,17 +52,41 @@ class _MyMapState extends State<MyMap> {
                 );
                 widget.onMapCreated?.call(_mapboxMap);
               } catch (exception, stackTrace) {
+                if (kDebugMode) {
+                  debugPrint(exception.toString());
+                }
                 await Sentry.captureException(
                   exception,
                   stackTrace: stackTrace,
                 );
               }
             },
-            onStyleLoadedListener:
-                (styleLoadedEventData) => widget.onStyleLoadedListener?.call(
+            onStyleLoadedListener: (styleLoadedEventData) {
+              try {
+                widget.onStyleLoadedListener?.call(
                   _mapboxMap,
                   styleLoadedEventData,
-                ),
+                );
+              } catch (exception, stackTrace) {
+                if (kDebugMode) {
+                  debugPrint(exception.toString());
+                }
+                Sentry.captureException(exception, stackTrace: stackTrace);
+              }
+            },
+            onTapListener: (mapContentGestureContext) {
+              try {
+                widget.onTapListener?.call(
+                  _mapboxMap,
+                  mapContentGestureContext,
+                );
+              } catch (exception, stackTrace) {
+                if (kDebugMode) {
+                  debugPrint(exception.toString());
+                }
+                Sentry.captureException(exception, stackTrace: stackTrace);
+              }
+            },
           ),
           Positioned(
             right: 5,

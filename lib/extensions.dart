@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 extension BuildContextExtension on BuildContext {
   Future<Uint8List> getResponsiveImageData({required String imagePath}) async {
@@ -18,5 +19,19 @@ extension BuildContextExtension on BuildContext {
       final bytes = await rootBundle.load(imagePath);
       return bytes.buffer.asUint8List();
     }
+  }
+}
+
+extension FeatureExtensionValueExtension on FeatureExtensionValue {
+  Set<String> toBoulderIds() {
+    return featureCollection
+            ?.map(
+              (f) =>
+                  (f?['properties'] as Map<Object?, Object?>?)?['id']
+                      .toString(),
+            )
+            .whereType<String>()
+            .toSet() ??
+        <String>{};
   }
 }
