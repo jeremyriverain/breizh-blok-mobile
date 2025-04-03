@@ -47,7 +47,9 @@ class BoulderAreaMapViewModel
                               ),
                             );
                           },
-                  boulderMarkers: boulderMarkers as List<BoulderMarker>,
+                  clusterSource: _getClusterSource(
+                    boulderMarkers: boulderMarkers as List<BoulderMarker>,
+                  ),
                 ),
               );
             } catch (e) {
@@ -61,6 +63,23 @@ class BoulderAreaMapViewModel
 
   final BoulderArea boulderArea;
   final BoulderMarkerRepository boulderMarkerRepository;
+
+  Map<String, dynamic> _getClusterSource({
+    required List<BoulderMarker> boulderMarkers,
+  }) {
+    return {
+      'type': 'geojson',
+      'cluster': true,
+      'clusterMaxZoom': 20,
+      'clusterRadius': 50,
+      'data': {
+        'type': 'FeatureCollection',
+        'features': [
+          for (final boulderMarker in boulderMarkers) boulderMarker.toGeojson(),
+        ],
+      },
+    };
+  }
 }
 
 @freezed
@@ -77,7 +96,7 @@ sealed class BoulderAreaMapStates with _$BoulderAreaMapStates {
   const factory BoulderAreaMapStates.idle() = BoulderAreaMapIdle;
   const factory BoulderAreaMapStates.ok({
     required Future<void> Function(BuildContext context)? onClickParking,
-    required List<BoulderMarker> boulderMarkers,
+    required Map<String, dynamic> clusterSource,
   }) = BoulderAreaMapOK;
   const factory BoulderAreaMapStates.error() = BoulderAreaMapError;
 }

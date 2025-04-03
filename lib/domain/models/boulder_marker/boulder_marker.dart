@@ -13,4 +13,15 @@ abstract class BoulderMarker with _$BoulderMarker {
 
   factory BoulderMarker.fromJson(Map<String, Object?> json) =>
       _$BoulderMarkerFromJson(json);
+
+  Map<String, dynamic> toGeojson() {
+    return {
+      'type': 'Feature',
+      'properties': {'id': id},
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [rock.location.longitude, rock.location.latitude, 0.0],
+      },
+    };
+  }
 }

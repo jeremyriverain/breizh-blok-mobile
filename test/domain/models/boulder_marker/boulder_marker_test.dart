@@ -1,5 +1,6 @@
 import 'package:breizh_blok_mobile/domain/models/boulder_marker/boulder_marker.dart';
 import 'package:breizh_blok_mobile/domain/models/location/location.dart';
+import 'package:breizh_blok_mobile/domain/models/rock_marker/rock_marker.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -16,6 +17,22 @@ void main() {
         boulderMarker.rock.location,
         const Location(latitude: 4, longitude: 2),
       );
+    });
+
+    test('toGeojson', () {
+      const boulderMarker = BoulderMarker(
+        id: 1,
+        rock: RockMarker(location: Location(latitude: 2, longitude: 3)),
+      );
+
+      expect(boulderMarker.toGeojson(), {
+        'type': 'Feature',
+        'properties': {'id': 1},
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [3.0, 2.0, 0.0],
+        },
+      });
     });
   });
 }

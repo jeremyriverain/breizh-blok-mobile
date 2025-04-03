@@ -2,9 +2,6 @@
 
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_marker/boulder_marker.dart';
-import 'package:breizh_blok_mobile/domain/models/location/location.dart';
-import 'package:breizh_blok_mobile/domain/models/rock_marker/rock_marker.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/view_models/boulder_area_map_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +25,7 @@ void main() {
       boulderMarkerRepository = MockBoulderMarkerRepository();
     });
 
-    tearDown(() {
+    tearDown(() async {
       logs.clear();
     });
 
@@ -55,35 +52,36 @@ void main() {
       when(
         boulderMarkerRepository.findByBoulderArea(boulderArea: boulderArea),
       ).thenAnswer((_) async {
-        return [
-          const BoulderMarker(
-            id: 1,
-            rock: RockMarker(location: Location(latitude: 1, longitude: 2)),
-          ),
-        ];
+        return [fakeBoulderMarker];
       });
     }
 
-    Widget getTestWidget({required BoulderArea boulderArea}) {
-      return BlocProvider(
-        create:
-            (context) => BoulderAreaMapViewModel(
-              boulderArea: boulderArea,
-              boulderMarkerRepository: boulderMarkerRepository,
-            ),
-        child: BlocBuilder<BoulderAreaMapViewModel, BoulderAreaMapStates>(
-          builder: (context, state) {
-            return switch (state) {
-              BoulderAreaMapIdle() => const CircularProgressIndicator(),
-              BoulderAreaMapOK() => ElevatedButton(
-                onPressed: () {
-                  state.onClickParking?.call(context);
-                },
-                child: const Text('open maps'),
-              ),
-              BoulderAreaMapError() => const Text('error'),
-            };
-          },
+    ({Widget widget, BoulderAreaMapViewModel viewModel}) getTestWidget({
+      required BoulderArea boulderArea,
+    }) {
+      final viewModel = BoulderAreaMapViewModel(
+        boulderArea: boulderArea,
+        boulderMarkerRepository: boulderMarkerRepository,
+      );
+
+      return (
+        viewModel: viewModel,
+        widget: BlocProvider(
+          create: (context) => viewModel,
+          child: BlocBuilder<BoulderAreaMapViewModel, BoulderAreaMapStates>(
+            builder: (context, state) {
+              return switch (state) {
+                BoulderAreaMapIdle() => const CircularProgressIndicator(),
+                BoulderAreaMapOK() => ElevatedButton(
+                  onPressed: () {
+                    state.onClickParking?.call(context);
+                  },
+                  child: const Text('open maps'),
+                ),
+                BoulderAreaMapError() => const Text('error'),
+              };
+            },
+          ),
         ),
       );
     }
@@ -102,7 +100,7 @@ void main() {
       );
       await myPumpAndSettle(
         tester,
-        widget: getTestWidget(boulderArea: fakeBoulderArea),
+        widget: getTestWidget(boulderArea: fakeBoulderArea).widget,
       );
 
       await tester.tap(find.text('open maps'));
@@ -138,7 +136,7 @@ void main() {
 
         await myPumpAndSettle(
           tester,
-          widget: getTestWidget(boulderArea: fakeBoulderArea),
+          widget: getTestWidget(boulderArea: fakeBoulderArea).widget,
         );
 
         await tester.tap(find.text('open maps'));
@@ -163,9 +161,10 @@ void main() {
 
       await myPumpAndSettle(
         tester,
-        widget: getTestWidget(
-          boulderArea: fakeBoulderArea.copyWith(parkingLocation: null),
-        ),
+        widget:
+            getTestWidget(
+              boulderArea: fakeBoulderArea.copyWith(parkingLocation: null),
+            ).widget,
       );
 
       await tester.tap(find.text('open maps'));
@@ -175,18 +174,17 @@ void main() {
       expect(find.byKey(const Key('maps-modal-bottom-sheet')), findsNothing);
     });
 
-    testWidgets('it transitions from idle to error if there is an error', (
-      tester,
-    ) async {
+    testWidgets('it transitions to error if there is an error', (tester) async {
       mockMapLauncher(tester: tester);
 
       when(
         boulderMarkerRepository.findByBoulderArea(boulderArea: fakeBoulderArea),
       ).thenThrow(Exception());
 
-      await myPump(tester, widget: getTestWidget(boulderArea: fakeBoulderArea));
-
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      await myPump(
+        tester,
+        widget: getTestWidget(boulderArea: fakeBoulderArea).widget,
+      );
 
       await tester.pump();
 
@@ -197,7 +195,10 @@ void main() {
       mockBoulderMarkerRepository(boulderArea: fakeBoulderArea);
       mockMapLauncher(tester: tester);
 
-      await myPump(tester, widget: getTestWidget(boulderArea: fakeBoulderArea));
+      await myPump(
+        tester,
+        widget: getTestWidget(boulderArea: fakeBoulderArea).widget,
+      );
 
       await tester.pump();
 
@@ -206,6 +207,33 @@ void main() {
       ).called(1);
 
       verifyNoMoreInteractions(boulderMarkerRepository);
+    });
+
+    testWidgets('returns clusterSource correctly', (tester) async {
+      mockBoulderMarkerRepository(boulderArea: fakeBoulderArea);
+      mockMapLauncher(tester: tester);
+
+      final (:viewModel, :widget) = getTestWidget(boulderArea: fakeBoulderArea);
+
+      await myPump(tester, widget: widget);
+
+      await tester.pump();
+
+      final state = viewModel.state as BoulderAreaMapOK;
+
+      expect(
+        state.clusterSource,
+        equals({
+          'type': 'geojson',
+          'cluster': true,
+          'clusterMaxZoom': 20,
+          'clusterRadius': 50,
+          'data': {
+            'type': 'FeatureCollection',
+            'features': [fakeBoulderMarker.toGeojson()],
+          },
+        }),
+      );
     });
   });
 }

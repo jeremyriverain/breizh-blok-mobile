@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
@@ -9,27 +11,36 @@ import 'package:breizh_blok_mobile/ui/boulder_area/view_models/boulder_area_map_
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_itinerary_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
-class BoulderAreaDetailsMapTab extends StatelessWidget {
+class BoulderAreaDetailsMapTab extends StatefulWidget {
   const BoulderAreaDetailsMapTab({required this.boulderArea, super.key});
 
   final BoulderArea boulderArea;
 
+  @override
+  State<BoulderAreaDetailsMapTab> createState() =>
+      _BoulderAreaDetailsMapTabState();
+}
+
+class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
+    with AutomaticKeepAliveClientMixin {
   Location get location =>
-      boulderArea.centroid ??
+      widget.boulderArea.centroid ??
       const Location(latitude: kDefaultLatitude, longitude: kDefaultLongitude);
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: [
         Expanded(
           child: BlocProvider(
             create:
                 (context) => BoulderAreaMapViewModel(
-                  boulderArea: boulderArea,
+                  boulderArea: widget.boulderArea,
                   boulderMarkerRepository: BoulderMarkerRepository(
                     httpClient: context.read<ApiClient>(),
                   ),
@@ -40,7 +51,7 @@ class BoulderAreaDetailsMapTab extends StatelessWidget {
                   BoulderAreaMapIdle() => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  BoulderAreaMapOK() => MyMap(
+                  BoulderAreaMapOK(:final clusterSource) => MyMap(
                     cameraOptions: CameraOptions(
                       zoom: 14,
                       center: Point(
@@ -51,7 +62,8 @@ class BoulderAreaDetailsMapTab extends StatelessWidget {
                       ),
                     ),
                     onMapCreated: (mapboxMap) async {
-                      final parkingLocation = boulderArea.parkingLocation;
+                      final parkingLocation =
+                          widget.boulderArea.parkingLocation;
                       if (parkingLocation != null) {
                         final pointAnnotationManager =
                             await mapboxMap.annotations
@@ -89,6 +101,46 @@ class BoulderAreaDetailsMapTab extends StatelessWidget {
                             );
                       }
                     },
+                    onStyleLoadedListener: (mapboxMap, _) {
+                      mapboxMap.style.styleSourceExists('boulders').then((
+                        value,
+                      ) async {
+                        if (!value) {
+                          final source = jsonEncode(clusterSource);
+                          await mapboxMap.style.addStyleSource(
+                            'boulders',
+                            source,
+                          );
+                        }
+                      });
+                      mapboxMap.style.styleLayerExists('clusters').then((
+                        value,
+                      ) async {
+                        if (!value) {
+                          final layer = await rootBundle.loadString(
+                            Assets.clusterLayer,
+                          );
+                          await mapboxMap.style.addStyleLayer(layer, null);
+
+                          final clusterCountLayer = await rootBundle.loadString(
+                            Assets.clusterCountLayer,
+                          );
+
+                          await mapboxMap.style.addStyleLayer(
+                            clusterCountLayer,
+                            null,
+                          );
+
+                          final unclusteredLayer = await rootBundle.loadString(
+                            Assets.unclusteredPointLayer,
+                          );
+                          await mapboxMap.style.addStyleLayer(
+                            unclusteredLayer,
+                            null,
+                          );
+                        }
+                      });
+                    },
                   ),
                   BoulderAreaMapError() => Center(
                     child: Column(
@@ -117,11 +169,16 @@ class BoulderAreaDetailsMapTab extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: BoulderAreaDetailsItineraryButton(boulderArea: boulderArea),
+          child: BoulderAreaDetailsItineraryButton(
+            boulderArea: widget.boulderArea,
+          ),
         ),
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _AnnotationClickListener extends OnPointAnnotationClickListener {

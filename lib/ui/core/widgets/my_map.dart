@@ -9,10 +9,17 @@ import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class MyMap extends StatefulWidget {
-  const MyMap({super.key, this.cameraOptions, this.onMapCreated});
+  const MyMap({
+    super.key,
+    this.cameraOptions,
+    this.onMapCreated,
+    this.onStyleLoadedListener,
+  });
 
   final CameraOptions? cameraOptions;
   final void Function(MapboxMap)? onMapCreated;
+  final void Function(MapboxMap mapboxMap, StyleLoadedEventData)?
+  onStyleLoadedListener;
 
   @override
   State<MyMap> createState() => _MyMapState();
@@ -48,6 +55,11 @@ class _MyMapState extends State<MyMap> {
                 );
               }
             },
+            onStyleLoadedListener:
+                (styleLoadedEventData) => widget.onStyleLoadedListener?.call(
+                  _mapboxMap,
+                  styleLoadedEventData,
+                ),
           ),
           Positioned(
             right: 5,
