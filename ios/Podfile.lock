@@ -27,6 +27,8 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - permission_handler_apple (9.3.0):
+    - Flutter
   - Sentry/HybridSDK (8.44.0)
   - sentry_flutter (8.13.2):
     - Flutter
@@ -69,6 +71,7 @@ DEPENDENCIES:
   - mixpanel_flutter (from `.symlinks/plugins/mixpanel_flutter/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - sentry_flutter (from `.symlinks/plugins/sentry_flutter/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -100,6 +103,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
   sentry_flutter:
     :path: ".symlinks/plugins/sentry_flutter/ios"
   share_plus:
@@ -123,6 +128,7 @@ SPEC CHECKSUMS:
   mixpanel_flutter: a3c76135610714c50f64ccdc09a1c66cf9be546b
   package_info_plus: 5076a1ce937258be9d2d41781a0e9cd71f19a82f
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
   Sentry: 0f9bc9adfc0b960e7f3bb5ec67e9a3d8193f3bdb
   sentry_flutter: f4a0466dc8855998ffd59378ec33507c7dc32d7b
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
@@ -132,6 +138,6 @@ SPEC CHECKSUMS:
   sqlite3_flutter_libs: f8fc13346870e73fe35ebf6dbb997fbcd156b241
   Turf: c9eb11a65d96af58cac523460fd40fec5061b081
 
-PODFILE CHECKSUM: e2afce7d25c5beacf8f3d73fdf258a72d1625bfe
+PODFILE CHECKSUM: d25d76799d09a53fe73f0310fecbc31ec83b92f6
 
 COCOAPODS: 1.16.2

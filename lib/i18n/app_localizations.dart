@@ -233,6 +233,12 @@ abstract class AppLocalizations {
   /// **'Filter'**
   String get filter;
 
+  /// No description provided for @getMyLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Get my location'**
+  String get getMyLocation;
+
   /// No description provided for @goToHomepage.
   ///
   /// In en, this message translates to:

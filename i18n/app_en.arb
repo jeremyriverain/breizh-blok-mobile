@@ -43,6 +43,7 @@
   "errorOccuredWhileFetchingBoulders": "An error occured while fetching boulders",
   "fetchingData": "Fetching data",
   "filter": "Filter",
+  "getMyLocation": "Get my location",
   "goToHomepage": "Go to homepage",
   "grade": "Grade",
   "height": "Height",

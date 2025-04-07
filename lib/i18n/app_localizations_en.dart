@@ -99,6 +99,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filter => 'Filter';
 
   @override
+  String get getMyLocation => 'Get my location';
+
+  @override
   String get goToHomepage => 'Go to homepage';
 
   @override

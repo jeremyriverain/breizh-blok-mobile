@@ -40,6 +40,17 @@ post_install do |installer|
     target.build_configurations.each do |config|
       # the config below is due to compiling issues with mac m1 on codemagic
       config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64 i386"
+
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+        '$(inherited)',
+
+        ## The 'PERMISSION_LOCATION' macro enables the `locationWhenInUse` and `locationAlways` permission. If
+        ## the application only requires `locationWhenInUse`, only specify the `PERMISSION_LOCATION_WHENINUSE`
+        ## macro.
+        ##
+        ## dart: [PermissionGroup.location, PermissionGroup.locationAlways, PermissionGroup.locationWhenInUse]
+        'PERMISSION_LOCATION_WHENINUSE=0',
+      ]
     end
   end
 end

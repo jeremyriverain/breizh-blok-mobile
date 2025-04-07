@@ -99,6 +99,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get filter => 'Filtrer';
 
   @override
+  String get getMyLocation => 'Afficher ma position';
+
+  @override
   String get goToHomepage => 'Aller à l\'accueil';
 
   @override

@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class MyMap extends StatefulWidget {
@@ -32,6 +33,8 @@ class _MyMapState extends State<MyMap> {
   late MapboxMap _mapboxMap;
 
   final _defaultStyle = MapboxStyles.OUTDOORS;
+
+  bool isLocationShown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +106,46 @@ class _MyMapState extends State<MyMap> {
               icon: Icon(
                 Icons.layers,
                 semanticLabel: AppLocalizations.of(context).changeStyleMap,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 5,
+            bottom: 55,
+            child: IconButton.filledTonal(
+              onPressed: () async {
+                try {
+                  switch (isLocationShown) {
+                    case true:
+                      await _mapboxMap.location.updateSettings(
+                        LocationComponentSettings(
+                          enabled: false,
+                          pulsingEnabled: false,
+                        ),
+                      );
+                    case false:
+                      await Permission.locationWhenInUse.request();
+
+                      await _mapboxMap.location.updateSettings(
+                        LocationComponentSettings(
+                          enabled: true,
+                          pulsingEnabled: true,
+                        ),
+                      );
+                  }
+                  setState(() {
+                    isLocationShown = !isLocationShown;
+                  });
+                } catch (error, stackTrace) {
+                  if (kDebugMode) {
+                    debugPrint(error.toString());
+                  }
+                  await Sentry.captureException(error, stackTrace: stackTrace);
+                }
+              },
+              icon: Icon(
+                isLocationShown ? Icons.location_off : Icons.my_location,
+                semanticLabel: AppLocalizations.of(context).getMyLocation,
               ),
             ),
           ),
