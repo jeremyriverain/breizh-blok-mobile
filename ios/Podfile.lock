@@ -2,6 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
+  - location (0.0.1):
+    - Flutter
   - map_launcher (0.0.1):
     - Flutter
   - mapbox_maps_flutter (2.6.0):
@@ -66,6 +68,7 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - location (from `.symlinks/plugins/location/ios`)
   - map_launcher (from `.symlinks/plugins/map_launcher/ios`)
   - mapbox_maps_flutter (from `.symlinks/plugins/mapbox_maps_flutter/ios`)
   - mixpanel_flutter (from `.symlinks/plugins/mixpanel_flutter/ios`)
@@ -93,6 +96,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
+  location:
+    :path: ".symlinks/plugins/location/ios"
   map_launcher:
     :path: ".symlinks/plugins/map_launcher/ios"
   mapbox_maps_flutter:
@@ -119,6 +124,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
+  location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
   map_launcher: fe43bda6720bb73c12fcc1bdd86123ff49a4d4d6
   mapbox_maps_flutter: 1457f41480792ffeaefbf3786008ce2f701dcd20
   MapboxCommon: 363dbed6bcdaa9a08674098fc5c661e826049dc2
@@ -138,6 +144,6 @@ SPEC CHECKSUMS:
   sqlite3_flutter_libs: f8fc13346870e73fe35ebf6dbb997fbcd156b241
   Turf: c9eb11a65d96af58cac523460fd40fec5061b081
 
-PODFILE CHECKSUM: d25d76799d09a53fe73f0310fecbc31ec83b92f6
+PODFILE CHECKSUM: e2afce7d25c5beacf8f3d73fdf258a72d1625bfe
 
 COCOAPODS: 1.16.2

@@ -17,6 +17,7 @@ class MapScreen extends StatelessWidget {
           coordinates: Position(kDefaultLongitude, kDefaultLatitude),
         ),
       ),
+      onEnableLocationListener: (mapboxMap) {},
     );
   }
 }

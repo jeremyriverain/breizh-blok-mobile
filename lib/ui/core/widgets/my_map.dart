@@ -1,12 +1,14 @@
 // import 'dart:typed_data';
 // import 'dart:ui' as ui;
 
+// ignore_for_file: require_trailing_commas
+
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class MyMap extends StatefulWidget {
@@ -16,6 +18,7 @@ class MyMap extends StatefulWidget {
     this.onMapCreated,
     this.onStyleLoadedListener,
     this.onTapListener,
+    this.onEnableLocationListener,
   });
 
   final CameraOptions? cameraOptions;
@@ -25,6 +28,8 @@ class MyMap extends StatefulWidget {
   final void Function(MapboxMap mapboxMap, MapContentGestureContext)?
   onTapListener;
 
+  final void Function(MapboxMap mapboxMap)? onEnableLocationListener;
+
   @override
   State<MyMap> createState() => _MyMapState();
 }
@@ -33,6 +38,19 @@ class _MyMapState extends State<MyMap> {
   late MapboxMap _mapboxMap;
 
   final _defaultStyle = MapboxStyles.OUTDOORS;
+  late ViewportState _viewport;
+
+  CameraViewportState get defaultViewPort => CameraViewportState(
+    center: widget.cameraOptions?.center,
+    zoom: widget.cameraOptions?.zoom,
+    bearing: 0,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _viewport = defaultViewPort;
+  }
 
   bool isLocationShown = false;
 
@@ -47,6 +65,7 @@ class _MyMapState extends State<MyMap> {
             gestureRecognizers: const {
               Factory<EagerGestureRecognizer>(EagerGestureRecognizer.new),
             },
+            viewport: _viewport,
             onMapCreated: (mapboxMap) async {
               try {
                 _mapboxMap = mapboxMap;
@@ -115,27 +134,57 @@ class _MyMapState extends State<MyMap> {
             child: IconButton.filledTonal(
               onPressed: () async {
                 try {
-                  switch (isLocationShown) {
-                    case true:
-                      await _mapboxMap.location.updateSettings(
-                        LocationComponentSettings(
-                          enabled: false,
-                          pulsingEnabled: false,
-                        ),
-                      );
-                    case false:
-                      await Permission.locationWhenInUse.request();
+                  if (isLocationShown) {
+                    setState(() {
+                      isLocationShown = false;
+                    });
+                    await _mapboxMap.location.updateSettings(
+                      LocationComponentSettings(
+                        enabled: false,
+                        pulsingEnabled: false,
+                        puckBearingEnabled: false,
+                      ),
+                    );
 
-                      await _mapboxMap.location.updateSettings(
-                        LocationComponentSettings(
-                          enabled: true,
-                          pulsingEnabled: true,
-                        ),
-                      );
+                    setStateWithViewportAnimation(() {
+                      _viewport = defaultViewPort;
+                    }, transition: const FlyViewportTransition());
+
+                    return;
                   }
+
+                  final location = Location();
+
+                  final serviceEnabled = await location.serviceEnabled();
+                  if (!serviceEnabled) {
+                    if (!await location.requestService()) {
+                      return;
+                    }
+                  }
+
+                  final permissionGranted = await location.hasPermission();
+                  if (permissionGranted == PermissionStatus.denied) {
+                    if (await location.requestPermission() !=
+                        PermissionStatus.granted) {
+                      return;
+                    }
+                  }
+
                   setState(() {
-                    isLocationShown = !isLocationShown;
+                    isLocationShown = true;
                   });
+
+                  await _mapboxMap.location.updateSettings(
+                    LocationComponentSettings(
+                      enabled: true,
+                      pulsingEnabled: true,
+                      puckBearingEnabled: true,
+                    ),
+                  );
+
+                  setStateWithViewportAnimation(() {
+                    _viewport = const FollowPuckViewportState();
+                  }, transition: const FlyViewportTransition());
                 } catch (error, stackTrace) {
                   if (kDebugMode) {
                     debugPrint(error.toString());

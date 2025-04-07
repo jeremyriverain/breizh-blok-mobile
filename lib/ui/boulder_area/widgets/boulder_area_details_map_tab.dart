@@ -63,7 +63,7 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                   ) =>
                     MyMap(
                       cameraOptions: CameraOptions(
-                        zoom: 14,
+                        zoom: 12,
                         center: Point(
                           coordinates: Position(
                             location.longitude,
