@@ -449,6 +449,12 @@ abstract class AppLocalizations {
   /// **'Breizh Blok recommends the boulders located in {municipalityName}. More info on https://breizh-blok.fr/municipalities/{municipalityIri}'**
   String shareableMunicipality({required String municipalityName, required String municipalityIri});
 
+  /// No description provided for @showDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Show details'**
+  String get showDetails;
+
   /// No description provided for @sort.
   ///
   /// In en, this message translates to:

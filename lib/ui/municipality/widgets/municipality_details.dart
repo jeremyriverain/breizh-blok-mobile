@@ -39,7 +39,10 @@ class MunicipalityDetails extends StatelessWidget {
           );
         },
       ),
-      const MunicipalityMap(),
+      MunicipalityMap(
+        boulderAreas: boulderAreas,
+        initialLocation: municipality.resolveLocation(),
+      ),
     ];
     return DefaultTabController(
       key: const Key('municipality-details'),

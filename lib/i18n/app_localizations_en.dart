@@ -279,6 +279,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get showDetails => 'Show details';
+
+  @override
   String get sort => 'Sort';
 
   @override

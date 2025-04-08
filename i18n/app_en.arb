@@ -172,6 +172,7 @@
       }
     }
   },
+  "showDetails": "Show details",
   "sort": "Sort",
   "sortedAlphabetically": "A - Z",
   "sortBy": "Sort by",

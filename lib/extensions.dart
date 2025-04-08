@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:flutter/foundation.dart';
@@ -24,6 +25,16 @@ extension BuildContextExtension on BuildContext {
       final bytes = await rootBundle.load(imagePath);
       return bytes.buffer.asUint8List();
     }
+  }
+
+  int createRandomColor() {
+    final random = Random();
+    return Color.fromARGB(
+      255,
+      random.nextInt(255),
+      random.nextInt(255),
+      random.nextInt(255),
+    ).toARGB32();
   }
 }
 
