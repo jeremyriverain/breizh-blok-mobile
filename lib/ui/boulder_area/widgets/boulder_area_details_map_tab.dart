@@ -116,24 +116,9 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                         mapboxMap,
                         mapContentGestureContext,
                       ) async {
-                        final renderedQueryGeometry =
-                            RenderedQueryGeometry.fromScreenCoordinate(
-                              mapContentGestureContext.touchPosition,
-                            );
-
-                        final queriedRenderedFeatures = await mapboxMap
-                            .queryRenderedFeatures(
-                              renderedQueryGeometry,
-                              RenderedQueryOptions(layerIds: ['clusters']),
-                            );
-
-                        final cluster =
-                            queriedRenderedFeatures
-                                .firstWhere(
-                                  (q) => q?.queriedFeature.source == 'boulders',
-                                )
-                                ?.queriedFeature
-                                .feature;
+                        final cluster = await mapboxMap.onTapFindCluster(
+                          mapContentGestureContext,
+                        );
 
                         if (cluster == null) {
                           return;

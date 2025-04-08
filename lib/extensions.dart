@@ -74,4 +74,27 @@ extension MapboxExtension on MapboxMap {
       await Sentry.captureException(error, stackTrace: stackTrace);
     }
   }
+
+  Future<Map<String?, Object?>?> onTapFindCluster(
+    MapContentGestureContext mapContentGestureContext,
+  ) async {
+    final renderedQueryGeometry = RenderedQueryGeometry.fromScreenCoordinate(
+      mapContentGestureContext.touchPosition,
+    );
+
+    final queriedRenderedFeatures = await queryRenderedFeatures(
+      renderedQueryGeometry,
+      RenderedQueryOptions(layerIds: ['clusters']),
+    );
+
+    final cluster =
+        queriedRenderedFeatures
+            .firstWhere(
+              (q) => q?.queriedFeature.source == 'boulders',
+              orElse: () => null,
+            )
+            ?.queriedFeature
+            .feature;
+    return cluster;
+  }
 }
