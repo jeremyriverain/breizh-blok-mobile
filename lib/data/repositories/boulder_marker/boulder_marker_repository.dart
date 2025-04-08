@@ -29,6 +29,27 @@ class BoulderMarkerRepository {
       offlineFirst: true,
     );
 
+    return _decodeResponse(response);
+  }
+
+  Future<List<BoulderMarker>> findAll() async {
+    final query = QueryParamFactory.stringify(
+      queryParams: {
+        'pagination': ['false'],
+        'groups[]': ['Boulder:map'],
+      },
+    );
+    final response = await httpClient.get(
+      Uri(scheme: 'https', host: Env.apiHost, path: '/boulders', query: query),
+      headers: {'Accept': 'application/json'},
+      timeout: const Duration(seconds: 10),
+      offlineFirst: true,
+    );
+
+    return _decodeResponse(response);
+  }
+
+  Future<List<BoulderMarker>> _decodeResponse(String response) async {
     final json = await compute(jsonDecode, response);
     if (json is List) {
       return json

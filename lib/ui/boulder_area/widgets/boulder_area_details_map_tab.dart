@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
@@ -17,7 +15,6 @@ import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
@@ -112,43 +109,8 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                               );
                         }
                       },
-                      onStyleLoadedListener: (mapboxMap, _) {
-                        mapboxMap.style.styleSourceExists('boulders').then((
-                          value,
-                        ) async {
-                          if (!value) {
-                            final source = jsonEncode(clusterSource);
-                            await mapboxMap.style.addStyleSource(
-                              'boulders',
-                              source,
-                            );
-                          }
-                        });
-                        mapboxMap.style.styleLayerExists('clusters').then((
-                          value,
-                        ) async {
-                          if (!value) {
-                            final layer = await rootBundle.loadString(
-                              Assets.clusterLayer,
-                            );
-                            await mapboxMap.style.addStyleLayer(layer, null);
-
-                            final clusterCountLayer = await rootBundle
-                                .loadString(Assets.clusterCountLayer);
-
-                            await mapboxMap.style.addStyleLayer(
-                              clusterCountLayer,
-                              null,
-                            );
-
-                            final unclusteredLayer = await rootBundle
-                                .loadString(Assets.unclusteredPointLayer);
-                            await mapboxMap.style.addStyleLayer(
-                              unclusteredLayer,
-                              null,
-                            );
-                          }
-                        });
+                      onStyleLoadedListener: (mapboxMap, _) async {
+                        await mapboxMap.showClusters(clusterSource);
                       },
                       onTapListener: (
                         mapboxMap,

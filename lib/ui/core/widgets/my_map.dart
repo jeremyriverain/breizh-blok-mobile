@@ -18,7 +18,6 @@ class MyMap extends StatefulWidget {
     this.onMapCreated,
     this.onStyleLoadedListener,
     this.onTapListener,
-    this.onEnableLocationListener,
   });
 
   final CameraOptions? cameraOptions;
@@ -27,8 +26,6 @@ class MyMap extends StatefulWidget {
   onStyleLoadedListener;
   final void Function(MapboxMap mapboxMap, MapContentGestureContext)?
   onTapListener;
-
-  final void Function(MapboxMap mapboxMap)? onEnableLocationListener;
 
   @override
   State<MyMap> createState() => _MyMapState();

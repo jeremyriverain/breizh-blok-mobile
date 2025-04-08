@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:breizh_blok_mobile/config/assets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 extension BuildContextExtension on BuildContext {
   Future<Uint8List> getResponsiveImageData({required String imagePath}) async {
@@ -33,5 +38,40 @@ extension FeatureExtensionValueExtension on FeatureExtensionValue {
             .whereType<String>()
             .toSet() ??
         <String>{};
+  }
+}
+
+extension MapboxExtension on MapboxMap {
+  Future<void> showClusters(Map<String, dynamic> clusterSource) async {
+    try {
+      await style.styleSourceExists('boulders').then((value) async {
+        if (!value) {
+          final source = jsonEncode(clusterSource);
+          await style.addStyleSource('boulders', source);
+        }
+      });
+      await style.styleLayerExists('clusters').then((value) async {
+        if (!value) {
+          final layer = await rootBundle.loadString(Assets.clusterLayer);
+          await style.addStyleLayer(layer, null);
+
+          final clusterCountLayer = await rootBundle.loadString(
+            Assets.clusterCountLayer,
+          );
+
+          await style.addStyleLayer(clusterCountLayer, null);
+
+          final unclusteredLayer = await rootBundle.loadString(
+            Assets.unclusteredPointLayer,
+          );
+          await style.addStyleLayer(unclusteredLayer, null);
+        }
+      });
+    } catch (error, stackTrace) {
+      if (kDebugMode) {
+        debugPrint(error.toString());
+      }
+      await Sentry.captureException(error, stackTrace: stackTrace);
+    }
   }
 }
