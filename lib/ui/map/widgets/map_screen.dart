@@ -22,131 +22,115 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create:
-          (context) => MapScreenViewModel(
-            boulderMarkerRepository: BoulderMarkerRepository(
-              httpClient: context.read<ApiClient>(),
-            ),
-          ),
-      child: BlocBuilder<MapScreenViewModel, MapScreenStates>(
-        builder: (context, state) {
-          return switch (state) {
-            MapScreenIdle() => Stack(
-              children: [
-                MyMap(
-                  cameraOptions: CameraOptions(
-                    zoom: 5,
-                    center: Point(
-                      coordinates: Position(
-                        kDefaultLongitude,
-                        kDefaultLatitude,
-                      ),
-                    ),
-                  ),
-                ),
-                const Expanded(
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-              ],
-            ),
-            MapScreenOK(:final clusterSource, :final boulderMarkers) => MyMap(
-              cameraOptions: CameraOptions(
-                zoom: 5,
-                center: Point(
-                  coordinates: Position(kDefaultLongitude, kDefaultLatitude),
-                ),
+    return Scaffold(
+      body: BlocProvider(
+        create:
+            (context) => MapScreenViewModel(
+              boulderMarkerRepository: BoulderMarkerRepository(
+                httpClient: context.read<ApiClient>(),
               ),
-              onStyleLoadedListener: (mapboxMap, _) async {
-                await mapboxMap.showClusters(clusterSource);
-              },
-              onTapListener: (mapboxMap, mapContentGestureContext) async {
-                final cluster = await mapboxMap.onTapFindCluster(
-                  mapContentGestureContext,
-                );
-
-                if (cluster == null) {
-                  return;
-                }
-
-                final clusterLeaves = await mapboxMap.getGeoJsonClusterLeaves(
-                  'boulders',
-                  cluster,
-                  boulderMarkers.length,
-                  0,
-                );
-
-                final boulderIds = clusterLeaves.toBoulderIds();
-
-                if (!context.mounted) {
-                  return;
-                }
-
-                final offlineFirst =
-                    context.read<RequestStrategy>().offlineFirst;
-
-                await showModalBottomSheet<void>(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return RepositoryProvider(
-                      create:
-                          (_) => RequestStrategy(offlineFirst: offlineFirst),
-                      child: Builder(
-                        builder: (context) {
-                          return FractionallySizedBox(
-                            heightFactor: 0.8,
-                            child: Scaffold(
-                              floatingActionButton: const ModalClosingButton(),
-                              floatingActionButtonLocation:
-                                  FloatingActionButtonLocation.endTop,
-                              body: BoulderListBuilder(
-                                boulderFilterBloc: BoulderFilterBloc(
-                                  const BoulderFilterState(),
-                                ),
-                                onPageRequested: (int page) {
-                                  final orderParam =
-                                      context.read<BoulderOrderBloc>().state;
-
-                                  return BoulderRequested(
-                                    page: page,
-                                    boulderIds: boulderIds,
-                                    orderParam: orderParam,
-                                  );
-                                },
-                                showFilterButton: false,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                );
-              },
             ),
-            MapScreenError() => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    AppLocalizations.of(
-                      context,
-                    ).anErrorOccuredWhileDisplayingMap,
+        child: BlocBuilder<MapScreenViewModel, MapScreenStates>(
+          builder: (context, state) {
+            return switch (state) {
+              MapScreenIdle() => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              MapScreenOK(:final clusterSource, :final boulderMarkers) => MyMap(
+                cameraOptions: CameraOptions(
+                  zoom: 5,
+                  center: Point(
+                    coordinates: Position(kDefaultLongitude, kDefaultLatitude),
                   ),
-                  OutlinedButton(
-                    onPressed: () {
-                      context.read<MapScreenViewModel>().add(
-                        const MapScreenInit(),
+                ),
+                onStyleLoadedListener: (mapboxMap, _) async {
+                  await mapboxMap.showClusters(clusterSource);
+                },
+                onTapListener: (mapboxMap, mapContentGestureContext) async {
+                  final cluster = await mapboxMap.onTapFindCluster(
+                    mapContentGestureContext,
+                  );
+
+                  if (cluster == null) {
+                    return;
+                  }
+
+                  final clusterLeaves = await mapboxMap.getGeoJsonClusterLeaves(
+                    'boulders',
+                    cluster,
+                    boulderMarkers.length,
+                    0,
+                  );
+
+                  final boulderIds = clusterLeaves.toBoulderIds();
+
+                  if (!context.mounted) {
+                    return;
+                  }
+
+                  await showModalBottomSheet<void>(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) {
+                      return RepositoryProvider(
+                        create: (_) => RequestStrategy(),
+                        child: Builder(
+                          builder: (context) {
+                            return FractionallySizedBox(
+                              heightFactor: 0.8,
+                              child: Scaffold(
+                                floatingActionButton:
+                                    const ModalClosingButton(),
+                                floatingActionButtonLocation:
+                                    FloatingActionButtonLocation.endTop,
+                                body: BoulderListBuilder(
+                                  boulderFilterBloc: BoulderFilterBloc(
+                                    const BoulderFilterState(),
+                                  ),
+                                  onPageRequested: (int page) {
+                                    final orderParam =
+                                        context.read<BoulderOrderBloc>().state;
+
+                                    return BoulderRequested(
+                                      page: page,
+                                      boulderIds: boulderIds,
+                                      orderParam: orderParam,
+                                    );
+                                  },
+                                  showFilterButton: false,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       );
                     },
-                    child: Text(AppLocalizations.of(context).tryAgain),
-                  ),
-                ],
+                  );
+                },
               ),
-            ),
-          };
-        },
+              MapScreenError() => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppLocalizations.of(
+                        context,
+                      ).anErrorOccuredWhileDisplayingMap,
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        context.read<MapScreenViewModel>().add(
+                          const MapScreenInit(),
+                        );
+                      },
+                      child: Text(AppLocalizations.of(context).tryAgain),
+                    ),
+                  ],
+                ),
+              ),
+            };
+          },
+        ),
       ),
     );
   }
