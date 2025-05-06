@@ -140,6 +140,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get login => 'Se connecter';
+
+  @override
   String get map => 'Carte';
 
   @override

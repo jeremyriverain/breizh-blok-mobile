@@ -62,6 +62,7 @@
       }
     }
   },
+  "login": "Login",
   "map": "Map",
   "max": "max",
   "minGrade": "Min grade",

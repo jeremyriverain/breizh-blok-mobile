@@ -299,6 +299,12 @@ abstract class AppLocalizations {
   /// **'Less than {value} meters'**
   String lessThanNMeters({required num value});
 
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
   /// No description provided for @map.
   ///
   /// In en, this message translates to:

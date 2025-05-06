@@ -18,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Column(
+      body: ListView(
         children: [
           ListTile(
             title: Text(AppLocalizations.of(context).downloads),
@@ -29,6 +29,11 @@ class ProfileScreen extends StatelessWidget {
           ),
           LocaleSwitch(
             currentLocale: Localizations.localeOf(context).languageCode,
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context).login),
+            onTap: () {},
+            leading: const Icon(Icons.login),
           ),
         ],
       ),
