@@ -10,7 +10,9 @@ Future<void> main() async {
   await SentryFlutter.init((options) {
     options
       ..dsn = options.dsn = Env.sentryDsn
+      ..attachScreenshot = true
       ..tracesSampleRate = 0;
+
     // ignore: require_trailing_commas
   }, appRunner: () => runApp(const MyApp()));
 }

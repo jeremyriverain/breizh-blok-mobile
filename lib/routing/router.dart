@@ -14,6 +14,7 @@ import 'package:breizh_blok_mobile/ui/profile/widgets/profile_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _boulderListShellNavigatorKey = GlobalKey<NavigatorState>(
@@ -32,6 +33,7 @@ class Router {
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
       initialLocation: BoulderListScreen.route.path,
+      observers: [SentryNavigatorObserver()],
       routes: [
         StatefulShellRoute.indexedStack(
           builder: (_, __, navigationShell) {
