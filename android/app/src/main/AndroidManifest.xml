@@ -29,6 +29,8 @@
                 <data android:pathPattern="/boulders/.*" />
                 <data android:pathPattern="/boulder-areas/.*" />
                 <data android:pathPattern="/municipalities/.*" />
+                <data android:path="/login" />
+                <data android:path="/logout_callback" />
             </intent-filter>
             <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
         </activity>
