@@ -305,6 +305,12 @@ abstract class AppLocalizations {
   /// **'Login'**
   String get login;
 
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
   /// No description provided for @map.
   ///
   /// In en, this message translates to:

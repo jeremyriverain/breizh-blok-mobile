@@ -5,6 +5,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:breizh-blok.fr</string>
+		<string>webcredentials:breizh-blok.eu.auth0.com</string>
 	</array>
 </dict>
 </plist>

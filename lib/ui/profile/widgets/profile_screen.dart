@@ -1,7 +1,9 @@
+import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:breizh_blok_mobile/ui/locale/widgets/locale_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -32,8 +34,22 @@ class ProfileScreen extends StatelessWidget {
           ),
           ListTile(
             title: Text(AppLocalizations.of(context).login),
-            onTap: () {},
+            onTap: () async {
+              final result = await GetIt.I<Auth0>().webAuthentication().login();
+              print(result.accessToken);
+            },
             leading: const Icon(Icons.login),
+          ),
+          ListTile(
+            iconColor: Theme.of(context).colorScheme.error,
+            title: Text(
+              AppLocalizations.of(context).logout,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
+            onTap: () async {
+              await GetIt.I<Auth0>().webAuthentication().logout();
+            },
+            leading: const Icon(Icons.logout),
           ),
         ],
       ),
