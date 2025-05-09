@@ -1,7 +1,17 @@
 PODS:
+  - Auth0 (2.10.0):
+    - JWTDecode (= 3.2.0)
+    - SimpleKeychain (= 1.2.0)
+  - auth0_flutter (1.10.0):
+    - Auth0 (= 2.10.0)
+    - Flutter
+    - FlutterMacOS
+    - JWTDecode (= 3.2.0)
+    - SimpleKeychain (= 1.2.0)
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
+  - JWTDecode (3.2.0)
   - location (0.0.1):
     - Flutter
   - map_launcher (0.0.1):
@@ -41,6 +51,7 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - SimpleKeychain (1.2.0)
   - sqflite (0.0.3):
     - Flutter
     - FlutterMacOS
@@ -66,6 +77,7 @@ PODS:
   - Turf (4.0.0)
 
 DEPENDENCIES:
+  - auth0_flutter (from `.symlinks/plugins/auth0_flutter/darwin`)
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - location (from `.symlinks/plugins/location/ios`)
@@ -83,15 +95,20 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Auth0
+    - JWTDecode
     - MapboxCommon
     - MapboxCoreMaps
     - MapboxMaps
     - Mixpanel-swift
     - Sentry
+    - SimpleKeychain
     - sqlite3
     - Turf
 
 EXTERNAL SOURCES:
+  auth0_flutter:
+    :path: ".symlinks/plugins/auth0_flutter/darwin"
   Flutter:
     :path: Flutter
   integration_test:
@@ -122,8 +139,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqlite3_flutter_libs/darwin"
 
 SPEC CHECKSUMS:
+  Auth0: 2876d0c36857422eda9cb580a6cc896c7d14cb36
+  auth0_flutter: 5b921a0291e9cf364ffd473f7689156df88356b3
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
+  JWTDecode: 7dae24cb9bf9b608eae61e5081029ec169bb5527
   location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
   map_launcher: fe43bda6720bb73c12fcc1bdd86123ff49a4d4d6
   mapbox_maps_flutter: 1457f41480792ffeaefbf3786008ce2f701dcd20
@@ -139,6 +159,7 @@ SPEC CHECKSUMS:
   sentry_flutter: f4a0466dc8855998ffd59378ec33507c7dc32d7b
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
+  SimpleKeychain: 768cf43ae778b1c21816e94dddf01bb8ee96a075
   sqflite: c35dad70033b8862124f8337cc994a809fcd9fa3
   sqlite3: fc1400008a9b3525f5914ed715a5d1af0b8f4983
   sqlite3_flutter_libs: f8fc13346870e73fe35ebf6dbb997fbcd156b241

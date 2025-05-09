@@ -62,6 +62,8 @@
       }
     }
   },
+  "login": "Se connecter",
+  "logout": "Se déconnecter",
   "map": "Carte",
   "max": "max",
   "minGrade": "Cotation min",

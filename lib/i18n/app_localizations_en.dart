@@ -140,6 +140,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get login => 'Login';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
   String get map => 'Map';
 
   @override

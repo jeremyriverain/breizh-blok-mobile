@@ -78,6 +78,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
   @override
   void dispose() {
     _pagingController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
