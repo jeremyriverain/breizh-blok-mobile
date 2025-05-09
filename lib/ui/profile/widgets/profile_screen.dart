@@ -35,8 +35,7 @@ class ProfileScreen extends StatelessWidget {
           ListTile(
             title: Text(AppLocalizations.of(context).login),
             onTap: () async {
-              final result = await GetIt.I<Auth0>().webAuthentication().login();
-              print(result.accessToken);
+              await GetIt.I<Auth0>().webAuthentication().login();
             },
             leading: const Icon(Icons.login),
           ),
