@@ -1,4 +1,4 @@
-import 'package:auth0_flutter/auth0_flutter.dart';
+import 'package:breizh_blok_mobile/auth/auth_service_interface.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:breizh_blok_mobile/ui/locale/widgets/locale_switch.dart';
@@ -32,23 +32,30 @@ class ProfileScreen extends StatelessWidget {
           LocaleSwitch(
             currentLocale: Localizations.localeOf(context).languageCode,
           ),
-          ListTile(
-            title: Text(AppLocalizations.of(context).login),
-            onTap: () async {
-              await GetIt.I<Auth0>().webAuthentication().login();
+          ValueListenableBuilder(
+            valueListenable: GetIt.I<AuthServiceInterface>().credentials,
+            builder: (context, credentials, _) {
+              if (credentials == null) {
+                return ListTile(
+                  title: Text(AppLocalizations.of(context).login),
+                  onTap: () async {
+                    await GetIt.I<AuthServiceInterface>().login();
+                  },
+                  leading: const Icon(Icons.login),
+                );
+              }
+              return ListTile(
+                iconColor: Theme.of(context).colorScheme.error,
+                title: Text(
+                  AppLocalizations.of(context).logout,
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+                onTap: () async {
+                  await GetIt.I<AuthServiceInterface>().logout();
+                },
+                leading: const Icon(Icons.logout),
+              );
             },
-            leading: const Icon(Icons.login),
-          ),
-          ListTile(
-            iconColor: Theme.of(context).colorScheme.error,
-            title: Text(
-              AppLocalizations.of(context).logout,
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
-            onTap: () async {
-              await GetIt.I<Auth0>().webAuthentication().logout();
-            },
-            leading: const Icon(Icons.logout),
           ),
         ],
       ),
