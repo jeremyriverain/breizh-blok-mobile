@@ -1,0 +1,12 @@
+import 'package:breizh_blok_mobile/auth/credentials.dart';
+import 'package:flutter/foundation.dart';
+
+abstract interface class AuthServiceInterface {
+  Future<void> login();
+
+  Future<void> logout();
+
+  ValueNotifier<Credentials?> get credentials;
+
+  Future<void> initialize();
+}

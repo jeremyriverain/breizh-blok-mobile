@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:auth0_flutter/auth0_flutter.dart';
+import 'package:breizh_blok_mobile/auth/auth_service.dart';
+import 'package:breizh_blok_mobile/auth/auth_service_interface.dart';
 import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
@@ -60,5 +62,10 @@ Future<void> setupApp({
 
   GetIt.I.registerSingleton<LocaleViewModel>(await LocaleViewModel.create());
 
-  GetIt.I.registerSingleton<Auth0>(Auth0(Env.auth0Domain, Env.auth0ClientId));
+  final authService = AuthService(
+    auth0: Auth0(Env.auth0Domain, Env.auth0ClientId),
+  );
+  await authService.initialize();
+
+  GetIt.I.registerSingleton<AuthServiceInterface>(authService);
 }
