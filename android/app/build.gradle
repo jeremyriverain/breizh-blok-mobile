@@ -62,6 +62,10 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        manifestPlaceholders['auth0Domain'] = "breizh-blok.eu.auth0.com"
+        manifestPlaceholders['auth0Scheme'] = "https"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

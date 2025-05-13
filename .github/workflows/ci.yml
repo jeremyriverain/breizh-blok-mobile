@@ -15,7 +15,6 @@ jobs:
         env:
           BREIZH_BLOK_API_HOST: ${{secrets.BREIZH_BLOK_API_HOST_TEST}}
           BREIZH_BLOK_AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID}}
-          BREIZH_BLOK_AUTH0_DOMAIN: ${{secrets.AUTH0_DOMAIN}}
           BREIZH_BLOK_MAPBOX_TOKEN: ${{secrets.MAPBOX_TOKEN_TEST}}
           BREIZH_BLOK_MIX_PANEL_TOKEN: ${{secrets.MIX_PANEL_TOKEN_TEST}}
           BREIZH_BLOK_SENTRY_URL: ""
