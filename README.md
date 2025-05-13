@@ -14,6 +14,7 @@ Définissez dans votre environnement les variables d'environnement suivantes:
 - BREIZH_BLOK_MIX_PANEL_TOKEN
 - BREIZH_BLOK_MAPBOX_TOKEN
 - BREIZH_BLOK_SENTRY_URL
+- BREIZH_BLOK_AUTH0_CLIENT_ID
 
 ```bash
 fvm flutter pub get

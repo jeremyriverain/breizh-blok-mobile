@@ -63,7 +63,7 @@ Future<void> setupApp({
   GetIt.I.registerSingleton<LocaleViewModel>(await LocaleViewModel.create());
 
   final authService = AuthService(
-    auth0: Auth0(Env.auth0Domain, Env.auth0ClientId),
+    auth0: Auth0('breizh-blok.eu.auth0.com', Env.auth0ClientId),
   );
   await authService.initialize();
 
