@@ -26,11 +26,10 @@ jobs:
         env:
           BREIZH_BLOK_API_HOST: ${{secrets.BREIZH_BLOK_API_HOST_TEST}}
           BREIZH_BLOK_AUTH0_CLIENT_ID: ${{secrets.AUTH0_CLIENT_ID}}
-          BREIZH_BLOK_AUTH0_DOMAIN: ${{secrets.AUTH0_DOMAIN}}
           BREIZH_BLOK_MAPBOX_TOKEN: ${{secrets.MAPBOX_TOKEN_TEST}}
           BREIZH_BLOK_MIX_PANEL_TOKEN: ${{secrets.MIX_PANEL_TOKEN_TEST}}
           BREIZH_BLOK_SENTRY_URL: ""
-        run: dart run build_runner build
+        run: dart run melos run build_runner
 
       - name: Set keystore path
         run: echo "SIGNING_STORE_PATH=$RUNNER_TEMP/keystore.jks" >> $GITHUB_ENV
@@ -42,16 +41,18 @@ jobs:
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
+          cd packages/app/android
           flutter build apk --debug
       - name: Create debug and test APKa
         run: |
-          cd android
+          cd packages/app/android
           ./gradlew app:assembleAndroidTest
 
-          ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/integration_test/app_test.dart"
+          ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/packages/app/integration_test/app_test.dart"
 
       - name: Run Tests in Firebase Test Lab
         run: |
+          cd packages/app
           gcloud firebase test android models list
           gcloud firebase test android run \
             --app build/app/outputs/apk/debug/app-debug.apk \

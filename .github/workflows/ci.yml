@@ -18,11 +18,11 @@ jobs:
           BREIZH_BLOK_MAPBOX_TOKEN: ${{secrets.MAPBOX_TOKEN_TEST}}
           BREIZH_BLOK_MIX_PANEL_TOKEN: ${{secrets.MIX_PANEL_TOKEN_TEST}}
           BREIZH_BLOK_SENTRY_URL: ""
-        run: dart run build_runner build
+        run: dart run melos run build_runner
 
       - name: Analyze
         run: |
-          flutter analyze
+          dart run melos run analyze
 
       - name: Unit and Widget tests
-        run: flutter test test/
+        run: dart run melos run analyze
