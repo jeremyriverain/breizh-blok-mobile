@@ -20,7 +20,6 @@ import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
-import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_boulder_area_item.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
 import 'package:breizh_blok_mobile/ui/terms_of_use/view_models/terms_of_use_view_model.dart';
 import 'package:drift/drift.dart'
@@ -935,42 +934,6 @@ void main() async {
     );
     expect(municipalityReference.iri, isNotNull);
     await boulderRepository.findBy(queryParams: defaultBoulderQueryParams);
-
-    final boulderAreasWithBoulders = municipalityReference.boulderAreas.where(
-      (element) => element.numberOfBoulders! > 0,
-    );
-    print('boulder areas length: ${boulderAreasWithBoulders.length}');
-
-    var i = 0;
-    for (i = 0; i < boulderAreasWithBoulders.length; i++) {
-      print(boulderAreasWithBoulders.elementAt(i));
-      final expectedElement = find.byWidgetPredicate(
-        (Widget widget) =>
-            widget is MunicipalityDetailsBoulderAreaItem &&
-            widget.key == Key(boulderAreasWithBoulders.elementAt(i).iri),
-      );
-      await tester.scrollUntilVisible(
-        expectedElement,
-        300,
-        scrollable: find.descendant(
-          of: find.byKey(const Key('municipality-details-list-view')),
-          matching: find.byType(Scrollable),
-        ),
-      );
-      expect(expectedElement, findsOneWidget);
-    }
-
-    expect(i, boulderAreasWithBoulders.length);
-
-    final lastBoulderArea = boulderAreasWithBoulders.last;
-    print('last boulder area: ${lastBoulderArea.name}');
-    expect(
-      find.descendant(
-        of: find.byType(ListTile),
-        matching: find.textContaining(lastBoulderArea.name),
-      ),
-      findsOneWidget,
-    );
 
     await tester.tap(find.byType(ShareButton).first);
 

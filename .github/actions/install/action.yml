@@ -23,6 +23,10 @@ runs:
         cache: true
         cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
         cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
+    - name: Set melos sdk path
+      run: |
+        echo "MELOS_SDK_PATH=$FLUTTER_ROOT" >> "$GITHUB_ENV"
+      shell: bash
     - name: Install dependencies
-      run: flutter pub get
+      run: dart run melos bs
       shell: bash

@@ -44,7 +44,8 @@ fvm dart run melos run test
 ### Execute integration tests
 
 ```bash
-fvm dart run melos exec --scope="breizh_blok_mobile" -- fvm fvm flutter test integration_test --dart-define="REQUEST_TIMEOUT=20"
+cd packages/app
+fvm flutter test integration_test --dart-define="REQUEST_TIMEOUT=20"
 ```
 
 ### Generate the launch icons

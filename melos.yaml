@@ -13,11 +13,11 @@ scripts:
       dependsOn: build_runner
  
   analyze:
-    run: dart run melos exec --concurrency=1 --fail-fast -- "fvm dart analyze . --fatal-infos"
+    run: dart run melos exec --concurrency=1 --fail-fast -- "dart analyze . --fatal-infos"
     description: Run Dart analyze in all dart packages.
  
   test:
-    run: dart run melos exec --concurrency=1 --fail-fast -- "fvm flutter test"
+    run: dart run melos exec --concurrency=1 --fail-fast -- "flutter test"
     description: Run tests.
     packageFilters:
       flutter: true
