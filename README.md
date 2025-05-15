@@ -1,54 +1,54 @@
 # Breizh Blok
 
-Application mobile (disponible sur iOS et Android) répertoriant les blocs d'escalade en Bretagne
+Breizh Blok is a mobile application listing climbing boulders in Brittany
 
-## Pré-requis
+## Pre-requisites
 
-Installez [FVM](https://fvm.app/) qui est utilisé comme gestionnaire de versions de Dart et Flutter.
+Install [FVM](https://fvm.app/).
 
 ## Installation
 
-Définissez dans votre environnement les variables d'environnement suivantes:
+Define the following env variables:
 
-- BREIZH_BLOK_API_HOST
-- BREIZH_BLOK_MIX_PANEL_TOKEN
-- BREIZH_BLOK_MAPBOX_TOKEN
-- BREIZH_BLOK_SENTRY_URL
-- BREIZH_BLOK_AUTH0_CLIENT_ID
+- `BREIZH_BLOK_API_HOST`
+- `BREIZH_BLOK_MIX_PANEL_TOKEN`
+- `BREIZH_BLOK_MAPBOX_TOKEN`
+- `BREIZH_BLOK_SENTRY_URL`
+- `BREIZH_BLOK_AUTH0_CLIENT_ID`
 
 ```bash
-fvm flutter pub get
-fvm dart run build_runner build
+fvm dart run melos bs
+fvm dart run melos run build_runner
 ```
 
-## Commandes utiles
+## Usage
 
-### Démarrer l'application en mode DEV
+### Launch the app in debug mode
 
 ```bash
-fvm flutter run --debug
+fvm dart run melos exec --scope="breizh_blok_mobile" -- fvm flutter run --debug
 ```
 
-### Analyse statique de code
+### Run the static analysis
 
 ```bash
-fvm flutter analyze
+fvm dart run melos run analyze
 ```
 
-### Exécuter les tests unitaires et tests de widgets
+### Execute the unit and widget tests
 
 ```bash
-fvm flutter test
+fvm dart run melos run test
 ```
 
-### Exécuter les tests E2E
+### Execute integration tests
 
 ```bash
-fvm flutter test integration_test --dart-define="REQUEST_TIMEOUT=20"
+fvm dart run melos exec --scope="breizh_blok_mobile" -- fvm fvm flutter test integration_test --dart-define="REQUEST_TIMEOUT=20"
 ```
 
-### Générer les icônes
+### Generate the launch icons
 
 ```bash
-fvm dart run flutter_launcher_icons
+fvm dart run melos exec --scope="breizh_blok_mobile" -- fvm dart run flutter_launcher_icons
 ```
