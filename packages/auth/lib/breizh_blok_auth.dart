@@ -1,3 +1,4 @@
+import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:breizh_blok_auth/src/auth.dart';
 import 'package:breizh_blok_auth/src/auth_impl.dart';
 
@@ -8,6 +9,6 @@ export 'package:breizh_blok_auth/src/result.dart';
 
 abstract class BreizhBlokAuth {
   static Auth createAuth({required String domain, required String clientId}) {
-    return AuthImpl(domain: domain, clientId: clientId);
+    return AuthImpl(auth0: Auth0(domain, clientId));
   }
 }

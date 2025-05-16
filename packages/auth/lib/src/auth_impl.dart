@@ -3,8 +3,7 @@ import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthImpl implements Auth {
-  AuthImpl({required String domain, required String clientId})
-    : _auth0 = auth0.Auth0(domain, clientId);
+  AuthImpl({required auth0.Auth0 auth0}) : _auth0 = auth0;
 
   final auth0.Auth0 _auth0;
 
