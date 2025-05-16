@@ -2,6 +2,7 @@ name: breizh_blok
 
 packages:
   - packages/*
+  - tools/*
 
 sdkPath: .fvm/flutter_sdk
 

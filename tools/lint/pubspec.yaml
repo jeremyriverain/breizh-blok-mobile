@@ -1,0 +1,9 @@
+name: breizh_blok_lint
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  very_good_analysis: ^7.0.0

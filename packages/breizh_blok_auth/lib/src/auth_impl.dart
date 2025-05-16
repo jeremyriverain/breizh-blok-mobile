@@ -1,6 +1,5 @@
 import 'package:auth0_flutter/auth0_flutter.dart' as auth0;
-import 'package:breizh_blok_auth/credentials.dart';
-import 'package:breizh_blok_auth/src/auth.dart';
+import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthImpl implements Auth {

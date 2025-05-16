@@ -12,10 +12,10 @@ dependencies:
   freezed_annotation: ^3.0.0
 
 dev_dependencies:
+  breizh_blok_lint:
   build_runner: ^2.4.15
   flutter_test:
     sdk: flutter
   freezed: ^3.0.6
-  very_good_analysis: ^7.0.0
 
 flutter:
