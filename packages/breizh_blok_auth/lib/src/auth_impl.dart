@@ -1,10 +1,10 @@
 import 'package:auth0_flutter/auth0_flutter.dart' as auth0;
-import 'package:breizh_blok_auth/auth_service_interface.dart';
 import 'package:breizh_blok_auth/credentials.dart';
+import 'package:breizh_blok_auth/src/auth.dart';
 import 'package:flutter/foundation.dart';
 
-class AuthService implements AuthServiceInterface {
-  AuthService({required String domain, required String clientId})
+class AuthImpl implements Auth {
+  AuthImpl({required String domain, required String clientId})
     : _auth0 = auth0.Auth0(domain, clientId);
 
   final auth0.Auth0 _auth0;

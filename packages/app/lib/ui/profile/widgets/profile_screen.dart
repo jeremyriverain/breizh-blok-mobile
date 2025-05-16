@@ -1,4 +1,4 @@
-import 'package:breizh_blok_auth/auth.dart';
+import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:breizh_blok_mobile/ui/locale/widgets/locale_switch.dart';
@@ -33,13 +33,13 @@ class ProfileScreen extends StatelessWidget {
             currentLocale: Localizations.localeOf(context).languageCode,
           ),
           ValueListenableBuilder(
-            valueListenable: GetIt.I<AuthServiceInterface>().credentials,
+            valueListenable: GetIt.I<Auth>().credentials,
             builder: (context, credentials, _) {
               if (credentials == null) {
                 return ListTile(
                   title: Text(AppLocalizations.of(context).login),
                   onTap: () async {
-                    await GetIt.I<AuthServiceInterface>().login();
+                    await GetIt.I<Auth>().login();
                   },
                   leading: const Icon(Icons.login),
                 );
@@ -51,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                   style: TextStyle(color: Theme.of(context).colorScheme.error),
                 ),
                 onTap: () async {
-                  await GetIt.I<AuthServiceInterface>().logout();
+                  await GetIt.I<Auth>().logout();
                 },
                 leading: const Icon(Icons.logout),
               );
