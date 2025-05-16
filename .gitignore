@@ -10,3 +10,7 @@
 .idea/
 
 .DS_Store
+
+**/*.mocks.dart
+**/*.g.dart
+**/*.freezed.dart
