@@ -11,15 +11,33 @@ class AuthImpl implements Auth {
   final ValueNotifier<Credentials?> _credentials = ValueNotifier(null);
 
   @override
-  Future<void> login() async {
-    final auth0Credentials = await _auth0.webAuthentication().login();
-    _credentials.value = _toCredentials(auth0Credentials);
+  Future<Result<void>> login() async {
+    try {
+      final auth0Credentials = await _auth0.webAuthentication().login();
+      _credentials.value = _toCredentials(auth0Credentials);
+      return Result.ok(() {}());
+    } on auth0.WebAuthenticationException catch (e) {
+      if (e.code == 'USER_CANCELLED' ||
+          e.code == 'a0.authentication_canceled') {
+        return Result.ok(() {}());
+      }
+      return Result.error(const LoginException());
+    }
   }
 
   @override
-  Future<void> logout() async {
-    await _auth0.webAuthentication().logout();
-    _credentials.value = null;
+  Future<Result<void>> logout() async {
+    try {
+      await _auth0.webAuthentication().logout();
+      _credentials.value = null;
+      return Result.ok(() {}());
+    } on auth0.WebAuthenticationException catch (e) {
+      if (e.code == 'USER_CANCELLED' ||
+          e.code == 'a0.authentication_canceled') {
+        return Result.ok(() {}());
+      }
+      return Result.error(const LogoutException());
+    }
   }
 
   Credentials _toCredentials(auth0.Credentials auth0Credentials) {
