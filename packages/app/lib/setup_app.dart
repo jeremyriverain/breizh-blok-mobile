@@ -60,11 +60,10 @@ Future<void> setupApp({
 
   GetIt.I.registerSingleton<LocaleViewModel>(await LocaleViewModel.create());
 
-  final auth = BreizhBlokAuth.createAuth(
+  final auth = await BreizhBlokAuth.createAuth(
     domain: 'breizh-blok.eu.auth0.com',
     clientId: Env.auth0ClientId,
   );
-  await auth.initialize();
 
   GetIt.I.registerSingleton<Auth>(auth);
 }

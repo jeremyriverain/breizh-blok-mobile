@@ -8,7 +8,10 @@ export 'package:breizh_blok_auth/src/exceptions.dart';
 export 'package:breizh_blok_auth/src/result.dart';
 
 abstract class BreizhBlokAuth {
-  static Auth createAuth({required String domain, required String clientId}) {
-    return AuthImpl(auth0: Auth0(domain, clientId));
+  static Future<Auth> createAuth({
+    required String domain,
+    required String clientId,
+  }) async {
+    return AuthFactoryImpl(auth0: Auth0(domain, clientId)).initialize();
   }
 }
