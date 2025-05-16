@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/auth/credentials.dart';
+import 'package:breizh_blok_auth/credentials.dart';
 import 'package:flutter/foundation.dart';
 
 abstract interface class AuthServiceInterface {
