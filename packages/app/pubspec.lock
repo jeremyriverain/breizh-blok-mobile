@@ -92,7 +92,7 @@ packages:
   breizh_blok_auth:
     dependency: "direct main"
     description:
-      path: "../auth"
+      path: "../breizh_blok_auth"
       relative: true
     source: path
     version: "1.0.0"
