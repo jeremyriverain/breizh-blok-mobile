@@ -99,7 +99,12 @@ class BoulderDetails extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 450, child: BoulderDetailsMap(boulder: boulder)),
+          RepaintBoundary(
+            child: SizedBox(
+              height: 450,
+              child: BoulderDetailsMap(boulder: boulder),
+            ),
+          ),
           const SizedBox(height: 20),
           BoulderDetailsAssociated(boulder: boulder),
           const SizedBox(height: 20),
