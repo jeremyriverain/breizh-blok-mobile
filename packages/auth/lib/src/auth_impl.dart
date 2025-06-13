@@ -1,26 +1,31 @@
 import 'package:auth0_flutter/auth0_flutter.dart' as auth0;
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class AuthImpl implements Auth {
   AuthImpl({
     required auth0.Auth0 auth0,
     required auth0.Credentials? initialCredentials,
+    required String audience,
   }) : _auth0 = auth0,
        _credentials = ValueNotifier(
          initialCredentials == null
              ? null
              : AuthImpl.toCredentials(initialCredentials),
-       );
+       ),
+       _audience = audience;
 
   final auth0.Auth0 _auth0;
+  final String _audience;
 
   final ValueNotifier<Credentials?> _credentials;
 
   @override
   Future<Result<void>> login() async {
     try {
-      final auth0Credentials = await _auth0.webAuthentication().login();
+      final auth0Credentials = await _auth0.webAuthentication().login(
+        audience: _audience,
+      );
       _credentials.value = AuthImpl.toCredentials(auth0Credentials);
       return Result.ok(() {}());
     } on auth0.WebAuthenticationException catch (e) {
@@ -56,9 +61,12 @@ class AuthImpl implements Auth {
 }
 
 class AuthFactoryImpl implements AuthFactory {
-  AuthFactoryImpl({required auth0.Auth0 auth0}) : _auth0 = auth0;
+  AuthFactoryImpl({required auth0.Auth0 auth0, required String audience})
+    : _auth0 = auth0,
+      _audience = audience;
 
   final auth0.Auth0 _auth0;
+  final String _audience;
 
   @override
   Future<Auth> initialize() async {
@@ -67,6 +75,10 @@ class AuthFactoryImpl implements AuthFactory {
             ? (await _auth0.credentialsManager.credentials())
             : null;
 
-    return AuthImpl(auth0: _auth0, initialCredentials: auth0Credentials);
+    return AuthImpl(
+      auth0: _auth0,
+      initialCredentials: auth0Credentials,
+      audience: _audience,
+    );
   }
 }

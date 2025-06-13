@@ -63,6 +63,7 @@ Future<void> setupApp({
   final auth = await BreizhBlokAuth.createAuth(
     domain: 'breizh-blok.eu.auth0.com',
     clientId: Env.auth0ClientId,
+    audience: Env.auth0Audience,
   );
 
   GetIt.I.registerSingleton<Auth>(auth);
