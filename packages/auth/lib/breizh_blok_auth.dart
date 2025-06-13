@@ -11,7 +11,11 @@ abstract class BreizhBlokAuth {
   static Future<Auth> createAuth({
     required String domain,
     required String clientId,
+    required String audience,
   }) async {
-    return AuthFactoryImpl(auth0: Auth0(domain, clientId)).initialize();
+    return AuthFactoryImpl(
+      auth0: Auth0(domain, clientId),
+      audience: audience,
+    ).initialize();
   }
 }
