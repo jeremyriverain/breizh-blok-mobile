@@ -62,7 +62,7 @@ dependencies:
 dev_dependencies:
   bloc_test: ^10.0.0
   breizh_blok_lint:
-  build_runner: ^2.4.15
+  build_runner: ^2.5.0
   drift_dev: ^2.12.1
   envied_generator: ^1.1.1
   flutter_test:
