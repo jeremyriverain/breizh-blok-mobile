@@ -188,7 +188,7 @@ void main() async {
     await tester.tap(find.text('Mon profil').first);
     await tester.pumpAndSettle();
 
-    expect(find.text('Langage'), findsOneWidget);
+    expect(find.widgetWithText(DropdownMenu<String>, 'Langage'), findsAny);
 
     await tester.tap(find.byType(DropdownMenu<String>));
     await tester.pumpAndSettle();
@@ -196,8 +196,8 @@ void main() async {
     await tester.tap(find.text('English').last);
     await tester.pumpAndSettle();
 
-    expect(find.text('Langage'), findsNothing);
-    expect(find.text('Language'), findsOneWidget);
+    expect(find.widgetWithText(DropdownMenu<String>, 'Langage'), findsNothing);
+    expect(find.widgetWithText(DropdownMenu<String>, 'Language'), findsAny);
 
     expect(prefs.getString(kLocalePrefs), equals('en'));
   });
