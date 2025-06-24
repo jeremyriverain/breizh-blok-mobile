@@ -1,0 +1,20 @@
+name: breizh_blok_http_client
+version: 0.1.0
+publish_to: 'none'
+
+environment:
+  sdk: ^3.8.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  dio: ^5.8.0+1
+  dio_http2_adapter: ^2.6.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  breizh_blok_lint:
+  flutter_test:
+    sdk: flutter
+
+flutter:
