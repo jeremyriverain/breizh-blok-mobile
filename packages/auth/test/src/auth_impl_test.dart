@@ -33,7 +33,11 @@ void main() {
   group('AuthImpl', () {
     group('initial credentials', () {
       test('credentials are null if initial credentials are null', () {
-        final auth = AuthImpl(auth0: authZero, initialCredentials: null);
+        final auth = AuthImpl(
+          auth0: authZero,
+          initialCredentials: null,
+          audience: 'foo',
+        );
         expect(auth.credentials.value, isNull);
       });
 
@@ -41,6 +45,7 @@ void main() {
         final auth = AuthImpl(
           auth0: authZero,
           initialCredentials: auth0Credentials,
+          audience: 'foo',
         );
         expect(
           auth.credentials.value,
@@ -51,7 +56,7 @@ void main() {
     group('login', () {
       test('credentials are updated if login succeeds', () async {
         when(authZero.webAuthentication()).thenReturn(webAuth);
-        when(webAuth.login()).thenAnswer(
+        when(webAuth.login(audience: 'foo')).thenAnswer(
           (_) async => auth0.Credentials(
             idToken: '',
             accessToken: 'foo',
@@ -61,7 +66,11 @@ void main() {
           ),
         );
 
-        final auth = AuthImpl(auth0: authZero, initialCredentials: null);
+        final auth = AuthImpl(
+          auth0: authZero,
+          initialCredentials: null,
+          audience: 'foo',
+        );
         expect(auth.credentials.value, isNull);
 
         final result = await auth.login();
@@ -75,10 +84,14 @@ void main() {
       test('credentials stay null if login fails', () async {
         when(authZero.webAuthentication()).thenReturn(webAuth);
         when(
-          webAuth.login(),
+          webAuth.login(audience: 'foo'),
         ).thenThrow(const auth0.WebAuthenticationException('foo', 'bar', {}));
 
-        final auth = AuthImpl(auth0: authZero, initialCredentials: null);
+        final auth = AuthImpl(
+          auth0: authZero,
+          initialCredentials: null,
+          audience: 'foo',
+        );
         expect(auth.credentials.value, isNull);
 
         final result = await auth.login();
@@ -88,11 +101,15 @@ void main() {
 
       test('credentials stay null if login is cancelled', () async {
         when(authZero.webAuthentication()).thenReturn(webAuth);
-        when(webAuth.login()).thenThrow(
+        when(webAuth.login(audience: 'foo')).thenThrow(
           const auth0.WebAuthenticationException('USER_CANCELLED', 'bar', {}),
         );
 
-        final auth = AuthImpl(auth0: authZero, initialCredentials: null);
+        final auth = AuthImpl(
+          auth0: authZero,
+          initialCredentials: null,
+          audience: 'foo',
+        );
         expect(auth.credentials.value, isNull);
 
         final result = await auth.login();
@@ -109,6 +126,7 @@ void main() {
         final auth = AuthImpl(
           auth0: authZero,
           initialCredentials: auth0Credentials,
+          audience: 'foo',
         );
         expect(
           auth.credentials.value,
@@ -129,6 +147,7 @@ void main() {
         final auth = AuthImpl(
           auth0: authZero,
           initialCredentials: auth0Credentials,
+          audience: 'foo',
         );
         expect(
           auth.credentials.value,
@@ -152,6 +171,7 @@ void main() {
         final auth = AuthImpl(
           auth0: authZero,
           initialCredentials: auth0Credentials,
+          audience: 'foo',
         );
         expect(
           auth.credentials.value,
@@ -175,7 +195,11 @@ void main() {
         when(
           credentialsManager.hasValidCredentials(),
         ).thenAnswer((_) async => false);
-        final auth = await AuthFactoryImpl(auth0: authZero).initialize();
+        final auth =
+            await AuthFactoryImpl(
+              auth0: authZero,
+              audience: 'foo',
+            ).initialize();
         expect(auth.credentials.value, isNull);
       });
 
@@ -188,7 +212,11 @@ void main() {
         when(
           credentialsManager.credentials(),
         ).thenAnswer((_) async => auth0Credentials);
-        final auth = await AuthFactoryImpl(auth0: authZero).initialize();
+        final auth =
+            await AuthFactoryImpl(
+              auth0: authZero,
+              audience: 'foo',
+            ).initialize();
         expect(
           auth.credentials.value,
           Credentials(accessToken: auth0Credentials.accessToken),

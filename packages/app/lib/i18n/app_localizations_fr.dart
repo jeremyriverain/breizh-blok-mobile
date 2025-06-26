@@ -12,7 +12,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get anErrorOccured => 'Une erreur est survenue';
 
   @override
-  String get anErrorOccuredWhileDisplayingMap => 'An error occured while displaying the map';
+  String get anErrorOccuredWhileDisplayingMap =>
+      'An error occured while displaying the map';
 
   @override
   String get areas => 'Sites';
@@ -21,12 +22,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String betweenXAndYMeters({required num min, required num max}) {
     final intl.NumberFormat minNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String minString = minNumberFormat.format(min);
     final intl.NumberFormat maxNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String maxString = maxNumberFormat.format(max);
 
@@ -46,7 +45,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get changeStyleMap => 'Modifier le style de la carte';
 
   @override
-  String get checkYourConnection => 'Vérifiez votre connexion internet et essayez à nouveau';
+  String get checkYourConnection =>
+      'Vérifiez votre connexion internet et essayez à nouveau';
 
   @override
   String get clear => 'Effacer';
@@ -70,7 +70,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String distributionOfNBoulders({required num num}) {
     final intl.NumberFormat numNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String numString = numNumberFormat.format(num);
 
@@ -87,10 +86,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get downloadedRecently => 'Téléchargés récemment';
 
   @override
-  String get errorOccuredWhileDisplayingMap => 'Une erreur est survenue pendant l\'affichage de la carte';
+  String get errorOccuredWhileDisplayingMap =>
+      'Une erreur est survenue pendant l\'affichage de la carte';
 
   @override
-  String get errorOccuredWhileFetchingBoulders => 'Une erreur est survenue lors de la récupération des blocs';
+  String get errorOccuredWhileFetchingBoulders =>
+      'Une erreur est survenue lors de la récupération des blocs';
 
   @override
   String get fetchingData => 'Récupération des données en cours';
@@ -132,7 +133,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String lessThanNMeters({required num value}) {
     final intl.NumberFormat valueNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String valueString = valueNumberFormat.format(value);
 
@@ -158,7 +158,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String moreThanNMeters({required num value}) {
     final intl.NumberFormat valueNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String valueString = valueNumberFormat.format(value);
 
@@ -178,7 +177,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String nBoulders({required num count}) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -195,7 +193,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String nBouldersOnTheSameRock({required num count}) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -212,7 +209,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String nBouldersRated({required num count, required String grade}) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -226,10 +222,13 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String nBouldersRatedBetween({required num count, required String minGrade, required String maxGrade}) {
+  String nBouldersRatedBetween({
+    required num count,
+    required String minGrade,
+    required String maxGrade,
+  }) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -243,19 +242,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noDownload => 'Aucun téléchargement';
 
   @override
-  String get noDownloadHelper => 'Il est possible de télécharger des secteurs de bloc afin de pouvoir y accéder même sans connexion internet.';
+  String get noDownloadHelper =>
+      'Il est possible de télécharger des secteurs de bloc afin de pouvoir y accéder même sans connexion internet.';
 
   @override
   String get noResults => 'Aucun résultat';
 
   @override
-  String get noResultsMatchYourSearchCriteria => 'Aucun résultat ne correspond à vos critères de recherche';
+  String get noResultsMatchYourSearchCriteria =>
+      'Aucun résultat ne correspond à vos critères de recherche';
 
   @override
   String get pageNotFound => '404 - Page non trouvée';
 
   @override
-  String get pageNotFoundDescription => 'La page que vous recherchez n\'existe pas ou a été déplacée.';
+  String get pageNotFoundDescription =>
+      'La page que vous recherchez n\'existe pas ou a été déplacée.';
 
   @override
   String get parkingOfTheBoulderArea => 'Parking du secteur';
@@ -270,17 +272,28 @@ class AppLocalizationsFr extends AppLocalizations {
   String get share => 'Partager';
 
   @override
-  String shareableBoulder({required String boulderName, required String boulderAreaName, required String boulderIri}) {
+  String shareableBoulder({
+    required String boulderName,
+    required String boulderAreaName,
+    required String boulderIri,
+  }) {
     return 'Breizh Blok recommande le bloc $boulderName dans le secteur $boulderAreaName. Voir https://breizh-blok.fr/boulders/$boulderIri';
   }
 
   @override
-  String shareableBoulderArea({required String boulderAreaName, required String municipalityName, required String boulderAreaIri}) {
+  String shareableBoulderArea({
+    required String boulderAreaName,
+    required String municipalityName,
+    required String boulderAreaIri,
+  }) {
     return 'Breizh Blok recommande le secteur $boulderAreaName à $municipalityName. Voir https://breizh-blok.fr/boulder-areas/$boulderAreaIri';
   }
 
   @override
-  String shareableMunicipality({required String municipalityName, required String municipalityIri}) {
+  String shareableMunicipality({
+    required String municipalityName,
+    required String municipalityIri,
+  }) {
     return 'Breizh Blok recommande les blocs de $municipalityName. Voir https://breizh-blok.fr/municipalities/$municipalityIri';
   }
 
@@ -300,7 +313,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get termsOfUse => 'Conditions d\'utilisation';
 
   @override
-  String get termsOfUseContent => 'L\'escalade est un sport à risque. Sa pratique est sous l\'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d\'accident.';
+  String get termsOfUseContent =>
+      'L\'escalade est un sport à risque. Sa pratique est sous l\'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d\'accident.';
 
   @override
   String get theEasiest => 'Les plus faciles';

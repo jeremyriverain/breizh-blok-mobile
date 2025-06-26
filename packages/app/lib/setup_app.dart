@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
+import 'package:breizh_blok_http_client/breizh_blok_http_client.dart'
+    as http_client;
 import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
@@ -63,7 +65,12 @@ Future<void> setupApp({
   final auth = await BreizhBlokAuth.createAuth(
     domain: 'breizh-blok.eu.auth0.com',
     clientId: Env.auth0ClientId,
+    audience: Env.auth0Audience,
   );
 
   GetIt.I.registerSingleton<Auth>(auth);
+
+  GetIt.I.registerSingleton<http_client.HttpClient>(
+    http_client.BreizhBlokHttpClient.createHttpClient(),
+  );
 }
