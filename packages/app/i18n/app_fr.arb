@@ -1,7 +1,7 @@
 {
   "@@locale": "fr",
   "anErrorOccured": "Une erreur est survenue",
-  "anErrorOccuredWhileDisplayingMap": "An error occured while displaying the map",
+  "anErrorOccuredWhileDisplayingMap": "Une erreur est survenue pendant l'affichage de la carte",
   "areas": "Sites",
   "betweenXAndYMeters": "Entre {min} et {max}m",
   "@betweenXAndYMeters": {
