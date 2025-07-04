@@ -13,7 +13,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get anErrorOccuredWhileDisplayingMap =>
-      'An error occured while displaying the map';
+      'Une erreur est survenue pendant l\'affichage de la carte';
 
   @override
   String get areas => 'Sites';

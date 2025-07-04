@@ -96,13 +96,6 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
-  breizh_blok_http_client:
-    dependency: "direct main"
-    description:
-      path: "../http_client"
-      relative: true
-    source: path
-    version: "0.1.0"
   breizh_blok_lint:
     dependency: "direct dev"
     description:
@@ -327,7 +320,7 @@ packages:
     source: hosted
     version: "0.4.1"
   dio:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dio
       sha256: "253a18bbd4851fecba42f7343a1df3a9a4c1d31a2c1b37e221086b4fa8c8dbc9"
@@ -335,7 +328,7 @@ packages:
     source: hosted
     version: "5.8.0+1"
   dio_http2_adapter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dio_http2_adapter
       sha256: b8bd5d587fd228a461711f8b82f378ccd4bf1fbf7802e7663ca60d7b5ce0e3aa

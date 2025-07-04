@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
-import 'package:breizh_blok_http_client/breizh_blok_http_client.dart'
-    as http_client;
 import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
@@ -10,6 +8,8 @@ import 'package:breizh_blok_mobile/services/share_content/share_content_service.
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
+import 'package:dio/dio.dart';
+import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/services.dart';
@@ -70,7 +70,11 @@ Future<void> setupApp({
 
   GetIt.I.registerSingleton<Auth>(auth);
 
-  GetIt.I.registerSingleton<http_client.HttpClient>(
-    http_client.BreizhBlokHttpClient.createHttpClient(),
-  );
+  final dio =
+      Dio()
+        ..httpClientAdapter = Http2Adapter(
+          ConnectionManager(idleTimeout: const Duration(seconds: 10)),
+        );
+
+  GetIt.I.registerSingleton<Dio>(dio);
 }

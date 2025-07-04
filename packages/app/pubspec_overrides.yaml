@@ -1,8 +1,6 @@
-# melos_managed_dependency_overrides: breizh_blok_auth,breizh_blok_lint,breizh_blok_http_client
+# melos_managed_dependency_overrides: breizh_blok_auth,breizh_blok_lint
 dependency_overrides:
   breizh_blok_auth:
     path: ../auth
-  breizh_blok_http_client:
-    path: ../http_client
   breizh_blok_lint:
     path: ../../tools/lint
