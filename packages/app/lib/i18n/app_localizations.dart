@@ -176,6 +176,12 @@ abstract class AppLocalizations {
   /// **'Description'**
   String get description;
 
+  /// No description provided for @details.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get details;
+
   /// No description provided for @displayFirst.
   ///
   /// In en, this message translates to:

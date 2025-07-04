@@ -5,17 +5,15 @@ import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_map.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
-import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class BoulderDetails extends StatelessWidget {
-  const BoulderDetails({required this.boulder, super.key});
+class BoulderDetailsTab extends StatelessWidget {
+  const BoulderDetailsTab({required this.boulder, super.key});
 
   final Boulder boulder;
 
@@ -95,27 +93,6 @@ class BoulderDetails extends StatelessWidget {
                   },
                 );
               },
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Center(
-                child: MapLauncherButton(
-                  destination: boulder.rock.location,
-                  destinationTitle:
-                      '${boulder.name}'
-                      '${grade != null ? ', ${grade.name}' : ''}',
-                ),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: RepaintBoundary(
-              child: SizedBox(
-                height: 450,
-                child: BoulderDetailsMap(boulder: boulder),
-              ),
             ),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 20)),

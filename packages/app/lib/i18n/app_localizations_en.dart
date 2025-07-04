@@ -61,6 +61,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get description => 'Description';
 
   @override
+  String get details => 'Details';
+
+  @override
   String get displayFirst => 'Display first:';
 
   @override
