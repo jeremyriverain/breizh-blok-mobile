@@ -5,6 +5,7 @@ import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute_boulder_form_view.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
@@ -24,6 +25,7 @@ class BoulderDetailsTab extends StatelessWidget {
     final description = boulder.description;
     final offlineFirst = context.read<RequestStrategy>().offlineFirst;
     final municipality = boulder.rock.boulderArea.municipality;
+    final localizations = AppLocalizations.of(context);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -82,6 +84,21 @@ class BoulderDetailsTab extends StatelessWidget {
             },
           ),
           const SizedBox(height: 20),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.feedback),
+            title: Text(localizations.contribute),
+            trailing: const Icon(Icons.arrow_right_outlined),
+            onTap: () {
+              showDialog<void>(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const ContributeBoulderFormView();
+                },
+              );
+            },
+          ),
           BoulderDetailsAssociated(boulder: boulder),
           const SizedBox(height: 20),
         ],

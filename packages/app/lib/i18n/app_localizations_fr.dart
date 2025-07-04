@@ -58,6 +58,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get closeTheModal => 'Fermer la boîte de dialogue';
 
   @override
+  String get contribute => 'Contribuer';
+
+  @override
   String get description => 'Description';
 
   @override
@@ -270,6 +273,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get searchForBoulders => 'Rechercher bloc, secteur, commune';
+
+  @override
+  String get send => 'Envoyer';
 
   @override
   String get share => 'Partager';

@@ -58,6 +58,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closeTheModal => 'Close the modal';
 
   @override
+  String get contribute => 'Contribute';
+
+  @override
   String get description => 'Description';
 
   @override
@@ -270,6 +273,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchForBoulders => 'Search for boulders';
+
+  @override
+  String get send => 'Send';
 
   @override
   String get share => 'Share';

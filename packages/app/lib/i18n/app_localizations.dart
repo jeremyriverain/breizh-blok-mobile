@@ -170,6 +170,12 @@ abstract class AppLocalizations {
   /// **'Close the modal'**
   String get closeTheModal;
 
+  /// No description provided for @contribute.
+  ///
+  /// In en, this message translates to:
+  /// **'Contribute'**
+  String get contribute;
+
   /// No description provided for @description.
   ///
   /// In en, this message translates to:
@@ -449,6 +455,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search for boulders'**
   String get searchForBoulders;
+
+  /// No description provided for @send.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get send;
 
   /// No description provided for @share.
   ///

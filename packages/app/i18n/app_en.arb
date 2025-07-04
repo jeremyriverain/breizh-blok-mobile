@@ -24,6 +24,7 @@
   "clear": "Clear",
   "closeTheGallery": "Close the gallery",
   "closeTheModal": "Close the modal",
+  "contribute": "Contribute",
   "description": "Description",
   "details": "Details",
   "displayFirst": "Display first:",
@@ -135,6 +136,7 @@
   "parkingOfTheBoulderArea": "Parking of ",
   "returnToTheTop": "Return to the top",
   "searchForBoulders": "Search for boulders",
+  "send": "Send",
   "share": "Share",
   "shareableBoulder": "Breizh Blok recommends the boulder {boulderName} in {boulderAreaName}. More info on https://breizh-blok.fr/boulders/{boulderIri}",
   "@shareableBoulder": {

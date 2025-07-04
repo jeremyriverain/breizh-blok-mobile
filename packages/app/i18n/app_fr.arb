@@ -24,6 +24,7 @@
   "clear": "Effacer",
   "closeTheGallery": "Fermer la galerie d'images",
   "closeTheModal": "Fermer la boîte de dialogue",
+  "contribute": "Contribuer",
   "description": "Description",
   "details": "Détails",
   "displayFirst": "Afficher en 1er:",
@@ -135,6 +136,7 @@
   "parkingOfTheBoulderArea": "Parking du secteur",
   "returnToTheTop": "Revenir en haut",
   "searchForBoulders": "Rechercher bloc, secteur, commune",
+  "send": "Envoyer",
   "share": "Partager",
   "shareableBoulder": "Breizh Blok recommande le bloc {boulderName} dans le secteur {boulderAreaName}. Voir https://breizh-blok.fr/boulders/{boulderIri}",
   "@shareableBoulder": {
