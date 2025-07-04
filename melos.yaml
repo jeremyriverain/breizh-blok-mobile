@@ -18,7 +18,14 @@ scripts:
     description: Run Dart analyze in all dart packages.
  
   test:
-    run: dart run melos exec --concurrency=1 --fail-fast -- "flutter test"
+    run: dart run melos exec --concurrency=1 --fail-fast -- "flutter test --test-randomize-ordering-seed random"
+    description: Run tests.
+    packageFilters:
+      flutter: true
+      dirExists: test
+
+  test:ci:
+    run: dart run melos exec --concurrency=1 --fail-fast -- "flutter test --coverage --test-randomize-ordering-seed random"
     description: Run tests.
     packageFilters:
       flutter: true
