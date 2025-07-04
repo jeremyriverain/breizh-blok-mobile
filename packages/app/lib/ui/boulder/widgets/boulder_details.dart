@@ -29,85 +29,98 @@ class BoulderDetails extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-      child: ListView(
+      child: CustomScrollView(
         key: const Key('boulder-details-list-view'),
-        shrinkWrap: true,
-        children: [
-          Stack(
-            children: [
-              BoulderDetailsLineBoulders(lineBoulders: boulder.lineBoulders),
-            ],
+        slivers: [
+          SliverToBoxAdapter(
+            child: Stack(
+              children: [
+                BoulderDetailsLineBoulders(lineBoulders: boulder.lineBoulders),
+              ],
+            ),
           ),
           if (description != null)
-            ListTile(
-              title: Text(description),
-              leading: Text(AppLocalizations.of(context).description),
+            SliverToBoxAdapter(
+              child: ListTile(
+                title: Text(description),
+                leading: Text(AppLocalizations.of(context).description),
+              ),
             ),
           if (grade != null)
-            ListTile(
-              title: Text(grade.name),
-              leading: Text(AppLocalizations.of(context).grade),
+            SliverToBoxAdapter(
+              child: ListTile(
+                title: Text(grade.name),
+                leading: Text(AppLocalizations.of(context).grade),
+              ),
             ),
-          if (height != null) BoulderDetailsHeight(height: height),
+          if (height != null)
+            SliverToBoxAdapter(child: BoulderDetailsHeight(height: height)),
           if (municipality != null)
-            ListTile(
-              title: Text(municipality.name),
-              leading: Text(AppLocalizations.of(context).municipality),
-              key: const Key('municipality-details-link'),
-              onTap:
-                  offlineFirst
-                      ? null
-                      : () {
-                        context.pushNamed(
-                          MunicipalityDetailsScreen.route.name,
-                          pathParameters: {
-                            MunicipalityDetailsScreen.idParameterName:
-                                IriParser.id(municipality.iri),
-                          },
-                        );
-                      },
+            SliverToBoxAdapter(
+              child: ListTile(
+                title: Text(municipality.name),
+                leading: Text(AppLocalizations.of(context).municipality),
+                key: const Key('municipality-details-link'),
+                onTap:
+                    offlineFirst
+                        ? null
+                        : () {
+                          context.pushNamed(
+                            MunicipalityDetailsScreen.route.name,
+                            pathParameters: {
+                              MunicipalityDetailsScreen.idParameterName:
+                                  IriParser.id(municipality.iri),
+                            },
+                          );
+                        },
+              ),
             ),
-          ListTile(
-            title: Text(boulder.rock.boulderArea.name),
-            leading: Text(AppLocalizations.of(context).boulderArea),
-            key: const Key('boulder-area-details-link'),
-            onTap: () {
-              final routeName =
-                  offlineFirst
-                      ? DownloadedBoulderAreaDetailsScreen.route.name
-                      : BoulderAreaDetailsScreen.route.name;
-              context.pushNamed(
-                routeName,
-                pathParameters: {
-                  offlineFirst
-                      ? DownloadedBoulderAreaDetailsScreen.idParameterName
-                      : BoulderAreaDetailsScreen.idParameterName: IriParser.id(
-                    boulder.rock.boulderArea.iri,
-                  ),
-                },
-              );
-            },
+          SliverToBoxAdapter(
+            child: ListTile(
+              title: Text(boulder.rock.boulderArea.name),
+              leading: Text(AppLocalizations.of(context).boulderArea),
+              key: const Key('boulder-area-details-link'),
+              onTap: () {
+                final routeName =
+                    offlineFirst
+                        ? DownloadedBoulderAreaDetailsScreen.route.name
+                        : BoulderAreaDetailsScreen.route.name;
+                context.pushNamed(
+                  routeName,
+                  pathParameters: {
+                    offlineFirst
+                            ? DownloadedBoulderAreaDetailsScreen.idParameterName
+                            : BoulderAreaDetailsScreen.idParameterName:
+                        IriParser.id(boulder.rock.boulderArea.iri),
+                  },
+                );
+              },
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Center(
-              child: MapLauncherButton(
-                destination: boulder.rock.location,
-                destinationTitle:
-                    // ignore: lines_longer_than_80_chars
-                    '${boulder.name}${boulder.grade != null ? ', ${boulder.grade?.name}' : ''}',
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Center(
+                child: MapLauncherButton(
+                  destination: boulder.rock.location,
+                  destinationTitle:
+                      '${boulder.name}'
+                      '${grade != null ? ', ${grade.name}' : ''}',
+                ),
               ),
             ),
           ),
-          RepaintBoundary(
-            child: SizedBox(
-              height: 450,
-              child: BoulderDetailsMap(boulder: boulder),
+          SliverToBoxAdapter(
+            child: RepaintBoundary(
+              child: SizedBox(
+                height: 450,
+                child: BoulderDetailsMap(boulder: boulder),
+              ),
             ),
           ),
-          const SizedBox(height: 20),
-          BoulderDetailsAssociated(boulder: boulder),
-          const SizedBox(height: 20),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          SliverToBoxAdapter(child: BoulderDetailsAssociated(boulder: boulder)),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
         ],
       ),
     );
