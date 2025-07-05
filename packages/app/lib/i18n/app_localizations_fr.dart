@@ -42,6 +42,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get boulders => 'Blocs';
 
   @override
+  String get cancel => 'Annuler';
+
+  @override
   String get changeStyleMap => 'Modifier le style de la carte';
 
   @override

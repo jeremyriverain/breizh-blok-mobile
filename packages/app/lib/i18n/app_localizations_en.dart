@@ -42,6 +42,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get boulders => 'Boulders';
 
   @override
+  String get cancel => 'Cancel';
+
+  @override
   String get changeStyleMap => 'Change style map';
 
   @override

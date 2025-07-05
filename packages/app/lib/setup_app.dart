@@ -50,7 +50,9 @@ Future<void> setupApp({
 
   GetIt.I.registerSingleton<TrackingService>(TrackingService());
 
-  GetIt.I.registerSingleton<GoRouter>(Router()());
+  GetIt.I.registerSingleton<GoRouter>(
+    createRouter(routes: routes, observers: [SentryNavigatorObserver()]),
+  );
 
   GetIt.I.registerSingleton<SharedPreferences>(
     await SharedPreferences.getInstance(),
