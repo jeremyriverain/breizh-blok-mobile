@@ -8,6 +8,8 @@ import 'package:breizh_blok_mobile/services/share_content/share_content_service.
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
+import 'package:dio/dio.dart';
+import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/services.dart';
@@ -48,7 +50,9 @@ Future<void> setupApp({
 
   GetIt.I.registerSingleton<TrackingService>(TrackingService());
 
-  GetIt.I.registerSingleton<GoRouter>(Router()());
+  GetIt.I.registerSingleton<GoRouter>(
+    createRouter(routes: routes, observers: [SentryNavigatorObserver()]),
+  );
 
   GetIt.I.registerSingleton<SharedPreferences>(
     await SharedPreferences.getInstance(),
@@ -63,7 +67,16 @@ Future<void> setupApp({
   final auth = await BreizhBlokAuth.createAuth(
     domain: 'breizh-blok.eu.auth0.com',
     clientId: Env.auth0ClientId,
+    audience: Env.auth0Audience,
   );
 
   GetIt.I.registerSingleton<Auth>(auth);
+
+  final dio =
+      Dio()
+        ..httpClientAdapter = Http2Adapter(
+          ConnectionManager(idleTimeout: const Duration(seconds: 10)),
+        );
+
+  GetIt.I.registerSingleton<Dio>(dio);
 }

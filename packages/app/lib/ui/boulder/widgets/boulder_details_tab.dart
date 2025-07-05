@@ -5,17 +5,16 @@ import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_map.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute_boulder_form_view.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
-import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class BoulderDetails extends StatelessWidget {
-  const BoulderDetails({required this.boulder, super.key});
+class BoulderDetailsTab extends StatelessWidget {
+  const BoulderDetailsTab({required this.boulder, super.key});
 
   final Boulder boulder;
 
@@ -26,18 +25,14 @@ class BoulderDetails extends StatelessWidget {
     final description = boulder.description;
     final offlineFirst = context.read<RequestStrategy>().offlineFirst;
     final municipality = boulder.rock.boulderArea.municipality;
+    final localizations = AppLocalizations.of(context);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
       child: ListView(
         key: const Key('boulder-details-list-view'),
-        shrinkWrap: true,
         children: [
-          Stack(
-            children: [
-              BoulderDetailsLineBoulders(lineBoulders: boulder.lineBoulders),
-            ],
-          ),
+          BoulderDetailsLineBoulders(lineBoulders: boulder.lineBoulders),
           if (description != null)
             ListTile(
               title: Text(description),
@@ -88,24 +83,22 @@ class BoulderDetails extends StatelessWidget {
               );
             },
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Center(
-              child: MapLauncherButton(
-                destination: boulder.rock.location,
-                destinationTitle:
-                    // ignore: lines_longer_than_80_chars
-                    '${boulder.name}${boulder.grade != null ? ', ${boulder.grade?.name}' : ''}',
-              ),
-            ),
-          ),
-          RepaintBoundary(
-            child: SizedBox(
-              height: 450,
-              child: BoulderDetailsMap(boulder: boulder),
-            ),
-          ),
           const SizedBox(height: 20),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.feedback),
+            title: Text(localizations.contribute),
+            trailing: const Icon(Icons.arrow_right_outlined),
+            onTap: () {
+              showDialog<void>(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const ContributeBoulderFormView();
+                },
+              );
+            },
+          ),
           BoulderDetailsAssociated(boulder: boulder),
           const SizedBox(height: 20),
         ],

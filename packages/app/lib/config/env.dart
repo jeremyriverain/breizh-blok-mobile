@@ -18,4 +18,7 @@ abstract class Env {
 
   @EnviedField(varName: 'AUTH0_CLIENT_ID')
   static const String auth0ClientId = _Env.auth0ClientId;
+
+  @EnviedField(varName: 'AUTH0_AUDIENCE')
+  static const String auth0Audience = _Env.auth0Audience;
 }

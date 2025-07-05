@@ -23,8 +23,9 @@ import '../../../widget_test_utils.dart';
 import 'downloads_area_button_test.mocks.dart';
 
 void main() {
-  testWidgets('displays status download information',
-      (WidgetTester tester) async {
+  testWidgets('displays status download information', (
+    WidgetTester tester,
+  ) async {
     final streamController = StreamController<DbBoulderArea?>();
 
     final database = MockAppDatabase();
@@ -36,24 +37,19 @@ void main() {
 
     when(
       database.watchDownload('/foo'),
-    ).thenAnswer(
-      (_) => streamController.stream,
-    );
+    ).thenAnswer((_) => streamController.stream);
 
     streamController.add(null);
 
     await tester.runAsync(() async {
-      await myPumpAndSettle(
-        tester,
+      await tester.myPump(
         widget: MultiRepositoryProvider(
           providers: [
             RepositoryProvider(
               // ignore: unnecessary_cast
               create: (context) => database as AppDatabase,
             ),
-            RepositoryProvider(
-              create: (context) => downloadAreaService,
-            ),
+            RepositoryProvider(create: (context) => downloadAreaService),
           ],
           child: const DownloadsAreaButton(
             boulderArea: BoulderArea(
@@ -87,10 +83,7 @@ void main() {
 
     await tester.pump(Duration.zero);
 
-    expect(
-      find.byType(CircularProgressIndicator),
-      findsOneWidget,
-    );
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
     streamController.add(
       DbBoulderArea(

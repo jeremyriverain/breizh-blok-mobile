@@ -32,8 +32,7 @@ void main() {
       );
       expect(boulderFilterGradeBloc.state.grades.length, 0);
 
-      await myPumpAndSettle(
-        tester,
+      await tester.myPump(
         widget: BlocProvider(
           create: (context) => boulderFilterGradeBloc,
           child: Builder(
@@ -45,6 +44,8 @@ void main() {
           ),
         ),
       );
+
+      await tester.pump();
 
       final leftTarget = tester
           .getTopLeft(find.byType(SfRangeSlider))
