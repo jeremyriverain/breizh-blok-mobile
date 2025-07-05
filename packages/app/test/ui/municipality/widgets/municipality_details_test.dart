@@ -15,10 +15,7 @@ void main() {
       BoulderArea(
         iri: '/boulder_areas/1',
         name: 'Le chenal',
-        municipality: Municipality(
-          iri: '/municipalities/0',
-          name: 'generic',
-        ),
+        municipality: Municipality(iri: '/municipalities/0', name: 'generic'),
         numberOfBoulders: 4,
         lowestGrade: Grade(iri: '', name: '5c'),
         highestGrade: Grade(iri: '', name: '6c'),
@@ -26,15 +23,11 @@ void main() {
       BoulderArea(
         iri: '/boulder_areas/2',
         name: 'Mars',
-        municipality: Municipality(
-          iri: '/municipalities/0',
-          name: 'generic',
-        ),
+        municipality: Municipality(iri: '/municipalities/0', name: 'generic'),
       ),
     ];
 
-    await myPumpAndSettle(
-      tester,
+    await tester.myPump(
       widget: MunicipalityDetails(
         municipality: const Municipality(
           name: 'Kerlouan',
@@ -43,6 +36,7 @@ void main() {
         ),
       ),
     );
+    await tester.pump();
 
     expect(find.widgetWithText(ListTile, 'Le chenal'), findsOneWidget);
     find.widgetWithText(ListTile, '10 blocs du 5c au 6c');

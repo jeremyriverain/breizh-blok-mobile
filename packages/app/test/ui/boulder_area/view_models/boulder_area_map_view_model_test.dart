@@ -98,10 +98,10 @@ void main() {
           {'mapName': 'Apple map', 'mapType': 'apple'},
         ],
       );
-      await myPumpAndSettle(
-        tester,
+      await tester.myPump(
         widget: getTestWidget(boulderArea: fakeBoulderArea).widget,
       );
+      await tester.pump();
 
       await tester.tap(find.text('open maps'));
 
@@ -134,10 +134,10 @@ void main() {
 
         mockMapLauncher(tester: tester);
 
-        await myPumpAndSettle(
-          tester,
+        await tester.myPump(
           widget: getTestWidget(boulderArea: fakeBoulderArea).widget,
         );
+        await tester.pump();
 
         await tester.tap(find.text('open maps'));
 
@@ -159,13 +159,13 @@ void main() {
         ],
       );
 
-      await myPumpAndSettle(
-        tester,
+      await tester.myPump(
         widget:
             getTestWidget(
               boulderArea: fakeBoulderArea.copyWith(parkingLocation: null),
             ).widget,
       );
+      await tester.pump();
 
       await tester.tap(find.text('open maps'));
 
@@ -181,8 +181,7 @@ void main() {
         boulderMarkerRepository.findByBoulderArea(boulderArea: fakeBoulderArea),
       ).thenThrow(Exception());
 
-      await myPump(
-        tester,
+      await tester.myPump(
         widget: getTestWidget(boulderArea: fakeBoulderArea).widget,
       );
 
@@ -195,8 +194,7 @@ void main() {
       mockBoulderMarkerRepository(boulderArea: fakeBoulderArea);
       mockMapLauncher(tester: tester);
 
-      await myPump(
-        tester,
+      await tester.myPump(
         widget: getTestWidget(boulderArea: fakeBoulderArea).widget,
       );
 
@@ -215,7 +213,7 @@ void main() {
 
       final (:viewModel, :widget) = getTestWidget(boulderArea: fakeBoulderArea);
 
-      await myPump(tester, widget: widget);
+      await tester.myPump(widget: widget);
 
       await tester.pump();
 

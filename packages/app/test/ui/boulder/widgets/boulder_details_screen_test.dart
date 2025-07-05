@@ -23,8 +23,7 @@ void main() {
   });
 
   Future<void> pumpWidget(WidgetTester tester) async {
-    await myPumpAndSettle(
-      tester,
+    await tester.myPump(
       widget: RepositoryProvider(
         create: (context) => RequestStrategy(),
         child: RepositoryProvider<BoulderRepository>(
@@ -33,6 +32,7 @@ void main() {
         ),
       ),
     );
+    await tester.pump();
   }
 
   group('BoulderDetailsScreen', () {
