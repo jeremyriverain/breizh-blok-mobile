@@ -1,11 +1,13 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
+import 'package:breizh_blok_mobile/services/feature_flags.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute_boulder_form_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -23,6 +25,9 @@ void main() {
   });
 
   Future<void> pumpWidget(WidgetTester tester) async {
+    GetIt.I.registerSingleton<FeatureFlags>(
+      const FeatureFlags(canCreateBoulderFeedback: true),
+    );
     await tester.myPumpWidget(
       widget: RepositoryProvider(
         create: (context) => RequestStrategy(),

@@ -2,6 +2,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/services/feature_flags.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
@@ -11,6 +12,7 @@ import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_d
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class BoulderDetailsTab extends StatelessWidget {
@@ -84,21 +86,23 @@ class BoulderDetailsTab extends StatelessWidget {
             },
           ),
           const SizedBox(height: 20),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.feedback),
-            title: Text(localizations.contribute),
-            trailing: const Icon(Icons.arrow_right_outlined),
-            onTap: () {
-              showDialog<void>(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) {
-                  return const ContributeBoulderFormView();
-                },
-              );
-            },
-          ),
+          if (GetIt.I.get<FeatureFlags>().canCreateBoulderFeedback) ...[
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.feedback),
+              title: Text(localizations.contribute),
+              trailing: const Icon(Icons.arrow_right_outlined),
+              onTap: () {
+                showDialog<void>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return const ContributeBoulderFormView();
+                  },
+                );
+              },
+            ),
+          ],
           BoulderDetailsAssociated(boulder: boulder),
           const SizedBox(height: 20),
         ],

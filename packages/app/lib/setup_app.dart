@@ -9,6 +9,7 @@ import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository_impl.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
+import 'package:breizh_blok_mobile/services/feature_flags.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
@@ -78,6 +79,10 @@ Future<void> setupApp({
         api: breizhBlokApi.getBoulderFeedbackApi(),
       ),
     ),
+  );
+
+  GetIt.I.registerLazySingleton<FeatureFlags>(
+    () => const FeatureFlags(canCreateBoulderFeedback: false),
   );
 }
 
