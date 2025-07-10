@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
-import 'package:breizh_blok_mobile/domain/models/department/department.dart';
+import 'package:breizh_blok_mobile/domain/entities/department/department.dart';
 import 'package:breizh_blok_mobile/ui/department/view_models/list_departments_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

@@ -4,7 +4,7 @@ import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 
 class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
   BoulderAreaRepository({required this.httpClient});

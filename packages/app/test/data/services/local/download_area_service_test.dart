@@ -2,9 +2,9 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/location/location.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
+import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -14,10 +14,7 @@ import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-@GenerateNiceMocks([
-  MockSpec<ImageBoulderCache>(),
-  MockSpec<CacheManager>(),
-])
+@GenerateNiceMocks([MockSpec<ImageBoulderCache>(), MockSpec<CacheManager>()])
 import './download_area_service_test.mocks.dart';
 
 void main() {
@@ -43,10 +40,7 @@ void main() {
     );
   });
   final database = AppDatabase(NativeDatabase.memory());
-  final httpClient = ApiClient(
-    database: database,
-    httpClient: mockClient,
-  );
+  final httpClient = ApiClient(database: database, httpClient: mockClient);
 
   const boulderArea = BoulderArea(
     iri: '/boulder_areas/3',
@@ -80,9 +74,7 @@ void main() {
 
     when(mockCacheManager.getSingleFile(any)).thenThrow(Exception());
     when(mockCacheManager.removeFile(any)).thenThrow(Exception());
-    when(
-      imageBoulderCache.cache,
-    ).thenReturn(mockCacheManager);
+    when(imageBoulderCache.cache).thenReturn(mockCacheManager);
 
     final downloadAreaService = DownloadAreaService(
       database: database,
@@ -118,39 +110,30 @@ void main() {
     const expectedGradesRequestPath =
         '/grades?exists%5Bboulders%5D=true&order%5Bname%5D=asc&pagination=false';
     expect(storedRequests.length, equals(3));
-    expect(
-      storedRequests,
-      [
-        const DbRequest(
-          requestPath: expectedBouldersRequestPath,
-          responseBody: mockResponseBoulders,
-        ),
-        DbRequest(
-          requestPath: boulderArea.iri,
-          responseBody: '{}',
-        ),
-        const DbRequest(
-          requestPath: expectedGradesRequestPath,
-          responseBody: '{}',
-        ),
-      ],
-    );
+    expect(storedRequests, [
+      const DbRequest(
+        requestPath: expectedBouldersRequestPath,
+        responseBody: mockResponseBoulders,
+      ),
+      DbRequest(requestPath: boulderArea.iri, responseBody: '{}'),
+      const DbRequest(
+        requestPath: expectedGradesRequestPath,
+        responseBody: '{}',
+      ),
+    ]);
 
     final storedBoulderAreas =
         await database.select(database.dbBoulderAreas).get();
     expect(storedBoulderAreas.length, equals(1));
     final mockDate = DateTime.now();
-    expect(
-      storedBoulderAreas.map((e) => e.copyWith(downloadedAt: mockDate)),
-      [
-        DbBoulderArea(
-          iri: boulderArea.iri,
-          downloadProgress: 100,
-          boulders: expectedBouldersRequestPath,
-          downloadedAt: mockDate,
-        ),
-      ],
-    );
+    expect(storedBoulderAreas.map((e) => e.copyWith(downloadedAt: mockDate)), [
+      DbBoulderArea(
+        iri: boulderArea.iri,
+        downloadProgress: 100,
+        boulders: expectedBouldersRequestPath,
+        downloadedAt: mockDate,
+      ),
+    ]);
 
     verify(
       mockCacheManager.getSingleFile(
@@ -177,15 +160,12 @@ void main() {
         await database.select(database.dbRequests).get();
     expect(storedRequetsAfterRemovingDownload.length, equals(1));
 
-    expect(
-      storedRequetsAfterRemovingDownload,
-      [
-        const DbRequest(
-          requestPath: expectedGradesRequestPath,
-          responseBody: '{}',
-        ),
-      ],
-    );
+    expect(storedRequetsAfterRemovingDownload, [
+      const DbRequest(
+        requestPath: expectedGradesRequestPath,
+        responseBody: '{}',
+      ),
+    ]);
 
     verify(
       mockCacheManager.removeFile(

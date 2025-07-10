@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
-import 'package:breizh_blok_mobile/domain/models/grade/grade.dart';
+import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_grade.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +32,7 @@ void main() {
       );
       expect(boulderFilterGradeBloc.state.grades.length, 0);
 
-      await myPumpAndSettle(
-        tester,
+      await tester.myPumpWidget(
         widget: BlocProvider(
           create: (context) => boulderFilterGradeBloc,
           child: Builder(
@@ -45,6 +44,8 @@ void main() {
           ),
         ),
       );
+
+      await tester.pump();
 
       final leftTarget = tester
           .getTopLeft(find.byType(SfRangeSlider))

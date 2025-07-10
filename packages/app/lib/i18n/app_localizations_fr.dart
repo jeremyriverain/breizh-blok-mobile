@@ -13,7 +13,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get anErrorOccuredWhileDisplayingMap =>
-      'An error occured while displaying the map';
+      'Une erreur est survenue pendant l\'affichage de la carte';
 
   @override
   String get areas => 'Sites';
@@ -42,6 +42,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get boulders => 'Blocs';
 
   @override
+  String get cancel => 'Annuler';
+
+  @override
   String get changeStyleMap => 'Modifier le style de la carte';
 
   @override
@@ -58,7 +61,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get closeTheModal => 'Fermer la boîte de dialogue';
 
   @override
+  String get contribute => 'Contribuer';
+
+  @override
   String get description => 'Description';
+
+  @override
+  String get details => 'Détails';
 
   @override
   String get displayFirst => 'Afficher en 1er:';
@@ -267,6 +276,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get searchForBoulders => 'Rechercher bloc, secteur, commune';
+
+  @override
+  String get send => 'Envoyer';
 
   @override
   String get share => 'Partager';

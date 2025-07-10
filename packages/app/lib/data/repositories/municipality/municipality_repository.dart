@@ -4,7 +4,7 @@ import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
+import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';
 
 class MunicipalityRepository implements ApiRepositoryInterface<Municipality> {
   MunicipalityRepository({required this.httpClient});

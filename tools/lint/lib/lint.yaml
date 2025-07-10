@@ -13,3 +13,4 @@ analyzer:
     invalid_annotation_target: ignore
     document_ignores: ignore
     avoid_catches_without_on_clauses: ignore
+    one_member_abstracts: ignore

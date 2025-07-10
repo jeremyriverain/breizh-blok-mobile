@@ -1,7 +1,7 @@
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_marker/boulder_marker.dart';
-import 'package:breizh_blok_mobile/domain/models/map/map_directions.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
+import 'package:breizh_blok_mobile/domain/entities/map/map_directions.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

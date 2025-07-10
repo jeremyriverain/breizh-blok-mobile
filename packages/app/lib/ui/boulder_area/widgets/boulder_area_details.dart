@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_description_tab.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_list_tab.dart';

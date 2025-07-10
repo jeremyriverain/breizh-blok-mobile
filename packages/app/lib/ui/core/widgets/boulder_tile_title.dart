@@ -1,11 +1,8 @@
-import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:flutter/material.dart';
 
 class BoulderTileTitle extends StatelessWidget {
-  const BoulderTileTitle({
-    required this.boulder,
-    super.key,
-  });
+  const BoulderTileTitle({required this.boulder, super.key});
 
   final Boulder boulder;
 
@@ -16,17 +13,12 @@ class BoulderTileTitle extends StatelessWidget {
         children: <TextSpan>[
           TextSpan(
             text: boulder.name,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           if (boulder.grade != null)
             TextSpan(
               text: ' (${boulder.grade?.name ?? ''})',
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontSize: 16),
             ),
         ],
       ),

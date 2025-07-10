@@ -53,7 +53,7 @@ void main() {
     testWidgets('it transitions to error if there is an error', (tester) async {
       when(boulderMarkerRepository.findAll()).thenThrow(Exception());
 
-      await myPump(tester, widget: getTestWidget().widget);
+      await tester.myPumpWidget(widget: getTestWidget().widget);
 
       await tester.pump();
 
@@ -63,7 +63,7 @@ void main() {
     testWidgets('fetches boulder markers when initializing', (tester) async {
       mockBoulderMarkerRepository();
 
-      await myPump(tester, widget: getTestWidget().widget);
+      await tester.myPumpWidget(widget: getTestWidget().widget);
 
       await tester.pump();
 
@@ -77,7 +77,7 @@ void main() {
 
       final (:viewModel, :widget) = getTestWidget();
 
-      await myPump(tester, widget: widget);
+      await tester.myPumpWidget(widget: widget);
 
       await tester.pump();
 

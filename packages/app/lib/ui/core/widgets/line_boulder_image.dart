@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
-import 'package:breizh_blok_mobile/domain/models/line_boulder/line_boulder.dart';
+import 'package:breizh_blok_mobile/domain/entities/line_boulder/line_boulder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

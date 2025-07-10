@@ -49,7 +49,8 @@ void main() {
         }
         return null;
       });
-      await myPumpAndSettle(tester, widget: getTestWidget());
+      await tester.myPumpWidget(widget: getTestWidget());
+      await tester.pump();
 
       await tester.tap(find.text('open maps'));
 
@@ -89,7 +90,8 @@ void main() {
             return null;
           },
         );
-        await myPumpAndSettle(tester, widget: getTestWidget());
+        await tester.myPumpWidget(widget: getTestWidget());
+        await tester.pump();
 
         await tester.tap(find.text('open maps'));
 

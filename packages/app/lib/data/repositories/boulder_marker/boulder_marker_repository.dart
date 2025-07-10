@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/repositories/query_param_factory.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_marker/boulder_marker.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
 import 'package:flutter/foundation.dart';
 
 class BoulderMarkerRepository {

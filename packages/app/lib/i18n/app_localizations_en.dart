@@ -42,6 +42,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get boulders => 'Boulders';
 
   @override
+  String get cancel => 'Cancel';
+
+  @override
   String get changeStyleMap => 'Change style map';
 
   @override
@@ -58,7 +61,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closeTheModal => 'Close the modal';
 
   @override
+  String get contribute => 'Contribute';
+
+  @override
   String get description => 'Description';
+
+  @override
+  String get details => 'Details';
 
   @override
   String get displayFirst => 'Display first:';
@@ -267,6 +276,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchForBoulders => 'Search for boulders';
+
+  @override
+  String get send => 'Send';
 
   @override
   String get share => 'Share';

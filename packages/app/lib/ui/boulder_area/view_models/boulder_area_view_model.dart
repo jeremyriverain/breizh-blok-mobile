@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

@@ -11,11 +11,13 @@ import 'my_bar_chart_test.mocks.dart';
 
 void main() {
   testWidgets('BoulderAreaBarChart', (tester) async {
-    await myPumpAndSettle(
-      tester,
-      widget:
-          const MyBarChart(title: 'foo', data: {'5a': 2, '6a': 3, '7b+': 1}),
+    await tester.myPumpWidget(
+      widget: const MyBarChart(
+        title: 'foo',
+        data: {'5a': 2, '6a': 3, '7b+': 1},
+      ),
     );
+    await tester.pump();
 
     expect(find.textContaining('foo'), findsOneWidget);
 
@@ -43,9 +45,11 @@ void main() {
 
 String? _getTitleText({required BarChart barChart, required double index}) {
   return ((barChart.data.titlesData.bottomTitles.sideTitles.getTitlesWidget(
-    index,
-    MockTitleMeta(),
-  ) as SideTitleWidget)
-          .child as Text)
+                    index,
+                    MockTitleMeta(),
+                  )
+                  as SideTitleWidget)
+              .child
+          as Text)
       .data;
 }

@@ -7,11 +7,12 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../widget_test_utils.dart';
 
 void main() {
-  final radioListTileType = const RadioListTile<ApiOrderParam>(
-    value: ApiOrderParam(name: '', direction: ''),
-    groupValue: ApiOrderParam(name: '', direction: ''),
-    onChanged: null,
-  ).runtimeType;
+  final radioListTileType =
+      const RadioListTile<ApiOrderParam>(
+        value: ApiOrderParam(name: '', direction: ''),
+        groupValue: ApiOrderParam(name: '', direction: ''),
+        onChanged: null,
+      ).runtimeType;
 
   List<RadioListTile<ApiOrderParam>> findTiles() {
     return find
@@ -38,13 +39,13 @@ void main() {
 
     ApiOrderParam? result;
 
-    await myPumpAndSettle(
-      tester,
+    await tester.myPumpWidget(
       widget: SortButton(
         choices: choices,
         onChanged: (value) => {result = value},
       ),
     );
+    await tester.pump();
 
     await tester.tap(find.byKey(const Key('sort-button')));
     await tester.pumpAndSettle();
@@ -72,31 +73,29 @@ void main() {
   });
 
   testWidgets(
-      'the initial selected value is checked, the default label is displayed',
-      (WidgetTester tester) async {
-    const label = 'Sort by';
+    'the initial selected value is checked, the default label is displayed',
+    (WidgetTester tester) async {
+      const label = 'Sort by';
 
-    await myPumpAndSettle(
-      tester,
-      widget: SortButton(
-        choices: choices,
-        initialSelected: choices[1].orderParam,
-        onChanged: (p0) => {},
-        label: label,
-      ),
-    );
+      await tester.myPumpWidget(
+        widget: SortButton(
+          choices: choices,
+          initialSelected: choices[1].orderParam,
+          onChanged: (p0) => {},
+          label: label,
+        ),
+      );
+      await tester.pump();
 
-    await tester.tap(find.byKey(const Key('sort-button')));
-    await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('sort-button')));
+      await tester.pumpAndSettle();
 
-    final generatedRadioListTiles = findTiles();
+      final generatedRadioListTiles = findTiles();
 
-    expect(generatedRadioListTiles[0].checked, equals(false));
-    expect(generatedRadioListTiles[1].checked, equals(true));
+      expect(generatedRadioListTiles[0].checked, equals(false));
+      expect(generatedRadioListTiles[1].checked, equals(true));
 
-    expect(
-      find.text(label),
-      findsOneWidget,
-    );
-  });
+      expect(find.text(label), findsOneWidget);
+    },
+  );
 }

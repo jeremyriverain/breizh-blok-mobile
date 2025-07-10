@@ -4,9 +4,9 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder_area/boulder_area.dart';
-import 'package:breizh_blok_mobile/domain/models/location/location.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
+import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
+import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/downloads_area_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,8 +23,9 @@ import '../../../widget_test_utils.dart';
 import 'downloads_area_button_test.mocks.dart';
 
 void main() {
-  testWidgets('displays status download information',
-      (WidgetTester tester) async {
+  testWidgets('displays status download information', (
+    WidgetTester tester,
+  ) async {
     final streamController = StreamController<DbBoulderArea?>();
 
     final database = MockAppDatabase();
@@ -36,24 +37,19 @@ void main() {
 
     when(
       database.watchDownload('/foo'),
-    ).thenAnswer(
-      (_) => streamController.stream,
-    );
+    ).thenAnswer((_) => streamController.stream);
 
     streamController.add(null);
 
     await tester.runAsync(() async {
-      await myPumpAndSettle(
-        tester,
+      await tester.myPumpWidget(
         widget: MultiRepositoryProvider(
           providers: [
             RepositoryProvider(
               // ignore: unnecessary_cast
               create: (context) => database as AppDatabase,
             ),
-            RepositoryProvider(
-              create: (context) => downloadAreaService,
-            ),
+            RepositoryProvider(create: (context) => downloadAreaService),
           ],
           child: const DownloadsAreaButton(
             boulderArea: BoulderArea(
@@ -87,10 +83,7 @@ void main() {
 
     await tester.pump(Duration.zero);
 
-    expect(
-      find.byType(CircularProgressIndicator),
-      findsOneWidget,
-    );
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
     streamController.add(
       DbBoulderArea(

@@ -140,6 +140,12 @@ abstract class AppLocalizations {
   /// **'Boulders'**
   String get boulders;
 
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
   /// No description provided for @changeStyleMap.
   ///
   /// In en, this message translates to:
@@ -170,11 +176,23 @@ abstract class AppLocalizations {
   /// **'Close the modal'**
   String get closeTheModal;
 
+  /// No description provided for @contribute.
+  ///
+  /// In en, this message translates to:
+  /// **'Contribute'**
+  String get contribute;
+
   /// No description provided for @description.
   ///
   /// In en, this message translates to:
   /// **'Description'**
   String get description;
+
+  /// No description provided for @details.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get details;
 
   /// No description provided for @displayFirst.
   ///
@@ -443,6 +461,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search for boulders'**
   String get searchForBoulders;
+
+  /// No description provided for @send.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get send;
 
   /// No description provided for @share.
   ///

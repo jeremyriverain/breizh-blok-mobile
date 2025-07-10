@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
-import 'package:breizh_blok_mobile/domain/models/map/map_directions.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/domain/entities/map/map_directions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

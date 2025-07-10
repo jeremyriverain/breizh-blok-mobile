@@ -20,7 +20,8 @@ void main() {
   ) async {
     GetIt.I.registerSingleton(AppDatabase(NativeDatabase.memory()));
 
-    await myPumpAndSettle(tester, widget: const DownloadedBoulderAreasScreen());
+    await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+    await tester.pump();
 
     expect(find.text('Aucun téléchargement'), findsOneWidget);
   });
@@ -70,7 +71,8 @@ void main() {
       boulderAreaIri: '/foo',
     );
 
-    await myPumpAndSettle(tester, widget: const DownloadedBoulderAreasScreen());
+    await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+    await tester.pump();
 
     expect(find.byType(ListTile), findsOneWidget);
     expect(
@@ -132,10 +134,8 @@ void main() {
         ),
       ]);
 
-      await myPumpAndSettle(
-        tester,
-        widget: const DownloadedBoulderAreasScreen(),
-      );
+      await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+      await tester.pumpAndSettle();
 
       expect(find.byType(ListTile), findsNWidgets(4));
 
@@ -257,7 +257,8 @@ void main() {
       AppDatabase(NativeDatabase.memory()),
     );
 
-    await myPumpAndSettle(tester, widget: const DownloadedBoulderAreasScreen());
+    await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+    await tester.pump();
 
     expect(find.text('Aucun téléchargement'), findsOneWidget);
 

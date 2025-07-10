@@ -1,7 +1,6 @@
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_view_model.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_navbar.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/boulder_details_view.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/loading_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/not_found_screen.dart';
@@ -33,10 +32,7 @@ class BoulderDetailsScreen extends StatelessWidget {
         builder: (context, data) {
           return switch (data) {
             BoulderLoading() => const LoadingScreen(),
-            BoulderOK(:final boulder) => Scaffold(
-              appBar: BoulderDetailsNavbar(boulder: boulder),
-              body: BoulderDetails(boulder: boulder),
-            ),
+            BoulderOK(:final boulder) => BoulderDetailsView(boulder: boulder),
             BoulderError(:final error) =>
               error is HttpExceptionWithStatus && error.statusCode == 404
                   ? const NotFoundScreen()

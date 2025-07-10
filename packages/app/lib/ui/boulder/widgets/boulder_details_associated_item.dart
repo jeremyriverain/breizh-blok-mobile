@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_tile_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_tile_title.dart';

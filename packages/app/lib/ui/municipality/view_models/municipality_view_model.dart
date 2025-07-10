@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
-import 'package:breizh_blok_mobile/domain/models/municipality/municipality.dart';
+import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

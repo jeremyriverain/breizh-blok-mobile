@@ -17,22 +17,18 @@ void main() {
   testWidgets('BbShareButton', (tester) async {
     final mockShareContentService = MockShareContentService();
 
-    await myPumpAndSettle(
-      tester,
+    await tester.myPumpWidget(
       widget: RepositoryProvider<ShareContentServiceInterface>(
         create: (context) => mockShareContentService,
         child: const ShareButton(content: 'foo'),
       ),
     );
+    await tester.pump();
 
     await tester.tap(find.byIcon(Icons.share));
 
     await tester.pumpAndSettle();
 
-    verify(
-      mockShareContentService.share(
-        'foo',
-      ),
-    ).called(1);
+    verify(mockShareContentService.share('foo')).called(1);
   });
 }

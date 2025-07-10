@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/domain/models/line_boulder/line_boulder.dart';
+import 'package:breizh_blok_mobile/domain/entities/line_boulder/line_boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:flutter/material.dart';

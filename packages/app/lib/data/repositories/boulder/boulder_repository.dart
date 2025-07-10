@@ -5,7 +5,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.dart';
 import 'package:breizh_blok_mobile/data/repositories/query_param_factory.dart';
-import 'package:breizh_blok_mobile/domain/models/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:flutter/foundation.dart';
 
 class BoulderRepository implements ApiRepositoryInterface<Boulder> {

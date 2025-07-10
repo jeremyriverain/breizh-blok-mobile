@@ -6,7 +6,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.d
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/api_repository_interface.dart';
 import 'package:breizh_blok_mobile/data/repositories/query_param_factory.dart';
-import 'package:breizh_blok_mobile/domain/models/department/department.dart';
+import 'package:breizh_blok_mobile/domain/entities/department/department.dart';
 import 'package:flutter/foundation.dart';
 
 class DepartmentRepository implements ApiRepositoryInterface<Department> {

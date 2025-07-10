@@ -1,6 +1,5 @@
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_navbar.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/boulder_details_view.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/loading_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/view_models/downloaded_boulder_view_model.dart';
@@ -38,9 +37,8 @@ class DownloadedBoulderDetailsScreen extends StatelessWidget {
         builder: (context, data) {
           return switch (data) {
             DownloadedBoulderLoading() => const LoadingScreen(),
-            DownloadedBoulderOK(:final boulder) => Scaffold(
-              appBar: BoulderDetailsNavbar(boulder: boulder),
-              body: BoulderDetails(boulder: boulder),
+            DownloadedBoulderOK(:final boulder) => BoulderDetailsView(
+              boulder: boulder,
             ),
             DownloadedBoulderError() => ErrorScreen(
               onTryAgain: () {
