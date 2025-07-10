@@ -1,5 +1,7 @@
-# melos_managed_dependency_overrides: breizh_blok_auth,breizh_blok_lint
+# melos_managed_dependency_overrides: breizh_blok_auth,breizh_blok_lint,breizh_blok_api_generated
 dependency_overrides:
+  breizh_blok_api_generated:
+    path: ../breizh_blok_api_generated
   breizh_blok_auth:
     path: ../auth
   breizh_blok_lint:
