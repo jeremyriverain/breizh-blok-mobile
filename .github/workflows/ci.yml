@@ -1,6 +1,12 @@
 name: CI
 
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   ci:
@@ -26,4 +32,9 @@ jobs:
           dart run melos run analyze --no-select
 
       - name: Unit and Widget tests
-        run: dart run melos run test --no-select
+        run: dart run melos run test:ci --no-select
+
+      - name: Sonar
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
