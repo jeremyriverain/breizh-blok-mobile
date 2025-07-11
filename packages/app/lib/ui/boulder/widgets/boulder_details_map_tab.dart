@@ -24,77 +24,72 @@ class _BoulderDetailsMapTabState extends State<BoulderDetailsMapTab>
     super.build(context);
     final location = widget.boulder.rock.location;
     final grade = widget.boulder.grade;
-    return Column(
+    return Stack(
+      alignment: Alignment.bottomCenter,
       children: [
-        Expanded(
-          child: BlocProvider(
-            create: (context) => BoulderMapViewModel(boulder: widget.boulder),
-            child: BlocBuilder<BoulderMapViewModel, BoulderMapStates>(
-              builder: (context, state) {
-                return switch (state) {
-                  BoulderMapIdle() => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  BoulderMapOK() => MyMap(
-                    cameraOptions: CameraOptions(
-                      zoom: 15,
-                      center: Point(
-                        coordinates: Position(
-                          location.longitude,
-                          location.latitude,
-                        ),
+        BlocProvider(
+          create: (context) => BoulderMapViewModel(boulder: widget.boulder),
+          child: BlocBuilder<BoulderMapViewModel, BoulderMapStates>(
+            builder: (context, state) {
+              return switch (state) {
+                BoulderMapIdle() => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                BoulderMapOK() => MyMap(
+                  cameraOptions: CameraOptions(
+                    zoom: 15,
+                    center: Point(
+                      coordinates: Position(
+                        location.longitude,
+                        location.latitude,
                       ),
                     ),
-                    onMapCreated: (mapboxMap) async {
-                      final pointAnnotationManager =
-                          await mapboxMap.annotations
-                              .createPointAnnotationManager();
-
-                      if (!context.mounted) {
-                        return;
-                      }
-                      final imageData = await context.getResponsiveImageData(
-                        imagePath: Assets.locationIcon,
-                      );
-
-                      final pointAnnotationOptions = PointAnnotationOptions(
-                        geometry: Point(
-                          coordinates: Position(
-                            widget.boulder.rock.location.longitude,
-                            widget.boulder.rock.location.latitude,
-                          ),
-                        ),
-                        image: imageData,
-                        iconSize: 1.3,
-                        iconAnchor: IconAnchor.BOTTOM,
-                      );
-
-                      await pointAnnotationManager.create(
-                        pointAnnotationOptions,
-                      );
-                      pointAnnotationManager.addOnPointAnnotationClickListener(
-                        _AnnotationClickListener(
-                          onAnnotationClick: (annotation) {
-                            state.onClickMarker?.call(context);
-                          },
-                        ),
-                      );
-                    },
                   ),
-                };
-              },
-            ),
+                  onMapCreated: (mapboxMap) async {
+                    final pointAnnotationManager =
+                        await mapboxMap.annotations
+                            .createPointAnnotationManager();
+
+                    if (!context.mounted) {
+                      return;
+                    }
+                    final imageData = await context.getResponsiveImageData(
+                      imagePath: Assets.locationIcon,
+                    );
+
+                    final pointAnnotationOptions = PointAnnotationOptions(
+                      geometry: Point(
+                        coordinates: Position(
+                          widget.boulder.rock.location.longitude,
+                          widget.boulder.rock.location.latitude,
+                        ),
+                      ),
+                      image: imageData,
+                      iconSize: 1.3,
+                      iconAnchor: IconAnchor.BOTTOM,
+                    );
+
+                    await pointAnnotationManager.create(pointAnnotationOptions);
+                    pointAnnotationManager.addOnPointAnnotationClickListener(
+                      _AnnotationClickListener(
+                        onAnnotationClick: (annotation) {
+                          state.onClickMarker?.call(context);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              };
+            },
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Center(
-            child: MapLauncherButton(
-              destination: widget.boulder.rock.location,
-              destinationTitle:
-                  '${widget.boulder.name}'
-                  '${grade != null ? ', ${grade.name}' : ''}',
-            ),
+          child: MapLauncherButton(
+            destination: widget.boulder.rock.location,
+            destinationTitle:
+                '${widget.boulder.name}'
+                '${grade != null ? ', ${grade.name}' : ''}',
           ),
         ),
       ],

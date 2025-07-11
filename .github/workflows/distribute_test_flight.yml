@@ -1,4 +1,4 @@
-name: Distribute on Test Flight
+name: 🚀 Distribute on Test Flight
 
 on:
   workflow_dispatch: ~

@@ -37,185 +37,176 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Column(
+    return Stack(
+      alignment: Alignment.bottomCenter,
       children: [
-        Expanded(
-          child: BlocProvider(
-            create:
-                (context) => BoulderAreaMapViewModel(
-                  boulderArea: widget.boulderArea,
-                  boulderMarkerRepository: BoulderMarkerRepository(
-                    httpClient: context.read<ApiClient>(),
-                  ),
+        BlocProvider(
+          create:
+              (context) => BoulderAreaMapViewModel(
+                boulderArea: widget.boulderArea,
+                boulderMarkerRepository: BoulderMarkerRepository(
+                  httpClient: context.read<ApiClient>(),
                 ),
-            child: BlocBuilder<BoulderAreaMapViewModel, BoulderAreaMapStates>(
-              builder: (context, state) {
-                return switch (state) {
-                  BoulderAreaMapIdle() => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  BoulderAreaMapOK(
-                    :final clusterSource,
-                    :final boulderMarkers,
-                  ) =>
-                    MyMap(
-                      cameraOptions: CameraOptions(
-                        zoom: 12,
-                        center: Point(
-                          coordinates: Position(
-                            location.longitude,
-                            location.latitude,
-                          ),
+              ),
+          child: BlocBuilder<BoulderAreaMapViewModel, BoulderAreaMapStates>(
+            builder: (context, state) {
+              return switch (state) {
+                BoulderAreaMapIdle() => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                BoulderAreaMapOK(:final clusterSource, :final boulderMarkers) =>
+                  MyMap(
+                    cameraOptions: CameraOptions(
+                      zoom: 12,
+                      center: Point(
+                        coordinates: Position(
+                          location.longitude,
+                          location.latitude,
                         ),
                       ),
-                      onMapCreated: (mapboxMap) async {
-                        final parkingLocation =
-                            widget.boulderArea.parkingLocation;
-                        if (parkingLocation != null) {
-                          final pointAnnotationManager =
-                              await mapboxMap.annotations
-                                  .createPointAnnotationManager();
-
-                          if (!context.mounted) {
-                            return;
-                          }
-                          final imageData = await context
-                              .getResponsiveImageData(
-                                imagePath: Assets.parkingIcon,
-                              );
-
-                          final pointAnnotationOptions = PointAnnotationOptions(
-                            geometry: Point(
-                              coordinates: Position(
-                                parkingLocation.longitude,
-                                parkingLocation.latitude,
-                              ),
-                            ),
-                            image: imageData,
-                            iconSize: 1.2,
-                            iconAnchor: IconAnchor.CENTER,
-                          );
-
-                          await pointAnnotationManager.create(
-                            pointAnnotationOptions,
-                          );
-                          pointAnnotationManager
-                              .addOnPointAnnotationClickListener(
-                                _AnnotationClickListener(
-                                  onAnnotationClick: (annotation) {
-                                    state.onClickParking?.call(context);
-                                  },
-                                ),
-                              );
-                        }
-                      },
-                      onStyleLoadedListener: (mapboxMap, _) async {
-                        await mapboxMap.showClusters(clusterSource);
-                      },
-                      onTapListener: (
-                        mapboxMap,
-                        mapContentGestureContext,
-                      ) async {
-                        final cluster = await mapboxMap.onTapFindCluster(
-                          mapContentGestureContext,
-                        );
-
-                        if (cluster == null) {
-                          return;
-                        }
-
-                        final clusterLeaves = await mapboxMap
-                            .getGeoJsonClusterLeaves(
-                              'boulders',
-                              cluster,
-                              boulderMarkers.length,
-                              0,
-                            );
-
-                        final boulderIds = clusterLeaves.toBoulderIds();
+                    ),
+                    onMapCreated: (mapboxMap) async {
+                      final parkingLocation =
+                          widget.boulderArea.parkingLocation;
+                      if (parkingLocation != null) {
+                        final pointAnnotationManager =
+                            await mapboxMap.annotations
+                                .createPointAnnotationManager();
 
                         if (!context.mounted) {
                           return;
                         }
+                        final imageData = await context.getResponsiveImageData(
+                          imagePath: Assets.parkingIcon,
+                        );
 
-                        final offlineFirst =
-                            context.read<RequestStrategy>().offlineFirst;
+                        final pointAnnotationOptions = PointAnnotationOptions(
+                          geometry: Point(
+                            coordinates: Position(
+                              parkingLocation.longitude,
+                              parkingLocation.latitude,
+                            ),
+                          ),
+                          image: imageData,
+                          iconSize: 1.2,
+                          iconAnchor: IconAnchor.CENTER,
+                        );
 
-                        await showModalBottomSheet<void>(
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (BuildContext context) {
-                            return RepositoryProvider(
-                              create:
-                                  (_) => RequestStrategy(
-                                    offlineFirst: offlineFirst,
-                                  ),
-                              child: Builder(
-                                builder: (context) {
-                                  return FractionallySizedBox(
-                                    heightFactor: 0.8,
-                                    child: Scaffold(
-                                      floatingActionButton:
-                                          const ModalClosingButton(),
-                                      floatingActionButtonLocation:
-                                          FloatingActionButtonLocation.endTop,
-                                      body: BoulderListBuilder(
-                                        boulderFilterBloc: BoulderFilterBloc(
-                                          const BoulderFilterState(),
-                                        ),
-                                        onPageRequested: (int page) {
-                                          final orderParam =
-                                              context
-                                                  .read<BoulderOrderBloc>()
-                                                  .state;
-
-                                          if (offlineFirst) {
-                                            return DbBouldersRequested(
-                                              boulderArea: widget.boulderArea,
-                                              orderParam: orderParam,
-                                              boulderIds: boulderIds,
-                                            );
-                                          }
-                                          return BoulderRequested(
-                                            page: page,
-                                            boulderIds: boulderIds,
-                                            orderParam: orderParam,
-                                          );
-                                        },
-                                        showFilterButton: false,
-                                      ),
-                                    ),
-                                  );
+                        await pointAnnotationManager.create(
+                          pointAnnotationOptions,
+                        );
+                        pointAnnotationManager
+                            .addOnPointAnnotationClickListener(
+                              _AnnotationClickListener(
+                                onAnnotationClick: (annotation) {
+                                  state.onClickParking?.call(context);
                                 },
                               ),
                             );
-                          },
-                        );
-                      },
-                    ),
-                  BoulderAreaMapError() => Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          AppLocalizations.of(
-                            context,
-                          ).anErrorOccuredWhileDisplayingMap,
-                        ),
-                        OutlinedButton(
-                          onPressed: () {
-                            context.read<BoulderAreaMapViewModel>().add(
-                              const BoulderAreaMapInit(),
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context).tryAgain),
-                        ),
-                      ],
-                    ),
+                      }
+                    },
+                    onStyleLoadedListener: (mapboxMap, _) async {
+                      await mapboxMap.showClusters(clusterSource);
+                    },
+                    onTapListener: (mapboxMap, mapContentGestureContext) async {
+                      final cluster = await mapboxMap.onTapFindCluster(
+                        mapContentGestureContext,
+                      );
+
+                      if (cluster == null) {
+                        return;
+                      }
+
+                      final clusterLeaves = await mapboxMap
+                          .getGeoJsonClusterLeaves(
+                            'boulders',
+                            cluster,
+                            boulderMarkers.length,
+                            0,
+                          );
+
+                      final boulderIds = clusterLeaves.toBoulderIds();
+
+                      if (!context.mounted) {
+                        return;
+                      }
+
+                      final offlineFirst =
+                          context.read<RequestStrategy>().offlineFirst;
+
+                      await showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext context) {
+                          return RepositoryProvider(
+                            create:
+                                (_) =>
+                                    RequestStrategy(offlineFirst: offlineFirst),
+                            child: Builder(
+                              builder: (context) {
+                                return FractionallySizedBox(
+                                  heightFactor: 0.8,
+                                  child: Scaffold(
+                                    floatingActionButton:
+                                        const ModalClosingButton(),
+                                    floatingActionButtonLocation:
+                                        FloatingActionButtonLocation.endTop,
+                                    body: BoulderListBuilder(
+                                      boulderFilterBloc: BoulderFilterBloc(
+                                        const BoulderFilterState(),
+                                      ),
+                                      onPageRequested: (int page) {
+                                        final orderParam =
+                                            context
+                                                .read<BoulderOrderBloc>()
+                                                .state;
+
+                                        if (offlineFirst) {
+                                          return DbBouldersRequested(
+                                            boulderArea: widget.boulderArea,
+                                            orderParam: orderParam,
+                                            boulderIds: boulderIds,
+                                          );
+                                        }
+                                        return BoulderRequested(
+                                          page: page,
+                                          boulderIds: boulderIds,
+                                          orderParam: orderParam,
+                                        );
+                                      },
+                                      showFilterButton: false,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                };
-              },
-            ),
+                BoulderAreaMapError() => Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppLocalizations.of(
+                          context,
+                        ).anErrorOccuredWhileDisplayingMap,
+                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          context.read<BoulderAreaMapViewModel>().add(
+                            const BoulderAreaMapInit(),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context).tryAgain),
+                      ),
+                    ],
+                  ),
+                ),
+              };
+            },
           ),
         ),
         Padding(

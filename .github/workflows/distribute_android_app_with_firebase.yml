@@ -1,4 +1,4 @@
-name: Distribute Android App with Firebase App Distribution
+name: 🚀 Distribute Android App with Firebase App Distribution
 
 on:
   workflow_dispatch: ~
