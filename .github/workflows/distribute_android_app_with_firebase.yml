@@ -45,6 +45,7 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
         run: |
           cd packages/app
           echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
