@@ -1,18 +1,18 @@
-## Vérifications manuelles
+## Manual checks
 
-- [ ] exécuter les tests E2E sur iOS
-- [ ] exécuter les tests E2E sur Android
+- [ ] run E2E tests on iOS
+- [ ] run E2E tests on Android
 
-## Contenu de la release
+## Release contents
 
 ### Evolutions
 
 - [ ] ...
 
-### Corrections de bug
+### Bug fixes
 
 - [ ] ...
 
-### Technique
+### Technical
 
 - [ ] ...

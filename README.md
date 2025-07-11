@@ -1,5 +1,7 @@
 # Breizh Blok
 
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jeremyriverain_breizh-blok-mobile&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jeremyriverain_breizh-blok-mobile) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=jeremyriverain_breizh-blok-mobile&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=jeremyriverain_breizh-blok-mobile)
+
 Breizh Blok is a mobile application listing climbing boulders in Brittany
 
 ## Pre-requisites
