@@ -26,7 +26,10 @@ class AuthImpl implements Auth {
       final auth0Credentials = await _auth0.webAuthentication().login(
         audience: _audience,
       );
+
       _credentials.value = AuthImpl.toCredentials(auth0Credentials);
+      debugPrint('user authenticated');
+      debugPrint(_credentials.value?.accessToken);
       return Result.ok(() {}());
     } on auth0.WebAuthenticationException catch (e) {
       if (e.code == 'USER_CANCELLED' ||
@@ -34,6 +37,8 @@ class AuthImpl implements Auth {
         return Result.ok(() {}());
       }
       return Result.error(const LoginException());
+    } catch (e) {
+      return Result.error(Exception(e.toString()));
     }
   }
 
@@ -49,6 +54,22 @@ class AuthImpl implements Auth {
         return Result.ok(() {}());
       }
       return Result.error(const LogoutException());
+    } catch (e) {
+      return Result.error(Exception(e.toString()));
+    }
+  }
+
+  @override
+  Future<Result<void>> refreshCredentialsIfExpired() async {
+    try {
+      final auth0Credentials = await _auth0.credentialsManager.credentials();
+      _credentials.value = AuthImpl.toCredentials(auth0Credentials);
+      debugPrint('refresh token if expired');
+      debugPrint(_credentials.value?.accessToken);
+
+      return Result.ok(() {}());
+    } catch (e) {
+      return Result.error(Exception(e.toString()));
     }
   }
 

@@ -25,7 +25,9 @@
   "clear": "Clear",
   "closeTheGallery": "Close the gallery",
   "closeTheModal": "Close the modal",
+  "comments": "Comments",
   "contribute": "Contribute",
+  "contributeTo": "Contribute to",
   "description": "Description",
   "details": "Details",
   "displayFirst": "Display first:",
@@ -69,6 +71,7 @@
   "logout": "Logout",
   "map": "Map",
   "max": "max",
+  "message": "Message",
   "minGrade": "Min grade",
   "moreThanNMeters": "More than {value} meters",
   "@moreThanNMeters": {
@@ -182,10 +185,13 @@
   "sort": "Sort",
   "sortedAlphabetically": "A - Z",
   "sortBy": "Sort by",
+  "suggestions": "Suggestions",
   "termsOfUse": "Terms of use",
   "termsOfUseContent": "Bouldering is a dangerous activity. Its practice is under the entire responsibility of the practitioners. Breizh Blok declines all responsibility in the event of an accident.",
   "theEasiest": "The easiest",
   "theHardest": "The hardest",
   "theMostRecent": "The most recent",
-  "tryAgain": "Try again"
+  "tryAgain": "Try again",
+  "validatorsRequired": "This field is required",
+  "yourMessageHasBeenSent": "Thanks, your message has been sent"
 }

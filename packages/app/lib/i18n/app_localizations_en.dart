@@ -61,7 +61,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closeTheModal => 'Close the modal';
 
   @override
+  String get comments => 'Comments';
+
+  @override
   String get contribute => 'Contribute';
+
+  @override
+  String get contributeTo => 'Contribute to';
 
   @override
   String get description => 'Description';
@@ -159,6 +165,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get max => 'max';
+
+  @override
+  String get message => 'Message';
 
   @override
   String get minGrade => 'Min grade';
@@ -322,6 +331,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sortBy => 'Sort by';
 
   @override
+  String get suggestions => 'Suggestions';
+
+  @override
   String get termsOfUse => 'Terms of use';
 
   @override
@@ -339,4 +351,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tryAgain => 'Try again';
+
+  @override
+  String get validatorsRequired => 'This field is required';
+
+  @override
+  String get yourMessageHasBeenSent => 'Thanks, your message has been sent';
 }

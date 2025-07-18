@@ -8,6 +8,8 @@ abstract interface class Auth {
 
   Future<Result<void>> logout();
 
+  Future<Result<void>> refreshCredentialsIfExpired();
+
   ValueNotifier<Credentials?> get credentials;
 }
 

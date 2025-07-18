@@ -5,17 +5,15 @@ import 'package:breizh_blok_api_generated/breizh_blok_api_generated.dart'
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_data_source.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository_impl.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
-import 'package:breizh_blok_mobile/services/feature_flags.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
-import 'package:dio/dio.dart';
-import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:get_it/get_it.dart';
@@ -71,7 +69,7 @@ Future<void> setupApp({
 
   GetIt.I.registerSingleton<Auth>(auth);
 
-  final breizhBlokApi = api.BreizhBlokApiGenerated(dio: _createDio());
+  final breizhBlokApi = api.BreizhBlokApiGenerated(dio: createDio(auth: auth));
 
   GetIt.I.registerLazySingleton<BoulderFeedbackRepository>(
     () => BoulderFeedbackRepositoryImpl(
@@ -80,18 +78,4 @@ Future<void> setupApp({
       ),
     ),
   );
-
-  GetIt.I.registerLazySingleton<FeatureFlags>(
-    () => const FeatureFlags(canCreateBoulderFeedback: false),
-  );
-}
-
-Dio _createDio() {
-  return Dio()
-    ..httpClientAdapter = Http2Adapter(
-      ConnectionManager(idleTimeout: const Duration(seconds: 10)),
-    )
-    ..options = BaseOptions(
-      baseUrl: Uri(scheme: 'https', host: Env.apiHost).origin,
-    );
 }

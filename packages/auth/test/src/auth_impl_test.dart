@@ -99,6 +99,34 @@ void main() {
         expect(auth.credentials.value, isNull);
       });
 
+      test('credentials stay null '
+          'if login from auth0 throws an unknown exception', () async {
+        when(authZero.webAuthentication()).thenReturn(webAuth);
+        when(webAuth.login(audience: 'foo')).thenThrow(Exception('foo'));
+
+        final auth = AuthImpl(
+          auth0: authZero,
+          initialCredentials: null,
+          audience: 'foo',
+        );
+        expect(auth.credentials.value, isNull);
+
+        final result = await auth.login();
+        expect(
+          result,
+          isA<ResultError<void>>().having(
+            (r) => r.error,
+            'exception',
+            isA<Exception>().having(
+              (e) => e.toString(),
+              'message',
+              contains('Exception: foo'),
+            ),
+          ),
+        );
+        expect(auth.credentials.value, isNull);
+      });
+
       test('credentials stay null if login is cancelled', () async {
         when(authZero.webAuthentication()).thenReturn(webAuth);
         when(webAuth.login(audience: 'foo')).thenThrow(
@@ -162,6 +190,42 @@ void main() {
         );
       });
 
+      test(
+        'credentials stay the same if logout fails for an unknown reason',
+        () async {
+          when(authZero.webAuthentication()).thenReturn(webAuth);
+          when(webAuth.logout()).thenThrow(Exception('foo'));
+
+          final auth = AuthImpl(
+            auth0: authZero,
+            initialCredentials: auth0Credentials,
+            audience: 'foo',
+          );
+          expect(
+            auth.credentials.value,
+            Credentials(accessToken: auth0Credentials.accessToken),
+          );
+
+          final result = await auth.logout();
+          expect(
+            result,
+            isA<ResultError<void>>().having(
+              (r) => r.error,
+              'exception',
+              isA<Exception>().having(
+                (e) => e.toString(),
+                'message',
+                contains('Exception: foo'),
+              ),
+            ),
+          );
+          expect(
+            auth.credentials.value,
+            Credentials(accessToken: auth0Credentials.accessToken),
+          );
+        },
+      );
+
       test('credentials stay null if logout is cancelled', () async {
         when(authZero.webAuthentication()).thenReturn(webAuth);
         when(webAuth.logout()).thenThrow(
@@ -185,6 +249,80 @@ void main() {
           Credentials(accessToken: auth0Credentials.accessToken),
         );
       });
+    });
+
+    group('refreshTokenIfExpired', () {
+      test(
+        '''
+Given auth0 credentials API is called successfully,
+Then the access token is updated
+''',
+        () async {
+          when(authZero.credentialsManager).thenReturn(credentialsManager);
+          when(credentialsManager.credentials()).thenAnswer(
+            (_) async => auth0.Credentials(
+              idToken: '',
+              accessToken: 'bar',
+              expiresAt: DateTime(2025),
+              user: const auth0.UserProfile(sub: 'bar'),
+              tokenType: 'baz',
+            ),
+          );
+
+          final auth = AuthImpl(
+            auth0: authZero,
+            initialCredentials: auth0.Credentials(
+              idToken: '',
+              accessToken: 'foo',
+              expiresAt: DateTime(2025),
+              user: const auth0.UserProfile(sub: 'bar'),
+              tokenType: 'baz',
+            ),
+            audience: 'foo',
+          );
+          expect(auth.credentials.value, const Credentials(accessToken: 'foo'));
+
+          final result = await auth.refreshCredentialsIfExpired();
+          expect(result is ResultOk<void>, isTrue);
+          expect(
+            auth.credentials.value,
+            equals(const Credentials(accessToken: 'bar')),
+          );
+        },
+      );
+
+      test(
+        '''
+Given auth0 credentials API throws an exception,
+Then the access token is not updated
+''',
+        () async {
+          when(authZero.credentialsManager).thenReturn(credentialsManager);
+          when(
+            credentialsManager.credentials(),
+          ).thenThrow((_) async => Exception('foo'));
+
+          final auth = AuthImpl(
+            auth0: authZero,
+            initialCredentials: auth0.Credentials(
+              idToken: '',
+              accessToken: 'foo',
+              expiresAt: DateTime(2025),
+              user: const auth0.UserProfile(sub: 'bar'),
+              tokenType: 'baz',
+            ),
+            audience: 'foo',
+          );
+          expect(auth.credentials.value, const Credentials(accessToken: 'foo'));
+
+          final result = await auth.refreshCredentialsIfExpired();
+          expect(result is ResultError<void>, isTrue);
+          expect(
+            auth.credentials.value,
+            equals(const Credentials(accessToken: 'foo')),
+          );
+        },
+      );
     });
   });
 

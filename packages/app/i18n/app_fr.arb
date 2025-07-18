@@ -25,7 +25,9 @@
   "clear": "Effacer",
   "closeTheGallery": "Fermer la galerie d'images",
   "closeTheModal": "Fermer la boîte de dialogue",
+  "comments": "Commentaires",
   "contribute": "Contribuer",
+  "contributeTo": "Contribuer à",
   "description": "Description",
   "details": "Détails",
   "displayFirst": "Afficher en 1er:",
@@ -69,6 +71,7 @@
   "logout": "Se déconnecter",
   "map": "Carte",
   "max": "max",
+  "message": "Message",
   "minGrade": "Cotation min",
   "moreThanNMeters": "Plus de {value}m",
   "@moreThanNMeters": {
@@ -182,10 +185,13 @@
   "sort": "Trier",
   "sortedAlphabetically": "A - Z",
   "sortBy": "Trier par",
+  "suggestions": "Suggestions",
   "termsOfUse": "Conditions d'utilisation",
   "termsOfUseContent": "L'escalade est un sport à risque. Sa pratique est sous l'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d'accident.",
   "theEasiest": "Les plus faciles",
   "theHardest": "Les plus difficiles",
   "theMostRecent": "Les plus récents",
-  "tryAgain": "Essayer à nouveau"
+  "tryAgain": "Essayer à nouveau",
+  "validatorsRequired": "Ce champ est obligatoire",
+  "yourMessageHasBeenSent": "Merci, votre message a été envoyé"
 }

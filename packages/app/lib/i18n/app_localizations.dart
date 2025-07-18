@@ -176,11 +176,23 @@ abstract class AppLocalizations {
   /// **'Close the modal'**
   String get closeTheModal;
 
+  /// No description provided for @comments.
+  ///
+  /// In en, this message translates to:
+  /// **'Comments'**
+  String get comments;
+
   /// No description provided for @contribute.
   ///
   /// In en, this message translates to:
   /// **'Contribute'**
   String get contribute;
+
+  /// No description provided for @contributeTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Contribute to'**
+  String get contributeTo;
 
   /// No description provided for @description.
   ///
@@ -343,6 +355,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'max'**
   String get max;
+
+  /// No description provided for @message.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get message;
 
   /// No description provided for @minGrade.
   ///
@@ -527,6 +545,12 @@ abstract class AppLocalizations {
   /// **'Sort by'**
   String get sortBy;
 
+  /// No description provided for @suggestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestions'**
+  String get suggestions;
+
   /// No description provided for @termsOfUse.
   ///
   /// In en, this message translates to:
@@ -562,6 +586,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try again'**
   String get tryAgain;
+
+  /// No description provided for @validatorsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get validatorsRequired;
+
+  /// No description provided for @yourMessageHasBeenSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks, your message has been sent'**
+  String get yourMessageHasBeenSent;
 }
 
 class _AppLocalizationsDelegate

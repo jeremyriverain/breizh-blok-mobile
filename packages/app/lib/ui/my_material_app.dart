@@ -1,4 +1,5 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/widget_config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,6 +21,9 @@ class MyMaterialApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       locale: locale,
+      builder:
+          (context, child) =>
+              WidgetConfig(child: child ?? const SizedBox.shrink()),
     );
   }
 }

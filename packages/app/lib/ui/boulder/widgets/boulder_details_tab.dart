@@ -1,8 +1,10 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/services/feature_flags.dart';
+import 'package:breizh_blok_mobile/ui/boulder/contribute_boulder_form.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
@@ -86,23 +88,40 @@ class BoulderDetailsTab extends StatelessWidget {
             },
           ),
           const SizedBox(height: 20),
-          if (GetIt.I.get<FeatureFlags>().canCreateBoulderFeedback) ...[
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.feedback),
-              title: Text(localizations.contribute),
-              trailing: const Icon(Icons.arrow_right_outlined),
-              onTap: () {
-                showDialog<void>(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return const ContributeBoulderFormView();
+
+          const Divider(),
+          BlocProvider(
+            create:
+                (context) => ContributeBoulderViewModel(
+                  form: ContributeBoulderForm(),
+                  boulderFeedbackRepository:
+                      GetIt.I.get<BoulderFeedbackRepository>(),
+                  boulder: boulder,
+                ),
+            child: Builder(
+              builder: (blocContext) {
+                return ListTile(
+                  leading: const Icon(Icons.feedback),
+                  title: Text(localizations.contribute),
+                  trailing: const Icon(Icons.arrow_right_outlined),
+                  onTap: () {
+                    showDialog<void>(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return BlocProvider.value(
+                          value: BlocProvider.of<ContributeBoulderViewModel>(
+                            blocContext,
+                          ),
+                          child: ContributeBoulderFormView(boulder: boulder),
+                        );
+                      },
+                    );
                   },
                 );
               },
             ),
-          ],
+          ),
           BoulderDetailsAssociated(boulder: boulder),
           const SizedBox(height: 20),
         ],

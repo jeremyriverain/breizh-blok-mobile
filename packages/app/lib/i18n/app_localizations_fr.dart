@@ -61,7 +61,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get closeTheModal => 'Fermer la boîte de dialogue';
 
   @override
+  String get comments => 'Commentaires';
+
+  @override
   String get contribute => 'Contribuer';
+
+  @override
+  String get contributeTo => 'Contribuer à';
 
   @override
   String get description => 'Description';
@@ -159,6 +165,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get max => 'max';
+
+  @override
+  String get message => 'Message';
 
   @override
   String get minGrade => 'Cotation min';
@@ -322,6 +331,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sortBy => 'Trier par';
 
   @override
+  String get suggestions => 'Suggestions';
+
+  @override
   String get termsOfUse => 'Conditions d\'utilisation';
 
   @override
@@ -339,4 +351,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tryAgain => 'Essayer à nouveau';
+
+  @override
+  String get validatorsRequired => 'Ce champ est obligatoire';
+
+  @override
+  String get yourMessageHasBeenSent => 'Merci, votre message a été envoyé';
 }
