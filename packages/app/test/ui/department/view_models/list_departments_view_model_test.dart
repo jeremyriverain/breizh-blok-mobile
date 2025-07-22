@@ -4,12 +4,10 @@ import 'package:breizh_blok_mobile/data/repositories/department/department_repos
 import 'package:breizh_blok_mobile/domain/entities/department/department.dart';
 import 'package:breizh_blok_mobile/ui/department/view_models/list_departments_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
+import '../../../mocks.dart';
 import '../../../test_utils.dart';
-@GenerateNiceMocks([MockSpec<DepartmentRepository>()])
-import 'list_departments_view_model_test.mocks.dart';
 
 void main() {
   group('ListDepartmentsViewModel', () {
@@ -28,7 +26,7 @@ void main() {
       'when it initializes, then it fetches the departments',
       setUp: () {
         when(
-          repository.findAll(),
+          () => repository.findAll(),
         ).thenAnswer((_) async => paginatedDepartments);
       },
       build: () => ListDepartmentsViewModel(repository: repository),
@@ -42,7 +40,7 @@ void main() {
     blocTest<ListDepartmentsViewModel, ListDepartmentsStates>(
       'the state is in error when the network call fails',
       setUp: () {
-        when(repository.findAll()).thenThrow(Exception('foo'));
+        when(() => repository.findAll()).thenThrow(Exception('foo'));
       },
       build: () => ListDepartmentsViewModel(repository: repository),
       expect:
@@ -60,7 +58,7 @@ void main() {
       'when departments are requested, then it fetches the departments',
       setUp: () {
         when(
-          repository.findAll(),
+          () => repository.findAll(),
         ).thenAnswer((_) async => paginatedDepartments);
       },
       build: () => ListDepartmentsViewModel(repository: repository),

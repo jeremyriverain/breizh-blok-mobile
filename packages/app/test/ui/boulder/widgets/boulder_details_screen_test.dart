@@ -11,18 +11,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../mocks.dart';
 import '../../../test_utils.dart';
 import '../../../widget_test_utils.dart';
-
-@GenerateNiceMocks([
-  MockSpec<BoulderRepository>(),
-  MockSpec<BoulderFeedbackRepository>(),
-])
-import './boulder_details_screen_test.mocks.dart';
 
 void main() {
   late BoulderRepository boulderRepository;
@@ -48,9 +42,11 @@ void main() {
     testWidgets('display name of the boulder in the AppBar', (
       WidgetTester tester,
     ) async {
-      when(boulderRepository.find('foo')).thenAnswer((_) async => fakeBoulder);
       when(
-        boulderRepository.findBy(queryParams: anyNamed('queryParams')),
+        () => boulderRepository.find('foo'),
+      ).thenAnswer((_) async => fakeBoulder);
+      when(
+        () => boulderRepository.findBy(queryParams: any(named: 'queryParams')),
       ).thenAnswer(
         (_) async => PaginatedCollection(
           items: [fakeBoulder.copyWith(name: 'boulder associated')],
@@ -68,9 +64,6 @@ void main() {
       setUp(() {
         boulderFeedbackRepository = MockBoulderFeedbackRepository();
         GetIt.I.registerSingleton(boulderFeedbackRepository);
-        provideDummy<TaskEither<DomainException, void>>(
-          TaskEither<DomainException, void>.right(() {}()),
-        );
       });
       testWidgets(
         '''
@@ -79,10 +72,12 @@ Then a ContributeBoulderFormView is displayed
 ''',
         (WidgetTester tester) async {
           when(
-            boulderRepository.find('foo'),
+            () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
           when(
-            boulderRepository.findBy(queryParams: anyNamed('queryParams')),
+            () => boulderRepository.findBy(
+              queryParams: any(named: 'queryParams'),
+            ),
           ).thenAnswer(
             (_) async => PaginatedCollection(
               items: [fakeBoulder.copyWith(name: 'boulder associated')],
@@ -110,10 +105,12 @@ Then the ContributeBoulderFormView disappears
 ''',
         (WidgetTester tester) async {
           when(
-            boulderRepository.find('foo'),
+            () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
           when(
-            boulderRepository.findBy(queryParams: anyNamed('queryParams')),
+            () => boulderRepository.findBy(
+              queryParams: any(named: 'queryParams'),
+            ),
           ).thenAnswer(
             (_) async => PaginatedCollection(
               items: [fakeBoulder.copyWith(name: 'boulder associated')],
@@ -151,10 +148,12 @@ Then the previous message appears
 ''',
         (WidgetTester tester) async {
           when(
-            boulderRepository.find('foo'),
+            () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
           when(
-            boulderRepository.findBy(queryParams: anyNamed('queryParams')),
+            () => boulderRepository.findBy(
+              queryParams: any(named: 'queryParams'),
+            ),
           ).thenAnswer(
             (_) async => PaginatedCollection(
               items: [fakeBoulder.copyWith(name: 'boulder associated')],
@@ -201,10 +200,12 @@ Then the message field displays a error message
 ''',
         (WidgetTester tester) async {
           when(
-            boulderRepository.find('foo'),
+            () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
           when(
-            boulderRepository.findBy(queryParams: anyNamed('queryParams')),
+            () => boulderRepository.findBy(
+              queryParams: any(named: 'queryParams'),
+            ),
           ).thenAnswer(
             (_) async => PaginatedCollection(
               items: [fakeBoulder.copyWith(name: 'boulder associated')],
@@ -245,10 +246,12 @@ Then a error message is displayed
 ''',
         (WidgetTester tester) async {
           when(
-            boulderRepository.find('foo'),
+            () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
           when(
-            boulderRepository.findBy(queryParams: anyNamed('queryParams')),
+            () => boulderRepository.findBy(
+              queryParams: any(named: 'queryParams'),
+            ),
           ).thenAnswer(
             (_) async => PaginatedCollection(
               items: [fakeBoulder.copyWith(name: 'boulder associated')],
@@ -256,7 +259,7 @@ Then a error message is displayed
             ),
           );
           when(
-            boulderFeedbackRepository.create(
+            () => boulderFeedbackRepository.create(
               const BoulderFeedback(boulder: fakeBoulder, message: 'foo'),
             ),
           ).thenReturn(TaskEither.left(const UnknownException(message: 'bar')));
@@ -306,10 +309,12 @@ And the ContributeBoulderFormView disappears
 ''',
         (WidgetTester tester) async {
           when(
-            boulderRepository.find('foo'),
+            () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
           when(
-            boulderRepository.findBy(queryParams: anyNamed('queryParams')),
+            () => boulderRepository.findBy(
+              queryParams: any(named: 'queryParams'),
+            ),
           ).thenAnswer(
             (_) async => PaginatedCollection(
               items: [fakeBoulder.copyWith(name: 'boulder associated')],
@@ -317,7 +322,7 @@ And the ContributeBoulderFormView disappears
             ),
           );
           when(
-            boulderFeedbackRepository.create(
+            () => boulderFeedbackRepository.create(
               const BoulderFeedback(boulder: fakeBoulder, message: 'foo'),
             ),
           ).thenAnswer(

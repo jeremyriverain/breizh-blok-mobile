@@ -2,12 +2,10 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
 import 'package:breizh_blok_mobile/ui/download/view_models/downloaded_boulder_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
+import '../../../mocks.dart';
 import '../../../test_utils.dart';
-@GenerateNiceMocks([MockSpec<DownloadedBoulderRepository>()])
-import 'downloaded_boulder_view_model_test.mocks.dart';
 
 void main() {
   group('DownloadedBoulderViewModel', () {
@@ -21,7 +19,7 @@ void main() {
       'when it initializes, then it fetches the boulder',
       setUp: () {
         when(
-          repository.find(
+          () => repository.find(
             boulderAreaIri: '/boulder_areas/foo',
             boulderId: 'foo',
           ),
@@ -44,7 +42,7 @@ void main() {
       'the state is in error when the network call fails',
       setUp: () {
         when(
-          repository.find(
+          () => repository.find(
             boulderAreaIri: '/boulder_areas/foo',
             boulderId: 'foo',
           ),
@@ -71,7 +69,7 @@ void main() {
       'when boulder is requested, then it fetches the boulder',
       setUp: () {
         when(
-          repository.find(
+          () => repository.find(
             boulderAreaIri: '/boulder_areas/foo',
             boulderId: 'foo',
           ),

@@ -11,32 +11,35 @@ import 'package:breizh_blok_mobile/ui/core/widgets/downloads_area_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
+import '../../../mocks.dart';
 import '../../../widget_test_utils.dart';
-@GenerateNiceMocks([
-  MockSpec<ApiClient>(),
-  MockSpec<AppDatabase>(),
-  MockSpec<ImageBoulderCache>(),
-])
-import 'downloads_area_button_test.mocks.dart';
 
 void main() {
+  late AppDatabase appDatabase;
+  late ApiClient apiClient;
+  late ImageBoulderCache imageBoulderCache;
+
+  setUp(() {
+    appDatabase = MockAppDatabase();
+    apiClient = MockApiClient();
+    imageBoulderCache = MockImageBoulderCache();
+  });
+
   testWidgets('displays status download information', (
     WidgetTester tester,
   ) async {
     final streamController = StreamController<DbBoulderArea?>();
 
-    final database = MockAppDatabase();
     final downloadAreaService = DownloadAreaService(
-      database: database,
-      httpClient: MockApiClient(),
-      imageBoulderCache: MockImageBoulderCache(),
+      database: appDatabase,
+      httpClient: apiClient,
+      imageBoulderCache: imageBoulderCache,
     );
 
     when(
-      database.watchDownload('/foo'),
+      () => appDatabase.watchDownload('/foo'),
     ).thenAnswer((_) => streamController.stream);
 
     streamController.add(null);
@@ -45,10 +48,7 @@ void main() {
       await tester.myPumpWidget(
         widget: MultiRepositoryProvider(
           providers: [
-            RepositoryProvider(
-              // ignore: unnecessary_cast
-              create: (context) => database as AppDatabase,
-            ),
+            RepositoryProvider(create: (context) => appDatabase),
             RepositoryProvider(create: (context) => downloadAreaService),
           ],
           child: const DownloadsAreaButton(
@@ -68,7 +68,7 @@ void main() {
 
       await tester.pump(Duration.zero);
 
-      verify(database.watchDownload('/foo'));
+      verify(() => appDatabase.watchDownload('/foo'));
       expect(find.text('TÉLÉCHARGER'), findsOneWidget);
       expect(find.byKey(const Key('area_downloaded')), findsNothing);
     });

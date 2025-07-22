@@ -2,59 +2,61 @@ import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-@GenerateNiceMocks([
-  MockSpec<Mixpanel>(),
-])
-import './tracking_service_test.mocks.dart';
+import '../../mocks.dart';
 
 void main() {
-  late Mixpanel mockMixpanel;
+  late Mixpanel mixpanel;
   setUp(() async {
     await GetIt.I.reset();
 
-    mockMixpanel = MockMixpanel();
-    GetIt.I.registerSingleton<Mixpanel>(mockMixpanel);
+    mixpanel = MockMixpanel();
+    GetIt.I.registerSingleton<Mixpanel>(mixpanel);
   });
   test('call mixpanel track API when trackPageViewed is called', () async {
+    when(
+      () => mixpanel.track(
+        'page_viewed',
+        properties: {'path': '/foo', 'navigationType': 'foo'},
+      ),
+    ).thenAnswer((_) async => () {}());
+
     TrackingService().trackPageViewed(path: '/foo', navigationType: 'foo');
     verify(
-      mockMixpanel.track(
+      () => mixpanel.track(
         'page_viewed',
         properties: {'path': '/foo', 'navigationType': 'foo'},
       ),
     ).called(1);
   });
 
-  test('does not throw exception even if mixpanel throws an exception',
-      () async {
-    when(
-      mockMixpanel.track(
-        'page_viewed',
-        properties: {
-          'path': '/foo',
-        },
-      ),
-    ).thenAnswer((_) async {
-      throw Exception('foo');
-    });
+  test(
+    'does not throw exception even if mixpanel throws an exception',
+    () async {
+      when(
+        () => mixpanel.track(
+          'page_viewed',
+          properties: {'path': '/foo', 'navigationType': 'foo'},
+        ),
+      ).thenAnswer((_) async {
+        throw Exception('foo');
+      });
 
-    expect(
-      () async => TrackingService()
-          .trackPageViewed(path: '/foo', navigationType: 'foo'),
-      returnsNormally,
-    );
+      expect(
+        () async => TrackingService().trackPageViewed(
+          path: '/foo',
+          navigationType: 'foo',
+        ),
+        returnsNormally,
+      );
 
-    verify(
-      mockMixpanel.track(
-        'page_viewed',
-        properties: {
-          'path': '/foo',
-          'navigationType': 'foo',
-        },
-      ),
-    ).called(1);
-  });
+      verify(
+        () => mixpanel.track(
+          'page_viewed',
+          properties: {'path': '/foo', 'navigationType': 'foo'},
+        ),
+      ).called(1);
+    },
+  );
 }

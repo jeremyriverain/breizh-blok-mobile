@@ -4,15 +4,10 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_da
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
+import '../../../mocks.dart';
 import '../../../test_utils.dart';
-@GenerateNiceMocks([
-  MockSpec<breizh_blok_api.BoulderFeedbackApi>(),
-  MockSpec<breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackRead>(),
-])
-import './api_boulder_feedback_data_source_test.mocks.dart';
 
 void main() {
   late breizh_blok_api.BoulderFeedbackApi api;
@@ -20,8 +15,8 @@ void main() {
   late ApiBoulderFeedbackDataSource dataSource;
 
   setUp(() {
-    api = MockBoulderFeedbackApi();
-    fakeResponse = MockBoulderFeedbackJsonldBoulderFeedbackRead();
+    api = MockBreizhBlokApiBoulderFeedbackApi();
+    fakeResponse = MockBreizhBlokApiBoulderFeedbackJsonldBoulderFeedbackRead();
     dataSource = ApiBoulderFeedbackDataSource(api: api);
   });
 
@@ -29,7 +24,7 @@ void main() {
     group('create', () {
       test('create boulder feedback successfully', () async {
         when(
-          api.apiBoulderFeedbacksPost(
+          () => api.apiBoulderFeedbacksPost(
             boulderFeedbackJsonldBoulderFeedbackWrite:
                 breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
                   builder,
@@ -48,7 +43,7 @@ void main() {
         expect(result.isRight(), isTrue);
 
         verify(
-          api.apiBoulderFeedbacksPost(
+          () => api.apiBoulderFeedbacksPost(
             boulderFeedbackJsonldBoulderFeedbackWrite:
                 breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
                   builder,
@@ -65,7 +60,7 @@ void main() {
       test('Given the API throws DioException with status code equal to 422 '
           'Then an UnprocessableEntityException is returned', () async {
         when(
-          api.apiBoulderFeedbacksPost(
+          () => api.apiBoulderFeedbacksPost(
             boulderFeedbackJsonldBoulderFeedbackWrite:
                 breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
                   builder,
@@ -94,7 +89,7 @@ void main() {
         );
 
         verify(
-          api.apiBoulderFeedbacksPost(
+          () => api.apiBoulderFeedbacksPost(
             boulderFeedbackJsonldBoulderFeedbackWrite:
                 breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
                   builder,
@@ -111,7 +106,7 @@ void main() {
       test('Given the API throws an unknown DioException  '
           'Then an UnknownException is returned', () async {
         when(
-          api.apiBoulderFeedbacksPost(
+          () => api.apiBoulderFeedbacksPost(
             boulderFeedbackJsonldBoulderFeedbackWrite:
                 breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
                   builder,
@@ -134,7 +129,7 @@ void main() {
         expect(result.getLeft().toNullable(), isA<UnknownException>());
 
         verify(
-          api.apiBoulderFeedbacksPost(
+          () => api.apiBoulderFeedbacksPost(
             boulderFeedbackJsonldBoulderFeedbackWrite:
                 breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
                   builder,
@@ -151,7 +146,7 @@ void main() {
       test('Given the API throws an unknown Exception  '
           'Then an UnknownException is returned', () async {
         when(
-          api.apiBoulderFeedbacksPost(
+          () => api.apiBoulderFeedbacksPost(
             boulderFeedbackJsonldBoulderFeedbackWrite:
                 breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
                   builder,
@@ -168,7 +163,7 @@ void main() {
         expect(result.getLeft().toNullable(), isA<UnknownException>());
 
         verify(
-          api.apiBoulderFeedbacksPost(
+          () => api.apiBoulderFeedbacksPost(
             boulderFeedbackJsonldBoulderFeedbackWrite:
                 breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
                   builder,

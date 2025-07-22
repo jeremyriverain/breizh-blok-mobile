@@ -7,14 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
+import '../../../mocks.dart';
 import '../../../test_utils.dart';
 import '../../../widget_test_utils.dart';
-
-@GenerateNiceMocks([MockSpec<BoulderMarkerRepository>()])
-import 'boulder_area_map_view_model_test.mocks.dart';
 
 void main() {
   group('BoulderAreaMapViewModel', () {
@@ -50,7 +47,8 @@ void main() {
 
     void mockBoulderMarkerRepository({required BoulderArea boulderArea}) {
       when(
-        boulderMarkerRepository.findByBoulderArea(boulderArea: boulderArea),
+        () =>
+            boulderMarkerRepository.findByBoulderArea(boulderArea: boulderArea),
       ).thenAnswer((_) async {
         return [fakeBoulderMarker];
       });
@@ -150,7 +148,9 @@ void main() {
     testWidgets('if parkingLocation is null, then the modal does not display', (
       tester,
     ) async {
-      mockBoulderMarkerRepository(boulderArea: fakeBoulderArea);
+      mockBoulderMarkerRepository(
+        boulderArea: fakeBoulderArea.copyWith(parkingLocation: null),
+      );
 
       mockMapLauncher(
         tester: tester,
@@ -166,7 +166,6 @@ void main() {
             ).widget,
       );
       await tester.pump();
-
       await tester.tap(find.text('open maps'));
 
       await tester.pumpAndSettle();
@@ -178,7 +177,9 @@ void main() {
       mockMapLauncher(tester: tester);
 
       when(
-        boulderMarkerRepository.findByBoulderArea(boulderArea: fakeBoulderArea),
+        () => boulderMarkerRepository.findByBoulderArea(
+          boulderArea: fakeBoulderArea,
+        ),
       ).thenThrow(Exception());
 
       await tester.myPumpWidget(
@@ -201,7 +202,9 @@ void main() {
       await tester.pump();
 
       verify(
-        boulderMarkerRepository.findByBoulderArea(boulderArea: fakeBoulderArea),
+        () => boulderMarkerRepository.findByBoulderArea(
+          boulderArea: fakeBoulderArea,
+        ),
       ).called(1);
 
       verifyNoMoreInteractions(boulderMarkerRepository);

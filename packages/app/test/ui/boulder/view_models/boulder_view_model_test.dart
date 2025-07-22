@@ -2,12 +2,10 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
+import '../../../mocks.dart';
 import '../../../test_utils.dart';
-@GenerateNiceMocks([MockSpec<BoulderRepository>()])
-import 'boulder_view_model_test.mocks.dart';
 
 void main() {
   group('BoulderViewModel', () {
@@ -20,7 +18,7 @@ void main() {
     blocTest<BoulderViewModel, BoulderStates>(
       'when it initializes, then it fetches the boulder',
       setUp: () {
-        when(repository.find('foo')).thenAnswer((_) async => fakeBoulder);
+        when(() => repository.find('foo')).thenAnswer((_) async => fakeBoulder);
       },
       build: () => BoulderViewModel(repository: repository, id: 'foo'),
       expect:
@@ -33,7 +31,7 @@ void main() {
     blocTest<BoulderViewModel, BoulderStates>(
       'the state is in error when the network call fails',
       setUp: () {
-        when(repository.find('foo')).thenThrow(Exception('foo'));
+        when(() => repository.find('foo')).thenThrow(Exception('foo'));
       },
       build: () => BoulderViewModel(repository: repository, id: 'foo'),
       expect:
@@ -50,7 +48,7 @@ void main() {
     blocTest<BoulderViewModel, BoulderStates>(
       'when boulder is requested, then it fetches the boulder',
       setUp: () {
-        when(repository.find('foo')).thenAnswer((_) async => fakeBoulder);
+        when(() => repository.find('foo')).thenAnswer((_) async => fakeBoulder);
       },
       build: () => BoulderViewModel(repository: repository, id: 'foo'),
       act: (bloc) => bloc.add(const BoulderEvents.requested()),

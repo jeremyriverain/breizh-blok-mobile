@@ -11,14 +11,20 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-@GenerateNiceMocks([MockSpec<ImageBoulderCache>(), MockSpec<CacheManager>()])
-import './download_area_service_test.mocks.dart';
+import '../../../mocks.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+
+  late ImageBoulderCache imageBoulderCache;
+  late CacheManager cacheManager;
+
+  setUp(() {
+    imageBoulderCache = MockImageBoulderCache();
+    cacheManager = MockCacheManager();
+  });
 
   var onRequest = (String requestUrl) {
     return '{}';
@@ -69,12 +75,9 @@ void main() {
       return '{}';
     };
 
-    final imageBoulderCache = MockImageBoulderCache();
-    final mockCacheManager = MockCacheManager();
-
-    when(mockCacheManager.getSingleFile(any)).thenThrow(Exception());
-    when(mockCacheManager.removeFile(any)).thenThrow(Exception());
-    when(imageBoulderCache.cache).thenReturn(mockCacheManager);
+    when(() => cacheManager.getSingleFile(any())).thenThrow(Exception());
+    when(() => cacheManager.removeFile(any())).thenThrow(Exception());
+    when(() => imageBoulderCache.cache).thenReturn(cacheManager);
 
     final downloadAreaService = DownloadAreaService(
       database: database,
@@ -136,17 +139,25 @@ void main() {
     ]);
 
     verify(
-      mockCacheManager.getSingleFile(
-        argThat(
-          endsWith('/media/cache/resolve/scale_md/uploads/ima/image-foo.jpg'),
+      () => cacheManager.getSingleFile(
+        any(
+          that: isA<String>().having(
+            (e) => e,
+            'str',
+            endsWith('/media/cache/resolve/scale_md/uploads/ima/image-foo.jpg'),
+          ),
         ),
       ),
     ).called(1);
 
     verify(
-      mockCacheManager.getSingleFile(
-        argThat(
-          endsWith('/media/cache/resolve/scale_md/uploads/ima/image-bar.jpg'),
+      () => cacheManager.getSingleFile(
+        any(
+          that: isA<String>().having(
+            (e) => e,
+            'str',
+            endsWith('/media/cache/resolve/scale_md/uploads/ima/image-bar.jpg'),
+          ),
         ),
       ),
     ).called(1);
@@ -168,17 +179,25 @@ void main() {
     ]);
 
     verify(
-      mockCacheManager.removeFile(
-        argThat(
-          endsWith('/media/cache/resolve/scale_md/uploads/ima/image-foo.jpg'),
+      () => cacheManager.removeFile(
+        any(
+          that: isA<String>().having(
+            (e) => e,
+            'str',
+            endsWith('/media/cache/resolve/scale_md/uploads/ima/image-foo.jpg'),
+          ),
         ),
       ),
     ).called(1);
 
     verify(
-      mockCacheManager.removeFile(
-        argThat(
-          endsWith('/media/cache/resolve/scale_md/uploads/ima/image-bar.jpg'),
+      () => cacheManager.removeFile(
+        any(
+          that: isA<String>().having(
+            (e) => e,
+            'str',
+            endsWith('/media/cache/resolve/scale_md/uploads/ima/image-bar.jpg'),
+          ),
         ),
       ),
     ).called(1);

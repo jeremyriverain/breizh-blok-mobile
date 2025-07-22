@@ -1,25 +1,29 @@
-// ignore_for_file: avoid_print
-
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:share_plus/share_plus.dart';
 
+import '../../../mocks.dart';
 import '../../../widget_test_utils.dart';
-@GenerateNiceMocks([MockSpec<ShareContentService>()])
-import 'share_button_test.mocks.dart';
 
 void main() {
-  testWidgets('BbShareButton', (tester) async {
-    final mockShareContentService = MockShareContentService();
+  late ShareContentService shareContentService;
+
+  setUp(() {
+    shareContentService = MockShareContentService();
+  });
+  testWidgets('ShareButton', (tester) async {
+    when(() => shareContentService.share('foo')).thenAnswer(
+      (_) async => const ShareResult('foo', ShareResultStatus.success),
+    );
 
     await tester.myPumpWidget(
       widget: RepositoryProvider<ShareContentServiceInterface>(
-        create: (context) => mockShareContentService,
+        create: (context) => shareContentService,
         child: const ShareButton(content: 'foo'),
       ),
     );
@@ -29,6 +33,6 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    verify(mockShareContentService.share('foo')).called(1);
+    verify(() => shareContentService.share('foo')).called(1);
   });
 }

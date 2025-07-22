@@ -32,16 +32,14 @@ import 'package:get_it/get_it.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-@GenerateNiceMocks([MockSpec<Mixpanel>(), MockSpec<ShareContentService>()])
-import './app_test.mocks.dart';
+import '../test/mocks.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -53,8 +51,8 @@ void main() async {
   final database = AppDatabase(NativeDatabase.memory());
   final httpClient = ApiClient(database: database);
 
-  final mockShareContentService = MockShareContentService();
-  final mockMixpanel = MockMixpanel();
+  late ShareContentService shareContentService;
+  late Mixpanel mixpanel;
 
   Future<void> clearDatabase(AppDatabase database) async {
     await database.transaction(() async {
@@ -65,15 +63,22 @@ void main() async {
   }
 
   setUp(() async {
+    shareContentService = MockShareContentService();
+    mixpanel = MockMixpanel();
+
+    when(() => shareContentService.share(any())).thenAnswer((_) async {
+      return const ShareResult('foo', ShareResultStatus.success);
+    });
+
+    when(
+      () => mixpanel.track(any(), properties: any(named: 'properties')),
+    ).thenAnswer((_) async => () {}());
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(TermsOfUseViewModel.termsOfUseAcceptanceKey, true);
     await prefs.setString(kLocalePrefs, 'fr');
     await clearDatabase(database);
     await GetIt.I.reset();
-
-    when(mockShareContentService.share(any)).thenAnswer((_) async {
-      return const ShareResult('foo', ShareResultStatus.success);
-    });
   });
 
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
@@ -101,8 +106,8 @@ void main() async {
 
       await setupApp(
         database: database,
-        shareContentService: mockShareContentService,
-        mixpanel: mockMixpanel,
+        shareContentService: shareContentService,
+        mixpanel: mixpanel,
       );
 
       await tester.pumpWidget(const MyApp());
@@ -145,14 +150,14 @@ void main() async {
     await tester.pumpAndSettle();
 
     verify(
-      mockMixpanel.track(
+      () => mixpanel.track(
         'page_viewed',
         properties: {'path': '/', 'navigationType': 'push'},
       ),
     ).called(1);
 
     verify(
-      mockMixpanel.track(
+      () => mixpanel.track(
         'page_viewed',
         properties: {
           'path': '/boulders/${boulderReference.id}',
@@ -162,7 +167,7 @@ void main() async {
     ).called(1);
 
     verify(
-      mockMixpanel.track(
+      () => mixpanel.track(
         'page_viewed',
         properties: {'path': '/', 'navigationType': 'pop'},
       ),
@@ -288,11 +293,17 @@ void main() async {
 
     await tester.pumpAndSettle();
 
-    expect(
-      verify(mockShareContentService.share(captureAny)).captured.single
-          as String,
-      endsWith('https://breizh-blok.fr/boulders/${boulderReference.id}'),
-    );
+    verify(
+      () => shareContentService.share(
+        any(
+          that: isA<String>().having(
+            (e) => e,
+            'text',
+            endsWith('https://breizh-blok.fr/boulders/${boulderReference.id}'),
+          ),
+        ),
+      ),
+    ).called(1);
 
     expect(
       find.text(boulderReference.name, findRichText: true),
@@ -621,13 +632,19 @@ void main() async {
 
     await tester.pumpAndSettle();
 
-    expect(
-      verify(mockShareContentService.share(captureAny)).captured.single
-          as String,
-      endsWith(
-        'https://breizh-blok.fr/municipalities/${IriParser.id(municipalityReference.iri)}',
+    verify(
+      () => shareContentService.share(
+        any(
+          that: isA<String>().having(
+            (e) => e,
+            'text',
+            endsWith(
+              'https://breizh-blok.fr/municipalities/${IriParser.id(municipalityReference.iri)}',
+            ),
+          ),
+        ),
       ),
-    );
+    ).called(1);
 
     await tester.tap(find.textContaining('Carte').first);
     await tester.pumpAndSettle();
@@ -688,13 +705,19 @@ void main() async {
 
       await tester.pumpAndSettle();
 
-      expect(
-        verify(mockShareContentService.share(captureAny)).captured.single
-            as String,
-        endsWith(
-          'https://breizh-blok.fr/boulder-areas/${IriParser.id(boulderReference.rock.boulderArea.iri)}',
+      verify(
+        () => shareContentService.share(
+          any(
+            that: isA<String>().having(
+              (e) => e,
+              'text',
+              endsWith(
+                'https://breizh-blok.fr/boulder-areas/${IriParser.id(boulderReference.rock.boulderArea.iri)}',
+              ),
+            ),
+          ),
         ),
-      );
+      ).called(1);
 
       await tester.tap(find.textContaining('Description').first);
       await tester.pumpAndSettle();

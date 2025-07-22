@@ -12,19 +12,19 @@ import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dar
 import 'package:breizh_blok_mobile/domain/entities/rock/rock.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-@GenerateNiceMocks([MockSpec<ApiClient>(), MockSpec<BoulderRepository>()])
-import 'boulder_bloc_test.mocks.dart';
+import '../../../mocks.dart';
 
 void main() {
-  final mockHttpClient = MockApiClient();
-  final mockBoulderRepository = MockBoulderRepository();
+  late ApiClient apiClient;
+  late BoulderRepository boulderRepository;
 
   setUp(() {
-    reset(mockHttpClient);
-    reset(mockBoulderRepository);
+    apiClient = MockApiClient();
+    boulderRepository = MockBoulderRepository();
+    registerFallbackValue(const Duration(seconds: 1));
+    registerFallbackValue(Uri());
   });
   group('BoulderBloc', () {
     const idBoulderArea = '3';
@@ -63,9 +63,8 @@ void main() {
     blocTest<BoulderBloc, BoulderState>(
       'default state OK',
       build:
-          () => BoulderBloc(
-            repository: BoulderRepository(httpClient: mockHttpClient),
-          ),
+          () =>
+              BoulderBloc(repository: BoulderRepository(httpClient: apiClient)),
       act:
           (BoulderBloc bloc) => bloc.add(
             DbBouldersRequested(
@@ -78,30 +77,31 @@ void main() {
             ),
           ),
       verify: (BoulderBloc bloc) {
-        expect(
-          (verify(
-                    mockHttpClient.get(
-                      captureAny,
-                      headers: anyNamed('headers'),
-                      offlineFirst: true,
-                      timeout: anyNamed('timeout'),
-                    ),
-                  ).captured.single
-                  as Uri)
-              .toString(),
-          endsWith(
-            '/boulders?groups%5B%5D=Boulder%3Aitem-get&groups%5B%5D=Boulder%3Aread&groups%5B%5D=read&order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=3',
+        verify(
+          () => apiClient.get(
+            any(
+              that: isA<Uri>().having(
+                (e) => e.toString(),
+                'uri',
+                endsWith(
+                  '/boulders?groups%5B%5D=Boulder%3Aitem-get&groups%5B%5D=Boulder%3Aread&groups%5B%5D=read&order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=3',
+                ),
+              ),
+            ),
+            headers: any(named: 'headers'),
+            offlineFirst: true,
+            timeout: any(named: 'timeout'),
           ),
-        );
+        ).called(1);
       },
     );
     blocTest<BoulderBloc, BoulderState>(
       'sort by grade asc',
       setUp: () {
         when(
-          mockBoulderRepository.findBy(
+          () => boulderRepository.findBy(
             offlineFirst: true,
-            timeout: anyNamed('timeout'),
+            timeout: any(named: 'timeout'),
             queryParams: DownloadAreaService.bouldersQueryParamsOf(
               boulderArea: boulderArea,
             ),
@@ -113,7 +113,7 @@ void main() {
           );
         });
       },
-      build: () => BoulderBloc(repository: mockBoulderRepository),
+      build: () => BoulderBloc(repository: boulderRepository),
       act:
           (BoulderBloc bloc) => bloc.add(
             DbBouldersRequested(
@@ -138,9 +138,9 @@ void main() {
       'sort by grade desc',
       setUp: () {
         when(
-          mockBoulderRepository.findBy(
+          () => boulderRepository.findBy(
             offlineFirst: true,
-            timeout: anyNamed('timeout'),
+            timeout: any(named: 'timeout'),
             queryParams: DownloadAreaService.bouldersQueryParamsOf(
               boulderArea: boulderArea,
             ),
@@ -152,7 +152,7 @@ void main() {
           );
         });
       },
-      build: () => BoulderBloc(repository: mockBoulderRepository),
+      build: () => BoulderBloc(repository: boulderRepository),
       act:
           (BoulderBloc bloc) => bloc.add(
             DbBouldersRequested(
@@ -177,9 +177,9 @@ void main() {
       'sort by grade desc',
       setUp: () {
         when(
-          mockBoulderRepository.findBy(
+          () => boulderRepository.findBy(
             offlineFirst: true,
-            timeout: anyNamed('timeout'),
+            timeout: any(named: 'timeout'),
             queryParams: DownloadAreaService.bouldersQueryParamsOf(
               boulderArea: boulderArea,
             ),
@@ -191,7 +191,7 @@ void main() {
           );
         });
       },
-      build: () => BoulderBloc(repository: mockBoulderRepository),
+      build: () => BoulderBloc(repository: boulderRepository),
       act:
           (BoulderBloc bloc) => bloc.add(
             DbBouldersRequested(
@@ -213,9 +213,9 @@ void main() {
       'filter by boulder IDs',
       setUp: () {
         when(
-          mockBoulderRepository.findBy(
+          () => boulderRepository.findBy(
             offlineFirst: true,
-            timeout: anyNamed('timeout'),
+            timeout: any(named: 'timeout'),
             queryParams: DownloadAreaService.bouldersQueryParamsOf(
               boulderArea: boulderArea,
             ),
@@ -227,7 +227,7 @@ void main() {
           );
         });
       },
-      build: () => BoulderBloc(repository: mockBoulderRepository),
+      build: () => BoulderBloc(repository: boulderRepository),
       act:
           (BoulderBloc bloc) => bloc.add(
             DbBouldersRequested(
@@ -249,9 +249,9 @@ void main() {
       'filter by boulder IDs and grade',
       setUp: () {
         when(
-          mockBoulderRepository.findBy(
+          () => boulderRepository.findBy(
             offlineFirst: true,
-            timeout: anyNamed('timeout'),
+            timeout: any(named: 'timeout'),
             queryParams: DownloadAreaService.bouldersQueryParamsOf(
               boulderArea: boulderArea,
             ),
@@ -263,7 +263,7 @@ void main() {
           );
         });
       },
-      build: () => BoulderBloc(repository: mockBoulderRepository),
+      build: () => BoulderBloc(repository: boulderRepository),
       act:
           (BoulderBloc bloc) => bloc.add(
             DbBouldersRequested(
