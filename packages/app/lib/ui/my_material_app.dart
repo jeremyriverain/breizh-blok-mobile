@@ -16,7 +16,7 @@ class MyMaterialApp extends StatelessWidget {
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.lightBlue),
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.pink),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
