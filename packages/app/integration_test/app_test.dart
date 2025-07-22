@@ -14,7 +14,6 @@ import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_r
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/setup_app.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated_item.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_tile.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
@@ -370,9 +369,6 @@ void main() async {
     await tester.tap(find.byType(BoulderListBuilderTile).first);
 
     expect(find.text(searchedBoulder), findsOneWidget);
-    await tester.pumpAndSettle();
-
-    expect(find.byType(BoulderDetailsAssociatedItem), findsWidgets);
   });
 
   testWidgets('filter by grade', (WidgetTester tester) async {

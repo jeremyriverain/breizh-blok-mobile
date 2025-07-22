@@ -41,11 +41,11 @@ PODS:
     - FlutterMacOS
   - permission_handler_apple (9.3.0):
     - Flutter
-  - Sentry/HybridSDK (8.44.0)
-  - sentry_flutter (8.13.2):
+  - Sentry/HybridSDK (8.52.1)
+  - sentry_flutter (9.5.0):
     - Flutter
     - FlutterMacOS
-    - Sentry/HybridSDK (= 8.44.0)
+    - Sentry/HybridSDK (= 8.52.1)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -55,16 +55,16 @@ PODS:
   - sqflite (0.0.3):
     - Flutter
     - FlutterMacOS
-  - sqlite3 (3.49.1):
-    - sqlite3/common (= 3.49.1)
-  - sqlite3/common (3.49.1)
-  - sqlite3/dbstatvtab (3.49.1):
+  - sqlite3 (3.49.2):
+    - sqlite3/common (= 3.49.2)
+  - sqlite3/common (3.49.2)
+  - sqlite3/dbstatvtab (3.49.2):
     - sqlite3/common
-  - sqlite3/fts5 (3.49.1):
+  - sqlite3/fts5 (3.49.2):
     - sqlite3/common
-  - sqlite3/perf-threadsafe (3.49.1):
+  - sqlite3/perf-threadsafe (3.49.2):
     - sqlite3/common
-  - sqlite3/rtree (3.49.1):
+  - sqlite3/rtree (3.49.2):
     - sqlite3/common
   - sqlite3_flutter_libs (0.0.1):
     - Flutter
@@ -155,13 +155,13 @@ SPEC CHECKSUMS:
   package_info_plus: 5076a1ce937258be9d2d41781a0e9cd71f19a82f
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
-  Sentry: 0f9bc9adfc0b960e7f3bb5ec67e9a3d8193f3bdb
-  sentry_flutter: f4a0466dc8855998ffd59378ec33507c7dc32d7b
+  Sentry: 2cbbe3592f30050c60e916c63c7f5a2fa584005e
+  sentry_flutter: fcd61ad26b7890479c182deff29f1f0714319b52
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   SimpleKeychain: 768cf43ae778b1c21816e94dddf01bb8ee96a075
   sqflite: c35dad70033b8862124f8337cc994a809fcd9fa3
-  sqlite3: fc1400008a9b3525f5914ed715a5d1af0b8f4983
+  sqlite3: 3c950dc86011117c307eb0b28c4a7bb449dce9f1
   sqlite3_flutter_libs: f8fc13346870e73fe35ebf6dbb997fbcd156b241
   Turf: c9eb11a65d96af58cac523460fd40fec5061b081
 
