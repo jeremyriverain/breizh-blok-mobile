@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
@@ -50,6 +51,10 @@ class MyApp extends StatelessWidget {
           ),
           RepositoryProvider<BoulderRepository>(
             create: (context) => BoulderRepository(httpClient: httpClient),
+          ),
+          RepositoryProvider<BoulderMarkerRepository>(
+            create:
+                (context) => BoulderMarkerRepository(httpClient: httpClient),
           ),
           RepositoryProvider<DepartmentRepository>(
             create: (context) => DepartmentRepository(httpClient: httpClient),
