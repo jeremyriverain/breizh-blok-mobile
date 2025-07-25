@@ -87,7 +87,7 @@ class DownloadAreaService {
 
       await Future.wait(deletions);
     } catch (exception, stackTrace) {
-      await Sentry.captureException(exception, stackTrace: stackTrace);
+      Sentry.captureException(exception, stackTrace: stackTrace).ignore();
     }
   }
 
@@ -151,7 +151,7 @@ class DownloadAreaService {
         ),
       );
     } catch (exception, stackTrace) {
-      await Sentry.captureException(exception, stackTrace: stackTrace);
+      Sentry.captureException(exception, stackTrace: stackTrace).ignore();
     }
   }
 

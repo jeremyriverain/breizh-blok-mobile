@@ -4,6 +4,7 @@
 // ignore_for_file: require_trailing_commas
 
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/my_map_switch_style_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class MyMap extends StatefulWidget {
 }
 
 class _MyMapState extends State<MyMap> {
-  late MapboxMap _mapboxMap;
+  MapboxMap? _mapboxMap;
 
   final _defaultStyle = MapboxStyles.OUTDOORS;
   late ViewportState _viewport;
@@ -53,6 +54,7 @@ class _MyMapState extends State<MyMap> {
 
   @override
   Widget build(BuildContext context) {
+    final mapboxMap = _mapboxMap;
     return RepaintBoundary(
       child: Stack(
         children: [
@@ -66,65 +68,59 @@ class _MyMapState extends State<MyMap> {
             onMapCreated: (mapboxMap) async {
               try {
                 _mapboxMap = mapboxMap;
-                await _mapboxMap.attribution.updateSettings(
+                await _mapboxMap?.attribution.updateSettings(
                   AttributionSettings(enabled: false),
                 );
-                widget.onMapCreated?.call(_mapboxMap);
+                widget.onMapCreated?.call(mapboxMap);
               } catch (exception, stackTrace) {
-                if (kDebugMode) {
-                  debugPrint(exception.toString());
-                }
-                await Sentry.captureException(
+                Sentry.captureException(
                   exception,
                   stackTrace: stackTrace,
-                );
+                ).ignore();
               }
             },
             onStyleLoadedListener: (styleLoadedEventData) {
               try {
-                widget.onStyleLoadedListener?.call(
-                  _mapboxMap,
-                  styleLoadedEventData,
-                );
-              } catch (exception, stackTrace) {
-                if (kDebugMode) {
-                  debugPrint(exception.toString());
+                final mapboxMap = _mapboxMap;
+                if (mapboxMap != null) {
+                  widget.onStyleLoadedListener?.call(
+                    mapboxMap,
+                    styleLoadedEventData,
+                  );
                 }
-                Sentry.captureException(exception, stackTrace: stackTrace);
+              } catch (exception, stackTrace) {
+                Sentry.captureException(
+                  exception,
+                  stackTrace: stackTrace,
+                ).ignore();
               }
             },
             onTapListener: (mapContentGestureContext) {
               try {
-                widget.onTapListener?.call(
-                  _mapboxMap,
-                  mapContentGestureContext,
-                );
-              } catch (exception, stackTrace) {
-                if (kDebugMode) {
-                  debugPrint(exception.toString());
+                final mapboxMap = _mapboxMap;
+                if (mapboxMap != null) {
+                  widget.onTapListener?.call(
+                    mapboxMap,
+                    mapContentGestureContext,
+                  );
                 }
-                Sentry.captureException(exception, stackTrace: stackTrace);
+              } catch (exception, stackTrace) {
+                Sentry.captureException(
+                  exception,
+                  stackTrace: stackTrace,
+                ).ignore();
               }
             },
           ),
-          Positioned(
-            right: 5,
-            bottom: 5,
-            child: IconButton.filledTonal(
-              onPressed: () async {
-                final currentStyle = await _mapboxMap.style.getStyleURI();
-                if (currentStyle == _defaultStyle) {
-                  await _mapboxMap.style.setStyleURI(MapboxStyles.SATELLITE);
-                } else {
-                  await _mapboxMap.style.setStyleURI(_defaultStyle);
-                }
-              },
-              icon: Icon(
-                Icons.layers,
-                semanticLabel: AppLocalizations.of(context).changeStyleMap,
+          if (mapboxMap != null)
+            Positioned(
+              right: 5,
+              bottom: 5,
+              child: MyMapSwitchStyleButton(
+                mapboxMap: mapboxMap,
+                defaultStyle: _defaultStyle,
               ),
             ),
-          ),
           Positioned(
             right: 5,
             bottom: 55,
@@ -135,7 +131,7 @@ class _MyMapState extends State<MyMap> {
                     setState(() {
                       isLocationShown = false;
                     });
-                    await _mapboxMap.location.updateSettings(
+                    await _mapboxMap?.location.updateSettings(
                       LocationComponentSettings(
                         enabled: false,
                         pulsingEnabled: false,
@@ -171,7 +167,7 @@ class _MyMapState extends State<MyMap> {
                     isLocationShown = true;
                   });
 
-                  await _mapboxMap.location.updateSettings(
+                  await _mapboxMap?.location.updateSettings(
                     LocationComponentSettings(
                       enabled: true,
                       pulsingEnabled: true,
@@ -183,10 +179,10 @@ class _MyMapState extends State<MyMap> {
                     _viewport = const FollowPuckViewportState();
                   }, transition: const FlyViewportTransition());
                 } catch (error, stackTrace) {
-                  if (kDebugMode) {
-                    debugPrint(error.toString());
-                  }
-                  await Sentry.captureException(error, stackTrace: stackTrace);
+                  Sentry.captureException(
+                    error,
+                    stackTrace: stackTrace,
+                  ).ignore();
                 }
               },
               icon: Icon(

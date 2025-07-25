@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:breizh_blok_mobile/config/assets.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
@@ -79,10 +78,7 @@ extension MapboxExtension on MapboxMap {
         }
       });
     } catch (error, stackTrace) {
-      if (kDebugMode) {
-        debugPrint(error.toString());
-      }
-      await Sentry.captureException(error, stackTrace: stackTrace);
+      Sentry.captureException(error, stackTrace: stackTrace).ignore();
     }
   }
 
