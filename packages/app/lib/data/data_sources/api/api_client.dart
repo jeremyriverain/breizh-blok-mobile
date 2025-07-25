@@ -4,9 +4,7 @@ import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
 
-const kRequestDefaultTimeout = Duration(
-  seconds: int.fromEnvironment('REQUEST_TIMEOUT', defaultValue: 7),
-);
+const kRequestDefaultTimeout = Duration(seconds: 7);
 
 class ApiClient {
   ApiClient({required this.database, http.Client? httpClient})
