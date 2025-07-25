@@ -47,7 +47,7 @@ fvm dart run melos run test
 
 ```bash
 cd packages/app
-fvm flutter test integration_test --dart-define="REQUEST_TIMEOUT=20"
+fvm flutter test integration_test
 ```
 
 ### Generate the launch icons

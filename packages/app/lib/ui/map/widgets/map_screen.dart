@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
+const boulderIdsProcessingLimit = 500;
+
 class MapScreen extends StatelessWidget {
   const MapScreen({super.key});
 
@@ -77,7 +79,8 @@ class MapScreen extends StatelessWidget {
 
                     final boulderIds = clusterLeaves.toBoulderIds();
 
-                    if (!context.mounted) {
+                    if (!context.mounted ||
+                        boulderIds.length > boulderIdsProcessingLimit) {
                       return;
                     }
 
