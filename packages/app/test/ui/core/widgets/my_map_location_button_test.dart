@@ -317,6 +317,49 @@ Then the onShowLocation callback is not called
     testWidgets(
       '''
 Given isLocation is equal to false,
+And service is not enabled,
+And service request is not accepted,
+When I click on the button,
+Then the onShowLocation callback is not called
+''',
+      (tester) async {
+        GetIt.I.registerLazySingleton<Location>(() => location);
+        final completer = Completer<void>();
+
+        when(() => location.serviceEnabled()).thenAnswer((_) async => false);
+
+        when(() => location.requestService()).thenAnswer((_) async => false);
+
+        await tester.myPumpWidget(
+          widget: MyMapLocationButton(
+            isLocationShown: false,
+            onHideLocation: () async {},
+            onShowLocation: () async {
+              completer.complete();
+            },
+          ),
+        );
+
+        await tester.pump();
+
+        expect(completer.isCompleted, isFalse);
+
+        expect(find.byIcon(Icons.my_location), findsOneWidget);
+
+        await tester.tap(find.byType(IconButton));
+        await tester.pump();
+
+        expect(completer.isCompleted, isFalse);
+
+        verify(() => location.serviceEnabled()).called(1);
+        verify(() => location.requestService()).called(1);
+        verifyNoMoreInteractions(location);
+      },
+    );
+
+    testWidgets(
+      '''
+Given isLocation is equal to false,
 And location permission is granted,
 And onShowLocation throws an exception,
 Then the onShowLocation exception is properly caught 
