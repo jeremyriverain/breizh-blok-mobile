@@ -1,14 +1,8 @@
-// import 'dart:typed_data';
-// import 'dart:ui' as ui;
-
-// ignore_for_file: require_trailing_commas
-
-import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/my_map_location_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map_switch_style_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -121,53 +115,34 @@ class _MyMapState extends State<MyMap> {
                 defaultStyle: _defaultStyle,
               ),
             ),
-          Positioned(
-            right: 5,
-            bottom: 55,
-            child: IconButton.filledTonal(
-              onPressed: () async {
-                try {
-                  if (isLocationShown) {
-                    setState(() {
-                      isLocationShown = false;
-                    });
-                    await _mapboxMap?.location.updateSettings(
-                      LocationComponentSettings(
-                        enabled: false,
-                        pulsingEnabled: false,
-                        puckBearingEnabled: false,
-                      ),
-                    );
+          if (mapboxMap != null)
+            Positioned(
+              right: 5,
+              bottom: 55,
+              child: MyMapLocationButton(
+                isLocationShown: isLocationShown,
+                onHideLocation: () async {
+                  setState(() {
+                    isLocationShown = false;
+                  });
+                  await mapboxMap.location.updateSettings(
+                    LocationComponentSettings(
+                      enabled: false,
+                      pulsingEnabled: false,
+                      puckBearingEnabled: false,
+                    ),
+                  );
 
-                    setStateWithViewportAnimation(() {
-                      _viewport = defaultViewPort;
-                    }, transition: const FlyViewportTransition());
-
-                    return;
-                  }
-
-                  final location = Location();
-
-                  final serviceEnabled = await location.serviceEnabled();
-                  if (!serviceEnabled) {
-                    if (!await location.requestService()) {
-                      return;
-                    }
-                  }
-
-                  final permissionGranted = await location.hasPermission();
-                  if (permissionGranted == PermissionStatus.denied) {
-                    if (await location.requestPermission() !=
-                        PermissionStatus.granted) {
-                      return;
-                    }
-                  }
-
+                  setStateWithViewportAnimation(() {
+                    _viewport = defaultViewPort;
+                  }, transition: const FlyViewportTransition());
+                },
+                onShowLocation: () async {
                   setState(() {
                     isLocationShown = true;
                   });
 
-                  await _mapboxMap?.location.updateSettings(
+                  await mapboxMap.location.updateSettings(
                     LocationComponentSettings(
                       enabled: true,
                       pulsingEnabled: true,
@@ -178,19 +153,9 @@ class _MyMapState extends State<MyMap> {
                   setStateWithViewportAnimation(() {
                     _viewport = const FollowPuckViewportState();
                   }, transition: const FlyViewportTransition());
-                } catch (error, stackTrace) {
-                  Sentry.captureException(
-                    error,
-                    stackTrace: stackTrace,
-                  ).ignore();
-                }
-              },
-              icon: Icon(
-                isLocationShown ? Icons.location_off : Icons.my_location,
-                semanticLabel: AppLocalizations.of(context).getMyLocation,
+                },
               ),
             ),
-          ),
         ],
       ),
     );

@@ -18,6 +18,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:location/location.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -78,4 +79,6 @@ Future<void> setupApp({
       ),
     ),
   );
+
+  GetIt.I.registerLazySingleton<Location>(Location.new);
 }

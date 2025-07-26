@@ -16,6 +16,7 @@ import 'package:breizh_blok_mobile/services/share_content/share_content_service.
 import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:location/location.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:mocktail/mocktail.dart';
@@ -58,6 +59,8 @@ class MockBoulderFeedbackRepository extends Mock
     implements BoulderFeedbackRepository {}
 
 class MockImageBoulderCache extends Mock implements ImageBoulderCache {}
+
+class MockLocation extends Mock implements Location {}
 
 class MockMapboxMap extends Mock implements MapboxMap {}
 
