@@ -4,12 +4,12 @@ import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_fe
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/contribute_boulder_form.dart';
-import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_view_model.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
-import 'package:breizh_blok_mobile/ui/contribute_boulder/contribute_boulder_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -92,25 +92,31 @@ class BoulderDetailsTab extends StatelessWidget {
           const Divider(),
           BlocProvider(
             create:
-                (context) => ContributeBoulderViewModel(
+                (context) => BoulderMessageFeedbackViewModel(
                   form: ContributeBoulderForm(),
                   boulderFeedbackRepository:
                       GetIt.I.get<BoulderFeedbackRepository>(),
                   boulder: boulder,
                 ),
             child: Builder(
-              builder: (blocContext) {
+              builder: (parentContext) {
                 return ListTile(
                   leading: const Icon(Icons.feedback),
                   title: Text(localizations.contribute),
                   trailing: const Icon(Icons.arrow_right_outlined),
                   onTap: () {
                     Navigator.push(
-                      blocContext,
+                      context,
                       MaterialPageRoute<void>(
                         builder:
-                            (context) =>
-                                ContributeBoulderScreen(boulder: boulder),
+                            (context) => BlocProvider<
+                              BoulderMessageFeedbackViewModel
+                            >.value(
+                              value:
+                                  parentContext
+                                      .read<BoulderMessageFeedbackViewModel>(),
+                              child: ContributeBoulderScreen(boulder: boulder),
+                            ),
                       ),
                     );
                   },

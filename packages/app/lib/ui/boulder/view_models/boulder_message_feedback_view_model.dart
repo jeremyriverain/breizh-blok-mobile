@@ -5,16 +5,16 @@ import 'package:breizh_blok_mobile/ui/boulder/contribute_boulder_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'contribute_boulder_view_model.freezed.dart';
+part 'boulder_message_feedback_view_model.freezed.dart';
 
-class ContributeBoulderViewModel
-    extends Bloc<SubmitContributeFormEvent, ContributeBoulderState> {
-  ContributeBoulderViewModel({
+class BoulderMessageFeedbackViewModel
+    extends Bloc<SubmitContributeFormEvent, BoulderMessageFeedbackState> {
+  BoulderMessageFeedbackViewModel({
     required ContributeBoulderForm form,
     required this.boulderFeedbackRepository,
     required this.boulder,
   }) : super(
-         ContributeBoulderState(
+         BoulderMessageFeedbackState(
            form: form,
            pending: false,
            done: false,
@@ -29,7 +29,7 @@ class ContributeBoulderViewModel
             return;
           }
           emit(
-            ContributeBoulderState(
+            BoulderMessageFeedbackState(
               form: state.form,
               pending: true,
               done: false,
@@ -49,7 +49,7 @@ class ContributeBoulderViewModel
           result.match(
             (domainException) {
               emit(
-                ContributeBoulderState(
+                BoulderMessageFeedbackState(
                   form: state.form,
                   pending: false,
                   done: false,
@@ -59,7 +59,7 @@ class ContributeBoulderViewModel
             },
             (_) {
               emit(
-                ContributeBoulderState(
+                BoulderMessageFeedbackState(
                   form: ContributeBoulderForm(),
                   pending: false,
                   done: true,
@@ -79,11 +79,11 @@ class ContributeBoulderViewModel
 class SubmitContributeFormEvent {}
 
 @freezed
-abstract class ContributeBoulderState with _$ContributeBoulderState {
-  const factory ContributeBoulderState({
+abstract class BoulderMessageFeedbackState with _$BoulderMessageFeedbackState {
+  const factory BoulderMessageFeedbackState({
     required ContributeBoulderForm form,
     required bool pending,
     required bool done,
     required bool error,
-  }) = _ContributeBoulderState;
+  }) = _BoulderMessageFeedbackState;
 }

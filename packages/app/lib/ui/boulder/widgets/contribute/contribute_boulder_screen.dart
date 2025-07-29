@@ -1,7 +1,9 @@
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/contribute_boulder/boulder_message_form_screen.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_message_form_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContributeBoulderScreen extends StatelessWidget {
   const ContributeBoulderScreen({required this.boulder, super.key});
@@ -30,7 +32,12 @@ class ContributeBoulderScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute<void>(
                   builder:
-                      (context) => BoulderMessageFormScreen(boulder: boulder),
+                      (_) =>
+                          BlocProvider<BoulderMessageFeedbackViewModel>.value(
+                            value:
+                                context.read<BoulderMessageFeedbackViewModel>(),
+                            child: BoulderMessageFormScreen(boulder: boulder),
+                          ),
                 ),
               );
             },
@@ -38,14 +45,6 @@ class ContributeBoulderScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.place),
             title: Text(localizations.specifyBoulderLocation),
-            subtitle: Row(
-              children: [
-                Badge(
-                  label: Text(localizations.comingSoon),
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                ),
-              ],
-            ),
           ),
         ],
       ),
