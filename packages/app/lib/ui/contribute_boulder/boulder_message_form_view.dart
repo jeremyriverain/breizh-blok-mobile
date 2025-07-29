@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class ContributeBoulderFormView extends StatelessWidget {
-  const ContributeBoulderFormView({required this.boulder, super.key});
+class BoulderMessageFormView extends StatelessWidget {
+  const BoulderMessageFormView({required this.boulder, super.key});
 
   final Boulder boulder;
 

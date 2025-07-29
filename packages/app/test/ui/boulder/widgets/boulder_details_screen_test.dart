@@ -5,7 +5,7 @@ import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_fe
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute_boulder_form_view.dart';
+import 'package:breizh_blok_mobile/ui/contribute_boulder/boulder_message_form_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -93,7 +93,7 @@ Then a ContributeBoulderFormView is displayed
 
           await tester.pump();
 
-          expect(find.byType(ContributeBoulderFormView), findsOneWidget);
+          expect(find.byType(BoulderMessageFormView), findsOneWidget);
         },
       );
 
@@ -124,18 +124,18 @@ Then the ContributeBoulderFormView disappears
 
           await tester.pump();
 
-          expect(find.byType(ContributeBoulderFormView), findsOneWidget);
+          expect(find.byType(BoulderMessageFormView), findsOneWidget);
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
+              of: find.byType(BoulderMessageFormView),
               matching: find.widgetWithText(TextButton, 'Annuler'),
             ),
           );
 
           await tester.pump();
 
-          expect(find.byType(ContributeBoulderFormView), findsNothing);
+          expect(find.byType(BoulderMessageFormView), findsNothing);
         },
       );
 
@@ -172,14 +172,14 @@ Then the previous message appears
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
+              of: find.byType(BoulderMessageFormView),
               matching: find.widgetWithText(TextButton, 'Annuler'),
             ),
           );
 
           await tester.pump();
 
-          expect(find.byType(ContributeBoulderFormView), findsNothing);
+          expect(find.byType(BoulderMessageFormView), findsNothing);
 
           await tester.tap(find.widgetWithText(ListTile, 'Contribuer'));
 
@@ -221,7 +221,7 @@ Then the message field displays a error message
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
+              of: find.byType(BoulderMessageFormView),
               matching: find.widgetWithText(TextButton, 'Envoyer'),
             ),
           );
@@ -275,7 +275,7 @@ Then a error message is displayed
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
+              of: find.byType(BoulderMessageFormView),
               matching: find.widgetWithText(TextButton, 'Envoyer'),
             ),
           );
@@ -292,7 +292,7 @@ Then a error message is displayed
 
           expect(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
+              of: find.byType(BoulderMessageFormView),
               matching: find.byType(AlertDialog),
             ),
             findsOneWidget,
@@ -344,7 +344,7 @@ And the ContributeBoulderFormView disappears
             tester
                 .widget<TextButton>(
                   find.descendant(
-                    of: find.byType(ContributeBoulderFormView),
+                    of: find.byType(BoulderMessageFormView),
                     matching: find.widgetWithText(TextButton, 'Annuler'),
                   ),
                 )
@@ -356,7 +356,7 @@ And the ContributeBoulderFormView disappears
             tester
                 .widget<TextButton>(
                   find.descendant(
-                    of: find.byType(ContributeBoulderFormView),
+                    of: find.byType(BoulderMessageFormView),
                     matching: find.widgetWithText(TextButton, 'Envoyer'),
                   ),
                 )
@@ -366,7 +366,7 @@ And the ContributeBoulderFormView disappears
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
+              of: find.byType(BoulderMessageFormView),
               matching: find.widgetWithText(TextButton, 'Envoyer'),
             ),
           );
@@ -378,7 +378,7 @@ And the ContributeBoulderFormView disappears
             tester
                 .widget<TextButton>(
                   find.descendant(
-                    of: find.byType(ContributeBoulderFormView),
+                    of: find.byType(BoulderMessageFormView),
                     matching: find.widgetWithText(TextButton, 'Annuler'),
                   ),
                 )
@@ -390,7 +390,7 @@ And the ContributeBoulderFormView disappears
             tester
                 .widget<TextButton>(
                   find.descendant(
-                    of: find.byType(ContributeBoulderFormView),
+                    of: find.byType(BoulderMessageFormView),
                     matching: find.widgetWithText(TextButton, 'Envoyer'),
                   ),
                 )
@@ -410,7 +410,7 @@ And the ContributeBoulderFormView disappears
 
           expect(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
+              of: find.byType(BoulderMessageFormView),
               matching: find.byType(AlertDialog),
             ),
             findsNothing,

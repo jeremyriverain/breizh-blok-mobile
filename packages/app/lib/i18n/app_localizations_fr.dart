@@ -61,6 +61,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get closeTheModal => 'Fermer la boîte de dialogue';
 
   @override
+  String get comingSoon => 'Bientôt disponible';
+
+  @override
   String get comments => 'Commentaires';
 
   @override
@@ -159,6 +162,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get logout => 'Se déconnecter';
+
+  @override
+  String get makeSuggestion => 'Adresser un commentaire, une suggestion';
 
   @override
   String get map => 'Carte';
@@ -281,6 +287,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get parkingOfTheBoulderArea => 'Parking du secteur';
 
   @override
+  String get relevantBoulder => 'Bloc concerné';
+
+  @override
   String get returnToTheTop => 'Revenir en haut';
 
   @override
@@ -329,6 +338,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get sortBy => 'Trier par';
+
+  @override
+  String get specifyBoulderLocation => 'Affiner l\'emplacement du bloc';
 
   @override
   String get suggestions => 'Suggestions';

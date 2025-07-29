@@ -8,8 +8,8 @@ import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_vie
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute_boulder_form_view.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
+import 'package:breizh_blok_mobile/ui/contribute_boulder/contribute_boulder_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -105,17 +105,13 @@ class BoulderDetailsTab extends StatelessWidget {
                   title: Text(localizations.contribute),
                   trailing: const Icon(Icons.arrow_right_outlined),
                   onTap: () {
-                    showDialog<void>(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) {
-                        return BlocProvider.value(
-                          value: BlocProvider.of<ContributeBoulderViewModel>(
-                            blocContext,
-                          ),
-                          child: ContributeBoulderFormView(boulder: boulder),
-                        );
-                      },
+                    Navigator.push(
+                      blocContext,
+                      MaterialPageRoute<void>(
+                        builder:
+                            (context) =>
+                                ContributeBoulderScreen(boulder: boulder),
+                      ),
                     );
                   },
                 );

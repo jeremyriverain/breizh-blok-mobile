@@ -176,6 +176,12 @@ abstract class AppLocalizations {
   /// **'Close the modal'**
   String get closeTheModal;
 
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get comingSoon;
+
   /// No description provided for @comments.
   ///
   /// In en, this message translates to:
@@ -344,6 +350,12 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logout;
 
+  /// No description provided for @makeSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Post a comment, make a suggestion'**
+  String get makeSuggestion;
+
   /// No description provided for @map.
   ///
   /// In en, this message translates to:
@@ -468,6 +480,12 @@ abstract class AppLocalizations {
   /// **'Parking of '**
   String get parkingOfTheBoulderArea;
 
+  /// No description provided for @relevantBoulder.
+  ///
+  /// In en, this message translates to:
+  /// **'Relevant boulder'**
+  String get relevantBoulder;
+
   /// No description provided for @returnToTheTop.
   ///
   /// In en, this message translates to:
@@ -544,6 +562,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sort by'**
   String get sortBy;
+
+  /// No description provided for @specifyBoulderLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Specifiy the boulder\'s location'**
+  String get specifyBoulderLocation;
 
   /// No description provided for @suggestions.
   ///

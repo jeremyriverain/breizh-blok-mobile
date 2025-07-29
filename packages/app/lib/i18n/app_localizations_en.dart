@@ -61,6 +61,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closeTheModal => 'Close the modal';
 
   @override
+  String get comingSoon => 'Coming soon';
+
+  @override
   String get comments => 'Comments';
 
   @override
@@ -159,6 +162,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get makeSuggestion => 'Post a comment, make a suggestion';
 
   @override
   String get map => 'Map';
@@ -281,6 +287,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get parkingOfTheBoulderArea => 'Parking of ';
 
   @override
+  String get relevantBoulder => 'Relevant boulder';
+
+  @override
   String get returnToTheTop => 'Return to the top';
 
   @override
@@ -329,6 +338,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sortBy => 'Sort by';
+
+  @override
+  String get specifyBoulderLocation => 'Specifiy the boulder\'s location';
 
   @override
   String get suggestions => 'Suggestions';
