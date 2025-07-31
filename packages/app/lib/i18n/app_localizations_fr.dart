@@ -148,6 +148,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get language => 'Langage';
 
   @override
+  String get latitude => 'Latitude';
+
+  @override
   String lessThanNMeters({required num value}) {
     final intl.NumberFormat valueNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
@@ -164,10 +167,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get logout => 'Se déconnecter';
 
   @override
+  String get longitude => 'Longitude';
+
+  @override
   String get makeSuggestion => 'Adresser un commentaire, une suggestion';
 
   @override
   String get map => 'Carte';
+
+  @override
+  String mapFormHelper({required String boulderName}) {
+    return 'L\'emplacement du bloc $boulderName est représenté par le marqueur sur la carte. Vous avez la possibilité de le déplacer pour modifier ses coordonnées.';
+  }
 
   @override
   String get max => 'max';
@@ -341,6 +352,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get specifyBoulderLocation => 'Affiner l\'emplacement du bloc';
+
+  @override
+  String get submitLocation => 'Valider l\'emplacement';
 
   @override
   String get suggestions => 'Suggestions';

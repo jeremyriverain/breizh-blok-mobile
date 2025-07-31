@@ -148,6 +148,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'Language';
 
   @override
+  String get latitude => 'Latitude';
+
+  @override
   String lessThanNMeters({required num value}) {
     final intl.NumberFormat valueNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
@@ -164,10 +167,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Logout';
 
   @override
+  String get longitude => 'Longitude';
+
+  @override
   String get makeSuggestion => 'Post a comment, make a suggestion';
 
   @override
   String get map => 'Map';
+
+  @override
+  String mapFormHelper({required String boulderName}) {
+    return 'The location of the boulder $boulderName is represented by the marker on the map. You can drag and move it to change its coordinates.';
+  }
 
   @override
   String get max => 'max';
@@ -341,6 +352,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get specifyBoulderLocation => 'Specifiy the boulder\'s location';
+
+  @override
+  String get submitLocation => 'Submit location';
 
   @override
   String get suggestions => 'Suggestions';

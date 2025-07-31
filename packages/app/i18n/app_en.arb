@@ -59,6 +59,7 @@
   "itineraryToTheBoulderArea": "Itinerary to the boulder area",
   "itineraryToTheParking": "Itinerary to parking",
   "language": "Language",
+  "latitude": "Latitude",
   "lessThanNMeters": "Less than {value} meters",
   "@lessThanNMeters": {
     "placeholders": {
@@ -70,8 +71,17 @@
   },
   "login": "Login",
   "logout": "Logout",
+  "longitude": "Longitude",
   "makeSuggestion": "Post a comment, make a suggestion",
   "map": "Map",
+  "mapFormHelper": "The location of the boulder {boulderName} is represented by the marker on the map. You can drag and move it to change its coordinates.",
+  "@mapFormHelper": {
+    "placeholders": {
+      "boulderName": {
+        "type": "String"
+      }
+    }
+  },
   "max": "max",
   "message": "Message",
   "minGrade": "Min grade",
@@ -189,6 +199,7 @@
   "sortedAlphabetically": "A - Z",
   "sortBy": "Sort by",
   "specifyBoulderLocation": "Specifiy the boulder's location",
+  "submitLocation": "Submit location",
   "suggestions": "Suggestions",
   "termsOfUse": "Terms of use",
   "termsOfUseContent": "Bouldering is a dangerous activity. Its practice is under the entire responsibility of the practitioners. Breizh Blok declines all responsibility in the event of an accident.",

@@ -332,6 +332,12 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get language;
 
+  /// No description provided for @latitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Latitude'**
+  String get latitude;
+
   /// No description provided for @lessThanNMeters.
   ///
   /// In en, this message translates to:
@@ -350,6 +356,12 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logout;
 
+  /// No description provided for @longitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Longitude'**
+  String get longitude;
+
   /// No description provided for @makeSuggestion.
   ///
   /// In en, this message translates to:
@@ -361,6 +373,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Map'**
   String get map;
+
+  /// No description provided for @mapFormHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'The location of the boulder {boulderName} is represented by the marker on the map. You can drag and move it to change its coordinates.'**
+  String mapFormHelper({required String boulderName});
 
   /// No description provided for @max.
   ///
@@ -568,6 +586,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Specifiy the boulder\'s location'**
   String get specifyBoulderLocation;
+
+  /// No description provided for @submitLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit location'**
+  String get submitLocation;
 
   /// No description provided for @suggestions.
   ///

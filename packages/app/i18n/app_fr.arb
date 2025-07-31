@@ -59,6 +59,7 @@
   "itineraryToTheBoulderArea": "Itinéraire vers le secteur",
   "itineraryToTheParking": "Itinéraire vers le parking",
   "language": "Langage",
+  "latitude": "Latitude",
   "lessThanNMeters": "Moins de {value}m",
   "@lessThanNMeters": {
     "placeholders": {
@@ -70,8 +71,17 @@
   },
   "login": "Se connecter",
   "logout": "Se déconnecter",
+  "longitude": "Longitude",
   "makeSuggestion": "Adresser un commentaire, une suggestion",
   "map": "Carte",
+  "mapFormHelper": "L'emplacement du bloc {boulderName} est représenté par le marqueur sur la carte. Vous avez la possibilité de le déplacer pour modifier ses coordonnées.",
+  "@mapFormHelper": {
+    "placeholders": {
+      "boulderName": {
+        "type": "String"
+      }
+    }
+  },
   "max": "max",
   "message": "Message",
   "minGrade": "Cotation min",
@@ -189,6 +199,7 @@
   "sortedAlphabetically": "A - Z",
   "sortBy": "Trier par",
   "specifyBoulderLocation": "Affiner l'emplacement du bloc",
+  "submitLocation": "Valider l'emplacement",
   "suggestions": "Suggestions",
   "termsOfUse": "Conditions d'utilisation",
   "termsOfUseContent": "L'escalade est un sport à risque. Sa pratique est sous l'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d'accident.",
