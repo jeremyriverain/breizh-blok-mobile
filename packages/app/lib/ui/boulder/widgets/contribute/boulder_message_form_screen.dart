@@ -1,7 +1,8 @@
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/boulder/contribute_boulder_form.dart';
+import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_message_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/form_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -59,8 +60,9 @@ class BoulderMessageFormScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       ReactiveTextField<String>(
-                        key: Key(ContributeBoulderForm.formKeys.message),
-                        formControlName: ContributeBoulderForm.formKeys.message,
+                        key: Key(ContributeBoulderMessageForm.formKeys.message),
+                        formControlName:
+                            ContributeBoulderMessageForm.formKeys.message,
                         keyboardType: TextInputType.text,
                         minLines: 4,
                         maxLines: 4,
@@ -86,11 +88,7 @@ class BoulderMessageFormScreen extends StatelessWidget {
                   alignment: WrapAlignment.end,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    if (state.pending)
-                      const SizedBox.square(
-                        dimension: 25,
-                        child: CircularProgressIndicator(),
-                      ),
+                    if (state.pending) const FormSpinner(),
                     const SizedBox(width: 10),
                     TextButton(
                       onPressed:
