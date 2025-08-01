@@ -74,7 +74,7 @@
   "longitude": "Longitude",
   "makeSuggestion": "Post a comment, make a suggestion",
   "map": "Map",
-  "mapFormHelper": "The location of the boulder {boulderName} is represented by the marker on the map. You can drag and move it to change its coordinates.",
+  "mapFormHelper": "The location of the boulder {boulderName} is represented by the marker on the map. By pressing and holding the marker, you can drag and move it to change its coordinates.",
   "@mapFormHelper": {
     "placeholders": {
       "boulderName": {
@@ -203,6 +203,7 @@
   "suggestions": "Suggestions",
   "termsOfUse": "Terms of use",
   "termsOfUseContent": "Bouldering is a dangerous activity. Its practice is under the entire responsibility of the practitioners. Breizh Blok declines all responsibility in the event of an accident.",
+  "thanksWeWillReviewYourContribution": "Thanks! We'll review your contribution.",
   "theEasiest": "The easiest",
   "theHardest": "The hardest",
   "theMostRecent": "The most recent",

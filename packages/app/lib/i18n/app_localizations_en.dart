@@ -177,7 +177,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String mapFormHelper({required String boulderName}) {
-    return 'The location of the boulder $boulderName is represented by the marker on the map. You can drag and move it to change its coordinates.';
+    return 'The location of the boulder $boulderName is represented by the marker on the map. By pressing and holding the marker, you can drag and move it to change its coordinates.';
   }
 
   @override
@@ -365,6 +365,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get termsOfUseContent =>
       'Bouldering is a dangerous activity. Its practice is under the entire responsibility of the practitioners. Breizh Blok declines all responsibility in the event of an accident.';
+
+  @override
+  String get thanksWeWillReviewYourContribution =>
+      'Thanks! We\'ll review your contribution.';
 
   @override
   String get theEasiest => 'The easiest';

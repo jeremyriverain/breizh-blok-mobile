@@ -44,7 +44,11 @@ class ContributeBoulderMapScreen extends StatelessWidget {
           listener: (context, state) {
             if (state.done) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(localizations.yourMessageHasBeenSent)),
+                SnackBar(
+                  content: Text(
+                    localizations.thanksWeWillReviewYourContribution,
+                  ),
+                ),
               );
               context
                 ..pop()

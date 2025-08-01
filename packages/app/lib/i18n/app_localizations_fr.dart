@@ -177,7 +177,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String mapFormHelper({required String boulderName}) {
-    return 'L\'emplacement du bloc $boulderName est représenté par le marqueur sur la carte. Vous avez la possibilité de le déplacer pour modifier ses coordonnées.';
+    return 'L\'emplacement du bloc $boulderName est représenté par le marqueur sur la carte. Maintenez le marqueur enfoncé pour le déplacer et modifier ses coordonnées.';
   }
 
   @override
@@ -365,6 +365,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get termsOfUseContent =>
       'L\'escalade est un sport à risque. Sa pratique est sous l\'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d\'accident.';
+
+  @override
+  String get thanksWeWillReviewYourContribution =>
+      'Merci ! Nous allons vérifier votre contribution.';
 
   @override
   String get theEasiest => 'Les plus faciles';

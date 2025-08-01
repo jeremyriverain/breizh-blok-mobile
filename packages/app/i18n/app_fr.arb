@@ -74,7 +74,7 @@
   "longitude": "Longitude",
   "makeSuggestion": "Adresser un commentaire, une suggestion",
   "map": "Carte",
-  "mapFormHelper": "L'emplacement du bloc {boulderName} est représenté par le marqueur sur la carte. Vous avez la possibilité de le déplacer pour modifier ses coordonnées.",
+  "mapFormHelper": "L'emplacement du bloc {boulderName} est représenté par le marqueur sur la carte. Maintenez le marqueur enfoncé pour le déplacer et modifier ses coordonnées.",
   "@mapFormHelper": {
     "placeholders": {
       "boulderName": {
@@ -203,6 +203,7 @@
   "suggestions": "Suggestions",
   "termsOfUse": "Conditions d'utilisation",
   "termsOfUseContent": "L'escalade est un sport à risque. Sa pratique est sous l'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d'accident.",
+  "thanksWeWillReviewYourContribution": "Merci ! Nous allons vérifier votre contribution.",
   "theEasiest": "Les plus faciles",
   "theHardest": "Les plus difficiles",
   "theMostRecent": "Les plus récents",

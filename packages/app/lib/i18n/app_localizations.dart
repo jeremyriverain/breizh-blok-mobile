@@ -377,7 +377,7 @@ abstract class AppLocalizations {
   /// No description provided for @mapFormHelper.
   ///
   /// In en, this message translates to:
-  /// **'The location of the boulder {boulderName} is represented by the marker on the map. You can drag and move it to change its coordinates.'**
+  /// **'The location of the boulder {boulderName} is represented by the marker on the map. By pressing and holding the marker, you can drag and move it to change its coordinates.'**
   String mapFormHelper({required String boulderName});
 
   /// No description provided for @max.
@@ -610,6 +610,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Bouldering is a dangerous activity. Its practice is under the entire responsibility of the practitioners. Breizh Blok declines all responsibility in the event of an accident.'**
   String get termsOfUseContent;
+
+  /// No description provided for @thanksWeWillReviewYourContribution.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks! We\'ll review your contribution.'**
+  String get thanksWeWillReviewYourContribution;
 
   /// No description provided for @theEasiest.
   ///
