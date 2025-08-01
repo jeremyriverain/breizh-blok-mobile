@@ -61,6 +61,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get closeTheModal => 'Fermer la boîte de dialogue';
 
   @override
+  String get comingSoon => 'Bientôt disponible';
+
+  @override
   String get comments => 'Commentaires';
 
   @override
@@ -145,6 +148,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get language => 'Langage';
 
   @override
+  String get latitude => 'Latitude';
+
+  @override
   String lessThanNMeters({required num value}) {
     final intl.NumberFormat valueNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
@@ -161,7 +167,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get logout => 'Se déconnecter';
 
   @override
+  String get longitude => 'Longitude';
+
+  @override
+  String get makeSuggestion => 'Adresser un commentaire, une suggestion';
+
+  @override
   String get map => 'Carte';
+
+  @override
+  String mapFormHelper({required String boulderName}) {
+    return 'L\'emplacement du bloc $boulderName est représenté par le marqueur sur la carte. Maintenez le marqueur enfoncé pour le déplacer et modifier ses coordonnées.';
+  }
 
   @override
   String get max => 'max';
@@ -281,6 +298,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get parkingOfTheBoulderArea => 'Parking du secteur';
 
   @override
+  String get relevantBoulder => 'Bloc concerné';
+
+  @override
   String get returnToTheTop => 'Revenir en haut';
 
   @override
@@ -331,6 +351,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sortBy => 'Trier par';
 
   @override
+  String get specifyBoulderLocation => 'Affiner l\'emplacement du bloc';
+
+  @override
+  String get submitLocation => 'Valider l\'emplacement';
+
+  @override
   String get suggestions => 'Suggestions';
 
   @override
@@ -339,6 +365,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get termsOfUseContent =>
       'L\'escalade est un sport à risque. Sa pratique est sous l\'entière responsabilité des pratiquants. Breizh Blok décline toute responsabilité en cas d\'accident.';
+
+  @override
+  String get thanksWeWillReviewYourContribution =>
+      'Merci ! Nous allons vérifier votre contribution.';
 
   @override
   String get theEasiest => 'Les plus faciles';

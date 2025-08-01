@@ -61,6 +61,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get closeTheModal => 'Close the modal';
 
   @override
+  String get comingSoon => 'Coming soon';
+
+  @override
   String get comments => 'Comments';
 
   @override
@@ -145,6 +148,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'Language';
 
   @override
+  String get latitude => 'Latitude';
+
+  @override
   String lessThanNMeters({required num value}) {
     final intl.NumberFormat valueNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
@@ -161,7 +167,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Logout';
 
   @override
+  String get longitude => 'Longitude';
+
+  @override
+  String get makeSuggestion => 'Post a comment, make a suggestion';
+
+  @override
   String get map => 'Map';
+
+  @override
+  String mapFormHelper({required String boulderName}) {
+    return 'The location of the boulder $boulderName is represented by the marker on the map. By pressing and holding the marker, you can drag and move it to change its coordinates.';
+  }
 
   @override
   String get max => 'max';
@@ -281,6 +298,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get parkingOfTheBoulderArea => 'Parking of ';
 
   @override
+  String get relevantBoulder => 'Relevant boulder';
+
+  @override
   String get returnToTheTop => 'Return to the top';
 
   @override
@@ -331,6 +351,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sortBy => 'Sort by';
 
   @override
+  String get specifyBoulderLocation => 'Specifiy the boulder\'s location';
+
+  @override
+  String get submitLocation => 'Submit location';
+
+  @override
   String get suggestions => 'Suggestions';
 
   @override
@@ -339,6 +365,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get termsOfUseContent =>
       'Bouldering is a dangerous activity. Its practice is under the entire responsibility of the practitioners. Breizh Blok declines all responsibility in the event of an accident.';
+
+  @override
+  String get thanksWeWillReviewYourContribution =>
+      'Thanks! We\'ll review your contribution.';
 
   @override
   String get theEasiest => 'The easiest';

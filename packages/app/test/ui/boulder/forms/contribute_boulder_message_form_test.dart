@@ -1,17 +1,17 @@
-import 'package:breizh_blok_mobile/ui/boulder/contribute_boulder_form.dart';
+import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_message_form.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('ContributeBoulderForm', () {
+  group('ContributeBoulderMessageForm', () {
     test(
       '''
 Given the field "message" is null,
 Then this field is invalid
 ''',
       () async {
-        final form = ContributeBoulderForm();
+        final form = ContributeBoulderMessageForm();
 
-        final messageKey = ContributeBoulderForm.formKeys.message;
+        final messageKey = ContributeBoulderMessageForm.formKeys.message;
 
         expect(form.valid, isFalse);
         expect(form.errors.keys.contains(messageKey), isTrue);

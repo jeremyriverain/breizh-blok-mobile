@@ -1,7 +1,7 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_data_source.dart';
-import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository_impl.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
+import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';

@@ -56,49 +56,36 @@ class MunicipalityMap extends StatelessWidget {
           circleAnnotationBoulderArea[annotation.id] = boulderArea;
         }
 
-        circleAnnotationManager.addOnCircleAnnotationClickListener(
-          _AnnotationClickListener(
-            onAnnotationClick: (annotation) {
-              final localizations = AppLocalizations.of(context);
-              final boulderArea = circleAnnotationBoulderArea[annotation.id];
-              if (boulderArea != null) {
-                ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      '${boulderArea.name},\n'
-                      '${boulderArea.nBouldersRated(localizations)}',
-                    ),
-                    action: SnackBarAction(
-                      label: localizations.showDetails,
-                      onPressed: () {
-                        context.pushNamed(
-                          BoulderAreaDetailsScreen.route.name,
-                          pathParameters: {
-                            BoulderAreaDetailsScreen.idParameterName:
-                                boulderArea.id,
-                          },
-                        );
-                      },
-                    ),
+        circleAnnotationManager.tapEvents(
+          onTap: (annotation) {
+            final localizations = AppLocalizations.of(context);
+            final boulderArea = circleAnnotationBoulderArea[annotation.id];
+            if (boulderArea != null) {
+              ScaffoldMessenger.of(context).removeCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    '${boulderArea.name},\n'
+                    '${boulderArea.nBouldersRated(localizations)}',
                   ),
-                );
-              }
-            },
-          ),
+                  action: SnackBarAction(
+                    label: localizations.showDetails,
+                    onPressed: () {
+                      context.pushNamed(
+                        BoulderAreaDetailsScreen.route.name,
+                        pathParameters: {
+                          BoulderAreaDetailsScreen.idParameterName:
+                              boulderArea.id,
+                        },
+                      );
+                    },
+                  ),
+                ),
+              );
+            }
+          },
         );
       },
     );
-  }
-}
-
-class _AnnotationClickListener extends OnCircleAnnotationClickListener {
-  _AnnotationClickListener({required this.onAnnotationClick});
-
-  final void Function(CircleAnnotation annotation) onAnnotationClick;
-
-  @override
-  void onCircleAnnotationClick(CircleAnnotation annotation) {
-    onAnnotationClick(annotation);
   }
 }

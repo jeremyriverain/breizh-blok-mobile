@@ -12,7 +12,7 @@ publish_to: 'none'
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.15.0+2.15.0
+version: 2.16.0+2.16.0
 
 environment:
   sdk: '>=3.7.0 <4.0.0'
@@ -45,7 +45,7 @@ dependencies:
   json_annotation: ^4.9.0
   location: ^8.0.0
   map_launcher: ^3.5.0
-  mapbox_maps_flutter: ^2.6.1
+  mapbox_maps_flutter: ^2.10.0
   mixpanel_flutter: ^2.3.4
   path: ^1.8.3
   path_provider: ^2.1.5

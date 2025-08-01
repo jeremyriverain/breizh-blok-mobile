@@ -1,11 +1,12 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
-import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
+import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute_boulder_form_view.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_message_form_screen.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -68,7 +69,7 @@ void main() {
       testWidgets(
         '''
 Given I click on the Contribute ListTile
-Then a ContributeBoulderFormView is displayed
+Then a ContributeBoulderScreen is displayed
 ''',
         (WidgetTester tester) async {
           when(
@@ -91,18 +92,20 @@ Then a ContributeBoulderFormView is displayed
 
           await tester.tap(find.widgetWithText(ListTile, 'Contribuer'));
 
-          await tester.pump();
+          await tester.pumpAndSettle();
 
-          expect(find.byType(ContributeBoulderFormView), findsOneWidget);
+          expect(find.byType(ContributeBoulderScreen), findsOneWidget);
+
+          expect(find.text('Contribuer à ${fakeBoulder.name}'), findsOneWidget);
         },
       );
 
       testWidgets(
         '''
-Given a ContributeBoulderFormView is displayed after tapping on Contribuer ListTile
-When I click on Annuler
-Then the ContributeBoulderFormView disappears
-''',
+      Given a BoulderMessageFormView is displayed after tapping on Contribuer ListTile
+      When I click on Annuler
+      Then I am redirected to ContributeBoulderView
+      ''',
         (WidgetTester tester) async {
           when(
             () => boulderRepository.find('foo'),
@@ -122,30 +125,37 @@ Then the ContributeBoulderFormView disappears
 
           await tester.tap(find.widgetWithText(ListTile, 'Contribuer'));
 
-          await tester.pump();
+          await tester.pumpAndSettle();
 
-          expect(find.byType(ContributeBoulderFormView), findsOneWidget);
+          await tester.tap(
+            find.text('Adresser un commentaire, une suggestion'),
+          );
+
+          await tester.pumpAndSettle();
+
+          expect(find.byType(BoulderMessageFormScreen), findsOneWidget);
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
+              of: find.byType(BoulderMessageFormScreen),
               matching: find.widgetWithText(TextButton, 'Annuler'),
             ),
           );
 
-          await tester.pump();
+          await tester.pumpAndSettle();
 
-          expect(find.byType(ContributeBoulderFormView), findsNothing);
+          expect(find.byType(BoulderMessageFormScreen), findsNothing);
+          expect(find.byType(ContributeBoulderScreen), findsOneWidget);
         },
       );
 
       testWidgets(
         '''
-Given a ContributeBoulderFormView is displayed after tapping on Contribuer ListTile
-And the form contains a message
-When I click on Annuler and open again the dialog,
-Then the previous message appears
-''',
+      Given a BoulderMessageFormScreen is displayed after tapping on Contribuer ListTile
+      And the form contains a message
+      When I click on Annuler and go again to BoulderMessageFormScreen,
+      Then the previous message appears
+      ''',
         (WidgetTester tester) async {
           when(
             () => boulderRepository.find('foo'),
@@ -165,25 +175,43 @@ Then the previous message appears
 
           await tester.tap(find.widgetWithText(ListTile, 'Contribuer'));
 
-          await tester.pump();
+          await tester.pumpAndSettle();
+
+          await tester.tap(
+            find.text('Adresser un commentaire, une suggestion'),
+          );
+
+          await tester.pumpAndSettle();
 
           await tester.enterText(find.byType(ReactiveTextField<String>), 'foo');
           await tester.pump();
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
+              of: find.byType(BoulderMessageFormScreen),
               matching: find.widgetWithText(TextButton, 'Annuler'),
             ),
           );
 
-          await tester.pump();
+          await tester.pumpAndSettle();
 
-          expect(find.byType(ContributeBoulderFormView), findsNothing);
+          expect(find.byType(BoulderMessageFormScreen), findsNothing);
+
+          await tester.tap(find.byType(BackButton));
+
+          await tester.pumpAndSettle();
+
+          expect(find.byType(BoulderDetailsScreen), findsOneWidget);
 
           await tester.tap(find.widgetWithText(ListTile, 'Contribuer'));
 
-          await tester.pump();
+          await tester.pumpAndSettle();
+
+          await tester.tap(
+            find.text('Adresser un commentaire, une suggestion'),
+          );
+
+          await tester.pumpAndSettle();
 
           expect(
             find.widgetWithText(ReactiveTextField<String>, 'foo'),
@@ -194,10 +222,10 @@ Then the previous message appears
 
       testWidgets(
         '''
-Given the form is invalid,
-When I submit it,
-Then the message field displays a error message
-''',
+      Given the form is invalid,
+      When I submit it,
+      Then the message field displays a error message
+      ''',
         (WidgetTester tester) async {
           when(
             () => boulderRepository.find('foo'),
@@ -217,12 +245,18 @@ Then the message field displays a error message
 
           await tester.tap(find.widgetWithText(ListTile, 'Contribuer'));
 
-          await tester.pump();
+          await tester.pumpAndSettle();
+
+          await tester.tap(
+            find.text('Adresser un commentaire, une suggestion'),
+          );
+
+          await tester.pumpAndSettle();
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
-              matching: find.widgetWithText(TextButton, 'Envoyer'),
+              of: find.byType(BoulderMessageFormScreen),
+              matching: find.widgetWithText(FilledButton, 'Envoyer'),
             ),
           );
 
@@ -240,10 +274,10 @@ Then the message field displays a error message
 
       testWidgets(
         '''
-Given the form is valid and I submit it,
-If the repository returns an error,
-Then a error message is displayed
-''',
+      Given the form is valid and I submit it,
+      If the repository returns an error,
+      Then a error message is displayed
+      ''',
         (WidgetTester tester) async {
           when(
             () => boulderRepository.find('foo'),
@@ -268,15 +302,21 @@ Then a error message is displayed
 
           await tester.tap(find.widgetWithText(ListTile, 'Contribuer'));
 
-          await tester.pump();
+          await tester.pumpAndSettle();
+
+          await tester.tap(
+            find.text('Adresser un commentaire, une suggestion'),
+          );
+
+          await tester.pumpAndSettle();
 
           await tester.enterText(find.byType(ReactiveTextField<String>), 'foo');
           await tester.pump();
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
-              matching: find.widgetWithText(TextButton, 'Envoyer'),
+              of: find.byType(BoulderMessageFormScreen),
+              matching: find.widgetWithText(FilledButton, 'Envoyer'),
             ),
           );
 
@@ -290,23 +330,17 @@ Then a error message is displayed
             findsOneWidget,
           );
 
-          expect(
-            find.descendant(
-              of: find.byType(ContributeBoulderFormView),
-              matching: find.byType(AlertDialog),
-            ),
-            findsOneWidget,
-          );
+          expect(find.byType(BoulderMessageFormScreen), findsOneWidget);
         },
       );
 
       testWidgets(
         '''
-Given the form is valid and I submit it,
-If the repository returns a successful response,
-Then a success message is displayed
-And the ContributeBoulderFormView disappears
-''',
+      Given the form is valid and I submit it,
+      If the repository returns a successful response,
+      Then a success message is displayed
+      And the BoulderMessageFormScreen disappears
+      ''',
         (WidgetTester tester) async {
           when(
             () => boulderRepository.find('foo'),
@@ -335,7 +369,13 @@ And the ContributeBoulderFormView disappears
 
           await tester.tap(find.widgetWithText(ListTile, 'Contribuer'));
 
-          await tester.pump();
+          await tester.pumpAndSettle();
+
+          await tester.tap(
+            find.text('Adresser un commentaire, une suggestion'),
+          );
+
+          await tester.pumpAndSettle();
 
           await tester.enterText(find.byType(ReactiveTextField<String>), 'foo');
           await tester.pump();
@@ -344,7 +384,7 @@ And the ContributeBoulderFormView disappears
             tester
                 .widget<TextButton>(
                   find.descendant(
-                    of: find.byType(ContributeBoulderFormView),
+                    of: find.byType(BoulderMessageFormScreen),
                     matching: find.widgetWithText(TextButton, 'Annuler'),
                   ),
                 )
@@ -354,10 +394,10 @@ And the ContributeBoulderFormView disappears
 
           expect(
             tester
-                .widget<TextButton>(
+                .widget<FilledButton>(
                   find.descendant(
-                    of: find.byType(ContributeBoulderFormView),
-                    matching: find.widgetWithText(TextButton, 'Envoyer'),
+                    of: find.byType(BoulderMessageFormScreen),
+                    matching: find.widgetWithText(FilledButton, 'Envoyer'),
                   ),
                 )
                 .enabled,
@@ -366,8 +406,8 @@ And the ContributeBoulderFormView disappears
 
           await tester.tap(
             find.descendant(
-              of: find.byType(ContributeBoulderFormView),
-              matching: find.widgetWithText(TextButton, 'Envoyer'),
+              of: find.byType(BoulderMessageFormScreen),
+              matching: find.widgetWithText(FilledButton, 'Envoyer'),
             ),
           );
 
@@ -378,7 +418,7 @@ And the ContributeBoulderFormView disappears
             tester
                 .widget<TextButton>(
                   find.descendant(
-                    of: find.byType(ContributeBoulderFormView),
+                    of: find.byType(BoulderMessageFormScreen),
                     matching: find.widgetWithText(TextButton, 'Annuler'),
                   ),
                 )
@@ -388,10 +428,10 @@ And the ContributeBoulderFormView disappears
 
           expect(
             tester
-                .widget<TextButton>(
+                .widget<FilledButton>(
                   find.descendant(
-                    of: find.byType(ContributeBoulderFormView),
-                    matching: find.widgetWithText(TextButton, 'Envoyer'),
+                    of: find.byType(BoulderMessageFormScreen),
+                    matching: find.widgetWithText(FilledButton, 'Envoyer'),
                   ),
                 )
                 .enabled,
@@ -405,16 +445,13 @@ And the ContributeBoulderFormView disappears
               of: find.byType(SnackBar),
               matching: find.text('Merci, votre message a été envoyé'),
             ),
-            findsOneWidget,
+            findsAny,
           );
 
-          expect(
-            find.descendant(
-              of: find.byType(ContributeBoulderFormView),
-              matching: find.byType(AlertDialog),
-            ),
-            findsNothing,
-          );
+          await tester.pumpAndSettle();
+
+          expect(find.byType(BoulderMessageFormScreen), findsNothing);
+          expect(find.byType(BoulderDetailsScreen), findsOneWidget);
         },
       );
     });
