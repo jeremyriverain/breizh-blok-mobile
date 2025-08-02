@@ -153,6 +153,7 @@ class ContributeBoulderMapScreen extends StatelessWidget {
                                 builder: (context, _, child) {
                                   return Text(
                                     state.form.latitude.toString(),
+                                    key: const ValueKey('latitude'),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
@@ -175,6 +176,7 @@ class ContributeBoulderMapScreen extends StatelessWidget {
                                 builder: (context, _, _) {
                                   return Text(
                                     state.form.longitude.toString(),
+                                    key: const ValueKey('longitude'),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
