@@ -1,14 +1,14 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
-import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/boulder/contribute_boulder_form.dart';
-import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_view_model.dart';
+import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_message_form.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute_boulder_form_view.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
@@ -92,30 +92,32 @@ class BoulderDetailsTab extends StatelessWidget {
           const Divider(),
           BlocProvider(
             create:
-                (context) => ContributeBoulderViewModel(
-                  form: ContributeBoulderForm(),
+                (context) => BoulderMessageFeedbackViewModel(
+                  form: ContributeBoulderMessageForm(),
                   boulderFeedbackRepository:
                       GetIt.I.get<BoulderFeedbackRepository>(),
                   boulder: boulder,
                 ),
             child: Builder(
-              builder: (blocContext) {
+              builder: (parentContext) {
                 return ListTile(
                   leading: const Icon(Icons.feedback),
                   title: Text(localizations.contribute),
                   trailing: const Icon(Icons.arrow_right_outlined),
                   onTap: () {
-                    showDialog<void>(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) {
-                        return BlocProvider.value(
-                          value: BlocProvider.of<ContributeBoulderViewModel>(
-                            blocContext,
-                          ),
-                          child: ContributeBoulderFormView(boulder: boulder),
-                        );
-                      },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder:
+                            (context) => BlocProvider<
+                              BoulderMessageFeedbackViewModel
+                            >.value(
+                              value:
+                                  parentContext
+                                      .read<BoulderMessageFeedbackViewModel>(),
+                              child: ContributeBoulderScreen(boulder: boulder),
+                            ),
+                      ),
                     );
                   },
                 );

@@ -70,12 +70,10 @@ class _BoulderDetailsMapTabState extends State<BoulderDetailsMapTab>
                     );
 
                     await pointAnnotationManager.create(pointAnnotationOptions);
-                    pointAnnotationManager.addOnPointAnnotationClickListener(
-                      _AnnotationClickListener(
-                        onAnnotationClick: (annotation) {
-                          state.onClickMarker?.call(context);
-                        },
-                      ),
+                    pointAnnotationManager.tapEvents(
+                      onTap: (annotation) {
+                        state.onClickMarker?.call(context);
+                      },
                     );
                   },
                 ),
@@ -98,15 +96,4 @@ class _BoulderDetailsMapTabState extends State<BoulderDetailsMapTab>
 
   @override
   bool get wantKeepAlive => true;
-}
-
-class _AnnotationClickListener extends OnPointAnnotationClickListener {
-  _AnnotationClickListener({required this.onAnnotationClick});
-
-  final void Function(PointAnnotation annotation) onAnnotationClick;
-
-  @override
-  void onPointAnnotationClick(PointAnnotation annotation) {
-    onAnnotationClick(annotation);
-  }
 }

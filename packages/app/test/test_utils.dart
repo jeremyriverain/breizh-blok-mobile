@@ -14,7 +14,7 @@ const fakeBoulder = Boulder(
   rock: Rock(
     iri: '/rocks/foo',
     boulderArea: fakeBoulderArea,
-    location: Location(latitude: 49, longitude: 49),
+    location: Location(latitude: 49.1, longitude: 48.2),
   ),
 );
 

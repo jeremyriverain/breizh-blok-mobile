@@ -176,6 +176,12 @@ abstract class AppLocalizations {
   /// **'Close the modal'**
   String get closeTheModal;
 
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get comingSoon;
+
   /// No description provided for @comments.
   ///
   /// In en, this message translates to:
@@ -326,6 +332,12 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get language;
 
+  /// No description provided for @latitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Latitude'**
+  String get latitude;
+
   /// No description provided for @lessThanNMeters.
   ///
   /// In en, this message translates to:
@@ -344,11 +356,29 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logout;
 
+  /// No description provided for @longitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Longitude'**
+  String get longitude;
+
+  /// No description provided for @makeSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Post a comment, make a suggestion'**
+  String get makeSuggestion;
+
   /// No description provided for @map.
   ///
   /// In en, this message translates to:
   /// **'Map'**
   String get map;
+
+  /// No description provided for @mapFormHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'The location of the boulder {boulderName} is represented by the marker on the map. By pressing and holding the marker, you can drag and move it to change its coordinates.'**
+  String mapFormHelper({required String boulderName});
 
   /// No description provided for @max.
   ///
@@ -468,6 +498,12 @@ abstract class AppLocalizations {
   /// **'Parking of '**
   String get parkingOfTheBoulderArea;
 
+  /// No description provided for @relevantBoulder.
+  ///
+  /// In en, this message translates to:
+  /// **'Relevant boulder'**
+  String get relevantBoulder;
+
   /// No description provided for @returnToTheTop.
   ///
   /// In en, this message translates to:
@@ -545,6 +581,18 @@ abstract class AppLocalizations {
   /// **'Sort by'**
   String get sortBy;
 
+  /// No description provided for @specifyBoulderLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Specifiy the boulder\'s location'**
+  String get specifyBoulderLocation;
+
+  /// No description provided for @submitLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit location'**
+  String get submitLocation;
+
   /// No description provided for @suggestions.
   ///
   /// In en, this message translates to:
@@ -562,6 +610,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Bouldering is a dangerous activity. Its practice is under the entire responsibility of the practitioners. Breizh Blok declines all responsibility in the event of an accident.'**
   String get termsOfUseContent;
+
+  /// No description provided for @thanksWeWillReviewYourContribution.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks! We\'ll review your contribution.'**
+  String get thanksWeWillReviewYourContribution;
 
   /// No description provided for @theEasiest.
   ///

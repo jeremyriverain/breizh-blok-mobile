@@ -61,7 +61,9 @@ class _MyMapState extends State<MyMap> {
             viewport: _viewport,
             onMapCreated: (mapboxMap) async {
               try {
-                _mapboxMap = mapboxMap;
+                setState(() {
+                  _mapboxMap = mapboxMap;
+                });
                 await _mapboxMap?.attribution.updateSettings(
                   AttributionSettings(enabled: false),
                 );
