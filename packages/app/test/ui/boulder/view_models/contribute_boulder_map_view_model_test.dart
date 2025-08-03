@@ -49,7 +49,7 @@ Then the repository is called
           () => repository.create(
             const BoulderFeedback(
               boulder: fakeBoulder,
-              newLocation: Location(latitude: 9, longitude: 1),
+              newLocation: Location(latitude: 9, longitude: 23),
             ),
           ),
         ).thenAnswer(
@@ -69,11 +69,13 @@ Then the repository is called
           (bloc) =>
               bloc
                 ..add(UpdateLatitudeEvent(latitude: 9))
+                ..add(UpdateLongitudeEvent(longitude: 23))
                 ..add(SubmitLocationEvent()),
       expect:
           () => [
             isA<ContributeBoulderMapState>()
                 .having((c) => c.form.latitude, 'latitude', equals(9))
+                .having((c) => c.form.longitude, 'lnogitude', equals(23))
                 .having((c) => c.pending, 'pending', isTrue)
                 .having((c) => c.error, 'error', isFalse)
                 .having((c) => c.done, 'done', isFalse),
@@ -82,6 +84,72 @@ Then the repository is called
                 .having((c) => c.error, 'error', isFalse)
                 .having((c) => c.done, 'done', isTrue),
           ],
+      verify: (bloc) {
+        verify(
+          () => repository.create(
+            const BoulderFeedback(
+              boulder: fakeBoulder,
+              newLocation: Location(latitude: 9, longitude: 23),
+            ),
+          ),
+        ).called(1);
+      },
+    );
+
+    blocTest<ContributeBoulderMapViewModel, ContributeBoulderMapState>(
+      '''
+Given I submit
+And the network call fails,
+Then the exception is properly handled
+''',
+
+      setUp: () {
+        when(
+          () => repository.create(
+            const BoulderFeedback(
+              boulder: fakeBoulder,
+              newLocation: Location(latitude: 9, longitude: 23),
+            ),
+          ),
+        ).thenAnswer(
+          (_) => TaskEither.left(const UnknownException(message: 'foo')),
+        );
+      },
+      build:
+          () => ContributeBoulderMapViewModel(
+            boulderFeedbackRepository: repository,
+            boulder: fakeBoulder,
+            form: ContributeBoulderLocationForm(latitude: 0, longitude: 1),
+          ),
+      act:
+          (bloc) =>
+              bloc
+                ..add(UpdateLatitudeEvent(latitude: 9))
+                ..add(UpdateLongitudeEvent(longitude: 23))
+                ..add(SubmitLocationEvent()),
+      expect:
+          () => [
+            isA<ContributeBoulderMapState>()
+                .having((c) => c.form.latitude, 'latitude', equals(9))
+                .having((c) => c.form.longitude, 'lnogitude', equals(23))
+                .having((c) => c.pending, 'pending', isTrue)
+                .having((c) => c.error, 'error', isFalse)
+                .having((c) => c.done, 'done', isFalse),
+            isA<ContributeBoulderMapState>()
+                .having((c) => c.pending, 'pending', isFalse)
+                .having((c) => c.error, 'error', isTrue)
+                .having((c) => c.done, 'done', isFalse),
+          ],
+      verify: (bloc) {
+        verify(
+          () => repository.create(
+            const BoulderFeedback(
+              boulder: fakeBoulder,
+              newLocation: Location(latitude: 9, longitude: 23),
+            ),
+          ),
+        ).called(1);
+      },
     );
   });
 }
