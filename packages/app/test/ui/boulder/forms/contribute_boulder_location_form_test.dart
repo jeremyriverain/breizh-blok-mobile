@@ -6,28 +6,6 @@ void main() {
     group('latitude', () {
       test(
         '''
-Given the field "latitude" is equal to the initial value,
-Then this field is invalid
-''',
-        () async {
-          final form = ContributeBoulderLocationForm(latitude: 0, longitude: 0);
-
-          final latitudeKey = ContributeBoulderLocationForm.formKeys.latitude;
-
-          expect(form.valid, isFalse);
-          expect(
-            form.errors[latitudeKey],
-            equals({
-              'notEqual': {'forbiddenValue': 0},
-            }),
-          );
-          form.control(latitudeKey).value = 1.toDouble();
-
-          expect(form.errors.keys.contains(latitudeKey), isFalse);
-        },
-      );
-      test(
-        '''
 Given the field "latitude" is null,
 Then this field is invalid
 ''',
@@ -101,29 +79,6 @@ Then this field is invalid
     group('longitude', () {
       test(
         '''
-Given the field "longitude" is equal to the initial value,
-Then this field is invalid
-''',
-        () async {
-          final form = ContributeBoulderLocationForm(latitude: 0, longitude: 0);
-
-          final longitudeKey = ContributeBoulderLocationForm.formKeys.longitude;
-
-          expect(form.valid, isFalse);
-          expect(
-            form.errors[longitudeKey],
-            equals({
-              'notEqual': {'forbiddenValue': 0},
-            }),
-          );
-          form.control(longitudeKey).value = 1.toDouble();
-
-          expect(form.errors.keys.contains(longitudeKey), isFalse);
-        },
-      );
-
-      test(
-        '''
 Given the field "longitude" is null,
 Then this field is invalid
 ''',
@@ -190,6 +145,53 @@ Then this field is invalid
           expect(form.errors[longitudeKey], {
             'min': {'min': -180, 'actual': -181.0},
           });
+        },
+      );
+    });
+
+    group('form', () {
+      test(
+        '''
+Given the fields "longitude" and "latitude" have not changed
+Then the form is invalid
+''',
+        () async {
+          final form = ContributeBoulderLocationForm(latitude: 0, longitude: 0);
+
+          expect(form.valid, isFalse);
+        },
+      );
+
+      test(
+        '''
+Given the field "longitude" has not changed
+But the field "latitude" has changed
+Then the form is valid
+''',
+        () async {
+          final form = ContributeBoulderLocationForm(latitude: 0, longitude: 0);
+
+          final longitudeKey = ContributeBoulderLocationForm.formKeys.longitude;
+
+          form.control(longitudeKey).value = -10.toDouble();
+          expect(form.valid, isTrue);
+        },
+      );
+
+      test(
+        '''
+Given the field "latitude" has not changed
+But the field "longitude" has changed
+Then the form is valid
+''',
+        () async {
+          final form = ContributeBoulderLocationForm(latitude: 0, longitude: 0);
+
+          final latitudeKey = ContributeBoulderLocationForm.formKeys.latitude;
+
+          form.control(latitudeKey).value = -10.toDouble();
+
+          expect(form.valid, isTrue);
         },
       );
     });
