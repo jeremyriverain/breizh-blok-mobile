@@ -1,4 +1,6 @@
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_location_form.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,10 +12,19 @@ import '../../../../widget_test_utils.dart';
 
 void main() {
   late BoulderFeedbackRepository boulderFeedbackRepository;
+  late ContributeBoulderMapViewModel viewModel;
 
   setUp(() {
     boulderFeedbackRepository = MockBoulderFeedbackRepository();
     GetIt.I.registerSingleton(boulderFeedbackRepository);
+    viewModel = ContributeBoulderMapViewModel(
+      form: ContributeBoulderLocationForm(
+        latitude: fakeBoulder.rock.location.latitude,
+        longitude: fakeBoulder.rock.location.longitude,
+      ),
+      boulderFeedbackRepository: GetIt.I<BoulderFeedbackRepository>(),
+      boulder: fakeBoulder,
+    );
   });
   group('ContributeBoulderMapScreen', () {
     testWidgets('display initial latitude and longitude', (tester) async {
@@ -23,7 +34,7 @@ void main() {
       );
 
       await tester.myPumpWidget(
-        widget: const ContributeBoulderMapScreen(boulder: fakeBoulder),
+        widget: ContributeBoulderMapScreen(viewModel: viewModel),
       );
 
       await tester.pump();
@@ -53,7 +64,7 @@ void main() {
 
     testWidgets('submit button is initially disabled', (tester) async {
       await tester.myPumpWidget(
-        widget: const ContributeBoulderMapScreen(boulder: fakeBoulder),
+        widget: ContributeBoulderMapScreen(viewModel: viewModel),
       );
 
       await tester.pump();

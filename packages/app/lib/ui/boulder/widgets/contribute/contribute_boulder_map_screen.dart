@@ -1,23 +1,19 @@
 import 'package:breizh_blok_mobile/config/assets.dart';
-import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
-import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/extensions.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_location_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/form_spinner.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class ContributeBoulderMapScreen extends StatelessWidget {
-  const ContributeBoulderMapScreen({required this.boulder, super.key});
+  const ContributeBoulderMapScreen({required this.viewModel, super.key});
 
-  final Boulder boulder;
+  final ContributeBoulderMapViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +23,8 @@ class ContributeBoulderMapScreen extends StatelessWidget {
       appBar: AppBar(
         title: FittedBox(child: Text(localizations.specifyBoulderLocation)),
       ),
-      body: BlocProvider(
-        create:
-            (context) => ContributeBoulderMapViewModel(
-              form: ContributeBoulderLocationForm(
-                latitude: boulder.rock.location.latitude,
-                longitude: boulder.rock.location.longitude,
-              ),
-              boulderFeedbackRepository: GetIt.I<BoulderFeedbackRepository>(),
-              boulder: boulder,
-            ),
+      body: BlocProvider.value(
+        value: viewModel,
         child: BlocConsumer<
           ContributeBoulderMapViewModel,
           ContributeBoulderMapState
@@ -68,7 +56,9 @@ class ContributeBoulderMapScreen extends StatelessWidget {
                 children: [
                   ListTile(
                     subtitle: Text(
-                      localizations.mapFormHelper(boulderName: boulder.name),
+                      localizations.mapFormHelper(
+                        boulderName: viewModel.boulder.name,
+                      ),
                     ),
                   ),
                   Expanded(
@@ -80,8 +70,8 @@ class ContributeBoulderMapScreen extends StatelessWidget {
                             zoom: 15,
                             center: Point(
                               coordinates: Position(
-                                boulder.rock.location.longitude,
-                                boulder.rock.location.latitude,
+                                viewModel.boulder.rock.location.longitude,
+                                viewModel.boulder.rock.location.latitude,
                               ),
                             ),
                           ),
@@ -102,8 +92,8 @@ class ContributeBoulderMapScreen extends StatelessWidget {
                                 PointAnnotationOptions(
                                   geometry: Point(
                                     coordinates: Position(
-                                      boulder.rock.location.longitude,
-                                      boulder.rock.location.latitude,
+                                      viewModel.boulder.rock.location.longitude,
+                                      viewModel.boulder.rock.location.latitude,
                                     ),
                                   ),
                                   image: imageData,
