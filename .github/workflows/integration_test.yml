@@ -49,7 +49,7 @@ jobs:
           cd packages/app/android
           ./gradlew app:assembleAndroidTest
 
-          ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/packages/app/integration_test/app_test.dart"
+          ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/packages/app/integration_test/all_test.dart"
 
       - name: Run Tests in Firebase Test Lab
         run: |
