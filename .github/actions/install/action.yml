@@ -18,11 +18,11 @@ runs:
     - name: Setup Flutter SDK
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.32.6'
-        channel: 'stable'
+        flutter-version: "3.35.2"
+        channel: "stable"
         cache: true
-        cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
-        cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
+        cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+        cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
     - name: Set melos sdk path
       run: |
         echo "MELOS_SDK_PATH=$FLUTTER_ROOT" >> "$GITHUB_ENV"
