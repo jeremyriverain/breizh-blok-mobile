@@ -1,6 +1,6 @@
 name: breizh_blok_mobile
 description: Application répertoriant des blocs d'escalade en Bretagne
-publish_to: 'none'
+publish_to: "none"
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -15,7 +15,7 @@ publish_to: 'none'
 version: 2.16.0+2.16.0
 
 environment:
-  sdk: '>=3.7.0 <4.0.0'
+  sdk: "^3.9.0"
 
 dependencies:
   breizh_blok_api_generated:
