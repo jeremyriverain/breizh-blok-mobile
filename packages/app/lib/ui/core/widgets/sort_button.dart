@@ -55,26 +55,29 @@ class _SortButtonState extends State<SortButton> {
                 ),
                 content: Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (final orderChoice in widget.choices)
-                        RadioListTile<ApiOrderParam>(
-                          value: orderChoice.orderParam,
-                          groupValue: _value,
-                          onChanged: (value) {
-                            if (value == null) {
-                              return;
-                            }
-                            setState(() {
-                              _value = value;
-                            });
-                            widget.onChanged(value);
-                            Navigator.of(dialogContext).pop();
-                          },
-                          title: Text(orderChoice.label),
-                        ),
-                    ],
+                  child: RadioGroup<ApiOrderParam>(
+                    groupValue: _value,
+                    onChanged: (value) {
+                      if (value == null) {
+                        return;
+                      }
+                      setState(() {
+                        _value = value;
+                      });
+                      widget.onChanged(value);
+                      Navigator.of(dialogContext).pop();
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        for (final orderChoice in widget.choices)
+                          RadioListTile<ApiOrderParam>(
+                            value: orderChoice.orderParam,
+
+                            title: Text(orderChoice.label),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ),

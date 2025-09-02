@@ -7,22 +7,6 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../widget_test_utils.dart';
 
 void main() {
-  final radioListTileType =
-      const RadioListTile<ApiOrderParam>(
-        value: ApiOrderParam(name: '', direction: ''),
-        groupValue: ApiOrderParam(name: '', direction: ''),
-        onChanged: null,
-      ).runtimeType;
-
-  List<RadioListTile<ApiOrderParam>> findTiles() {
-    return find
-        .byType(radioListTileType)
-        .evaluate()
-        .map<Widget>((Element element) => element.widget)
-        .cast<RadioListTile<ApiOrderParam>>()
-        .toList();
-  }
-
   final choices = [
     ApiOrderChoice(
       label: 'label 1',
@@ -51,10 +35,15 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text(defaultLabel), findsOneWidget);
-    var generatedRadioListTiles = findTiles();
 
-    expect(generatedRadioListTiles[0].checked, equals(false));
-    expect(generatedRadioListTiles[1].checked, equals(false));
+    expect(
+      tester
+          .widget<RadioGroup<ApiOrderParam>>(
+            find.byType(RadioGroup<ApiOrderParam>),
+          )
+          .groupValue,
+      isNull,
+    );
 
     await tester.tap(find.text('label 1'));
     await tester.pumpAndSettle();
@@ -64,10 +53,14 @@ void main() {
     await tester.tap(find.byKey(const Key('sort-button')));
     await tester.pumpAndSettle();
 
-    generatedRadioListTiles = findTiles();
-
-    expect(generatedRadioListTiles[0].checked, equals(true));
-    expect(generatedRadioListTiles[1].checked, equals(false));
+    expect(
+      tester
+          .widget<RadioGroup<ApiOrderParam>>(
+            find.byType(RadioGroup<ApiOrderParam>),
+          )
+          .groupValue,
+      equals(const ApiOrderParam(direction: 'bar', name: 'foo')),
+    );
 
     expect(result, equals(choices[0].orderParam));
   });
@@ -90,10 +83,14 @@ void main() {
       await tester.tap(find.byKey(const Key('sort-button')));
       await tester.pumpAndSettle();
 
-      final generatedRadioListTiles = findTiles();
-
-      expect(generatedRadioListTiles[0].checked, equals(false));
-      expect(generatedRadioListTiles[1].checked, equals(true));
+      expect(
+        tester
+            .widget<RadioGroup<ApiOrderParam>>(
+              find.byType(RadioGroup<ApiOrderParam>),
+            )
+            .groupValue,
+        equals(const ApiOrderParam(direction: 'foo', name: 'bar')),
+      );
 
       expect(find.text(label), findsOneWidget);
     },

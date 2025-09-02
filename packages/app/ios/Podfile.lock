@@ -141,7 +141,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Auth0: 2876d0c36857422eda9cb580a6cc896c7d14cb36
   auth0_flutter: 5b921a0291e9cf364ffd473f7689156df88356b3
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
   JWTDecode: 7dae24cb9bf9b608eae61e5081029ec169bb5527
   location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
