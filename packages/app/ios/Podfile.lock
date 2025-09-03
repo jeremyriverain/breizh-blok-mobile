@@ -2,7 +2,7 @@ PODS:
   - Auth0 (2.10.0):
     - JWTDecode (= 3.2.0)
     - SimpleKeychain (= 1.2.0)
-  - auth0_flutter (1.10.0):
+  - auth0_flutter (1.13.0):
     - Auth0 (= 2.10.0)
     - Flutter
     - FlutterMacOS
@@ -28,12 +28,12 @@ PODS:
     - MapboxCommon (= 24.14.0)
     - MapboxCoreMaps (= 11.14.0)
     - Turf (= 4.0.0)
-  - Mixpanel-swift (4.3.0):
-    - Mixpanel-swift/Complete (= 4.3.0)
-  - Mixpanel-swift/Complete (4.3.0)
-  - mixpanel_flutter (2.3.4):
+  - Mixpanel-swift (5.1.0):
+    - Mixpanel-swift/Complete (= 5.1.0)
+  - Mixpanel-swift/Complete (5.1.0)
+  - mixpanel_flutter (2.4.4):
     - Flutter
-    - Mixpanel-swift (= 4.3.0)
+    - Mixpanel-swift (= 5.1.0)
   - package_info_plus (0.4.5):
     - Flutter
   - path_provider_foundation (0.0.1):
@@ -42,7 +42,7 @@ PODS:
   - permission_handler_apple (9.3.0):
     - Flutter
   - Sentry/HybridSDK (8.52.1)
-  - sentry_flutter (9.5.0):
+  - sentry_flutter (9.6.0):
     - Flutter
     - FlutterMacOS
     - Sentry/HybridSDK (= 8.52.1)
@@ -55,25 +55,31 @@ PODS:
   - sqflite (0.0.3):
     - Flutter
     - FlutterMacOS
-  - sqlite3 (3.49.2):
-    - sqlite3/common (= 3.49.2)
-  - sqlite3/common (3.49.2)
-  - sqlite3/dbstatvtab (3.49.2):
+  - sqlite3 (3.50.4):
+    - sqlite3/common (= 3.50.4)
+  - sqlite3/common (3.50.4)
+  - sqlite3/dbstatvtab (3.50.4):
     - sqlite3/common
-  - sqlite3/fts5 (3.49.2):
+  - sqlite3/fts5 (3.50.4):
     - sqlite3/common
-  - sqlite3/perf-threadsafe (3.49.2):
+  - sqlite3/math (3.50.4):
     - sqlite3/common
-  - sqlite3/rtree (3.49.2):
+  - sqlite3/perf-threadsafe (3.50.4):
+    - sqlite3/common
+  - sqlite3/rtree (3.50.4):
+    - sqlite3/common
+  - sqlite3/session (3.50.4):
     - sqlite3/common
   - sqlite3_flutter_libs (0.0.1):
     - Flutter
     - FlutterMacOS
-    - sqlite3 (~> 3.49.1)
+    - sqlite3 (~> 3.50.4)
     - sqlite3/dbstatvtab
     - sqlite3/fts5
+    - sqlite3/math
     - sqlite3/perf-threadsafe
     - sqlite3/rtree
+    - sqlite3/session
   - Turf (4.0.0)
 
 DEPENDENCIES:
@@ -140,29 +146,29 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Auth0: 2876d0c36857422eda9cb580a6cc896c7d14cb36
-  auth0_flutter: 5b921a0291e9cf364ffd473f7689156df88356b3
+  auth0_flutter: ed412046132ba605c1ff968259db120def86661b
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
   JWTDecode: 7dae24cb9bf9b608eae61e5081029ec169bb5527
   location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
-  map_launcher: fe43bda6720bb73c12fcc1bdd86123ff49a4d4d6
+  map_launcher: 8051ad5783913cafce93f2414c6858f2904fd8df
   mapbox_maps_flutter: 63957d7c8978bba514fb113906e0d87767eadb5f
   MapboxCommon: 7aa10394fbcfc1d5a737d2a157c35388666e77e5
   MapboxCoreMaps: fddb4a008e3200c963a68074afccd8f6d816544c
   MapboxMaps: 308bb0be5e7a59c9f68a3b06f48998ccb4477583
-  Mixpanel-swift: 2192b9a24cf41b870749e4e0e10fbc9822bb2b4a
-  mixpanel_flutter: a3c76135610714c50f64ccdc09a1c66cf9be546b
+  Mixpanel-swift: 7b26468fc0e2e521104e51d65c4bbf7cab8162f8
+  mixpanel_flutter: a0b6b937035899cd01951735ad5f87718b2ffee5
   package_info_plus: 5076a1ce937258be9d2d41781a0e9cd71f19a82f
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
   Sentry: 2cbbe3592f30050c60e916c63c7f5a2fa584005e
-  sentry_flutter: fcd61ad26b7890479c182deff29f1f0714319b52
+  sentry_flutter: 9b1e3e6934cb7040ffb71383c95a35f73523180c
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   SimpleKeychain: 768cf43ae778b1c21816e94dddf01bb8ee96a075
   sqflite: c35dad70033b8862124f8337cc994a809fcd9fa3
-  sqlite3: 3c950dc86011117c307eb0b28c4a7bb449dce9f1
-  sqlite3_flutter_libs: f8fc13346870e73fe35ebf6dbb997fbcd156b241
+  sqlite3: 73513155ec6979715d3904ef53a8d68892d4032b
+  sqlite3_flutter_libs: 83f8e9f5b6554077f1d93119fe20ebaa5f3a9ef1
   Turf: c9eb11a65d96af58cac523460fd40fec5061b081
 
 PODFILE CHECKSUM: e2afce7d25c5beacf8f3d73fdf258a72d1625bfe

@@ -83,36 +83,20 @@ void main() async {
 
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
 
-  Future<void> restoreFlutterError(Future<void> Function() call) async {
-    final originalOnError = FlutterError.onError!;
-    await call();
-    final overriddenOnError = FlutterError.onError!;
-
-    // restore FlutterError.onError
-    FlutterError.onError = (FlutterErrorDetails details) {
-      if (overriddenOnError != originalOnError) overriddenOnError(details);
-      originalOnError(details);
-    };
-  }
-
   Future<void> runApplication({required WidgetTester tester}) async {
-    await restoreFlutterError(() async {
-      SentryWidgetsFlutterBinding.ensureInitialized();
-      await SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-      ]);
+    SentryWidgetsFlutterBinding.ensureInitialized();
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-      MapboxOptions.setAccessToken(Env.mapboxToken);
+    MapboxOptions.setAccessToken(Env.mapboxToken);
 
-      await setupApp(
-        database: database,
-        shareContentService: shareContentService,
-        mixpanel: mixpanel,
-      );
+    await setupApp(
+      database: database,
+      shareContentService: shareContentService,
+      mixpanel: mixpanel,
+    );
 
-      await tester.pumpWidget(const MyApp());
-      await tester.pumpAndSettle();
-    });
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
   }
 
   Future<void> closeFilterModal(WidgetTester tester) async {
@@ -206,16 +190,18 @@ void main() async {
 
     final bouldersRequest =
         await (database.select(database.dbRequests)..where(
-          (tbl) => tbl.requestPath.like('/boulders?order%5Bid%5D=desc&page=1'),
-        )).getSingle();
+              (tbl) =>
+                  tbl.requestPath.like('/boulders?order%5Bid%5D=desc&page=1'),
+            ))
+            .getSingle();
 
     final boulders = parseBoulders(bouldersRequest.responseBody).items;
     expect(boulders[0].iri, contains('/boulders/'));
 
     final boulderRequest =
-        await (database.select(database.dbRequests)..where(
-          (tbl) => tbl.requestPath.equals(boulders[0].iri),
-        )).getSingleOrNull();
+        await (database.select(database.dbRequests)
+              ..where((tbl) => tbl.requestPath.equals(boulders[0].iri)))
+            .getSingleOrNull();
 
     final boulderReference = boulders[0];
     print('ref boulder: ${boulderReference.name}');
@@ -226,9 +212,9 @@ void main() async {
     await tester.pumpAndSettle();
 
     final boulderRequestAfterShowingDetails =
-        await (database.select(database.dbRequests)..where(
-          (tbl) => tbl.requestPath.equals(boulderReference.iri),
-        )).getSingleOrNull();
+        await (database.select(database.dbRequests)
+              ..where((tbl) => tbl.requestPath.equals(boulderReference.iri)))
+            .getSingleOrNull();
     expect(
       boulderRequestAfterShowingDetails?.requestPath,
       equals(boulderReference.iri),
