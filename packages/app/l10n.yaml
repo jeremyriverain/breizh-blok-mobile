@@ -7,5 +7,3 @@ preferred-supported-locales:
   - fr
 nullable-getter: false
 use-named-parameters: true
-
-synthetic-package: false

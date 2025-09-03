@@ -47,7 +47,7 @@ fvm dart run melos run test
 
 ```bash
 cd packages/app
-fvm flutter test integration_test
+fvm flutter test integration_test/all_test.dart
 ```
 
 ### Generate the launch icons

@@ -3,11 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class MyBarChart extends StatelessWidget {
-  const MyBarChart({
-    required this.data,
-    this.title,
-    super.key,
-  });
+  const MyBarChart({required this.data, this.title, super.key});
 
   final Map<String, int> data;
   final String? title;
@@ -16,8 +12,9 @@ class MyBarChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final values = data.values;
     final keys = data.keys;
-    final max =
-        values.reduce((value, element) => value > element ? value : element);
+    final max = values.reduce(
+      (value, element) => value > element ? value : element,
+    );
 
     final title_ = title;
     return Column(
@@ -42,12 +39,13 @@ class MyBarChart extends StatelessWidget {
   }
 
   BarTouchData get barTouchData => BarTouchData(
-        enabled: false,
-        touchTooltipData: BarTouchTooltipData(
-          getTooltipColor: (BarChartGroupData group) => Colors.transparent,
-          tooltipPadding: EdgeInsets.zero,
-          tooltipMargin: 8,
-          getTooltipItem: (
+    enabled: false,
+    touchTooltipData: BarTouchTooltipData(
+      getTooltipColor: (BarChartGroupData group) => Colors.transparent,
+      tooltipPadding: EdgeInsets.zero,
+      tooltipMargin: 8,
+      getTooltipItem:
+          (
             BarChartGroupData group,
             int groupIndex,
             BarChartRodData rod,
@@ -58,8 +56,8 @@ class MyBarChart extends StatelessWidget {
               const TextStyle(),
             );
           },
-        ),
-      );
+    ),
+  );
 
   FlTitlesData titlesData(List<String> titles) {
     return FlTitlesData(
@@ -68,13 +66,10 @@ class MyBarChart extends StatelessWidget {
           showTitles: true,
           reservedSize: 30,
           getTitlesWidget: (double value, TitleMeta meta) {
-            const style = TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            );
+            const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 14);
 
             return SideTitleWidget(
-              axisSide: meta.axisSide,
+              meta: meta,
               space: 4,
               child: Text(titles[value.toInt()], style: style),
             );
@@ -87,18 +82,13 @@ class MyBarChart extends StatelessWidget {
     );
   }
 
-  FlBorderData get borderData => FlBorderData(
-        show: false,
-      );
+  FlBorderData get borderData => FlBorderData(show: false);
 
   LinearGradient get _barsGradient => const LinearGradient(
-        colors: [
-          Colors.red,
-          Colors.green,
-        ],
-        begin: Alignment.bottomCenter,
-        end: Alignment.topCenter,
-      );
+    colors: [Colors.red, Colors.green],
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+  );
 
   List<BarChartGroupData> barGroups(List<int> values) {
     final barGroups = <BarChartGroupData>[];
