@@ -44,9 +44,7 @@ class MediaApi {
     final _path = r'/media';
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -82,9 +80,12 @@ class MediaApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(ApiMediaGetCollection200Response),
-            ) as ApiMediaGetCollection200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    ApiMediaGetCollection200Response,
+                  ),
+                )
+                as ApiMediaGetCollection200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -131,14 +132,14 @@ class MediaApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/media/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -168,9 +169,10 @@ class MediaApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(MediaJsonld),
-            ) as MediaJsonld;
+                  rawResponse,
+                  specifiedType: const FullType(MediaJsonld),
+                )
+                as MediaJsonld;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

@@ -15,16 +15,18 @@ part 'boulder_area_boulder_feedback_read.g.dart';
 @BuiltValue()
 abstract class BoulderAreaBoulderFeedbackRead
     implements
-        Built<BoulderAreaBoulderFeedbackRead,
-            BoulderAreaBoulderFeedbackReadBuilder> {
+        Built<
+          BoulderAreaBoulderFeedbackRead,
+          BoulderAreaBoulderFeedbackReadBuilder
+        > {
   @BuiltValueField(wireName: r'name')
   String get name;
 
   BoulderAreaBoulderFeedbackRead._();
 
-  factory BoulderAreaBoulderFeedbackRead(
-          [void updates(BoulderAreaBoulderFeedbackReadBuilder b)]) =
-      _$BoulderAreaBoulderFeedbackRead;
+  factory BoulderAreaBoulderFeedbackRead([
+    void updates(BoulderAreaBoulderFeedbackReadBuilder b),
+  ]) = _$BoulderAreaBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderAreaBoulderFeedbackReadBuilder b) => b;
@@ -39,7 +41,7 @@ class _$BoulderAreaBoulderFeedbackReadSerializer
   @override
   final Iterable<Type> types = const [
     BoulderAreaBoulderFeedbackRead,
-    _$BoulderAreaBoulderFeedbackRead
+    _$BoulderAreaBoulderFeedbackRead,
   ];
 
   @override
@@ -63,9 +65,11 @@ class _$BoulderAreaBoulderFeedbackReadSerializer
     BoulderAreaBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -81,10 +85,12 @@ class _$BoulderAreaBoulderFeedbackReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.name = valueDes;
           break;
         default:

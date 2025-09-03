@@ -34,7 +34,7 @@ class BoulderFeedbackApi {
   /// Returns a [Future] containing a [Response] with a [ApiBoulderFeedbacksGetCollection200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<ApiBoulderFeedbacksGetCollection200Response>>
-      apiBoulderFeedbacksGetCollection({
+  apiBoulderFeedbacksGetCollection({
     int? page = 1,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -46,9 +46,7 @@ class BoulderFeedbackApi {
     final _path = r'/boulder_feedbacks';
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -84,10 +82,12 @@ class BoulderFeedbackApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(ApiBoulderFeedbacksGetCollection200Response),
-            ) as ApiBoulderFeedbacksGetCollection200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    ApiBoulderFeedbacksGetCollection200Response,
+                  ),
+                )
+                as ApiBoulderFeedbacksGetCollection200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -125,7 +125,7 @@ class BoulderFeedbackApi {
   /// Returns a [Future] containing a [Response] with a [BoulderFeedbackJsonldBoulderFeedbackRead] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BoulderFeedbackJsonldBoulderFeedbackRead>>
-      apiBoulderFeedbacksIdGet({
+  apiBoulderFeedbacksIdGet({
     required String id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -135,14 +135,14 @@ class BoulderFeedbackApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/boulder_feedbacks/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -172,10 +172,12 @@ class BoulderFeedbackApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(BoulderFeedbackJsonldBoulderFeedbackRead),
-            ) as BoulderFeedbackJsonldBoulderFeedbackRead;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    BoulderFeedbackJsonldBoulderFeedbackRead,
+                  ),
+                )
+                as BoulderFeedbackJsonldBoulderFeedbackRead;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -213,9 +215,9 @@ class BoulderFeedbackApi {
   /// Returns a [Future] containing a [Response] with a [BoulderFeedbackJsonldBoulderFeedbackRead] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BoulderFeedbackJsonldBoulderFeedbackRead>>
-      apiBoulderFeedbacksPost({
+  apiBoulderFeedbacksPost({
     required BoulderFeedbackJsonldBoulderFeedbackWrite
-        boulderFeedbackJsonldBoulderFeedbackWrite,
+    boulderFeedbackJsonldBoulderFeedbackWrite,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -226,9 +228,7 @@ class BoulderFeedbackApi {
     final _path = r'/boulder_feedbacks';
     final _options = Options(
       method: r'POST',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -249,14 +249,12 @@ class BoulderFeedbackApi {
     try {
       const _type = FullType(BoulderFeedbackJsonldBoulderFeedbackWrite);
       _bodyData = _serializers.serialize(
-          boulderFeedbackJsonldBoulderFeedbackWrite,
-          specifiedType: _type);
+        boulderFeedbackJsonldBoulderFeedbackWrite,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
-        requestOptions: _options.compose(
-          _dio.options,
-          _path,
-        ),
+        requestOptions: _options.compose(_dio.options, _path),
         type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
@@ -279,10 +277,12 @@ class BoulderFeedbackApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(BoulderFeedbackJsonldBoulderFeedbackRead),
-            ) as BoulderFeedbackJsonldBoulderFeedbackRead;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    BoulderFeedbackJsonldBoulderFeedbackRead,
+                  ),
+                )
+                as BoulderFeedbackJsonldBoulderFeedbackRead;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

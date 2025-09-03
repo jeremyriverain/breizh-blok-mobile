@@ -20,8 +20,10 @@ part 'municipality_jsonld_municipality_item_get.g.dart';
 @BuiltValue()
 abstract class MunicipalityJsonldMunicipalityItemGet
     implements
-        Built<MunicipalityJsonldMunicipalityItemGet,
-            MunicipalityJsonldMunicipalityItemGetBuilder> {
+        Built<
+          MunicipalityJsonldMunicipalityItemGet,
+          MunicipalityJsonldMunicipalityItemGetBuilder
+        > {
   @BuiltValueField(wireName: r'@context')
   BoulderJsonldBoulderItemGetContext? get atContext;
 
@@ -36,9 +38,9 @@ abstract class MunicipalityJsonldMunicipalityItemGet
 
   MunicipalityJsonldMunicipalityItemGet._();
 
-  factory MunicipalityJsonldMunicipalityItemGet(
-          [void updates(MunicipalityJsonldMunicipalityItemGetBuilder b)]) =
-      _$MunicipalityJsonldMunicipalityItemGet;
+  factory MunicipalityJsonldMunicipalityItemGet([
+    void updates(MunicipalityJsonldMunicipalityItemGetBuilder b),
+  ]) = _$MunicipalityJsonldMunicipalityItemGet;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(MunicipalityJsonldMunicipalityItemGetBuilder b) => b;
@@ -53,7 +55,7 @@ class _$MunicipalityJsonldMunicipalityItemGetSerializer
   @override
   final Iterable<Type> types = const [
     MunicipalityJsonldMunicipalityItemGet,
-    _$MunicipalityJsonldMunicipalityItemGet
+    _$MunicipalityJsonldMunicipalityItemGet,
   ];
 
   @override
@@ -89,8 +91,9 @@ class _$MunicipalityJsonldMunicipalityItemGetSerializer
       yield r'centroid';
       yield serializers.serialize(
         object.centroid,
-        specifiedType:
-            const FullType.nullable(GeoPointJsonldMunicipalityItemGet),
+        specifiedType: const FullType.nullable(
+          GeoPointJsonldMunicipalityItemGet,
+        ),
       );
     }
   }
@@ -101,9 +104,11 @@ class _$MunicipalityJsonldMunicipalityItemGetSerializer
     MunicipalityJsonldMunicipalityItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -119,32 +124,43 @@ class _$MunicipalityJsonldMunicipalityItemGetSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'centroid':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType.nullable(GeoPointJsonldMunicipalityItemGet),
-          ) as GeoPointJsonldMunicipalityItemGet?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      GeoPointJsonldMunicipalityItemGet,
+                    ),
+                  )
+                  as GeoPointJsonldMunicipalityItemGet?;
           if (valueDes == null) continue;
           result.centroid.replace(valueDes);
           break;

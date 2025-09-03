@@ -18,8 +18,10 @@ part 'municipality_municipality_read.g.dart';
 @BuiltValue()
 abstract class MunicipalityMunicipalityRead
     implements
-        Built<MunicipalityMunicipalityRead,
-            MunicipalityMunicipalityReadBuilder> {
+        Built<
+          MunicipalityMunicipalityRead,
+          MunicipalityMunicipalityReadBuilder
+        > {
   @BuiltValueField(wireName: r'name')
   String get name;
 
@@ -28,9 +30,9 @@ abstract class MunicipalityMunicipalityRead
 
   MunicipalityMunicipalityRead._();
 
-  factory MunicipalityMunicipalityRead(
-          [void updates(MunicipalityMunicipalityReadBuilder b)]) =
-      _$MunicipalityMunicipalityRead;
+  factory MunicipalityMunicipalityRead([
+    void updates(MunicipalityMunicipalityReadBuilder b),
+  ]) = _$MunicipalityMunicipalityRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(MunicipalityMunicipalityReadBuilder b) => b;
@@ -45,7 +47,7 @@ class _$MunicipalityMunicipalityReadSerializer
   @override
   final Iterable<Type> types = const [
     MunicipalityMunicipalityRead,
-    _$MunicipalityMunicipalityRead
+    _$MunicipalityMunicipalityRead,
   ];
 
   @override
@@ -65,8 +67,9 @@ class _$MunicipalityMunicipalityReadSerializer
       yield r'boulderAreas';
       yield serializers.serialize(
         object.boulderAreas,
-        specifiedType:
-            const FullType(BuiltList, [FullType(BoulderAreaMunicipalityRead)]),
+        specifiedType: const FullType(BuiltList, [
+          FullType(BoulderAreaMunicipalityRead),
+        ]),
       );
     }
   }
@@ -77,9 +80,11 @@ class _$MunicipalityMunicipalityReadSerializer
     MunicipalityMunicipalityRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -95,18 +100,23 @@ class _$MunicipalityMunicipalityReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.name = valueDes;
           break;
         case r'boulderAreas':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                BuiltList, [FullType(BoulderAreaMunicipalityRead)]),
-          ) as BuiltList<BoulderAreaMunicipalityRead>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(BoulderAreaMunicipalityRead),
+                    ]),
+                  )
+                  as BuiltList<BoulderAreaMunicipalityRead>;
           result.boulderAreas.replace(valueDes);
           break;
         default:

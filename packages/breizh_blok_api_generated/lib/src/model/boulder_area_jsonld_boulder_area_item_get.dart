@@ -23,8 +23,10 @@ part 'boulder_area_jsonld_boulder_area_item_get.g.dart';
 @BuiltValue()
 abstract class BoulderAreaJsonldBoulderAreaItemGet
     implements
-        Built<BoulderAreaJsonldBoulderAreaItemGet,
-            BoulderAreaJsonldBoulderAreaItemGetBuilder> {
+        Built<
+          BoulderAreaJsonldBoulderAreaItemGet,
+          BoulderAreaJsonldBoulderAreaItemGetBuilder
+        > {
   @BuiltValueField(wireName: r'@context')
   BoulderJsonldBoulderItemGetContext? get atContext;
 
@@ -45,9 +47,9 @@ abstract class BoulderAreaJsonldBoulderAreaItemGet
 
   BoulderAreaJsonldBoulderAreaItemGet._();
 
-  factory BoulderAreaJsonldBoulderAreaItemGet(
-          [void updates(BoulderAreaJsonldBoulderAreaItemGetBuilder b)]) =
-      _$BoulderAreaJsonldBoulderAreaItemGet;
+  factory BoulderAreaJsonldBoulderAreaItemGet([
+    void updates(BoulderAreaJsonldBoulderAreaItemGetBuilder b),
+  ]) = _$BoulderAreaJsonldBoulderAreaItemGet;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderAreaJsonldBoulderAreaItemGetBuilder b) => b;
@@ -62,7 +64,7 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
   @override
   final Iterable<Type> types = const [
     BoulderAreaJsonldBoulderAreaItemGet,
-    _$BoulderAreaJsonldBoulderAreaItemGet
+    _$BoulderAreaJsonldBoulderAreaItemGet,
   ];
 
   @override
@@ -98,24 +100,28 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
       yield r'centroid';
       yield serializers.serialize(
         object.centroid,
-        specifiedType:
-            const FullType.nullable(GeoPointJsonldBoulderAreaItemGet),
+        specifiedType: const FullType.nullable(
+          GeoPointJsonldBoulderAreaItemGet,
+        ),
       );
     }
     if (object.parkingLocation != null) {
       yield r'parkingLocation';
       yield serializers.serialize(
         object.parkingLocation,
-        specifiedType:
-            const FullType.nullable(GeoPointJsonldBoulderAreaItemGet),
+        specifiedType: const FullType.nullable(
+          GeoPointJsonldBoulderAreaItemGet,
+        ),
       );
     }
     if (object.numberOfBouldersGroupedByGrade != null) {
       yield r'numberOfBouldersGroupedByGrade';
       yield serializers.serialize(
         object.numberOfBouldersGroupedByGrade,
-        specifiedType:
-            const FullType(BuiltMap, [FullType(String), FullType(int)]),
+        specifiedType: const FullType(BuiltMap, [
+          FullType(String),
+          FullType(int),
+        ]),
       );
     }
   }
@@ -126,9 +132,11 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
     BoulderAreaJsonldBoulderAreaItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -144,50 +152,68 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'centroid':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType.nullable(GeoPointJsonldBoulderAreaItemGet),
-          ) as GeoPointJsonldBoulderAreaItemGet?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      GeoPointJsonldBoulderAreaItemGet,
+                    ),
+                  )
+                  as GeoPointJsonldBoulderAreaItemGet?;
           if (valueDes == null) continue;
           result.centroid.replace(valueDes);
           break;
         case r'parkingLocation':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType.nullable(GeoPointJsonldBoulderAreaItemGet),
-          ) as GeoPointJsonldBoulderAreaItemGet?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      GeoPointJsonldBoulderAreaItemGet,
+                    ),
+                  )
+                  as GeoPointJsonldBoulderAreaItemGet?;
           if (valueDes == null) continue;
           result.parkingLocation.replace(valueDes);
           break;
         case r'numberOfBouldersGroupedByGrade':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(BuiltMap, [FullType(String), FullType(int)]),
-          ) as BuiltMap<String, int>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltMap, [
+                      FullType(String),
+                      FullType(int),
+                    ]),
+                  )
+                  as BuiltMap<String, int>;
           result.numberOfBouldersGroupedByGrade.replace(valueDes);
           break;
         default:

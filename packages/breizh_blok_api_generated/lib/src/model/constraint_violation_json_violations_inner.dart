@@ -16,8 +16,10 @@ part 'constraint_violation_json_violations_inner.g.dart';
 @BuiltValue()
 abstract class ConstraintViolationJsonViolationsInner
     implements
-        Built<ConstraintViolationJsonViolationsInner,
-            ConstraintViolationJsonViolationsInnerBuilder> {
+        Built<
+          ConstraintViolationJsonViolationsInner,
+          ConstraintViolationJsonViolationsInnerBuilder
+        > {
   /// The property path of the violation
   @BuiltValueField(wireName: r'propertyPath')
   String? get propertyPath;
@@ -28,9 +30,9 @@ abstract class ConstraintViolationJsonViolationsInner
 
   ConstraintViolationJsonViolationsInner._();
 
-  factory ConstraintViolationJsonViolationsInner(
-          [void updates(ConstraintViolationJsonViolationsInnerBuilder b)]) =
-      _$ConstraintViolationJsonViolationsInner;
+  factory ConstraintViolationJsonViolationsInner([
+    void updates(ConstraintViolationJsonViolationsInnerBuilder b),
+  ]) = _$ConstraintViolationJsonViolationsInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(ConstraintViolationJsonViolationsInnerBuilder b) => b;
@@ -45,7 +47,7 @@ class _$ConstraintViolationJsonViolationsInnerSerializer
   @override
   final Iterable<Type> types = const [
     ConstraintViolationJsonViolationsInner,
-    _$ConstraintViolationJsonViolationsInner
+    _$ConstraintViolationJsonViolationsInner,
   ];
 
   @override
@@ -78,9 +80,11 @@ class _$ConstraintViolationJsonViolationsInnerSerializer
     ConstraintViolationJsonViolationsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -96,17 +100,21 @@ class _$ConstraintViolationJsonViolationsInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'propertyPath':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.propertyPath = valueDes;
           break;
         case r'message':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.message = valueDes;
           break;
         default:

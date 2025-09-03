@@ -69,9 +69,11 @@ class _$RockBoulderReadSerializer
     RockBoulderRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -87,17 +89,21 @@ class _$RockBoulderReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'location':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(JsonObject),
-          ) as JsonObject;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(JsonObject),
+                  )
+                  as JsonObject;
           result.location = valueDes;
           break;
         case r'boulderArea':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderAreaBoulderRead),
-          ) as BoulderAreaBoulderRead;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BoulderAreaBoulderRead),
+                  )
+                  as BoulderAreaBoulderRead;
           result.boulderArea.replace(valueDes);
           break;
         default:

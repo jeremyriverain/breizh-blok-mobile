@@ -33,7 +33,7 @@ class MunicipalityApi {
   /// Returns a [Future] containing a [Response] with a [ApiMunicipalitiesGetCollection200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<ApiMunicipalitiesGetCollection200Response>>
-      apiMunicipalitiesGetCollection({
+  apiMunicipalitiesGetCollection({
     int? page = 1,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -45,9 +45,7 @@ class MunicipalityApi {
     final _path = r'/municipalities';
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -83,10 +81,12 @@ class MunicipalityApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(ApiMunicipalitiesGetCollection200Response),
-            ) as ApiMunicipalitiesGetCollection200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    ApiMunicipalitiesGetCollection200Response,
+                  ),
+                )
+                as ApiMunicipalitiesGetCollection200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -124,7 +124,7 @@ class MunicipalityApi {
   /// Returns a [Future] containing a [Response] with a [MunicipalityJsonldMunicipalityItemGet] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<MunicipalityJsonldMunicipalityItemGet>>
-      apiMunicipalitiesIdGet({
+  apiMunicipalitiesIdGet({
     required String id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -134,14 +134,14 @@ class MunicipalityApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/municipalities/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -171,10 +171,12 @@ class MunicipalityApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(MunicipalityJsonldMunicipalityItemGet),
-            ) as MunicipalityJsonldMunicipalityItemGet;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    MunicipalityJsonldMunicipalityItemGet,
+                  ),
+                )
+                as MunicipalityJsonldMunicipalityItemGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

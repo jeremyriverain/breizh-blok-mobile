@@ -46,9 +46,7 @@ class RockApi {
     final _path = r'/rocks';
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -68,7 +66,10 @@ class RockApi {
         r'page': encodeQueryParameter(_serializers, page, const FullType(int)),
       if (pagination != null)
         r'pagination': encodeQueryParameter(
-            _serializers, pagination, const FullType(bool)),
+          _serializers,
+          pagination,
+          const FullType(bool),
+        ),
     };
 
     final _response = await _dio.request<Object>(
@@ -87,9 +88,12 @@ class RockApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(ApiRocksGetCollection200Response),
-            ) as ApiRocksGetCollection200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    ApiRocksGetCollection200Response,
+                  ),
+                )
+                as ApiRocksGetCollection200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -136,14 +140,14 @@ class RockApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/rocks/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -173,9 +177,10 @@ class RockApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(RockJsonldRockRead),
-            ) as RockJsonldRockRead;
+                  rawResponse,
+                  specifiedType: const FullType(RockJsonldRockRead),
+                )
+                as RockJsonldRockRead;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

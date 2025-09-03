@@ -29,9 +29,9 @@ abstract class GeoPointJsonldRockRead
 
   GeoPointJsonldRockRead._();
 
-  factory GeoPointJsonldRockRead(
-          [void updates(GeoPointJsonldRockReadBuilder b)]) =
-      _$GeoPointJsonldRockRead;
+  factory GeoPointJsonldRockRead([
+    void updates(GeoPointJsonldRockReadBuilder b),
+  ]) = _$GeoPointJsonldRockRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GeoPointJsonldRockReadBuilder b) => b;
@@ -46,7 +46,7 @@ class _$GeoPointJsonldRockReadSerializer
   @override
   final Iterable<Type> types = const [
     GeoPointJsonldRockRead,
-    _$GeoPointJsonldRockRead
+    _$GeoPointJsonldRockRead,
   ];
 
   @override
@@ -86,9 +86,11 @@ class _$GeoPointJsonldRockReadSerializer
     GeoPointJsonldRockRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -104,24 +106,32 @@ class _$GeoPointJsonldRockReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         default:

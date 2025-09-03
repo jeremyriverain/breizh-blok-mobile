@@ -16,17 +16,19 @@ part 'municipality_municipality_item_get.g.dart';
 @BuiltValue()
 abstract class MunicipalityMunicipalityItemGet
     implements
-        Built<MunicipalityMunicipalityItemGet,
-            MunicipalityMunicipalityItemGetBuilder> {
+        Built<
+          MunicipalityMunicipalityItemGet,
+          MunicipalityMunicipalityItemGetBuilder
+        > {
   ///
   @BuiltValueField(wireName: r'centroid')
   JsonObject? get centroid;
 
   MunicipalityMunicipalityItemGet._();
 
-  factory MunicipalityMunicipalityItemGet(
-          [void updates(MunicipalityMunicipalityItemGetBuilder b)]) =
-      _$MunicipalityMunicipalityItemGet;
+  factory MunicipalityMunicipalityItemGet([
+    void updates(MunicipalityMunicipalityItemGetBuilder b),
+  ]) = _$MunicipalityMunicipalityItemGet;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(MunicipalityMunicipalityItemGetBuilder b) => b;
@@ -41,7 +43,7 @@ class _$MunicipalityMunicipalityItemGetSerializer
   @override
   final Iterable<Type> types = const [
     MunicipalityMunicipalityItemGet,
-    _$MunicipalityMunicipalityItemGet
+    _$MunicipalityMunicipalityItemGet,
   ];
 
   @override
@@ -67,9 +69,11 @@ class _$MunicipalityMunicipalityItemGetSerializer
     MunicipalityMunicipalityItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -85,10 +89,12 @@ class _$MunicipalityMunicipalityItemGetSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'centroid':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(JsonObject),
-          ) as JsonObject;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(JsonObject),
+                  )
+                  as JsonObject;
           result.centroid = valueDes;
           break;
         default:

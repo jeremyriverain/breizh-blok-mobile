@@ -20,8 +20,10 @@ part 'line_boulder_jsonld_boulder_read.g.dart';
 @BuiltValue()
 abstract class LineBoulderJsonldBoulderRead
     implements
-        Built<LineBoulderJsonldBoulderRead,
-            LineBoulderJsonldBoulderReadBuilder> {
+        Built<
+          LineBoulderJsonldBoulderRead,
+          LineBoulderJsonldBoulderReadBuilder
+        > {
   @BuiltValueField(wireName: r'@context')
   BoulderJsonldBoulderItemGetContext? get atContext;
 
@@ -39,9 +41,9 @@ abstract class LineBoulderJsonldBoulderRead
 
   LineBoulderJsonldBoulderRead._();
 
-  factory LineBoulderJsonldBoulderRead(
-          [void updates(LineBoulderJsonldBoulderReadBuilder b)]) =
-      _$LineBoulderJsonldBoulderRead;
+  factory LineBoulderJsonldBoulderRead([
+    void updates(LineBoulderJsonldBoulderReadBuilder b),
+  ]) = _$LineBoulderJsonldBoulderRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(LineBoulderJsonldBoulderReadBuilder b) => b;
@@ -56,7 +58,7 @@ class _$LineBoulderJsonldBoulderReadSerializer
   @override
   final Iterable<Type> types = const [
     LineBoulderJsonldBoulderRead,
-    _$LineBoulderJsonldBoulderRead
+    _$LineBoulderJsonldBoulderRead,
   ];
 
   @override
@@ -106,9 +108,11 @@ class _$LineBoulderJsonldBoulderReadSerializer
     LineBoulderJsonldBoulderRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -124,38 +128,50 @@ class _$LineBoulderJsonldBoulderReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'rockImage':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.rockImage = valueDes;
           break;
         case r'smoothLine':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.smoothLine = valueDes;
           break;
         default:

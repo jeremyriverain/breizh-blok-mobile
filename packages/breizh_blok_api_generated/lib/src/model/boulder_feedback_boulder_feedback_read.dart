@@ -21,8 +21,10 @@ part 'boulder_feedback_boulder_feedback_read.g.dart';
 @BuiltValue()
 abstract class BoulderFeedbackBoulderFeedbackRead
     implements
-        Built<BoulderFeedbackBoulderFeedbackRead,
-            BoulderFeedbackBoulderFeedbackReadBuilder> {
+        Built<
+          BoulderFeedbackBoulderFeedbackRead,
+          BoulderFeedbackBoulderFeedbackReadBuilder
+        > {
   ///
   @BuiltValueField(wireName: r'newLocation')
   JsonObject? get newLocation;
@@ -41,9 +43,9 @@ abstract class BoulderFeedbackBoulderFeedbackRead
 
   BoulderFeedbackBoulderFeedbackRead._();
 
-  factory BoulderFeedbackBoulderFeedbackRead(
-          [void updates(BoulderFeedbackBoulderFeedbackReadBuilder b)]) =
-      _$BoulderFeedbackBoulderFeedbackRead;
+  factory BoulderFeedbackBoulderFeedbackRead([
+    void updates(BoulderFeedbackBoulderFeedbackReadBuilder b),
+  ]) = _$BoulderFeedbackBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderFeedbackBoulderFeedbackReadBuilder b) => b;
@@ -58,7 +60,7 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
   @override
   final Iterable<Type> types = const [
     BoulderFeedbackBoulderFeedbackRead,
-    _$BoulderFeedbackBoulderFeedbackRead
+    _$BoulderFeedbackBoulderFeedbackRead,
   ];
 
   @override
@@ -110,9 +112,11 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
     BoulderFeedbackBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -128,39 +132,49 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'newLocation':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(JsonObject),
-          ) as JsonObject;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(JsonObject),
+                  )
+                  as JsonObject;
           result.newLocation = valueDes;
           break;
         case r'message':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.message = valueDes;
           break;
         case r'sentBy':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.sentBy = valueDes;
           break;
         case r'boulder':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderBoulderFeedbackRead),
-          ) as BoulderBoulderFeedbackRead;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BoulderBoulderFeedbackRead),
+                  )
+                  as BoulderBoulderFeedbackRead;
           result.boulder.replace(valueDes);
           break;
         case r'createdAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.createdAt = valueDes;
           break;
         default:

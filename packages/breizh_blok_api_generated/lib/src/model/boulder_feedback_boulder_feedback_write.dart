@@ -18,8 +18,10 @@ part 'boulder_feedback_boulder_feedback_write.g.dart';
 @BuiltValue()
 abstract class BoulderFeedbackBoulderFeedbackWrite
     implements
-        Built<BoulderFeedbackBoulderFeedbackWrite,
-            BoulderFeedbackBoulderFeedbackWriteBuilder> {
+        Built<
+          BoulderFeedbackBoulderFeedbackWrite,
+          BoulderFeedbackBoulderFeedbackWriteBuilder
+        > {
   @BuiltValueField(wireName: r'newLocation')
   GeoPointBoulderFeedbackWrite? get newLocation;
 
@@ -31,9 +33,9 @@ abstract class BoulderFeedbackBoulderFeedbackWrite
 
   BoulderFeedbackBoulderFeedbackWrite._();
 
-  factory BoulderFeedbackBoulderFeedbackWrite(
-          [void updates(BoulderFeedbackBoulderFeedbackWriteBuilder b)]) =
-      _$BoulderFeedbackBoulderFeedbackWrite;
+  factory BoulderFeedbackBoulderFeedbackWrite([
+    void updates(BoulderFeedbackBoulderFeedbackWriteBuilder b),
+  ]) = _$BoulderFeedbackBoulderFeedbackWrite;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderFeedbackBoulderFeedbackWriteBuilder b) => b;
@@ -48,7 +50,7 @@ class _$BoulderFeedbackBoulderFeedbackWriteSerializer
   @override
   final Iterable<Type> types = const [
     BoulderFeedbackBoulderFeedbackWrite,
-    _$BoulderFeedbackBoulderFeedbackWrite
+    _$BoulderFeedbackBoulderFeedbackWrite,
   ];
 
   @override
@@ -86,9 +88,11 @@ class _$BoulderFeedbackBoulderFeedbackWriteSerializer
     BoulderFeedbackBoulderFeedbackWrite object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -104,27 +108,34 @@ class _$BoulderFeedbackBoulderFeedbackWriteSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'newLocation':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType.nullable(GeoPointBoulderFeedbackWrite),
-          ) as GeoPointBoulderFeedbackWrite?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      GeoPointBoulderFeedbackWrite,
+                    ),
+                  )
+                  as GeoPointBoulderFeedbackWrite?;
           if (valueDes == null) continue;
           result.newLocation.replace(valueDes);
           break;
         case r'message':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.message = valueDes;
           break;
         case r'boulder':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.boulder = valueDes;
           break;
         default:

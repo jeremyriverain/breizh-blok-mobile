@@ -20,8 +20,10 @@ part 'boulder_area_jsonld_boulder_area_read.g.dart';
 @BuiltValue()
 abstract class BoulderAreaJsonldBoulderAreaRead
     implements
-        Built<BoulderAreaJsonldBoulderAreaRead,
-            BoulderAreaJsonldBoulderAreaReadBuilder> {
+        Built<
+          BoulderAreaJsonldBoulderAreaRead,
+          BoulderAreaJsonldBoulderAreaReadBuilder
+        > {
   @BuiltValueField(wireName: r'@id')
   String? get atId;
 
@@ -39,9 +41,9 @@ abstract class BoulderAreaJsonldBoulderAreaRead
 
   BoulderAreaJsonldBoulderAreaRead._();
 
-  factory BoulderAreaJsonldBoulderAreaRead(
-          [void updates(BoulderAreaJsonldBoulderAreaReadBuilder b)]) =
-      _$BoulderAreaJsonldBoulderAreaRead;
+  factory BoulderAreaJsonldBoulderAreaRead([
+    void updates(BoulderAreaJsonldBoulderAreaReadBuilder b),
+  ]) = _$BoulderAreaJsonldBoulderAreaRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderAreaJsonldBoulderAreaReadBuilder b) => b;
@@ -56,7 +58,7 @@ class _$BoulderAreaJsonldBoulderAreaReadSerializer
   @override
   final Iterable<Type> types = const [
     BoulderAreaJsonldBoulderAreaRead,
-    _$BoulderAreaJsonldBoulderAreaRead
+    _$BoulderAreaJsonldBoulderAreaRead,
   ];
 
   @override
@@ -106,9 +108,11 @@ class _$BoulderAreaJsonldBoulderAreaReadSerializer
     BoulderAreaJsonldBoulderAreaRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -124,39 +128,51 @@ class _$BoulderAreaJsonldBoulderAreaReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.name = valueDes;
           break;
         case r'description':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.description = valueDes;
           break;
         case r'municipality':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(MunicipalityJsonldBoulderAreaRead),
-          ) as MunicipalityJsonldBoulderAreaRead;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      MunicipalityJsonldBoulderAreaRead,
+                    ),
+                  )
+                  as MunicipalityJsonldBoulderAreaRead;
           result.municipality.replace(valueDes);
           break;
         default:

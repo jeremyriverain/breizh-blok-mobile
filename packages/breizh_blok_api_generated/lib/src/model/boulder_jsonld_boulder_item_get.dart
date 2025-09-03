@@ -39,9 +39,9 @@ abstract class BoulderJsonldBoulderItemGet
 
   BoulderJsonldBoulderItemGet._();
 
-  factory BoulderJsonldBoulderItemGet(
-          [void updates(BoulderJsonldBoulderItemGetBuilder b)]) =
-      _$BoulderJsonldBoulderItemGet;
+  factory BoulderJsonldBoulderItemGet([
+    void updates(BoulderJsonldBoulderItemGetBuilder b),
+  ]) = _$BoulderJsonldBoulderItemGet;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderJsonldBoulderItemGetBuilder b) => b;
@@ -56,7 +56,7 @@ class _$BoulderJsonldBoulderItemGetSerializer
   @override
   final Iterable<Type> types = const [
     BoulderJsonldBoulderItemGet,
-    _$BoulderJsonldBoulderItemGet
+    _$BoulderJsonldBoulderItemGet,
   ];
 
   @override
@@ -99,8 +99,9 @@ class _$BoulderJsonldBoulderItemGetSerializer
       yield r'height';
       yield serializers.serialize(
         object.height,
-        specifiedType:
-            const FullType.nullable(HeightBoulderJsonldBoulderItemGet),
+        specifiedType: const FullType.nullable(
+          HeightBoulderJsonldBoulderItemGet,
+        ),
       );
     }
   }
@@ -111,9 +112,11 @@ class _$BoulderJsonldBoulderItemGetSerializer
     BoulderJsonldBoulderItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -129,40 +132,53 @@ class _$BoulderJsonldBoulderItemGetSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'description':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.description = valueDes;
           break;
         case r'height':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType.nullable(HeightBoulderJsonldBoulderItemGet),
-          ) as HeightBoulderJsonldBoulderItemGet?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      HeightBoulderJsonldBoulderItemGet,
+                    ),
+                  )
+                  as HeightBoulderJsonldBoulderItemGet?;
           if (valueDes == null) continue;
           result.height.replace(valueDes);
           break;

@@ -20,8 +20,10 @@ part 'api_boulders_get_collection200_response_hydra_view.g.dart';
 @BuiltValue()
 abstract class ApiBouldersGetCollection200ResponseHydraView
     implements
-        Built<ApiBouldersGetCollection200ResponseHydraView,
-            ApiBouldersGetCollection200ResponseHydraViewBuilder> {
+        Built<
+          ApiBouldersGetCollection200ResponseHydraView,
+          ApiBouldersGetCollection200ResponseHydraViewBuilder
+        > {
   @BuiltValueField(wireName: r'@id')
   String? get atId;
 
@@ -42,20 +44,18 @@ abstract class ApiBouldersGetCollection200ResponseHydraView
 
   ApiBouldersGetCollection200ResponseHydraView._();
 
-  factory ApiBouldersGetCollection200ResponseHydraView(
-          [void updates(
-              ApiBouldersGetCollection200ResponseHydraViewBuilder b)]) =
-      _$ApiBouldersGetCollection200ResponseHydraView;
+  factory ApiBouldersGetCollection200ResponseHydraView([
+    void updates(ApiBouldersGetCollection200ResponseHydraViewBuilder b),
+  ]) = _$ApiBouldersGetCollection200ResponseHydraView;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          ApiBouldersGetCollection200ResponseHydraViewBuilder b) =>
-      b;
+    ApiBouldersGetCollection200ResponseHydraViewBuilder b,
+  ) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<ApiBouldersGetCollection200ResponseHydraView>
-      get serializer =>
-          _$ApiBouldersGetCollection200ResponseHydraViewSerializer();
+  get serializer => _$ApiBouldersGetCollection200ResponseHydraViewSerializer();
 }
 
 class _$ApiBouldersGetCollection200ResponseHydraViewSerializer
@@ -64,7 +64,7 @@ class _$ApiBouldersGetCollection200ResponseHydraViewSerializer
   @override
   final Iterable<Type> types = const [
     ApiBouldersGetCollection200ResponseHydraView,
-    _$ApiBouldersGetCollection200ResponseHydraView
+    _$ApiBouldersGetCollection200ResponseHydraView,
   ];
 
   @override
@@ -125,9 +125,11 @@ class _$ApiBouldersGetCollection200ResponseHydraViewSerializer
     ApiBouldersGetCollection200ResponseHydraView object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -143,45 +145,57 @@ class _$ApiBouldersGetCollection200ResponseHydraViewSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'hydra:first':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.hydraColonFirst = valueDes;
           break;
         case r'hydra:last':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.hydraColonLast = valueDes;
           break;
         case r'hydra:previous':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.hydraColonPrevious = valueDes;
           break;
         case r'hydra:next':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.hydraColonNext = valueDes;
           break;
         default:

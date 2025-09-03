@@ -25,8 +25,10 @@ part 'boulder_feedback_jsonld_boulder_feedback_read.g.dart';
 @BuiltValue()
 abstract class BoulderFeedbackJsonldBoulderFeedbackRead
     implements
-        Built<BoulderFeedbackJsonldBoulderFeedbackRead,
-            BoulderFeedbackJsonldBoulderFeedbackReadBuilder> {
+        Built<
+          BoulderFeedbackJsonldBoulderFeedbackRead,
+          BoulderFeedbackJsonldBoulderFeedbackReadBuilder
+        > {
   @BuiltValueField(wireName: r'@context')
   BoulderJsonldBoulderItemGetContext? get atContext;
 
@@ -53,9 +55,9 @@ abstract class BoulderFeedbackJsonldBoulderFeedbackRead
 
   BoulderFeedbackJsonldBoulderFeedbackRead._();
 
-  factory BoulderFeedbackJsonldBoulderFeedbackRead(
-          [void updates(BoulderFeedbackJsonldBoulderFeedbackReadBuilder b)]) =
-      _$BoulderFeedbackJsonldBoulderFeedbackRead;
+  factory BoulderFeedbackJsonldBoulderFeedbackRead([
+    void updates(BoulderFeedbackJsonldBoulderFeedbackReadBuilder b),
+  ]) = _$BoulderFeedbackJsonldBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderFeedbackJsonldBoulderFeedbackReadBuilder b) => b;
@@ -70,7 +72,7 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
   @override
   final Iterable<Type> types = const [
     BoulderFeedbackJsonldBoulderFeedbackRead,
-    _$BoulderFeedbackJsonldBoulderFeedbackRead
+    _$BoulderFeedbackJsonldBoulderFeedbackRead,
   ];
 
   @override
@@ -106,8 +108,9 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
       yield r'newLocation';
       yield serializers.serialize(
         object.newLocation,
-        specifiedType:
-            const FullType.nullable(GeoPointJsonldBoulderFeedbackRead),
+        specifiedType: const FullType.nullable(
+          GeoPointJsonldBoulderFeedbackRead,
+        ),
       );
     }
     if (object.message != null) {
@@ -144,9 +147,11 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
     BoulderFeedbackJsonldBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -162,62 +167,83 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'newLocation':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType.nullable(GeoPointJsonldBoulderFeedbackRead),
-          ) as GeoPointJsonldBoulderFeedbackRead?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      GeoPointJsonldBoulderFeedbackRead,
+                    ),
+                  )
+                  as GeoPointJsonldBoulderFeedbackRead?;
           if (valueDes == null) continue;
           result.newLocation.replace(valueDes);
           break;
         case r'message':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.message = valueDes;
           break;
         case r'sentBy':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.sentBy = valueDes;
           break;
         case r'boulder':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderFeedbackRead),
-          ) as BoulderJsonldBoulderFeedbackRead;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderFeedbackRead,
+                    ),
+                  )
+                  as BoulderJsonldBoulderFeedbackRead;
           result.boulder.replace(valueDes);
           break;
         case r'createdAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.createdAt = valueDes;
           break;
         default:

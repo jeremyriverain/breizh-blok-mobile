@@ -98,8 +98,9 @@ class _$RockJsonldRockReadSerializer
       yield r'boulders';
       yield serializers.serialize(
         object.boulders,
-        specifiedType:
-            const FullType(BuiltList, [FullType(BoulderJsonldRockRead)]),
+        specifiedType: const FullType(BuiltList, [
+          FullType(BoulderJsonldRockRead),
+        ]),
       );
     }
     if (object.pictures != null) {
@@ -117,9 +118,11 @@ class _$RockJsonldRockReadSerializer
     RockJsonldRockRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -135,46 +138,63 @@ class _$RockJsonldRockReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'location':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(GeoPointJsonldRockRead),
-          ) as GeoPointJsonldRockRead;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(GeoPointJsonldRockRead),
+                  )
+                  as GeoPointJsonldRockRead;
           result.location.replace(valueDes);
           break;
         case r'boulders':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(BuiltList, [FullType(BoulderJsonldRockRead)]),
-          ) as BuiltList<BoulderJsonldRockRead>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(BoulderJsonldRockRead),
+                    ]),
+                  )
+                  as BuiltList<BoulderJsonldRockRead>;
           result.boulders.replace(valueDes);
           break;
         case r'pictures':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(String)]),
-          ) as BuiltList<String>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(String),
+                    ]),
+                  )
+                  as BuiltList<String>;
           result.pictures.replace(valueDes);
           break;
         default:

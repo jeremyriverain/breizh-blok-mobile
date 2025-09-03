@@ -33,7 +33,7 @@ class BoulderAreaApi {
   /// Returns a [Future] containing a [Response] with a [ApiBoulderAreasGetCollection200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<ApiBoulderAreasGetCollection200Response>>
-      apiBoulderAreasGetCollection({
+  apiBoulderAreasGetCollection({
     int? page = 1,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -45,9 +45,7 @@ class BoulderAreaApi {
     final _path = r'/boulder_areas';
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -83,10 +81,12 @@ class BoulderAreaApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(ApiBoulderAreasGetCollection200Response),
-            ) as ApiBoulderAreasGetCollection200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    ApiBoulderAreasGetCollection200Response,
+                  ),
+                )
+                as ApiBoulderAreasGetCollection200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -133,14 +133,14 @@ class BoulderAreaApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/boulder_areas/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -170,10 +170,12 @@ class BoulderAreaApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(BoulderAreaJsonldBoulderAreaItemGet),
-            ) as BoulderAreaJsonldBoulderAreaItemGet;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    BoulderAreaJsonldBoulderAreaItemGet,
+                  ),
+                )
+                as BoulderAreaJsonldBoulderAreaItemGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

@@ -21,9 +21,9 @@ abstract class MunicipalityBoulderAreaRead
 
   MunicipalityBoulderAreaRead._();
 
-  factory MunicipalityBoulderAreaRead(
-          [void updates(MunicipalityBoulderAreaReadBuilder b)]) =
-      _$MunicipalityBoulderAreaRead;
+  factory MunicipalityBoulderAreaRead([
+    void updates(MunicipalityBoulderAreaReadBuilder b),
+  ]) = _$MunicipalityBoulderAreaRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(MunicipalityBoulderAreaReadBuilder b) => b;
@@ -38,7 +38,7 @@ class _$MunicipalityBoulderAreaReadSerializer
   @override
   final Iterable<Type> types = const [
     MunicipalityBoulderAreaRead,
-    _$MunicipalityBoulderAreaRead
+    _$MunicipalityBoulderAreaRead,
   ];
 
   @override
@@ -62,9 +62,11 @@ class _$MunicipalityBoulderAreaReadSerializer
     MunicipalityBoulderAreaRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -80,10 +82,12 @@ class _$MunicipalityBoulderAreaReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.name = valueDes;
           break;
         default:

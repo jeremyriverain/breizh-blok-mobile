@@ -22,8 +22,10 @@ part 'department_jsonld_department_read.g.dart';
 @BuiltValue()
 abstract class DepartmentJsonldDepartmentRead
     implements
-        Built<DepartmentJsonldDepartmentRead,
-            DepartmentJsonldDepartmentReadBuilder> {
+        Built<
+          DepartmentJsonldDepartmentRead,
+          DepartmentJsonldDepartmentReadBuilder
+        > {
   @BuiltValueField(wireName: r'@id')
   String? get atId;
 
@@ -41,9 +43,9 @@ abstract class DepartmentJsonldDepartmentRead
 
   DepartmentJsonldDepartmentRead._();
 
-  factory DepartmentJsonldDepartmentRead(
-          [void updates(DepartmentJsonldDepartmentReadBuilder b)]) =
-      _$DepartmentJsonldDepartmentRead;
+  factory DepartmentJsonldDepartmentRead([
+    void updates(DepartmentJsonldDepartmentReadBuilder b),
+  ]) = _$DepartmentJsonldDepartmentRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(DepartmentJsonldDepartmentReadBuilder b) => b;
@@ -58,7 +60,7 @@ class _$DepartmentJsonldDepartmentReadSerializer
   @override
   final Iterable<Type> types = const [
     DepartmentJsonldDepartmentRead,
-    _$DepartmentJsonldDepartmentRead
+    _$DepartmentJsonldDepartmentRead,
   ];
 
   @override
@@ -99,8 +101,9 @@ class _$DepartmentJsonldDepartmentReadSerializer
       yield r'municipalities';
       yield serializers.serialize(
         object.municipalities,
-        specifiedType: const FullType(
-            BuiltList, [FullType(MunicipalityJsonldDepartmentRead)]),
+        specifiedType: const FullType(BuiltList, [
+          FullType(MunicipalityJsonldDepartmentRead),
+        ]),
       );
     }
   }
@@ -111,9 +114,11 @@ class _$DepartmentJsonldDepartmentReadSerializer
     DepartmentJsonldDepartmentRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -129,39 +134,52 @@ class _$DepartmentJsonldDepartmentReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.name = valueDes;
           break;
         case r'municipalities':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                BuiltList, [FullType(MunicipalityJsonldDepartmentRead)]),
-          ) as BuiltList<MunicipalityJsonldDepartmentRead>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(MunicipalityJsonldDepartmentRead),
+                    ]),
+                  )
+                  as BuiltList<MunicipalityJsonldDepartmentRead>;
           result.municipalities.replace(valueDes);
           break;
         default:

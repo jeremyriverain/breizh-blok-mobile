@@ -16,8 +16,10 @@ part 'geo_point_boulder_feedback_write.g.dart';
 @BuiltValue()
 abstract class GeoPointBoulderFeedbackWrite
     implements
-        Built<GeoPointBoulderFeedbackWrite,
-            GeoPointBoulderFeedbackWriteBuilder> {
+        Built<
+          GeoPointBoulderFeedbackWrite,
+          GeoPointBoulderFeedbackWriteBuilder
+        > {
   @BuiltValueField(wireName: r'latitude')
   num get latitude;
 
@@ -26,9 +28,9 @@ abstract class GeoPointBoulderFeedbackWrite
 
   GeoPointBoulderFeedbackWrite._();
 
-  factory GeoPointBoulderFeedbackWrite(
-          [void updates(GeoPointBoulderFeedbackWriteBuilder b)]) =
-      _$GeoPointBoulderFeedbackWrite;
+  factory GeoPointBoulderFeedbackWrite([
+    void updates(GeoPointBoulderFeedbackWriteBuilder b),
+  ]) = _$GeoPointBoulderFeedbackWrite;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GeoPointBoulderFeedbackWriteBuilder b) => b;
@@ -43,7 +45,7 @@ class _$GeoPointBoulderFeedbackWriteSerializer
   @override
   final Iterable<Type> types = const [
     GeoPointBoulderFeedbackWrite,
-    _$GeoPointBoulderFeedbackWrite
+    _$GeoPointBoulderFeedbackWrite,
   ];
 
   @override
@@ -72,9 +74,11 @@ class _$GeoPointBoulderFeedbackWriteSerializer
     GeoPointBoulderFeedbackWrite object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -90,17 +94,15 @@ class _$GeoPointBoulderFeedbackWriteSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'latitude':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(value, specifiedType: const FullType(num))
+                  as num;
           result.latitude = valueDes;
           break;
         case r'longitude':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(value, specifiedType: const FullType(num))
+                  as num;
           result.longitude = valueDes;
           break;
         default:

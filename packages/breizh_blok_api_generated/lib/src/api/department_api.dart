@@ -36,11 +36,11 @@ class DepartmentApi {
   /// Returns a [Future] containing a [Response] with a [ApiDepartmentsGetCollection200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<ApiDepartmentsGetCollection200Response>>
-      apiDepartmentsGetCollection({
+  apiDepartmentsGetCollection({
     int? page = 1,
     bool? pagination,
     bool?
-        existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket,
+    existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket,
     String? orderLeftSquareBracketNameRightSquareBracket = 'asc',
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -52,9 +52,7 @@ class DepartmentApi {
     final _path = r'/departments';
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -74,18 +72,23 @@ class DepartmentApi {
         r'page': encodeQueryParameter(_serializers, page, const FullType(int)),
       if (pagination != null)
         r'pagination': encodeQueryParameter(
-            _serializers, pagination, const FullType(bool)),
+          _serializers,
+          pagination,
+          const FullType(bool),
+        ),
       if (existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket !=
           null)
         r'exists[municipalities.boulderAreas.rocks.boulders]': encodeQueryParameter(
-            _serializers,
-            existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket,
-            const FullType(bool)),
+          _serializers,
+          existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket,
+          const FullType(bool),
+        ),
       if (orderLeftSquareBracketNameRightSquareBracket != null)
         r'order[name]': encodeQueryParameter(
-            _serializers,
-            orderLeftSquareBracketNameRightSquareBracket,
-            const FullType(String)),
+          _serializers,
+          orderLeftSquareBracketNameRightSquareBracket,
+          const FullType(String),
+        ),
     };
 
     final _response = await _dio.request<Object>(
@@ -104,10 +107,12 @@ class DepartmentApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(ApiDepartmentsGetCollection200Response),
-            ) as ApiDepartmentsGetCollection200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    ApiDepartmentsGetCollection200Response,
+                  ),
+                )
+                as ApiDepartmentsGetCollection200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -154,14 +159,14 @@ class DepartmentApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/departments/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -191,9 +196,10 @@ class DepartmentApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(DepartmentJsonldDepartmentRead),
-            ) as DepartmentJsonldDepartmentRead;
+                  rawResponse,
+                  specifiedType: const FullType(DepartmentJsonldDepartmentRead),
+                )
+                as DepartmentJsonldDepartmentRead;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

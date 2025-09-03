@@ -18,8 +18,10 @@ part 'boulder_feedback_jsonld_boulder_feedback_write.g.dart';
 @BuiltValue()
 abstract class BoulderFeedbackJsonldBoulderFeedbackWrite
     implements
-        Built<BoulderFeedbackJsonldBoulderFeedbackWrite,
-            BoulderFeedbackJsonldBoulderFeedbackWriteBuilder> {
+        Built<
+          BoulderFeedbackJsonldBoulderFeedbackWrite,
+          BoulderFeedbackJsonldBoulderFeedbackWriteBuilder
+        > {
   @BuiltValueField(wireName: r'newLocation')
   GeoPointJsonldBoulderFeedbackWrite? get newLocation;
 
@@ -31,9 +33,9 @@ abstract class BoulderFeedbackJsonldBoulderFeedbackWrite
 
   BoulderFeedbackJsonldBoulderFeedbackWrite._();
 
-  factory BoulderFeedbackJsonldBoulderFeedbackWrite(
-          [void updates(BoulderFeedbackJsonldBoulderFeedbackWriteBuilder b)]) =
-      _$BoulderFeedbackJsonldBoulderFeedbackWrite;
+  factory BoulderFeedbackJsonldBoulderFeedbackWrite([
+    void updates(BoulderFeedbackJsonldBoulderFeedbackWriteBuilder b),
+  ]) = _$BoulderFeedbackJsonldBoulderFeedbackWrite;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderFeedbackJsonldBoulderFeedbackWriteBuilder b) =>
@@ -49,7 +51,7 @@ class _$BoulderFeedbackJsonldBoulderFeedbackWriteSerializer
   @override
   final Iterable<Type> types = const [
     BoulderFeedbackJsonldBoulderFeedbackWrite,
-    _$BoulderFeedbackJsonldBoulderFeedbackWrite
+    _$BoulderFeedbackJsonldBoulderFeedbackWrite,
   ];
 
   @override
@@ -64,8 +66,9 @@ class _$BoulderFeedbackJsonldBoulderFeedbackWriteSerializer
       yield r'newLocation';
       yield serializers.serialize(
         object.newLocation,
-        specifiedType:
-            const FullType.nullable(GeoPointJsonldBoulderFeedbackWrite),
+        specifiedType: const FullType.nullable(
+          GeoPointJsonldBoulderFeedbackWrite,
+        ),
       );
     }
     if (object.message != null) {
@@ -88,9 +91,11 @@ class _$BoulderFeedbackJsonldBoulderFeedbackWriteSerializer
     BoulderFeedbackJsonldBoulderFeedbackWrite object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -106,27 +111,34 @@ class _$BoulderFeedbackJsonldBoulderFeedbackWriteSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'newLocation':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType.nullable(GeoPointJsonldBoulderFeedbackWrite),
-          ) as GeoPointJsonldBoulderFeedbackWrite?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      GeoPointJsonldBoulderFeedbackWrite,
+                    ),
+                  )
+                  as GeoPointJsonldBoulderFeedbackWrite?;
           if (valueDes == null) continue;
           result.newLocation.replace(valueDes);
           break;
         case r'message':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.message = valueDes;
           break;
         case r'boulder':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.boulder = valueDes;
           break;
         default:

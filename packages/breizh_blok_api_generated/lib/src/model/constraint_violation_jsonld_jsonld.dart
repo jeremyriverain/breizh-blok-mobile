@@ -27,8 +27,10 @@ part 'constraint_violation_jsonld_jsonld.g.dart';
 @BuiltValue()
 abstract class ConstraintViolationJsonldJsonld
     implements
-        Built<ConstraintViolationJsonldJsonld,
-            ConstraintViolationJsonldJsonldBuilder> {
+        Built<
+          ConstraintViolationJsonldJsonld,
+          ConstraintViolationJsonldJsonldBuilder
+        > {
   @BuiltValueField(wireName: r'@context')
   BoulderJsonldBoulderItemGetContext? get atContext;
 
@@ -61,9 +63,9 @@ abstract class ConstraintViolationJsonldJsonld
 
   ConstraintViolationJsonldJsonld._();
 
-  factory ConstraintViolationJsonldJsonld(
-          [void updates(ConstraintViolationJsonldJsonldBuilder b)]) =
-      _$ConstraintViolationJsonldJsonld;
+  factory ConstraintViolationJsonldJsonld([
+    void updates(ConstraintViolationJsonldJsonldBuilder b),
+  ]) = _$ConstraintViolationJsonldJsonld;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(ConstraintViolationJsonldJsonldBuilder b) =>
@@ -79,7 +81,7 @@ class _$ConstraintViolationJsonldJsonldSerializer
   @override
   final Iterable<Type> types = const [
     ConstraintViolationJsonldJsonld,
-    _$ConstraintViolationJsonldJsonld
+    _$ConstraintViolationJsonldJsonld,
   ];
 
   @override
@@ -122,8 +124,9 @@ class _$ConstraintViolationJsonldJsonldSerializer
       yield r'violations';
       yield serializers.serialize(
         object.violations,
-        specifiedType: const FullType(
-            BuiltList, [FullType(ConstraintViolationJsonViolationsInner)]),
+        specifiedType: const FullType(BuiltList, [
+          FullType(ConstraintViolationJsonViolationsInner),
+        ]),
       );
     }
     if (object.detail != null) {
@@ -169,9 +172,11 @@ class _$ConstraintViolationJsonldJsonldSerializer
     ConstraintViolationJsonldJsonld object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -187,75 +192,95 @@ class _$ConstraintViolationJsonldJsonldSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'status':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int;
           result.status = valueDes;
           break;
         case r'violations':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                BuiltList, [FullType(ConstraintViolationJsonViolationsInner)]),
-          ) as BuiltList<ConstraintViolationJsonViolationsInner>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(ConstraintViolationJsonViolationsInner),
+                    ]),
+                  )
+                  as BuiltList<ConstraintViolationJsonViolationsInner>;
           result.violations.replace(valueDes);
           break;
         case r'detail':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.detail = valueDes;
           break;
         case r'description':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.description = valueDes;
           break;
         case r'type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.type = valueDes;
           break;
         case r'title':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.title = valueDes;
           break;
         case r'instance':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.instance = valueDes;
           break;

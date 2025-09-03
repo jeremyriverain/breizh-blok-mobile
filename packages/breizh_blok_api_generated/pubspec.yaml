@@ -5,7 +5,7 @@ homepage: homepage
 
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: '^3.9.0'
 
 dependencies:
   dio: '^5.7.0'
@@ -18,3 +18,4 @@ dev_dependencies:
   built_value_generator: '>=8.4.0 <9.0.0'
   build_runner: any
   test: '^1.16.0'
+resolution: workspace

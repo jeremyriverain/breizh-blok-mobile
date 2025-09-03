@@ -24,9 +24,9 @@ abstract class LineBoulderBoulderRead
 
   LineBoulderBoulderRead._();
 
-  factory LineBoulderBoulderRead(
-          [void updates(LineBoulderBoulderReadBuilder b)]) =
-      _$LineBoulderBoulderRead;
+  factory LineBoulderBoulderRead([
+    void updates(LineBoulderBoulderReadBuilder b),
+  ]) = _$LineBoulderBoulderRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(LineBoulderBoulderReadBuilder b) => b;
@@ -41,7 +41,7 @@ class _$LineBoulderBoulderReadSerializer
   @override
   final Iterable<Type> types = const [
     LineBoulderBoulderRead,
-    _$LineBoulderBoulderRead
+    _$LineBoulderBoulderRead,
   ];
 
   @override
@@ -70,9 +70,11 @@ class _$LineBoulderBoulderReadSerializer
     LineBoulderBoulderRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -88,17 +90,21 @@ class _$LineBoulderBoulderReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'rockImage':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.rockImage = valueDes;
           break;
         case r'smoothLine':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.smoothLine = valueDes;
           break;
         default:

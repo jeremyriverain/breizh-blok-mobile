@@ -25,8 +25,9 @@ abstract class BoulderBoulderItemGet
 
   BoulderBoulderItemGet._();
 
-  factory BoulderBoulderItemGet(
-      [void updates(BoulderBoulderItemGetBuilder b)]) = _$BoulderBoulderItemGet;
+  factory BoulderBoulderItemGet([
+    void updates(BoulderBoulderItemGetBuilder b),
+  ]) = _$BoulderBoulderItemGet;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderBoulderItemGetBuilder b) => b;
@@ -41,7 +42,7 @@ class _$BoulderBoulderItemGetSerializer
   @override
   final Iterable<Type> types = const [
     BoulderBoulderItemGet,
-    _$BoulderBoulderItemGet
+    _$BoulderBoulderItemGet,
   ];
 
   @override
@@ -74,9 +75,11 @@ class _$BoulderBoulderItemGetSerializer
     BoulderBoulderItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -92,18 +95,24 @@ class _$BoulderBoulderItemGetSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'description':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.description = valueDes;
           break;
         case r'height':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(HeightBoulderBoulderItemGet),
-          ) as HeightBoulderBoulderItemGet?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      HeightBoulderBoulderItemGet,
+                    ),
+                  )
+                  as HeightBoulderBoulderItemGet?;
           if (valueDes == null) continue;
           result.height.replace(valueDes);
           break;

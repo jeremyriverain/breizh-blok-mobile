@@ -22,8 +22,10 @@ part 'municipality_jsonld_department_read.g.dart';
 @BuiltValue()
 abstract class MunicipalityJsonldDepartmentRead
     implements
-        Built<MunicipalityJsonldDepartmentRead,
-            MunicipalityJsonldDepartmentReadBuilder> {
+        Built<
+          MunicipalityJsonldDepartmentRead,
+          MunicipalityJsonldDepartmentReadBuilder
+        > {
   @BuiltValueField(wireName: r'@context')
   BoulderJsonldBoulderItemGetContext? get atContext;
 
@@ -41,9 +43,9 @@ abstract class MunicipalityJsonldDepartmentRead
 
   MunicipalityJsonldDepartmentRead._();
 
-  factory MunicipalityJsonldDepartmentRead(
-          [void updates(MunicipalityJsonldDepartmentReadBuilder b)]) =
-      _$MunicipalityJsonldDepartmentRead;
+  factory MunicipalityJsonldDepartmentRead([
+    void updates(MunicipalityJsonldDepartmentReadBuilder b),
+  ]) = _$MunicipalityJsonldDepartmentRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(MunicipalityJsonldDepartmentReadBuilder b) => b;
@@ -58,7 +60,7 @@ class _$MunicipalityJsonldDepartmentReadSerializer
   @override
   final Iterable<Type> types = const [
     MunicipalityJsonldDepartmentRead,
-    _$MunicipalityJsonldDepartmentRead
+    _$MunicipalityJsonldDepartmentRead,
   ];
 
   @override
@@ -99,8 +101,9 @@ class _$MunicipalityJsonldDepartmentReadSerializer
       yield r'boulderAreas';
       yield serializers.serialize(
         object.boulderAreas,
-        specifiedType: const FullType(
-            BuiltList, [FullType(BoulderAreaJsonldDepartmentRead)]),
+        specifiedType: const FullType(BuiltList, [
+          FullType(BoulderAreaJsonldDepartmentRead),
+        ]),
       );
     }
   }
@@ -111,9 +114,11 @@ class _$MunicipalityJsonldDepartmentReadSerializer
     MunicipalityJsonldDepartmentRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -129,39 +134,52 @@ class _$MunicipalityJsonldDepartmentReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.name = valueDes;
           break;
         case r'boulderAreas':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                BuiltList, [FullType(BoulderAreaJsonldDepartmentRead)]),
-          ) as BuiltList<BoulderAreaJsonldDepartmentRead>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(BoulderAreaJsonldDepartmentRead),
+                    ]),
+                  )
+                  as BuiltList<BoulderAreaJsonldDepartmentRead>;
           result.boulderAreas.replace(valueDes);
           break;
         default:

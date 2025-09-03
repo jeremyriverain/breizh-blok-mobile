@@ -171,20 +171,21 @@ part 'serializers.g.dart';
   RockJsonldRockRead,
   RockRockRead,
 ])
-Serializers serializers = (_$serializers.toBuilder()
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(int)]),
-        () => ListBuilder<int>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(String)]),
-        () => ListBuilder<String>(),
-      )
-      ..add(const OneOfSerializer())
-      ..add(const AnyOfSerializer())
-      ..add(const DateSerializer())
-      ..add(Iso8601DateTimeSerializer()))
-    .build();
+Serializers serializers =
+    (_$serializers.toBuilder()
+          ..addBuilderFactory(
+            const FullType(BuiltList, [FullType(int)]),
+            () => ListBuilder<int>(),
+          )
+          ..addBuilderFactory(
+            const FullType(BuiltList, [FullType(String)]),
+            () => ListBuilder<String>(),
+          )
+          ..add(const OneOfSerializer())
+          ..add(const AnyOfSerializer())
+          ..add(const DateSerializer())
+          ..add(Iso8601DateTimeSerializer()))
+        .build();
 
 Serializers standardSerializers =
     (serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

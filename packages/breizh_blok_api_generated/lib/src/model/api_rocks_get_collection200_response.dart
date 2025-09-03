@@ -22,8 +22,10 @@ part 'api_rocks_get_collection200_response.g.dart';
 @BuiltValue()
 abstract class ApiRocksGetCollection200Response
     implements
-        Built<ApiRocksGetCollection200Response,
-            ApiRocksGetCollection200ResponseBuilder> {
+        Built<
+          ApiRocksGetCollection200Response,
+          ApiRocksGetCollection200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'hydra:member')
   BuiltList<RockJsonldRockRead> get hydraColonMember;
 
@@ -38,9 +40,9 @@ abstract class ApiRocksGetCollection200Response
 
   ApiRocksGetCollection200Response._();
 
-  factory ApiRocksGetCollection200Response(
-          [void updates(ApiRocksGetCollection200ResponseBuilder b)]) =
-      _$ApiRocksGetCollection200Response;
+  factory ApiRocksGetCollection200Response([
+    void updates(ApiRocksGetCollection200ResponseBuilder b),
+  ]) = _$ApiRocksGetCollection200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(ApiRocksGetCollection200ResponseBuilder b) => b;
@@ -55,7 +57,7 @@ class _$ApiRocksGetCollection200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     ApiRocksGetCollection200Response,
-    _$ApiRocksGetCollection200Response
+    _$ApiRocksGetCollection200Response,
   ];
 
   @override
@@ -82,16 +84,18 @@ class _$ApiRocksGetCollection200ResponseSerializer
       yield r'hydra:view';
       yield serializers.serialize(
         object.hydraColonView,
-        specifiedType:
-            const FullType(ApiBouldersGetCollection200ResponseHydraView),
+        specifiedType: const FullType(
+          ApiBouldersGetCollection200ResponseHydraView,
+        ),
       );
     }
     if (object.hydraColonSearch != null) {
       yield r'hydra:search';
       yield serializers.serialize(
         object.hydraColonSearch,
-        specifiedType:
-            const FullType(ApiBouldersGetCollection200ResponseHydraSearch),
+        specifiedType: const FullType(
+          ApiBouldersGetCollection200ResponseHydraSearch,
+        ),
       );
     }
   }
@@ -102,9 +106,11 @@ class _$ApiRocksGetCollection200ResponseSerializer
     ApiRocksGetCollection200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -120,34 +126,42 @@ class _$ApiRocksGetCollection200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'hydra:member':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(BuiltList, [FullType(RockJsonldRockRead)]),
-          ) as BuiltList<RockJsonldRockRead>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(RockJsonldRockRead),
+                    ]),
+                  )
+                  as BuiltList<RockJsonldRockRead>;
           result.hydraColonMember.replace(valueDes);
           break;
         case r'hydra:totalItems':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int;
           result.hydraColonTotalItems = valueDes;
           break;
         case r'hydra:view':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(ApiBouldersGetCollection200ResponseHydraView),
-          ) as ApiBouldersGetCollection200ResponseHydraView;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      ApiBouldersGetCollection200ResponseHydraView,
+                    ),
+                  )
+                  as ApiBouldersGetCollection200ResponseHydraView;
           result.hydraColonView.replace(valueDes);
           break;
         case r'hydra:search':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(ApiBouldersGetCollection200ResponseHydraSearch),
-          ) as ApiBouldersGetCollection200ResponseHydraSearch;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      ApiBouldersGetCollection200ResponseHydraSearch,
+                    ),
+                  )
+                  as ApiBouldersGetCollection200ResponseHydraSearch;
           result.hydraColonSearch.replace(valueDes);
           break;
         default:

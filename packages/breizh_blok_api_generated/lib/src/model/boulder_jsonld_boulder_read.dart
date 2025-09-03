@@ -48,9 +48,9 @@ abstract class BoulderJsonldBoulderRead
 
   BoulderJsonldBoulderRead._();
 
-  factory BoulderJsonldBoulderRead(
-          [void updates(BoulderJsonldBoulderReadBuilder b)]) =
-      _$BoulderJsonldBoulderRead;
+  factory BoulderJsonldBoulderRead([
+    void updates(BoulderJsonldBoulderReadBuilder b),
+  ]) = _$BoulderJsonldBoulderRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderJsonldBoulderReadBuilder b) => b;
@@ -65,7 +65,7 @@ class _$BoulderJsonldBoulderReadSerializer
   @override
   final Iterable<Type> types = const [
     BoulderJsonldBoulderRead,
-    _$BoulderJsonldBoulderRead
+    _$BoulderJsonldBoulderRead,
   ];
 
   @override
@@ -111,8 +111,9 @@ class _$BoulderJsonldBoulderReadSerializer
       yield r'lineBoulders';
       yield serializers.serialize(
         object.lineBoulders,
-        specifiedType:
-            const FullType(BuiltList, [FullType(LineBoulderJsonldBoulderRead)]),
+        specifiedType: const FullType(BuiltList, [
+          FullType(LineBoulderJsonldBoulderRead),
+        ]),
       );
     }
     if (object.isUrban != null) {
@@ -130,9 +131,11 @@ class _$BoulderJsonldBoulderReadSerializer
     BoulderJsonldBoulderRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -148,54 +151,69 @@ class _$BoulderJsonldBoulderReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         case r'name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.name = valueDes;
           break;
         case r'grade':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
           if (valueDes == null) continue;
           result.grade = valueDes;
           break;
         case r'rock':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(RockJsonldBoulderRead),
-          ) as RockJsonldBoulderRead;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RockJsonldBoulderRead),
+                  )
+                  as RockJsonldBoulderRead;
           result.rock.replace(valueDes);
           break;
         case r'lineBoulders':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                BuiltList, [FullType(LineBoulderJsonldBoulderRead)]),
-          ) as BuiltList<LineBoulderJsonldBoulderRead>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(LineBoulderJsonldBoulderRead),
+                    ]),
+                  )
+                  as BuiltList<LineBoulderJsonldBoulderRead>;
           result.lineBoulders.replace(valueDes);
           break;
         case r'isUrban':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool;
           result.isUrban = valueDes;
           break;
         default:

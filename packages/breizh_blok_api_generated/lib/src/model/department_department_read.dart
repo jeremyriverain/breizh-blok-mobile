@@ -27,9 +27,9 @@ abstract class DepartmentDepartmentRead
 
   DepartmentDepartmentRead._();
 
-  factory DepartmentDepartmentRead(
-          [void updates(DepartmentDepartmentReadBuilder b)]) =
-      _$DepartmentDepartmentRead;
+  factory DepartmentDepartmentRead([
+    void updates(DepartmentDepartmentReadBuilder b),
+  ]) = _$DepartmentDepartmentRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(DepartmentDepartmentReadBuilder b) => b;
@@ -44,7 +44,7 @@ class _$DepartmentDepartmentReadSerializer
   @override
   final Iterable<Type> types = const [
     DepartmentDepartmentRead,
-    _$DepartmentDepartmentRead
+    _$DepartmentDepartmentRead,
   ];
 
   @override
@@ -64,8 +64,9 @@ class _$DepartmentDepartmentReadSerializer
       yield r'municipalities';
       yield serializers.serialize(
         object.municipalities,
-        specifiedType:
-            const FullType(BuiltList, [FullType(MunicipalityDepartmentRead)]),
+        specifiedType: const FullType(BuiltList, [
+          FullType(MunicipalityDepartmentRead),
+        ]),
       );
     }
   }
@@ -76,9 +77,11 @@ class _$DepartmentDepartmentReadSerializer
     DepartmentDepartmentRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -94,18 +97,23 @@ class _$DepartmentDepartmentReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.name = valueDes;
           break;
         case r'municipalities':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                BuiltList, [FullType(MunicipalityDepartmentRead)]),
-          ) as BuiltList<MunicipalityDepartmentRead>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(MunicipalityDepartmentRead),
+                    ]),
+                  )
+                  as BuiltList<MunicipalityDepartmentRead>;
           result.municipalities.replace(valueDes);
           break;
         default:

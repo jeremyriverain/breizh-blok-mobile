@@ -80,9 +80,11 @@ class _$RockRockReadSerializer implements PrimitiveSerializer<RockRockRead> {
     RockRockRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -98,25 +100,34 @@ class _$RockRockReadSerializer implements PrimitiveSerializer<RockRockRead> {
       final value = serializedList[i + 1];
       switch (key) {
         case r'location':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(JsonObject),
-          ) as JsonObject;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(JsonObject),
+                  )
+                  as JsonObject;
           result.location = valueDes;
           break;
         case r'boulders':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(BuiltList, [FullType(BoulderRockRead)]),
-          ) as BuiltList<BoulderRockRead>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(BoulderRockRead),
+                    ]),
+                  )
+                  as BuiltList<BoulderRockRead>;
           result.boulders.replace(valueDes);
           break;
         case r'pictures':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(String)]),
-          ) as BuiltList<String>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(String),
+                    ]),
+                  )
+                  as BuiltList<String>;
           result.pictures.replace(valueDes);
           break;
         default:

@@ -20,16 +20,18 @@ part 'boulder_jsonld_boulder_item_get_context.g.dart';
 @BuiltValue()
 abstract class BoulderJsonldBoulderItemGetContext
     implements
-        Built<BoulderJsonldBoulderItemGetContext,
-            BoulderJsonldBoulderItemGetContextBuilder> {
+        Built<
+          BoulderJsonldBoulderItemGetContext,
+          BoulderJsonldBoulderItemGetContextBuilder
+        > {
   /// One Of [BoulderJsonldBoulderItemGetContextOneOf], [String]
   OneOf get oneOf;
 
   BoulderJsonldBoulderItemGetContext._();
 
-  factory BoulderJsonldBoulderItemGetContext(
-          [void updates(BoulderJsonldBoulderItemGetContextBuilder b)]) =
-      _$BoulderJsonldBoulderItemGetContext;
+  factory BoulderJsonldBoulderItemGetContext([
+    void updates(BoulderJsonldBoulderItemGetContextBuilder b),
+  ]) = _$BoulderJsonldBoulderItemGetContext;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderJsonldBoulderItemGetContextBuilder b) => b;
@@ -44,7 +46,7 @@ class _$BoulderJsonldBoulderItemGetContextSerializer
   @override
   final Iterable<Type> types = const [
     BoulderJsonldBoulderItemGetContext,
-    _$BoulderJsonldBoulderItemGetContext
+    _$BoulderJsonldBoulderItemGetContext,
   ];
 
   @override
@@ -61,8 +63,10 @@ class _$BoulderJsonldBoulderItemGetContextSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final oneOf = object.oneOf;
-    return serializers.serialize(oneOf.value,
-        specifiedType: FullType(oneOf.valueType))!;
+    return serializers.serialize(
+      oneOf.value,
+      specifiedType: FullType(oneOf.valueType),
+    )!;
   }
 
   @override
@@ -78,8 +82,9 @@ class _$BoulderJsonldBoulderItemGetContextSerializer
       FullType(BoulderJsonldBoulderItemGetContextOneOf),
     ]);
     oneOfDataSrc = serialized;
-    result.oneOf = serializers.deserialize(oneOfDataSrc,
-        specifiedType: targetType) as OneOf;
+    result.oneOf =
+        serializers.deserialize(oneOfDataSrc, specifiedType: targetType)
+            as OneOf;
     return result.build();
   }
 }
@@ -87,14 +92,14 @@ class _$BoulderJsonldBoulderItemGetContextSerializer
 class BoulderJsonldBoulderItemGetContextHydraEnum extends EnumClass {
   @BuiltValueEnumConst(wireName: r'http://www.w3.org/ns/hydra/core#')
   static const BoulderJsonldBoulderItemGetContextHydraEnum
-      httpColonSlashSlashWwwPeriodW3PeriodOrgSlashNsSlashHydraSlashCoreHash =
+  httpColonSlashSlashWwwPeriodW3PeriodOrgSlashNsSlashHydraSlashCoreHash =
       _$boulderJsonldBoulderItemGetContextHydraEnum_httpColonSlashSlashWwwPeriodW3PeriodOrgSlashNsSlashHydraSlashCoreHash;
 
   static Serializer<BoulderJsonldBoulderItemGetContextHydraEnum>
-      get serializer => _$boulderJsonldBoulderItemGetContextHydraEnumSerializer;
+  get serializer => _$boulderJsonldBoulderItemGetContextHydraEnumSerializer;
 
   const BoulderJsonldBoulderItemGetContextHydraEnum._(String name)
-      : super(name);
+    : super(name);
 
   static BuiltSet<BoulderJsonldBoulderItemGetContextHydraEnum> get values =>
       _$boulderJsonldBoulderItemGetContextHydraEnumValues;

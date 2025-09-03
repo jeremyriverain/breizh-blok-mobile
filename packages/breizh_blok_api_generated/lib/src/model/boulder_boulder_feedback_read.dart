@@ -26,9 +26,9 @@ abstract class BoulderBoulderFeedbackRead
 
   BoulderBoulderFeedbackRead._();
 
-  factory BoulderBoulderFeedbackRead(
-          [void updates(BoulderBoulderFeedbackReadBuilder b)]) =
-      _$BoulderBoulderFeedbackRead;
+  factory BoulderBoulderFeedbackRead([
+    void updates(BoulderBoulderFeedbackReadBuilder b),
+  ]) = _$BoulderBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(BoulderBoulderFeedbackReadBuilder b) => b;
@@ -43,7 +43,7 @@ class _$BoulderBoulderFeedbackReadSerializer
   @override
   final Iterable<Type> types = const [
     BoulderBoulderFeedbackRead,
-    _$BoulderBoulderFeedbackRead
+    _$BoulderBoulderFeedbackRead,
   ];
 
   @override
@@ -72,9 +72,11 @@ class _$BoulderBoulderFeedbackReadSerializer
     BoulderBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -90,17 +92,21 @@ class _$BoulderBoulderFeedbackReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.name = valueDes;
           break;
         case r'rock':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(RockBoulderFeedbackRead),
-          ) as RockBoulderFeedbackRead;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RockBoulderFeedbackRead),
+                  )
+                  as RockBoulderFeedbackRead;
           result.rock.replace(valueDes);
           break;
         default:

@@ -25,9 +25,9 @@ abstract class HeightBoulderBoulderItemGet
 
   HeightBoulderBoulderItemGet._();
 
-  factory HeightBoulderBoulderItemGet(
-          [void updates(HeightBoulderBoulderItemGetBuilder b)]) =
-      _$HeightBoulderBoulderItemGet;
+  factory HeightBoulderBoulderItemGet([
+    void updates(HeightBoulderBoulderItemGetBuilder b),
+  ]) = _$HeightBoulderBoulderItemGet;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(HeightBoulderBoulderItemGetBuilder b) => b;
@@ -42,7 +42,7 @@ class _$HeightBoulderBoulderItemGetSerializer
   @override
   final Iterable<Type> types = const [
     HeightBoulderBoulderItemGet,
-    _$HeightBoulderBoulderItemGet
+    _$HeightBoulderBoulderItemGet,
   ];
 
   @override
@@ -54,10 +54,7 @@ class _$HeightBoulderBoulderItemGetSerializer
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'min';
-    yield serializers.serialize(
-      object.min,
-      specifiedType: const FullType(int),
-    );
+    yield serializers.serialize(object.min, specifiedType: const FullType(int));
     if (object.max != null) {
       yield r'max';
       yield serializers.serialize(
@@ -73,9 +70,11 @@ class _$HeightBoulderBoulderItemGetSerializer
     HeightBoulderBoulderItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -91,17 +90,18 @@ class _$HeightBoulderBoulderItemGetSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'min':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int;
           result.min = valueDes;
           break;
         case r'max':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(int),
-          ) as int?;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(int),
+                  )
+                  as int?;
           if (valueDes == null) continue;
           result.max = valueDes;
           break;

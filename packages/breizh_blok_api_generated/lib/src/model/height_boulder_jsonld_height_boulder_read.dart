@@ -18,8 +18,10 @@ part 'height_boulder_jsonld_height_boulder_read.g.dart';
 @BuiltValue()
 abstract class HeightBoulderJsonldHeightBoulderRead
     implements
-        Built<HeightBoulderJsonldHeightBoulderRead,
-            HeightBoulderJsonldHeightBoulderReadBuilder> {
+        Built<
+          HeightBoulderJsonldHeightBoulderRead,
+          HeightBoulderJsonldHeightBoulderReadBuilder
+        > {
   @BuiltValueField(wireName: r'@context')
   BoulderJsonldBoulderItemGetContext? get atContext;
 
@@ -31,9 +33,9 @@ abstract class HeightBoulderJsonldHeightBoulderRead
 
   HeightBoulderJsonldHeightBoulderRead._();
 
-  factory HeightBoulderJsonldHeightBoulderRead(
-          [void updates(HeightBoulderJsonldHeightBoulderReadBuilder b)]) =
-      _$HeightBoulderJsonldHeightBoulderRead;
+  factory HeightBoulderJsonldHeightBoulderRead([
+    void updates(HeightBoulderJsonldHeightBoulderReadBuilder b),
+  ]) = _$HeightBoulderJsonldHeightBoulderRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(HeightBoulderJsonldHeightBoulderReadBuilder b) => b;
@@ -48,7 +50,7 @@ class _$HeightBoulderJsonldHeightBoulderReadSerializer
   @override
   final Iterable<Type> types = const [
     HeightBoulderJsonldHeightBoulderRead,
-    _$HeightBoulderJsonldHeightBoulderRead
+    _$HeightBoulderJsonldHeightBoulderRead,
   ];
 
   @override
@@ -88,9 +90,11 @@ class _$HeightBoulderJsonldHeightBoulderReadSerializer
     HeightBoulderJsonldHeightBoulderRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -106,24 +110,32 @@ class _$HeightBoulderJsonldHeightBoulderReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'@context':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
-          ) as BoulderJsonldBoulderItemGetContext;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderJsonldBoulderItemGetContext,
+                    ),
+                  )
+                  as BoulderJsonldBoulderItemGetContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atId = valueDes;
           break;
         case r'@type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.atType = valueDes;
           break;
         default:

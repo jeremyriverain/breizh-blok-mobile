@@ -50,9 +50,7 @@ class GradeApi {
     final _path = r'/grades';
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -72,17 +70,22 @@ class GradeApi {
         r'page': encodeQueryParameter(_serializers, page, const FullType(int)),
       if (pagination != null)
         r'pagination': encodeQueryParameter(
-            _serializers, pagination, const FullType(bool)),
+          _serializers,
+          pagination,
+          const FullType(bool),
+        ),
       if (orderLeftSquareBracketNameRightSquareBracket != null)
         r'order[name]': encodeQueryParameter(
-            _serializers,
-            orderLeftSquareBracketNameRightSquareBracket,
-            const FullType(String)),
+          _serializers,
+          orderLeftSquareBracketNameRightSquareBracket,
+          const FullType(String),
+        ),
       if (existsLeftSquareBracketBouldersRightSquareBracket != null)
         r'exists[boulders]': encodeQueryParameter(
-            _serializers,
-            existsLeftSquareBracketBouldersRightSquareBracket,
-            const FullType(bool)),
+          _serializers,
+          existsLeftSquareBracketBouldersRightSquareBracket,
+          const FullType(bool),
+        ),
     };
 
     final _response = await _dio.request<Object>(
@@ -101,9 +104,12 @@ class GradeApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(ApiGradesGetCollection200Response),
-            ) as ApiGradesGetCollection200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    ApiGradesGetCollection200Response,
+                  ),
+                )
+                as ApiGradesGetCollection200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -150,14 +156,14 @@ class GradeApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/grades/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -187,9 +193,10 @@ class GradeApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(GradeJsonldGradeRead),
-            ) as GradeJsonldGradeRead;
+                  rawResponse,
+                  specifiedType: const FullType(GradeJsonldGradeRead),
+                )
+                as GradeJsonldGradeRead;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

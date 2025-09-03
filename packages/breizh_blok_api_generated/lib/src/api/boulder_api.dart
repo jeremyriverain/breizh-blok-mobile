@@ -58,7 +58,7 @@ class BoulderApi {
   /// Returns a [Future] containing a [Response] with a [ApiBouldersGetCollection200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<ApiBouldersGetCollection200Response>>
-      apiBouldersGetCollection({
+  apiBouldersGetCollection({
     int? page = 1,
     int? itemsPerPage = 30,
     bool? pagination,
@@ -72,13 +72,13 @@ class BoulderApi {
     BuiltList<String>? gradePeriodNameLeftSquareBracketRightSquareBracket,
     int? rockPeriodBoulderAreaPeriodId,
     BuiltList<int>?
-        rockPeriodBoulderAreaPeriodIdLeftSquareBracketRightSquareBracket,
+    rockPeriodBoulderAreaPeriodIdLeftSquareBracketRightSquareBracket,
     String? rockPeriodBoulderAreaPeriodName,
     BuiltList<String>?
-        rockPeriodBoulderAreaPeriodNameLeftSquareBracketRightSquareBracket,
+    rockPeriodBoulderAreaPeriodNameLeftSquareBracketRightSquareBracket,
     String? rockPeriodBoulderAreaPeriodMunicipalityPeriodName,
     BuiltList<String>?
-        rockPeriodBoulderAreaPeriodMunicipalityPeriodNameLeftSquareBracketRightSquareBracket,
+    rockPeriodBoulderAreaPeriodMunicipalityPeriodNameLeftSquareBracketRightSquareBracket,
     int? rockPeriodId,
     BuiltList<int>? rockPeriodIdLeftSquareBracketRightSquareBracket,
     String? term,
@@ -97,9 +97,7 @@ class BoulderApi {
     final _path = r'/boulders';
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -119,23 +117,34 @@ class BoulderApi {
         r'page': encodeQueryParameter(_serializers, page, const FullType(int)),
       if (itemsPerPage != null)
         r'itemsPerPage': encodeQueryParameter(
-            _serializers, itemsPerPage, const FullType(int)),
+          _serializers,
+          itemsPerPage,
+          const FullType(int),
+        ),
       if (pagination != null)
         r'pagination': encodeQueryParameter(
-            _serializers, pagination, const FullType(bool)),
+          _serializers,
+          pagination,
+          const FullType(bool),
+        ),
       if (orderLeftSquareBracketIdRightSquareBracket != null)
-        r'order[id]': encodeQueryParameter(_serializers,
-            orderLeftSquareBracketIdRightSquareBracket, const FullType(String)),
+        r'order[id]': encodeQueryParameter(
+          _serializers,
+          orderLeftSquareBracketIdRightSquareBracket,
+          const FullType(String),
+        ),
       if (orderLeftSquareBracketNameRightSquareBracket != null)
         r'order[name]': encodeQueryParameter(
-            _serializers,
-            orderLeftSquareBracketNameRightSquareBracket,
-            const FullType(String)),
+          _serializers,
+          orderLeftSquareBracketNameRightSquareBracket,
+          const FullType(String),
+        ),
       if (orderLeftSquareBracketGradePeriodNameRightSquareBracket != null)
         r'order[grade.name]': encodeQueryParameter(
-            _serializers,
-            orderLeftSquareBracketGradePeriodNameRightSquareBracket,
-            const FullType(String)),
+          _serializers,
+          orderLeftSquareBracketGradePeriodNameRightSquareBracket,
+          const FullType(String),
+        ),
       if (id != null)
         r'id': encodeQueryParameter(_serializers, id, const FullType(int)),
       if (idLeftSquareBracketRightSquareBracket != null)
@@ -146,11 +155,17 @@ class BoulderApi {
           format: ListFormat.multi,
         ),
       if (name != null)
-        r'name':
-            encodeQueryParameter(_serializers, name, const FullType(String)),
+        r'name': encodeQueryParameter(
+          _serializers,
+          name,
+          const FullType(String),
+        ),
       if (gradePeriodName != null)
         r'grade.name': encodeQueryParameter(
-            _serializers, gradePeriodName, const FullType(String)),
+          _serializers,
+          gradePeriodName,
+          const FullType(String),
+        ),
       if (gradePeriodNameLeftSquareBracketRightSquareBracket != null)
         r'grade.name[]': encodeCollectionQueryParameter<String>(
           _serializers,
@@ -160,7 +175,10 @@ class BoulderApi {
         ),
       if (rockPeriodBoulderAreaPeriodId != null)
         r'rock.boulderArea.id': encodeQueryParameter(
-            _serializers, rockPeriodBoulderAreaPeriodId, const FullType(int)),
+          _serializers,
+          rockPeriodBoulderAreaPeriodId,
+          const FullType(int),
+        ),
       if (rockPeriodBoulderAreaPeriodIdLeftSquareBracketRightSquareBracket !=
           null)
         r'rock.boulderArea.id[]': encodeCollectionQueryParameter<int>(
@@ -170,8 +188,11 @@ class BoulderApi {
           format: ListFormat.multi,
         ),
       if (rockPeriodBoulderAreaPeriodName != null)
-        r'rock.boulderArea.name': encodeQueryParameter(_serializers,
-            rockPeriodBoulderAreaPeriodName, const FullType(String)),
+        r'rock.boulderArea.name': encodeQueryParameter(
+          _serializers,
+          rockPeriodBoulderAreaPeriodName,
+          const FullType(String),
+        ),
       if (rockPeriodBoulderAreaPeriodNameLeftSquareBracketRightSquareBracket !=
           null)
         r'rock.boulderArea.name[]': encodeCollectionQueryParameter<String>(
@@ -182,21 +203,25 @@ class BoulderApi {
         ),
       if (rockPeriodBoulderAreaPeriodMunicipalityPeriodName != null)
         r'rock.boulderArea.municipality.name': encodeQueryParameter(
-            _serializers,
-            rockPeriodBoulderAreaPeriodMunicipalityPeriodName,
-            const FullType(String)),
+          _serializers,
+          rockPeriodBoulderAreaPeriodMunicipalityPeriodName,
+          const FullType(String),
+        ),
       if (rockPeriodBoulderAreaPeriodMunicipalityPeriodNameLeftSquareBracketRightSquareBracket !=
           null)
         r'rock.boulderArea.municipality.name[]':
             encodeCollectionQueryParameter<String>(
-          _serializers,
-          rockPeriodBoulderAreaPeriodMunicipalityPeriodNameLeftSquareBracketRightSquareBracket,
-          const FullType(BuiltList, [FullType(String)]),
-          format: ListFormat.multi,
-        ),
+              _serializers,
+              rockPeriodBoulderAreaPeriodMunicipalityPeriodNameLeftSquareBracketRightSquareBracket,
+              const FullType(BuiltList, [FullType(String)]),
+              format: ListFormat.multi,
+            ),
       if (rockPeriodId != null)
         r'rock.id': encodeQueryParameter(
-            _serializers, rockPeriodId, const FullType(int)),
+          _serializers,
+          rockPeriodId,
+          const FullType(int),
+        ),
       if (rockPeriodIdLeftSquareBracketRightSquareBracket != null)
         r'rock.id[]': encodeCollectionQueryParameter<int>(
           _serializers,
@@ -205,28 +230,35 @@ class BoulderApi {
           format: ListFormat.multi,
         ),
       if (term != null)
-        r'term':
-            encodeQueryParameter(_serializers, term, const FullType(String)),
+        r'term': encodeQueryParameter(
+          _serializers,
+          term,
+          const FullType(String),
+        ),
       if (createdAtLeftSquareBracketBeforeRightSquareBracket != null)
         r'createdAt[before]': encodeQueryParameter(
-            _serializers,
-            createdAtLeftSquareBracketBeforeRightSquareBracket,
-            const FullType(String)),
+          _serializers,
+          createdAtLeftSquareBracketBeforeRightSquareBracket,
+          const FullType(String),
+        ),
       if (createdAtLeftSquareBracketStrictlyBeforeRightSquareBracket != null)
         r'createdAt[strictly_before]': encodeQueryParameter(
-            _serializers,
-            createdAtLeftSquareBracketStrictlyBeforeRightSquareBracket,
-            const FullType(String)),
+          _serializers,
+          createdAtLeftSquareBracketStrictlyBeforeRightSquareBracket,
+          const FullType(String),
+        ),
       if (createdAtLeftSquareBracketAfterRightSquareBracket != null)
         r'createdAt[after]': encodeQueryParameter(
-            _serializers,
-            createdAtLeftSquareBracketAfterRightSquareBracket,
-            const FullType(String)),
+          _serializers,
+          createdAtLeftSquareBracketAfterRightSquareBracket,
+          const FullType(String),
+        ),
       if (createdAtLeftSquareBracketStrictlyAfterRightSquareBracket != null)
         r'createdAt[strictly_after]': encodeQueryParameter(
-            _serializers,
-            createdAtLeftSquareBracketStrictlyAfterRightSquareBracket,
-            const FullType(String)),
+          _serializers,
+          createdAtLeftSquareBracketStrictlyAfterRightSquareBracket,
+          const FullType(String),
+        ),
       if (groupsLeftSquareBracketRightSquareBracket != null)
         r'groups[]': encodeCollectionQueryParameter<String>(
           _serializers,
@@ -252,10 +284,12 @@ class BoulderApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(ApiBouldersGetCollection200Response),
-            ) as ApiBouldersGetCollection200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    ApiBouldersGetCollection200Response,
+                  ),
+                )
+                as ApiBouldersGetCollection200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -302,14 +336,14 @@ class BoulderApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/boulders/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -339,9 +373,10 @@ class BoulderApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(BoulderJsonldBoulderItemGet),
-            ) as BoulderJsonldBoulderItemGet;
+                  rawResponse,
+                  specifiedType: const FullType(BoulderJsonldBoulderItemGet),
+                )
+                as BoulderJsonldBoulderItemGet;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

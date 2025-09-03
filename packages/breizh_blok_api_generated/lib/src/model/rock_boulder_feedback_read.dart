@@ -21,9 +21,9 @@ abstract class RockBoulderFeedbackRead
 
   RockBoulderFeedbackRead._();
 
-  factory RockBoulderFeedbackRead(
-          [void updates(RockBoulderFeedbackReadBuilder b)]) =
-      _$RockBoulderFeedbackRead;
+  factory RockBoulderFeedbackRead([
+    void updates(RockBoulderFeedbackReadBuilder b),
+  ]) = _$RockBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(RockBoulderFeedbackReadBuilder b) => b;
@@ -38,7 +38,7 @@ class _$RockBoulderFeedbackReadSerializer
   @override
   final Iterable<Type> types = const [
     RockBoulderFeedbackRead,
-    _$RockBoulderFeedbackRead
+    _$RockBoulderFeedbackRead,
   ];
 
   @override
@@ -62,9 +62,11 @@ class _$RockBoulderFeedbackReadSerializer
     RockBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -80,10 +82,14 @@ class _$RockBoulderFeedbackReadSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'boulderArea':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BoulderAreaBoulderFeedbackRead),
-          ) as BoulderAreaBoulderFeedbackRead;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      BoulderAreaBoulderFeedbackRead,
+                    ),
+                  )
+                  as BoulderAreaBoulderFeedbackRead;
           result.boulderArea.replace(valueDes);
           break;
         default:

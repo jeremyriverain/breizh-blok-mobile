@@ -34,7 +34,7 @@ class HeightBoulderApi {
   /// Returns a [Future] containing a [Response] with a [ApiHeightBouldersGetCollection200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<ApiHeightBouldersGetCollection200Response>>
-      apiHeightBouldersGetCollection({
+  apiHeightBouldersGetCollection({
     int? page = 1,
     bool? pagination,
     CancelToken? cancelToken,
@@ -47,9 +47,7 @@ class HeightBoulderApi {
     final _path = r'/height_boulders';
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -69,7 +67,10 @@ class HeightBoulderApi {
         r'page': encodeQueryParameter(_serializers, page, const FullType(int)),
       if (pagination != null)
         r'pagination': encodeQueryParameter(
-            _serializers, pagination, const FullType(bool)),
+          _serializers,
+          pagination,
+          const FullType(bool),
+        ),
     };
 
     final _response = await _dio.request<Object>(
@@ -88,10 +89,12 @@ class HeightBoulderApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(ApiHeightBouldersGetCollection200Response),
-            ) as ApiHeightBouldersGetCollection200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    ApiHeightBouldersGetCollection200Response,
+                  ),
+                )
+                as ApiHeightBouldersGetCollection200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -129,7 +132,7 @@ class HeightBoulderApi {
   /// Returns a [Future] containing a [Response] with a [HeightBoulderJsonldHeightBoulderRead] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<HeightBoulderJsonldHeightBoulderRead>>
-      apiHeightBouldersIdGet({
+  apiHeightBouldersIdGet({
     required String id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -139,14 +142,14 @@ class HeightBoulderApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/height_boulders/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
+      headers: <String, dynamic>{...?headers},
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
@@ -176,10 +179,12 @@ class HeightBoulderApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(HeightBoulderJsonldHeightBoulderRead),
-            ) as HeightBoulderJsonldHeightBoulderRead;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    HeightBoulderJsonldHeightBoulderRead,
+                  ),
+                )
+                as HeightBoulderJsonldHeightBoulderRead;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
