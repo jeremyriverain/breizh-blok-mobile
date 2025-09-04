@@ -51,7 +51,7 @@ jobs:
         with:
           cache: true
 
-      - name: distribute
+      - name: Create patch
         env:
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}

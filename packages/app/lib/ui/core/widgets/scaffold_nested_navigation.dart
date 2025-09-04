@@ -23,9 +23,9 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
         destinations: <Widget>[
-          const NavigationDestination(
-            icon: Icon(Icons.heart_broken),
-            label: 'foo',
+          NavigationDestination(
+            icon: const Icon(Icons.terrain),
+            label: AppLocalizations.of(context).boulders,
           ),
           NavigationDestination(
             icon: const Icon(Icons.map),
