@@ -52,7 +52,7 @@ PODS:
     - Flutter
     - FlutterMacOS
   - SimpleKeychain (1.2.0)
-  - sqflite (0.0.3):
+  - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
   - sqlite3 (3.50.4):
@@ -96,7 +96,7 @@ DEPENDENCIES:
   - sentry_flutter (from `.symlinks/plugins/sentry_flutter/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
-  - sqflite (from `.symlinks/plugins/sqflite/darwin`)
+  - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
   - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/darwin`)
 
 SPEC REPOS:
@@ -139,8 +139,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
-  sqflite:
-    :path: ".symlinks/plugins/sqflite/darwin"
+  sqflite_darwin:
+    :path: ".symlinks/plugins/sqflite_darwin/darwin"
   sqlite3_flutter_libs:
     :path: ".symlinks/plugins/sqlite3_flutter_libs/darwin"
 
@@ -158,7 +158,7 @@ SPEC CHECKSUMS:
   MapboxMaps: 308bb0be5e7a59c9f68a3b06f48998ccb4477583
   Mixpanel-swift: 7b26468fc0e2e521104e51d65c4bbf7cab8162f8
   mixpanel_flutter: a0b6b937035899cd01951735ad5f87718b2ffee5
-  package_info_plus: 5076a1ce937258be9d2d41781a0e9cd71f19a82f
+  package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
   Sentry: 2cbbe3592f30050c60e916c63c7f5a2fa584005e
@@ -166,7 +166,7 @@ SPEC CHECKSUMS:
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   SimpleKeychain: 768cf43ae778b1c21816e94dddf01bb8ee96a075
-  sqflite: c35dad70033b8862124f8337cc994a809fcd9fa3
+  sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   sqlite3: 73513155ec6979715d3904ef53a8d68892d4032b
   sqlite3_flutter_libs: 83f8e9f5b6554077f1d93119fe20ebaa5f3a9ef1
   Turf: c9eb11a65d96af58cac523460fd40fec5061b081

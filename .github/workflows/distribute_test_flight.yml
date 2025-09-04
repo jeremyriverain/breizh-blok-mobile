@@ -43,9 +43,15 @@ jobs:
           ruby-version: "3.4"
           bundler-cache: true
 
+      - name: 🐦 Setup Shorebird
+        uses: shorebirdtech/setup-shorebird@v1
+        with:
+          cache: true
+
       - name: distribute
         env:
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
         run: |
           set -e
           cd packages/app
@@ -65,10 +71,9 @@ jobs:
           mkdir -p ~/private_keys
           echo ${{ secrets.APPLE_STORE_PRIVATE_KEY }} | base64 -d > ~/private_keys/AuthKey_${{secrets.APP_STORE_API_KEY_ID}}.p8
 
-          flutter build ipa \
+          shorebird release ios \
             --verbose \
             --build-number=$build_number \
-            --release \
             --export-options-plist=ios/buildInfo.plist
 
           xcrun altool --upload-app --type ios -f build/ios/ipa/Breizh\ Blok.ipa --apiKey "${{secrets.APP_STORE_API_KEY_ID}}" --apiIssuer "${{secrets.APP_STORE_API_KEY_ISSUER_ID}}"
