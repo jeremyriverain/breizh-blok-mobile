@@ -7,13 +7,12 @@ void main() {
   group('BoulderFilterBloc', () {
     blocTest<BoulderOrderBloc, ApiOrderParam>(
       'default state OK',
-      build:
-          () => BoulderOrderBloc(
-            const ApiOrderParam(
-              direction: kDescendantDirection,
-              name: kIdOrderParam,
-            ),
-          ),
+      build: () => BoulderOrderBloc(
+        const ApiOrderParam(
+          direction: kDescendantDirection,
+          name: kIdOrderParam,
+        ),
+      ),
       verify: (BoulderOrderBloc bloc) {
         expect(bloc.state.direction, kDescendantDirection);
         expect(bloc.state.name, kIdOrderParam);
@@ -22,23 +21,20 @@ void main() {
 
     blocTest<BoulderOrderBloc, ApiOrderParam>(
       'BoulderOrderEvent OK',
-      build:
-          () => BoulderOrderBloc(
-            const ApiOrderParam(
-              direction: kDescendantDirection,
-              name: kIdOrderParam,
-            ),
-          ),
-      act:
-          (BoulderOrderBloc bloc) => bloc.add(
-            BoulderOrderEvent(
-              const ApiOrderParam(direction: kAscendantDirection, name: 'name'),
-            ),
-          ),
-      expect:
-          () => [
-            const ApiOrderParam(direction: kAscendantDirection, name: 'name'),
-          ],
+      build: () => BoulderOrderBloc(
+        const ApiOrderParam(
+          direction: kDescendantDirection,
+          name: kIdOrderParam,
+        ),
+      ),
+      act: (BoulderOrderBloc bloc) => bloc.add(
+        BoulderOrderEvent(
+          const ApiOrderParam(direction: kAscendantDirection, name: 'name'),
+        ),
+      ),
+      expect: () => [
+        const ApiOrderParam(direction: kAscendantDirection, name: 'name'),
+      ],
     );
   });
 }

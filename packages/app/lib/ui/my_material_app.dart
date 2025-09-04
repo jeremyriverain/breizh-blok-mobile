@@ -21,9 +21,8 @@ class MyMaterialApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       locale: locale,
-      builder:
-          (context, child) =>
-              WidgetConfig(child: child ?? const SizedBox.shrink()),
+      builder: (context, child) =>
+          WidgetConfig(child: child ?? const SizedBox.shrink()),
     );
   }
 }

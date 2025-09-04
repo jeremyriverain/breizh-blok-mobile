@@ -36,10 +36,9 @@ class BoulderListBuilderSortButton extends StatelessWidget {
           ),
         ),
       ],
-      onChanged:
-          (value) => {
-            context.read<BoulderOrderBloc>().add(BoulderOrderEvent(value)),
-          },
+      onChanged: (value) => {
+        context.read<BoulderOrderBloc>().add(BoulderOrderEvent(value)),
+      },
       initialSelected: context.read<BoulderOrderBloc>().state,
     );
   }

@@ -27,7 +27,10 @@ class ContributeBoulderLocationForm extends FormGroup {
          ),
        });
 
-  static const formKeys = (latitude: 'latitude', longitude: 'longitude');
+  static const ({String latitude, String longitude}) formKeys = (
+    latitude: 'latitude',
+    longitude: 'longitude',
+  );
 
   final double _initialLatitude;
   final double _initialLongitude;

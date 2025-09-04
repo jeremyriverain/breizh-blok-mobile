@@ -41,13 +41,12 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
       alignment: Alignment.bottomCenter,
       children: [
         BlocProvider(
-          create:
-              (context) => BoulderAreaMapViewModel(
-                boulderArea: widget.boulderArea,
-                boulderMarkerRepository: BoulderMarkerRepository(
-                  httpClient: context.read<ApiClient>(),
-                ),
-              ),
+          create: (context) => BoulderAreaMapViewModel(
+            boulderArea: widget.boulderArea,
+            boulderMarkerRepository: BoulderMarkerRepository(
+              httpClient: context.read<ApiClient>(),
+            ),
+          ),
           child: BlocBuilder<BoulderAreaMapViewModel, BoulderAreaMapStates>(
             builder: (context, state) {
               return switch (state) {
@@ -69,9 +68,9 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                       final parkingLocation =
                           widget.boulderArea.parkingLocation;
                       if (parkingLocation != null) {
-                        final pointAnnotationManager =
-                            await mapboxMap.annotations
-                                .createPointAnnotationManager();
+                        final pointAnnotationManager = await mapboxMap
+                            .annotations
+                            .createPointAnnotationManager();
 
                         if (!context.mounted) {
                           return;
@@ -128,17 +127,17 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                         return;
                       }
 
-                      final offlineFirst =
-                          context.read<RequestStrategy>().offlineFirst;
+                      final offlineFirst = context
+                          .read<RequestStrategy>()
+                          .offlineFirst;
 
                       await showModalBottomSheet<void>(
                         context: context,
                         isScrollControlled: true,
                         builder: (BuildContext context) {
                           return RepositoryProvider(
-                            create:
-                                (_) =>
-                                    RequestStrategy(offlineFirst: offlineFirst),
+                            create: (_) =>
+                                RequestStrategy(offlineFirst: offlineFirst),
                             child: Builder(
                               builder: (context) {
                                 return FractionallySizedBox(
@@ -153,10 +152,9 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                                         const BoulderFilterState(),
                                       ),
                                       onPageRequested: (int page) {
-                                        final orderParam =
-                                            context
-                                                .read<BoulderOrderBloc>()
-                                                .state;
+                                        final orderParam = context
+                                            .read<BoulderOrderBloc>()
+                                            .state;
 
                                         if (offlineFirst) {
                                           return DbBouldersRequested(

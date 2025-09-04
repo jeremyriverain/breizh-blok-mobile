@@ -25,17 +25,15 @@ void main() {
           ),
         ).thenAnswer((_) async => fakeBoulder);
       },
-      build:
-          () => DownloadedBoulderViewModel(
-            repository: repository,
-            boulderAreaIri: '/boulder_areas/foo',
-            boulderId: 'foo',
-          ),
-      expect:
-          () => [
-            const DownloadedBoulderLoading(),
-            const DownloadedBoulderStates.ok(boulder: fakeBoulder),
-          ],
+      build: () => DownloadedBoulderViewModel(
+        repository: repository,
+        boulderAreaIri: '/boulder_areas/foo',
+        boulderId: 'foo',
+      ),
+      expect: () => [
+        const DownloadedBoulderLoading(),
+        const DownloadedBoulderStates.ok(boulder: fakeBoulder),
+      ],
     );
 
     blocTest<DownloadedBoulderViewModel, DownloadedBoulderStates>(
@@ -48,21 +46,19 @@ void main() {
           ),
         ).thenThrow(Exception('foo'));
       },
-      build:
-          () => DownloadedBoulderViewModel(
-            repository: repository,
-            boulderAreaIri: '/boulder_areas/foo',
-            boulderId: 'foo',
-          ),
-      expect:
-          () => [
-            const DownloadedBoulderLoading(),
-            isA<DownloadedBoulderError>().having(
-              (e) => e.error.toString(),
-              'error',
-              'Exception: foo',
-            ),
-          ],
+      build: () => DownloadedBoulderViewModel(
+        repository: repository,
+        boulderAreaIri: '/boulder_areas/foo',
+        boulderId: 'foo',
+      ),
+      expect: () => [
+        const DownloadedBoulderLoading(),
+        isA<DownloadedBoulderError>().having(
+          (e) => e.error.toString(),
+          'error',
+          'Exception: foo',
+        ),
+      ],
     );
 
     blocTest<DownloadedBoulderViewModel, DownloadedBoulderStates>(
@@ -75,20 +71,18 @@ void main() {
           ),
         ).thenAnswer((_) async => fakeBoulder);
       },
-      build:
-          () => DownloadedBoulderViewModel(
-            repository: repository,
-            boulderAreaIri: '/boulder_areas/foo',
-            boulderId: 'foo',
-          ),
+      build: () => DownloadedBoulderViewModel(
+        repository: repository,
+        boulderAreaIri: '/boulder_areas/foo',
+        boulderId: 'foo',
+      ),
       act: (bloc) => bloc.add(const DownloadedBoulderEvents.requested()),
-      expect:
-          () => [
-            const DownloadedBoulderLoading(),
-            const DownloadedBoulderStates.ok(boulder: fakeBoulder),
-            const DownloadedBoulderLoading(),
-            const DownloadedBoulderStates.ok(boulder: fakeBoulder),
-          ],
+      expect: () => [
+        const DownloadedBoulderLoading(),
+        const DownloadedBoulderStates.ok(boulder: fakeBoulder),
+        const DownloadedBoulderLoading(),
+        const DownloadedBoulderStates.ok(boulder: fakeBoulder),
+      ],
     );
   });
 }

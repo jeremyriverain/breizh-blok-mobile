@@ -20,8 +20,9 @@ class DownloadsAreaButton extends StatelessWidget {
   Future<void> _onChanged(BuildContext context, {required bool value}) async {
     final token = RootIsolateToken.instance;
 
-    final connection =
-        await context.read<AppDatabase>().serializableConnection();
+    final connection = await context
+        .read<AppDatabase>()
+        .serializableConnection();
 
     try {
       await Isolate.run(() async {
@@ -98,17 +99,15 @@ class _DownloadButton extends StatelessWidget {
           padding: const EdgeInsets.only(right: 8),
           child: Switch(
             value: isDownload,
-            onChanged:
-                onChanged != null
-                    ? (value) => onChanged(context, value: value)
-                    : null,
+            onChanged: onChanged != null
+                ? (value) => onChanged(context, value: value)
+                : null,
           ),
         ),
         GestureDetector(
-          onTap:
-              onChanged != null
-                  ? () => onChanged(context, value: !isDownload)
-                  : null,
+          onTap: onChanged != null
+              ? () => onChanged(context, value: !isDownload)
+              : null,
           child: Text(
             AppLocalizations.of(context).download.toUpperCase(),
             key: key,

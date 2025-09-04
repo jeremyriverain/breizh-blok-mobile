@@ -160,10 +160,9 @@ void main() {
       );
 
       await tester.myPumpWidget(
-        widget:
-            getTestWidget(
-              boulderArea: fakeBoulderArea.copyWith(parkingLocation: null),
-            ).widget,
+        widget: getTestWidget(
+          boulderArea: fakeBoulderArea.copyWith(parkingLocation: null),
+        ).widget,
       );
       await tester.pump();
       await tester.tap(find.text('open maps'));

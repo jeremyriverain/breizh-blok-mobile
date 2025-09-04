@@ -27,12 +27,11 @@ When I submit,
 Nothing happens
 ''',
 
-      build:
-          () => ContributeBoulderMapViewModel(
-            boulderFeedbackRepository: MockBoulderFeedbackRepository(),
-            boulder: fakeBoulder,
-            form: ContributeBoulderLocationForm(latitude: 0, longitude: 1),
-          ),
+      build: () => ContributeBoulderMapViewModel(
+        boulderFeedbackRepository: MockBoulderFeedbackRepository(),
+        boulder: fakeBoulder,
+        form: ContributeBoulderLocationForm(latitude: 0, longitude: 1),
+      ),
       act: (bloc) => bloc.add(SubmitLocationEvent()),
       expect: () => <ContributeBoulderMapState>[],
     );
@@ -55,35 +54,31 @@ Then the repository is called
         ).thenAnswer(
           (_) => TaskEither.tryCatch(
             () async {},
-            (_, __) => const UnknownException(message: 'foo'),
+            (_, _) => const UnknownException(message: 'foo'),
           ),
         );
       },
-      build:
-          () => ContributeBoulderMapViewModel(
-            boulderFeedbackRepository: repository,
-            boulder: fakeBoulder,
-            form: ContributeBoulderLocationForm(latitude: 0, longitude: 1),
-          ),
-      act:
-          (bloc) =>
-              bloc
-                ..add(UpdateLatitudeEvent(latitude: 9))
-                ..add(UpdateLongitudeEvent(longitude: 23))
-                ..add(SubmitLocationEvent()),
-      expect:
-          () => [
-            isA<ContributeBoulderMapState>()
-                .having((c) => c.form.latitude, 'latitude', equals(9))
-                .having((c) => c.form.longitude, 'lnogitude', equals(23))
-                .having((c) => c.pending, 'pending', isTrue)
-                .having((c) => c.error, 'error', isFalse)
-                .having((c) => c.done, 'done', isFalse),
-            isA<ContributeBoulderMapState>()
-                .having((c) => c.pending, 'pending', isFalse)
-                .having((c) => c.error, 'error', isFalse)
-                .having((c) => c.done, 'done', isTrue),
-          ],
+      build: () => ContributeBoulderMapViewModel(
+        boulderFeedbackRepository: repository,
+        boulder: fakeBoulder,
+        form: ContributeBoulderLocationForm(latitude: 0, longitude: 1),
+      ),
+      act: (bloc) => bloc
+        ..add(UpdateLatitudeEvent(latitude: 9))
+        ..add(UpdateLongitudeEvent(longitude: 23))
+        ..add(SubmitLocationEvent()),
+      expect: () => [
+        isA<ContributeBoulderMapState>()
+            .having((c) => c.form.latitude, 'latitude', equals(9))
+            .having((c) => c.form.longitude, 'lnogitude', equals(23))
+            .having((c) => c.pending, 'pending', isTrue)
+            .having((c) => c.error, 'error', isFalse)
+            .having((c) => c.done, 'done', isFalse),
+        isA<ContributeBoulderMapState>()
+            .having((c) => c.pending, 'pending', isFalse)
+            .having((c) => c.error, 'error', isFalse)
+            .having((c) => c.done, 'done', isTrue),
+      ],
       verify: (bloc) {
         verify(
           () => repository.create(
@@ -115,31 +110,27 @@ Then the exception is properly handled
           (_) => TaskEither.left(const UnknownException(message: 'foo')),
         );
       },
-      build:
-          () => ContributeBoulderMapViewModel(
-            boulderFeedbackRepository: repository,
-            boulder: fakeBoulder,
-            form: ContributeBoulderLocationForm(latitude: 0, longitude: 1),
-          ),
-      act:
-          (bloc) =>
-              bloc
-                ..add(UpdateLatitudeEvent(latitude: 9))
-                ..add(UpdateLongitudeEvent(longitude: 23))
-                ..add(SubmitLocationEvent()),
-      expect:
-          () => [
-            isA<ContributeBoulderMapState>()
-                .having((c) => c.form.latitude, 'latitude', equals(9))
-                .having((c) => c.form.longitude, 'lnogitude', equals(23))
-                .having((c) => c.pending, 'pending', isTrue)
-                .having((c) => c.error, 'error', isFalse)
-                .having((c) => c.done, 'done', isFalse),
-            isA<ContributeBoulderMapState>()
-                .having((c) => c.pending, 'pending', isFalse)
-                .having((c) => c.error, 'error', isTrue)
-                .having((c) => c.done, 'done', isFalse),
-          ],
+      build: () => ContributeBoulderMapViewModel(
+        boulderFeedbackRepository: repository,
+        boulder: fakeBoulder,
+        form: ContributeBoulderLocationForm(latitude: 0, longitude: 1),
+      ),
+      act: (bloc) => bloc
+        ..add(UpdateLatitudeEvent(latitude: 9))
+        ..add(UpdateLongitudeEvent(longitude: 23))
+        ..add(SubmitLocationEvent()),
+      expect: () => [
+        isA<ContributeBoulderMapState>()
+            .having((c) => c.form.latitude, 'latitude', equals(9))
+            .having((c) => c.form.longitude, 'lnogitude', equals(23))
+            .having((c) => c.pending, 'pending', isTrue)
+            .having((c) => c.error, 'error', isFalse)
+            .having((c) => c.done, 'done', isFalse),
+        isA<ContributeBoulderMapState>()
+            .having((c) => c.pending, 'pending', isFalse)
+            .having((c) => c.error, 'error', isTrue)
+            .having((c) => c.done, 'done', isFalse),
+      ],
       verify: (bloc) {
         verify(
           () => repository.create(

@@ -11,7 +11,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 class MunicipalityDetailsScreen extends StatelessWidget {
   const MunicipalityDetailsScreen({required this.id, super.key});
 
-  static const route = (
+  static const ({String name, String path}) route = (
     path: '/:$idParameterName',
     name: 'municipality_details',
   );
@@ -23,11 +23,10 @@ class MunicipalityDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) => MunicipalityViewModel(
-            repository: context.read<MunicipalityRepository>(),
-            id: id,
-          ),
+      create: (context) => MunicipalityViewModel(
+        repository: context.read<MunicipalityRepository>(),
+        id: id,
+      ),
       child: BlocBuilder<MunicipalityViewModel, MunicipalityStates>(
         builder: (context, state) {
           return switch (state) {
@@ -39,12 +38,12 @@ class MunicipalityDetailsScreen extends StatelessWidget {
               error is HttpExceptionWithStatus && error.statusCode == 404
                   ? const NotFoundScreen()
                   : ErrorScreen(
-                    onTryAgain: () {
-                      context.read<MunicipalityViewModel>().add(
-                        const MunicipalityEvents.requested(),
-                      );
-                    },
-                  ),
+                      onTryAgain: () {
+                        context.read<MunicipalityViewModel>().add(
+                          const MunicipalityEvents.requested(),
+                        );
+                      },
+                    ),
           };
         },
       ),

@@ -34,12 +34,11 @@ class BoulderMessageFeedbackViewModel
           error: false,
         ),
       );
-      final result =
-          await boulderFeedbackRepository
-              .create(
-                BoulderFeedback(boulder: boulder, message: state.form.message),
-              )
-              .run();
+      final result = await boulderFeedbackRepository
+          .create(
+            BoulderFeedback(boulder: boulder, message: state.form.message),
+          )
+          .run();
 
       result.match(
         (domainException) {

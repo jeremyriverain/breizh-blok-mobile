@@ -74,11 +74,10 @@ class _BoulderListBuilderFilterGradeState
                       text: '${AppLocalizations.of(context).minGrade}: ',
                     ),
                     TextSpan(
-                      text:
-                          widget
-                              .allGrades
-                              .items[(_currentRangeValues.start as num).toInt()]
-                              .name,
+                      text: widget
+                          .allGrades
+                          .items[(_currentRangeValues.start as num).toInt()]
+                          .name,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -90,11 +89,10 @@ class _BoulderListBuilderFilterGradeState
                   children: <TextSpan>[
                     TextSpan(text: '${AppLocalizations.of(context).max}: '),
                     TextSpan(
-                      text:
-                          widget
-                              .allGrades
-                              .items[(_currentRangeValues.end as num).toInt()]
-                              .name,
+                      text: widget
+                          .allGrades
+                          .items[(_currentRangeValues.end as num).toInt()]
+                          .name,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],

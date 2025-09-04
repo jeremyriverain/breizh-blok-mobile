@@ -9,7 +9,10 @@ import 'package:go_router/go_router.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
-  static const route = (path: '/profile', name: 'profile');
+  static const ({String name, String path}) route = (
+    path: '/profile',
+    name: 'profile',
+  );
 
   @override
   Widget build(BuildContext context) {

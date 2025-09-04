@@ -15,9 +15,8 @@ void main() {
         preferences = await SharedPreferences.getInstance();
       },
       build: () => TermsOfUseViewModel(preferences: preferences),
-      act:
-          (TermsOfUseViewModel bloc) =>
-              bloc.add(const TermsOfUseAcceptanceRequested()),
+      act: (TermsOfUseViewModel bloc) =>
+          bloc.add(const TermsOfUseAcceptanceRequested()),
       expect: () => [false],
       verify: (TermsOfUseViewModel bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
@@ -37,9 +36,8 @@ void main() {
         preferences = await SharedPreferences.getInstance();
       },
       build: () => TermsOfUseViewModel(preferences: preferences),
-      act:
-          (TermsOfUseViewModel bloc) =>
-              bloc.add(const TermsOfUseAcceptanceRequested()),
+      act: (TermsOfUseViewModel bloc) =>
+          bloc.add(const TermsOfUseAcceptanceRequested()),
       expect: () => [false],
       verify: (TermsOfUseViewModel bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
@@ -59,9 +57,8 @@ void main() {
         preferences = await SharedPreferences.getInstance();
       },
       build: () => TermsOfUseViewModel(preferences: preferences),
-      act:
-          (TermsOfUseViewModel bloc) =>
-              bloc.add(const TermsOfUseAcceptanceRequested()),
+      act: (TermsOfUseViewModel bloc) =>
+          bloc.add(const TermsOfUseAcceptanceRequested()),
       expect: () => [true],
       verify: (TermsOfUseViewModel bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();

@@ -26,15 +26,14 @@ class MapLauncherButton extends StatelessWidget {
         }
         return FilledButton.icon(
           key: const Key('map-launcher-button'),
-          onPressed:
-              () => MapDirections.openMapsSheet(
-                context: context,
-                availableMaps: snapshot.data!,
-                onMapSelectedFn: MapDirections.showDirections(
-                  destination: destination,
-                  destinationTitle: destinationTitle,
-                ),
-              ),
+          onPressed: () => MapDirections.openMapsSheet(
+            context: context,
+            availableMaps: snapshot.data!,
+            onMapSelectedFn: MapDirections.showDirections(
+              destination: destination,
+              destinationTitle: destinationTitle,
+            ),
+          ),
           icon: const Icon(Icons.directions),
           label: Text(labelButton ?? AppLocalizations.of(context).itinerary),
         );

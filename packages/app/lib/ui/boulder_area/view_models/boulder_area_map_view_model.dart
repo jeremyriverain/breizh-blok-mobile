@@ -33,20 +33,19 @@ class BoulderAreaMapViewModel
                 BoulderAreaMapOK(
                   onClickParking:
                       parkingLocation == null || availableMaps.isEmpty
-                          ? null
-                          : (context) async {
-                            await MapDirections.openMapsSheet(
-                              context: context,
-                              availableMaps:
-                                  availableMaps as List<AvailableMap>,
-                              onMapSelectedFn: MapDirections.showDirections(
-                                destination: parkingLocation,
-                                destinationTitle:
-                                    // ignore: lines_longer_than_80_chars
-                                    '${AppLocalizations.of(context).parkingOfTheBoulderArea} ${boulderArea.name}',
-                              ),
-                            );
-                          },
+                      ? null
+                      : (context) async {
+                          await MapDirections.openMapsSheet(
+                            context: context,
+                            availableMaps: availableMaps as List<AvailableMap>,
+                            onMapSelectedFn: MapDirections.showDirections(
+                              destination: parkingLocation,
+                              destinationTitle:
+                                  // ignore: lines_longer_than_80_chars
+                                  '${AppLocalizations.of(context).parkingOfTheBoulderArea} ${boulderArea.name}',
+                            ),
+                          );
+                        },
                   clusterSource: _getClusterSource(
                     boulderMarkers: boulderMarkers as List<BoulderMarker>,
                   ),

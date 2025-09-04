@@ -19,16 +19,15 @@ const boulderIdsProcessingLimit = 500;
 class MapScreen extends StatelessWidget {
   const MapScreen({super.key});
 
-  static const route = (name: 'map', path: '/map');
+  static const ({String name, String path}) route = (name: 'map', path: '/map');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create:
-            (context) => MapScreenViewModel(
-              boulderMarkerRepository: context.read<BoulderMarkerRepository>(),
-            ),
+        create: (context) => MapScreenViewModel(
+          boulderMarkerRepository: context.read<BoulderMarkerRepository>(),
+        ),
         child: BlocConsumer<MapScreenViewModel, MapState>(
           listener: (context, state) async {
             final mapboxMap = state.mapboxMap;
@@ -104,10 +103,9 @@ class MapScreen extends StatelessWidget {
                                       const BoulderFilterState(),
                                     ),
                                     onPageRequested: (int page) {
-                                      final orderParam =
-                                          context
-                                              .read<BoulderOrderBloc>()
-                                              .state;
+                                      final orderParam = context
+                                          .read<BoulderOrderBloc>()
+                                          .state;
 
                                       return BoulderRequested(
                                         page: page,

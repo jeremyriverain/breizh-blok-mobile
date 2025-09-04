@@ -14,7 +14,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 class DownloadedBoulderAreaDetailsScreen extends StatelessWidget {
   const DownloadedBoulderAreaDetailsScreen({required this.id, super.key});
 
-  static const route = (
+  static const ({String name, String path}) route = (
     path: '/boulders-area/:$idParameterName',
     name: 'downloaded_boulder_area_details',
   );
@@ -26,48 +26,47 @@ class DownloadedBoulderAreaDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) => DownloadedBoulderAreaViewModel(
-            repository: context.read<BoulderAreaRepository>(),
-            id: id,
-          ),
-      child: BlocBuilder<
-        DownloadedBoulderAreaViewModel,
-        DownloadedBoulderAreaStates
-      >(
-        builder: (context, state) {
-          return switch (state) {
-            DownloadedBoulderAreaLoading() => const LoadingScreen(),
-            DownloadedBoulderAreaOK(:final boulderArea) => MultiBlocProvider(
-              providers: [
-                BlocProvider<BoulderBloc>(
-                  create:
-                      (context) => BoulderBloc(
-                        repository: context.read<BoulderRepository>(),
-                      ),
-                ),
-                BlocProvider<BoulderFilterBloc>(
-                  create:
-                      (context) => BoulderFilterBloc(
-                        BoulderFilterState(boulderAreas: {boulderArea}),
-                      ),
-                ),
-              ],
-              child: BoulderAreaDetails(boulderArea: boulderArea),
-            ),
-            DownloadedBoulderAreaError(:final error) =>
-              error is HttpExceptionWithStatus && error.statusCode == 404
-                  ? const NotFoundScreen()
-                  : ErrorScreen(
-                    onTryAgain: () {
-                      context.read<DownloadedBoulderAreaViewModel>().add(
-                        const DownloadedBoulderAreaEvents.requested(),
-                      );
-                    },
-                  ),
-          };
-        },
+      create: (context) => DownloadedBoulderAreaViewModel(
+        repository: context.read<BoulderAreaRepository>(),
+        id: id,
       ),
+      child:
+          BlocBuilder<
+            DownloadedBoulderAreaViewModel,
+            DownloadedBoulderAreaStates
+          >(
+            builder: (context, state) {
+              return switch (state) {
+                DownloadedBoulderAreaLoading() => const LoadingScreen(),
+                DownloadedBoulderAreaOK(:final boulderArea) =>
+                  MultiBlocProvider(
+                    providers: [
+                      BlocProvider<BoulderBloc>(
+                        create: (context) => BoulderBloc(
+                          repository: context.read<BoulderRepository>(),
+                        ),
+                      ),
+                      BlocProvider<BoulderFilterBloc>(
+                        create: (context) => BoulderFilterBloc(
+                          BoulderFilterState(boulderAreas: {boulderArea}),
+                        ),
+                      ),
+                    ],
+                    child: BoulderAreaDetails(boulderArea: boulderArea),
+                  ),
+                DownloadedBoulderAreaError(:final error) =>
+                  error is HttpExceptionWithStatus && error.statusCode == 404
+                      ? const NotFoundScreen()
+                      : ErrorScreen(
+                          onTryAgain: () {
+                            context.read<DownloadedBoulderAreaViewModel>().add(
+                              const DownloadedBoulderAreaEvents.requested(),
+                            );
+                          },
+                        ),
+              };
+            },
+          ),
     );
   }
 }

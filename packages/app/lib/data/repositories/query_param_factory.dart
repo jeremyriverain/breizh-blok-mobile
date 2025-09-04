@@ -8,8 +8,10 @@ class QueryParamFactory {
       return null;
     }
     final result = StringBuffer();
-    SplayTreeMap<String, List<String>>.from(queryParams)
-        .forEach((key, paramsList) {
+    SplayTreeMap<String, List<String>>.from(queryParams).forEach((
+      key,
+      paramsList,
+    ) {
       for (final param in paramsList) {
         if (result.isNotEmpty) {
           result.write('&');

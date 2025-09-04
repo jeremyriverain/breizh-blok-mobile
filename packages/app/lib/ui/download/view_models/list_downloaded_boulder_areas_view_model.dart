@@ -30,14 +30,12 @@ class ListDownloadedBoulderAreasViewModel
 
               await emit.forEach(
                 stream,
-                onData:
-                    (boulderAreas) => ListDownloadedBoulderAreasOK(
-                      boulderAreas: boulderAreas,
-                      orderParam: orderParam,
-                    ),
-                onError:
-                    (_, _) =>
-                        ListDownloadedBoulderAreasError(orderParam: orderParam),
+                onData: (boulderAreas) => ListDownloadedBoulderAreasOK(
+                  boulderAreas: boulderAreas,
+                  orderParam: orderParam,
+                ),
+                onError: (_, _) =>
+                    ListDownloadedBoulderAreasError(orderParam: orderParam),
               );
             } catch (e) {
               emit(ListDownloadedBoulderAreasError(orderParam: orderParam));

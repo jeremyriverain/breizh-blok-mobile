@@ -6,12 +6,14 @@ class TrackingService {
     required String path,
     required String navigationType,
   }) {
-    GetIt.I<Mixpanel>().track(
-      'page_viewed',
-      properties: {
-        'path': path,
-        'navigationType': navigationType,
-      },
-    ).ignore();
+    GetIt.I<Mixpanel>()
+        .track(
+          'page_viewed',
+          properties: {
+            'path': path,
+            'navigationType': navigationType,
+          },
+        )
+        .ignore();
   }
 }

@@ -73,8 +73,9 @@ class ApiClient {
   }
 
   String normalizeRequestPath(Uri uri) {
-    final query = (uri.query.split('&')
-      ..sort((a, b) => a.compareTo(b))).join('&');
+    final query = (uri.query.split(
+      '&',
+    )..sort((a, b) => a.compareTo(b))).join('&');
     return '${uri.path}${uri.query.isEmpty ? '' : "?$query"}';
   }
 }

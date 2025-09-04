@@ -62,20 +62,18 @@ void main() {
     );
     blocTest<BoulderBloc, BoulderState>(
       'default state OK',
-      build:
-          () =>
-              BoulderBloc(repository: BoulderRepository(httpClient: apiClient)),
-      act:
-          (BoulderBloc bloc) => bloc.add(
-            DbBouldersRequested(
-              boulderArea: boulderArea,
-              orderParam: const ApiOrderParam(
-                name: kGradeOrderParam,
-                direction: kAscendantDirection,
-              ),
-              grades: {},
-            ),
+      build: () =>
+          BoulderBloc(repository: BoulderRepository(httpClient: apiClient)),
+      act: (BoulderBloc bloc) => bloc.add(
+        DbBouldersRequested(
+          boulderArea: boulderArea,
+          orderParam: const ApiOrderParam(
+            name: kGradeOrderParam,
+            direction: kAscendantDirection,
           ),
+          grades: {},
+        ),
+      ),
       verify: (BoulderBloc bloc) {
         verify(
           () => apiClient.get(
@@ -114,17 +112,16 @@ void main() {
         });
       },
       build: () => BoulderBloc(repository: boulderRepository),
-      act:
-          (BoulderBloc bloc) => bloc.add(
-            DbBouldersRequested(
-              boulderArea: boulderArea,
-              orderParam: const ApiOrderParam(
-                name: kGradeOrderParam,
-                direction: kAscendantDirection,
-              ),
-              grades: {},
-            ),
+      act: (BoulderBloc bloc) => bloc.add(
+        DbBouldersRequested(
+          boulderArea: boulderArea,
+          orderParam: const ApiOrderParam(
+            name: kGradeOrderParam,
+            direction: kAscendantDirection,
           ),
+          grades: {},
+        ),
+      ),
       verify: (BoulderBloc bloc) {
         expect(bloc.state.data?.totalItems, equals(4));
         expect(
@@ -153,17 +150,16 @@ void main() {
         });
       },
       build: () => BoulderBloc(repository: boulderRepository),
-      act:
-          (BoulderBloc bloc) => bloc.add(
-            DbBouldersRequested(
-              boulderArea: boulderArea,
-              orderParam: const ApiOrderParam(
-                name: kGradeOrderParam,
-                direction: kDescendantDirection,
-              ),
-              grades: {},
-            ),
+      act: (BoulderBloc bloc) => bloc.add(
+        DbBouldersRequested(
+          boulderArea: boulderArea,
+          orderParam: const ApiOrderParam(
+            name: kGradeOrderParam,
+            direction: kDescendantDirection,
           ),
+          grades: {},
+        ),
+      ),
       verify: (BoulderBloc bloc) {
         expect(bloc.state.data?.totalItems, equals(4));
         expect(
@@ -192,17 +188,16 @@ void main() {
         });
       },
       build: () => BoulderBloc(repository: boulderRepository),
-      act:
-          (BoulderBloc bloc) => bloc.add(
-            DbBouldersRequested(
-              boulderArea: boulderArea,
-              orderParam: const ApiOrderParam(
-                name: kGradeOrderParam,
-                direction: kAscendantDirection,
-              ),
-              grades: {boulder5aPlus.grade!, boulder6a.grade!},
-            ),
+      act: (BoulderBloc bloc) => bloc.add(
+        DbBouldersRequested(
+          boulderArea: boulderArea,
+          orderParam: const ApiOrderParam(
+            name: kGradeOrderParam,
+            direction: kAscendantDirection,
           ),
+          grades: {boulder5aPlus.grade!, boulder6a.grade!},
+        ),
+      ),
       verify: (BoulderBloc bloc) {
         expect(bloc.state.data?.totalItems, equals(2));
         expect(bloc.state.data?.items, equals([boulder5aPlus, boulder6a]));
@@ -228,17 +223,16 @@ void main() {
         });
       },
       build: () => BoulderBloc(repository: boulderRepository),
-      act:
-          (BoulderBloc bloc) => bloc.add(
-            DbBouldersRequested(
-              boulderArea: boulderArea,
-              boulderIds: {boulder5a.id, boulder5aPlus.id},
-              orderParam: const ApiOrderParam(
-                name: kGradeOrderParam,
-                direction: kDescendantDirection,
-              ),
-            ),
+      act: (BoulderBloc bloc) => bloc.add(
+        DbBouldersRequested(
+          boulderArea: boulderArea,
+          boulderIds: {boulder5a.id, boulder5aPlus.id},
+          orderParam: const ApiOrderParam(
+            name: kGradeOrderParam,
+            direction: kDescendantDirection,
           ),
+        ),
+      ),
       verify: (BoulderBloc bloc) {
         expect(bloc.state.data?.totalItems, equals(2));
         expect(bloc.state.data?.items, equals([boulder5aPlus, boulder5a]));
@@ -264,18 +258,17 @@ void main() {
         });
       },
       build: () => BoulderBloc(repository: boulderRepository),
-      act:
-          (BoulderBloc bloc) => bloc.add(
-            DbBouldersRequested(
-              boulderArea: boulderArea,
-              boulderIds: {boulder5a.id, boulder5aPlus.id},
-              orderParam: const ApiOrderParam(
-                name: kGradeOrderParam,
-                direction: kDescendantDirection,
-              ),
-              grades: {boulder5aPlus.grade!},
-            ),
+      act: (BoulderBloc bloc) => bloc.add(
+        DbBouldersRequested(
+          boulderArea: boulderArea,
+          boulderIds: {boulder5a.id, boulder5aPlus.id},
+          orderParam: const ApiOrderParam(
+            name: kGradeOrderParam,
+            direction: kDescendantDirection,
           ),
+          grades: {boulder5aPlus.grade!},
+        ),
+      ),
       verify: (BoulderBloc bloc) {
         expect(bloc.state.data?.totalItems, equals(1));
         expect(bloc.state.data?.items, equals([boulder5aPlus]));

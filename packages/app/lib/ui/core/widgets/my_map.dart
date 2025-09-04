@@ -29,7 +29,7 @@ class MyMap extends StatefulWidget {
 class _MyMapState extends State<MyMap> {
   MapboxMap? _mapboxMap;
 
-  final _defaultStyle = MapboxStyles.OUTDOORS;
+  final String _defaultStyle = MapboxStyles.OUTDOORS;
   late ViewportState _viewport;
 
   CameraViewportState get defaultViewPort => CameraViewportState(

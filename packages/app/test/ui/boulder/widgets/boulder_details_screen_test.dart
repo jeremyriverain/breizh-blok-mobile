@@ -362,7 +362,7 @@ Then a ContributeBoulderScreen is displayed
           ).thenAnswer(
             (_) => TaskEither.tryCatch(() async {
               await Future<void>.delayed(const Duration(seconds: 1));
-            }, (_, __) => const UnknownException(message: 'foo')),
+            }, (_, _) => const UnknownException(message: 'foo')),
           );
 
           await pumpWidget(tester);

@@ -14,9 +14,9 @@ extension BuildContextExtension on BuildContext {
       final bytes = await rootBundle.load(
         devicePixelRatio != 1
             ? imagePath.replaceFirst(
-              '/images/',
-              '/images/${devicePixelRatio.toInt()}.0x/',
-            )
+                '/images/',
+                '/images/${devicePixelRatio.toInt()}.0x/',
+              )
             : imagePath,
       );
       return bytes.buffer.asUint8List();
@@ -41,9 +41,8 @@ extension FeatureExtensionValueExtension on FeatureExtensionValue {
   Set<String> toBoulderIds() {
     return featureCollection
             ?.map(
-              (f) =>
-                  (f?['properties'] as Map<Object?, Object?>?)?['id']
-                      .toString(),
+              (f) => (f?['properties'] as Map<Object?, Object?>?)?['id']
+                  .toString(),
             )
             .whereType<String>()
             .toSet() ??
@@ -94,14 +93,13 @@ extension MapboxExtension on MapboxMap {
       RenderedQueryOptions(layerIds: ['clusters']),
     );
 
-    final cluster =
-        queriedRenderedFeatures
-            .firstWhere(
-              (q) => q?.queriedFeature.source == 'boulders',
-              orElse: () => null,
-            )
-            ?.queriedFeature
-            .feature;
+    final cluster = queriedRenderedFeatures
+        .firstWhere(
+          (q) => q?.queriedFeature.source == 'boulders',
+          orElse: () => null,
+        )
+        ?.queriedFeature
+        .feature;
     return cluster;
   }
 }

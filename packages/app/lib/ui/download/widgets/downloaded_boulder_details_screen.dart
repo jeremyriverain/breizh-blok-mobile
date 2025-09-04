@@ -13,7 +13,7 @@ class DownloadedBoulderDetailsScreen extends StatelessWidget {
     super.key,
   });
 
-  static const route = (
+  static const ({String name, String path}) route = (
     path: '/boulders/:$idParameterName',
     name: 'downloaded_boulder_details',
   );
@@ -27,12 +27,11 @@ class DownloadedBoulderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) => DownloadedBoulderViewModel(
-            boulderAreaIri: boulderAreaIri,
-            boulderId: id,
-            repository: context.read<DownloadedBoulderRepository>(),
-          ),
+      create: (context) => DownloadedBoulderViewModel(
+        boulderAreaIri: boulderAreaIri,
+        boulderId: id,
+        repository: context.read<DownloadedBoulderRepository>(),
+      ),
       child: BlocBuilder<DownloadedBoulderViewModel, DownloadedBoulderStates>(
         builder: (context, data) {
           return switch (data) {

@@ -23,11 +23,10 @@ void main() {
         ).thenAnswer((_) async => fakeBoulderArea);
       },
       build: () => BoulderAreaViewModel(repository: repository, id: 'foo'),
-      expect:
-          () => [
-            const BoulderAreaLoading(),
-            const BoulderAreaStates.ok(boulderArea: fakeBoulderArea),
-          ],
+      expect: () => [
+        const BoulderAreaLoading(),
+        const BoulderAreaStates.ok(boulderArea: fakeBoulderArea),
+      ],
     );
 
     blocTest<BoulderAreaViewModel, BoulderAreaStates>(
@@ -36,15 +35,14 @@ void main() {
         when(() => repository.find('foo')).thenThrow(Exception('foo'));
       },
       build: () => BoulderAreaViewModel(repository: repository, id: 'foo'),
-      expect:
-          () => [
-            const BoulderAreaLoading(),
-            isA<BoulderAreaError>().having(
-              (e) => e.error.toString(),
-              'error',
-              'Exception: foo',
-            ),
-          ],
+      expect: () => [
+        const BoulderAreaLoading(),
+        isA<BoulderAreaError>().having(
+          (e) => e.error.toString(),
+          'error',
+          'Exception: foo',
+        ),
+      ],
     );
 
     blocTest<BoulderAreaViewModel, BoulderAreaStates>(
@@ -56,13 +54,12 @@ void main() {
       },
       build: () => BoulderAreaViewModel(repository: repository, id: 'foo'),
       act: (bloc) => bloc.add(const BoulderAreaEvents.requested()),
-      expect:
-          () => [
-            const BoulderAreaLoading(),
-            const BoulderAreaStates.ok(boulderArea: fakeBoulderArea),
-            const BoulderAreaLoading(),
-            const BoulderAreaStates.ok(boulderArea: fakeBoulderArea),
-          ],
+      expect: () => [
+        const BoulderAreaLoading(),
+        const BoulderAreaStates.ok(boulderArea: fakeBoulderArea),
+        const BoulderAreaLoading(),
+        const BoulderAreaStates.ok(boulderArea: fakeBoulderArea),
+      ],
     );
   });
 }

@@ -20,33 +20,34 @@ class BoulderListBuilderFilterModal extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: FutureBuilder(
         future: _fetch(context),
-        builder: (
-          BuildContext context,
-          AsyncSnapshot<PaginatedCollection<Grade>> snapshot,
-        ) {
-          final data = snapshot.data;
+        builder:
+            (
+              BuildContext context,
+              AsyncSnapshot<PaginatedCollection<Grade>> snapshot,
+            ) {
+              final data = snapshot.data;
 
-          if (data != null && data.totalItems > 1) {
-            return SafeArea(
-              child: Center(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 400),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      BoulderListBuilderFilterGrade(
-                        key: const Key('boulder-list-filter-grade'),
-                        allGrades: data,
+              if (data != null && data.totalItems > 1) {
+                return SafeArea(
+                  child: Center(
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          BoulderListBuilderFilterGrade(
+                            key: const Key('boulder-list-filter-grade'),
+                            allGrades: data,
+                          ),
+                          const SizedBox(height: 20),
+                        ],
                       ),
-                      const SizedBox(height: 20),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
+                );
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
       ),
     );
   }

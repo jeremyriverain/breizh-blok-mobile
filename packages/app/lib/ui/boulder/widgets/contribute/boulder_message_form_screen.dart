@@ -28,93 +28,100 @@ class BoulderMessageFormScreen extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            title: BlocConsumer<
-              BoulderMessageFeedbackViewModel,
-              BoulderMessageFeedbackState
-            >(
-              listener: (
-                BuildContext context,
-                BoulderMessageFeedbackState state,
-              ) {
-                if (state.done) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(localizations.yourMessageHasBeenSent),
-                    ),
-                  );
-                  context
-                    ..pop()
-                    ..pop();
-                  return;
-                }
-                if (state.error) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(localizations.anErrorOccured)),
-                  );
-                }
-              },
-              builder: (context, state) {
-                return ReactiveForm(
-                  formGroup: state.form,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ReactiveTextField<String>(
-                        key: Key(ContributeBoulderMessageForm.formKeys.message),
-                        formControlName:
-                            ContributeBoulderMessageForm.formKeys.message,
-                        keyboardType: TextInputType.text,
-                        minLines: 4,
-                        maxLines: 4,
-                        decoration: InputDecoration(
-                          labelText:
-                              '${localizations.comments} / ${localizations.suggestions}',
-                          alignLabelWithHint: true,
-                        ),
+            title:
+                BlocConsumer<
+                  BoulderMessageFeedbackViewModel,
+                  BoulderMessageFeedbackState
+                >(
+                  listener:
+                      (
+                        BuildContext context,
+                        BoulderMessageFeedbackState state,
+                      ) {
+                        if (state.done) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                localizations.yourMessageHasBeenSent,
+                              ),
+                            ),
+                          );
+                          context
+                            ..pop()
+                            ..pop();
+                          return;
+                        }
+                        if (state.error) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(localizations.anErrorOccured),
+                            ),
+                          );
+                        }
+                      },
+                  builder: (context, state) {
+                    return ReactiveForm(
+                      formGroup: state.form,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ReactiveTextField<String>(
+                            key: Key(
+                              ContributeBoulderMessageForm.formKeys.message,
+                            ),
+                            formControlName:
+                                ContributeBoulderMessageForm.formKeys.message,
+                            keyboardType: TextInputType.text,
+                            minLines: 4,
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              labelText:
+                                  '${localizations.comments} / ${localizations.suggestions}',
+                              alignLabelWithHint: true,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                    );
+                  },
+                ),
           ),
           ListTile(
-            trailing: BlocBuilder<
-              BoulderMessageFeedbackViewModel,
-              BoulderMessageFeedbackState
-            >(
-              builder: (context, state) {
-                return Wrap(
-                  alignment: WrapAlignment.end,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    if (state.pending) const FormSpinner(),
-                    const SizedBox(width: 10),
-                    TextButton(
-                      onPressed:
-                          state.pending
+            trailing:
+                BlocBuilder<
+                  BoulderMessageFeedbackViewModel,
+                  BoulderMessageFeedbackState
+                >(
+                  builder: (context, state) {
+                    return Wrap(
+                      alignment: WrapAlignment.end,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        if (state.pending) const FormSpinner(),
+                        const SizedBox(width: 10),
+                        TextButton(
+                          onPressed: state.pending
                               ? null
                               : () {
-                                context.pop();
-                              },
-                      child: Text(localizations.cancel),
-                    ),
-                    const SizedBox(width: 10),
-                    FilledButton(
-                      onPressed:
-                          state.pending
+                                  context.pop();
+                                },
+                          child: Text(localizations.cancel),
+                        ),
+                        const SizedBox(width: 10),
+                        FilledButton(
+                          onPressed: state.pending
                               ? null
                               : () {
-                                context
-                                    .read<BoulderMessageFeedbackViewModel>()
-                                    .add(SubmitContributeFormEvent());
-                              },
-                      child: Text(localizations.send),
-                    ),
-                  ],
-                );
-              },
-            ),
+                                  context
+                                      .read<BoulderMessageFeedbackViewModel>()
+                                      .add(SubmitContributeFormEvent());
+                                },
+                          child: Text(localizations.send),
+                        ),
+                      ],
+                    );
+                  },
+                ),
           ),
         ],
       ),

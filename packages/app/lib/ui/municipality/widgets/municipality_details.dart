@@ -9,11 +9,10 @@ import 'package:flutter/material.dart';
 
 class MunicipalityDetails extends StatelessWidget {
   MunicipalityDetails({required this.municipality, super.key}) {
-    boulderAreas =
-        municipality.boulderAreas.where((b) {
-          final numberOfBoulders = b.numberOfBoulders;
-          return numberOfBoulders != null && numberOfBoulders > 0;
-        }).toList();
+    boulderAreas = municipality.boulderAreas.where((b) {
+      final numberOfBoulders = b.numberOfBoulders;
+      return numberOfBoulders != null && numberOfBoulders > 0;
+    }).toList();
   }
   final Municipality municipality;
 

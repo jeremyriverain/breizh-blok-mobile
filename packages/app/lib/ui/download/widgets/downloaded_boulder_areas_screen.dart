@@ -14,7 +14,10 @@ import 'package:go_router/go_router.dart';
 class DownloadedBoulderAreasScreen extends StatelessWidget {
   const DownloadedBoulderAreasScreen({super.key});
 
-  static const route = (path: '/downloads', name: 'downloads');
+  static const ({String name, String path}) route = (
+    path: '/downloads',
+    name: 'downloads',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -26,89 +29,102 @@ class DownloadedBoulderAreasScreen extends StatelessWidget {
         ),
       ),
       body: BlocProvider(
-        create:
-            (context) => ListDownloadedBoulderAreasViewModel(
-              database: GetIt.I<AppDatabase>(),
-            ),
-        child: BlocBuilder<
-          ListDownloadedBoulderAreasViewModel,
-          ListDownloadedBoulderAreasStates
-        >(
-          builder: (context, state) {
-            return switch (state) {
-              ListDownloadedBoulderAreasLoading() => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              ListDownloadedBoulderAreasOK(
-                :final boulderAreas,
-                :final orderParam,
-              ) =>
-                boulderAreas.isEmpty
-                    ? Center(
-                      child: EmptyListIndicator(
-                        title: AppLocalizations.of(context).noDownload,
-                        message: AppLocalizations.of(context).noDownloadHelper,
-                      ),
-                    )
-                    : ListView.builder(
-                      itemCount: boulderAreas.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            if (index == 0)
-                              DownloadsSortButton(
-                                initialSelected: orderParam,
-                                onChanged: (ApiOrderParam orderParam) {
-                                  context
-                                      .read<
-                                        ListDownloadedBoulderAreasViewModel
-                                      >()
-                                      .add(
-                                        // ignore: lines_longer_than_80_chars
-                                        ListDownloadedBoulderAreasEvents.requested(
-                                          orderParam: orderParam,
-                                        ),
-                                      );
-                                },
-                              ),
-                            ListTile(
-                              key: Key(boulderAreas[index].boulderAreaIri),
-                              title: Text(boulderAreas[index].boulderAreaName),
-                              subtitle: Text(
-                                boulderAreas[index].municipalityName,
-                              ),
-                              trailing: const Icon(Icons.arrow_forward_ios),
-                              onTap: () {
-                                context.pushNamed(
-                                  DownloadedBoulderAreaDetailsScreen.route.name,
-                                  pathParameters: {
-                                    DownloadedBoulderAreaDetailsScreen
-                                        .idParameterName: boulderAreas[index]
-                                        .boulderAreaIri
-                                        .replaceAll('/boulder_areas/', ''),
-                                  },
-                                );
-                              },
+        create: (context) => ListDownloadedBoulderAreasViewModel(
+          database: GetIt.I<AppDatabase>(),
+        ),
+        child:
+            BlocBuilder<
+              ListDownloadedBoulderAreasViewModel,
+              ListDownloadedBoulderAreasStates
+            >(
+              builder: (context, state) {
+                return switch (state) {
+                  ListDownloadedBoulderAreasLoading() => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  ListDownloadedBoulderAreasOK(
+                    :final boulderAreas,
+                    :final orderParam,
+                  ) =>
+                    boulderAreas.isEmpty
+                        ? Center(
+                            child: EmptyListIndicator(
+                              title: AppLocalizations.of(context).noDownload,
+                              message: AppLocalizations.of(
+                                context,
+                              ).noDownloadHelper,
                             ),
-                          ],
-                        );
-                      },
-                    ),
-              ListDownloadedBoulderAreasError(:final orderParam) => Center(
-                child: ErrorIndicator(
-                  onTryAgain:
-                      () => context
+                          )
+                        : ListView.builder(
+                            itemCount: boulderAreas.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  if (index == 0)
+                                    DownloadsSortButton(
+                                      initialSelected: orderParam,
+                                      onChanged: (ApiOrderParam orderParam) {
+                                        context
+                                            .read<
+                                              // ignore: lines_longer_than_80_chars
+                                              ListDownloadedBoulderAreasViewModel
+                                            >()
+                                            .add(
+                                              // ignore: lines_longer_than_80_chars
+                                              ListDownloadedBoulderAreasEvents.requested(
+                                                orderParam: orderParam,
+                                              ),
+                                            );
+                                      },
+                                    ),
+                                  ListTile(
+                                    key: Key(
+                                      boulderAreas[index].boulderAreaIri,
+                                    ),
+                                    title: Text(
+                                      boulderAreas[index].boulderAreaName,
+                                    ),
+                                    subtitle: Text(
+                                      boulderAreas[index].municipalityName,
+                                    ),
+                                    trailing: const Icon(
+                                      Icons.arrow_forward_ios,
+                                    ),
+                                    onTap: () {
+                                      context.pushNamed(
+                                        DownloadedBoulderAreaDetailsScreen
+                                            .route
+                                            .name,
+                                        pathParameters: {
+                                          DownloadedBoulderAreaDetailsScreen
+                                                  .idParameterName:
+                                              boulderAreas[index].boulderAreaIri
+                                                  .replaceAll(
+                                                    '/boulder_areas/',
+                                                    '',
+                                                  ),
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                  ListDownloadedBoulderAreasError(:final orderParam) => Center(
+                    child: ErrorIndicator(
+                      onTryAgain: () => context
                           .read<ListDownloadedBoulderAreasViewModel>()
                           .add(
                             ListDownloadedBoulderAreasEvents.requested(
                               orderParam: orderParam,
                             ),
                           ),
-                ),
-              ),
-            };
-          },
-        ),
+                    ),
+                  ),
+                };
+              },
+            ),
       ),
     );
   }

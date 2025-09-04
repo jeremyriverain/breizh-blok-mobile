@@ -10,7 +10,10 @@ import 'package:go_router/go_router.dart';
 class DepartmentListScreen extends StatelessWidget {
   const DepartmentListScreen({super.key});
 
-  static const route = (name: 'department_list', path: '/municipalities');
+  static const ({String name, String path}) route = (
+    name: 'department_list',
+    path: '/municipalities',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +25,9 @@ class DepartmentListScreen extends StatelessWidget {
         ),
       ),
       body: BlocProvider(
-        create:
-            (context) => ListDepartmentsViewModel(
-              repository: context.read<DepartmentRepository>(),
-            ),
+        create: (context) => ListDepartmentsViewModel(
+          repository: context.read<DepartmentRepository>(),
+        ),
         child: BlocBuilder<ListDepartmentsViewModel, ListDepartmentsStates>(
           builder: (context, state) {
             return switch (state) {
@@ -53,9 +55,11 @@ class DepartmentListScreen extends StatelessWidget {
                             context.pushNamed(
                               MunicipalityDetailsScreen.route.name,
                               pathParameters: {
-                                MunicipalityDetailsScreen
-                                    .idParameterName: municipality.iri
-                                    .replaceAll('/municipalities/', ''),
+                                MunicipalityDetailsScreen.idParameterName:
+                                    municipality.iri.replaceAll(
+                                      '/municipalities/',
+                                      '',
+                                    ),
                               },
                             );
                           },

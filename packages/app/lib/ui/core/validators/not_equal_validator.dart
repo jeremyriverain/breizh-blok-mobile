@@ -10,7 +10,7 @@ class NotEqualValidator extends Validator<dynamic> {
     return control.value != forbiddenValue
         ? null
         : {
-          'notEqual': {'forbiddenValue': forbiddenValue},
-        };
+            'notEqual': {'forbiddenValue': forbiddenValue},
+          };
   }
 }

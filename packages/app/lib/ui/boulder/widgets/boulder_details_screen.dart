@@ -11,7 +11,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 class BoulderDetailsScreen extends StatelessWidget {
   const BoulderDetailsScreen({required this.id, super.key});
 
-  static const route = (
+  static const ({String name, String path}) route = (
     path: '/boulders/:$idParameterName',
     name: 'boulder_details',
   );
@@ -23,11 +23,10 @@ class BoulderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) => BoulderViewModel(
-            repository: context.read<BoulderRepository>(),
-            id: id,
-          ),
+      create: (context) => BoulderViewModel(
+        repository: context.read<BoulderRepository>(),
+        id: id,
+      ),
       child: BlocBuilder<BoulderViewModel, BoulderStates>(
         builder: (context, data) {
           return switch (data) {
@@ -37,12 +36,12 @@ class BoulderDetailsScreen extends StatelessWidget {
               error is HttpExceptionWithStatus && error.statusCode == 404
                   ? const NotFoundScreen()
                   : ErrorScreen(
-                    onTryAgain: () {
-                      context.read<BoulderViewModel>().add(
-                        const BoulderRequested(),
-                      );
-                    },
-                  ),
+                      onTryAgain: () {
+                        context.read<BoulderViewModel>().add(
+                          const BoulderRequested(),
+                        );
+                      },
+                    ),
           };
         },
       ),
