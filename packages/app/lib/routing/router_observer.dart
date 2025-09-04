@@ -7,10 +7,9 @@ class RouterObserver extends NavigatorObserver {
   String get location {
     final lastMatch =
         GetIt.I<GoRouter>().routerDelegate.currentConfiguration.last;
-    final matchList =
-        lastMatch is ImperativeRouteMatch
-            ? lastMatch.matches
-            : GetIt.I<GoRouter>().routerDelegate.currentConfiguration;
+    final matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : GetIt.I<GoRouter>().routerDelegate.currentConfiguration;
     final location = matchList.uri.toString();
     return location;
   }

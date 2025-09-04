@@ -29,10 +29,10 @@ class DownloadedBoulderRepository {
         })
         .then((response) {
           final boulderJson =
-          // ignore: avoid_dynamic_calls
-          (jsonDecode(response)['hydra:member'] as List<dynamic>)
-          // ignore: avoid_dynamic_calls
-          .singleWhere((json) => json['@id'] == '/boulders/$boulderId');
+              // ignore: avoid_dynamic_calls
+              (jsonDecode(response)['hydra:member'] as List<dynamic>)
+              // ignore: avoid_dynamic_calls
+              .singleWhere((json) => json['@id'] == '/boulders/$boulderId');
           return Boulder.fromJson(boulderJson as Map<String, dynamic>);
         });
   }

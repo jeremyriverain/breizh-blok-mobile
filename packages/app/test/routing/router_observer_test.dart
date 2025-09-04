@@ -29,34 +29,32 @@ void main() {
           GoRoute(
             path: '/foo',
             name: 'foo',
-            builder:
-                (context, state) => Scaffold(
-                  appBar: AppBar(title: const Text('foo')),
-                  body: Column(
-                    children: [
-                      ElevatedButton(
-                        child: const Text('go to bar'),
-                        onPressed: () {
-                          context.push('/bar');
-                        },
-                      ),
-                    ],
+            builder: (context, state) => Scaffold(
+              appBar: AppBar(title: const Text('foo')),
+              body: Column(
+                children: [
+                  ElevatedButton(
+                    child: const Text('go to bar'),
+                    onPressed: () {
+                      context.push('/bar');
+                    },
                   ),
-                ),
+                ],
+              ),
+            ),
           ),
           GoRoute(
             path: '/bar',
             name: 'bar',
-            builder:
-                (context, state) => Scaffold(
-                  appBar: AppBar(title: const Text('bar')),
-                  body: ElevatedButton(
-                    child: const Text('return to foo'),
-                    onPressed: () {
-                      context.pop();
-                    },
-                  ),
-                ),
+            builder: (context, state) => Scaffold(
+              appBar: AppBar(title: const Text('bar')),
+              body: ElevatedButton(
+                child: const Text('return to foo'),
+                onPressed: () {
+                  context.pop();
+                },
+              ),
+            ),
           ),
         ],
         initialLocation: '/foo',

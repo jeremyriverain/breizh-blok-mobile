@@ -71,14 +71,13 @@ void main() {
                 }),
           ),
         ).thenAnswer(
-          (_) async =>
-              throw DioException(
-                requestOptions: RequestOptions(),
-                response: Response(
-                  requestOptions: RequestOptions(),
-                  statusCode: 422,
-                ),
-              ),
+          (_) async => throw DioException(
+            requestOptions: RequestOptions(),
+            response: Response(
+              requestOptions: RequestOptions(),
+              statusCode: 422,
+            ),
+          ),
         );
 
         final result = await dataSource.create(fakeBoulderFeedback).run();
@@ -117,11 +116,10 @@ void main() {
                 }),
           ),
         ).thenAnswer(
-          (_) async =>
-              throw DioException(
-                requestOptions: RequestOptions(),
-                response: Response(requestOptions: RequestOptions()),
-              ),
+          (_) async => throw DioException(
+            requestOptions: RequestOptions(),
+            response: Response(requestOptions: RequestOptions()),
+          ),
         );
 
         final result = await dataSource.create(fakeBoulderFeedback).run();

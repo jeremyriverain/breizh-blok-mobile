@@ -14,49 +14,47 @@ class TermsOfUseDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) =>
-              TermsOfUseViewModel(preferences: GetIt.I<SharedPreferences>()),
+      create: (context) =>
+          TermsOfUseViewModel(preferences: GetIt.I<SharedPreferences>()),
       child: BlocListener<TermsOfUseViewModel, bool?>(
-        listenWhen:
-            (previous, hasAccepted) => hasAccepted == null || !hasAccepted,
+        listenWhen: (previous, hasAccepted) =>
+            hasAccepted == null || !hasAccepted,
         listener: (context, hasAccepted) {
           if (hasAccepted != true) {
             showDialog<void>(
               barrierDismissible: false,
               context: context,
-              builder:
-                  (BuildContext dialogContext) => AlertDialog.adaptive(
-                    key: const Key('terms-of-use'),
-                    title: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.warning,
-                            color: Theme.of(context).colorScheme.error,
-                          ),
-                          const SizedBox(width: 5),
-                          Text(AppLocalizations.of(context).termsOfUse),
-                        ],
+              builder: (BuildContext dialogContext) => AlertDialog.adaptive(
+                key: const Key('terms-of-use'),
+                title: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.warning,
+                        color: Theme.of(context).colorScheme.error,
                       ),
-                    ),
-                    content: Text(
-                      AppLocalizations.of(context).termsOfUseContent,
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          context.read<TermsOfUseViewModel>().add(
-                            const TermsOfUseAccepted(),
-                          );
-
-                          GoRouter.of(dialogContext).pop();
-                        },
-                        child: Text(AppLocalizations.of(context).iAccept),
-                      ),
+                      const SizedBox(width: 5),
+                      Text(AppLocalizations.of(context).termsOfUse),
                     ],
                   ),
+                ),
+                content: Text(
+                  AppLocalizations.of(context).termsOfUseContent,
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      context.read<TermsOfUseViewModel>().add(
+                        const TermsOfUseAccepted(),
+                      );
+
+                      GoRouter.of(dialogContext).pop();
+                    },
+                    child: Text(AppLocalizations.of(context).iAccept),
+                  ),
+                ],
+              ),
             );
           }
         },

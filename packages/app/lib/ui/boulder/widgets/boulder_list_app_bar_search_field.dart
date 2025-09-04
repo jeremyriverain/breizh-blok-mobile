@@ -56,19 +56,18 @@ class _BoulderListAppBarSearchFieldState
       },
       decoration: InputDecoration(
         hintText: AppLocalizations.of(context).searchForBoulders,
-        suffixIcon:
-            showCancelIcon
-                ? IconButton(
-                  tooltip: AppLocalizations.of(context).clear,
-                  icon: const Icon(Icons.cancel),
-                  onPressed: () {
-                    _controller.text = '';
-                    context.read<BoulderFilterBloc>().add(
-                      BoulderFilterSearched(''),
-                    );
-                  },
-                )
-                : null,
+        suffixIcon: showCancelIcon
+            ? IconButton(
+                tooltip: AppLocalizations.of(context).clear,
+                icon: const Icon(Icons.cancel),
+                onPressed: () {
+                  _controller.text = '';
+                  context.read<BoulderFilterBloc>().add(
+                    BoulderFilterSearched(''),
+                  );
+                },
+              )
+            : null,
         border: InputBorder.none,
         filled: true,
       ),

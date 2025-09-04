@@ -53,28 +53,26 @@ class BoulderDetailsTab extends StatelessWidget {
               title: Text(municipality.name),
               leading: Text(AppLocalizations.of(context).municipality),
               key: const Key('municipality-details-link'),
-              onTap:
-                  offlineFirst
-                      ? null
-                      : () {
-                        context.pushNamed(
-                          MunicipalityDetailsScreen.route.name,
-                          pathParameters: {
-                            MunicipalityDetailsScreen.idParameterName:
-                                IriParser.id(municipality.iri),
-                          },
-                        );
-                      },
+              onTap: offlineFirst
+                  ? null
+                  : () {
+                      context.pushNamed(
+                        MunicipalityDetailsScreen.route.name,
+                        pathParameters: {
+                          MunicipalityDetailsScreen.idParameterName:
+                              IriParser.id(municipality.iri),
+                        },
+                      );
+                    },
             ),
           ListTile(
             title: Text(boulder.rock.boulderArea.name),
             leading: Text(AppLocalizations.of(context).boulderArea),
             key: const Key('boulder-area-details-link'),
             onTap: () {
-              final routeName =
-                  offlineFirst
-                      ? DownloadedBoulderAreaDetailsScreen.route.name
-                      : BoulderAreaDetailsScreen.route.name;
+              final routeName = offlineFirst
+                  ? DownloadedBoulderAreaDetailsScreen.route.name
+                  : BoulderAreaDetailsScreen.route.name;
               context.pushNamed(
                 routeName,
                 pathParameters: {
@@ -91,13 +89,12 @@ class BoulderDetailsTab extends StatelessWidget {
 
           const Divider(),
           BlocProvider(
-            create:
-                (context) => BoulderMessageFeedbackViewModel(
-                  form: ContributeBoulderMessageForm(),
-                  boulderFeedbackRepository:
-                      GetIt.I.get<BoulderFeedbackRepository>(),
-                  boulder: boulder,
-                ),
+            create: (context) => BoulderMessageFeedbackViewModel(
+              form: ContributeBoulderMessageForm(),
+              boulderFeedbackRepository: GetIt.I
+                  .get<BoulderFeedbackRepository>(),
+              boulder: boulder,
+            ),
             child: Builder(
               builder: (parentContext) {
                 return ListTile(
@@ -108,13 +105,10 @@ class BoulderDetailsTab extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                        builder:
-                            (context) => BlocProvider<
-                              BoulderMessageFeedbackViewModel
-                            >.value(
-                              value:
-                                  parentContext
-                                      .read<BoulderMessageFeedbackViewModel>(),
+                        builder: (context) =>
+                            BlocProvider<BoulderMessageFeedbackViewModel>.value(
+                              value: parentContext
+                                  .read<BoulderMessageFeedbackViewModel>(),
                               child: ContributeBoulderScreen(boulder: boulder),
                             ),
                       ),

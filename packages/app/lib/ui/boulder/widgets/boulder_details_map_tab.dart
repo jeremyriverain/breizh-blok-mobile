@@ -46,9 +46,8 @@ class _BoulderDetailsMapTabState extends State<BoulderDetailsMapTab>
                     ),
                   ),
                   onMapCreated: (mapboxMap) async {
-                    final pointAnnotationManager =
-                        await mapboxMap.annotations
-                            .createPointAnnotationManager();
+                    final pointAnnotationManager = await mapboxMap.annotations
+                        .createPointAnnotationManager();
 
                     if (!context.mounted) {
                       return;

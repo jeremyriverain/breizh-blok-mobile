@@ -8,7 +8,7 @@ class ContributeBoulderMessageForm extends FormGroup {
         ),
       });
 
-  static const formKeys = (message: 'message');
+  static const ({String message}) formKeys = (message: 'message');
 
   String? get message =>
       controls[ContributeBoulderMessageForm.formKeys.message]?.value as String?;

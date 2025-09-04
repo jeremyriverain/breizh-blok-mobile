@@ -21,11 +21,10 @@ void main() {
         when(() => repository.find('foo')).thenAnswer((_) async => fakeBoulder);
       },
       build: () => BoulderViewModel(repository: repository, id: 'foo'),
-      expect:
-          () => [
-            const BoulderLoading(),
-            const BoulderStates.ok(boulder: fakeBoulder),
-          ],
+      expect: () => [
+        const BoulderLoading(),
+        const BoulderStates.ok(boulder: fakeBoulder),
+      ],
     );
 
     blocTest<BoulderViewModel, BoulderStates>(
@@ -34,15 +33,14 @@ void main() {
         when(() => repository.find('foo')).thenThrow(Exception('foo'));
       },
       build: () => BoulderViewModel(repository: repository, id: 'foo'),
-      expect:
-          () => [
-            const BoulderLoading(),
-            isA<BoulderError>().having(
-              (e) => e.error.toString(),
-              'error',
-              'Exception: foo',
-            ),
-          ],
+      expect: () => [
+        const BoulderLoading(),
+        isA<BoulderError>().having(
+          (e) => e.error.toString(),
+          'error',
+          'Exception: foo',
+        ),
+      ],
     );
 
     blocTest<BoulderViewModel, BoulderStates>(
@@ -52,13 +50,12 @@ void main() {
       },
       build: () => BoulderViewModel(repository: repository, id: 'foo'),
       act: (bloc) => bloc.add(const BoulderEvents.requested()),
-      expect:
-          () => [
-            const BoulderLoading(),
-            const BoulderStates.ok(boulder: fakeBoulder),
-            const BoulderLoading(),
-            const BoulderStates.ok(boulder: fakeBoulder),
-          ],
+      expect: () => [
+        const BoulderLoading(),
+        const BoulderStates.ok(boulder: fakeBoulder),
+        const BoulderLoading(),
+        const BoulderStates.ok(boulder: fakeBoulder),
+      ],
     );
   });
 }

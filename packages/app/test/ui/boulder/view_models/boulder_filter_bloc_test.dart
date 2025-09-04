@@ -31,13 +31,11 @@ void main() {
     blocTest<BoulderFilterBloc, BoulderFilterState>(
       'BoulderFilterLocation event OK',
       build: () => BoulderFilterBloc(const BoulderFilterState()),
-      act:
-          (BoulderFilterBloc bloc) =>
-              bloc.add(BoulderFilterLocation({referenceBoulderArea})),
-      expect:
-          () => [
-            BoulderFilterState(boulderAreas: {referenceBoulderArea}),
-          ],
+      act: (BoulderFilterBloc bloc) =>
+          bloc.add(BoulderFilterLocation({referenceBoulderArea})),
+      expect: () => [
+        BoulderFilterState(boulderAreas: {referenceBoulderArea}),
+      ],
     );
   });
 }

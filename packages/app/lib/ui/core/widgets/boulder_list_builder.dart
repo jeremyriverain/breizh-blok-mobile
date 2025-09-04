@@ -137,14 +137,13 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                   right: 10,
                   top: 5,
                 ),
-                separatorBuilder:
-                    (context, index) => const SizedBox(height: 16),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 16),
                 builderDelegate: PagedChildBuilderDelegate<Boulder>(
-                  noItemsFoundIndicatorBuilder:
-                      (context) => const EmptyListIndicator(),
-                  firstPageErrorIndicatorBuilder:
-                      (context) =>
-                          ErrorIndicator(onTryAgain: _pagingController.refresh),
+                  noItemsFoundIndicatorBuilder: (context) =>
+                      const EmptyListIndicator(),
+                  firstPageErrorIndicatorBuilder: (context) =>
+                      ErrorIndicator(onTryAgain: _pagingController.refresh),
                   itemBuilder: (context, boulder, index) {
                     final tile = BoulderListBuilderTile(
                       boulder: boulder,

@@ -36,13 +36,11 @@ class ContributeBoulderScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder:
-                      (_) =>
-                          BlocProvider<BoulderMessageFeedbackViewModel>.value(
-                            value:
-                                context.read<BoulderMessageFeedbackViewModel>(),
-                            child: BoulderMessageFormScreen(boulder: boulder),
-                          ),
+                  builder: (_) =>
+                      BlocProvider<BoulderMessageFeedbackViewModel>.value(
+                        value: context.read<BoulderMessageFeedbackViewModel>(),
+                        child: BoulderMessageFormScreen(boulder: boulder),
+                      ),
                 ),
               );
             },
@@ -54,18 +52,17 @@ class ContributeBoulderScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder:
-                      (_) => ContributeBoulderMapScreen(
-                        viewModel: ContributeBoulderMapViewModel(
-                          form: ContributeBoulderLocationForm(
-                            latitude: boulder.rock.location.latitude,
-                            longitude: boulder.rock.location.longitude,
-                          ),
-                          boulderFeedbackRepository:
-                              GetIt.I<BoulderFeedbackRepository>(),
-                          boulder: boulder,
-                        ),
+                  builder: (_) => ContributeBoulderMapScreen(
+                    viewModel: ContributeBoulderMapViewModel(
+                      form: ContributeBoulderLocationForm(
+                        latitude: boulder.rock.location.latitude,
+                        longitude: boulder.rock.location.longitude,
                       ),
+                      boulderFeedbackRepository:
+                          GetIt.I<BoulderFeedbackRepository>(),
+                      boulder: boulder,
+                    ),
+                  ),
                 ),
               );
             },

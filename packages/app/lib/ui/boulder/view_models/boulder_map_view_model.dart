@@ -16,19 +16,18 @@ class BoulderMapViewModel extends Bloc<BoulderMapEvents, BoulderMapStates> {
             final availableMaps = await MapLauncher.installedMaps;
             emit(
               BoulderMapOK(
-                onClickMarker:
-                    availableMaps.isEmpty
-                        ? null
-                        : (context) async {
-                          await MapDirections.openMapsSheet(
-                            context: context,
-                            availableMaps: availableMaps,
-                            onMapSelectedFn: MapDirections.showDirections(
-                              destination: boulder.rock.location,
-                              destinationTitle: boulder.name,
-                            ),
-                          );
-                        },
+                onClickMarker: availableMaps.isEmpty
+                    ? null
+                    : (context) async {
+                        await MapDirections.openMapsSheet(
+                          context: context,
+                          availableMaps: availableMaps,
+                          onMapSelectedFn: MapDirections.showDirections(
+                            destination: boulder.rock.location,
+                            destinationTitle: boulder.name,
+                          ),
+                        );
+                      },
               ),
             );
           }

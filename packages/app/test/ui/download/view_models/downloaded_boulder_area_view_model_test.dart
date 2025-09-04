@@ -22,14 +22,12 @@ void main() {
           () => repository.find('foo', offlineFirst: true),
         ).thenAnswer((_) async => fakeBoulderArea);
       },
-      build:
-          () =>
-              DownloadedBoulderAreaViewModel(repository: repository, id: 'foo'),
-      expect:
-          () => [
-            const DownloadedBoulderAreaLoading(),
-            const DownloadedBoulderAreaStates.ok(boulderArea: fakeBoulderArea),
-          ],
+      build: () =>
+          DownloadedBoulderAreaViewModel(repository: repository, id: 'foo'),
+      expect: () => [
+        const DownloadedBoulderAreaLoading(),
+        const DownloadedBoulderAreaStates.ok(boulderArea: fakeBoulderArea),
+      ],
     );
 
     blocTest<DownloadedBoulderAreaViewModel, DownloadedBoulderAreaStates>(
@@ -39,18 +37,16 @@ void main() {
           () => repository.find('foo', offlineFirst: true),
         ).thenThrow(Exception('foo'));
       },
-      build:
-          () =>
-              DownloadedBoulderAreaViewModel(repository: repository, id: 'foo'),
-      expect:
-          () => [
-            const DownloadedBoulderAreaLoading(),
-            isA<DownloadedBoulderAreaError>().having(
-              (e) => e.error.toString(),
-              'error',
-              'Exception: foo',
-            ),
-          ],
+      build: () =>
+          DownloadedBoulderAreaViewModel(repository: repository, id: 'foo'),
+      expect: () => [
+        const DownloadedBoulderAreaLoading(),
+        isA<DownloadedBoulderAreaError>().having(
+          (e) => e.error.toString(),
+          'error',
+          'Exception: foo',
+        ),
+      ],
     );
 
     blocTest<DownloadedBoulderAreaViewModel, DownloadedBoulderAreaStates>(
@@ -60,17 +56,15 @@ void main() {
           () => repository.find('foo', offlineFirst: true),
         ).thenAnswer((_) async => fakeBoulderArea);
       },
-      build:
-          () =>
-              DownloadedBoulderAreaViewModel(repository: repository, id: 'foo'),
+      build: () =>
+          DownloadedBoulderAreaViewModel(repository: repository, id: 'foo'),
       act: (bloc) => bloc.add(const DownloadedBoulderAreaEvents.requested()),
-      expect:
-          () => [
-            const DownloadedBoulderAreaLoading(),
-            const DownloadedBoulderAreaStates.ok(boulderArea: fakeBoulderArea),
-            const DownloadedBoulderAreaLoading(),
-            const DownloadedBoulderAreaStates.ok(boulderArea: fakeBoulderArea),
-          ],
+      expect: () => [
+        const DownloadedBoulderAreaLoading(),
+        const DownloadedBoulderAreaStates.ok(boulderArea: fakeBoulderArea),
+        const DownloadedBoulderAreaLoading(),
+        const DownloadedBoulderAreaStates.ok(boulderArea: fakeBoulderArea),
+      ],
     );
   });
 }

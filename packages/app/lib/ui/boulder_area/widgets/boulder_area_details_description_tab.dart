@@ -48,12 +48,11 @@ class _BoulderAreaDetailsDescriptionTabState
             Padding(
               padding: const EdgeInsets.only(right: 10, left: 10, top: 20),
               child: MyBarChart(
-                title:
-                    numOfBoulders != null
-                        ? AppLocalizations.of(
-                          context,
-                        ).distributionOfNBoulders(num: numOfBoulders)
-                        : AppLocalizations.of(context).distributionOfBoulders,
+                title: numOfBoulders != null
+                    ? AppLocalizations.of(
+                        context,
+                      ).distributionOfNBoulders(num: numOfBoulders)
+                    : AppLocalizations.of(context).distributionOfBoulders,
                 data: numberOfBouldersGroupedByGrade,
               ),
             ),

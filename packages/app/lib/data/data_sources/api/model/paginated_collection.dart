@@ -14,12 +14,11 @@ class PaginatedCollection<T> {
         .toList();
 
     int? nextPage;
-    if (json
-        case {
-          'hydra:view': {
-            'hydra:next': final String nextPageUrl,
-          },
-        }) {
+    if (json case {
+      'hydra:view': {
+        'hydra:next': final String nextPageUrl,
+      },
+    }) {
       nextPage = extractPage(nextPageUrl);
     }
     return PaginatedCollection(

@@ -85,12 +85,14 @@ void main() {
       imageBoulderCache: imageBoulderCache,
     );
 
-    final storedRequestsBeforeDownloading =
-        await database.select(database.dbRequests).get();
+    final storedRequestsBeforeDownloading = await database
+        .select(database.dbRequests)
+        .get();
     expect(storedRequestsBeforeDownloading.length, equals(0));
 
-    final storedBoulderAreasBeforeDownloading =
-        await database.select(database.dbBoulderAreas).get();
+    final storedBoulderAreasBeforeDownloading = await database
+        .select(database.dbBoulderAreas)
+        .get();
     expect(storedBoulderAreasBeforeDownloading.length, equals(0));
 
     // download
@@ -125,8 +127,9 @@ void main() {
       ),
     ]);
 
-    final storedBoulderAreas =
-        await database.select(database.dbBoulderAreas).get();
+    final storedBoulderAreas = await database
+        .select(database.dbBoulderAreas)
+        .get();
     expect(storedBoulderAreas.length, equals(1));
     final mockDate = DateTime.now();
     expect(storedBoulderAreas.map((e) => e.copyWith(downloadedAt: mockDate)), [
@@ -164,11 +167,13 @@ void main() {
 
     // remove download
     await downloadAreaService.removeDownload(boulderArea.iri);
-    final storedBoulderAreasAfterRemovingDownload =
-        await database.select(database.dbBoulderAreas).get();
+    final storedBoulderAreasAfterRemovingDownload = await database
+        .select(database.dbBoulderAreas)
+        .get();
     expect(storedBoulderAreasAfterRemovingDownload.length, equals(0));
-    final storedRequetsAfterRemovingDownload =
-        await database.select(database.dbRequests).get();
+    final storedRequetsAfterRemovingDownload = await database
+        .select(database.dbRequests)
+        .get();
     expect(storedRequetsAfterRemovingDownload.length, equals(1));
 
     expect(storedRequetsAfterRemovingDownload, [

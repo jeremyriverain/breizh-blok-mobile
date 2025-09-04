@@ -31,8 +31,8 @@ class MunicipalityMap extends StatelessWidget {
         zoom: 10,
       ),
       onMapCreated: (mapboxMap) async {
-        final circleAnnotationManager =
-            await mapboxMap.annotations.createCircleAnnotationManager();
+        final circleAnnotationManager = await mapboxMap.annotations
+            .createCircleAnnotationManager();
 
         if (!context.mounted) {
           return;

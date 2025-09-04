@@ -23,10 +23,9 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
       }
       final boulderAreas = event.boulderAreas;
       if (boulderAreas.isNotEmpty) {
-        queryParams['rock.boulderArea.id[]'] =
-            boulderAreas
-                .map((e) => e.iri.replaceAll('/boulder_areas/', ''))
-                .toList();
+        queryParams['rock.boulderArea.id[]'] = boulderAreas
+            .map((e) => e.iri.replaceAll('/boulder_areas/', ''))
+            .toList();
       }
 
       if (event.grades.isNotEmpty) {
@@ -58,23 +57,22 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
         );
 
         data = data.copyWith(
-          items:
-              data.items.where((boulder) {
-                return _isInSet(boulder.id, event.boulderIds) &&
-                    _isInSet(boulder.grade, event.grades);
-              }).toList(),
+          items: data.items.where((boulder) {
+            return _isInSet(boulder.id, event.boulderIds) &&
+                _isInSet(boulder.grade, event.grades);
+          }).toList(),
         );
 
         if (event.orderParam.name == kGradeOrderParam) {
           data = data.copyWith(
-            items:
-                data.items..sort((firstBoulder, secondBoulder) {
-                  return _compareGrades(
-                    firstBoulder,
-                    secondBoulder,
-                    orderParam: event.orderParam,
-                  );
-                }),
+            items: data.items
+              ..sort((firstBoulder, secondBoulder) {
+                return _compareGrades(
+                  firstBoulder,
+                  secondBoulder,
+                  orderParam: event.orderParam,
+                );
+              }),
           );
         }
 
@@ -105,14 +103,12 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
     required ApiOrderParam orderParam,
   }) {
     final direction = orderParam.direction;
-    final aGrade =
-        direction == kAscendantDirection
-            ? firstBoulder.grade
-            : secondBoulder.grade;
-    final bGrade =
-        direction == kAscendantDirection
-            ? secondBoulder.grade
-            : firstBoulder.grade;
+    final aGrade = direction == kAscendantDirection
+        ? firstBoulder.grade
+        : secondBoulder.grade;
+    final bGrade = direction == kAscendantDirection
+        ? secondBoulder.grade
+        : firstBoulder.grade;
     if (aGrade == null && bGrade == null) {
       return 0;
     }

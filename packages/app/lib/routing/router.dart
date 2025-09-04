@@ -29,7 +29,7 @@ final _profileShellNavigatorKey = GlobalKey<NavigatorState>(
 
 final routes = [
   StatefulShellRoute.indexedStack(
-    builder: (_, __, navigationShell) {
+    builder: (_, _, navigationShell) {
       return ScaffoldWithNestedNavigation(navigationShell);
     },
     branches: <StatefulShellBranch>[
@@ -40,13 +40,12 @@ final routes = [
           GoRoute(
             path: BoulderListScreen.route.path,
             name: BoulderListScreen.route.name,
-            pageBuilder:
-                (_, _) => NoTransitionPage(
-                  child: RepositoryProvider(
-                    create: (context) => RequestStrategy(),
-                    child: const BoulderListScreen(),
-                  ),
-                ),
+            pageBuilder: (_, _) => NoTransitionPage(
+              child: RepositoryProvider(
+                create: (context) => RequestStrategy(),
+                child: const BoulderListScreen(),
+              ),
+            ),
             routes: [
               GoRoute(
                 path: BoulderAreaDetailsScreen.route.path,
@@ -87,13 +86,12 @@ final routes = [
           GoRoute(
             path: MapScreen.route.path,
             name: MapScreen.route.name,
-            pageBuilder:
-                (_, _) => NoTransitionPage(
-                  child: RepositoryProvider(
-                    create: (context) => RequestStrategy(offlineFirst: true),
-                    child: const MapScreen(),
-                  ),
-                ),
+            pageBuilder: (_, _) => NoTransitionPage(
+              child: RepositoryProvider(
+                create: (context) => RequestStrategy(offlineFirst: true),
+                child: const MapScreen(),
+              ),
+            ),
           ),
         ],
       ),
@@ -104,13 +102,12 @@ final routes = [
           GoRoute(
             path: DepartmentListScreen.route.path,
             name: DepartmentListScreen.route.name,
-            pageBuilder:
-                (_, __) => NoTransitionPage(
-                  child: RepositoryProvider(
-                    create: (context) => RequestStrategy(),
-                    child: const DepartmentListScreen(),
-                  ),
-                ),
+            pageBuilder: (_, _) => NoTransitionPage(
+              child: RepositoryProvider(
+                create: (context) => RequestStrategy(),
+                child: const DepartmentListScreen(),
+              ),
+            ),
             routes: [
               GoRoute(
                 path: MunicipalityDetailsScreen.route.path,
@@ -137,13 +134,12 @@ final routes = [
           GoRoute(
             path: ProfileScreen.route.path,
             name: ProfileScreen.route.name,
-            pageBuilder:
-                (_, __) => NoTransitionPage(
-                  child: RepositoryProvider(
-                    create: (context) => RequestStrategy(),
-                    child: const ProfileScreen(),
-                  ),
-                ),
+            pageBuilder: (_, _) => NoTransitionPage(
+              child: RepositoryProvider(
+                create: (context) => RequestStrategy(),
+                child: const ProfileScreen(),
+              ),
+            ),
             routes: [
               GoRoute(
                 path: DownloadedBoulderAreasScreen.route.path,
@@ -160,8 +156,8 @@ final routes = [
                     name: DownloadedBoulderDetailsScreen.route.name,
                     builder: (context, state) {
                       return RepositoryProvider<RequestStrategy>(
-                        create:
-                            (context) => RequestStrategy(offlineFirst: true),
+                        create: (context) =>
+                            RequestStrategy(offlineFirst: true),
                         child: DownloadedBoulderDetailsScreen(
                           id:
                               state
@@ -183,8 +179,8 @@ final routes = [
                     name: DownloadedBoulderAreaDetailsScreen.route.name,
                     builder: (context, state) {
                       return RepositoryProvider<RequestStrategy>(
-                        create:
-                            (context) => RequestStrategy(offlineFirst: true),
+                        create: (context) =>
+                            RequestStrategy(offlineFirst: true),
                         child: DownloadedBoulderAreaDetailsScreen(
                           id:
                               state

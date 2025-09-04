@@ -10,7 +10,7 @@ class LocaleSwitch extends StatelessWidget {
 
   final String currentLocale;
 
-  final languages = {
+  final Map<String, ({String flag, String name})> languages = {
     'en': (name: 'English', flag: Assets.flagEnglish),
     'fr': (name: 'Français', flag: Assets.flagFrench),
   };
@@ -49,18 +49,19 @@ class LocaleSwitch extends StatelessWidget {
             ),
           ],
         ),
-        dropdownMenuEntries:
-            languages.entries.map<DropdownMenuEntry<String>>((entry) {
-              return DropdownMenuEntry<String>(
-                value: entry.key,
-                label: entry.value.name,
-                leadingIcon: SvgPicture.asset(
-                  entry.value.flag,
-                  width: 24,
-                  height: 16,
-                ),
-              );
-            }).toList(),
+        dropdownMenuEntries: languages.entries.map<DropdownMenuEntry<String>>((
+          entry,
+        ) {
+          return DropdownMenuEntry<String>(
+            value: entry.key,
+            label: entry.value.name,
+            leadingIcon: SvgPicture.asset(
+              entry.value.flag,
+              width: 24,
+              height: 16,
+            ),
+          );
+        }).toList(),
       ),
     );
   }

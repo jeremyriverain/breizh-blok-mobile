@@ -46,7 +46,8 @@ void main() {
           .insert(
             DbRequest(
               requestPath: boulderAreaIri,
-              responseBody: '''
+              responseBody:
+                  '''
 {
   "name": "$boulerAreaName",
   "municipality": {

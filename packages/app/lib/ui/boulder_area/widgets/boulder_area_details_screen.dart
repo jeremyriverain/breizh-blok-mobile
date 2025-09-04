@@ -14,7 +14,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 class BoulderAreaDetailsScreen extends StatelessWidget {
   const BoulderAreaDetailsScreen({required this.id, super.key});
 
-  static const route = (
+  static const ({String name, String path}) route = (
     path: '/boulder-areas/:$idParameterName',
     name: 'boulder_area_details',
   );
@@ -26,11 +26,10 @@ class BoulderAreaDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) => BoulderAreaViewModel(
-            repository: context.read<BoulderAreaRepository>(),
-            id: id,
-          ),
+      create: (context) => BoulderAreaViewModel(
+        repository: context.read<BoulderAreaRepository>(),
+        id: id,
+      ),
       child: BlocBuilder<BoulderAreaViewModel, BoulderAreaStates>(
         builder: (context, state) {
           return switch (state) {
@@ -38,16 +37,14 @@ class BoulderAreaDetailsScreen extends StatelessWidget {
             BoulderAreaOK(:final boulderArea) => MultiBlocProvider(
               providers: [
                 BlocProvider<BoulderBloc>(
-                  create:
-                      (context) => BoulderBloc(
-                        repository: context.read<BoulderRepository>(),
-                      ),
+                  create: (context) => BoulderBloc(
+                    repository: context.read<BoulderRepository>(),
+                  ),
                 ),
                 BlocProvider<BoulderFilterBloc>(
-                  create:
-                      (context) => BoulderFilterBloc(
-                        BoulderFilterState(boulderAreas: {boulderArea}),
-                      ),
+                  create: (context) => BoulderFilterBloc(
+                    BoulderFilterState(boulderAreas: {boulderArea}),
+                  ),
                 ),
               ],
               child: BoulderAreaDetails(boulderArea: boulderArea),
@@ -56,12 +53,12 @@ class BoulderAreaDetailsScreen extends StatelessWidget {
               error is HttpExceptionWithStatus && error.statusCode == 404
                   ? const NotFoundScreen()
                   : ErrorScreen(
-                    onTryAgain: () {
-                      context.read<BoulderAreaViewModel>().add(
-                        const BoulderAreaEvents.requested(),
-                      );
-                    },
-                  ),
+                      onTryAgain: () {
+                        context.read<BoulderAreaViewModel>().add(
+                          const BoulderAreaEvents.requested(),
+                        );
+                      },
+                    ),
           };
         },
       ),

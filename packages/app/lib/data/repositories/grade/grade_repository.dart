@@ -32,7 +32,7 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
     return findBy(queryParams: findAllQueryParams);
   }
 
-  static const findAllQueryParams = {
+  static const Map<String, List<String>> findAllQueryParams = {
     'exists[boulders]': ['true'],
     'pagination': ['false'],
     'order[name]': [kAscendantDirection],

@@ -30,11 +30,10 @@ void main() {
         ).thenAnswer((_) async => paginatedDepartments);
       },
       build: () => ListDepartmentsViewModel(repository: repository),
-      expect:
-          () => [
-            const ListDepartmentsLoading(),
-            const ListDepartmentsOK(departments: paginatedDepartments),
-          ],
+      expect: () => [
+        const ListDepartmentsLoading(),
+        const ListDepartmentsOK(departments: paginatedDepartments),
+      ],
     );
 
     blocTest<ListDepartmentsViewModel, ListDepartmentsStates>(
@@ -43,15 +42,14 @@ void main() {
         when(() => repository.findAll()).thenThrow(Exception('foo'));
       },
       build: () => ListDepartmentsViewModel(repository: repository),
-      expect:
-          () => [
-            const ListDepartmentsLoading(),
-            isA<ListDepartmentsError>().having(
-              (e) => e.error.toString(),
-              'error',
-              'Exception: foo',
-            ),
-          ],
+      expect: () => [
+        const ListDepartmentsLoading(),
+        isA<ListDepartmentsError>().having(
+          (e) => e.error.toString(),
+          'error',
+          'Exception: foo',
+        ),
+      ],
     );
 
     blocTest<ListDepartmentsViewModel, ListDepartmentsStates>(
@@ -63,13 +61,12 @@ void main() {
       },
       build: () => ListDepartmentsViewModel(repository: repository),
       act: (bloc) => bloc.add(const ListDepartmentsEvents.requested()),
-      expect:
-          () => [
-            const ListDepartmentsLoading(),
-            const ListDepartmentsStates.ok(departments: paginatedDepartments),
-            const ListDepartmentsLoading(),
-            const ListDepartmentsStates.ok(departments: paginatedDepartments),
-          ],
+      expect: () => [
+        const ListDepartmentsLoading(),
+        const ListDepartmentsStates.ok(departments: paginatedDepartments),
+        const ListDepartmentsLoading(),
+        const ListDepartmentsStates.ok(departments: paginatedDepartments),
+      ],
     );
   });
 }

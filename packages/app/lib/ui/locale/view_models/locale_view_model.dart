@@ -31,10 +31,9 @@ class LocaleViewModel extends Bloc<LocaleEvent, LocaleState> {
 
       final platformLocale = WidgetsBinding.instance.platformDispatcher.locale;
       return LocaleViewModel(
-        locale:
-            AppLocalizations.supportedLocales.contains(platformLocale)
-                ? platformLocale
-                : const Locale(kDefaultLocale),
+        locale: AppLocalizations.supportedLocales.contains(platformLocale)
+            ? platformLocale
+            : const Locale(kDefaultLocale),
       );
     }
 

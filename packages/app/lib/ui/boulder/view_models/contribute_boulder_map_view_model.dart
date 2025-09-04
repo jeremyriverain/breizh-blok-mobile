@@ -37,18 +37,17 @@ class ContributeBoulderMapViewModel
               error: false,
             ),
           );
-          final result =
-              await boulderFeedbackRepository
-                  .create(
-                    BoulderFeedback(
-                      boulder: boulder,
-                      newLocation: Location(
-                        latitude: state.form.latitude ?? 0,
-                        longitude: state.form.longitude ?? 0,
-                      ),
-                    ),
-                  )
-                  .run();
+          final result = await boulderFeedbackRepository
+              .create(
+                BoulderFeedback(
+                  boulder: boulder,
+                  newLocation: Location(
+                    latitude: state.form.latitude ?? 0,
+                    longitude: state.form.longitude ?? 0,
+                  ),
+                ),
+              )
+              .run();
 
           result.match(
             (domainException) {
@@ -76,15 +75,15 @@ class ContributeBoulderMapViewModel
             },
           );
         case UpdateLatitudeEvent(:final latitude):
-          state
-              .form
-              .control(ContributeBoulderLocationForm.formKeys.latitude)
-              .value = latitude;
+          state.form
+                  .control(ContributeBoulderLocationForm.formKeys.latitude)
+                  .value =
+              latitude;
         case UpdateLongitudeEvent(:final longitude):
-          state
-              .form
-              .control(ContributeBoulderLocationForm.formKeys.longitude)
-              .value = longitude;
+          state.form
+                  .control(ContributeBoulderLocationForm.formKeys.longitude)
+                  .value =
+              longitude;
       }
     });
   }

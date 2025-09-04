@@ -13,20 +13,19 @@ class BoulderDetailsLineBoulders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children:
-          lineBoulders
-              .asMap()
-              .entries
-              .map<Widget>(
-                (entry) => Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: InkWell(
-                    onTap: () => {_open(context, entry.key)},
-                    child: LineBoulderImage(lineBoulder: entry.value),
-                  ),
-                ),
-              )
-              .toList(),
+      children: lineBoulders
+          .asMap()
+          .entries
+          .map<Widget>(
+            (entry) => Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: InkWell(
+                onTap: () => {_open(context, entry.key)},
+                child: LineBoulderImage(lineBoulder: entry.value),
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 
@@ -34,11 +33,10 @@ class BoulderDetailsLineBoulders extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute<_GalleryPhotoViewWrapper>(
-        builder:
-            (context) => _GalleryPhotoViewWrapper(
-              galleryItems: lineBoulders,
-              initialIndex: index,
-            ),
+        builder: (context) => _GalleryPhotoViewWrapper(
+          galleryItems: lineBoulders,
+          initialIndex: index,
+        ),
       ),
     );
   }

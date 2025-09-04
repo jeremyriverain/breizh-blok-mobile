@@ -25,195 +25,212 @@ class ContributeBoulderMapScreen extends StatelessWidget {
       ),
       body: BlocProvider.value(
         value: viewModel,
-        child: BlocConsumer<
-          ContributeBoulderMapViewModel,
-          ContributeBoulderMapState
-        >(
-          listener: (context, state) {
-            if (state.done) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    localizations.thanksWeWillReviewYourContribution,
-                  ),
-                ),
-              );
-              context
-                ..pop()
-                ..pop();
-              return;
-            }
-            if (state.error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(localizations.anErrorOccured)),
-              );
-            }
-          },
-          builder: (context, state) {
-            return ReactiveForm(
-              formGroup: state.form,
-              child: Column(
-                children: [
-                  ListTile(
-                    subtitle: Text(
-                      localizations.mapFormHelper(
-                        boulderName: viewModel.boulder.name,
+        child:
+            BlocConsumer<
+              ContributeBoulderMapViewModel,
+              ContributeBoulderMapState
+            >(
+              listener: (context, state) {
+                if (state.done) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        localizations.thanksWeWillReviewYourContribution,
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        MyMap(
-                          cameraOptions: CameraOptions(
-                            zoom: 15,
-                            center: Point(
-                              coordinates: Position(
-                                viewModel.boulder.rock.location.longitude,
-                                viewModel.boulder.rock.location.latitude,
-                              ),
-                            ),
+                  );
+                  context
+                    ..pop()
+                    ..pop();
+                  return;
+                }
+                if (state.error) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(localizations.anErrorOccured)),
+                  );
+                }
+              },
+              builder: (context, state) {
+                return ReactiveForm(
+                  formGroup: state.form,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        subtitle: Text(
+                          localizations.mapFormHelper(
+                            boulderName: viewModel.boulder.name,
                           ),
-                          onMapCreated: (mapboxMap) async {
-                            final pointAnnotationManager =
-                                await mapboxMap.annotations
+                        ),
+                      ),
+                      Expanded(
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            MyMap(
+                              cameraOptions: CameraOptions(
+                                zoom: 15,
+                                center: Point(
+                                  coordinates: Position(
+                                    viewModel.boulder.rock.location.longitude,
+                                    viewModel.boulder.rock.location.latitude,
+                                  ),
+                                ),
+                              ),
+                              onMapCreated: (mapboxMap) async {
+                                final pointAnnotationManager = await mapboxMap
+                                    .annotations
                                     .createPointAnnotationManager();
 
-                            if (!context.mounted) {
-                              return;
-                            }
-                            final imageData = await context
-                                .getResponsiveImageData(
-                                  imagePath: Assets.locationIcon,
-                                );
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                final imageData = await context
+                                    .getResponsiveImageData(
+                                      imagePath: Assets.locationIcon,
+                                    );
 
-                            final pointAnnotationOptions =
-                                PointAnnotationOptions(
-                                  geometry: Point(
-                                    coordinates: Position(
-                                      viewModel.boulder.rock.location.longitude,
-                                      viewModel.boulder.rock.location.latitude,
-                                    ),
-                                  ),
-                                  image: imageData,
-                                  iconSize: 1.3,
-                                  iconAnchor: IconAnchor.BOTTOM,
-                                  isDraggable: true,
-                                );
+                                final pointAnnotationOptions =
+                                    PointAnnotationOptions(
+                                      geometry: Point(
+                                        coordinates: Position(
+                                          viewModel
+                                              .boulder
+                                              .rock
+                                              .location
+                                              .longitude,
+                                          viewModel
+                                              .boulder
+                                              .rock
+                                              .location
+                                              .latitude,
+                                        ),
+                                      ),
+                                      image: imageData,
+                                      iconSize: 1.3,
+                                      iconAnchor: IconAnchor.BOTTOM,
+                                      isDraggable: true,
+                                    );
 
-                            await pointAnnotationManager.create(
-                              pointAnnotationOptions,
-                            );
-                            pointAnnotationManager.dragEvents(
-                              onEnd: (annotation) {
-                                context.read<ContributeBoulderMapViewModel>()
-                                  ..add(
-                                    UpdateLatitudeEvent(
-                                      latitude:
-                                          annotation.geometry.coordinates.lat
+                                await pointAnnotationManager.create(
+                                  pointAnnotationOptions,
+                                );
+                                pointAnnotationManager.dragEvents(
+                                  onEnd: (annotation) {
+                                    context
+                                        .read<ContributeBoulderMapViewModel>()
+                                      ..add(
+                                        UpdateLatitudeEvent(
+                                          latitude: annotation
+                                              .geometry
+                                              .coordinates
+                                              .lat
                                               .toDouble(),
-                                    ),
-                                  )
-                                  ..add(
-                                    UpdateLongitudeEvent(
-                                      longitude:
-                                          annotation.geometry.coordinates.lng
+                                        ),
+                                      )
+                                      ..add(
+                                        UpdateLongitudeEvent(
+                                          longitude: annotation
+                                              .geometry
+                                              .coordinates
+                                              .lng
                                               .toDouble(),
-                                    ),
-                                  );
+                                        ),
+                                      );
+                                  },
+                                );
                               },
-                            );
-                          },
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(14),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(localizations.latitude),
-                              ReactiveFormConsumer(
-                                builder: (context, _, child) {
-                                  return Text(
-                                    state.form.latitude.toString(),
-                                    key: const ValueKey('latitude'),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                  );
-                                },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(localizations.latitude),
+                                  ReactiveFormConsumer(
+                                    builder: (context, _, child) {
+                                      return Text(
+                                        state.form.latitude.toString(),
+                                        key: const ValueKey('latitude'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      );
+                                    },
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                localizations.longitude,
-                                textAlign: TextAlign.right,
-                              ),
-                              ReactiveFormConsumer(
-                                builder: (context, _, _) {
-                                  return Text(
-                                    state.form.longitude.toString(),
-                                    key: const ValueKey('longitude'),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    localizations.longitude,
                                     textAlign: TextAlign.right,
-                                  );
-                                },
+                                  ),
+                                  ReactiveFormConsumer(
+                                    builder: (context, _, _) {
+                                      return Text(
+                                        state.form.longitude.toString(),
+                                        key: const ValueKey('longitude'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                        textAlign: TextAlign.right,
+                                      );
+                                    },
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      alignment: Alignment.centerLeft,
-                      children: [
-                        if (state.pending)
-                          const Positioned(left: -50, child: FormSpinner()),
-                        ReactiveFormConsumer(
-                          builder: (context, form, _) {
-                            return FilledButton(
-                              onPressed:
-                                  !state.pending && form.valid
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          alignment: Alignment.centerLeft,
+                          children: [
+                            if (state.pending)
+                              const Positioned(left: -50, child: FormSpinner()),
+                            ReactiveFormConsumer(
+                              builder: (context, form, _) {
+                                return FilledButton(
+                                  onPressed: !state.pending && form.valid
                                       ? () {
-                                        context
-                                            .read<
-                                              ContributeBoulderMapViewModel
-                                            >()
-                                            .add(SubmitLocationEvent());
-                                      }
+                                          context
+                                              .read<
+                                                ContributeBoulderMapViewModel
+                                              >()
+                                              .add(SubmitLocationEvent());
+                                        }
                                       : null,
-                              child: Text(localizations.submitLocation),
-                            );
-                          },
+                                  child: Text(localizations.submitLocation),
+                                );
+                              },
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
       ),
     );
   }

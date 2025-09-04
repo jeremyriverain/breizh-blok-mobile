@@ -23,11 +23,10 @@ void main() {
         ).thenAnswer((_) async => fakeMunicipality);
       },
       build: () => MunicipalityViewModel(repository: repository, id: 'foo'),
-      expect:
-          () => [
-            const MunicipalityLoading(),
-            const MunicipalityStates.ok(municipality: fakeMunicipality),
-          ],
+      expect: () => [
+        const MunicipalityLoading(),
+        const MunicipalityStates.ok(municipality: fakeMunicipality),
+      ],
     );
 
     blocTest<MunicipalityViewModel, MunicipalityStates>(
@@ -36,15 +35,14 @@ void main() {
         when(() => repository.find('foo')).thenThrow(Exception('foo'));
       },
       build: () => MunicipalityViewModel(repository: repository, id: 'foo'),
-      expect:
-          () => [
-            const MunicipalityLoading(),
-            isA<MunicipalityError>().having(
-              (e) => e.error.toString(),
-              'error',
-              'Exception: foo',
-            ),
-          ],
+      expect: () => [
+        const MunicipalityLoading(),
+        isA<MunicipalityError>().having(
+          (e) => e.error.toString(),
+          'error',
+          'Exception: foo',
+        ),
+      ],
     );
 
     blocTest<MunicipalityViewModel, MunicipalityStates>(
@@ -56,13 +54,12 @@ void main() {
       },
       build: () => MunicipalityViewModel(repository: repository, id: 'foo'),
       act: (bloc) => bloc.add(const MunicipalityEvents.requested()),
-      expect:
-          () => [
-            const MunicipalityLoading(),
-            const MunicipalityStates.ok(municipality: fakeMunicipality),
-            const MunicipalityLoading(),
-            const MunicipalityStates.ok(municipality: fakeMunicipality),
-          ],
+      expect: () => [
+        const MunicipalityLoading(),
+        const MunicipalityStates.ok(municipality: fakeMunicipality),
+        const MunicipalityLoading(),
+        const MunicipalityStates.ok(municipality: fakeMunicipality),
+      ],
     );
   });
 }

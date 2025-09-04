@@ -45,42 +45,40 @@ class _SortButtonState extends State<SortButton> {
       onPressed: () {
         showDialog<void>(
           context: context,
-          builder:
-              (dialogContext) => AlertDialog(
-                alignment: Alignment.topCenter,
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  widget.label ??
-                      AppLocalizations.of(dialogContext).displayFirst,
-                ),
-                content: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: RadioGroup<ApiOrderParam>(
-                    groupValue: _value,
-                    onChanged: (value) {
-                      if (value == null) {
-                        return;
-                      }
-                      setState(() {
-                        _value = value;
-                      });
-                      widget.onChanged(value);
-                      Navigator.of(dialogContext).pop();
-                    },
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        for (final orderChoice in widget.choices)
-                          RadioListTile<ApiOrderParam>(
-                            value: orderChoice.orderParam,
+          builder: (dialogContext) => AlertDialog(
+            alignment: Alignment.topCenter,
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              widget.label ?? AppLocalizations.of(dialogContext).displayFirst,
+            ),
+            content: Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: RadioGroup<ApiOrderParam>(
+                groupValue: _value,
+                onChanged: (value) {
+                  if (value == null) {
+                    return;
+                  }
+                  setState(() {
+                    _value = value;
+                  });
+                  widget.onChanged(value);
+                  Navigator.of(dialogContext).pop();
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (final orderChoice in widget.choices)
+                      RadioListTile<ApiOrderParam>(
+                        value: orderChoice.orderParam,
 
-                            title: Text(orderChoice.label),
-                          ),
-                      ],
-                    ),
-                  ),
+                        title: Text(orderChoice.label),
+                      ),
+                  ],
                 ),
               ),
+            ),
+          ),
         );
       },
     );

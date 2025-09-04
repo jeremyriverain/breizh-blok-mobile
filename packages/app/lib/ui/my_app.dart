@@ -53,8 +53,8 @@ class MyApp extends StatelessWidget {
             create: (context) => BoulderRepository(httpClient: httpClient),
           ),
           RepositoryProvider<BoulderMarkerRepository>(
-            create:
-                (context) => BoulderMarkerRepository(httpClient: httpClient),
+            create: (context) =>
+                BoulderMarkerRepository(httpClient: httpClient),
           ),
           RepositoryProvider<DepartmentRepository>(
             create: (context) => DepartmentRepository(httpClient: httpClient),
@@ -74,11 +74,10 @@ class MyApp extends StatelessWidget {
             create: (context) => GetIt.I<ShareContentServiceInterface>(),
           ),
           RepositoryProvider<DownloadedBoulderRepository>(
-            create:
-                (context) => DownloadedBoulderRepository(
-                  httpClient: httpClient,
-                  database: localDatabase,
-                ),
+            create: (context) => DownloadedBoulderRepository(
+              httpClient: httpClient,
+              database: localDatabase,
+            ),
           ),
         ],
         child: MultiBlocProvider(

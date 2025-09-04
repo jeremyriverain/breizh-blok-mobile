@@ -27,10 +27,9 @@ class BoulderListBuilderTile extends StatelessWidget {
       child: InkWell(
         onTap: () {
           final offlineFirst = context.read<RequestStrategy>().offlineFirst;
-          final routeName =
-              offlineFirst
-                  ? DownloadedBoulderDetailsScreen.route.name
-                  : BoulderDetailsScreen.route.name;
+          final routeName = offlineFirst
+              ? DownloadedBoulderDetailsScreen.route.name
+              : BoulderDetailsScreen.route.name;
           context.pushNamed(
             routeName,
             pathParameters: {
@@ -39,10 +38,9 @@ class BoulderListBuilderTile extends StatelessWidget {
                       : BoulderDetailsScreen.idParameterName:
                   boulder.id,
             },
-            queryParameters:
-                offlineFirst
-                    ? {'boulderAreaIri': boulder.rock.boulderArea.iri}
-                    : {},
+            queryParameters: offlineFirst
+                ? {'boulderAreaIri': boulder.rock.boulderArea.iri}
+                : {},
           );
         },
         child: Padding(
