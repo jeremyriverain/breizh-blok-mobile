@@ -44,8 +44,5 @@ jobs:
           cd packages/app
           echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
 
-          build_number="$(date +%s)"
-          echo "build-number: $build_number"
-
           shorebird patch android \
             --release-version latest

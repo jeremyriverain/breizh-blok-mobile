@@ -14,11 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🐦 Setup Shorebird
-        uses: shorebirdtech/setup-shorebird@v1
-        with:
-          cache: true
-
       - uses: ./.github/actions/install
 
       - name: Build runner
@@ -31,21 +26,47 @@ jobs:
           BREIZH_BLOK_SENTRY_URL: ${{secrets.BREIZH_BLOK_SENTRY_DSN_RELEASE}}
         run: dart run melos run build_runner --no-select
 
-      - name: Set keystore path
-        run: echo "SIGNING_STORE_PATH=$RUNNER_TEMP/keystore.jks" >> $GITHUB_ENV
+      - name: Set Keychain path
+        run: echo "KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db" >> $GITHUB_ENV
 
-      - name: Create patch
+      - name: Create keychain
         env:
-          SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          echo $KEYCHAIN_PATH
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          security default-keychain -s $KEYCHAIN_PATH
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      - name: 🐦 Setup Shorebird
+        uses: shorebirdtech/setup-shorebird@v1
+        with:
+          cache: true
+
+      - name: distribute
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
         run: |
+          set -e
           cd packages/app
-          echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
+          flutter doctor --verbose
+          cd ios
+          touch .env.local
+          echo "APPLE_ID=${{secrets.APPLE_ID}}" > .env.local
+          touch gc_keys.json
+          echo ${{ secrets.FASTLANE_GOOGLE_SERVICE_ACCOUNT }} | base64 -d > gc_keys.json
+          bundle install && bundle exec fastlane certificates
 
-          build_number="$(date +%s)"
-          echo "build-number: $build_number"
+          cd ../
 
           shorebird patch ios \
             --release-version latest
