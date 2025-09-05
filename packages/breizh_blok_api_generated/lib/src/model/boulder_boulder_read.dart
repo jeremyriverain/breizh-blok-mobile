@@ -18,7 +18,6 @@ part 'boulder_boulder_read.g.dart';
 /// * [grade]
 /// * [rock]
 /// * [lineBoulders]
-/// * [isUrban]
 @BuiltValue()
 abstract class BoulderBoulderRead
     implements Built<BoulderBoulderRead, BoulderBoulderReadBuilder> {
@@ -33,9 +32,6 @@ abstract class BoulderBoulderRead
 
   @BuiltValueField(wireName: r'lineBoulders')
   BuiltList<LineBoulderBoulderRead>? get lineBoulders;
-
-  @BuiltValueField(wireName: r'isUrban')
-  bool? get isUrban;
 
   BoulderBoulderRead._();
 
@@ -87,13 +83,6 @@ class _$BoulderBoulderReadSerializer
         specifiedType: const FullType(BuiltList, [
           FullType(LineBoulderBoulderRead),
         ]),
-      );
-    }
-    if (object.isUrban != null) {
-      yield r'isUrban';
-      yield serializers.serialize(
-        object.isUrban,
-        specifiedType: const FullType(bool),
       );
     }
   }
@@ -161,15 +150,6 @@ class _$BoulderBoulderReadSerializer
                   )
                   as BuiltList<LineBoulderBoulderRead>;
           result.lineBoulders.replace(valueDes);
-          break;
-        case r'isUrban':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(bool),
-                  )
-                  as bool;
-          result.isUrban = valueDes;
           break;
         default:
           unhandled.add(key);

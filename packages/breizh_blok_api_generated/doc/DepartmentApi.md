@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **apiDepartmentsGetCollection**
-> ApiDepartmentsGetCollection200Response apiDepartmentsGetCollection(page, pagination, existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket, orderLeftSquareBracketNameRightSquareBracket)
+> ApiDepartmentsGetCollection200Response apiDepartmentsGetCollection(page, pagination, orderLeftSquareBracketNameRightSquareBracket)
 
 Retrieves the collection of Department resources.
 
@@ -31,11 +31,10 @@ import 'package:breizh_blok_api_generated/api.dart';
 final api = BreizhBlokApiGenerated().getDepartmentApi();
 final int page = 56; // int | The collection page number
 final bool pagination = true; // bool | Enable or disable pagination
-final bool existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket = true; // bool | 
 final String orderLeftSquareBracketNameRightSquareBracket = orderLeftSquareBracketNameRightSquareBracket_example; // String | 
 
 try {
-    final response = api.apiDepartmentsGetCollection(page, pagination, existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket, orderLeftSquareBracketNameRightSquareBracket);
+    final response = api.apiDepartmentsGetCollection(page, pagination, orderLeftSquareBracketNameRightSquareBracket);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling DepartmentApi->apiDepartmentsGetCollection: $e\n');
@@ -48,7 +47,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int**| The collection page number | [optional] [default to 1]
  **pagination** | **bool**| Enable or disable pagination | [optional] 
- **existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket** | **bool**|  | [optional] 
  **orderLeftSquareBracketNameRightSquareBracket** | **String**|  | [optional] [default to 'asc']
 
 ### Return type

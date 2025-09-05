@@ -3,9 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_area_jsonld_department_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_item_get_context.dart';
+import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -18,7 +16,6 @@ part 'municipality_jsonld_department_read.g.dart';
 /// * [atId]
 /// * [atType]
 /// * [name]
-/// * [boulderAreas]
 @BuiltValue()
 abstract class MunicipalityJsonldDepartmentRead
     implements
@@ -27,7 +24,7 @@ abstract class MunicipalityJsonldDepartmentRead
           MunicipalityJsonldDepartmentReadBuilder
         > {
   @BuiltValueField(wireName: r'@context')
-  BoulderJsonldBoulderItemGetContext? get atContext;
+  AppUserJsonldBoulderFeedbackReadContext? get atContext;
 
   @BuiltValueField(wireName: r'@id')
   String? get atId;
@@ -37,9 +34,6 @@ abstract class MunicipalityJsonldDepartmentRead
 
   @BuiltValueField(wireName: r'name')
   String get name;
-
-  @BuiltValueField(wireName: r'boulderAreas')
-  BuiltList<BoulderAreaJsonldDepartmentRead>? get boulderAreas;
 
   MunicipalityJsonldDepartmentRead._();
 
@@ -75,7 +69,7 @@ class _$MunicipalityJsonldDepartmentReadSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
+        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
       );
     }
     if (object.atId != null) {
@@ -97,15 +91,6 @@ class _$MunicipalityJsonldDepartmentReadSerializer
       object.name,
       specifiedType: const FullType(String),
     );
-    if (object.boulderAreas != null) {
-      yield r'boulderAreas';
-      yield serializers.serialize(
-        object.boulderAreas,
-        specifiedType: const FullType(BuiltList, [
-          FullType(BoulderAreaJsonldDepartmentRead),
-        ]),
-      );
-    }
   }
 
   @override
@@ -138,10 +123,10 @@ class _$MunicipalityJsonldDepartmentReadSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      BoulderJsonldBoulderItemGetContext,
+                      AppUserJsonldBoulderFeedbackReadContext,
                     ),
                   )
-                  as BoulderJsonldBoulderItemGetContext;
+                  as AppUserJsonldBoulderFeedbackReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -170,17 +155,6 @@ class _$MunicipalityJsonldDepartmentReadSerializer
                   )
                   as String;
           result.name = valueDes;
-          break;
-        case r'boulderAreas':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(BoulderAreaJsonldDepartmentRead),
-                    ]),
-                  )
-                  as BuiltList<BoulderAreaJsonldDepartmentRead>;
-          result.boulderAreas.replace(valueDes);
           break;
         default:
           unhandled.add(key);

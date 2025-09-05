@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **atId** | **String** |  | [optional] 
 **atType** | **String** |  | [optional] 
-**atContext** | [**BoulderJsonldBoulderItemGetContext**](BoulderJsonldBoulderItemGetContext.md) |  | [optional] 
+**atContext** | [**AppUserJsonldBoulderFeedbackReadContext**](AppUserJsonldBoulderFeedbackReadContext.md) |  | [optional] 
 **name** | **String** |  | 
 **municipalities** | [**BuiltList&lt;MunicipalityJsonldDepartmentRead&gt;**](MunicipalityJsonldDepartmentRead.md) |  | [optional] 
 

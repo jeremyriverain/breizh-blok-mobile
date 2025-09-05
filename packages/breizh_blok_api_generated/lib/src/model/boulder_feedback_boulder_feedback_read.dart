@@ -15,9 +15,9 @@ part 'boulder_feedback_boulder_feedback_read.g.dart';
 /// Properties:
 /// * [newLocation] -
 /// * [message]
-/// * [sentBy]
 /// * [boulder]
 /// * [createdAt]
+/// * [createdBy] -
 @BuiltValue()
 abstract class BoulderFeedbackBoulderFeedbackRead
     implements
@@ -32,14 +32,15 @@ abstract class BoulderFeedbackBoulderFeedbackRead
   @BuiltValueField(wireName: r'message')
   String? get message;
 
-  @BuiltValueField(wireName: r'sentBy')
-  String? get sentBy;
-
   @BuiltValueField(wireName: r'boulder')
   BoulderBoulderFeedbackRead get boulder;
 
   @BuiltValueField(wireName: r'createdAt')
   DateTime? get createdAt;
+
+  ///
+  @BuiltValueField(wireName: r'createdBy')
+  JsonObject? get createdBy;
 
   BoulderFeedbackBoulderFeedbackRead._();
 
@@ -85,13 +86,6 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.sentBy != null) {
-      yield r'sentBy';
-      yield serializers.serialize(
-        object.sentBy,
-        specifiedType: const FullType(String),
-      );
-    }
     yield r'boulder';
     yield serializers.serialize(
       object.boulder,
@@ -102,6 +96,13 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
       yield serializers.serialize(
         object.createdAt,
         specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.createdBy != null) {
+      yield r'createdBy';
+      yield serializers.serialize(
+        object.createdBy,
+        specifiedType: const FullType(JsonObject),
       );
     }
   }
@@ -150,15 +151,6 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
           if (valueDes == null) continue;
           result.message = valueDes;
           break;
-        case r'sentBy':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.sentBy = valueDes;
-          break;
         case r'boulder':
           final valueDes =
               serializers.deserialize(
@@ -176,6 +168,15 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
                   )
                   as DateTime;
           result.createdAt = valueDes;
+          break;
+        case r'createdBy':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(JsonObject),
+                  )
+                  as JsonObject;
+          result.createdBy = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -3,8 +3,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_area_department_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -14,16 +12,12 @@ part 'municipality_department_read.g.dart';
 ///
 /// Properties:
 /// * [name]
-/// * [boulderAreas]
 @BuiltValue()
 abstract class MunicipalityDepartmentRead
     implements
         Built<MunicipalityDepartmentRead, MunicipalityDepartmentReadBuilder> {
   @BuiltValueField(wireName: r'name')
   String get name;
-
-  @BuiltValueField(wireName: r'boulderAreas')
-  BuiltList<BoulderAreaDepartmentRead>? get boulderAreas;
 
   MunicipalityDepartmentRead._();
 
@@ -60,15 +54,6 @@ class _$MunicipalityDepartmentReadSerializer
       object.name,
       specifiedType: const FullType(String),
     );
-    if (object.boulderAreas != null) {
-      yield r'boulderAreas';
-      yield serializers.serialize(
-        object.boulderAreas,
-        specifiedType: const FullType(BuiltList, [
-          FullType(BoulderAreaDepartmentRead),
-        ]),
-      );
-    }
   }
 
   @override
@@ -104,17 +89,6 @@ class _$MunicipalityDepartmentReadSerializer
                   )
                   as String;
           result.name = valueDes;
-          break;
-        case r'boulderAreas':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(BoulderAreaDepartmentRead),
-                    ]),
-                  )
-                  as BuiltList<BoulderAreaDepartmentRead>;
-          result.boulderAreas.replace(valueDes);
           break;
         default:
           unhandled.add(key);

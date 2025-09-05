@@ -6,7 +6,7 @@
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_rock_read.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_rock_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_item_get_context.dart';
+import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -31,7 +31,7 @@ abstract class RockJsonldRockRead
   String? get atType;
 
   @BuiltValueField(wireName: r'@context')
-  BoulderJsonldBoulderItemGetContext? get atContext;
+  AppUserJsonldBoulderFeedbackReadContext? get atContext;
 
   @BuiltValueField(wireName: r'location')
   GeoPointJsonldRockRead get location;
@@ -86,7 +86,7 @@ class _$RockJsonldRockReadSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
+        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
       );
     }
     yield r'location';
@@ -160,10 +160,10 @@ class _$RockJsonldRockReadSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      BoulderJsonldBoulderItemGetContext,
+                      AppUserJsonldBoulderFeedbackReadContext,
                     ),
                   )
-                  as BoulderJsonldBoulderItemGetContext;
+                  as AppUserJsonldBoulderFeedbackReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'location':

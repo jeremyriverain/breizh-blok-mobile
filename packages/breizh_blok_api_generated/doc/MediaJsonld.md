@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **atId** | **String** |  | [optional] 
 **atType** | **String** |  | [optional] 
-**atContext** | [**BoulderJsonldBoulderItemGetContext**](BoulderJsonldBoulderItemGetContext.md) |  | [optional] 
+**atContext** | [**AppUserJsonldBoulderFeedbackReadContext**](AppUserJsonldBoulderFeedbackReadContext.md) |  | [optional] 
 **id** | **int** |  | [optional] 
 **file** | [**Uint8List**](Uint8List.md) |  | [optional] 
 **filePath** | **String** |  | [optional] 

@@ -3,7 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_item_get_context.dart';
+import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -19,7 +19,7 @@ part 'grade_jsonld_grade_read.g.dart';
 abstract class GradeJsonldGradeRead
     implements Built<GradeJsonldGradeRead, GradeJsonldGradeReadBuilder> {
   @BuiltValueField(wireName: r'@context')
-  BoulderJsonldBoulderItemGetContext? get atContext;
+  AppUserJsonldBoulderFeedbackReadContext? get atContext;
 
   @BuiltValueField(wireName: r'@id')
   String? get atId;
@@ -60,7 +60,7 @@ class _$GradeJsonldGradeReadSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
+        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
       );
     }
     if (object.atId != null) {
@@ -109,10 +109,10 @@ class _$GradeJsonldGradeReadSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      BoulderJsonldBoulderItemGetContext,
+                      AppUserJsonldBoulderFeedbackReadContext,
                     ),
                   )
-                  as BoulderJsonldBoulderItemGetContext;
+                  as AppUserJsonldBoulderFeedbackReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':

@@ -3,11 +3,11 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_item_get_context.dart';
+import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'boulder_area_jsonld_department_read.g.dart';
+part 'app_user_jsonld_boulder_feedback_read.g.dart';
 
 ///
 ///
@@ -15,16 +15,15 @@ part 'boulder_area_jsonld_department_read.g.dart';
 /// * [atContext]
 /// * [atId]
 /// * [atType]
-/// * [name]
 @BuiltValue()
-abstract class BoulderAreaJsonldDepartmentRead
+abstract class AppUserJsonldBoulderFeedbackRead
     implements
         Built<
-          BoulderAreaJsonldDepartmentRead,
-          BoulderAreaJsonldDepartmentReadBuilder
+          AppUserJsonldBoulderFeedbackRead,
+          AppUserJsonldBoulderFeedbackReadBuilder
         > {
   @BuiltValueField(wireName: r'@context')
-  BoulderJsonldBoulderItemGetContext? get atContext;
+  AppUserJsonldBoulderFeedbackReadContext? get atContext;
 
   @BuiltValueField(wireName: r'@id')
   String? get atId;
@@ -32,44 +31,41 @@ abstract class BoulderAreaJsonldDepartmentRead
   @BuiltValueField(wireName: r'@type')
   String? get atType;
 
-  @BuiltValueField(wireName: r'name')
-  String get name;
+  AppUserJsonldBoulderFeedbackRead._();
 
-  BoulderAreaJsonldDepartmentRead._();
-
-  factory BoulderAreaJsonldDepartmentRead([
-    void updates(BoulderAreaJsonldDepartmentReadBuilder b),
-  ]) = _$BoulderAreaJsonldDepartmentRead;
+  factory AppUserJsonldBoulderFeedbackRead([
+    void updates(AppUserJsonldBoulderFeedbackReadBuilder b),
+  ]) = _$AppUserJsonldBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BoulderAreaJsonldDepartmentReadBuilder b) => b;
+  static void _defaults(AppUserJsonldBoulderFeedbackReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BoulderAreaJsonldDepartmentRead> get serializer =>
-      _$BoulderAreaJsonldDepartmentReadSerializer();
+  static Serializer<AppUserJsonldBoulderFeedbackRead> get serializer =>
+      _$AppUserJsonldBoulderFeedbackReadSerializer();
 }
 
-class _$BoulderAreaJsonldDepartmentReadSerializer
-    implements PrimitiveSerializer<BoulderAreaJsonldDepartmentRead> {
+class _$AppUserJsonldBoulderFeedbackReadSerializer
+    implements PrimitiveSerializer<AppUserJsonldBoulderFeedbackRead> {
   @override
   final Iterable<Type> types = const [
-    BoulderAreaJsonldDepartmentRead,
-    _$BoulderAreaJsonldDepartmentRead,
+    AppUserJsonldBoulderFeedbackRead,
+    _$AppUserJsonldBoulderFeedbackRead,
   ];
 
   @override
-  final String wireName = r'BoulderAreaJsonldDepartmentRead';
+  final String wireName = r'AppUserJsonldBoulderFeedbackRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BoulderAreaJsonldDepartmentRead object, {
+    AppUserJsonldBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.atContext != null) {
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
+        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
       );
     }
     if (object.atId != null) {
@@ -86,17 +82,12 @@ class _$BoulderAreaJsonldDepartmentReadSerializer
         specifiedType: const FullType(String),
       );
     }
-    yield r'name';
-    yield serializers.serialize(
-      object.name,
-      specifiedType: const FullType(String),
-    );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    BoulderAreaJsonldDepartmentRead object, {
+    AppUserJsonldBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -111,7 +102,7 @@ class _$BoulderAreaJsonldDepartmentReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BoulderAreaJsonldDepartmentReadBuilder result,
+    required AppUserJsonldBoulderFeedbackReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -123,10 +114,10 @@ class _$BoulderAreaJsonldDepartmentReadSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      BoulderJsonldBoulderItemGetContext,
+                      AppUserJsonldBoulderFeedbackReadContext,
                     ),
                   )
-                  as BoulderJsonldBoulderItemGetContext;
+                  as AppUserJsonldBoulderFeedbackReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -147,15 +138,6 @@ class _$BoulderAreaJsonldDepartmentReadSerializer
                   as String;
           result.atType = valueDes;
           break;
-        case r'name':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.name = valueDes;
-          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -165,12 +147,12 @@ class _$BoulderAreaJsonldDepartmentReadSerializer
   }
 
   @override
-  BoulderAreaJsonldDepartmentRead deserialize(
+  AppUserJsonldBoulderFeedbackRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BoulderAreaJsonldDepartmentReadBuilder();
+    final result = AppUserJsonldBoulderFeedbackReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

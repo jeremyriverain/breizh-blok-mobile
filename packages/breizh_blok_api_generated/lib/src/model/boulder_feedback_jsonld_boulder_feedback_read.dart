@@ -3,9 +3,10 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_item_get_context.dart';
+import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -19,9 +20,9 @@ part 'boulder_feedback_jsonld_boulder_feedback_read.g.dart';
 /// * [atType]
 /// * [newLocation]
 /// * [message]
-/// * [sentBy]
 /// * [boulder]
 /// * [createdAt]
+/// * [createdBy]
 @BuiltValue()
 abstract class BoulderFeedbackJsonldBoulderFeedbackRead
     implements
@@ -30,7 +31,7 @@ abstract class BoulderFeedbackJsonldBoulderFeedbackRead
           BoulderFeedbackJsonldBoulderFeedbackReadBuilder
         > {
   @BuiltValueField(wireName: r'@context')
-  BoulderJsonldBoulderItemGetContext? get atContext;
+  AppUserJsonldBoulderFeedbackReadContext? get atContext;
 
   @BuiltValueField(wireName: r'@id')
   String? get atId;
@@ -44,14 +45,14 @@ abstract class BoulderFeedbackJsonldBoulderFeedbackRead
   @BuiltValueField(wireName: r'message')
   String? get message;
 
-  @BuiltValueField(wireName: r'sentBy')
-  String? get sentBy;
-
   @BuiltValueField(wireName: r'boulder')
   BoulderJsonldBoulderFeedbackRead get boulder;
 
   @BuiltValueField(wireName: r'createdAt')
   DateTime? get createdAt;
+
+  @BuiltValueField(wireName: r'createdBy')
+  AppUserJsonldBoulderFeedbackRead? get createdBy;
 
   BoulderFeedbackJsonldBoulderFeedbackRead._();
 
@@ -87,7 +88,7 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(BoulderJsonldBoulderItemGetContext),
+        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
       );
     }
     if (object.atId != null) {
@@ -120,13 +121,6 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.sentBy != null) {
-      yield r'sentBy';
-      yield serializers.serialize(
-        object.sentBy,
-        specifiedType: const FullType(String),
-      );
-    }
     yield r'boulder';
     yield serializers.serialize(
       object.boulder,
@@ -137,6 +131,15 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
       yield serializers.serialize(
         object.createdAt,
         specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.createdBy != null) {
+      yield r'createdBy';
+      yield serializers.serialize(
+        object.createdBy,
+        specifiedType: const FullType.nullable(
+          AppUserJsonldBoulderFeedbackRead,
+        ),
       );
     }
   }
@@ -171,10 +174,10 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      BoulderJsonldBoulderItemGetContext,
+                      AppUserJsonldBoulderFeedbackReadContext,
                     ),
                   )
-                  as BoulderJsonldBoulderItemGetContext;
+                  as AppUserJsonldBoulderFeedbackReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -217,15 +220,6 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
           if (valueDes == null) continue;
           result.message = valueDes;
           break;
-        case r'sentBy':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.sentBy = valueDes;
-          break;
         case r'boulder':
           final valueDes =
               serializers.deserialize(
@@ -245,6 +239,18 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
                   )
                   as DateTime;
           result.createdAt = valueDes;
+          break;
+        case r'createdBy':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      AppUserJsonldBoulderFeedbackRead,
+                    ),
+                  )
+                  as AppUserJsonldBoulderFeedbackRead?;
+          if (valueDes == null) continue;
+          result.createdBy.replace(valueDes);
           break;
         default:
           unhandled.add(key);
