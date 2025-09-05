@@ -7,6 +7,9 @@ jobs:
   distribute_test_flight:
     name: Distribute on Test Flight
     runs-on: macos-15
+    permissions:
+      contents: "read"
+      id-token: "write"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -43,15 +46,9 @@ jobs:
           ruby-version: "3.4"
           bundler-cache: true
 
-      - name: 🐦 Setup Shorebird
-        uses: shorebirdtech/setup-shorebird@v1
-        with:
-          cache: true
-
       - name: distribute
         env:
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
         run: |
           set -e
           cd packages/app
@@ -71,9 +68,21 @@ jobs:
           mkdir -p ~/private_keys
           echo ${{ secrets.APPLE_STORE_PRIVATE_KEY }} | base64 -d > ~/private_keys/AuthKey_${{secrets.APP_STORE_API_KEY_ID}}.p8
 
-          shorebird release ios \
+          flutter build ipa \
             --verbose \
             --build-number=$build_number \
-            --export-options-plist=ios/buildInfo.plist
+            --release \
+            --export-options-plist=ios/buildInfo.plist \
+            --obfuscate \
+            --split-debug-info=symbols \
+            --extra-gen-snapshot-options=--save-obfuscation-map=obfuscation.map.json
 
           xcrun altool --upload-app --type ios -f build/ios/ipa/Breizh\ Blok.ipa --apiKey "${{secrets.APP_STORE_API_KEY_ID}}" --apiIssuer "${{secrets.APP_STORE_API_KEY_ISSUER_ID}}"
+
+      - name: Sentry upload debug symbols
+        env:
+          SENTRY_PROJECT: "${{ secrets.SENTRY_PROJECT }}"
+          SENTRY_ORG: "${{ secrets.SENTRY_ORG }}"
+          SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
+        run: |
+          dart run melos exec --scope="breizh_blok_mobile" -- dart run sentry_dart_plugin
