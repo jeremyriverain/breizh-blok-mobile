@@ -24,7 +24,6 @@ class DepartmentApi {
   /// Parameters:
   /// * [page] - The collection page number
   /// * [pagination] - Enable or disable pagination
-  /// * [existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket] -
   /// * [orderLeftSquareBracketNameRightSquareBracket] -
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -39,8 +38,6 @@ class DepartmentApi {
   apiDepartmentsGetCollection({
     int? page = 1,
     bool? pagination,
-    bool?
-    existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket,
     String? orderLeftSquareBracketNameRightSquareBracket = 'asc',
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -74,13 +71,6 @@ class DepartmentApi {
         r'pagination': encodeQueryParameter(
           _serializers,
           pagination,
-          const FullType(bool),
-        ),
-      if (existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket !=
-          null)
-        r'exists[municipalities.boulderAreas.rocks.boulders]': encodeQueryParameter(
-          _serializers,
-          existsLeftSquareBracketMunicipalitiesPeriodBoulderAreasPeriodRocksPeriodBouldersRightSquareBracket,
           const FullType(bool),
         ),
       if (orderLeftSquareBracketNameRightSquareBracket != null)

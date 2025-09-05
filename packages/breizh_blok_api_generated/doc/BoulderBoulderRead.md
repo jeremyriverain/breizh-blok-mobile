@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **grade** | **String** |  | [optional] 
 **rock** | [**RockBoulderRead**](RockBoulderRead.md) |  | 
 **lineBoulders** | [**BuiltList&lt;LineBoulderBoulderRead&gt;**](LineBoulderBoulderRead.md) |  | [optional] 
-**isUrban** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
