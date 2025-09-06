@@ -55,7 +55,10 @@ jobs:
 
           shorebird release android \
             --flutter-version=3.35.2 \
-            --build-number=$build_number
+            --build-number=$build_number -- \
+            --obfuscate \
+            --split-debug-info=symbols \
+            --extra-gen-snapshot-options=--save-obfuscation-map=obfuscation.map.json
 
       - name: Install Firebase
         run: npm install -g firebase-tools
@@ -64,3 +67,11 @@ jobs:
         run: |
           cd packages/app
           firebase appdistribution:distribute build/app/outputs/bundle/release/app-release.aab --app ${{ secrets.FIREBASE_ANDROID_APP_ID }} --groups me
+
+      - name: Sentry upload debug symbols
+        env:
+          SENTRY_PROJECT: "${{ secrets.SENTRY_PROJECT }}"
+          SENTRY_ORG: "${{ secrets.SENTRY_ORG }}"
+          SENTRY_AUTH_TOKEN: "${{ secrets.SENTRY_AUTH_TOKEN }}"
+        run: |
+          dart run melos exec --scope="breizh_blok_mobile" -- dart run sentry_dart_plugin
