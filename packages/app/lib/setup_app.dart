@@ -13,6 +13,8 @@ import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
+import 'package:breizh_blok_mobile/services/url_launcher/url_launcher.dart';
+import 'package:breizh_blok_mobile/services/url_launcher/url_launcher_impl.dart';
 import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -24,6 +26,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Future<void> setupApp({
   ShareContentServiceInterface? shareContentService,
@@ -81,4 +84,8 @@ Future<void> setupApp({
   );
 
   GetIt.I.registerLazySingleton<Location>(Location.new);
+
+  GetIt.I.registerLazySingleton<UrlLauncher>(
+    () => UrlLauncherImpl(launchUrl: launchUrl),
+  );
 }
