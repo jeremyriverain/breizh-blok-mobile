@@ -30,7 +30,7 @@ final _profileShellNavigatorKey = GlobalKey<NavigatorState>(
 final routes = [
   StatefulShellRoute.indexedStack(
     builder: (_, _, navigationShell) {
-      return ScaffoldWithNestedNavigation(navigationShell);
+      return ScaffoldNestedNavigation(navigationShell);
     },
     branches: <StatefulShellBranch>[
       StatefulShellBranch(

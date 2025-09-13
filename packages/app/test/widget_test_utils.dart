@@ -6,8 +6,9 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 extension WidgetTesterExtension on WidgetTester {
-  Future<void> myPumpWidget({required Widget widget}) async {
+  Future<({GoRouter router})> myPumpWidget({required Widget widget}) async {
     GetIt.I.allowReassignment = true;
+
     final router = createRouter(
       routes: [
         GoRoute(
@@ -20,5 +21,12 @@ extension WidgetTesterExtension on WidgetTester {
     );
 
     await pumpWidget(MyMaterialApp(router: router, locale: const Locale('fr')));
+
+    addTearDown(() {
+      binding.setSurfaceSize(null);
+      router.dispose();
+    });
+
+    return (router: router);
   }
 }

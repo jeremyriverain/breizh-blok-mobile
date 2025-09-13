@@ -15,7 +15,9 @@ import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_reposito
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
@@ -84,6 +86,14 @@ class MockRequestInterceptorHandler extends Mock
     implements RequestInterceptorHandler {}
 
 class MockShareContentService extends Mock implements ShareContentService {}
+
+class MockStatefulNavigationShell extends Mock
+    implements StatefulNavigationShell {
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return super.toString();
+  }
+}
 
 class MockStyleManager extends Mock implements StyleManager {}
 
