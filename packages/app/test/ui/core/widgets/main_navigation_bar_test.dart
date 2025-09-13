@@ -1,8 +1,9 @@
+import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/services/url_launcher/url_launcher.dart';
-import 'package:breizh_blok_mobile/services/url_launcher/url_launcher_impl.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/main_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
@@ -14,13 +15,11 @@ void main() {
   group('MainNavigationBar', () {
     group('support menu item', () {
       late StatefulNavigationShell statefulNavigationShell;
-      late LaunchUrl launchUrl;
       late UrlLauncher urlLauncher;
 
       setUp(() {
         statefulNavigationShell = MockStatefulNavigationShell();
-        launchUrl = MockLaunchUrl().call;
-        urlLauncher = UrlLauncherImpl(launchUrl: launchUrl);
+        urlLauncher = MockUrlLauncher();
       });
       testWidgets(
         '''
@@ -32,6 +31,12 @@ Then I am redirected to sponsoring website
             () => urlLauncher,
           );
           when(() => statefulNavigationShell.currentIndex).thenReturn(0);
+
+          when(
+            () => urlLauncher.openUrl(
+              Uri.parse('https://buymeacoffee.com/breizhblok'),
+            ),
+          ).thenReturn(TaskEither<DomainException, bool>.of(true));
           await tester.myPumpWidget(
             widget: MainNavigationBar(navigationShell: statefulNavigationShell),
           );
@@ -47,7 +52,7 @@ Then I am redirected to sponsoring website
           await tester.pump();
 
           verify(
-            () => launchUrl.call(
+            () => urlLauncher.openUrl(
               Uri.parse('https://buymeacoffee.com/breizhblok'),
             ),
           ).called(1);
