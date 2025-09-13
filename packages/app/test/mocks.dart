@@ -20,6 +20,7 @@ import 'package:location/location.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MockApiBoulderFeedbackDataSource extends Mock
     implements ApiBoulderFeedbackDataSource {}
@@ -59,6 +60,16 @@ class MockBoulderFeedbackRepository extends Mock
     implements BoulderFeedbackRepository {}
 
 class MockImageBoulderCache extends Mock implements ImageBoulderCache {}
+
+class MockLaunchUrl extends Mock {
+  Future<bool> call(
+    Uri url, {
+    LaunchMode mode,
+    WebViewConfiguration webViewConfiguration,
+    BrowserConfiguration browserConfiguration,
+    String? webOnlyWindowName,
+  });
+}
 
 class MockLocation extends Mock implements Location {}
 

@@ -3,17 +3,19 @@ import 'package:breizh_blok_mobile/services/url_launcher/url_launcher.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+typedef LaunchUrl =
+    Future<bool> Function(
+      Uri url, {
+      LaunchMode mode,
+      WebViewConfiguration webViewConfiguration,
+      BrowserConfiguration browserConfiguration,
+      String? webOnlyWindowName,
+    });
+
 class UrlLauncherImpl implements UrlLauncher {
   UrlLauncherImpl({required this.launchUrl});
 
-  final Future<bool> Function(
-    Uri url, {
-    LaunchMode mode,
-    WebViewConfiguration webViewConfiguration,
-    BrowserConfiguration browserConfiguration,
-    String? webOnlyWindowName,
-  })
-  launchUrl;
+  final LaunchUrl launchUrl;
 
   @override
   TaskEither<DomainException, bool> openUrl(Uri uri) {
