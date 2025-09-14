@@ -12,7 +12,7 @@ publish_to: "none"
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.17.0+2.17.0
+version: 2.18.0+2.18.0
 resolution: workspace
 
 environment:
@@ -21,6 +21,7 @@ environment:
 dependencies:
   breizh_blok_api_generated:
   breizh_blok_auth:
+  breizh_blok_url_launcher:
   cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8
   dio: ^5.9.0

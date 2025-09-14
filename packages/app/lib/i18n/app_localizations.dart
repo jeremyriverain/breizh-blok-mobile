@@ -599,6 +599,12 @@ abstract class AppLocalizations {
   /// **'Suggestions'**
   String get suggestions;
 
+  /// No description provided for @support.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get support;
+
   /// No description provided for @termsOfUse.
   ///
   /// In en, this message translates to:

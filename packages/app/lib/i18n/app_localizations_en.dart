@@ -360,6 +360,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get suggestions => 'Suggestions';
 
   @override
+  String get support => 'Support';
+
+  @override
   String get termsOfUse => 'Terms of use';
 
   @override
