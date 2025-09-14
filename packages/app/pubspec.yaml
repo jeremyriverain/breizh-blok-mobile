@@ -21,6 +21,7 @@ environment:
 dependencies:
   breizh_blok_api_generated:
   breizh_blok_auth:
+  breizh_blok_url_launcher:
   cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8
   dio: ^5.9.0
@@ -59,7 +60,6 @@ dependencies:
   shared_preferences: ^2.5.3
   sqlite3_flutter_libs: ^0.5.39
   syncfusion_flutter_sliders: ^30.2.7
-  url_launcher: ^6.3.2
 
 dev_dependencies:
   bloc_test: ^10.0.0

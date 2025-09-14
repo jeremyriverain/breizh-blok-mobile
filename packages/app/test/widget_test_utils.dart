@@ -22,10 +22,7 @@ extension WidgetTesterExtension on WidgetTester {
 
     await pumpWidget(MyMaterialApp(router: router, locale: const Locale('fr')));
 
-    addTearDown(() {
-      binding.setSurfaceSize(null);
-      router.dispose();
-    });
+    addTearDown(router.dispose);
 
     return (router: router);
   }

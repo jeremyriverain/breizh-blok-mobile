@@ -1,6 +1,5 @@
-import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
-import 'package:breizh_blok_mobile/services/url_launcher/url_launcher.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/main_navigation_bar.dart';
+import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
@@ -36,7 +35,7 @@ Then I am redirected to sponsoring website
             () => urlLauncher.openUrl(
               Uri.parse('https://buymeacoffee.com/breizhblok'),
             ),
-          ).thenReturn(TaskEither<DomainException, bool>.of(true));
+          ).thenReturn(TaskEither<LaunchUrlException, bool>.of(true));
           await tester.myPumpWidget(
             widget: MainNavigationBar(navigationShell: statefulNavigationShell),
           );

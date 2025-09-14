@@ -1,12 +1,11 @@
-import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
-import 'package:breizh_blok_mobile/services/url_launcher/url_launcher.dart';
-import 'package:breizh_blok_mobile/services/url_launcher/url_launcher_impl.dart';
+import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
+import 'package:breizh_blok_url_launcher/src/url_launcher_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../mocks.dart';
+import '../mocks.dart';
 
 void main() {
   group('UrlLauncher', () {
@@ -40,7 +39,7 @@ void main() {
 
         final result = await urlLauncher.openUrl(uri).run();
 
-        expect(result, const Right<DomainException, bool>(true));
+        expect(result, const Right<LaunchUrlException, bool>(true));
       });
 
       test('return Right(false) if launchUrl returns false', () async {
@@ -56,7 +55,7 @@ void main() {
 
         final result = await urlLauncher.openUrl(uri).run();
 
-        expect(result, const Right<DomainException, bool>(false));
+        expect(result, const Right<LaunchUrlException, bool>(false));
       });
 
       test('cast to UnknownException if launchUrl throws Exception', () async {
@@ -74,8 +73,8 @@ void main() {
 
         expect(
           result,
-          const Left<DomainException, bool>(
-            UnknownException(message: 'Exception: foo'),
+          const Left<LaunchUrlException, bool>(
+            LaunchUrlException.unknwown(message: 'Exception: foo'),
           ),
         );
       });

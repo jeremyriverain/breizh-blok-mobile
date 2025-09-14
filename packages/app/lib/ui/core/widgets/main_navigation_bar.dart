@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/services/url_launcher/url_launcher.dart';
+import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';

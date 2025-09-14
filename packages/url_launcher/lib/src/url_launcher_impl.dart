@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
-import 'package:breizh_blok_mobile/services/url_launcher/url_launcher.dart';
+import 'package:breizh_blok_url_launcher/src/exceptions.dart';
+import 'package:breizh_blok_url_launcher/src/url_launcher.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,13 +18,13 @@ class UrlLauncherImpl implements UrlLauncher {
   final LaunchUrl launchUrl;
 
   @override
-  TaskEither<DomainException, bool> openUrl(Uri uri) {
+  TaskEither<LaunchUrlException, bool> openUrl(Uri uri) {
     return TaskEither.tryCatch(
       () {
         return launchUrl(uri);
       },
       (e, _) {
-        return UnknownException(message: e.toString());
+        return LaunchUrlException.unknwown(message: e.toString());
       },
     );
   }
