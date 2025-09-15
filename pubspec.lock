@@ -836,14 +836,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.4"
-  mockito:
-    dependency: transitive
-    description:
-      name: mockito
-      sha256: "2314cbe9165bcd16106513df9cf3c3224713087f09723b128928dc11a4379f99"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.5.0"
   mocktail:
     dependency: transitive
     description:

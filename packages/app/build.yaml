@@ -10,7 +10,3 @@ targets:
       drift_dev:
         options:
           store_date_time_values_as_text: true
-      mockito|mockBuilder:
-        generate_for:
-          - test/**.dart
-          - integration_test/**.dart
