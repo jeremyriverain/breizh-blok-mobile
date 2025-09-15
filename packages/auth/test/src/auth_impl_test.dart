@@ -2,15 +2,9 @@ import 'package:auth0_flutter/auth0_flutter.dart' as auth0;
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_auth/src/auth_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-@GenerateNiceMocks([
-  MockSpec<auth0.Auth0>(),
-  MockSpec<auth0.WebAuthentication>(),
-  MockSpec<auth0.CredentialsManager>(),
-])
-import 'auth_impl_test.mocks.dart';
+import '../mocks.dart';
 
 void main() {
   late auth0.Auth0 authZero;
@@ -55,8 +49,8 @@ void main() {
     });
     group('login', () {
       test('credentials are updated if login succeeds', () async {
-        when(authZero.webAuthentication()).thenReturn(webAuth);
-        when(webAuth.login(audience: 'foo')).thenAnswer(
+        when(() => authZero.webAuthentication()).thenReturn(webAuth);
+        when(() => webAuth.login(audience: 'foo')).thenAnswer(
           (_) async => auth0.Credentials(
             idToken: '',
             accessToken: 'foo',
@@ -82,9 +76,9 @@ void main() {
       });
 
       test('credentials stay null if login fails', () async {
-        when(authZero.webAuthentication()).thenReturn(webAuth);
+        when(() => authZero.webAuthentication()).thenReturn(webAuth);
         when(
-          webAuth.login(audience: 'foo'),
+          () => webAuth.login(audience: 'foo'),
         ).thenThrow(const auth0.WebAuthenticationException('foo', 'bar', {}));
 
         final auth = AuthImpl(
@@ -101,8 +95,8 @@ void main() {
 
       test('credentials stay null '
           'if login from auth0 throws an unknown exception', () async {
-        when(authZero.webAuthentication()).thenReturn(webAuth);
-        when(webAuth.login(audience: 'foo')).thenThrow(Exception('foo'));
+        when(() => authZero.webAuthentication()).thenReturn(webAuth);
+        when(() => webAuth.login(audience: 'foo')).thenThrow(Exception('foo'));
 
         final auth = AuthImpl(
           auth0: authZero,
@@ -128,8 +122,8 @@ void main() {
       });
 
       test('credentials stay null if login is cancelled', () async {
-        when(authZero.webAuthentication()).thenReturn(webAuth);
-        when(webAuth.login(audience: 'foo')).thenThrow(
+        when(() => authZero.webAuthentication()).thenReturn(webAuth);
+        when(() => webAuth.login(audience: 'foo')).thenThrow(
           const auth0.WebAuthenticationException('USER_CANCELLED', 'bar', {}),
         );
 
@@ -148,8 +142,8 @@ void main() {
 
     group('logout', () {
       test('credentials becomes null if logout succeeds', () async {
-        when(authZero.webAuthentication()).thenReturn(webAuth);
-        when(webAuth.logout()).thenAnswer((_) async {});
+        when(() => authZero.webAuthentication()).thenReturn(webAuth);
+        when(() => webAuth.logout()).thenAnswer((_) async {});
 
         final auth = AuthImpl(
           auth0: authZero,
@@ -167,9 +161,9 @@ void main() {
       });
 
       test('credentials stay the same if logout fails', () async {
-        when(authZero.webAuthentication()).thenReturn(webAuth);
+        when(() => authZero.webAuthentication()).thenReturn(webAuth);
         when(
-          webAuth.logout(),
+          () => webAuth.logout(),
         ).thenThrow(const auth0.WebAuthenticationException('foo', 'bar', {}));
 
         final auth = AuthImpl(
@@ -193,8 +187,8 @@ void main() {
       test(
         'credentials stay the same if logout fails for an unknown reason',
         () async {
-          when(authZero.webAuthentication()).thenReturn(webAuth);
-          when(webAuth.logout()).thenThrow(Exception('foo'));
+          when(() => authZero.webAuthentication()).thenReturn(webAuth);
+          when(() => webAuth.logout()).thenThrow(Exception('foo'));
 
           final auth = AuthImpl(
             auth0: authZero,
@@ -227,8 +221,8 @@ void main() {
       );
 
       test('credentials stay null if logout is cancelled', () async {
-        when(authZero.webAuthentication()).thenReturn(webAuth);
-        when(webAuth.logout()).thenThrow(
+        when(() => authZero.webAuthentication()).thenReturn(webAuth);
+        when(() => webAuth.logout()).thenThrow(
           const auth0.WebAuthenticationException('USER_CANCELLED', 'bar', {}),
         );
 
@@ -258,8 +252,10 @@ Given auth0 credentials API is called successfully,
 Then the access token is updated
 ''',
         () async {
-          when(authZero.credentialsManager).thenReturn(credentialsManager);
-          when(credentialsManager.credentials()).thenAnswer(
+          when(
+            () => authZero.credentialsManager,
+          ).thenReturn(credentialsManager);
+          when(() => credentialsManager.credentials()).thenAnswer(
             (_) async => auth0.Credentials(
               idToken: '',
               accessToken: 'bar',
@@ -297,9 +293,11 @@ Given auth0 credentials API throws an exception,
 Then the access token is not updated
 ''',
         () async {
-          when(authZero.credentialsManager).thenReturn(credentialsManager);
           when(
-            credentialsManager.credentials(),
+            () => authZero.credentialsManager,
+          ).thenReturn(credentialsManager);
+          when(
+            () => credentialsManager.credentials(),
           ).thenThrow((_) async => Exception('foo'));
 
           final auth = AuthImpl(
@@ -329,32 +327,30 @@ Then the access token is not updated
   group('AuthFactoryImpl', () {
     group('initialize', () {
       test('credentials are null if user has not valid credentials', () async {
-        when(authZero.credentialsManager).thenReturn(credentialsManager);
+        when(() => authZero.credentialsManager).thenReturn(credentialsManager);
         when(
-          credentialsManager.hasValidCredentials(),
+          () => credentialsManager.hasValidCredentials(),
         ).thenAnswer((_) async => false);
-        final auth =
-            await AuthFactoryImpl(
-              auth0: authZero,
-              audience: 'foo',
-            ).initialize();
+        final auth = await AuthFactoryImpl(
+          auth0: authZero,
+          audience: 'foo',
+        ).initialize();
         expect(auth.credentials.value, isNull);
       });
 
       test('credentials are null if user has not valid credentials', () async {
-        when(authZero.credentialsManager).thenReturn(credentialsManager);
+        when(() => authZero.credentialsManager).thenReturn(credentialsManager);
         when(
-          credentialsManager.hasValidCredentials(),
+          () => credentialsManager.hasValidCredentials(),
         ).thenAnswer((_) async => true);
 
         when(
-          credentialsManager.credentials(),
+          () => credentialsManager.credentials(),
         ).thenAnswer((_) async => auth0Credentials);
-        final auth =
-            await AuthFactoryImpl(
-              auth0: authZero,
-              audience: 'foo',
-            ).initialize();
+        final auth = await AuthFactoryImpl(
+          auth0: authZero,
+          audience: 'foo',
+        ).initialize();
         expect(
           auth.credentials.value,
           Credentials(accessToken: auth0Credentials.accessToken),
