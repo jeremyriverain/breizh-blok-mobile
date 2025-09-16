@@ -11,19 +11,21 @@ const kLocalePrefs = 'locale';
 const kDefaultLocale = 'fr';
 
 class LocaleViewModel extends Bloc<LocaleEvent, LocaleState> {
-  LocaleViewModel({required this.locale}) : super(LocaleState(locale: locale)) {
+  LocaleViewModel({required this.locale, required this.sharedPreferences})
+    : super(LocaleState(locale: locale)) {
     on<LocaleUpdated>((event, emit) async {
       emit(LocaleState(locale: event.locale));
-      final prefs = await SharedPreferences.getInstance();
       MapboxMapsOptions.setLanguage(event.locale.languageCode);
 
-      await prefs.setString(kLocalePrefs, event.locale.languageCode);
+      await sharedPreferences.setString(
+        kLocalePrefs,
+        event.locale.languageCode,
+      );
     });
   }
 
-  static Future<LocaleViewModel> create() async {
-    final prefs = await SharedPreferences.getInstance();
-
+  // ignore: prefer_constructors_over_static_methods
+  static LocaleViewModel create(SharedPreferences prefs) {
     final localePref = prefs.getString(kLocalePrefs);
 
     if (localePref == null) {
@@ -34,6 +36,7 @@ class LocaleViewModel extends Bloc<LocaleEvent, LocaleState> {
         locale: AppLocalizations.supportedLocales.contains(platformLocale)
             ? platformLocale
             : const Locale(kDefaultLocale),
+        sharedPreferences: prefs,
       );
     }
 
@@ -42,15 +45,22 @@ class LocaleViewModel extends Bloc<LocaleEvent, LocaleState> {
     if (AppLocalizations.supportedLocales.contains(localeFromPref)) {
       MapboxMapsOptions.setLanguage(localePref);
 
-      return LocaleViewModel(locale: localeFromPref);
+      return LocaleViewModel(
+        locale: localeFromPref,
+        sharedPreferences: prefs,
+      );
     }
 
     MapboxMapsOptions.setLanguage(kDefaultLocale);
 
-    return LocaleViewModel(locale: const Locale(kDefaultLocale));
+    return LocaleViewModel(
+      locale: const Locale(kDefaultLocale),
+      sharedPreferences: prefs,
+    );
   }
 
   final Locale locale;
+  final SharedPreferences sharedPreferences;
 }
 
 abstract class LocaleEvent {}

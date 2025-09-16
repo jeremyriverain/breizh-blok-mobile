@@ -7,6 +7,7 @@ import 'package:breizh_blok_mobile/data/services/local/download_area_service.dar
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
 import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';
+import 'package:breizh_blok_mobile/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/downloads_area_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,9 +47,9 @@ void main() {
 
     await tester.runAsync(() async {
       await tester.myPumpWidget(
+        overrides: [appDatabaseProvider.overrideWith((_) => appDatabase)],
         widget: MultiRepositoryProvider(
           providers: [
-            RepositoryProvider(create: (context) => appDatabase),
             RepositoryProvider(create: (context) => downloadAreaService),
           ],
           child: const DownloadsAreaButton(

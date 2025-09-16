@@ -11,7 +11,9 @@ void main() {
   group('LocaleViewModel', () {
     Future<LocaleViewModel> pumpPlayground(WidgetTester tester) async {
       WidgetsFlutterBinding.ensureInitialized();
-      final localeBloc = await LocaleViewModel.create();
+      final localeBloc = LocaleViewModel.create(
+        await SharedPreferences.getInstance(),
+      );
       await tester.pumpWidget(
         BlocProvider<LocaleViewModel>(
           create: (context) => localeBloc,

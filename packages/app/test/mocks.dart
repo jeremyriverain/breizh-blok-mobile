@@ -12,7 +12,7 @@ import 'package:breizh_blok_mobile/data/repositories/department/department_repos
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
-import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
+import 'package:breizh_blok_mobile/services/share_content/share_content_service_impl.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -75,7 +75,7 @@ class MockMunicipalityRepository extends Mock
 class MockRequestInterceptorHandler extends Mock
     implements RequestInterceptorHandler {}
 
-class MockShareContentService extends Mock implements ShareContentService {}
+class MockShareContentService extends Mock implements ShareContentServiceImpl {}
 
 class MockStatefulNavigationShell extends Mock
     implements StatefulNavigationShell {

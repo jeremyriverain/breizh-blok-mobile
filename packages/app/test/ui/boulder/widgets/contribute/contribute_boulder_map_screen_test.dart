@@ -1,10 +1,10 @@
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_location_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../../../mocks.dart';
 import '../../../../test_utils.dart';
@@ -16,13 +16,12 @@ void main() {
 
   setUp(() {
     boulderFeedbackRepository = MockBoulderFeedbackRepository();
-    GetIt.I.registerSingleton(boulderFeedbackRepository);
     viewModel = ContributeBoulderMapViewModel(
       form: ContributeBoulderLocationForm(
         latitude: fakeBoulder.rock.location.latitude,
         longitude: fakeBoulder.rock.location.longitude,
       ),
-      boulderFeedbackRepository: GetIt.I<BoulderFeedbackRepository>(),
+      boulderFeedbackRepository: boulderFeedbackRepository,
       boulder: fakeBoulder,
     );
   });
@@ -34,6 +33,11 @@ void main() {
       );
 
       await tester.myPumpWidget(
+        overrides: [
+          boulderFeedbackRepositoryProvider.overrideWith(
+            (_) => boulderFeedbackRepository,
+          ),
+        ],
         widget: ContributeBoulderMapScreen(viewModel: viewModel),
       );
 
@@ -64,6 +68,11 @@ void main() {
 
     testWidgets('submit button is initially disabled', (tester) async {
       await tester.myPumpWidget(
+        overrides: [
+          boulderFeedbackRepositoryProvider.overrideWith(
+            (_) => boulderFeedbackRepository,
+          ),
+        ],
         widget: ContributeBoulderMapScreen(viewModel: viewModel),
       );
 

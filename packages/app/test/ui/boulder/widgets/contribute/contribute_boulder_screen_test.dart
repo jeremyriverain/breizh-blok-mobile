@@ -1,8 +1,8 @@
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_map_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../../../mocks.dart';
 import '../../../../test_utils.dart';
@@ -14,7 +14,6 @@ void main() {
 
     setUp(() {
       boulderFeedbackRepository = MockBoulderFeedbackRepository();
-      GetIt.I.registerSingleton(boulderFeedbackRepository);
     });
 
     testWidgets(
@@ -24,6 +23,11 @@ Then I go to ContributeBoulderMapScreen
 ''',
       (tester) async {
         await tester.myPumpWidget(
+          overrides: [
+            boulderFeedbackRepositoryProvider.overrideWith(
+              (_) => boulderFeedbackRepository,
+            ),
+          ],
           widget: const ContributeBoulderScreen(boulder: fakeBoulder),
         );
 

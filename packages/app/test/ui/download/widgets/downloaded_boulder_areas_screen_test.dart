@@ -1,26 +1,27 @@
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
+import 'package:breizh_blok_mobile/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../../widget_test_utils.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
 
-  setUp(() async {
-    await GetIt.I.reset();
-  });
-
   testWidgets('display fallback content if there is no downloads', (
     WidgetTester tester,
   ) async {
-    GetIt.I.registerSingleton(AppDatabase(NativeDatabase.memory()));
-
-    await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+    await tester.myPumpWidget(
+      widget: const DownloadedBoulderAreasScreen(),
+      overrides: [
+        appDatabaseProvider.overrideWith(
+          (_) => AppDatabase(NativeDatabase.memory()),
+        ),
+      ],
+    );
     await tester.pump();
 
     expect(find.text('Aucun téléchargement'), findsOneWidget);
@@ -61,18 +62,19 @@ void main() {
   }
 
   testWidgets('display downloads', (WidgetTester tester) async {
-    final database = GetIt.I.registerSingleton(
-      AppDatabase(NativeDatabase.memory()),
-    );
+    final appDatabase = AppDatabase(NativeDatabase.memory());
 
     await createDownload(
-      database,
+      appDatabase,
       municipalityName: 'Kerlouan',
       boulerAreaName: 'Petit paradis',
       boulderAreaIri: '/foo',
     );
 
-    await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+    await tester.myPumpWidget(
+      widget: const DownloadedBoulderAreasScreen(),
+      overrides: [appDatabaseProvider.overrideWith((_) => appDatabase)],
+    );
     await tester.pump();
 
     expect(find.byType(ListTile), findsOneWidget);
@@ -95,9 +97,7 @@ void main() {
 
   testWidgets('sort downloaded boulder areas', (WidgetTester tester) async {
     await tester.runAsync(() async {
-      final database = GetIt.I.registerSingleton(
-        AppDatabase(NativeDatabase.memory()),
-      );
+      final database = AppDatabase(NativeDatabase.memory());
 
       await Future.wait([
         createDownload(
@@ -135,7 +135,10 @@ void main() {
         ),
       ]);
 
-      await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+      await tester.myPumpWidget(
+        widget: const DownloadedBoulderAreasScreen(),
+        overrides: [appDatabaseProvider.overrideWith((_) => database)],
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(ListTile), findsNWidgets(4));
@@ -254,11 +257,12 @@ void main() {
   });
 
   testWidgets('List of downloads is reactive', (WidgetTester tester) async {
-    final database = GetIt.I.registerSingleton(
-      AppDatabase(NativeDatabase.memory()),
-    );
+    final database = AppDatabase(NativeDatabase.memory());
 
-    await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+    await tester.myPumpWidget(
+      widget: const DownloadedBoulderAreasScreen(),
+      overrides: [appDatabaseProvider.overrideWith((_) => database)],
+    );
     await tester.pump();
 
     expect(find.text('Aucun téléchargement'), findsOneWidget);

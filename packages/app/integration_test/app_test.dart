@@ -12,6 +12,7 @@ import 'package:breizh_blok_mobile/data/repositories/department/department_repos
 import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
+import 'package:breizh_blok_mobile/service_locator.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/setup_app.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_tile.dart';
@@ -27,6 +28,7 @@ import 'package:drift/native.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:integration_test/integration_test.dart';
@@ -50,9 +52,11 @@ void main() async {
 
   final database = AppDatabase(NativeDatabase.memory());
   final httpClient = ApiClient(database: database);
+  final auth = MockAuth();
 
   late ShareContentService shareContentService;
   late Mixpanel mixpanel;
+  late SharedPreferences sharedPreferences;
 
   Future<void> clearDatabase(AppDatabase database) async {
     await database.transaction(() async {
@@ -74,9 +78,14 @@ void main() async {
       () => mixpanel.track(any(), properties: any(named: 'properties')),
     ).thenAnswer((_) async => () {}());
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(TermsOfUseViewModel.termsOfUseAcceptanceKey, true);
-    await prefs.setString(kLocalePrefs, 'fr');
+    when(() => auth.credentials).thenReturn(ValueNotifier(null));
+
+    sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setBool(
+      TermsOfUseViewModel.termsOfUseAcceptanceKey,
+      true,
+    );
+    await sharedPreferences.setString(kLocalePrefs, 'fr');
     await clearDatabase(database);
     await GetIt.I.reset();
   });
@@ -90,12 +99,20 @@ void main() async {
     MapboxOptions.setAccessToken(Env.mapboxToken);
 
     await setupApp(
-      database: database,
-      shareContentService: shareContentService,
       mixpanel: mixpanel,
     );
 
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          authProvider.overrideWith((_) => auth),
+          appDatabaseProvider.overrideWith((_) => database),
+          shareContentServiceProvider.overrideWith((_) => shareContentService),
+          sharedPreferencesProvider.overrideWith((_) => sharedPreferences),
+        ],
+        child: const MyApp(),
+      ),
+    );
     await tester.pumpAndSettle();
   }
 

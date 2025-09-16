@@ -29,7 +29,9 @@ jobs:
 
       - name: Analyze
         run: |
+          set -e
           dart run melos run analyze --no-select
+          dart run melos run custom_lint
 
       - name: Unit and Widget tests
         run: dart run melos run test:ci --no-select

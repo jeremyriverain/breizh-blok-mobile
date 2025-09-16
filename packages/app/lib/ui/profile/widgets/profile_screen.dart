@@ -1,9 +1,9 @@
-import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:breizh_blok_mobile/ui/locale/widgets/locale_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -35,28 +35,36 @@ class ProfileScreen extends StatelessWidget {
           LocaleSwitch(
             currentLocale: Localizations.localeOf(context).languageCode,
           ),
-          ValueListenableBuilder(
-            valueListenable: GetIt.I<Auth>().credentials,
-            builder: (context, credentials, _) {
-              if (credentials == null) {
-                return ListTile(
-                  title: Text(AppLocalizations.of(context).login),
-                  onTap: () async {
-                    await GetIt.I<Auth>().login();
-                  },
-                  leading: const Icon(Icons.login),
-                );
-              }
-              return ListTile(
-                iconColor: Theme.of(context).colorScheme.error,
-                title: Text(
-                  AppLocalizations.of(context).logout,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
-                ),
-                onTap: () async {
-                  await GetIt.I<Auth>().logout();
+          Consumer(
+            builder: (context, ref, child) {
+              final auth = ref.watch(authProvider);
+
+              return ValueListenableBuilder(
+                valueListenable: auth.credentials,
+                builder: (context, credentials, _) {
+                  if (credentials == null) {
+                    return ListTile(
+                      title: Text(AppLocalizations.of(context).login),
+                      onTap: () async {
+                        await auth.login();
+                      },
+                      leading: const Icon(Icons.login),
+                    );
+                  }
+                  return ListTile(
+                    iconColor: Theme.of(context).colorScheme.error,
+                    title: Text(
+                      AppLocalizations.of(context).logout,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                    onTap: () async {
+                      await auth.logout();
+                    },
+                    leading: const Icon(Icons.logout),
+                  );
                 },
-                leading: const Icon(Icons.logout),
               );
             },
           ),

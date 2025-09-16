@@ -33,19 +33,11 @@ melos:
       run: dart run melos exec --concurrency=1 --fail-fast -- "dart analyze . --fatal-infos"
       description: Run Dart analyze in all dart packages.
 
-    test:
-      run: dart run melos exec --concurrency=1 --fail-fast -- "flutter test --test-randomize-ordering-seed random"
-      description: Run tests.
+    custom_lint:
+      run: dart run melos exec --fail-fast --order-dependents -- "dart run custom_lint"
+      description: Run custom_lint
       packageFilters:
-        flutter: true
-        dirExists: test
-
-    test:ci:
-      run: dart run melos exec --concurrency=1 --fail-fast -- "flutter test --coverage --test-randomize-ordering-seed random"
-      description: Run tests.
-      packageFilters:
-        flutter: true
-        dirExists: test
+        dependsOn: custom_lint
 
     generate:breizh_blok_api:
       run: |
@@ -64,3 +56,17 @@ melos:
         dart run melos exec --scope="breizh_blok_api_generated" -- "dart run build_runner build --delete-conflicting-outputs"
         dart run melos exec --scope="breizh_blok_api_generated" -- "dart format ."
         dart run melos exec --scope="breizh_blok_api_generated" -- "dart fix --apply ."
+
+    test:
+      run: dart run melos exec --concurrency=1 --fail-fast -- "flutter test --test-randomize-ordering-seed random"
+      description: Run tests.
+      packageFilters:
+        flutter: true
+        dirExists: test
+
+    test:ci:
+      run: dart run melos exec --concurrency=1 --fail-fast -- "flutter test --coverage --test-randomize-ordering-seed random"
+      description: Run tests.
+      packageFilters:
+        flutter: true
+        dirExists: test
