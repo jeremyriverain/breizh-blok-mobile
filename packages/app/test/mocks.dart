@@ -13,6 +13,7 @@ import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_reposito
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_impl.dart';
+import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -88,5 +89,7 @@ class MockStatefulNavigationShell extends Mock
 class MockStyleManager extends Mock implements StyleManager {}
 
 class MockTitleMeta extends Mock implements TitleMeta {}
+
+class MockTrackingService extends Mock implements TrackingService {}
 
 class MockUrlLauncher extends Mock implements UrlLauncher {}

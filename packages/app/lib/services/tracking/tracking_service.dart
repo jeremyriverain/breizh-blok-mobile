@@ -1,12 +1,15 @@
-import 'package:get_it/get_it.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
 class TrackingService {
+  TrackingService({required this.mixpanel});
+
+  final Mixpanel mixpanel;
+
   void trackPageViewed({
     required String path,
     required String navigationType,
   }) {
-    GetIt.I<Mixpanel>()
+    mixpanel
         .track(
           'page_viewed',
           properties: {

@@ -4,7 +4,7 @@ import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
-import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_message_form_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';

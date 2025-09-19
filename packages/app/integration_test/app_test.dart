@@ -15,7 +15,6 @@ import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/service_locator/locale.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
-import 'package:breizh_blok_mobile/setup_app.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_tile.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
@@ -30,7 +29,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
@@ -87,7 +85,6 @@ void main() async {
     );
     await sharedPreferences.setString(kLocalePrefs, 'fr');
     await clearDatabase(database);
-    await GetIt.I.reset();
   });
 
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
@@ -98,10 +95,6 @@ void main() async {
 
     MapboxOptions.setAccessToken(Env.mapboxToken);
 
-    await setupApp(
-      mixpanel: mixpanel,
-    );
-
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
@@ -110,6 +103,7 @@ void main() async {
           shareContentServiceProvider.overrideWith((_) => shareContentService),
           sharedPreferencesProvider.overrideWith((_) => sharedPreferences),
           myLocaleProvider.overrideWithBuild((_, _) => const Locale('fr')),
+          mixpanelProvider.overrideWith((_) => mixpanel),
         ],
         child: const MyApp(),
       ),

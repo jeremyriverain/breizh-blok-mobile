@@ -1,6 +1,5 @@
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -9,10 +8,7 @@ import '../../mocks.dart';
 void main() {
   late Mixpanel mixpanel;
   setUp(() async {
-    await GetIt.I.reset();
-
     mixpanel = MockMixpanel();
-    GetIt.I.registerSingleton<Mixpanel>(mixpanel);
   });
   test('call mixpanel track API when trackPageViewed is called', () async {
     when(
@@ -22,7 +18,9 @@ void main() {
       ),
     ).thenAnswer((_) async => () {}());
 
-    TrackingService().trackPageViewed(path: '/foo', navigationType: 'foo');
+    TrackingService(
+      mixpanel: mixpanel,
+    ).trackPageViewed(path: '/foo', navigationType: 'foo');
     verify(
       () => mixpanel.track(
         'page_viewed',
@@ -44,7 +42,7 @@ void main() {
       });
 
       expect(
-        () async => TrackingService().trackPageViewed(
+        () async => TrackingService(mixpanel: mixpanel).trackPageViewed(
           path: '/foo',
           navigationType: 'foo',
         ),

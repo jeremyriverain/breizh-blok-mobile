@@ -84,7 +84,7 @@ class _BoulderDetailsAssociatedState extends State<BoulderDetailsAssociated>
         return FutureBuilder<PaginatedCollection<Boulder>>(
           future: _findBoulders(
             context,
-            database: ref.read(appDatabaseProvider),
+            database: ref.watch(appDatabaseProvider),
           ),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

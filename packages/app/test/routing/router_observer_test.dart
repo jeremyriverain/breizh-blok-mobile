@@ -2,7 +2,6 @@ import 'package:breizh_blok_mobile/routing/router_observer.dart';
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:mocktail/mocktail.dart';
@@ -23,6 +22,8 @@ void main() {
         () =>
             mixpanel.track('page_viewed', properties: any(named: 'properties')),
       ).thenAnswer((_) async => () {}());
+
+      final trackingService = TrackingService(mixpanel: mixpanel);
 
       final router = GoRouter(
         routes: [
@@ -58,13 +59,10 @@ void main() {
           ),
         ],
         initialLocation: '/foo',
-        observers: [RouterObserver()],
+        observers: [RouterObserver(trackingService: trackingService)],
       );
       addTearDown(router.dispose);
 
-      GetIt.I.registerSingleton<TrackingService>(TrackingService());
-      GetIt.I.registerSingleton<Mixpanel>(mixpanel);
-      GetIt.I.registerSingleton<GoRouter>(router);
       await tester.pumpWidget(
         MaterialApp.router(
           routeInformationProvider: router.routeInformationProvider,

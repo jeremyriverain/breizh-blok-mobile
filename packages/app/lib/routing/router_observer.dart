@@ -1,9 +1,12 @@
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class RouterObserver extends NavigatorObserver {
+  RouterObserver({required this.trackingService});
+
+  final TrackingService trackingService;
+
   String? get location {
     final context = navigator?.context;
 
@@ -34,7 +37,7 @@ class RouterObserver extends NavigatorObserver {
       return;
     }
 
-    GetIt.I<TrackingService>().trackPageViewed(
+    trackingService.trackPageViewed(
       path: path,
       navigationType: 'push',
     );
@@ -53,7 +56,7 @@ class RouterObserver extends NavigatorObserver {
       return;
     }
 
-    GetIt.I<TrackingService>().trackPageViewed(
+    trackingService.trackPageViewed(
       path: path,
       navigationType: 'pop',
     );
