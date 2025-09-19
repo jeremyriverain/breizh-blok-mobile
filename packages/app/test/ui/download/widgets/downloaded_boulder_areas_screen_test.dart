@@ -4,23 +4,18 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../../widget_test_utils.dart';
 
 void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
 
-  setUp(() async {
-    await GetIt.I.reset();
-  });
-
   testWidgets('display fallback content if there is no downloads', (
     WidgetTester tester,
   ) async {
-    GetIt.I.registerSingleton(AppDatabase(NativeDatabase.memory()));
-
-    await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+    await tester.myPumpWidget(
+      widget: const DownloadedBoulderAreasScreen(),
+    );
     await tester.pump();
 
     expect(find.text('Aucun téléchargement'), findsOneWidget);
@@ -61,18 +56,19 @@ void main() {
   }
 
   testWidgets('display downloads', (WidgetTester tester) async {
-    final database = GetIt.I.registerSingleton(
-      AppDatabase(NativeDatabase.memory()),
-    );
+    final appDatabase = AppDatabase(NativeDatabase.memory());
 
     await createDownload(
-      database,
+      appDatabase,
       municipalityName: 'Kerlouan',
       boulerAreaName: 'Petit paradis',
       boulderAreaIri: '/foo',
     );
 
-    await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+    await tester.myPumpWidget(
+      widget: const DownloadedBoulderAreasScreen(),
+      appDatabase: appDatabase,
+    );
     await tester.pump();
 
     expect(find.byType(ListTile), findsOneWidget);
@@ -95,13 +91,11 @@ void main() {
 
   testWidgets('sort downloaded boulder areas', (WidgetTester tester) async {
     await tester.runAsync(() async {
-      final database = GetIt.I.registerSingleton(
-        AppDatabase(NativeDatabase.memory()),
-      );
+      final appDatabase = AppDatabase(NativeDatabase.memory());
 
       await Future.wait([
         createDownload(
-          database,
+          appDatabase,
           municipalityName: 'Kerlouan',
           boulerAreaName: 'Petit paradis',
           boulderAreaIri: '/foo',
@@ -109,7 +103,7 @@ void main() {
         // ignore: inference_failure_on_instance_creation
         Future.delayed(const Duration(milliseconds: 1)).then(
           (_) => createDownload(
-            database,
+            appDatabase,
             boulerAreaName: 'Bois de Keroual',
             municipalityName: 'Guilers',
             boulderAreaIri: '/bar',
@@ -118,7 +112,7 @@ void main() {
         // ignore: inference_failure_on_instance_creation
         Future.delayed(const Duration(milliseconds: 2)).then(
           (_) => createDownload(
-            database,
+            appDatabase,
             boulerAreaName: 'Impératrice',
             municipalityName: 'Plougastel Daoulas',
             boulderAreaIri: '/baz',
@@ -127,7 +121,7 @@ void main() {
         // ignore: inference_failure_on_instance_creation
         Future.delayed(const Duration(milliseconds: 3)).then(
           (_) => createDownload(
-            database,
+            appDatabase,
             boulerAreaName: 'La rivière',
             municipalityName: 'Kerlouan',
             boulderAreaIri: '/boo',
@@ -135,7 +129,10 @@ void main() {
         ),
       ]);
 
-      await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+      await tester.myPumpWidget(
+        widget: const DownloadedBoulderAreasScreen(),
+        appDatabase: appDatabase,
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(ListTile), findsNWidgets(4));
@@ -254,17 +251,18 @@ void main() {
   });
 
   testWidgets('List of downloads is reactive', (WidgetTester tester) async {
-    final database = GetIt.I.registerSingleton(
-      AppDatabase(NativeDatabase.memory()),
-    );
+    final appDatabase = AppDatabase(NativeDatabase.memory());
 
-    await tester.myPumpWidget(widget: const DownloadedBoulderAreasScreen());
+    await tester.myPumpWidget(
+      widget: const DownloadedBoulderAreasScreen(),
+      appDatabase: appDatabase,
+    );
     await tester.pump();
 
     expect(find.text('Aucun téléchargement'), findsOneWidget);
 
     await createDownload(
-      database,
+      appDatabase,
       municipalityName: 'Kerlouan',
       boulerAreaName: 'Petit paradis',
       boulderAreaIri: '/foo',

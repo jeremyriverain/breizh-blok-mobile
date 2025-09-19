@@ -1,8 +1,7 @@
-import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
-import 'package:breizh_blok_mobile/services/share_content/share_content_service_interface.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
+import 'package:breizh_blok_mobile/services/share_content/share_content_service_impl.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:share_plus/share_plus.dart';
@@ -11,7 +10,7 @@ import '../../../mocks.dart';
 import '../../../widget_test_utils.dart';
 
 void main() {
-  late ShareContentService shareContentService;
+  late ShareContentServiceImpl shareContentService;
 
   setUp(() {
     shareContentService = MockShareContentService();
@@ -22,10 +21,10 @@ void main() {
     );
 
     await tester.myPumpWidget(
-      widget: RepositoryProvider<ShareContentServiceInterface>(
-        create: (context) => shareContentService,
-        child: const ShareButton(content: 'foo'),
-      ),
+      widget: const ShareButton(content: 'foo'),
+      overrides: [
+        shareContentServiceProvider.overrideWith((_) => shareContentService),
+      ],
     );
     await tester.pump();
 

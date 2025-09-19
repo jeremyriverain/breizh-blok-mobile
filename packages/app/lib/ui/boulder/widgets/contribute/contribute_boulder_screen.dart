@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
-import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_location_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_map_view_model.dart';
@@ -8,7 +8,7 @@ import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_message
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ContributeBoulderScreen extends StatelessWidget {
   const ContributeBoulderScreen({required this.boulder, super.key});
@@ -45,25 +45,30 @@ class ContributeBoulderScreen extends StatelessWidget {
               );
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.place),
-            title: Text(localizations.specifyBoulderLocation),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (_) => ContributeBoulderMapScreen(
-                    viewModel: ContributeBoulderMapViewModel(
-                      form: ContributeBoulderLocationForm(
-                        latitude: boulder.rock.location.latitude,
-                        longitude: boulder.rock.location.longitude,
+          Consumer(
+            builder: (context, ref, child) {
+              return ListTile(
+                leading: const Icon(Icons.place),
+                title: Text(localizations.specifyBoulderLocation),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (_) => ContributeBoulderMapScreen(
+                        viewModel: ContributeBoulderMapViewModel(
+                          form: ContributeBoulderLocationForm(
+                            latitude: boulder.rock.location.latitude,
+                            longitude: boulder.rock.location.longitude,
+                          ),
+                          boulderFeedbackRepository: ref.read(
+                            boulderFeedbackRepositoryProvider,
+                          ),
+                          boulder: boulder,
+                        ),
                       ),
-                      boulderFeedbackRepository:
-                          GetIt.I<BoulderFeedbackRepository>(),
-                      boulder: boulder,
                     ),
-                  ),
-                ),
+                  );
+                },
               );
             },
           ),

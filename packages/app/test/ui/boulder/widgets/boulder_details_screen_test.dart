@@ -4,6 +4,7 @@ import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_message_form_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -21,13 +21,20 @@ import '../../../widget_test_utils.dart';
 
 void main() {
   late BoulderRepository boulderRepository;
+  late BoulderFeedbackRepository boulderFeedbackRepository;
 
   setUp(() {
     boulderRepository = MockBoulderRepository();
+    boulderFeedbackRepository = MockBoulderFeedbackRepository();
   });
 
   Future<void> pumpWidget(WidgetTester tester) async {
     await tester.myPumpWidget(
+      overrides: [
+        boulderFeedbackRepositoryProvider.overrideWith(
+          (_) => boulderFeedbackRepository,
+        ),
+      ],
       widget: RepositoryProvider(
         create: (context) => RequestStrategy(),
         child: RepositoryProvider<BoulderRepository>(
@@ -61,11 +68,6 @@ void main() {
     });
 
     group('Contribute', () {
-      late BoulderFeedbackRepository boulderFeedbackRepository;
-      setUp(() {
-        boulderFeedbackRepository = MockBoulderFeedbackRepository();
-        GetIt.I.registerSingleton(boulderFeedbackRepository);
-      });
       testWidgets(
         '''
 Given I click on the Contribute ListTile

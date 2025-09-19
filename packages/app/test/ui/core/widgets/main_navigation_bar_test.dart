@@ -1,9 +1,9 @@
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/main_navigation_bar.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -26,9 +26,6 @@ Given I click on "Soutenir"
 Then I am redirected to sponsoring website
 ''',
         (tester) async {
-          GetIt.I.registerLazySingleton<UrlLauncher>(
-            () => urlLauncher,
-          );
           when(() => statefulNavigationShell.currentIndex).thenReturn(0);
 
           when(
@@ -37,6 +34,7 @@ Then I am redirected to sponsoring website
             ),
           ).thenReturn(TaskEither<LaunchUrlException, bool>.of(true));
           await tester.myPumpWidget(
+            overrides: [urlLauncherProvider.overrideWith((_) => urlLauncher)],
             widget: MainNavigationBar(navigationShell: statefulNavigationShell),
           );
 

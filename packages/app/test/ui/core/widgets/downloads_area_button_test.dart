@@ -46,9 +46,9 @@ void main() {
 
     await tester.runAsync(() async {
       await tester.myPumpWidget(
+        appDatabase: appDatabase,
         widget: MultiRepositoryProvider(
           providers: [
-            RepositoryProvider(create: (context) => appDatabase),
             RepositoryProvider(create: (context) => downloadAreaService),
           ],
           child: const DownloadsAreaButton(

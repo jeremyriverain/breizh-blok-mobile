@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map_location_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:location/location.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -84,7 +84,6 @@ When I click on the button,
 Then the onShowLocation callback is called
 ''',
       (tester) async {
-        GetIt.I.registerLazySingleton<Location>(() => location);
         final completer = Completer<void>();
 
         when(() => location.serviceEnabled()).thenAnswer((_) async => true);
@@ -94,6 +93,7 @@ Then the onShowLocation callback is called
         ).thenAnswer((_) async => PermissionStatus.granted);
 
         await tester.myPumpWidget(
+          overrides: [locationProvider.overrideWith((_) => location)],
           widget: MyMapLocationButton(
             isLocationShown: false,
             onHideLocation: () async {},
@@ -128,7 +128,6 @@ When I click on the button,
 Then the onShowLocation callback is not called
 ''',
       (tester) async {
-        GetIt.I.registerLazySingleton<Location>(() => location);
         final completer = Completer<void>();
 
         when(() => location.serviceEnabled()).thenAnswer((_) async => true);
@@ -138,6 +137,7 @@ Then the onShowLocation callback is not called
         ).thenAnswer((_) async => PermissionStatus.deniedForever);
 
         await tester.myPumpWidget(
+          overrides: [locationProvider.overrideWith((_) => location)],
           widget: MyMapLocationButton(
             isLocationShown: false,
             onHideLocation: () async {},
@@ -173,7 +173,6 @@ When I click on the button,
 Then the onShowLocation callback is called
 ''',
       (tester) async {
-        GetIt.I.registerLazySingleton<Location>(() => location);
         final completer = Completer<void>();
 
         when(() => location.serviceEnabled()).thenAnswer((_) async => true);
@@ -187,6 +186,7 @@ Then the onShowLocation callback is called
         ).thenAnswer((_) async => PermissionStatus.granted);
 
         await tester.myPumpWidget(
+          overrides: [locationProvider.overrideWith((_) => location)],
           widget: MyMapLocationButton(
             isLocationShown: false,
             onHideLocation: () async {},
@@ -223,7 +223,6 @@ When I click on the button,
 Then the onShowLocation callback is called
 ''',
       (tester) async {
-        GetIt.I.registerLazySingleton<Location>(() => location);
         final completer = Completer<void>();
 
         when(() => location.serviceEnabled()).thenAnswer((_) async => true);
@@ -237,6 +236,7 @@ Then the onShowLocation callback is called
         ).thenAnswer((_) async => PermissionStatus.grantedLimited);
 
         await tester.myPumpWidget(
+          overrides: [locationProvider.overrideWith((_) => location)],
           widget: MyMapLocationButton(
             isLocationShown: false,
             onHideLocation: () async {},
@@ -273,7 +273,6 @@ When I click on the button,
 Then the onShowLocation callback is not called
 ''',
       (tester) async {
-        GetIt.I.registerLazySingleton<Location>(() => location);
         final completer = Completer<void>();
 
         when(() => location.serviceEnabled()).thenAnswer((_) async => true);
@@ -287,6 +286,7 @@ Then the onShowLocation callback is not called
         ).thenAnswer((_) async => PermissionStatus.denied);
 
         await tester.myPumpWidget(
+          overrides: [locationProvider.overrideWith((_) => location)],
           widget: MyMapLocationButton(
             isLocationShown: false,
             onHideLocation: () async {},
@@ -323,7 +323,6 @@ When I click on the button,
 Then the onShowLocation callback is not called
 ''',
       (tester) async {
-        GetIt.I.registerLazySingleton<Location>(() => location);
         final completer = Completer<void>();
 
         when(() => location.serviceEnabled()).thenAnswer((_) async => false);
@@ -331,6 +330,7 @@ Then the onShowLocation callback is not called
         when(() => location.requestService()).thenAnswer((_) async => false);
 
         await tester.myPumpWidget(
+          overrides: [locationProvider.overrideWith((_) => location)],
           widget: MyMapLocationButton(
             isLocationShown: false,
             onHideLocation: () async {},
@@ -365,8 +365,6 @@ And onShowLocation throws an exception,
 Then the onShowLocation exception is properly caught 
 ''',
       (tester) async {
-        GetIt.I.registerLazySingleton<Location>(() => location);
-
         when(() => location.serviceEnabled()).thenAnswer((_) async => true);
 
         when(
@@ -374,6 +372,7 @@ Then the onShowLocation exception is properly caught
         ).thenAnswer((_) async => PermissionStatus.granted);
 
         await tester.myPumpWidget(
+          overrides: [locationProvider.overrideWith((_) => location)],
           widget: MyMapLocationButton(
             isLocationShown: false,
             onHideLocation: () async {},

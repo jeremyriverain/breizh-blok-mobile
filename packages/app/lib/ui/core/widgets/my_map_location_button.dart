@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -19,26 +20,28 @@ class MyMapLocationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton.filledTonal(
-      onPressed: () async {
-        await _onPressed();
+    return Consumer(
+      builder: (context, ref, _) {
+        return IconButton.filledTonal(
+          onPressed: () async {
+            await _onPressed(ref.read(locationProvider));
+          },
+          icon: Icon(
+            isLocationShown ? Icons.location_off : Icons.my_location,
+            semanticLabel: AppLocalizations.of(context).getMyLocation,
+          ),
+        );
       },
-      icon: Icon(
-        isLocationShown ? Icons.location_off : Icons.my_location,
-        semanticLabel: AppLocalizations.of(context).getMyLocation,
-      ),
     );
   }
 
-  Future<void> _onPressed() async {
+  Future<void> _onPressed(Location location) async {
     try {
       if (isLocationShown) {
         await onHideLocation();
 
         return;
       }
-
-      final location = GetIt.I<Location>();
 
       if (!await location.serviceEnabled() &&
           !await location.requestService()) {
