@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/terms_of_use/view_models/terms_of_use_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

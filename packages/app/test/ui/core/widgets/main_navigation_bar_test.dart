@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/main_navigation_bar.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:flutter/material.dart';

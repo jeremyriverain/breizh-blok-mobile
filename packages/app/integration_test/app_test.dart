@@ -12,14 +12,14 @@ import 'package:breizh_blok_mobile/data/repositories/department/department_repos
 import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
-import 'package:breizh_blok_mobile/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/locale.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/setup_app.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_tile.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
-import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
 import 'package:breizh_blok_mobile/ui/terms_of_use/view_models/terms_of_use_view_model.dart';
 import 'package:drift/drift.dart'
@@ -109,6 +109,7 @@ void main() async {
           appDatabaseProvider.overrideWith((_) => database),
           shareContentServiceProvider.overrideWith((_) => shareContentService),
           sharedPreferencesProvider.overrideWith((_) => sharedPreferences),
+          myLocaleProvider.overrideWithBuild((_, _) => const Locale('fr')),
         ],
         child: const MyApp(),
       ),

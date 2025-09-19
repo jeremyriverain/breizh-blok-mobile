@@ -6,7 +6,7 @@ import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_c
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:drift/isolate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +21,7 @@ class DownloadsAreaButton extends StatelessWidget {
   Future<void> _onChanged(
     AppDatabase appDatabase, {
     required bool value,
+    required ImageBoulderCache imageBoulderCache,
   }) async {
     final token = RootIsolateToken.instance;
 
@@ -34,7 +35,7 @@ class DownloadsAreaButton extends StatelessWidget {
         final downloadAreaService = DownloadAreaService(
           database: database,
           httpClient: httpClient,
-          imageBoulderCache: ImageBoulderCache(),
+          imageBoulderCache: imageBoulderCache,
         );
 
         switch (value) {
@@ -74,8 +75,11 @@ class DownloadsAreaButton extends StatelessWidget {
                 builder: (_, ref, _) {
                   return _DownloadButton(
                     isDownload: isDownload,
-                    onChanged: (context, {required bool value}) =>
-                        _onChanged(ref.read(appDatabaseProvider), value: value),
+                    onChanged: (context, {required bool value}) => _onChanged(
+                      ref.read(appDatabaseProvider),
+                      value: value,
+                      imageBoulderCache: ref.watch(imageBoulderCacheProvider),
+                    ),
                     downloadProgress: data?.downloadProgress,
                   );
                 },

@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_impl.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:flutter/material.dart';

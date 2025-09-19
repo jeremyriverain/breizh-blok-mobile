@@ -2,7 +2,7 @@
 
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/empty_list_indicator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_indicator.dart';
 import 'package:breizh_blok_mobile/ui/download/view_models/list_downloaded_boulder_areas_view_model.dart';

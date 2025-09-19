@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:breizh_blok_mobile/ui/locale/widgets/locale_switch.dart';
 import 'package:flutter/material.dart';

@@ -15,7 +15,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 final _boulderListShellNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'boulderListShell',
 );
@@ -207,7 +207,7 @@ GoRouter createRouter({
   String? initialLocation,
 }) {
   return GoRouter(
-    navigatorKey: _rootNavigatorKey,
+    navigatorKey: rootNavigatorKey,
     initialLocation: initialLocation ?? BoulderListScreen.route.path,
     observers: observers,
     routes: routes,

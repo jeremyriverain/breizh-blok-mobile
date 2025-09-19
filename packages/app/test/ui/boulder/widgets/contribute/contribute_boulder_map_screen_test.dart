@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
-import 'package:breizh_blok_mobile/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_location_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_map_screen.dart';

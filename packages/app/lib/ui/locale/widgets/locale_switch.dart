@@ -1,7 +1,6 @@
 import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator.dart';
-import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
+import 'package:breizh_blok_mobile/service_locator/locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,11 +36,8 @@ class LocaleSwitch extends StatelessWidget {
               if (newValue == null) {
                 return;
               }
-              ref
-                  .read(localeViewModelProvider)
-                  .add(
-                    LocaleUpdated(locale: Locale(newValue)),
-                  );
+
+              ref.read(myLocaleProvider.notifier).setLocale(Locale(newValue));
             },
             leadingIcon: Row(
               mainAxisSize: MainAxisSize.min,

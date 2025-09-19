@@ -2,19 +2,19 @@ import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:breizh_blok_mobile/config/env.dart';
-import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/domain/entities/line_boulder/line_boulder.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LineBoulderImage extends StatelessWidget {
+class LineBoulderImage extends ConsumerWidget {
   const LineBoulderImage({required this.lineBoulder, super.key});
   final LineBoulder lineBoulder;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     if (lineBoulder.rockImage.filterUrl == null ||
         lineBoulder.rockImage.width == null ||
         lineBoulder.rockImage.height == null) {
@@ -30,7 +30,7 @@ class LineBoulderImage extends StatelessWidget {
             'scale_md',
           ),
         ).toString(),
-        cacheManager: context.read<ImageBoulderCache>().cache,
+        cacheManager: ref.watch(imageBoulderCacheProvider).cache,
       ),
     );
     final completer = Completer<ui.Image>();

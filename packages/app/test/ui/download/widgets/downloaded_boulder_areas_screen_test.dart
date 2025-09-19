@@ -1,5 +1,4 @@
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
-import 'package:breizh_blok_mobile/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -16,11 +15,6 @@ void main() {
   ) async {
     await tester.myPumpWidget(
       widget: const DownloadedBoulderAreasScreen(),
-      overrides: [
-        appDatabaseProvider.overrideWith(
-          (_) => AppDatabase(NativeDatabase.memory()),
-        ),
-      ],
     );
     await tester.pump();
 
@@ -73,7 +67,7 @@ void main() {
 
     await tester.myPumpWidget(
       widget: const DownloadedBoulderAreasScreen(),
-      overrides: [appDatabaseProvider.overrideWith((_) => appDatabase)],
+      appDatabase: appDatabase,
     );
     await tester.pump();
 
@@ -97,11 +91,11 @@ void main() {
 
   testWidgets('sort downloaded boulder areas', (WidgetTester tester) async {
     await tester.runAsync(() async {
-      final database = AppDatabase(NativeDatabase.memory());
+      final appDatabase = AppDatabase(NativeDatabase.memory());
 
       await Future.wait([
         createDownload(
-          database,
+          appDatabase,
           municipalityName: 'Kerlouan',
           boulerAreaName: 'Petit paradis',
           boulderAreaIri: '/foo',
@@ -109,7 +103,7 @@ void main() {
         // ignore: inference_failure_on_instance_creation
         Future.delayed(const Duration(milliseconds: 1)).then(
           (_) => createDownload(
-            database,
+            appDatabase,
             boulerAreaName: 'Bois de Keroual',
             municipalityName: 'Guilers',
             boulderAreaIri: '/bar',
@@ -118,7 +112,7 @@ void main() {
         // ignore: inference_failure_on_instance_creation
         Future.delayed(const Duration(milliseconds: 2)).then(
           (_) => createDownload(
-            database,
+            appDatabase,
             boulerAreaName: 'Impératrice',
             municipalityName: 'Plougastel Daoulas',
             boulderAreaIri: '/baz',
@@ -127,7 +121,7 @@ void main() {
         // ignore: inference_failure_on_instance_creation
         Future.delayed(const Duration(milliseconds: 3)).then(
           (_) => createDownload(
-            database,
+            appDatabase,
             boulerAreaName: 'La rivière',
             municipalityName: 'Kerlouan',
             boulderAreaIri: '/boo',
@@ -137,7 +131,7 @@ void main() {
 
       await tester.myPumpWidget(
         widget: const DownloadedBoulderAreasScreen(),
-        overrides: [appDatabaseProvider.overrideWith((_) => database)],
+        appDatabase: appDatabase,
       );
       await tester.pumpAndSettle();
 
@@ -257,18 +251,18 @@ void main() {
   });
 
   testWidgets('List of downloads is reactive', (WidgetTester tester) async {
-    final database = AppDatabase(NativeDatabase.memory());
+    final appDatabase = AppDatabase(NativeDatabase.memory());
 
     await tester.myPumpWidget(
       widget: const DownloadedBoulderAreasScreen(),
-      overrides: [appDatabaseProvider.overrideWith((_) => database)],
+      appDatabase: appDatabase,
     );
     await tester.pump();
 
     expect(find.text('Aucun téléchargement'), findsOneWidget);
 
     await createDownload(
-      database,
+      appDatabase,
       municipalityName: 'Kerlouan',
       boulerAreaName: 'Petit paradis',
       boulderAreaIri: '/foo',

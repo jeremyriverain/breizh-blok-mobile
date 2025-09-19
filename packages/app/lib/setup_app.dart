@@ -1,10 +1,7 @@
 import 'package:breizh_blok_mobile/config/env.dart';
-import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future<void> setupApp({
   Mixpanel? mixpanel,
@@ -15,8 +12,4 @@ Future<void> setupApp({
   );
 
   GetIt.I.registerSingleton<TrackingService>(TrackingService());
-
-  GetIt.I.registerSingleton<GoRouter>(
-    createRouter(routes: routes, observers: [SentryNavigatorObserver()]),
-  );
 }

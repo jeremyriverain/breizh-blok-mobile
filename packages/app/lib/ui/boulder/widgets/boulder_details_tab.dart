@@ -2,7 +2,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_message_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';

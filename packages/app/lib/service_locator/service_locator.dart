@@ -7,18 +7,23 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_da
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository_impl.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_impl.dart';
-import 'package:breizh_blok_mobile/ui/locale/view_models/locale_view_model.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'service_locator.g.dart';
@@ -62,14 +67,38 @@ api.BreizhBlokApiGenerated breizhBlokApi(Ref ref) {
 }
 
 @riverpod
-LocaleViewModel localeViewModel(Ref ref) {
-  final sharedPreferences = ref.watch(sharedPreferencesProvider);
-  return LocaleViewModel.create(sharedPreferences);
+ImageBoulderCache imageBoulderCache(Ref ref) {
+  return ImageBoulderCache();
 }
 
 @riverpod
 Location location(Ref ref) {
   return Location();
+}
+
+@riverpod
+GoRouter router(Ref ref) {
+  return GoRouter(
+    navigatorKey: rootNavigatorKey,
+    initialLocation: ref.watch(routerInitialLocationProvider),
+    observers: ref.watch(routerObserversProvider),
+    routes: ref.watch(routerRoutesProvider),
+  );
+}
+
+@riverpod
+String routerInitialLocation(Ref ref) {
+  return BoulderListScreen.route.path;
+}
+
+@riverpod
+List<NavigatorObserver>? routerObservers(Ref ref) {
+  return [SentryNavigatorObserver()];
+}
+
+@riverpod
+List<RouteBase> routerRoutes(Ref ref) {
+  return routes;
 }
 
 @riverpod
