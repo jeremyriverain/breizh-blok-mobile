@@ -1,41 +1,25 @@
-import 'dart:isolate';
-
-import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
-import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
-import 'package:drift/isolate.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-class DownloadsAreaButton extends StatelessWidget {
+class DownloadsAreaButton extends ConsumerWidget {
   const DownloadsAreaButton({required this.boulderArea, super.key});
 
   final BoulderArea boulderArea;
 
-  Future<void> _onChanged(
-    AppDatabase appDatabase, {
-    required bool value,
-    required ImageBoulderCache imageBoulderCache,
-  }) async {
-    final token = RootIsolateToken.instance;
-
-    final connection = await appDatabase.serializableConnection();
-
-    try {
-      await Isolate.run(() async {
-        BackgroundIsolateBinaryMessenger.ensureInitialized(token!);
-        final database = AppDatabase(await connection.connect());
-        final httpClient = ApiClient(database: database);
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    Future<void> onChanged({required bool value}) async {
+      try {
         final downloadAreaService = DownloadAreaService(
-          database: database,
-          httpClient: httpClient,
-          imageBoulderCache: imageBoulderCache,
+          database: ref.read(appDatabaseProvider),
+          httpClient: ref.read(apiClientProvider),
+          imageBoulderCache: ref.read(imageBoulderCacheProvider),
         );
 
         switch (value) {
@@ -44,50 +28,30 @@ class DownloadsAreaButton extends StatelessWidget {
           case true:
             await downloadAreaService.download(boulderArea);
         }
-
-        await database.close();
-      });
-    } catch (exception, stackTrace) {
-      Sentry.captureException(exception, stackTrace: stackTrace).ignore();
+      } catch (exception, stackTrace) {
+        Sentry.captureException(exception, stackTrace: stackTrace).ignore();
+      }
     }
-  }
 
-  Stream<DbBoulderArea?> watchDownload(AppDatabase appDatabase, String iri) {
-    return appDatabase.watchDownload(iri);
-  }
+    Stream<DbBoulderArea?> watchDownload(BuildContext context, String iri) {
+      return ref.read(appDatabaseProvider).watchDownload(iri);
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, _) {
-        return StreamBuilder<DbBoulderArea?>(
-          stream: watchDownload(
-            ref.watch(appDatabaseProvider),
-            boulderArea.iri,
-          ),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.active ||
-                snapshot.connectionState == ConnectionState.done) {
-              final data = snapshot.data;
-              final isDownload = data != null;
+    return StreamBuilder<DbBoulderArea?>(
+      stream: watchDownload(context, boulderArea.iri),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.active ||
+            snapshot.connectionState == ConnectionState.done) {
+          final data = snapshot.data;
+          final isDownload = data != null;
 
-              return Consumer(
-                builder: (_, ref, _) {
-                  return _DownloadButton(
-                    isDownload: isDownload,
-                    onChanged: (context, {required bool value}) => _onChanged(
-                      ref.read(appDatabaseProvider),
-                      value: value,
-                      imageBoulderCache: ref.watch(imageBoulderCacheProvider),
-                    ),
-                    downloadProgress: data?.downloadProgress,
-                  );
-                },
-              );
-            }
-            return const _DownloadButton(isDownload: false);
-          },
-        );
+          return _DownloadButton(
+            isDownload: isDownload,
+            onChanged: (context, {required value}) => onChanged(value: value),
+            downloadProgress: data?.downloadProgress,
+          );
+        }
+        return const _DownloadButton(isDownload: false);
       },
     );
   }
