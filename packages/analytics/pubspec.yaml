@@ -17,5 +17,6 @@ dev_dependencies:
   breizh_blok_lint:
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.4
 
 flutter:
