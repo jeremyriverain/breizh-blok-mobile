@@ -1,0 +1,22 @@
+name: breizh_blok_analytics
+publish_to: "none"
+version: 1.0.0
+
+resolution: workspace
+
+environment:
+  sdk: "^3.9.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fpdart: ^1.1.1
+  mixpanel_flutter: ^2.4.4
+
+dev_dependencies:
+  breizh_blok_lint:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+
+flutter:

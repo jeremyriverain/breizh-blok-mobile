@@ -1,3 +1,4 @@
+import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
-import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,7 +23,7 @@ Future<void> main() async {
       audience: Env.auth0Audience,
     ),
     SharedPreferences.getInstance(),
-    Mixpanel.init(Env.mixPanelToken, trackAutomaticEvents: true),
+    BreizhBlokAnalytics.createAnalytics(token: Env.mixPanelToken),
   ]);
 
   await SentryFlutter.init(
@@ -40,7 +40,7 @@ Future<void> main() async {
           sharedPreferencesProvider.overrideWith(
             (_) => services[1] as SharedPreferences,
           ),
-          mixpanelProvider.overrideWith((_) => services[2] as Mixpanel),
+          analyticsProvider.overrideWith((_) => services[2] as Analytics),
         ],
         child: const MyApp(),
       ),

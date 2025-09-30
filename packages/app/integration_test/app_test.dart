@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
@@ -31,7 +32,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
-import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -53,7 +53,7 @@ void main() async {
   final auth = MockAuth();
 
   late ShareContentService shareContentService;
-  late Mixpanel mixpanel;
+  late Analytics analytics;
   late SharedPreferences sharedPreferences;
 
   Future<void> clearDatabase(AppDatabase database) async {
@@ -66,15 +66,18 @@ void main() async {
 
   setUp(() async {
     shareContentService = MockShareContentService();
-    mixpanel = MockMixpanel();
+    analytics = MockAnalytics();
 
     when(() => shareContentService.share(any())).thenAnswer((_) async {
       return const ShareResult('foo', ShareResultStatus.success);
     });
 
     when(
-      () => mixpanel.track(any(), properties: any(named: 'properties')),
-    ).thenAnswer((_) async => () {}());
+      () => analytics.trackPageViewed(
+        path: any(named: 'path'),
+        navigationType: any(named: 'navigationType'),
+      ),
+    ).thenReturn(() {}());
 
     when(() => auth.credentials).thenReturn(ValueNotifier(null));
 
@@ -103,7 +106,7 @@ void main() async {
           shareContentServiceProvider.overrideWith((_) => shareContentService),
           sharedPreferencesProvider.overrideWith((_) => sharedPreferences),
           myLocaleProvider.overrideWithBuild((_, _) => const Locale('fr')),
-          mixpanelProvider.overrideWith((_) => mixpanel),
+          analyticsProvider.overrideWith((_) => analytics),
         ],
         child: const MyApp(),
       ),
@@ -146,27 +149,18 @@ void main() async {
     await tester.pumpAndSettle();
 
     verify(
-      () => mixpanel.track(
-        'page_viewed',
-        properties: {'path': '/', 'navigationType': 'push'},
+      () => analytics.trackPageViewed(path: '/', navigationType: 'push'),
+    ).called(1);
+
+    verify(
+      () => analytics.trackPageViewed(
+        path: '/boulders/${boulderReference.id}',
+        navigationType: 'push',
       ),
     ).called(1);
 
     verify(
-      () => mixpanel.track(
-        'page_viewed',
-        properties: {
-          'path': '/boulders/${boulderReference.id}',
-          'navigationType': 'push',
-        },
-      ),
-    ).called(1);
-
-    verify(
-      () => mixpanel.track(
-        'page_viewed',
-        properties: {'path': '/', 'navigationType': 'pop'},
-      ),
+      () => analytics.trackPageViewed(path: '/', navigationType: 'pop'),
     ).called(1);
   });
 

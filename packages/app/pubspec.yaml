@@ -19,6 +19,7 @@ environment:
   sdk: "^3.9.0"
 
 dependencies:
+  breizh_blok_analytics:
   breizh_blok_api_generated:
   breizh_blok_auth:
   breizh_blok_url_launcher:
@@ -48,7 +49,6 @@ dependencies:
   location: ^8.0.1
   map_launcher: ^4.4.2
   mapbox_maps_flutter: ^2.10.0
-  mixpanel_flutter: ^2.4.4
   path: ^1.8.3
   path_provider: ^2.1.5
   permission_handler: ^12.0.1

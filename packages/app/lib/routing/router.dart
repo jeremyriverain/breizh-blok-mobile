@@ -1,6 +1,6 @@
+import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/routing/router_observer.dart';
-import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
@@ -28,7 +28,7 @@ final _profileShellNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'profileShell',
 );
 
-List<StatefulShellRoute> getRoutes({required TrackingService trackingService}) {
+List<StatefulShellRoute> getRoutes({required Analytics analytics}) {
   return [
     StatefulShellRoute.indexedStack(
       builder: (_, _, navigationShell) {
@@ -37,7 +37,7 @@ List<StatefulShellRoute> getRoutes({required TrackingService trackingService}) {
       branches: <StatefulShellBranch>[
         StatefulShellBranch(
           navigatorKey: _boulderListShellNavigatorKey,
-          observers: [RouterObserver(trackingService: trackingService)],
+          observers: [RouterObserver(analytics: analytics)],
           routes: <RouteBase>[
             GoRoute(
               path: BoulderListScreen.route.path,
@@ -83,7 +83,7 @@ List<StatefulShellRoute> getRoutes({required TrackingService trackingService}) {
         ),
         StatefulShellBranch(
           navigatorKey: _mapShellNavigatorKey,
-          observers: [RouterObserver(trackingService: trackingService)],
+          observers: [RouterObserver(analytics: analytics)],
           routes: <RouteBase>[
             GoRoute(
               path: MapScreen.route.path,
@@ -99,7 +99,7 @@ List<StatefulShellRoute> getRoutes({required TrackingService trackingService}) {
         ),
         StatefulShellBranch(
           navigatorKey: _sitesShellNavigatorKey,
-          observers: [RouterObserver(trackingService: trackingService)],
+          observers: [RouterObserver(analytics: analytics)],
           routes: <RouteBase>[
             GoRoute(
               path: DepartmentListScreen.route.path,
@@ -131,7 +131,7 @@ List<StatefulShellRoute> getRoutes({required TrackingService trackingService}) {
         ),
         StatefulShellBranch(
           navigatorKey: _profileShellNavigatorKey,
-          observers: [RouterObserver(trackingService: trackingService)],
+          observers: [RouterObserver(analytics: analytics)],
           routes: <RouteBase>[
             GoRoute(
               path: ProfileScreen.route.path,

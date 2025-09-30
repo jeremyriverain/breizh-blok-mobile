@@ -8,6 +8,7 @@ dev_dependencies:
 
 workspace:
   - tools/lint
+  - packages/analytics
   - packages/app
   - packages/auth
   - packages/breizh_blok_api_generated

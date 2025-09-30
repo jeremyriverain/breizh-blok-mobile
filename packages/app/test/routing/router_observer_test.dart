@@ -1,29 +1,28 @@
+import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_mobile/routing/router_observer.dart';
-import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../mocks.dart';
 
 void main() {
-  late Mixpanel mixpanel;
+  late Analytics analytics;
 
   setUp(() {
-    mixpanel = MockMixpanel();
+    analytics = MockAnalytics();
   });
   group('RouterObserver', () {
     testWidgets('track page viewed when navigate to a new route', (
       tester,
     ) async {
       when(
-        () =>
-            mixpanel.track('page_viewed', properties: any(named: 'properties')),
-      ).thenAnswer((_) async => () {}());
-
-      final trackingService = TrackingService(mixpanel: mixpanel);
+        () => analytics.trackPageViewed(
+          navigationType: any(named: 'navigationType'),
+          path: any(named: 'path'),
+        ),
+      ).thenReturn(() {}());
 
       final router = GoRouter(
         routes: [
@@ -59,7 +58,7 @@ void main() {
           ),
         ],
         initialLocation: '/foo',
-        observers: [RouterObserver(trackingService: trackingService)],
+        observers: [RouterObserver(analytics: analytics)],
       );
       addTearDown(router.dispose);
 
@@ -74,30 +73,21 @@ void main() {
       await tester.pumpAndSettle();
 
       verify(
-        () => mixpanel.track(
-          'page_viewed',
-          properties: {'path': '/foo', 'navigationType': 'push'},
-        ),
+        () => analytics.trackPageViewed(path: '/foo', navigationType: 'push'),
       ).called(1);
 
       await tester.tap(find.text('go to bar'));
       await tester.pumpAndSettle();
 
       verify(
-        () => mixpanel.track(
-          'page_viewed',
-          properties: {'path': '/bar', 'navigationType': 'push'},
-        ),
+        () => analytics.trackPageViewed(path: '/bar', navigationType: 'push'),
       ).called(1);
 
       await tester.tap(find.text('return to foo'));
       await tester.pumpAndSettle();
 
       verify(
-        () => mixpanel.track(
-          'page_viewed',
-          properties: {'path': '/foo', 'navigationType': 'pop'},
-        ),
+        () => analytics.trackPageViewed(path: '/foo', navigationType: 'pop'),
       ).called(1);
     });
   });
