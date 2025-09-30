@@ -13,7 +13,7 @@ class AnalyticsImpl implements Analytics {
     required String path,
     required String navigationType,
   }) {
-    return TaskEither.tryCatch(
+    TaskEither.tryCatch(
       () {
         return mixpanel.track(
           'page_viewed',
@@ -29,6 +29,6 @@ class AnalyticsImpl implements Analytics {
           stackTrace: stackTrace,
         );
       },
-    ).run().ignore();
+    ).run();
   }
 }
