@@ -5,7 +5,6 @@ import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
 extension BuildContextExtension on BuildContext {
   Future<Uint8List> getResponsiveImageData({required String imagePath}) async {
@@ -76,9 +75,7 @@ extension MapboxExtension on MapboxMap {
           await style.addStyleLayer(unclusteredLayer, null);
         }
       });
-    } catch (error, stackTrace) {
-      Sentry.captureException(error, stackTrace: stackTrace).ignore();
-    }
+    } catch (_, _) {}
   }
 
   Future<Map<String?, Object?>?> onTapFindCluster(
