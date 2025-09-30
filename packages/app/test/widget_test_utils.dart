@@ -1,8 +1,8 @@
+import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/service_locator/locale.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
-import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:breizh_blok_mobile/ui/my_material_app.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -20,14 +20,14 @@ extension WidgetTesterExtension on WidgetTester {
     required Widget widget,
     List<Override> overrides = const [],
     AppDatabase? appDatabase,
-    TrackingService? trackingService,
+    Analytics? analytics,
     bool overrideLocale = true,
   }) async {
     driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
 
-    final mockTrackingService = MockTrackingService();
+    final mockAnalytics = MockAnalytics();
     when(
-      () => mockTrackingService.trackPageViewed(
+      () => mockAnalytics.trackPageViewed(
         path: any(named: 'path'),
         navigationType: any(named: 'navigationType'),
       ),
@@ -46,7 +46,7 @@ extension WidgetTesterExtension on WidgetTester {
                 builder: (context, state) => Scaffold(body: widget),
               ),
               ...getRoutes(
-                trackingService: trackingService ?? mockTrackingService,
+                analytics: analytics ?? mockAnalytics,
               ),
             ],
           ),
@@ -55,8 +55,8 @@ extension WidgetTesterExtension on WidgetTester {
           ),
           if (overrideLocale)
             myLocaleProvider.overrideWithBuild((_, _) => const Locale('fr')),
-          trackingServiceProvider.overrideWith(
-            (_) => trackingService ?? mockTrackingService,
+          analyticsProvider.overrideWith(
+            (_) => analytics ?? mockAnalytics,
           ),
         ],
 

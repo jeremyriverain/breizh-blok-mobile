@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_api_generated/breizh_blok_api_generated.dart'
     as api;
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
@@ -10,7 +11,6 @@ import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_c
 import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/services/share_content/share_content_service_impl.dart';
-import 'package:breizh_blok_mobile/services/tracking/tracking_service.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:drift/drift.dart';
@@ -18,7 +18,6 @@ import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
-import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -56,7 +55,7 @@ api.BreizhBlokApiGenerated breizhBlokApi(Ref ref) {
 }
 
 @riverpod
-Mixpanel mixpanel(Ref ref) {
+Analytics analytics(Ref ref) {
   throw Exception();
 }
 
@@ -92,7 +91,7 @@ List<NavigatorObserver>? routerObservers(Ref ref) {
 
 @riverpod
 List<RouteBase> routerRoutes(Ref ref) {
-  return getRoutes(trackingService: ref.watch(trackingServiceProvider));
+  return getRoutes(analytics: ref.watch(analyticsProvider));
 }
 
 @riverpod
@@ -103,11 +102,6 @@ ShareContentService shareContentService(Ref ref) {
 @riverpod
 SharedPreferences sharedPreferences(Ref ref) {
   throw Exception();
-}
-
-@riverpod
-TrackingService trackingService(Ref ref) {
-  return TrackingService(mixpanel: ref.watch(mixpanelProvider));
 }
 
 @riverpod
