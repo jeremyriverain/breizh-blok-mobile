@@ -23,9 +23,11 @@ class LineBoulderImage extends ConsumerWidget {
 
     final image = Image(
       image: CachedNetworkImageProvider(
-        Uri.https(
-          Env.apiHost,
-          (lineBoulder.rockImage.filterUrl ?? '').replaceAll(
+        Uri(
+          scheme: 'https',
+          port: Env.apiPort,
+          host: Env.apiHost,
+          path: (lineBoulder.rockImage.filterUrl ?? '').replaceAll(
             '%filter%',
             'scale_md',
           ),

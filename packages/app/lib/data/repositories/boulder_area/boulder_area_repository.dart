@@ -15,7 +15,12 @@ class BoulderAreaRepository implements ApiRepositoryInterface<BoulderArea> {
   @override
   Future<BoulderArea> find(String id, {bool offlineFirst = false}) async {
     final response = await httpClient.get(
-      Uri.https(Env.apiHost, '/boulder_areas/$id'),
+      Uri(
+        port: Env.apiPort,
+        scheme: 'https',
+        host: Env.apiHost,
+        path: '/boulder_areas/$id',
+      ),
       offlineFirst: offlineFirst,
     );
 

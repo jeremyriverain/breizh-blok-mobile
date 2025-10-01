@@ -14,7 +14,12 @@ class MunicipalityRepository implements ApiRepositoryInterface<Municipality> {
   @override
   Future<Municipality> find(String id) async {
     final response = await httpClient.get(
-      Uri.https(Env.apiHost, '/municipalities/$id'),
+      Uri(
+        scheme: 'https',
+        port: Env.apiPort,
+        host: Env.apiHost,
+        path: '/municipalities/$id',
+      ),
     );
     return Municipality.fromJson(jsonDecode(response) as Map<String, dynamic>);
   }

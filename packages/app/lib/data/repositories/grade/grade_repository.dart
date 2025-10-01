@@ -22,7 +22,13 @@ class GradeRepository implements ApiRepositoryInterface<Grade> {
     final query = QueryParamFactory.stringify(queryParams: queryParams);
 
     final response = await httpClient.get(
-      Uri(scheme: 'https', host: Env.apiHost, path: 'grades', query: query),
+      Uri(
+        scheme: 'https',
+        port: Env.apiPort,
+        host: Env.apiHost,
+        path: 'grades',
+        query: query,
+      ),
       offlineFirst: true,
     );
     return compute(_parseGrades, response);
