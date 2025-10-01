@@ -17,7 +17,12 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
   @override
   Future<Boulder> find(String id) async {
     final response = await httpClient.get(
-      Uri.https(Env.apiHost, '/boulders/$id'),
+      Uri(
+        scheme: 'https',
+        port: Env.apiPort,
+        host: Env.apiHost,
+        path: '/boulders/$id',
+      ),
     );
 
     final json = jsonDecode(response);
@@ -32,7 +37,13 @@ class BoulderRepository implements ApiRepositoryInterface<Boulder> {
   }) async {
     final query = QueryParamFactory.stringify(queryParams: queryParams);
     final response = await httpClient.get(
-      Uri(scheme: 'https', host: Env.apiHost, path: '/boulders', query: query),
+      Uri(
+        scheme: 'https',
+        port: Env.apiPort,
+        host: Env.apiHost,
+        path: '/boulders',
+        query: query,
+      ),
       offlineFirst: offlineFirst,
       timeout: timeout ?? kRequestDefaultTimeout,
     );

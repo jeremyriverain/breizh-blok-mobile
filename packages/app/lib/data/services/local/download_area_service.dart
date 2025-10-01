@@ -79,7 +79,14 @@ class DownloadAreaService {
         final imageUrls = extractImages(bouldersRequest.responseBody);
 
         for (final pathImage in List<String>.from(imageUrls)) {
-          await removeImage(Uri.https(Env.apiHost, pathImage).toString());
+          await removeImage(
+            Uri(
+              scheme: 'https',
+              port: Env.apiPort,
+              host: Env.apiHost,
+              path: pathImage,
+            ).toString(),
+          );
         }
 
         deletions.add(
@@ -133,7 +140,14 @@ class DownloadAreaService {
       var downloadedImages = 0;
 
       for (final pathImage in List<String>.from(imageUrls)) {
-        await downloadImage(Uri.https(Env.apiHost, pathImage).toString());
+        await downloadImage(
+          Uri(
+            scheme: 'https',
+            port: Env.apiPort,
+            host: Env.apiHost,
+            path: pathImage,
+          ).toString(),
+        );
         downloadedImages++;
         await (database.update(
           database.dbBoulderAreas,
@@ -164,10 +178,14 @@ class DownloadAreaService {
   }
 
   Future<String> _fetchAllBoulders(BoulderArea boulderArea) async {
-    final uri = Uri.https(
-      Env.apiHost,
-      '/boulders',
-      DownloadAreaService.bouldersQueryParamsOf(boulderArea: boulderArea),
+    final uri = Uri(
+      scheme: 'https',
+      port: Env.apiPort,
+      host: Env.apiHost,
+      path: '/boulders',
+      queryParameters: DownloadAreaService.bouldersQueryParamsOf(
+        boulderArea: boulderArea,
+      ),
     );
     await httpClient.get(
       uri,
@@ -180,14 +198,25 @@ class DownloadAreaService {
 
   Future<String> _fetchBoulderAreaDetails(BoulderArea boulderArea) async {
     return httpClient.get(
-      Uri.https(Env.apiHost, boulderArea.iri),
+      Uri(
+        scheme: 'https',
+        port: Env.apiPort,
+        host: Env.apiHost,
+        path: boulderArea.iri,
+      ),
       offlineFirst: true,
     );
   }
 
   Future<String> _fetchGrades() async {
     return httpClient.get(
-      Uri.https(Env.apiHost, '/grades', GradeRepository.findAllQueryParams),
+      Uri(
+        scheme: 'https',
+        port: Env.apiPort,
+        host: Env.apiHost,
+        path: '/grades',
+        queryParameters: GradeRepository.findAllQueryParams,
+      ),
       offlineFirst: true,
     );
   }

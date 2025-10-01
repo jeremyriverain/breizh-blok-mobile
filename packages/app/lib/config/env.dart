@@ -7,6 +7,11 @@ abstract class Env {
   @EnviedField(varName: 'API_HOST')
   static const String apiHost = _Env.apiHost;
 
+  @EnviedField(
+    varName: 'API_PORT',
+  )
+  static const int apiPort = _Env.apiPort;
+
   @EnviedField(varName: 'SENTRY_DSN')
   static const String sentryDsn = _Env.sentryDsn;
 

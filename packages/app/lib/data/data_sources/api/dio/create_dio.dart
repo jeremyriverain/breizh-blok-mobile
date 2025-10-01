@@ -11,7 +11,11 @@ Dio _createBasicDio() {
       ConnectionManager(idleTimeout: const Duration(seconds: 10)),
     )
     ..options = BaseOptions(
-      baseUrl: Uri(scheme: 'https', host: Env.apiHost).origin,
+      baseUrl: Uri(
+        scheme: 'https',
+        host: Env.apiHost,
+        port: Env.apiPort,
+      ).origin,
     )
     ..interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true));
 }

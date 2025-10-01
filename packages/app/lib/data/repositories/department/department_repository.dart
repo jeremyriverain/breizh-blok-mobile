@@ -25,6 +25,7 @@ class DepartmentRepository implements ApiRepositoryInterface<Department> {
       Uri(
         scheme: 'https',
         host: Env.apiHost,
+        port: Env.apiPort,
         path: 'departments',
         query: query,
       ),

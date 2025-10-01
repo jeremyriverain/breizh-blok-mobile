@@ -23,7 +23,13 @@ class BoulderMarkerRepository {
       },
     );
     final response = await httpClient.get(
-      Uri(scheme: 'https', host: Env.apiHost, path: '/boulders', query: query),
+      Uri(
+        port: Env.apiPort,
+        scheme: 'https',
+        host: Env.apiHost,
+        path: '/boulders',
+        query: query,
+      ),
       headers: {'Accept': 'application/json'},
       timeout: const Duration(seconds: 10),
       offlineFirst: true,
@@ -40,7 +46,13 @@ class BoulderMarkerRepository {
       },
     );
     final response = await httpClient.get(
-      Uri(scheme: 'https', host: Env.apiHost, path: '/boulders', query: query),
+      Uri(
+        scheme: 'https',
+        port: Env.apiPort,
+        host: Env.apiHost,
+        path: '/boulders',
+        query: query,
+      ),
       headers: {'Accept': 'application/json'},
       timeout: const Duration(seconds: 10),
       offlineFirst: true,

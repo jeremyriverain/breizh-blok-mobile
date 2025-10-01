@@ -13,6 +13,8 @@ Install [FVM](https://fvm.app/).
 Define the following env variables:
 
 - `BREIZH_BLOK_API_HOST`
+- `BREIZH_BLOK_API_PORT`
+- `BREIZH_BLOK_API_SCHEME`
 - `BREIZH_BLOK_MIX_PANEL_TOKEN`
 - `BREIZH_BLOK_MAPBOX_TOKEN`
 - `BREIZH_BLOK_SENTRY_URL`
