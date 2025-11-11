@@ -12,6 +12,7 @@ workspace:
   - packages/app
   - packages/auth
   - packages/breizh_blok_api_generated
+  - packages/share_content
   - packages/url_launcher
 
 melos:
