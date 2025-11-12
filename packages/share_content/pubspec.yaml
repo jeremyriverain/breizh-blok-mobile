@@ -1,0 +1,25 @@
+name: breizh_blok_share_content
+publish_to: "none"
+version: 1.0.0
+
+resolution: workspace
+
+environment:
+  sdk: "^3.9.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fpdart: ^1.2.0
+  freezed_annotation: ^3.1.0
+  share_plus: ^11.1.0
+
+dev_dependencies:
+  breizh_blok_lint:
+  build_runner: ^2.7.1
+  flutter_test:
+    sdk: flutter
+  freezed: ^3.2.3
+  mocktail: ^1.0.4
+    
+flutter:

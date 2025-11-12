@@ -15,13 +15,13 @@ import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_r
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/service_locator/locale.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
-import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_tile.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
 import 'package:breizh_blok_mobile/ui/terms_of_use/view_models/terms_of_use_view_model.dart';
+import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
 import 'package:drift/drift.dart'
     show StringExpressionOperators, driftRuntimeOptions;
 import 'package:drift/native.dart';
@@ -30,12 +30,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -52,7 +52,7 @@ void main() async {
   final httpClient = ApiClient(database: database);
   final auth = MockAuth();
 
-  late ShareContentService shareContentService;
+  late ShareContent shareContent;
   late Analytics analytics;
   late SharedPreferences sharedPreferences;
 
@@ -65,12 +65,12 @@ void main() async {
   }
 
   setUp(() async {
-    shareContentService = MockShareContentService();
+    shareContent = MockShareContent();
     analytics = MockAnalytics();
 
-    when(() => shareContentService.share(any())).thenAnswer((_) async {
-      return const ShareResult('foo', ShareResultStatus.success);
-    });
+    when(() => shareContent.share(any())).thenReturn(
+      TaskEither.left(const ShareContentException.unknwown(message: 'foo')),
+    );
 
     when(
       () => analytics.trackPageViewed(
@@ -103,7 +103,7 @@ void main() async {
         overrides: [
           authProvider.overrideWith((_) => auth),
           appDatabaseProvider.overrideWith((_) => database),
-          shareContentServiceProvider.overrideWith((_) => shareContentService),
+          shareContentProvider.overrideWith((_) => shareContent),
           sharedPreferencesProvider.overrideWith((_) => sharedPreferences),
           myLocaleProvider.overrideWithBuild((_, _) => const Locale('fr')),
           analyticsProvider.overrideWith((_) => analytics),
@@ -286,7 +286,7 @@ void main() async {
     await tester.pumpAndSettle();
 
     verify(
-      () => shareContentService.share(
+      () => shareContent.share(
         any(
           that: isA<String>().having(
             (e) => e,
@@ -625,7 +625,7 @@ void main() async {
     await tester.pumpAndSettle();
 
     verify(
-      () => shareContentService.share(
+      () => shareContent.share(
         any(
           that: isA<String>().having(
             (e) => e,
@@ -698,7 +698,7 @@ void main() async {
       await tester.pumpAndSettle();
 
       verify(
-        () => shareContentService.share(
+        () => shareContent.share(
           any(
             that: isA<String>().having(
               (e) => e,

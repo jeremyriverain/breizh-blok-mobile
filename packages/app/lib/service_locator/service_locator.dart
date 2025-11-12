@@ -9,9 +9,8 @@ import 'package:breizh_blok_mobile/data/data_sources/api/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
-import 'package:breizh_blok_mobile/services/share_content/share_content_service.dart';
-import 'package:breizh_blok_mobile/services/share_content/share_content_service_impl.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
+import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -95,8 +94,8 @@ List<RouteBase> routerRoutes(Ref ref) {
 }
 
 @riverpod
-ShareContentService shareContentService(Ref ref) {
-  return ShareContentServiceImpl();
+ShareContent shareContent(Ref ref) {
+  return BreizhBlokShareContent.createShareContent();
 }
 
 @riverpod

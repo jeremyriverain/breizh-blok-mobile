@@ -1,29 +1,29 @@
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
-import 'package:breizh_blok_mobile/services/share_content/share_content_service_impl.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
+import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../mocks.dart';
 import '../../../widget_test_utils.dart';
 
 void main() {
-  late ShareContentServiceImpl shareContentService;
+  late ShareContent shareContentService;
 
   setUp(() {
-    shareContentService = MockShareContentService();
+    shareContentService = MockShareContent();
   });
   testWidgets('ShareButton', (tester) async {
-    when(() => shareContentService.share('foo')).thenAnswer(
-      (_) async => const ShareResult('foo', ShareResultStatus.success),
+    when(() => shareContentService.share('foo')).thenReturn(
+      TaskEither.right(ShareContentResult.success),
     );
 
     await tester.myPumpWidget(
       widget: const ShareButton(content: 'foo'),
       overrides: [
-        shareContentServiceProvider.overrideWith((_) => shareContentService),
+        shareContentProvider.overrideWith((_) => shareContentService),
       ],
     );
     await tester.pump();
