@@ -22,6 +22,7 @@ dependencies:
   breizh_blok_analytics:
   breizh_blok_api_generated:
   breizh_blok_auth:
+  breizh_blok_share_content:
   breizh_blok_url_launcher:
   cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8
@@ -57,7 +58,6 @@ dependencies:
   reactive_forms: ^18.1.1
   riverpod_annotation: ^3.0.0
   sentry_flutter: ^9.6.0
-  share_plus: ^11.1.0
   shared_preferences: ^2.5.3
   sqlite3_flutter_libs: ^0.5.39
   syncfusion_flutter_sliders: ^30.2.7
