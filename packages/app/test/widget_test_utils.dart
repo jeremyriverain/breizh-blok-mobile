@@ -33,6 +33,8 @@ extension WidgetTesterExtension on WidgetTester {
       ),
     ).thenReturn(() {}());
 
+    final upgrader = mockUpgrader();
+
     await pumpWidget(
       ProviderScope(
         overrides: [
@@ -57,6 +59,9 @@ extension WidgetTesterExtension on WidgetTester {
             myLocaleProvider.overrideWithBuild((_, _) => const Locale('fr')),
           analyticsProvider.overrideWith(
             (_) => analytics ?? mockAnalytics,
+          ),
+          upgraderProvider.overrideWith(
+            (_) => upgrader,
           ),
         ],
 

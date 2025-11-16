@@ -17,6 +17,7 @@ import 'package:breizh_blok_mobile/ui/core/widgets/widget_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:upgrader/upgrader.dart';
 
 class MyMaterialApp extends ConsumerWidget {
   const MyMaterialApp({super.key});
@@ -94,8 +95,14 @@ class MyMaterialApp extends ConsumerWidget {
                       AppLocalizations.localizationsDelegates,
                   supportedLocales: AppLocalizations.supportedLocales,
                   locale: ref.watch(myLocaleProvider),
-                  builder: (context, child) =>
-                      WidgetConfig(child: child ?? const SizedBox.shrink()),
+                  builder: (context, child) => WidgetConfig(
+                    child: UpgradeAlert(
+                      navigatorKey: router.routerDelegate.navigatorKey,
+                      upgrader: ref.watch(upgraderProvider),
+                      showReleaseNotes: false,
+                      child: child ?? const SizedBox.shrink(),
+                    ),
+                  ),
                 );
               },
             ),

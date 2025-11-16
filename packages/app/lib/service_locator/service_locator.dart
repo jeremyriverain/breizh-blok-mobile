@@ -22,6 +22,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:upgrader/upgrader.dart';
 
 part 'service_locator.g.dart';
 
@@ -106,4 +107,9 @@ SharedPreferences sharedPreferences(Ref ref) {
 @riverpod
 UrlLauncher urlLauncher(Ref ref) {
   return BreizhBlokUrlLauncher.createUrlLauncher();
+}
+
+@riverpod
+Upgrader upgrader(Ref ref) {
+  return Upgrader();
 }
