@@ -38,6 +38,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:upgrader/upgrader.dart';
 
 import '../test/mocks.dart';
 
@@ -55,6 +56,7 @@ void main() async {
   late ShareContent shareContent;
   late Analytics analytics;
   late SharedPreferences sharedPreferences;
+  late Upgrader upgrader;
 
   Future<void> clearDatabase(AppDatabase database) async {
     await database.transaction(() async {
@@ -67,6 +69,7 @@ void main() async {
   setUp(() async {
     shareContent = MockShareContent();
     analytics = MockAnalytics();
+    upgrader = mockUpgrader();
 
     when(() => shareContent.share(any())).thenReturn(
       TaskEither.left(const ShareContentException.unknwown(message: 'foo')),
@@ -107,6 +110,7 @@ void main() async {
           sharedPreferencesProvider.overrideWith((_) => sharedPreferences),
           myLocaleProvider.overrideWithBuild((_, _) => const Locale('fr')),
           analyticsProvider.overrideWith((_) => analytics),
+          upgraderProvider.overrideWith((_) => upgrader),
         ],
         child: const MyApp(),
       ),

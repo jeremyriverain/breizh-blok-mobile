@@ -15,14 +15,17 @@ import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_r
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Response;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart';
+import 'package:http/testing.dart';
 import 'package:location/location.dart';
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart' hide Response;
 import 'package:mocktail/mocktail.dart';
+import 'package:upgrader/upgrader.dart';
 
 class MockApiBoulderFeedbackDataSource extends Mock
     implements ApiBoulderFeedbackDataSource {}
@@ -89,4 +92,30 @@ class MockStyleManager extends Mock implements StyleManager {}
 
 class MockTitleMeta extends Mock implements TitleMeta {}
 
+class MockUpgrader extends Mock implements Upgrader {}
+
+class MockUpgraderStore extends Mock implements UpgraderStore {}
+
 class MockUrlLauncher extends Mock implements UrlLauncher {}
+
+Upgrader mockUpgrader() {
+  final Upgrader upgrader = MockUpgrader();
+
+  final upgraderState = UpgraderState(
+    client: MockClient((_) async => Response('', 404)),
+    upgraderOS: MockUpgraderOS(),
+  );
+
+  when(upgrader.initialize).thenAnswer((_) async => true);
+  when(() => upgrader.state).thenReturn(
+    upgraderState,
+  );
+
+  when(() => upgrader.stateStream).thenAnswer(
+    (_) => Stream.value(
+      upgraderState,
+    ),
+  );
+
+  return upgrader;
+}
