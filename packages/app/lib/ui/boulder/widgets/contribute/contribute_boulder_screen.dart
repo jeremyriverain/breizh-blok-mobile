@@ -6,6 +6,7 @@ import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedba
 import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_message_form_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_map_screen.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/clickable_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,7 @@ class ContributeBoulderScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
+          ClickableListTile(
             leading: const Icon(Icons.comment),
             title: Text(localizations.makeSuggestion),
             onTap: () async {
@@ -47,7 +48,7 @@ class ContributeBoulderScreen extends StatelessWidget {
           ),
           Consumer(
             builder: (context, ref, child) {
-              return ListTile(
+              return ClickableListTile(
                 leading: const Icon(Icons.place),
                 title: Text(localizations.specifyBoulderLocation),
                 onTap: () async {

@@ -54,7 +54,7 @@ jobs:
           echo "build-number: $build_number"
 
           shorebird release android \
-            --flutter-version=3.35.2 \
+            --flutter-version=3.38.2 \
             --build-number=$build_number -- \
             --obfuscate \
             --split-debug-info=symbols \

@@ -16,3 +16,5 @@
 **/*.freezed.dart
 
 */lcov.info
+
+build/
