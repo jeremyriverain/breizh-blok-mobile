@@ -8,7 +8,7 @@ environment:
   sdk: "^3.9.0"
 
 dependencies:
-  auth0_flutter: ^1.13.0
+  auth0_flutter: ^1.14.0
   flutter:
     sdk: flutter
   freezed_annotation: ^3.0.0
