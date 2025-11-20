@@ -10,6 +10,7 @@ import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dar
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/clickable_list_tile.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -49,13 +50,17 @@ class BoulderDetailsTab extends StatelessWidget {
             ),
           if (height != null) BoulderDetailsHeight(height: height),
           if (municipality != null)
-            ListTile(
-              title: Text(municipality.name),
-              leading: Text(AppLocalizations.of(context).municipality),
-              key: const Key('municipality-details-link'),
-              onTap: offlineFirst
-                  ? null
-                  : () async {
+            offlineFirst
+                ? ListTile(
+                    title: Text(municipality.name),
+                    leading: Text(AppLocalizations.of(context).municipality),
+                    key: const Key('municipality-details-link'),
+                  )
+                : ClickableListTile(
+                    title: Text(municipality.name),
+                    leading: Text(AppLocalizations.of(context).municipality),
+                    key: const Key('municipality-details-link'),
+                    onTap: () async {
                       await context.pushNamed(
                         MunicipalityDetailsScreen.route.name,
                         pathParameters: {
@@ -64,8 +69,8 @@ class BoulderDetailsTab extends StatelessWidget {
                         },
                       );
                     },
-            ),
-          ListTile(
+                  ),
+          ClickableListTile(
             title: Text(boulder.rock.boulderArea.name),
             leading: Text(AppLocalizations.of(context).boulderArea),
             key: const Key('boulder-area-details-link'),
@@ -100,10 +105,9 @@ class BoulderDetailsTab extends StatelessWidget {
                 ),
                 child: Builder(
                   builder: (parentContext) {
-                    return ListTile(
+                    return ClickableListTile(
                       leading: const Icon(Icons.feedback),
                       title: Text(localizations.contribute),
-                      trailing: const Icon(Icons.arrow_right_outlined),
                       onTap: () async {
                         await Navigator.push(
                           context,
