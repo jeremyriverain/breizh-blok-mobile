@@ -70,8 +70,8 @@ class MunicipalityMap extends StatelessWidget {
                   ),
                   action: SnackBarAction(
                     label: localizations.showDetails,
-                    onPressed: () {
-                      context.pushNamed(
+                    onPressed: () async {
+                      await context.pushNamed(
                         BoulderAreaDetailsScreen.route.name,
                         pathParameters: {
                           BoulderAreaDetailsScreen.idParameterName:

@@ -28,8 +28,8 @@ class ProfileScreen extends StatelessWidget {
           ListTile(
             title: Text(AppLocalizations.of(context).downloads),
             leading: const Icon(Icons.download_outlined),
-            onTap: () {
-              context.pushNamed(DownloadedBoulderAreasScreen.route.name);
+            onTap: () async {
+              await context.pushNamed(DownloadedBoulderAreasScreen.route.name);
             },
           ),
           LocaleSwitch(

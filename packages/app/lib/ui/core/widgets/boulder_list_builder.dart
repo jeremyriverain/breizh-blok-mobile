@@ -155,7 +155,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                         padding: const EdgeInsets.only(top: 8),
                         child: Column(
                           children: [
-                            if (topHeaderWidget != null) topHeaderWidget,
+                            ?topHeaderWidget,
                             Row(
                               children: [
                                 const BoulderListBuilderSortButton(),
@@ -173,7 +173,7 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                                 ),
                               ],
                             ),
-                            if (bottomHeaderWidget != null) bottomHeaderWidget,
+                            ?bottomHeaderWidget,
                             const SizedBox(height: 10),
                             tile,
                           ],
@@ -186,8 +186,8 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
               ),
               if (showBackToTopButton)
                 BoulderListBuilderBackToTopButton(
-                  onPressed: () {
-                    _scrollController.animateTo(
+                  onPressed: () async {
+                    await _scrollController.animateTo(
                       0,
                       duration: const Duration(milliseconds: 600),
                       curve: Curves.ease,

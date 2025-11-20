@@ -31,8 +31,8 @@ class NotFoundScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {
-                  context.push(BoulderListScreen.route.path);
+                onPressed: () async {
+                  await context.push(BoulderListScreen.route.path);
                 },
                 child: Text(AppLocalizations.of(context).goToHomepage),
               ),

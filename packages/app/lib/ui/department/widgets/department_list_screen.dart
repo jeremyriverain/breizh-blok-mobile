@@ -51,8 +51,8 @@ class DepartmentListScreen extends StatelessWidget {
                         (municipality) => ListTile(
                           title: Text(municipality.name),
                           trailing: const Icon(Icons.arrow_forward_ios),
-                          onTap: () {
-                            context.pushNamed(
+                          onTap: () async {
+                            await context.pushNamed(
                               MunicipalityDetailsScreen.route.name,
                               pathParameters: {
                                 MunicipalityDetailsScreen.idParameterName:

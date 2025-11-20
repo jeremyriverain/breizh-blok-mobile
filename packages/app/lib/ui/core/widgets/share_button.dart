@@ -17,8 +17,8 @@ class ShareButton extends StatelessWidget {
             Icons.share,
             semanticLabel: AppLocalizations.of(context).share,
           ),
-          onPressed: () {
-            ref.read(shareContentProvider).share(content).run();
+          onPressed: () async {
+            await ref.read(shareContentProvider).share(content).run();
           },
         );
       },

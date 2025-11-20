@@ -11,7 +11,7 @@ class TermsOfUseViewModel extends Bloc<TermsOfUseEvents, bool?> {
         case TermsOfUseAcceptanceRequested():
           _onTermsOfUseRequested(emit);
         case TermsOfUseAccepted():
-          _onTermsOfUseAccepted(emit);
+          await _onTermsOfUseAccepted(emit);
       }
     });
 
@@ -28,9 +28,9 @@ class TermsOfUseViewModel extends Bloc<TermsOfUseEvents, bool?> {
     } catch (_) {}
   }
 
-  void _onTermsOfUseAccepted(Emitter<bool?> emit) {
+  Future<void> _onTermsOfUseAccepted(Emitter<bool?> emit) async {
     emit(true);
-    preferences.setBool(termsOfUseAcceptanceKey, true);
+    await preferences.setBool(termsOfUseAcceptanceKey, true);
   }
 }
 

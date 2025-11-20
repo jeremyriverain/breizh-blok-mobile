@@ -32,8 +32,8 @@ class ContributeBoulderScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.comment),
             title: Text(localizations.makeSuggestion),
-            onTap: () {
-              Navigator.push(
+            onTap: () async {
+              await Navigator.push(
                 context,
                 MaterialPageRoute<void>(
                   builder: (_) =>
@@ -50,8 +50,8 @@ class ContributeBoulderScreen extends StatelessWidget {
               return ListTile(
                 leading: const Icon(Icons.place),
                 title: Text(localizations.specifyBoulderLocation),
-                onTap: () {
-                  Navigator.push(
+                onTap: () async {
+                  await Navigator.push(
                     context,
                     MaterialPageRoute<void>(
                       builder: (_) => ContributeBoulderMapScreen(

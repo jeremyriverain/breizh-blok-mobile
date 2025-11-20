@@ -22,9 +22,9 @@ class TermsOfUseDialog extends StatelessWidget {
           child: BlocListener<TermsOfUseViewModel, bool?>(
             listenWhen: (previous, hasAccepted) =>
                 hasAccepted == null || !hasAccepted,
-            listener: (context, hasAccepted) {
+            listener: (context, hasAccepted) async {
               if (hasAccepted != true) {
-                showDialog<void>(
+                await showDialog<void>(
                   barrierDismissible: false,
                   context: context,
                   builder: (BuildContext dialogContext) => AlertDialog.adaptive(

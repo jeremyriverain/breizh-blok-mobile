@@ -19,8 +19,8 @@ class MunicipalityDetailsBoulderAreaItem extends StatelessWidget {
       title: Text(boulderArea.name),
       subtitle: subtitle != null ? Text(subtitle) : null,
       trailing: const Icon(Icons.arrow_forward_ios),
-      onTap: () {
-        context.pushNamed(
+      onTap: () async {
+        await context.pushNamed(
           BoulderAreaDetailsScreen.route.name,
           pathParameters: {
             BoulderAreaDetailsScreen.idParameterName: boulderArea.iri

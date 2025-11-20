@@ -55,8 +55,8 @@ class BoulderDetailsTab extends StatelessWidget {
               key: const Key('municipality-details-link'),
               onTap: offlineFirst
                   ? null
-                  : () {
-                      context.pushNamed(
+                  : () async {
+                      await context.pushNamed(
                         MunicipalityDetailsScreen.route.name,
                         pathParameters: {
                           MunicipalityDetailsScreen.idParameterName:
@@ -69,11 +69,11 @@ class BoulderDetailsTab extends StatelessWidget {
             title: Text(boulder.rock.boulderArea.name),
             leading: Text(AppLocalizations.of(context).boulderArea),
             key: const Key('boulder-area-details-link'),
-            onTap: () {
+            onTap: () async {
               final routeName = offlineFirst
                   ? DownloadedBoulderAreaDetailsScreen.route.name
                   : BoulderAreaDetailsScreen.route.name;
-              context.pushNamed(
+              await context.pushNamed(
                 routeName,
                 pathParameters: {
                   offlineFirst
@@ -104,8 +104,8 @@ class BoulderDetailsTab extends StatelessWidget {
                       leading: const Icon(Icons.feedback),
                       title: Text(localizations.contribute),
                       trailing: const Icon(Icons.arrow_right_outlined),
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        await Navigator.push(
                           context,
                           MaterialPageRoute<void>(
                             builder: (context) =>

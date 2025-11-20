@@ -32,12 +32,14 @@ class LocaleSwitch extends StatelessWidget {
             ),
             label: Text(AppLocalizations.of(context).language),
             initialSelection: currentLocale,
-            onSelected: (String? newValue) {
+            onSelected: (String? newValue) async {
               if (newValue == null) {
                 return;
               }
 
-              ref.read(myLocaleProvider.notifier).setLocale(Locale(newValue));
+              await ref
+                  .read(myLocaleProvider.notifier)
+                  .setLocale(Locale(newValue));
             },
             leadingIcon: Row(
               mainAxisSize: MainAxisSize.min,

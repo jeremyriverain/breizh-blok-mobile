@@ -17,12 +17,12 @@ class BoulderDetailsAssociatedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           final offlineFirst = context.read<RequestStrategy>().offlineFirst;
           final routeName = offlineFirst
               ? DownloadedBoulderDetailsScreen.route.name
               : BoulderDetailsScreen.route.name;
-          context.pushNamed(
+          await context.pushNamed(
             routeName,
             pathParameters: {
               offlineFirst
