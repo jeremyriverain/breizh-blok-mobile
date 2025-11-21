@@ -1,5 +1,6 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/clickable_list_tile.dart';
 import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_areas_screen.dart';
 import 'package:breizh_blok_mobile/ui/locale/widgets/locale_switch.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
+          ClickableListTile(
             title: Text(AppLocalizations.of(context).downloads),
             leading: const Icon(Icons.download_outlined),
             onTap: () async {
