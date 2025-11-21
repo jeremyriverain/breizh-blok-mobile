@@ -11,14 +11,14 @@ dependencies:
   auth0_flutter: ^1.14.0
   flutter:
     sdk: flutter
-  freezed_annotation: ^3.0.0
+  freezed_annotation: ^3.1.0
 
 dev_dependencies:
   breizh_blok_lint:
-  build_runner: ^2.5.0
+  build_runner: ^2.10.4
   flutter_test:
     sdk: flutter
-  freezed: ^3.0.6
+  freezed: ^3.2.3
   mocktail: ^1.0.4
 
 flutter:
