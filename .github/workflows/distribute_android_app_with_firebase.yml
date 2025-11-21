@@ -14,11 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🐦 Setup Shorebird
-        uses: shorebirdtech/setup-shorebird@v1
-        with:
-          cache: true
-
       - uses: "google-github-actions/auth@v2"
         with:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID_RELEASE }}
@@ -53,9 +48,8 @@ jobs:
           build_number="$(date +%s)"
           echo "build-number: $build_number"
 
-          shorebird release android \
-            --flutter-version=3.35.2 \
-            --build-number=$build_number -- \
+          flutter build appbundle \
+            --build-number=$build_number \
             --obfuscate \
             --split-debug-info=symbols \
             --extra-gen-snapshot-options=--save-obfuscation-map=obfuscation.map.json

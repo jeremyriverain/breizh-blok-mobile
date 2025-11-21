@@ -94,8 +94,8 @@ class DownloadedBoulderAreasScreen extends StatelessWidget {
                                         trailing: const Icon(
                                           Icons.arrow_forward_ios,
                                         ),
-                                        onTap: () {
-                                          context.pushNamed(
+                                        onTap: () async {
+                                          await context.pushNamed(
                                             DownloadedBoulderAreaDetailsScreen
                                                 .route
                                                 .name,

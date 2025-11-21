@@ -14,3 +14,7 @@
 **/*.mocks.dart
 **/*.g.dart
 **/*.freezed.dart
+
+*/lcov.info
+
+build/

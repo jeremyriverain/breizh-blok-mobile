@@ -1,5 +1,6 @@
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/clickable_list_tile.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/error_indicator.dart';
 import 'package:breizh_blok_mobile/ui/department/view_models/list_departments_view_model.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
@@ -48,11 +49,10 @@ class DepartmentListScreen extends StatelessWidget {
                         ),
                       ),
                       ...department.municipalities.map(
-                        (municipality) => ListTile(
+                        (municipality) => ClickableListTile(
                           title: Text(municipality.name),
-                          trailing: const Icon(Icons.arrow_forward_ios),
-                          onTap: () {
-                            context.pushNamed(
+                          onTap: () async {
+                            await context.pushNamed(
                               MunicipalityDetailsScreen.route.name,
                               pathParameters: {
                                 MunicipalityDetailsScreen.idParameterName:

@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';

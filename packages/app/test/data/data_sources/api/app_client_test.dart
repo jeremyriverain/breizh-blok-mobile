@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';

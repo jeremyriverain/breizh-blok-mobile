@@ -20,7 +20,7 @@ class BoulderDetailsLineBoulders extends StatelessWidget {
             (entry) => Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: InkWell(
-                onTap: () => {_open(context, entry.key)},
+                onTap: () async => _open(context, entry.key),
                 child: LineBoulderImage(lineBoulder: entry.value),
               ),
             ),
@@ -29,8 +29,8 @@ class BoulderDetailsLineBoulders extends StatelessWidget {
     );
   }
 
-  void _open(BuildContext context, int index) {
-    Navigator.push(
+  Future<void> _open(BuildContext context, int index) async {
+    await Navigator.push(
       context,
       MaterialPageRoute<_GalleryPhotoViewWrapper>(
         builder: (context) => _GalleryPhotoViewWrapper(

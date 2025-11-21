@@ -25,12 +25,12 @@ class BoulderListBuilderTile extends StatelessWidget {
     return Semantics(
       label: 'Voir le détail du bloc "${boulder.name}"',
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           final offlineFirst = context.read<RequestStrategy>().offlineFirst;
           final routeName = offlineFirst
               ? DownloadedBoulderDetailsScreen.route.name
               : BoulderDetailsScreen.route.name;
-          context.pushNamed(
+          await context.pushNamed(
             routeName,
             pathParameters: {
               offlineFirst

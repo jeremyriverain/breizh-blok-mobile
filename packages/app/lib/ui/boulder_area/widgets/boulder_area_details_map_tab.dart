@@ -95,8 +95,8 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                           pointAnnotationOptions,
                         );
                         pointAnnotationManager.tapEvents(
-                          onTap: (annotation) {
-                            state.onClickParking?.call(context);
+                          onTap: (annotation) async {
+                            await state.onClickParking?.call(context);
                           },
                         );
                       }

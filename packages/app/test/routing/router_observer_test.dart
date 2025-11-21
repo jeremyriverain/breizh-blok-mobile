@@ -35,8 +35,8 @@ void main() {
                 children: [
                   ElevatedButton(
                     child: const Text('go to bar'),
-                    onPressed: () {
-                      context.push('/bar');
+                    onPressed: () async {
+                      await context.push('/bar');
                     },
                   ),
                 ],

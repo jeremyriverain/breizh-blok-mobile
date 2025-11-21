@@ -16,7 +16,7 @@ dependencies:
 
 dev_dependencies:
   breizh_blok_lint:
-  build_runner: ^2.7.1
+  build_runner: ^2.10.4
   flutter_test:
     sdk: flutter
   freezed: ^3.2.3

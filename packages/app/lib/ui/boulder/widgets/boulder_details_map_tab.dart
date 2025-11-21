@@ -70,8 +70,8 @@ class _BoulderDetailsMapTabState extends State<BoulderDetailsMapTab>
 
                     await pointAnnotationManager.create(pointAnnotationOptions);
                     pointAnnotationManager.tapEvents(
-                      onTap: (annotation) {
-                        state.onClickMarker?.call(context);
+                      onTap: (annotation) async {
+                        await state.onClickMarker?.call(context);
                       },
                     );
                   },

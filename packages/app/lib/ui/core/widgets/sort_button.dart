@@ -42,8 +42,8 @@ class _SortButtonState extends State<SortButton> {
           Text(AppLocalizations.of(context).sort),
         ],
       ),
-      onPressed: () {
-        showDialog<void>(
+      onPressed: () async {
+        await showDialog<void>(
           context: context,
           builder: (dialogContext) => AlertDialog(
             alignment: Alignment.topCenter,

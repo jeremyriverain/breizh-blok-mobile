@@ -19,8 +19,8 @@ void main() {
             return switch (state) {
               BoulderMapIdle() => const CircularProgressIndicator(),
               BoulderMapOK() => ElevatedButton(
-                onPressed: () {
-                  state.onClickMarker?.call(context);
+                onPressed: () async {
+                  await state.onClickMarker?.call(context);
                 },
                 child: const Text('open maps'),
               ),

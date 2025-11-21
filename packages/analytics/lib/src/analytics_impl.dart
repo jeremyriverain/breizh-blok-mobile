@@ -29,6 +29,6 @@ class AnalyticsImpl implements Analytics {
           stackTrace: stackTrace,
         );
       },
-    ).run();
+    ).run().ignore();
   }
 }

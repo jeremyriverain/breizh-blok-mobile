@@ -21,8 +21,8 @@ class BoulderListBuilderFilterButton extends StatelessWidget {
               Text(AppLocalizations.of(context).filter),
             ],
           ),
-          onPressed: () {
-            showModalBottomSheet<void>(
+          onPressed: () async {
+            await showModalBottomSheet<void>(
               isScrollControlled: true,
               context: context,
               builder: (context) {
