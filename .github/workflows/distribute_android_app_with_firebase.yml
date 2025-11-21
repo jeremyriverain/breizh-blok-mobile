@@ -49,7 +49,7 @@ jobs:
           echo "build-number: $build_number"
 
           flutter build appbundle \
-            --build-number=$build_number -- \
+            --build-number=$build_number \
             --obfuscate \
             --split-debug-info=symbols \
             --extra-gen-snapshot-options=--save-obfuscation-map=obfuscation.map.json
