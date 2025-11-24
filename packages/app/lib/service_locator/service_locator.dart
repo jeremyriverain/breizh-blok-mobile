@@ -15,6 +15,7 @@ import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
 import 'package:path/path.dart' as p;
@@ -57,6 +58,11 @@ api.BreizhBlokApiGenerated breizhBlokApi(Ref ref) {
 @riverpod
 Analytics analytics(Ref ref) {
   throw Exception();
+}
+
+@riverpod
+String? flavor(Ref ref) {
+  return appFlavor;
 }
 
 @riverpod

@@ -70,6 +70,7 @@ jobs:
 
           flutter build ipa \
             --verbose \
+            --flavor prod \
             --build-number=$build_number \
             --release \
             --export-options-plist=ios/buildInfo.plist \

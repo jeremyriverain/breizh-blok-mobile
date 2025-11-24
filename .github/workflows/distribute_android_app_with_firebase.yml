@@ -49,6 +49,7 @@ jobs:
           echo "build-number: $build_number"
 
           flutter build appbundle \
+            --flavor prod \
             --build-number=$build_number \
             --obfuscate \
             --split-debug-info=symbols \
@@ -60,7 +61,7 @@ jobs:
       - name: Distribute App with Firebase App Distribution
         run: |
           cd packages/app
-          firebase appdistribution:distribute build/app/outputs/bundle/release/app-release.aab --app ${{ secrets.FIREBASE_ANDROID_APP_ID }} --groups me
+          firebase appdistribution:distribute build/app/outputs/bundle/prodRelease/app-prod-release.aab --app ${{ secrets.FIREBASE_ANDROID_APP_ID }} --groups me
 
       - name: Sentry upload debug symbols
         env:

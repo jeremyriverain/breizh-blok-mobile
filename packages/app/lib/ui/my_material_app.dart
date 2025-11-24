@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/config/flavors.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
@@ -86,6 +87,7 @@ class MyMaterialApp extends ConsumerWidget {
                   routeInformationProvider: router.routeInformationProvider,
                   routeInformationParser: router.routeInformationParser,
                   routerDelegate: router.routerDelegate,
+
                   theme: ThemeData(
                     useMaterial3: true,
                     colorSchemeSeed: Colors.pink,
@@ -95,14 +97,25 @@ class MyMaterialApp extends ConsumerWidget {
                       AppLocalizations.localizationsDelegates,
                   supportedLocales: AppLocalizations.supportedLocales,
                   locale: ref.watch(myLocaleProvider),
-                  builder: (context, child) => WidgetConfig(
-                    child: UpgradeAlert(
-                      navigatorKey: router.routerDelegate.navigatorKey,
-                      upgrader: ref.watch(upgraderProvider),
-                      showReleaseNotes: false,
-                      child: child ?? const SizedBox.shrink(),
-                    ),
-                  ),
+                  builder: (context, child) {
+                    final widget = WidgetConfig(
+                      child: UpgradeAlert(
+                        navigatorKey: router.routerDelegate.navigatorKey,
+                        upgrader: ref.watch(upgraderProvider),
+                        showReleaseNotes: false,
+                        child: child ?? const SizedBox.shrink(),
+                      ),
+                    );
+
+                    final flavor = ref.watch(flavorProvider);
+                    return flavor != null && flavor == Flavors.staging.name
+                        ? Banner(
+                            message: flavor,
+                            location: BannerLocation.topStart,
+                            child: widget,
+                          )
+                        : widget;
+                  },
                 );
               },
             ),
