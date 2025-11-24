@@ -75,6 +75,29 @@ android {
         getByName("release") {
             signingConfig = signingConfigs.getByName("release")
         }
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+
+    flavorDimensions += "default"
+    productFlavors {
+        create("staging") {
+            dimension = "default"
+            applicationIdSuffix = ".staging"
+            resValue(
+                type = "string",
+                name = "app_name",
+                value = "Staging Breizh Blok")
+        }
+        create("prod") {
+            dimension = "default"
+            applicationIdSuffix = ""
+            resValue(
+                type = "string",
+                name = "app_name",
+                value = "Breizh Blok")
+        }
     }
 }
 

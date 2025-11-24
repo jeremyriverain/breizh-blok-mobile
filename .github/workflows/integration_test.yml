@@ -56,7 +56,7 @@ jobs:
           cd packages/app
           gcloud firebase test android models list
           gcloud firebase test android run \
-            --app build/app/outputs/apk/debug/app-debug.apk \
+            --app build/app/outputs/flutter-apk/app-staging-debug.apk \
             --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
             --timeout 10m \
             --device "model=shiba,version=34"
