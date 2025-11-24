@@ -54,12 +54,10 @@ jobs:
       - name: Run Tests in Firebase Test Lab
         run: |
           cd packages/app
-          ls -a build/app/outputs/
-          ls -a build/app/outputs/apk/
-          ls -a build/app/outputs/flutter-apk/
+          ls -a build/app/outputs/apk/androidTest
           gcloud firebase test android models list
           gcloud firebase test android run \
             --app build/app/outputs/flutter-apk/app-staging-debug.apk \
-            --test build/app/outputs/flutter-apk/androidTest/debug/app-debug-androidTest.apk \
+            --test build/app/outputs/apk/androidTest/staging/app-debug-androidTest.apk \
             --timeout 10m \
             --device "model=shiba,version=34"
