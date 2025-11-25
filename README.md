@@ -23,6 +23,15 @@ fvm dart run melos bs
 fvm dart run melos run build_runner
 ```
 
+Next, generate the Firebase configuration files:
+
+```bash
+cd packages/app
+./scripts/firebase-configure.sh --staging-project=foo --prod-project=bar
+```
+
+Replace `foo` and `bar` with the Firebase project IDs.
+
 ## Usage
 
 ### Launch the app in debug mode

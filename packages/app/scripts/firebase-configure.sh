@@ -9,21 +9,21 @@ do
 case $i in
     --staging-project=*)
     STAGING_PROJECT="${i#*=}"
-    shift # past argument=value
+    shift
     ;;
     --prod-project=*)
     PROD_PROJECT="${i#*=}"
-    shift # past argument=value
+    shift
     ;;
     *)
-          # unknown option
+    # unknown option
     ;;
 esac
 done
 
 if [ -z "$STAGING_PROJECT" ] || [ -z "$PROD_PROJECT" ]
 then
-      echo "Usage: ./scripts/flutterfire-config.sh --staging-project=<staging_project_id> --prod-project=<prod_project_id>"
+      echo "Usage: ./scripts/firebase-config.sh --staging-project=<staging_project_id> --prod-project=<prod_project_id>"
       exit 1
 fi
 
@@ -32,7 +32,7 @@ fvm dart pub global activate flutterfire_cli
 fvm dart pub global run flutterfire_cli:flutterfire configure \
       --yes \
       --platforms=android,ios \
-      --project=$STAGING_PROJECT \
+      --project="$STAGING_PROJECT" \
       --out=lib/firebase_options_staging.dart \
       --ios-bundle-id=fr.geekco.boulders.staging \
       --ios-out=ios/flavors/staging/GoogleService-Info.plist \
@@ -44,7 +44,7 @@ fvm dart pub global run flutterfire_cli:flutterfire configure \
 fvm dart pub global run flutterfire_cli:flutterfire configure \
       --yes \
       --platforms=android,ios \
-      --project=$PROD_PROJECT \
+      --project="$PROD_PROJECT" \
       --out=lib/firebase_options_prod.dart \
       --ios-bundle-id=fr.geekco.boulders \
       --ios-out=ios/flavors/prod/GoogleService-Info.plist \
