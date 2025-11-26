@@ -11,11 +11,34 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: ./.github/actions/install
+
+      - uses: "google-github-actions/auth@v2"
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID_TEST }}
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_TEST }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_TEST }}
+
+      - uses: ./.github/actions/configure-firebase
+        with:
+          flavor: staging
+
+      - uses: "google-github-actions/auth@v2"
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID_RELEASE }}
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_RELEASE }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_RELEASE }}
+
+      - uses: ./.github/actions/configure-firebase
+        with:
+          flavor: prod
 
       - name: Build runner
         env:

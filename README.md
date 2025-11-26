@@ -23,12 +23,22 @@ fvm dart run melos bs
 fvm dart run melos run build_runner
 ```
 
+Next, generate the Firebase configuration files:
+
+```bash
+cd packages/app
+
+fvm dart pub global activate flutterfire_cli
+fvm dart pub global run flutterfire_cli:flutterfire configure $(fvm dart run scripts/configure_firebase.dart --flavor staging)
+fvm dart pub global run flutterfire_cli:flutterfire configure $(fvm dart run scripts/configure_firebase.dart --flavor prod)
+```
+
 ## Usage
 
 ### Launch the app in debug mode
 
 ```bash
-fvm dart run melos exec --scope="breizh_blok_mobile" -- fvm flutter run --debug
+fvm dart run melos exec --scope="breizh_blok_mobile" -- fvm flutter run --debug -t lib/main_staging.dart
 ```
 
 ### Run the static analysis

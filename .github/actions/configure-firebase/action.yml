@@ -1,0 +1,19 @@
+name: "Configure Firebase"
+description: "Install and configure firebase for a given flavor"
+
+inputs:
+  flavor:
+    description: "the flavor to configure (staging or prod)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure firebase
+      shell: bash
+      run: |
+        set -e
+        cd packages/app
+        dart pub global activate flutterfire_cli
+        curl -sL https://firebase.tools | bash
+        flutterfire configure $(dart run scripts/configure_firebase.dart --flavor ${{ inputs.flavor }})

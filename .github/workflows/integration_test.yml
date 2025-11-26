@@ -14,13 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - uses: ./.github/actions/install
+
       - uses: "google-github-actions/auth@v2"
         with:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID_TEST }}
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_TEST }}
           service_account: ${{ secrets.SERVICE_ACCOUNT_TEST }}
 
-      - uses: ./.github/actions/install
+      - uses: ./.github/actions/configure-firebase
+        with:
+          flavor: staging
 
       - name: Build runner
         env:
@@ -44,6 +48,27 @@ jobs:
           echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
           cd packages/app/android
           flutter build apk --debug
+
+      - name: Create dummy google-services.json
+        run: |
+            echo '{
+              "project_info": {
+                "project_number": "000000000000",
+                "project_id": "dummy-project",
+                "storage_bucket": "dummy.appspot.com"
+              },
+              "client": [
+                {
+                  "client_info": {
+                    "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+                    "android_client_info": {
+                      "package_name": "fr.geekco.boulders"
+                    }
+                  },
+                  "api_key": [ { "current_key": "dummy-api-key" } ]
+                }
+              ]
+            }' > packages/app/android/app/google-services.json
       - name: Create debug and test APKa
         run: |
           cd packages/app/android
