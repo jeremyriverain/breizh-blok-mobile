@@ -48,12 +48,33 @@ jobs:
           echo "${{ secrets.ANDROID_KEYSTORE_FILE }}" | base64 -d > $SIGNING_STORE_PATH
           cd packages/app/android
           flutter build apk --debug
+
+      - name: Create dummy google-services.json
+        run: |
+            echo '{
+              "project_info": {
+                "project_number": "000000000000",
+                "project_id": "dummy-project",
+                "storage_bucket": "dummy.appspot.com"
+              },
+              "client": [
+                {
+                  "client_info": {
+                    "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+                    "android_client_info": {
+                      "package_name": "fr.geekco.boulders"
+                    }
+                  },
+                  "api_key": [ { "current_key": "dummy-api-key" } ]
+                }
+              ]
+            }' > packages/app/android/app/google-services.json
       - name: Create debug and test APKa
         run: |
           cd packages/app/android
           ./gradlew app:assembleAndroidTest
 
-          ./gradlew assembleStagingDebug --configure-on-demand -Ptarget="$GITHUB_WORKSPACE/packages/app/integration_test/all_test.dart"
+          ./gradlew assembleDebug -Ptarget="$GITHUB_WORKSPACE/packages/app/integration_test/all_test.dart"
 
       - name: Run Tests in Firebase Test Lab
         run: |
