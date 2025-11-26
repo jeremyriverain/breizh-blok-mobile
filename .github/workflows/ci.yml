@@ -32,6 +32,7 @@ jobs:
           set -e
           cd packages/app
           dart pub global activate flutterfire_cli
+          curl -sL https://firebase.tools | bash
           flutterfire configure $(dart run scripts/configure_firebase.dart --flavor staging)
 
       - name: Build runner
