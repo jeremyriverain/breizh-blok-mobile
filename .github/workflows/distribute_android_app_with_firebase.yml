@@ -54,6 +54,7 @@ jobs:
 
           flutter build appbundle \
             --flavor prod \
+            --target lib/main_prod.dart \
             --build-number=$build_number \
             --obfuscate \
             --split-debug-info=symbols \

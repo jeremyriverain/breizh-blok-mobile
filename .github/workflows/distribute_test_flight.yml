@@ -81,6 +81,7 @@ jobs:
           flutter build ipa \
             --verbose \
             --flavor prod \
+            --target lib/main_prod.dart \
             --build-number=$build_number \
             --release \
             --export-options-plist=ios/buildInfo.plist \
