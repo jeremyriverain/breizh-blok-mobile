@@ -30,9 +30,3 @@ runs:
     - name: Install dependencies
       run: dart run melos bs
       shell: bash
-    - name: Configure firebase
-      shell: bash
-      run: |
-        set -e
-        cd packages/app
-        ./scripts/firebase-configure.sh --staging-project=foo --prod-project=bar > /dev/null

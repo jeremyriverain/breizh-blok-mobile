@@ -65,6 +65,7 @@ dependencies:
   upgrader: ^12.3.0
 
 dev_dependencies:
+  args: ^2.7.0
   bloc_test: ^10.0.0
   breizh_blok_lint:
   build_runner: ^2.10.4

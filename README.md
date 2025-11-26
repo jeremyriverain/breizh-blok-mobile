@@ -27,10 +27,10 @@ Next, generate the Firebase configuration files:
 
 ```bash
 cd packages/app
-./scripts/firebase-configure.sh --staging-project=foo --prod-project=bar
-```
 
-Replace `foo` and `bar` with the Firebase project IDs.
+fvm dart pub global activate flutterfire_cli
+fvm dart pub global run flutterfire_cli:flutterfire configure $(fvm dart run scripts/configure_firebase.dart --flavor staging)
+```
 
 ## Usage
 

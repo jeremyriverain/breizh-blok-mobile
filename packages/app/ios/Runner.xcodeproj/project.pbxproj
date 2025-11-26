@@ -160,7 +160,7 @@
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				ED698C77A13E8C0B32D397AD /* [CP] Embed Pods Frameworks */,
 				7AE0B081E561552103227A4A /* [CP] Copy Pods Resources */,
-				BC1C3599C4FBF6B1C3624A85 /* FlutterFire: "flutterfire bundle-service-file" */,
+				E419A593F0348872931C44BF /* FlutterFire: "flutterfire bundle-service-file" */,
 			);
 			buildRules = (
 			);
@@ -290,7 +290,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BC1C3599C4FBF6B1C3624A85 /* FlutterFire: "flutterfire bundle-service-file" */ = {
+		E419A593F0348872931C44BF /* FlutterFire: "flutterfire bundle-service-file" */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
