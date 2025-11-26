@@ -30,6 +30,7 @@ cd packages/app
 
 fvm dart pub global activate flutterfire_cli
 fvm dart pub global run flutterfire_cli:flutterfire configure $(fvm dart run scripts/configure_firebase.dart --flavor staging)
+fvm dart pub global run flutterfire_cli:flutterfire configure $(fvm dart run scripts/configure_firebase.dart --flavor prod)
 ```
 
 ## Usage
