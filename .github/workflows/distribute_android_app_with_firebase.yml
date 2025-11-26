@@ -14,13 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - uses: ./.github/actions/install
+
       - uses: "google-github-actions/auth@v2"
         with:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID_RELEASE }}
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_RELEASE }}
           service_account: ${{ secrets.SERVICE_ACCOUNT_RELEASE }}
-
-      - uses: ./.github/actions/install
 
       - uses: ./.github/actions/configure-firebase
         with:

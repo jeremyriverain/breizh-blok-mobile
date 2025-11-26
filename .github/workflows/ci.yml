@@ -18,6 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: ./.github/actions/install
+
       - uses: "google-github-actions/auth@v2"
         with:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID_TEST }}
@@ -37,8 +39,6 @@ jobs:
       - uses: ./.github/actions/configure-firebase
         with:
           flavor: prod
-
-      - uses: ./.github/actions/install
 
       - name: Build runner
         env:
