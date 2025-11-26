@@ -26,14 +26,9 @@ jobs:
 
       - uses: ./.github/actions/install
 
-      - name: Configure firebase
-        shell: bash
-        run: |
-          set -e
-          cd packages/app
-          dart pub global activate flutterfire_cli
-          curl -sL https://firebase.tools | bash
-          flutterfire configure $(dart run scripts/configure_firebase.dart --flavor staging)
+      - uses: ./.github/actions/configure-firebase
+        with:
+          flavor: staging
 
       - name: Build runner
         env:

@@ -22,6 +22,10 @@ jobs:
 
       - uses: ./.github/actions/install
 
+      - uses: ./.github/actions/configure-firebase
+        with:
+          flavor: prod
+
       - name: Build runner
         env:
           BREIZH_BLOK_API_HOST: ${{secrets.BREIZH_BLOK_API_HOST_RELEASE}}
