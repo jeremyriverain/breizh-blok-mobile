@@ -1,10 +1,17 @@
 {
   "configurations": [
     {
-      "name": "Flutter Dev",
+      "name": "Flutter Debug Staging",
       "request": "launch",
       "type": "dart",
       "program": "packages/app/lib/main.dart"
+    },
+    {
+      "name": "Flutter Debug Prod",
+      "request": "launch",
+      "type": "dart",
+      "program": "packages/app/lib/main.dart",
+      "args": ["--flavor", "prod"]
     }
   ]
 }
