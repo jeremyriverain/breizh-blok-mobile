@@ -24,11 +24,21 @@ jobs:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_TEST }}
           service_account: ${{ secrets.SERVICE_ACCOUNT_TEST }}
 
-      - uses: ./.github/actions/install
-
       - uses: ./.github/actions/configure-firebase
         with:
           flavor: staging
+
+      - uses: "google-github-actions/auth@v2"
+        with:
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID_RELEASE }}
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_RELEASE }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_RELEASE }}
+
+      - uses: ./.github/actions/configure-firebase
+        with:
+          flavor: prod
+
+      - uses: ./.github/actions/install
 
       - name: Build runner
         env:
