@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,19 +18,17 @@ RemoteConfigSettings remoteConfigSettings(Ref ref) {
 }
 
 @riverpod
-Future<void> initializeFirebase(Ref ref) async {
+Future<bool?> initializeFirebase(Ref ref) async {
   final remoteConfig = ref.watch(firebaseRemoteConfigProvider);
   await remoteConfig.setConfigSettings(
     ref.watch(remoteConfigSettingsProvider),
   );
 
-  await remoteConfig.fetchAndActivate();
-
-  final subscription = remoteConfig.onConfigUpdated.listen((event) async {
-    await remoteConfig.activate();
-  });
+  final subscription = remoteConfig.onConfigUpdated.listen((event) async {});
 
   ref.onDispose(subscription.cancel);
 
-  return;
+  remoteConfig.fetch().ignore();
+
+  return remoteConfig.activate();
 }
