@@ -34,7 +34,11 @@ Then it shows the child widget properly''',
       (tester) async {
         await tester.pumpWidget(
           ProviderScope(
-            overrides: [initializeFirebaseProvider.overrideWith((_) {})],
+            overrides: [
+              initializeFirebaseProvider.overrideWith((_) {
+                return null;
+              }),
+            ],
             child: const MyApp(child: Placeholder()),
           ),
         );
@@ -55,6 +59,7 @@ Then it displays SplashScreen''',
             overrides: [
               initializeFirebaseProvider.overrideWith((_) async {
                 await Future<void>.delayed(const Duration(seconds: 1));
+                return null;
               }),
             ],
             child: const MyApp(child: Placeholder()),
