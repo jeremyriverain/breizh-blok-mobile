@@ -16,6 +16,7 @@ import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_reposito
 import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:dio/dio.dart' hide Response;
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -37,6 +38,9 @@ class MockAppDatabase extends Mock implements AppDatabase {}
 class MockAuth extends Mock implements Auth {}
 
 class MockBoulderAreaRepository extends Mock implements BoulderAreaRepository {}
+
+class MockBoulderFeedbackRepository extends Mock
+    implements BoulderFeedbackRepository {}
 
 class MockBoulderRepository extends Mock implements BoulderRepository {}
 
@@ -61,8 +65,7 @@ class MockDownloadedBoulderRepository extends Mock
 class MockErrorInterceptorHandler extends Mock
     implements ErrorInterceptorHandler {}
 
-class MockBoulderFeedbackRepository extends Mock
-    implements BoulderFeedbackRepository {}
+class MockFirebaseRemoteConfig extends Mock implements FirebaseRemoteConfig {}
 
 class MockImageBoulderCache extends Mock implements ImageBoulderCache {}
 
