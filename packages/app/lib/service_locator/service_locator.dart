@@ -4,11 +4,13 @@ import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_api_generated/breizh_blok_api_generated.dart'
     as api;
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
+import 'package:breizh_blok_mobile/constants.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
+import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
 import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
@@ -111,11 +113,25 @@ SharedPreferences sharedPreferences(Ref ref) {
 }
 
 @riverpod
+ThemeData themeData(Ref ref) {
+  return ThemeData(
+    useMaterial3: true,
+    colorSchemeSeed: Colors.pink,
+  );
+}
+
+@riverpod
 UrlLauncher urlLauncher(Ref ref) {
   return BreizhBlokUrlLauncher.createUrlLauncher();
 }
 
 @riverpod
 Upgrader upgrader(Ref ref) {
-  return Upgrader();
+  final remoteConfigRepository = ref.watch(remoteConfigRepositoryProvider);
+  final minAppVersion = remoteConfigRepository
+      .getString(minAppVersionKey)
+      .getOrElse((_) => null);
+  return Upgrader(
+    minAppVersion: minAppVersion,
+  );
 }

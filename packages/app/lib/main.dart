@@ -3,6 +3,7 @@ import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/config/env.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
+import 'package:breizh_blok_mobile/ui/my_material_app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,7 +46,9 @@ Future<void> runMainApp(FirebaseOptions firebaseOptions) async {
           ),
           analyticsProvider.overrideWith((_) => services[2] as Analytics),
         ],
-        child: const MyApp(),
+        child: MyApp(
+          child: SentryWidget(child: const MyMaterialApp()),
+        ),
       ),
     ),
   );

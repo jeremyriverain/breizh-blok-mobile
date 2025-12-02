@@ -88,10 +88,7 @@ class MyMaterialApp extends ConsumerWidget {
                   routeInformationParser: router.routeInformationParser,
                   routerDelegate: router.routerDelegate,
 
-                  theme: ThemeData(
-                    useMaterial3: true,
-                    colorSchemeSeed: Colors.pink,
-                  ),
+                  theme: ref.watch(themeDataProvider),
                   debugShowCheckedModeBanner: false,
                   localizationsDelegates:
                       AppLocalizations.localizationsDelegates,

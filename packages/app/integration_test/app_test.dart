@@ -21,6 +21,7 @@ import 'package:breizh_blok_mobile/ui/core/widgets/line_boulder_image.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/share_button.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
+import 'package:breizh_blok_mobile/ui/my_material_app.dart';
 import 'package:breizh_blok_mobile/ui/terms_of_use/view_models/terms_of_use_view_model.dart';
 import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
 import 'package:drift/drift.dart'
@@ -117,7 +118,9 @@ void main() async {
           analyticsProvider.overrideWith((_) => analytics),
           upgraderProvider.overrideWith((_) => upgrader),
         ],
-        child: const MyApp(),
+        child: MyApp(
+          child: SentryWidget(child: const MyMaterialApp()),
+        ),
       ),
     );
     await tester.pumpAndSettle();
