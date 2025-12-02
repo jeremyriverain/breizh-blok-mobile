@@ -111,6 +111,14 @@ SharedPreferences sharedPreferences(Ref ref) {
 }
 
 @riverpod
+ThemeData themeData(Ref ref) {
+  return ThemeData(
+    useMaterial3: true,
+    colorSchemeSeed: Colors.pink,
+  );
+}
+
+@riverpod
 UrlLauncher urlLauncher(Ref ref) {
   return BreizhBlokUrlLauncher.createUrlLauncher();
 }

@@ -1,8 +1,10 @@
 import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/config/env.dart';
+import 'package:breizh_blok_mobile/service_locator/firebase.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/my_app.dart';
+import 'package:breizh_blok_mobile/ui/splash_screen/widgets/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,7 +47,19 @@ Future<void> runMainApp(FirebaseOptions firebaseOptions) async {
           ),
           analyticsProvider.overrideWith((_) => services[2] as Analytics),
         ],
-        child: const MyApp(),
+        child: Consumer(
+          builder: (context, ref, _) {
+            final initializeFirebase = ref.watch(initializeFirebaseProvider);
+
+            return initializeFirebase.maybeWhen(
+              data: (_) => const MyApp(),
+
+              orElse: () {
+                return const SplashScreen();
+              },
+            );
+          },
+        ),
       ),
     ),
   );
