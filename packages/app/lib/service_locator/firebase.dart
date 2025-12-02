@@ -16,6 +16,7 @@ RemoteConfigSettings remoteConfigSettings(Ref ref) {
   );
 }
 
+@riverpod
 Future<bool?> initializeFirebase(Ref ref) async {
   final remoteConfig = ref.watch(firebaseRemoteConfigProvider);
   await remoteConfig.setConfigSettings(
