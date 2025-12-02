@@ -1,4 +1,3 @@
-import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
