@@ -118,7 +118,9 @@ void main() async {
           analyticsProvider.overrideWith((_) => analytics),
           upgraderProvider.overrideWith((_) => upgrader),
         ],
-        child: SentryWidget(child: const MyMaterialApp()),
+        child: MyApp(
+          child: SentryWidget(child: const MyMaterialApp()),
+        ),
       ),
     );
     await tester.pumpAndSettle();
