@@ -127,17 +127,17 @@ PODS:
     - Flutter
   - map_launcher (0.0.1):
     - Flutter
-  - mapbox_maps_flutter (2.12.0):
+  - mapbox_maps_flutter (2.17.0):
     - Flutter
-    - MapboxMaps (= 11.16.0)
+    - MapboxMaps (= 11.17.0)
     - Turf (= 4.0.0)
-  - MapboxCommon (24.16.0):
+  - MapboxCommon (24.17.0):
     - Turf (= 4.0.0)
-  - MapboxCoreMaps (11.16.0):
-    - MapboxCommon (= 24.16.0)
-  - MapboxMaps (11.16.0):
-    - MapboxCommon (= 24.16.0)
-    - MapboxCoreMaps (= 11.16.0)
+  - MapboxCoreMaps (11.17.0):
+    - MapboxCommon (= 24.17.0)
+  - MapboxMaps (11.17.0):
+    - MapboxCommon (= 24.17.0)
+    - MapboxCoreMaps (= 11.17.0)
     - Turf (= 4.0.0)
   - Mixpanel-swift (5.1.0):
     - Mixpanel-swift/Complete (= 5.1.0)
@@ -317,10 +317,10 @@ SPEC CHECKSUMS:
   JWTDecode: 7dae24cb9bf9b608eae61e5081029ec169bb5527
   location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
   map_launcher: 8051ad5783913cafce93f2414c6858f2904fd8df
-  mapbox_maps_flutter: a0d2087d3db56724200e9e1fe0c901eab43474e9
-  MapboxCommon: 479562bceca6b10d1c3b8bca5006ef86c51d7255
-  MapboxCoreMaps: b96038f97c62e0e72ebece2a3b909ca4eda8ab21
-  MapboxMaps: 8c0f733a3250a03bcc4938347ca5f699b0804ce1
+  mapbox_maps_flutter: a1dfc0a0825a5ded612bea16fc1eecc9c47cbaf8
+  MapboxCommon: 5cc0e77733478a7b2a3a28af7c38adc8485e07d8
+  MapboxCoreMaps: b7b7703cd8af3ae9088f42c6d23b591947a1eb1f
+  MapboxMaps: 10b01217e5634aa7b6fc1fb10d036598d9240ba6
   Mixpanel-swift: 7b26468fc0e2e521104e51d65c4bbf7cab8162f8
   mixpanel_flutter: a0b6b937035899cd01951735ad5f87718b2ffee5
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
