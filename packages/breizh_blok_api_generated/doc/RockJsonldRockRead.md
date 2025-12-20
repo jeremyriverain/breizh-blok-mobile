@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **atId** | **String** |  | [optional] 
 **atType** | **String** |  | [optional] 
-**atContext** | [**AppUserJsonldBoulderFeedbackReadContext**](AppUserJsonldBoulderFeedbackReadContext.md) |  | [optional] 
+**atContext** | [**AuthZeroUserJsonldAuthZeroUserReadContext**](AuthZeroUserJsonldAuthZeroUserReadContext.md) |  | [optional] 
 **location** | [**GeoPointJsonldRockRead**](GeoPointJsonldRockRead.md) |  | 
 **boulders** | [**BuiltList&lt;BoulderJsonldRockRead&gt;**](BoulderJsonldRockRead.md) |  | [optional] 
 **pictures** | **BuiltList&lt;String&gt;** |  | [optional] 

@@ -26,9 +26,10 @@ import 'package:breizh_blok_api_generated/src/model/api_height_boulders_get_coll
 import 'package:breizh_blok_api_generated/src/model/api_media_get_collection200_response.dart';
 import 'package:breizh_blok_api_generated/src/model/api_municipalities_get_collection200_response.dart';
 import 'package:breizh_blok_api_generated/src/model/api_rocks_get_collection200_response.dart';
-import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
-import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context_one_of.dart';
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_auth_zero_user_read.dart';
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read.dart';
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context_one_of.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_area_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_area_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_feedback_read.dart';
@@ -89,6 +90,8 @@ import 'package:breizh_blok_api_generated/src/model/rock_jsonld_boulder_feedback
 import 'package:breizh_blok_api_generated/src/model/rock_jsonld_boulder_read.dart';
 import 'package:breizh_blok_api_generated/src/model/rock_jsonld_rock_read.dart';
 import 'package:breizh_blok_api_generated/src/model/rock_rock_read.dart';
+import 'package:breizh_blok_api_generated/src/model/user_auth_zero_user_read.dart';
+import 'package:breizh_blok_api_generated/src/model/user_jsonld_auth_zero_user_read.dart';
 
 part 'serializers.g.dart';
 
@@ -105,9 +108,10 @@ part 'serializers.g.dart';
   ApiMediaGetCollection200Response,
   ApiMunicipalitiesGetCollection200Response,
   ApiRocksGetCollection200Response,
-  AppUserJsonldBoulderFeedbackRead,
-  AppUserJsonldBoulderFeedbackReadContext,
-  AppUserJsonldBoulderFeedbackReadContextOneOf,
+  AuthZeroUserAuthZeroUserRead,
+  AuthZeroUserJsonldAuthZeroUserRead,
+  AuthZeroUserJsonldAuthZeroUserReadContext,
+  AuthZeroUserJsonldAuthZeroUserReadContextOneOf,
   BoulderAreaBoulderAreaItemGet,
   BoulderAreaBoulderAreaRead,
   BoulderAreaBoulderFeedbackRead,
@@ -168,6 +172,8 @@ part 'serializers.g.dart';
   RockJsonldBoulderRead,
   RockJsonldRockRead,
   RockRockRead,
+  UserAuthZeroUserRead,
+  UserJsonldAuthZeroUserRead,
 ])
 Serializers serializers =
     (_$serializers.toBuilder()

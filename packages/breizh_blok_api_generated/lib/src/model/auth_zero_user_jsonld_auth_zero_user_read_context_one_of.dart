@@ -7,58 +7,59 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'app_user_jsonld_boulder_feedback_read_context_one_of.g.dart';
+part 'auth_zero_user_jsonld_auth_zero_user_read_context_one_of.g.dart';
 
-/// AppUserJsonldBoulderFeedbackReadContextOneOf
+/// AuthZeroUserJsonldAuthZeroUserReadContextOneOf
 ///
 /// Properties:
 /// * [atVocab]
 /// * [hydra]
 @BuiltValue()
-abstract class AppUserJsonldBoulderFeedbackReadContextOneOf
+abstract class AuthZeroUserJsonldAuthZeroUserReadContextOneOf
     implements
         Built<
-          AppUserJsonldBoulderFeedbackReadContextOneOf,
-          AppUserJsonldBoulderFeedbackReadContextOneOfBuilder
+          AuthZeroUserJsonldAuthZeroUserReadContextOneOf,
+          AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder
         > {
   @BuiltValueField(wireName: r'@vocab')
   String get atVocab;
 
   @BuiltValueField(wireName: r'hydra')
-  AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum get hydra;
+  AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum get hydra;
   // enum hydraEnum {  http://www.w3.org/ns/hydra/core#,  };
 
-  AppUserJsonldBoulderFeedbackReadContextOneOf._();
+  AuthZeroUserJsonldAuthZeroUserReadContextOneOf._();
 
-  factory AppUserJsonldBoulderFeedbackReadContextOneOf([
-    void updates(AppUserJsonldBoulderFeedbackReadContextOneOfBuilder b),
-  ]) = _$AppUserJsonldBoulderFeedbackReadContextOneOf;
+  factory AuthZeroUserJsonldAuthZeroUserReadContextOneOf([
+    void updates(AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder b),
+  ]) = _$AuthZeroUserJsonldAuthZeroUserReadContextOneOf;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-    AppUserJsonldBoulderFeedbackReadContextOneOfBuilder b,
+    AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder b,
   ) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AppUserJsonldBoulderFeedbackReadContextOneOf>
-  get serializer => _$AppUserJsonldBoulderFeedbackReadContextOneOfSerializer();
+  static Serializer<AuthZeroUserJsonldAuthZeroUserReadContextOneOf>
+  get serializer =>
+      _$AuthZeroUserJsonldAuthZeroUserReadContextOneOfSerializer();
 }
 
-class _$AppUserJsonldBoulderFeedbackReadContextOneOfSerializer
+class _$AuthZeroUserJsonldAuthZeroUserReadContextOneOfSerializer
     implements
-        PrimitiveSerializer<AppUserJsonldBoulderFeedbackReadContextOneOf> {
+        PrimitiveSerializer<AuthZeroUserJsonldAuthZeroUserReadContextOneOf> {
   @override
   final Iterable<Type> types = const [
-    AppUserJsonldBoulderFeedbackReadContextOneOf,
-    _$AppUserJsonldBoulderFeedbackReadContextOneOf,
+    AuthZeroUserJsonldAuthZeroUserReadContextOneOf,
+    _$AuthZeroUserJsonldAuthZeroUserReadContextOneOf,
   ];
 
   @override
-  final String wireName = r'AppUserJsonldBoulderFeedbackReadContextOneOf';
+  final String wireName = r'AuthZeroUserJsonldAuthZeroUserReadContextOneOf';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    AppUserJsonldBoulderFeedbackReadContextOneOf object, {
+    AuthZeroUserJsonldAuthZeroUserReadContextOneOf object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'@vocab';
@@ -70,7 +71,7 @@ class _$AppUserJsonldBoulderFeedbackReadContextOneOfSerializer
     yield serializers.serialize(
       object.hydra,
       specifiedType: const FullType(
-        AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum,
+        AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum,
       ),
     );
   }
@@ -78,7 +79,7 @@ class _$AppUserJsonldBoulderFeedbackReadContextOneOfSerializer
   @override
   Object serialize(
     Serializers serializers,
-    AppUserJsonldBoulderFeedbackReadContextOneOf object, {
+    AuthZeroUserJsonldAuthZeroUserReadContextOneOf object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -93,7 +94,7 @@ class _$AppUserJsonldBoulderFeedbackReadContextOneOfSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AppUserJsonldBoulderFeedbackReadContextOneOfBuilder result,
+    required AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -114,10 +115,10 @@ class _$AppUserJsonldBoulderFeedbackReadContextOneOfSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum,
+                      AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum,
                     ),
                   )
-                  as AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum;
+                  as AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum;
           result.hydra = valueDes;
           break;
         default:
@@ -129,12 +130,12 @@ class _$AppUserJsonldBoulderFeedbackReadContextOneOfSerializer
   }
 
   @override
-  AppUserJsonldBoulderFeedbackReadContextOneOf deserialize(
+  AuthZeroUserJsonldAuthZeroUserReadContextOneOf deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AppUserJsonldBoulderFeedbackReadContextOneOfBuilder();
+    final result = AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(
@@ -149,22 +150,23 @@ class _$AppUserJsonldBoulderFeedbackReadContextOneOfSerializer
   }
 }
 
-class AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum extends EnumClass {
+class AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum
+    extends EnumClass {
   @BuiltValueEnumConst(wireName: r'http://www.w3.org/ns/hydra/core#')
-  static const AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum
+  static const AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum
   httpColonSlashSlashWwwPeriodW3PeriodOrgSlashNsSlashHydraSlashCoreHash =
-      _$appUserJsonldBoulderFeedbackReadContextOneOfHydraEnum_httpColonSlashSlashWwwPeriodW3PeriodOrgSlashNsSlashHydraSlashCoreHash;
+      _$authZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum_httpColonSlashSlashWwwPeriodW3PeriodOrgSlashNsSlashHydraSlashCoreHash;
 
-  static Serializer<AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum>
+  static Serializer<AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum>
   get serializer =>
-      _$appUserJsonldBoulderFeedbackReadContextOneOfHydraEnumSerializer;
+      _$authZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnumSerializer;
 
-  const AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum._(String name)
+  const AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum._(String name)
     : super(name);
 
-  static BuiltSet<AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum>
-  get values => _$appUserJsonldBoulderFeedbackReadContextOneOfHydraEnumValues;
-  static AppUserJsonldBoulderFeedbackReadContextOneOfHydraEnum valueOf(
+  static BuiltSet<AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum>
+  get values => _$authZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnumValues;
+  static AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum valueOf(
     String name,
-  ) => _$appUserJsonldBoulderFeedbackReadContextOneOfHydraEnumValueOf(name);
+  ) => _$authZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnumValueOf(name);
 }

@@ -47,38 +47,14 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:breizh_blok_api_generated/breizh_blok_api_generated.dart';
 
 
-final api = BreizhBlokApiGenerated().getBoulderApi();
-final int page = 56; // int | The collection page number
-final int itemsPerPage = 56; // int | The number of items per page
-final bool pagination = true; // bool | Enable or disable pagination
-final String orderLeftSquareBracketIdRightSquareBracket = orderLeftSquareBracketIdRightSquareBracket_example; // String | 
-final String orderLeftSquareBracketNameRightSquareBracket = orderLeftSquareBracketNameRightSquareBracket_example; // String | 
-final String orderLeftSquareBracketGradePeriodNameRightSquareBracket = orderLeftSquareBracketGradePeriodNameRightSquareBracket_example; // String | 
-final int id = 56; // int | 
-final BuiltList<int> idLeftSquareBracketRightSquareBracket = ; // BuiltList<int> | 
-final String name = name_example; // String | 
-final String gradePeriodName = gradePeriodName_example; // String | 
-final BuiltList<String> gradePeriodNameLeftSquareBracketRightSquareBracket = ; // BuiltList<String> | 
-final int rockPeriodBoulderAreaPeriodId = 56; // int | 
-final BuiltList<int> rockPeriodBoulderAreaPeriodIdLeftSquareBracketRightSquareBracket = ; // BuiltList<int> | 
-final String rockPeriodBoulderAreaPeriodName = rockPeriodBoulderAreaPeriodName_example; // String | 
-final BuiltList<String> rockPeriodBoulderAreaPeriodNameLeftSquareBracketRightSquareBracket = ; // BuiltList<String> | 
-final String rockPeriodBoulderAreaPeriodMunicipalityPeriodName = rockPeriodBoulderAreaPeriodMunicipalityPeriodName_example; // String | 
-final BuiltList<String> rockPeriodBoulderAreaPeriodMunicipalityPeriodNameLeftSquareBracketRightSquareBracket = ; // BuiltList<String> | 
-final int rockPeriodId = 56; // int | 
-final BuiltList<int> rockPeriodIdLeftSquareBracketRightSquareBracket = ; // BuiltList<int> | 
-final String term = term_example; // String | 
-final String createdAtLeftSquareBracketBeforeRightSquareBracket = createdAtLeftSquareBracketBeforeRightSquareBracket_example; // String | 
-final String createdAtLeftSquareBracketStrictlyBeforeRightSquareBracket = createdAtLeftSquareBracketStrictlyBeforeRightSquareBracket_example; // String | 
-final String createdAtLeftSquareBracketAfterRightSquareBracket = createdAtLeftSquareBracketAfterRightSquareBracket_example; // String | 
-final String createdAtLeftSquareBracketStrictlyAfterRightSquareBracket = createdAtLeftSquareBracketStrictlyAfterRightSquareBracket_example; // String | 
-final BuiltList<String> groupsLeftSquareBracketRightSquareBracket = ; // BuiltList<String> | 
+final api = BreizhBlokApiGenerated().getAuthZeroUserApi();
+final String id = id_example; // String | AuthZeroUser identifier
 
 try {
-    final response = await api.apiBouldersGetCollection(page, itemsPerPage, pagination, orderLeftSquareBracketIdRightSquareBracket, orderLeftSquareBracketNameRightSquareBracket, orderLeftSquareBracketGradePeriodNameRightSquareBracket, id, idLeftSquareBracketRightSquareBracket, name, gradePeriodName, gradePeriodNameLeftSquareBracketRightSquareBracket, rockPeriodBoulderAreaPeriodId, rockPeriodBoulderAreaPeriodIdLeftSquareBracketRightSquareBracket, rockPeriodBoulderAreaPeriodName, rockPeriodBoulderAreaPeriodNameLeftSquareBracketRightSquareBracket, rockPeriodBoulderAreaPeriodMunicipalityPeriodName, rockPeriodBoulderAreaPeriodMunicipalityPeriodNameLeftSquareBracketRightSquareBracket, rockPeriodId, rockPeriodIdLeftSquareBracketRightSquareBracket, term, createdAtLeftSquareBracketBeforeRightSquareBracket, createdAtLeftSquareBracketStrictlyBeforeRightSquareBracket, createdAtLeftSquareBracketAfterRightSquareBracket, createdAtLeftSquareBracketStrictlyAfterRightSquareBracket, groupsLeftSquareBracketRightSquareBracket);
+    final response = await api.apiUsersIdGet(id);
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling BoulderApi->apiBouldersGetCollection: $e\n");
+    print("Exception when calling AuthZeroUserApi->apiUsersIdGet: $e\n");
 }
 
 ```
@@ -89,6 +65,7 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*AuthZeroUserApi*](doc/AuthZeroUserApi.md) | [**apiUsersIdGet**](doc/AuthZeroUserApi.md#apiusersidget) | **GET** /users/{id} | Retrieves a AuthZeroUser resource.
 [*BoulderApi*](doc/BoulderApi.md) | [**apiBouldersGetCollection**](doc/BoulderApi.md#apibouldersgetcollection) | **GET** /boulders | Retrieves the collection of Boulder resources.
 [*BoulderApi*](doc/BoulderApi.md) | [**apiBouldersIdGet**](doc/BoulderApi.md#apibouldersidget) | **GET** /boulders/{id} | Retrieves a Boulder resource.
 [*BoulderAreaApi*](doc/BoulderAreaApi.md) | [**apiBoulderAreasGetCollection**](doc/BoulderAreaApi.md#apiboulderareasgetcollection) | **GET** /boulder_areas | Retrieves the collection of BoulderArea resources.
@@ -124,9 +101,10 @@ Class | Method | HTTP request | Description
  - [ApiMediaGetCollection200Response](doc/ApiMediaGetCollection200Response.md)
  - [ApiMunicipalitiesGetCollection200Response](doc/ApiMunicipalitiesGetCollection200Response.md)
  - [ApiRocksGetCollection200Response](doc/ApiRocksGetCollection200Response.md)
- - [AppUserJsonldBoulderFeedbackRead](doc/AppUserJsonldBoulderFeedbackRead.md)
- - [AppUserJsonldBoulderFeedbackReadContext](doc/AppUserJsonldBoulderFeedbackReadContext.md)
- - [AppUserJsonldBoulderFeedbackReadContextOneOf](doc/AppUserJsonldBoulderFeedbackReadContextOneOf.md)
+ - [AuthZeroUserAuthZeroUserRead](doc/AuthZeroUserAuthZeroUserRead.md)
+ - [AuthZeroUserJsonldAuthZeroUserRead](doc/AuthZeroUserJsonldAuthZeroUserRead.md)
+ - [AuthZeroUserJsonldAuthZeroUserReadContext](doc/AuthZeroUserJsonldAuthZeroUserReadContext.md)
+ - [AuthZeroUserJsonldAuthZeroUserReadContextOneOf](doc/AuthZeroUserJsonldAuthZeroUserReadContextOneOf.md)
  - [BoulderAreaBoulderAreaItemGet](doc/BoulderAreaBoulderAreaItemGet.md)
  - [BoulderAreaBoulderAreaRead](doc/BoulderAreaBoulderAreaRead.md)
  - [BoulderAreaBoulderFeedbackRead](doc/BoulderAreaBoulderFeedbackRead.md)
@@ -187,6 +165,8 @@ Class | Method | HTTP request | Description
  - [RockJsonldBoulderRead](doc/RockJsonldBoulderRead.md)
  - [RockJsonldRockRead](doc/RockJsonldRockRead.md)
  - [RockRockRead](doc/RockRockRead.md)
+ - [UserAuthZeroUserRead](doc/UserAuthZeroUserRead.md)
+ - [UserJsonldAuthZeroUserRead](doc/UserJsonldAuthZeroUserRead.md)
 
 
 ## Documentation For Authorization

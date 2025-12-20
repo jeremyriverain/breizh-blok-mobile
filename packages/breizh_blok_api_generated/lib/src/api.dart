@@ -9,6 +9,7 @@ import 'package:breizh_blok_api_generated/src/auth/api_key_auth.dart';
 import 'package:breizh_blok_api_generated/src/auth/basic_auth.dart';
 import 'package:breizh_blok_api_generated/src/auth/bearer_auth.dart';
 import 'package:breizh_blok_api_generated/src/auth/oauth.dart';
+import 'package:breizh_blok_api_generated/src/api/auth_zero_user_api.dart';
 import 'package:breizh_blok_api_generated/src/api/boulder_api.dart';
 import 'package:breizh_blok_api_generated/src/api/boulder_area_api.dart';
 import 'package:breizh_blok_api_generated/src/api/boulder_feedback_api.dart';
@@ -90,6 +91,12 @@ class BreizhBlokApiGenerated {
               .apiKeys[name] =
           apiKey;
     }
+  }
+
+  /// Get AuthZeroUserApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  AuthZeroUserApi getAuthZeroUserApi() {
+    return AuthZeroUserApi(dio, serializers);
   }
 
   /// Get BoulderApi instance, base route and serializer can be overridden by a given but be careful,

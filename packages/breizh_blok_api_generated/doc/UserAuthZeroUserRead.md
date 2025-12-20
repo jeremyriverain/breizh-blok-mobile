@@ -1,4 +1,4 @@
-# breizh_blok_api_generated.model.AppUserJsonldBoulderFeedbackReadContext
+# breizh_blok_api_generated.model.UserAuthZeroUserRead
 
 ## Load the model package
 ```dart
@@ -8,8 +8,7 @@ import 'package:breizh_blok_api_generated/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**atVocab** | **String** |  | 
-**hydra** | **String** |  | 
+**roles** | **BuiltList&lt;String&gt;** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

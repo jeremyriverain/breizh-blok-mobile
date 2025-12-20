@@ -10,6 +10,7 @@ export 'package:breizh_blok_api_generated/src/auth/oauth.dart';
 export 'package:breizh_blok_api_generated/src/serializers.dart';
 export 'package:breizh_blok_api_generated/src/model/date.dart';
 
+export 'package:breizh_blok_api_generated/src/api/auth_zero_user_api.dart';
 export 'package:breizh_blok_api_generated/src/api/boulder_api.dart';
 export 'package:breizh_blok_api_generated/src/api/boulder_area_api.dart';
 export 'package:breizh_blok_api_generated/src/api/boulder_feedback_api.dart';
@@ -32,9 +33,10 @@ export 'package:breizh_blok_api_generated/src/model/api_height_boulders_get_coll
 export 'package:breizh_blok_api_generated/src/model/api_media_get_collection200_response.dart';
 export 'package:breizh_blok_api_generated/src/model/api_municipalities_get_collection200_response.dart';
 export 'package:breizh_blok_api_generated/src/model/api_rocks_get_collection200_response.dart';
-export 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read.dart';
-export 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
-export 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context_one_of.dart';
+export 'package:breizh_blok_api_generated/src/model/auth_zero_user_auth_zero_user_read.dart';
+export 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read.dart';
+export 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+export 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context_one_of.dart';
 export 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_area_item_get.dart';
 export 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_area_read.dart';
 export 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_feedback_read.dart';
@@ -95,3 +97,5 @@ export 'package:breizh_blok_api_generated/src/model/rock_jsonld_boulder_feedback
 export 'package:breizh_blok_api_generated/src/model/rock_jsonld_boulder_read.dart';
 export 'package:breizh_blok_api_generated/src/model/rock_jsonld_rock_read.dart';
 export 'package:breizh_blok_api_generated/src/model/rock_rock_read.dart';
+export 'package:breizh_blok_api_generated/src/model/user_auth_zero_user_read.dart';
+export 'package:breizh_blok_api_generated/src/model/user_jsonld_auth_zero_user_read.dart';

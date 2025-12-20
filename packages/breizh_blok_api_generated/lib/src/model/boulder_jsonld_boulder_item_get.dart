@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'package:breizh_blok_api_generated/src/model/height_boulder_jsonld_boulder_item_get.dart';
-import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -23,7 +23,7 @@ abstract class BoulderJsonldBoulderItemGet
     implements
         Built<BoulderJsonldBoulderItemGet, BoulderJsonldBoulderItemGetBuilder> {
   @BuiltValueField(wireName: r'@context')
-  AppUserJsonldBoulderFeedbackReadContext? get atContext;
+  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
 
   @BuiltValueField(wireName: r'@id')
   String? get atId;
@@ -71,7 +71,9 @@ class _$BoulderJsonldBoulderItemGetSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
+        specifiedType: const FullType(
+          AuthZeroUserJsonldAuthZeroUserReadContext,
+        ),
       );
     }
     if (object.atId != null) {
@@ -136,10 +138,10 @@ class _$BoulderJsonldBoulderItemGetSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      AppUserJsonldBoulderFeedbackReadContext,
+                      AuthZeroUserJsonldAuthZeroUserReadContext,
                     ),
                   )
-                  as AppUserJsonldBoulderFeedbackReadContext;
+                  as AuthZeroUserJsonldAuthZeroUserReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':

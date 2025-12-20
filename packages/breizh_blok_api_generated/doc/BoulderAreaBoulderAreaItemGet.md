@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **centroid** | [**JsonObject**](.md) |  | [optional] 
 **parkingLocation** | [**JsonObject**](.md) |  | [optional] 
-**numberOfBouldersGroupedByGrade** | **BuiltMap&lt;String, int&gt;** |  | [optional] 
+**numberOfBouldersGroupedByGrade** | **BuiltMap&lt;String, String&gt;** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

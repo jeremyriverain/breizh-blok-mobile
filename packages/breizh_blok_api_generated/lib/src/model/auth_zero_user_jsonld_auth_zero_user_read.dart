@@ -3,11 +3,12 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/user_jsonld_auth_zero_user_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'app_user_jsonld_boulder_feedback_read.g.dart';
+part 'auth_zero_user_jsonld_auth_zero_user_read.g.dart';
 
 ///
 ///
@@ -15,15 +16,16 @@ part 'app_user_jsonld_boulder_feedback_read.g.dart';
 /// * [atContext]
 /// * [atId]
 /// * [atType]
+/// * [user]
 @BuiltValue()
-abstract class AppUserJsonldBoulderFeedbackRead
+abstract class AuthZeroUserJsonldAuthZeroUserRead
     implements
         Built<
-          AppUserJsonldBoulderFeedbackRead,
-          AppUserJsonldBoulderFeedbackReadBuilder
+          AuthZeroUserJsonldAuthZeroUserRead,
+          AuthZeroUserJsonldAuthZeroUserReadBuilder
         > {
   @BuiltValueField(wireName: r'@context')
-  AppUserJsonldBoulderFeedbackReadContext? get atContext;
+  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
 
   @BuiltValueField(wireName: r'@id')
   String? get atId;
@@ -31,41 +33,46 @@ abstract class AppUserJsonldBoulderFeedbackRead
   @BuiltValueField(wireName: r'@type')
   String? get atType;
 
-  AppUserJsonldBoulderFeedbackRead._();
+  @BuiltValueField(wireName: r'user')
+  UserJsonldAuthZeroUserRead? get user;
 
-  factory AppUserJsonldBoulderFeedbackRead([
-    void updates(AppUserJsonldBoulderFeedbackReadBuilder b),
-  ]) = _$AppUserJsonldBoulderFeedbackRead;
+  AuthZeroUserJsonldAuthZeroUserRead._();
+
+  factory AuthZeroUserJsonldAuthZeroUserRead([
+    void updates(AuthZeroUserJsonldAuthZeroUserReadBuilder b),
+  ]) = _$AuthZeroUserJsonldAuthZeroUserRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AppUserJsonldBoulderFeedbackReadBuilder b) => b;
+  static void _defaults(AuthZeroUserJsonldAuthZeroUserReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AppUserJsonldBoulderFeedbackRead> get serializer =>
-      _$AppUserJsonldBoulderFeedbackReadSerializer();
+  static Serializer<AuthZeroUserJsonldAuthZeroUserRead> get serializer =>
+      _$AuthZeroUserJsonldAuthZeroUserReadSerializer();
 }
 
-class _$AppUserJsonldBoulderFeedbackReadSerializer
-    implements PrimitiveSerializer<AppUserJsonldBoulderFeedbackRead> {
+class _$AuthZeroUserJsonldAuthZeroUserReadSerializer
+    implements PrimitiveSerializer<AuthZeroUserJsonldAuthZeroUserRead> {
   @override
   final Iterable<Type> types = const [
-    AppUserJsonldBoulderFeedbackRead,
-    _$AppUserJsonldBoulderFeedbackRead,
+    AuthZeroUserJsonldAuthZeroUserRead,
+    _$AuthZeroUserJsonldAuthZeroUserRead,
   ];
 
   @override
-  final String wireName = r'AppUserJsonldBoulderFeedbackRead';
+  final String wireName = r'AuthZeroUserJsonldAuthZeroUserRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    AppUserJsonldBoulderFeedbackRead object, {
+    AuthZeroUserJsonldAuthZeroUserRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.atContext != null) {
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
+        specifiedType: const FullType(
+          AuthZeroUserJsonldAuthZeroUserReadContext,
+        ),
       );
     }
     if (object.atId != null) {
@@ -82,12 +89,19 @@ class _$AppUserJsonldBoulderFeedbackReadSerializer
         specifiedType: const FullType(String),
       );
     }
+    if (object.user != null) {
+      yield r'user';
+      yield serializers.serialize(
+        object.user,
+        specifiedType: const FullType.nullable(UserJsonldAuthZeroUserRead),
+      );
+    }
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    AppUserJsonldBoulderFeedbackRead object, {
+    AuthZeroUserJsonldAuthZeroUserRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -102,7 +116,7 @@ class _$AppUserJsonldBoulderFeedbackReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AppUserJsonldBoulderFeedbackReadBuilder result,
+    required AuthZeroUserJsonldAuthZeroUserReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -114,10 +128,10 @@ class _$AppUserJsonldBoulderFeedbackReadSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      AppUserJsonldBoulderFeedbackReadContext,
+                      AuthZeroUserJsonldAuthZeroUserReadContext,
                     ),
                   )
-                  as AppUserJsonldBoulderFeedbackReadContext;
+                  as AuthZeroUserJsonldAuthZeroUserReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -138,6 +152,18 @@ class _$AppUserJsonldBoulderFeedbackReadSerializer
                   as String;
           result.atType = valueDes;
           break;
+        case r'user':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      UserJsonldAuthZeroUserRead,
+                    ),
+                  )
+                  as UserJsonldAuthZeroUserRead?;
+          if (valueDes == null) continue;
+          result.user.replace(valueDes);
+          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -147,12 +173,12 @@ class _$AppUserJsonldBoulderFeedbackReadSerializer
   }
 
   @override
-  AppUserJsonldBoulderFeedbackRead deserialize(
+  AuthZeroUserJsonldAuthZeroUserRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AppUserJsonldBoulderFeedbackReadBuilder();
+    final result = AuthZeroUserJsonldAuthZeroUserReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

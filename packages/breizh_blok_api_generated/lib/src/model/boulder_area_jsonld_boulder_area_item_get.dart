@@ -3,9 +3,9 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_area_item_get.dart';
-import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -28,7 +28,7 @@ abstract class BoulderAreaJsonldBoulderAreaItemGet
           BoulderAreaJsonldBoulderAreaItemGetBuilder
         > {
   @BuiltValueField(wireName: r'@context')
-  AppUserJsonldBoulderFeedbackReadContext? get atContext;
+  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
 
   @BuiltValueField(wireName: r'@id')
   String? get atId;
@@ -43,7 +43,7 @@ abstract class BoulderAreaJsonldBoulderAreaItemGet
   GeoPointJsonldBoulderAreaItemGet? get parkingLocation;
 
   @BuiltValueField(wireName: r'numberOfBouldersGroupedByGrade')
-  BuiltMap<String, int>? get numberOfBouldersGroupedByGrade;
+  BuiltMap<String, String>? get numberOfBouldersGroupedByGrade;
 
   BoulderAreaJsonldBoulderAreaItemGet._();
 
@@ -79,7 +79,9 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
+        specifiedType: const FullType(
+          AuthZeroUserJsonldAuthZeroUserReadContext,
+        ),
       );
     }
     if (object.atId != null) {
@@ -120,7 +122,7 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
         object.numberOfBouldersGroupedByGrade,
         specifiedType: const FullType(BuiltMap, [
           FullType(String),
-          FullType(int),
+          FullType(String),
         ]),
       );
     }
@@ -156,10 +158,10 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      AppUserJsonldBoulderFeedbackReadContext,
+                      AuthZeroUserJsonldAuthZeroUserReadContext,
                     ),
                   )
-                  as AppUserJsonldBoulderFeedbackReadContext;
+                  as AuthZeroUserJsonldAuthZeroUserReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -210,10 +212,10 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
                     value,
                     specifiedType: const FullType(BuiltMap, [
                       FullType(String),
-                      FullType(int),
+                      FullType(String),
                     ]),
                   )
-                  as BuiltMap<String, int>;
+                  as BuiltMap<String, String>;
           result.numberOfBouldersGroupedByGrade.replace(valueDes);
           break;
         default:

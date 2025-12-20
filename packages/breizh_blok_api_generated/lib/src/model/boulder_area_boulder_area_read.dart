@@ -26,7 +26,7 @@ abstract class BoulderAreaBoulderAreaRead
   String? get description;
 
   @BuiltValueField(wireName: r'municipality')
-  MunicipalityBoulderAreaRead get municipality;
+  MunicipalityBoulderAreaRead? get municipality;
 
   BoulderAreaBoulderAreaRead._();
 
@@ -70,11 +70,13 @@ class _$BoulderAreaBoulderAreaReadSerializer
         specifiedType: const FullType.nullable(String),
       );
     }
-    yield r'municipality';
-    yield serializers.serialize(
-      object.municipality,
-      specifiedType: const FullType(MunicipalityBoulderAreaRead),
-    );
+    if (object.municipality != null) {
+      yield r'municipality';
+      yield serializers.serialize(
+        object.municipality,
+        specifiedType: const FullType.nullable(MunicipalityBoulderAreaRead),
+      );
+    }
   }
 
   @override
@@ -125,9 +127,12 @@ class _$BoulderAreaBoulderAreaReadSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(MunicipalityBoulderAreaRead),
+                    specifiedType: const FullType.nullable(
+                      MunicipalityBoulderAreaRead,
+                    ),
                   )
-                  as MunicipalityBoulderAreaRead;
+                  as MunicipalityBoulderAreaRead?;
+          if (valueDes == null) continue;
           result.municipality.replace(valueDes);
           break;
         default:

@@ -3,9 +3,9 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'dart:typed_data';
 import 'package:built_collection/built_collection.dart';
-import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -37,7 +37,7 @@ abstract class MediaJsonld implements Built<MediaJsonld, MediaJsonldBuilder> {
   String? get atType;
 
   @BuiltValueField(wireName: r'@context')
-  AppUserJsonldBoulderFeedbackReadContext? get atContext;
+  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
 
   @BuiltValueField(wireName: r'id')
   int? get id;
@@ -113,7 +113,9 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
+        specifiedType: const FullType(
+          AuthZeroUserJsonldAuthZeroUserReadContext,
+        ),
       );
     }
     if (object.id != null) {
@@ -243,10 +245,10 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      AppUserJsonldBoulderFeedbackReadContext,
+                      AuthZeroUserJsonldAuthZeroUserReadContext,
                     ),
                   )
-                  as AppUserJsonldBoulderFeedbackReadContext;
+                  as AuthZeroUserJsonldAuthZeroUserReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'id':

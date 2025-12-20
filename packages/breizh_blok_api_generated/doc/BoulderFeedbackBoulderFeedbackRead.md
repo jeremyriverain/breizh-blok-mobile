@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **message** | **String** |  | [optional] 
 **boulder** | [**BoulderBoulderFeedbackRead**](BoulderBoulderFeedbackRead.md) |  | 
 **createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
-**createdBy** | [**JsonObject**](.md) |  | [optional] 
+**createdBy** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
