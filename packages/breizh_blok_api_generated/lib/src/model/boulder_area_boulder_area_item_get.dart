@@ -32,7 +32,7 @@ abstract class BoulderAreaBoulderAreaItemGet
   JsonObject? get parkingLocation;
 
   @BuiltValueField(wireName: r'numberOfBouldersGroupedByGrade')
-  BuiltMap<String, int>? get numberOfBouldersGroupedByGrade;
+  BuiltMap<String, String>? get numberOfBouldersGroupedByGrade;
 
   BoulderAreaBoulderAreaItemGet._();
 
@@ -84,7 +84,7 @@ class _$BoulderAreaBoulderAreaItemGetSerializer
         object.numberOfBouldersGroupedByGrade,
         specifiedType: const FullType(BuiltMap, [
           FullType(String),
-          FullType(int),
+          FullType(String),
         ]),
       );
     }
@@ -139,10 +139,10 @@ class _$BoulderAreaBoulderAreaItemGetSerializer
                     value,
                     specifiedType: const FullType(BuiltMap, [
                       FullType(String),
-                      FullType(int),
+                      FullType(String),
                     ]),
                   )
-                  as BuiltMap<String, int>;
+                  as BuiltMap<String, String>;
           result.numberOfBouldersGroupedByGrade.replace(valueDes);
           break;
         default:

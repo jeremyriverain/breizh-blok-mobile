@@ -8,7 +8,7 @@ import 'package:breizh_blok_api_generated/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**atContext** | [**AppUserJsonldBoulderFeedbackReadContext**](AppUserJsonldBoulderFeedbackReadContext.md) |  | [optional] 
+**atContext** | [**AuthZeroUserJsonldAuthZeroUserReadContext**](AuthZeroUserJsonldAuthZeroUserReadContext.md) |  | [optional] 
 **atId** | **String** |  | [optional] 
 **atType** | **String** |  | [optional] 
 **title** | **String** | A short, human-readable summary of the problem. | [optional] 

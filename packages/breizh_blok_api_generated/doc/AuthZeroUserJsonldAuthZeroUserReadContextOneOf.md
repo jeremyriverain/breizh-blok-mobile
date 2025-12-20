@@ -1,4 +1,4 @@
-# breizh_blok_api_generated.model.AppUserJsonldBoulderFeedbackReadContextOneOf
+# breizh_blok_api_generated.model.AuthZeroUserJsonldAuthZeroUserReadContextOneOf
 
 ## Load the model package
 ```dart

@@ -3,66 +3,61 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/municipality_boulder_read.dart';
+import 'package:breizh_blok_api_generated/src/model/user_auth_zero_user_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'boulder_area_boulder_read.g.dart';
+part 'auth_zero_user_auth_zero_user_read.g.dart';
 
 ///
 ///
 /// Properties:
-/// * [name]
-/// * [municipality]
+/// * [user]
 @BuiltValue()
-abstract class BoulderAreaBoulderRead
-    implements Built<BoulderAreaBoulderRead, BoulderAreaBoulderReadBuilder> {
-  @BuiltValueField(wireName: r'name')
-  String get name;
+abstract class AuthZeroUserAuthZeroUserRead
+    implements
+        Built<
+          AuthZeroUserAuthZeroUserRead,
+          AuthZeroUserAuthZeroUserReadBuilder
+        > {
+  @BuiltValueField(wireName: r'user')
+  UserAuthZeroUserRead? get user;
 
-  @BuiltValueField(wireName: r'municipality')
-  MunicipalityBoulderRead? get municipality;
+  AuthZeroUserAuthZeroUserRead._();
 
-  BoulderAreaBoulderRead._();
-
-  factory BoulderAreaBoulderRead([
-    void updates(BoulderAreaBoulderReadBuilder b),
-  ]) = _$BoulderAreaBoulderRead;
+  factory AuthZeroUserAuthZeroUserRead([
+    void updates(AuthZeroUserAuthZeroUserReadBuilder b),
+  ]) = _$AuthZeroUserAuthZeroUserRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BoulderAreaBoulderReadBuilder b) => b;
+  static void _defaults(AuthZeroUserAuthZeroUserReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BoulderAreaBoulderRead> get serializer =>
-      _$BoulderAreaBoulderReadSerializer();
+  static Serializer<AuthZeroUserAuthZeroUserRead> get serializer =>
+      _$AuthZeroUserAuthZeroUserReadSerializer();
 }
 
-class _$BoulderAreaBoulderReadSerializer
-    implements PrimitiveSerializer<BoulderAreaBoulderRead> {
+class _$AuthZeroUserAuthZeroUserReadSerializer
+    implements PrimitiveSerializer<AuthZeroUserAuthZeroUserRead> {
   @override
   final Iterable<Type> types = const [
-    BoulderAreaBoulderRead,
-    _$BoulderAreaBoulderRead,
+    AuthZeroUserAuthZeroUserRead,
+    _$AuthZeroUserAuthZeroUserRead,
   ];
 
   @override
-  final String wireName = r'BoulderAreaBoulderRead';
+  final String wireName = r'AuthZeroUserAuthZeroUserRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BoulderAreaBoulderRead object, {
+    AuthZeroUserAuthZeroUserRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'name';
-    yield serializers.serialize(
-      object.name,
-      specifiedType: const FullType(String),
-    );
-    if (object.municipality != null) {
-      yield r'municipality';
+    if (object.user != null) {
+      yield r'user';
       yield serializers.serialize(
-        object.municipality,
-        specifiedType: const FullType.nullable(MunicipalityBoulderRead),
+        object.user,
+        specifiedType: const FullType.nullable(UserAuthZeroUserRead),
       );
     }
   }
@@ -70,7 +65,7 @@ class _$BoulderAreaBoulderReadSerializer
   @override
   Object serialize(
     Serializers serializers,
-    BoulderAreaBoulderRead object, {
+    AuthZeroUserAuthZeroUserRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -85,33 +80,24 @@ class _$BoulderAreaBoulderReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BoulderAreaBoulderReadBuilder result,
+    required AuthZeroUserAuthZeroUserReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'name':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.name = valueDes;
-          break;
-        case r'municipality':
+        case r'user':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType.nullable(
-                      MunicipalityBoulderRead,
+                      UserAuthZeroUserRead,
                     ),
                   )
-                  as MunicipalityBoulderRead?;
+                  as UserAuthZeroUserRead?;
           if (valueDes == null) continue;
-          result.municipality.replace(valueDes);
+          result.user.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -122,12 +108,12 @@ class _$BoulderAreaBoulderReadSerializer
   }
 
   @override
-  BoulderAreaBoulderRead deserialize(
+  AuthZeroUserAuthZeroUserRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BoulderAreaBoulderReadBuilder();
+    final result = AuthZeroUserAuthZeroUserReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

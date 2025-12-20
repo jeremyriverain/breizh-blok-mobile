@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **atType** | **String** |  | [optional] 
 **name** | **String** |  | 
 **description** | **String** |  | [optional] 
-**municipality** | [**MunicipalityJsonldBoulderAreaRead**](MunicipalityJsonldBoulderAreaRead.md) |  | 
+**municipality** | [**MunicipalityJsonldBoulderAreaRead**](MunicipalityJsonldBoulderAreaRead.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

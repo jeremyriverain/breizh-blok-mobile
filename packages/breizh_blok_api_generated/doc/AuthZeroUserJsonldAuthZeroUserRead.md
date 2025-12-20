@@ -1,4 +1,4 @@
-# breizh_blok_api_generated.model.MunicipalityJsonldDepartmentRead
+# breizh_blok_api_generated.model.AuthZeroUserJsonldAuthZeroUserRead
 
 ## Load the model package
 ```dart
@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **atContext** | [**AuthZeroUserJsonldAuthZeroUserReadContext**](AuthZeroUserJsonldAuthZeroUserReadContext.md) |  | [optional] 
 **atId** | **String** |  | [optional] 
 **atType** | **String** |  | [optional] 
-**name** | **String** |  | 
+**user** | [**UserJsonldAuthZeroUserRead**](UserJsonldAuthZeroUserRead.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

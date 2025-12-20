@@ -17,7 +17,7 @@ part 'boulder_feedback_boulder_feedback_read.g.dart';
 /// * [message]
 /// * [boulder]
 /// * [createdAt]
-/// * [createdBy] -
+/// * [createdBy]
 @BuiltValue()
 abstract class BoulderFeedbackBoulderFeedbackRead
     implements
@@ -38,9 +38,8 @@ abstract class BoulderFeedbackBoulderFeedbackRead
   @BuiltValueField(wireName: r'createdAt')
   DateTime? get createdAt;
 
-  ///
   @BuiltValueField(wireName: r'createdBy')
-  JsonObject? get createdBy;
+  String? get createdBy;
 
   BoulderFeedbackBoulderFeedbackRead._();
 
@@ -102,7 +101,7 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
       yield r'createdBy';
       yield serializers.serialize(
         object.createdBy,
-        specifiedType: const FullType(JsonObject),
+        specifiedType: const FullType.nullable(String),
       );
     }
   }
@@ -173,9 +172,10 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(JsonObject),
+                    specifiedType: const FullType.nullable(String),
                   )
-                  as JsonObject;
+                  as String?;
+          if (valueDes == null) continue;
           result.createdBy = valueDes;
           break;
         default:

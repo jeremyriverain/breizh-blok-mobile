@@ -3,10 +3,9 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/app_user_jsonld_boulder_feedback_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -31,7 +30,7 @@ abstract class BoulderFeedbackJsonldBoulderFeedbackRead
           BoulderFeedbackJsonldBoulderFeedbackReadBuilder
         > {
   @BuiltValueField(wireName: r'@context')
-  AppUserJsonldBoulderFeedbackReadContext? get atContext;
+  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
 
   @BuiltValueField(wireName: r'@id')
   String? get atId;
@@ -52,7 +51,7 @@ abstract class BoulderFeedbackJsonldBoulderFeedbackRead
   DateTime? get createdAt;
 
   @BuiltValueField(wireName: r'createdBy')
-  AppUserJsonldBoulderFeedbackRead? get createdBy;
+  String? get createdBy;
 
   BoulderFeedbackJsonldBoulderFeedbackRead._();
 
@@ -88,7 +87,9 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(AppUserJsonldBoulderFeedbackReadContext),
+        specifiedType: const FullType(
+          AuthZeroUserJsonldAuthZeroUserReadContext,
+        ),
       );
     }
     if (object.atId != null) {
@@ -137,9 +138,7 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
       yield r'createdBy';
       yield serializers.serialize(
         object.createdBy,
-        specifiedType: const FullType.nullable(
-          AppUserJsonldBoulderFeedbackRead,
-        ),
+        specifiedType: const FullType.nullable(String),
       );
     }
   }
@@ -174,10 +173,10 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      AppUserJsonldBoulderFeedbackReadContext,
+                      AuthZeroUserJsonldAuthZeroUserReadContext,
                     ),
                   )
-                  as AppUserJsonldBoulderFeedbackReadContext;
+                  as AuthZeroUserJsonldAuthZeroUserReadContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -244,13 +243,11 @@ class _$BoulderFeedbackJsonldBoulderFeedbackReadSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(
-                      AppUserJsonldBoulderFeedbackRead,
-                    ),
+                    specifiedType: const FullType.nullable(String),
                   )
-                  as AppUserJsonldBoulderFeedbackRead?;
+                  as String?;
           if (valueDes == null) continue;
-          result.createdBy.replace(valueDes);
+          result.createdBy = valueDes;
           break;
         default:
           unhandled.add(key);

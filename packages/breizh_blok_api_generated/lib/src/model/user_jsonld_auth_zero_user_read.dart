@@ -4,10 +4,11 @@
 
 // ignore_for_file: unused_element
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'municipality_jsonld_department_read.g.dart';
+part 'user_jsonld_auth_zero_user_read.g.dart';
 
 ///
 ///
@@ -15,14 +16,11 @@ part 'municipality_jsonld_department_read.g.dart';
 /// * [atContext]
 /// * [atId]
 /// * [atType]
-/// * [name]
+/// * [roles]
 @BuiltValue()
-abstract class MunicipalityJsonldDepartmentRead
+abstract class UserJsonldAuthZeroUserRead
     implements
-        Built<
-          MunicipalityJsonldDepartmentRead,
-          MunicipalityJsonldDepartmentReadBuilder
-        > {
+        Built<UserJsonldAuthZeroUserRead, UserJsonldAuthZeroUserReadBuilder> {
   @BuiltValueField(wireName: r'@context')
   AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
 
@@ -32,37 +30,37 @@ abstract class MunicipalityJsonldDepartmentRead
   @BuiltValueField(wireName: r'@type')
   String? get atType;
 
-  @BuiltValueField(wireName: r'name')
-  String get name;
+  @BuiltValueField(wireName: r'roles')
+  BuiltList<String>? get roles;
 
-  MunicipalityJsonldDepartmentRead._();
+  UserJsonldAuthZeroUserRead._();
 
-  factory MunicipalityJsonldDepartmentRead([
-    void updates(MunicipalityJsonldDepartmentReadBuilder b),
-  ]) = _$MunicipalityJsonldDepartmentRead;
+  factory UserJsonldAuthZeroUserRead([
+    void updates(UserJsonldAuthZeroUserReadBuilder b),
+  ]) = _$UserJsonldAuthZeroUserRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(MunicipalityJsonldDepartmentReadBuilder b) => b;
+  static void _defaults(UserJsonldAuthZeroUserReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<MunicipalityJsonldDepartmentRead> get serializer =>
-      _$MunicipalityJsonldDepartmentReadSerializer();
+  static Serializer<UserJsonldAuthZeroUserRead> get serializer =>
+      _$UserJsonldAuthZeroUserReadSerializer();
 }
 
-class _$MunicipalityJsonldDepartmentReadSerializer
-    implements PrimitiveSerializer<MunicipalityJsonldDepartmentRead> {
+class _$UserJsonldAuthZeroUserReadSerializer
+    implements PrimitiveSerializer<UserJsonldAuthZeroUserRead> {
   @override
   final Iterable<Type> types = const [
-    MunicipalityJsonldDepartmentRead,
-    _$MunicipalityJsonldDepartmentRead,
+    UserJsonldAuthZeroUserRead,
+    _$UserJsonldAuthZeroUserRead,
   ];
 
   @override
-  final String wireName = r'MunicipalityJsonldDepartmentRead';
+  final String wireName = r'UserJsonldAuthZeroUserRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    MunicipalityJsonldDepartmentRead object, {
+    UserJsonldAuthZeroUserRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.atContext != null) {
@@ -88,17 +86,19 @@ class _$MunicipalityJsonldDepartmentReadSerializer
         specifiedType: const FullType(String),
       );
     }
-    yield r'name';
-    yield serializers.serialize(
-      object.name,
-      specifiedType: const FullType(String),
-    );
+    if (object.roles != null) {
+      yield r'roles';
+      yield serializers.serialize(
+        object.roles,
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
+      );
+    }
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    MunicipalityJsonldDepartmentRead object, {
+    UserJsonldAuthZeroUserRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -113,7 +113,7 @@ class _$MunicipalityJsonldDepartmentReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required MunicipalityJsonldDepartmentReadBuilder result,
+    required UserJsonldAuthZeroUserReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -149,14 +149,16 @@ class _$MunicipalityJsonldDepartmentReadSerializer
                   as String;
           result.atType = valueDes;
           break;
-        case r'name':
+        case r'roles':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(String),
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(String),
+                    ]),
                   )
-                  as String;
-          result.name = valueDes;
+                  as BuiltList<String>;
+          result.roles.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -167,12 +169,12 @@ class _$MunicipalityJsonldDepartmentReadSerializer
   }
 
   @override
-  MunicipalityJsonldDepartmentRead deserialize(
+  UserJsonldAuthZeroUserRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = MunicipalityJsonldDepartmentReadBuilder();
+    final result = UserJsonldAuthZeroUserReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

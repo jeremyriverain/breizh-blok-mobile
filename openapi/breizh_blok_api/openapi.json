@@ -12,6 +12,92 @@
     }
   ],
   "paths": {
+    "\/users\/{id}": {
+      "get": {
+        "operationId": "api_users_id_get",
+        "tags": [
+          "AuthZeroUser"
+        ],
+        "responses": {
+          "200": {
+            "description": "AuthZeroUser resource",
+            "content": {
+              "application\/ld+json": {
+                "schema": {
+                  "$ref": "#\/components\/schemas\/AuthZeroUser.jsonld-AuthZeroUser.read"
+                }
+              },
+              "application\/json": {
+                "schema": {
+                  "$ref": "#\/components\/schemas\/AuthZeroUser-AuthZeroUser.read"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application\/ld+json": {
+                "schema": {
+                  "$ref": "#\/components\/schemas\/Error.jsonld"
+                }
+              },
+              "application\/problem+json": {
+                "schema": {
+                  "$ref": "#\/components\/schemas\/Error"
+                }
+              },
+              "application\/json": {
+                "schema": {
+                  "$ref": "#\/components\/schemas\/Error"
+                }
+              }
+            },
+            "links": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application\/ld+json": {
+                "schema": {
+                  "$ref": "#\/components\/schemas\/Error.jsonld"
+                }
+              },
+              "application\/problem+json": {
+                "schema": {
+                  "$ref": "#\/components\/schemas\/Error"
+                }
+              },
+              "application\/json": {
+                "schema": {
+                  "$ref": "#\/components\/schemas\/Error"
+                }
+              }
+            },
+            "links": {}
+          }
+        },
+        "summary": "Retrieves a AuthZeroUser resource.",
+        "description": "Retrieves a AuthZeroUser resource.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "AuthZeroUser identifier",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "deprecated": false
+      }
+    },
     "\/boulders": {
       "get": {
         "operationId": "api_boulders_get_collection",
@@ -2461,12 +2547,24 @@
   },
   "components": {
     "schemas": {
-      "AppUser-BoulderFeedback.read": {
+      "AuthZeroUser-AuthZeroUser.read": {
         "type": "object",
         "description": "",
-        "deprecated": false
+        "deprecated": false,
+        "properties": {
+          "user": {
+            "anyOf": [
+              {
+                "$ref": "#\/components\/schemas\/User-AuthZeroUser.read"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
       },
-      "AppUser.jsonld-BoulderFeedback.read": {
+      "AuthZeroUser.jsonld-AuthZeroUser.read": {
         "type": "object",
         "description": "",
         "deprecated": false,
@@ -2505,6 +2603,16 @@
           "@type": {
             "readOnly": true,
             "type": "string"
+          },
+          "user": {
+            "anyOf": [
+              {
+                "$ref": "#\/components\/schemas\/User.jsonld-AuthZeroUser.read"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         }
       },
@@ -2802,8 +2910,7 @@
         "description": "",
         "deprecated": false,
         "required": [
-          "name",
-          "municipality"
+          "name"
         ],
         "properties": {
           "name": {
@@ -2811,7 +2918,14 @@
             "type": "string"
           },
           "municipality": {
-            "$ref": "#\/components\/schemas\/Municipality-Boulder.read"
+            "anyOf": [
+              {
+                "$ref": "#\/components\/schemas\/Municipality-Boulder.read"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         }
       },
@@ -2842,9 +2956,12 @@
           },
           "numberOfBouldersGroupedByGrade": {
             "readOnly": true,
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "additionalProperties": {
-              "type": "integer"
+              "type": "string"
             }
           }
         }
@@ -2854,8 +2971,7 @@
         "description": "",
         "deprecated": false,
         "required": [
-          "name",
-          "municipality"
+          "name"
         ],
         "properties": {
           "name": {
@@ -2869,7 +2985,14 @@
             ]
           },
           "municipality": {
-            "$ref": "#\/components\/schemas\/Municipality-BoulderArea.read"
+            "anyOf": [
+              {
+                "$ref": "#\/components\/schemas\/Municipality-BoulderArea.read"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         }
       },
@@ -2906,8 +3029,7 @@
         "description": "",
         "deprecated": false,
         "required": [
-          "name",
-          "municipality"
+          "name"
         ],
         "properties": {
           "@context": {
@@ -2950,7 +3072,14 @@
             "type": "string"
           },
           "municipality": {
-            "$ref": "#\/components\/schemas\/Municipality.jsonld-Boulder.read"
+            "anyOf": [
+              {
+                "$ref": "#\/components\/schemas\/Municipality.jsonld-Boulder.read"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         }
       },
@@ -3016,9 +3145,12 @@
           },
           "numberOfBouldersGroupedByGrade": {
             "readOnly": true,
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "additionalProperties": {
-              "type": "integer"
+              "type": "string"
             }
           }
         }
@@ -3028,8 +3160,7 @@
         "description": "",
         "deprecated": false,
         "required": [
-          "name",
-          "municipality"
+          "name"
         ],
         "properties": {
           "@id": {
@@ -3051,7 +3182,14 @@
             ]
           },
           "municipality": {
-            "$ref": "#\/components\/schemas\/Municipality.jsonld-BoulderArea.read"
+            "anyOf": [
+              {
+                "$ref": "#\/components\/schemas\/Municipality.jsonld-BoulderArea.read"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         }
       },
@@ -3184,14 +3322,12 @@
             "format": "date-time"
           },
           "createdBy": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/AppUser-BoulderFeedback.read"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "iri-reference",
+            "example": "https:\/\/example.com\/"
           }
         },
         "required": [
@@ -3295,14 +3431,12 @@
             "format": "date-time"
           },
           "createdBy": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/AppUser.jsonld-BoulderFeedback.read"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "iri-reference",
+            "example": "https:\/\/example.com\/"
           }
         },
         "required": [
@@ -4916,6 +5050,67 @@
             }
           }
         }
+      },
+      "User-AuthZeroUser.read": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "User.jsonld-AuthZeroUser.read": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "@context": {
+            "readOnly": true,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@vocab": {
+                    "type": "string"
+                  },
+                  "hydra": {
+                    "type": "string",
+                    "enum": [
+                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
+                    ]
+                  }
+                },
+                "required": [
+                  "@vocab",
+                  "hydra"
+                ],
+                "additionalProperties": true
+              }
+            ]
+          },
+          "@id": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "@type": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
       }
     },
     "responses": {},
@@ -4938,6 +5133,9 @@
     }
   ],
   "tags": [
+    {
+      "name": "AuthZeroUser"
+    },
     {
       "name": "Boulder"
     },
