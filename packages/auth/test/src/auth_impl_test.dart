@@ -43,7 +43,10 @@ void main() {
         );
         expect(
           auth.credentials.value,
-          Credentials(accessToken: auth0Credentials.accessToken),
+          Credentials(
+            accessToken: auth0Credentials.accessToken,
+            id: auth0Credentials.user.sub,
+          ),
         );
       });
     });
@@ -71,7 +74,7 @@ void main() {
         expect(result is ResultOk<void>, isTrue);
         expect(
           auth.credentials.value,
-          equals(const Credentials(accessToken: 'foo')),
+          equals(const Credentials(accessToken: 'foo', id: 'bar')),
         );
       });
 
@@ -152,7 +155,10 @@ void main() {
         );
         expect(
           auth.credentials.value,
-          Credentials(accessToken: auth0Credentials.accessToken),
+          Credentials(
+            accessToken: auth0Credentials.accessToken,
+            id: auth0Credentials.user.sub,
+          ),
         );
 
         final result = await auth.logout();
@@ -173,14 +179,20 @@ void main() {
         );
         expect(
           auth.credentials.value,
-          Credentials(accessToken: auth0Credentials.accessToken),
+          Credentials(
+            accessToken: auth0Credentials.accessToken,
+            id: auth0Credentials.user.sub,
+          ),
         );
 
         final result = await auth.logout();
         expect(result is ResultError<void>, isTrue);
         expect(
           auth.credentials.value,
-          Credentials(accessToken: auth0Credentials.accessToken),
+          Credentials(
+            accessToken: auth0Credentials.accessToken,
+            id: auth0Credentials.user.sub,
+          ),
         );
       });
 
@@ -197,7 +209,10 @@ void main() {
           );
           expect(
             auth.credentials.value,
-            Credentials(accessToken: auth0Credentials.accessToken),
+            Credentials(
+              accessToken: auth0Credentials.accessToken,
+              id: auth0Credentials.user.sub,
+            ),
           );
 
           final result = await auth.logout();
@@ -215,7 +230,10 @@ void main() {
           );
           expect(
             auth.credentials.value,
-            Credentials(accessToken: auth0Credentials.accessToken),
+            Credentials(
+              accessToken: auth0Credentials.accessToken,
+              id: auth0Credentials.user.sub,
+            ),
           );
         },
       );
@@ -233,14 +251,20 @@ void main() {
         );
         expect(
           auth.credentials.value,
-          Credentials(accessToken: auth0Credentials.accessToken),
+          Credentials(
+            accessToken: auth0Credentials.accessToken,
+            id: auth0Credentials.user.sub,
+          ),
         );
 
         final result = await auth.logout();
         expect(result is ResultOk<void>, isTrue);
         expect(
           auth.credentials.value,
-          Credentials(accessToken: auth0Credentials.accessToken),
+          Credentials(
+            accessToken: auth0Credentials.accessToken,
+            id: auth0Credentials.user.sub,
+          ),
         );
       });
     });
@@ -276,13 +300,16 @@ Then the access token is updated
             ),
             audience: 'foo',
           );
-          expect(auth.credentials.value, const Credentials(accessToken: 'foo'));
+          expect(
+            auth.credentials.value,
+            const Credentials(accessToken: 'foo', id: 'bar'),
+          );
 
           final result = await auth.refreshCredentialsIfExpired();
           expect(result is ResultOk<void>, isTrue);
           expect(
             auth.credentials.value,
-            equals(const Credentials(accessToken: 'bar')),
+            equals(const Credentials(accessToken: 'bar', id: 'bar')),
           );
         },
       );
@@ -311,13 +338,16 @@ Then the access token is not updated
             ),
             audience: 'foo',
           );
-          expect(auth.credentials.value, const Credentials(accessToken: 'foo'));
+          expect(
+            auth.credentials.value,
+            const Credentials(accessToken: 'foo', id: 'bar'),
+          );
 
           final result = await auth.refreshCredentialsIfExpired();
           expect(result is ResultError<void>, isTrue);
           expect(
             auth.credentials.value,
-            equals(const Credentials(accessToken: 'foo')),
+            equals(const Credentials(accessToken: 'foo', id: 'bar')),
           );
         },
       );
@@ -338,7 +368,7 @@ Then the access token is not updated
         expect(auth.credentials.value, isNull);
       });
 
-      test('credentials are null if user has not valid credentials', () async {
+      test('credentials are not null if user has valid credentials', () async {
         when(() => authZero.credentialsManager).thenReturn(credentialsManager);
         when(
           () => credentialsManager.hasValidCredentials(),
@@ -353,7 +383,10 @@ Then the access token is not updated
         ).initialize();
         expect(
           auth.credentials.value,
-          Credentials(accessToken: auth0Credentials.accessToken),
+          Credentials(
+            accessToken: auth0Credentials.accessToken,
+            id: auth0Credentials.user.sub,
+          ),
         );
       });
     });

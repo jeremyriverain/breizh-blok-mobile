@@ -74,7 +74,10 @@ class AuthImpl implements Auth {
   }
 
   static Credentials toCredentials(auth0.Credentials auth0Credentials) {
-    return Credentials(accessToken: auth0Credentials.accessToken);
+    return Credentials(
+      accessToken: auth0Credentials.accessToken,
+      id: auth0Credentials.user.sub,
+    );
   }
 
   @override
