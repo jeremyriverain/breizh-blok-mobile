@@ -24,7 +24,7 @@ class ApiUserProfileDataSource {
             .then((res) {
               final user = res.data?.user;
               if (user != null) {
-                return _mapper.toDomainFrom(user);
+                return _mapper.toDomainFromUserRead(user);
               }
 
               return null;

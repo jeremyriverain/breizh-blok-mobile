@@ -4,7 +4,7 @@ import 'package:breizh_blok_mobile/domain/entities/user/user.dart';
 class ApiUserProfileMapper {
   const ApiUserProfileMapper();
 
-  User toDomainFrom(UserJsonldAuthZeroUserRead from) {
+  User toDomainFromUserRead(UserJsonldAuthZeroUserRead from) {
     final roles = from.roles;
     return User(
       roles: [
