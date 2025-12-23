@@ -9,6 +9,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
+import 'package:breizh_blok_mobile/domain/entities/user/user.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
@@ -134,4 +135,21 @@ Upgrader upgrader(Ref ref) {
   return Upgrader(
     minAppVersion: minAppVersion,
   );
+}
+
+@Riverpod(keepAlive: true)
+Future<User?> user(Ref ref) async {
+  final auth = ref.watch(authProvider);
+
+  final id = auth.credentials.value?.id;
+
+  if (!auth.isAuthenticated || id == null) {
+    return null;
+  }
+
+  final userRepository = ref.watch(userProfileRepositoryProvider);
+
+  final res = await userRepository.get(id).run();
+
+  return res.getOrElse((_) => null);
 }

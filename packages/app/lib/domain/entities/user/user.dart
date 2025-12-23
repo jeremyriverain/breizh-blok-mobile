@@ -9,4 +9,7 @@ abstract class User with _$User {
   }) = _User;
 
   const User._();
+
+  bool get isAmbassador =>
+      roles.isNotEmpty && roles.contains('ROLE_AMBASSADOR');
 }
