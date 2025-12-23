@@ -5,6 +5,6 @@ class ProfileUserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.person, size: 32, color: Colors.grey[700]);
+    return const Icon(Icons.person, size: 32);
   }
 }
