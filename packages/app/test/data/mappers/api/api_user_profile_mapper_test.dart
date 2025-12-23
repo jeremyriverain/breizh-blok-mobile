@@ -10,6 +10,12 @@ void main() {
       test('return User correctly', () {
         expect(
           const ApiUserProfileMapper().toDomainFromUserRead(
+            UserJsonldAuthZeroUserRead(),
+          ),
+          const User(),
+        );
+        expect(
+          const ApiUserProfileMapper().toDomainFromUserRead(
             UserJsonldAuthZeroUserRead((builder) {
               builder.roles = ListBuilder<String>([]);
             }),
