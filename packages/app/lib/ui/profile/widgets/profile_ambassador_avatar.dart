@@ -5,6 +5,6 @@ class ProfileAmbassadorAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.workspace_premium, size: 32, color: Colors.amber[700]);
+    return const Icon(Icons.workspace_premium, size: 32);
   }
 }

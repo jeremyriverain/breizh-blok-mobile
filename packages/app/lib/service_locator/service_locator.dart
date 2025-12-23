@@ -154,7 +154,7 @@ Upgrader upgrader(Ref ref) {
   );
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Future<User?> user(Ref ref) async {
   final auth = ref.watch(authProvider);
 
