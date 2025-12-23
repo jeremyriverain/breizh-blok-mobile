@@ -52,6 +52,23 @@ Auth auth(Ref ref) {
 }
 
 @riverpod
+class AuthUserNotifier extends _$AuthUserNotifier {
+  @override
+  void build() {}
+
+  Future<void> login() async {
+    await ref.read(authProvider).login();
+    ref.invalidate(userProvider);
+  }
+
+  Future<void> logout() async {
+    await ref.read(authProvider).login();
+
+    ref.invalidate(userProvider);
+  }
+}
+
+@riverpod
 api.BreizhBlokApiGenerated breizhBlokApi(Ref ref) {
   return api.BreizhBlokApiGenerated(
     dio: createDio(auth: ref.watch(authProvider)),

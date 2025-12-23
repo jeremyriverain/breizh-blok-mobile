@@ -29,24 +29,18 @@ class ProfileScreen extends StatelessWidget {
         ),
         actions: [
           UserBuilder(
-            builder: (context, asyncUser) {
-              return asyncUser.when(
-                data: (user) {
-                  if (user == null) {
-                    return const SizedBox.shrink();
-                  }
+            builder: (context, user) {
+              if (user == null) {
+                return const SizedBox.shrink();
+              }
 
-                  final icon = user.isAmbassador
-                      ? const ProfileAmbassadorAvatar()
-                      : const ProfileUserAvatar();
+              final icon = user.isAmbassador
+                  ? const ProfileAmbassadorAvatar()
+                  : const ProfileUserAvatar();
 
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: icon,
-                  );
-                },
-                error: (_, _) => const SizedBox.shrink(),
-                loading: () => const SizedBox.shrink(),
+              return Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: icon,
               );
             },
           ),

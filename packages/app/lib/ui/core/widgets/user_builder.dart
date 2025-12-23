@@ -5,23 +5,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserBuilder extends StatelessWidget {
-  const UserBuilder({required this.builder, super.key});
+  const UserBuilder({
+    required this.builder,
+    this.loadingBuilder,
+    this.errorBuilder,
+    super.key,
+  });
 
-  final Widget Function(BuildContext context, AsyncValue<User?>) builder;
+  final Widget Function(BuildContext context, User?) builder;
+
+  final Widget Function()? loadingBuilder;
+  final Widget Function(Object error, StackTrace stackTrace)? errorBuilder;
 
   @override
   Widget build(BuildContext context) {
     return AuthBuilder(
       builder: (context, auth) {
         if (!auth.isAuthenticated) {
-          return builder(context, const AsyncValue.data(null));
+          return builder(context, null);
         }
 
         return Consumer(
           builder: (context, ref, _) {
-            final user = ref.watch(userProvider);
+            final asyncUser = ref.watch(userProvider);
 
-            return builder(context, user);
+            final errorFn = errorBuilder;
+            final loadingFn = loadingBuilder;
+            return asyncUser.when(
+              data: (user) => builder(context, user),
+              error: (e, s) =>
+                  errorFn != null ? errorFn(e, s) : const SizedBox.shrink(),
+              loading: () =>
+                  loadingFn != null ? loadingFn() : const SizedBox.shrink(),
+            );
           },
         );
       },
