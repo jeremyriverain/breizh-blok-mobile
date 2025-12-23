@@ -82,6 +82,9 @@ class AuthImpl implements Auth {
 
   @override
   ValueNotifier<Credentials?> get credentials => _credentials;
+
+  @override
+  bool get isAuthenticated => credentials.value != null;
 }
 
 class AuthFactoryImpl implements AuthFactory {

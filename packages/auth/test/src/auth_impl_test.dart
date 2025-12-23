@@ -33,6 +33,7 @@ void main() {
           audience: 'foo',
         );
         expect(auth.credentials.value, isNull);
+        expect(auth.isAuthenticated, isFalse);
       });
 
       test('credentials are not null if initial credentials are not null', () {
@@ -48,6 +49,7 @@ void main() {
             id: auth0Credentials.user.sub,
           ),
         );
+        expect(auth.isAuthenticated, isTrue);
       });
     });
     group('login', () {
@@ -69,6 +71,7 @@ void main() {
           audience: 'foo',
         );
         expect(auth.credentials.value, isNull);
+        expect(auth.isAuthenticated, isFalse);
 
         final result = await auth.login();
         expect(result is ResultOk<void>, isTrue);
@@ -76,6 +79,7 @@ void main() {
           auth.credentials.value,
           equals(const Credentials(accessToken: 'foo', id: 'bar')),
         );
+        expect(auth.isAuthenticated, isTrue);
       });
 
       test('credentials stay null if login fails', () async {
@@ -90,10 +94,12 @@ void main() {
           audience: 'foo',
         );
         expect(auth.credentials.value, isNull);
+        expect(auth.isAuthenticated, isFalse);
 
         final result = await auth.login();
         expect(result is ResultError<void>, isTrue);
         expect(auth.credentials.value, isNull);
+        expect(auth.isAuthenticated, isFalse);
       });
 
       test('credentials stay null '
