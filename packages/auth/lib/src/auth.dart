@@ -11,6 +11,8 @@ abstract interface class Auth {
   Future<Result<void>> refreshCredentialsIfExpired();
 
   ValueNotifier<Credentials?> get credentials;
+
+  bool get isAuthenticated;
 }
 
 abstract interface class AuthFactory {

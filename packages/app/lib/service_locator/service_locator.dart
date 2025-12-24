@@ -9,6 +9,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
+import 'package:breizh_blok_mobile/domain/entities/user/user.dart';
 import 'package:breizh_blok_mobile/routing/router.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_list_screen.dart';
@@ -48,6 +49,23 @@ AppDatabase appDatabase(Ref ref) {
 @riverpod
 Auth auth(Ref ref) {
   throw Exception();
+}
+
+@riverpod
+class AuthUserNotifier extends _$AuthUserNotifier {
+  @override
+  void build() {}
+
+  Future<void> login() async {
+    await ref.read(authProvider).login();
+    ref.invalidate(userProvider);
+  }
+
+  Future<void> logout() async {
+    await ref.read(authProvider).login();
+
+    ref.invalidate(userProvider);
+  }
 }
 
 @riverpod
@@ -134,4 +152,21 @@ Upgrader upgrader(Ref ref) {
   return Upgrader(
     minAppVersion: minAppVersion,
   );
+}
+
+@riverpod
+Future<User?> user(Ref ref) async {
+  final auth = ref.watch(authProvider);
+
+  final id = auth.credentials.value?.id;
+
+  if (!auth.isAuthenticated || id == null) {
+    return null;
+  }
+
+  final userRepository = ref.watch(userProfileRepositoryProvider);
+
+  final res = await userRepository.get(id).run();
+
+  return res.getOrElse((_) => null);
 }

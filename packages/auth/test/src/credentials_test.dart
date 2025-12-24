@@ -5,13 +5,13 @@ void main() {
   group('Credentials', () {
     test('equality', () {
       expect(
-        const Credentials(accessToken: 'foo') ==
-            const Credentials(accessToken: 'foo'),
+        const Credentials(accessToken: 'foo', id: 'bar') ==
+            const Credentials(accessToken: 'foo', id: 'bar'),
         isTrue,
       );
       expect(
-        const Credentials(accessToken: 'foo') ==
-            const Credentials(accessToken: 'bar'),
+        const Credentials(accessToken: 'foo', id: 'bar') ==
+            const Credentials(accessToken: 'bar', id: 'bar'),
         isFalse,
       );
     });

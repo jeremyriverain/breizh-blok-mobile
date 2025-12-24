@@ -63,7 +63,7 @@ And Authorization header is added
 
           when(() => auth.credentials).thenAnswer(
             (_) => ValueNotifier<Credentials?>(
-              const Credentials(accessToken: 'foo'),
+              const Credentials(accessToken: 'foo', id: 'bar'),
             ),
           );
           when(
@@ -172,7 +172,9 @@ And next handler is resolved
           when(() => auth.login()).thenAnswer((_) async => ResultOk(() {}()));
           when(
             () => auth.credentials,
-          ).thenReturn(ValueNotifier(const Credentials(accessToken: 'foo')));
+          ).thenReturn(
+            ValueNotifier(const Credentials(accessToken: 'foo', id: 'bar')),
+          );
           when(
             // ignore: inference_failure_on_function_invocation
             () => dio.request(
@@ -240,7 +242,9 @@ then reject handler is called
           when(() => auth.login()).thenAnswer((_) async => ResultOk(() {}()));
           when(
             () => auth.credentials,
-          ).thenReturn(ValueNotifier(const Credentials(accessToken: 'foo')));
+          ).thenReturn(
+            ValueNotifier(const Credentials(accessToken: 'foo', id: 'bar')),
+          );
           when(
             // ignore: inference_failure_on_function_invocation
             () => dio.request(

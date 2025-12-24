@@ -86,6 +86,7 @@ void main() async {
     ).thenReturn(() {}());
 
     when(() => auth.credentials).thenReturn(ValueNotifier(null));
+    when(() => auth.isAuthenticated).thenReturn(false);
 
     sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setBool(

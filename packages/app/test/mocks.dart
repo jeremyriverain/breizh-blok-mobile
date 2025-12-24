@@ -4,6 +4,7 @@ import 'package:breizh_blok_api_generated/breizh_blok_api_generated.dart'
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_user_profile_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
@@ -13,6 +14,7 @@ import 'package:breizh_blok_mobile/data/repositories/department/department_repos
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/domain/repositories/user_profile_repository.dart';
 import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:dio/dio.dart' hide Response;
@@ -33,6 +35,9 @@ class MockApiBoulderFeedbackDataSource extends Mock
 
 class MockApiClient extends Mock implements ApiClient {}
 
+class MockApiUserProfileDataSource extends Mock
+    implements ApiUserProfileDataSource {}
+
 class MockAppDatabase extends Mock implements AppDatabase {}
 
 class MockAuth extends Mock implements Auth {}
@@ -49,6 +54,9 @@ class MockBoulderMarkerRepository extends Mock
 
 class MockBreizhBlokApiBoulderFeedbackApi extends Mock
     implements breizh_blok_api.BoulderFeedbackApi {}
+
+class MockBreizhBlokApiAuthZeroUserApi extends Mock
+    implements breizh_blok_api.AuthZeroUserApi {}
 
 class MockBreizhBlokApiBoulderFeedbackJsonldBoulderFeedbackRead extends Mock
     implements breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackRead {}
@@ -100,6 +108,8 @@ class MockUpgrader extends Mock implements Upgrader {}
 class MockUpgraderStore extends Mock implements UpgraderStore {}
 
 class MockUrlLauncher extends Mock implements UrlLauncher {}
+
+class MockUserProfileRepository extends Mock implements UserProfileRepository {}
 
 Upgrader mockUpgrader() {
   final Upgrader upgrader = MockUpgrader();
