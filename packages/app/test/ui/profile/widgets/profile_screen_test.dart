@@ -22,6 +22,7 @@ void main() {
       auth = MockAuth();
       userProfileRepository = MockUserProfileRepository();
     });
+
     testWidgets(
       '''
 Given user is authenticated
@@ -80,6 +81,8 @@ And the premium icon is shown in the AppBar
         );
         when(() => auth.isAuthenticated).thenReturn(true);
 
+        when(() => auth.logout()).thenAnswer((_) async => Result.ok(() {}()));
+
         when(
           () => userProfileRepository.get('bar'),
         ).thenReturn(
@@ -99,29 +102,36 @@ And the premium icon is shown in the AppBar
 
         await tester.pumpAndSettle();
 
-        expect(find.widgetWithText(ListTile, 'Se déconnecter'), findsOneWidget);
+        verify(
+          () => userProfileRepository.get('bar'),
+        ).called(1);
+        verifyNoMoreInteractions(userProfileRepository);
+
+        await tester.tap(find.widgetWithText(ListTile, 'Se déconnecter'));
+
+        await tester.pump();
+
+        verify(() => auth.logout()).called(1);
 
         expect(
           find.widgetWithIcon(AppBar, Icons.workspace_premium),
           findsOneWidget,
         );
-
-        verify(
-          () => userProfileRepository.get('bar'),
-        ).called(1);
-        verifyNoMoreInteractions(userProfileRepository);
       },
     );
 
     testWidgets(
       '''
 Given the user is not authenticated
-Then the menu "Se connecter" is displayed
+When i click on "Se connecter"
+Then I interact with the Auth to login
 ''',
       (tester) async {
         when(() => auth.credentials).thenAnswer(
           (_) => ValueNotifier<Credentials?>(null),
         );
+
+        when(() => auth.login()).thenAnswer((_) async => Result.ok(() {}()));
         when(() => auth.isAuthenticated).thenReturn(false);
 
         await tester.myPumpWidget(
@@ -136,7 +146,9 @@ Then the menu "Se connecter" is displayed
 
         await tester.pumpAndSettle();
 
-        expect(find.widgetWithText(ListTile, 'Se connecter'), findsOneWidget);
+        await tester.tap(find.widgetWithText(ListTile, 'Se connecter'));
+
+        verify(() => auth.login()).called(1);
       },
     );
   });
