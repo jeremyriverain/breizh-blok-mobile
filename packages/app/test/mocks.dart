@@ -50,6 +50,9 @@ class MockBoulderMarkerRepository extends Mock
 class MockBreizhBlokApiBoulderFeedbackApi extends Mock
     implements breizh_blok_api.BoulderFeedbackApi {}
 
+class MockBreizhBlokApiAuthZeroUserApi extends Mock
+    implements breizh_blok_api.AuthZeroUserApi {}
+
 class MockBreizhBlokApiBoulderFeedbackJsonldBoulderFeedbackRead extends Mock
     implements breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackRead {}
 
