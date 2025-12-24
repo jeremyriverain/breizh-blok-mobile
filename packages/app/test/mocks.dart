@@ -4,6 +4,7 @@ import 'package:breizh_blok_api_generated/breizh_blok_api_generated.dart'
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/api_user_profile_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
@@ -32,6 +33,9 @@ class MockApiBoulderFeedbackDataSource extends Mock
     implements ApiBoulderFeedbackDataSource {}
 
 class MockApiClient extends Mock implements ApiClient {}
+
+class MockApiUserProfileDataSource extends Mock
+    implements ApiUserProfileDataSource {}
 
 class MockAppDatabase extends Mock implements AppDatabase {}
 

@@ -41,6 +41,9 @@ Then a User is returned''',
             response.getOrElse((_) => null),
             equals(const User(roles: ['ROLE_FOO'])),
           );
+
+          verify(() => api.apiUsersIdGet(id: 'foo')).called(1);
+          verifyNoMoreInteractions(api);
         },
       );
 
@@ -66,6 +69,37 @@ Then the exception is properly handled''',
               ),
             ),
           );
+
+          verify(() => api.apiUsersIdGet(id: 'foo')).called(1);
+          verifyNoMoreInteractions(api);
+        },
+      );
+
+      test(
+        '''
+Given the API throws a DioException
+Then the exception is properly handled''',
+        () async {
+          when(() => api.apiUsersIdGet(id: 'foo')).thenThrow(
+            DioException(
+              requestOptions: RequestOptions(),
+              response: Response(
+                requestOptions: RequestOptions(),
+                statusCode: 422,
+              ),
+            ),
+          );
+
+          final result = await dataSource.get('foo').run();
+
+          expect(result.isLeft(), isTrue);
+          expect(
+            result.getLeft().toNullable(),
+            isA<UnprocessableEntityException>(),
+          );
+
+          verify(() => api.apiUsersIdGet(id: 'foo')).called(1);
+          verifyNoMoreInteractions(api);
         },
       );
     });
