@@ -14,6 +14,7 @@ import 'package:breizh_blok_mobile/data/repositories/department/department_repos
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/domain/repositories/user_profile_repository.dart';
 import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
 import 'package:dio/dio.dart' hide Response;
@@ -107,6 +108,8 @@ class MockUpgrader extends Mock implements Upgrader {}
 class MockUpgraderStore extends Mock implements UpgraderStore {}
 
 class MockUrlLauncher extends Mock implements UrlLauncher {}
+
+class MockUserProfileRepository extends Mock implements UserProfileRepository {}
 
 Upgrader mockUpgrader() {
   final Upgrader upgrader = MockUpgrader();
