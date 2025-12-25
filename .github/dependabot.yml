@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
+
+  # Ruby (Bundler) – iOS tooling (Fastlane/CocoaPods, etc.) in app package
+  - package-ecosystem: bundler
+    directory: /packages/app/ios
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
