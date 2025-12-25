@@ -60,7 +60,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   reactive_forms: ^18.1.2
   riverpod_annotation: ^3.0.3
-  sentry_flutter: ^9.8.0
+  sentry_flutter: ^9.9.1
   shared_preferences: ^2.5.3
   sqlite3_flutter_libs: ^0.5.40
   syncfusion_flutter_sliders: ^30.2.7
