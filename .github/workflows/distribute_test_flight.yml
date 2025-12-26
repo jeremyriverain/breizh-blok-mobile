@@ -16,7 +16,7 @@ jobs:
 
       - uses: ./.github/actions/install
 
-      - uses: "google-github-actions/auth@v2"
+      - uses: "google-github-actions/auth@v3"
         with:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID_RELEASE }}
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_RELEASE }}
