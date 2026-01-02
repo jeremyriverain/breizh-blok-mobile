@@ -45,8 +45,6 @@ class ContributeBoulderMapScreen extends StatelessWidget {
                   return;
                 }
                 if (state.error) {
-                  print('foo');
-
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(localizations.anErrorOccured)),
                   );
