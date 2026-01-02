@@ -3,79 +3,79 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/boulder_boulder_feedback_read.dart';
-import 'package:built_value/json_object.dart';
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_read_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_read_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/geo_point_read_boulder_feedback_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'boulder_feedback_boulder_feedback_read.g.dart';
+part 'boulder_feedback_read_boulder_feedback_read.g.dart';
 
 ///
 ///
 /// Properties:
-/// * [newLocation] -
+/// * [newLocation]
 /// * [message]
 /// * [boulder]
 /// * [createdAt]
 /// * [createdBy]
 @BuiltValue()
-abstract class BoulderFeedbackBoulderFeedbackRead
+abstract class BoulderFeedbackReadBoulderFeedbackRead
     implements
         Built<
-          BoulderFeedbackBoulderFeedbackRead,
-          BoulderFeedbackBoulderFeedbackReadBuilder
+          BoulderFeedbackReadBoulderFeedbackRead,
+          BoulderFeedbackReadBoulderFeedbackReadBuilder
         > {
-  ///
   @BuiltValueField(wireName: r'newLocation')
-  JsonObject? get newLocation;
+  GeoPointReadBoulderFeedbackRead? get newLocation;
 
   @BuiltValueField(wireName: r'message')
   String? get message;
 
   @BuiltValueField(wireName: r'boulder')
-  BoulderBoulderFeedbackRead get boulder;
+  BoulderReadBoulderFeedbackRead get boulder;
 
   @BuiltValueField(wireName: r'createdAt')
   DateTime? get createdAt;
 
   @BuiltValueField(wireName: r'createdBy')
-  String? get createdBy;
+  AuthZeroUserReadBoulderFeedbackRead? get createdBy;
 
-  BoulderFeedbackBoulderFeedbackRead._();
+  BoulderFeedbackReadBoulderFeedbackRead._();
 
-  factory BoulderFeedbackBoulderFeedbackRead([
-    void updates(BoulderFeedbackBoulderFeedbackReadBuilder b),
-  ]) = _$BoulderFeedbackBoulderFeedbackRead;
+  factory BoulderFeedbackReadBoulderFeedbackRead([
+    void updates(BoulderFeedbackReadBoulderFeedbackReadBuilder b),
+  ]) = _$BoulderFeedbackReadBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BoulderFeedbackBoulderFeedbackReadBuilder b) => b;
+  static void _defaults(BoulderFeedbackReadBoulderFeedbackReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BoulderFeedbackBoulderFeedbackRead> get serializer =>
-      _$BoulderFeedbackBoulderFeedbackReadSerializer();
+  static Serializer<BoulderFeedbackReadBoulderFeedbackRead> get serializer =>
+      _$BoulderFeedbackReadBoulderFeedbackReadSerializer();
 }
 
-class _$BoulderFeedbackBoulderFeedbackReadSerializer
-    implements PrimitiveSerializer<BoulderFeedbackBoulderFeedbackRead> {
+class _$BoulderFeedbackReadBoulderFeedbackReadSerializer
+    implements PrimitiveSerializer<BoulderFeedbackReadBoulderFeedbackRead> {
   @override
   final Iterable<Type> types = const [
-    BoulderFeedbackBoulderFeedbackRead,
-    _$BoulderFeedbackBoulderFeedbackRead,
+    BoulderFeedbackReadBoulderFeedbackRead,
+    _$BoulderFeedbackReadBoulderFeedbackRead,
   ];
 
   @override
-  final String wireName = r'BoulderFeedbackBoulderFeedbackRead';
+  final String wireName = r'BoulderFeedbackReadBoulderFeedbackRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BoulderFeedbackBoulderFeedbackRead object, {
+    BoulderFeedbackReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.newLocation != null) {
       yield r'newLocation';
       yield serializers.serialize(
         object.newLocation,
-        specifiedType: const FullType(JsonObject),
+        specifiedType: const FullType.nullable(GeoPointReadBoulderFeedbackRead),
       );
     }
     if (object.message != null) {
@@ -88,7 +88,7 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
     yield r'boulder';
     yield serializers.serialize(
       object.boulder,
-      specifiedType: const FullType(BoulderBoulderFeedbackRead),
+      specifiedType: const FullType(BoulderReadBoulderFeedbackRead),
     );
     if (object.createdAt != null) {
       yield r'createdAt';
@@ -101,7 +101,9 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
       yield r'createdBy';
       yield serializers.serialize(
         object.createdBy,
-        specifiedType: const FullType.nullable(String),
+        specifiedType: const FullType.nullable(
+          AuthZeroUserReadBoulderFeedbackRead,
+        ),
       );
     }
   }
@@ -109,7 +111,7 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
   @override
   Object serialize(
     Serializers serializers,
-    BoulderFeedbackBoulderFeedbackRead object, {
+    BoulderFeedbackReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -124,7 +126,7 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BoulderFeedbackBoulderFeedbackReadBuilder result,
+    required BoulderFeedbackReadBoulderFeedbackReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -135,10 +137,13 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(JsonObject),
+                    specifiedType: const FullType.nullable(
+                      GeoPointReadBoulderFeedbackRead,
+                    ),
                   )
-                  as JsonObject;
-          result.newLocation = valueDes;
+                  as GeoPointReadBoulderFeedbackRead?;
+          if (valueDes == null) continue;
+          result.newLocation.replace(valueDes);
           break;
         case r'message':
           final valueDes =
@@ -154,9 +159,11 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(BoulderBoulderFeedbackRead),
+                    specifiedType: const FullType(
+                      BoulderReadBoulderFeedbackRead,
+                    ),
                   )
-                  as BoulderBoulderFeedbackRead;
+                  as BoulderReadBoulderFeedbackRead;
           result.boulder.replace(valueDes);
           break;
         case r'createdAt':
@@ -172,11 +179,13 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(String),
+                    specifiedType: const FullType.nullable(
+                      AuthZeroUserReadBoulderFeedbackRead,
+                    ),
                   )
-                  as String?;
+                  as AuthZeroUserReadBoulderFeedbackRead?;
           if (valueDes == null) continue;
-          result.createdBy = valueDes;
+          result.createdBy.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -187,12 +196,12 @@ class _$BoulderFeedbackBoulderFeedbackReadSerializer
   }
 
   @override
-  BoulderFeedbackBoulderFeedbackRead deserialize(
+  BoulderFeedbackReadBoulderFeedbackRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BoulderFeedbackBoulderFeedbackReadBuilder();
+    final result = BoulderFeedbackReadBoulderFeedbackReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

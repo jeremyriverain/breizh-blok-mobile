@@ -30,27 +30,29 @@ import 'package:breizh_blok_api_generated/src/model/auth_zero_user_auth_zero_use
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read.dart';
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context_one_of.dart';
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_read_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/auth_zero_user_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_area_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_area_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_jsonld_boulder_area_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_jsonld_boulder_area_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_area_jsonld_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_jsonld_boulder_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_jsonld_municipality_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_area_jsonld_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_municipality_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_area_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_boulder_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_boulder_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_feedback_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_feedback_boulder_feedback_write.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_boulder_feedback_write.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_read_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_write_boulder_feedback_write.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_feedback_read_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_feedback_write_boulder_feedback_write.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_rock_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_rock_read.dart';
 import 'package:breizh_blok_api_generated/src/model/constraint_violation_json.dart';
 import 'package:breizh_blok_api_generated/src/model/constraint_violation_json_violations_inner.dart';
@@ -59,13 +61,14 @@ import 'package:breizh_blok_api_generated/src/model/department_department_read.d
 import 'package:breizh_blok_api_generated/src/model/department_jsonld_department_read.dart';
 import 'package:breizh_blok_api_generated/src/model/error.dart';
 import 'package:breizh_blok_api_generated/src/model/error_jsonld.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_boulder_feedback_write.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_area_item_get.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_feedback_write.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_read.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_municipality_item_get.dart';
+import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_rock_read.dart';
+import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_write_boulder_feedback_write.dart';
+import 'package:breizh_blok_api_generated/src/model/geo_point_read_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/geo_point_write_boulder_feedback_write.dart';
 import 'package:breizh_blok_api_generated/src/model/grade_jsonld_grade_read.dart';
 import 'package:breizh_blok_api_generated/src/model/height_boulder_boulder_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/height_boulder_jsonld_boulder_item_get.dart';
@@ -84,11 +87,11 @@ import 'package:breizh_blok_api_generated/src/model/municipality_jsonld_municipa
 import 'package:breizh_blok_api_generated/src/model/municipality_jsonld_municipality_read.dart';
 import 'package:breizh_blok_api_generated/src/model/municipality_municipality_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/municipality_municipality_read.dart';
-import 'package:breizh_blok_api_generated/src/model/rock_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/rock_boulder_read.dart';
-import 'package:breizh_blok_api_generated/src/model/rock_jsonld_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/rock_jsonld_boulder_read.dart';
+import 'package:breizh_blok_api_generated/src/model/rock_jsonld_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/rock_jsonld_rock_read.dart';
+import 'package:breizh_blok_api_generated/src/model/rock_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/rock_rock_read.dart';
 import 'package:breizh_blok_api_generated/src/model/user_auth_zero_user_read.dart';
 import 'package:breizh_blok_api_generated/src/model/user_jsonld_auth_zero_user_read.dart';
@@ -112,27 +115,29 @@ part 'serializers.g.dart';
   AuthZeroUserJsonldAuthZeroUserRead,
   AuthZeroUserJsonldAuthZeroUserReadContext,
   AuthZeroUserJsonldAuthZeroUserReadContextOneOf,
+  AuthZeroUserJsonldReadBoulderFeedbackRead,
+  AuthZeroUserReadBoulderFeedbackRead,
   BoulderAreaBoulderAreaItemGet,
   BoulderAreaBoulderAreaRead,
-  BoulderAreaBoulderFeedbackRead,
   BoulderAreaBoulderRead,
   BoulderAreaJsonldBoulderAreaItemGet,
   BoulderAreaJsonldBoulderAreaRead,
-  BoulderAreaJsonldBoulderFeedbackRead,
   BoulderAreaJsonldBoulderRead,
   BoulderAreaJsonldMunicipalityRead,
+  BoulderAreaJsonldReadBoulderFeedbackRead,
   BoulderAreaMunicipalityRead,
-  BoulderBoulderFeedbackRead,
+  BoulderAreaReadBoulderFeedbackRead,
   BoulderBoulderItemGet,
   BoulderBoulderRead,
-  BoulderFeedbackBoulderFeedbackRead,
-  BoulderFeedbackBoulderFeedbackWrite,
-  BoulderFeedbackJsonldBoulderFeedbackRead,
-  BoulderFeedbackJsonldBoulderFeedbackWrite,
-  BoulderJsonldBoulderFeedbackRead,
+  BoulderFeedbackJsonldReadBoulderFeedbackRead,
+  BoulderFeedbackJsonldWriteBoulderFeedbackWrite,
+  BoulderFeedbackReadBoulderFeedbackRead,
+  BoulderFeedbackWriteBoulderFeedbackWrite,
   BoulderJsonldBoulderItemGet,
   BoulderJsonldBoulderRead,
+  BoulderJsonldReadBoulderFeedbackRead,
   BoulderJsonldRockRead,
+  BoulderReadBoulderFeedbackRead,
   BoulderRockRead,
   ConstraintViolationJson,
   ConstraintViolationJsonViolationsInner,
@@ -141,13 +146,14 @@ part 'serializers.g.dart';
   DepartmentJsonldDepartmentRead,
   Error,
   ErrorJsonld,
-  GeoPointBoulderFeedbackWrite,
   GeoPointJsonldBoulderAreaItemGet,
-  GeoPointJsonldBoulderFeedbackRead,
-  GeoPointJsonldBoulderFeedbackWrite,
   GeoPointJsonldBoulderRead,
   GeoPointJsonldMunicipalityItemGet,
+  GeoPointJsonldReadBoulderFeedbackRead,
   GeoPointJsonldRockRead,
+  GeoPointJsonldWriteBoulderFeedbackWrite,
+  GeoPointReadBoulderFeedbackRead,
+  GeoPointWriteBoulderFeedbackWrite,
   GradeJsonldGradeRead,
   HeightBoulderBoulderItemGet,
   HeightBoulderJsonldBoulderItemGet,
@@ -166,11 +172,11 @@ part 'serializers.g.dart';
   MunicipalityJsonldMunicipalityRead,
   MunicipalityMunicipalityItemGet,
   MunicipalityMunicipalityRead,
-  RockBoulderFeedbackRead,
   RockBoulderRead,
-  RockJsonldBoulderFeedbackRead,
   RockJsonldBoulderRead,
+  RockJsonldReadBoulderFeedbackRead,
   RockJsonldRockRead,
+  RockReadBoulderFeedbackRead,
   RockRockRead,
   UserAuthZeroUserRead,
   UserJsonldAuthZeroUserRead,

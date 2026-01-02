@@ -3,5 +3,3 @@ include: package:breizh_blok_lint/lint.yaml
 analyzer:
   exclude:
     - "lib/i18n/app_localizations_*.dart"
-  plugins:
-    - custom_lint

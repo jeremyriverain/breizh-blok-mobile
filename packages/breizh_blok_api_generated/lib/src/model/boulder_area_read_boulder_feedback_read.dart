@@ -6,50 +6,50 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'boulder_area_boulder_feedback_read.g.dart';
+part 'boulder_area_read_boulder_feedback_read.g.dart';
 
 ///
 ///
 /// Properties:
 /// * [name]
 @BuiltValue()
-abstract class BoulderAreaBoulderFeedbackRead
+abstract class BoulderAreaReadBoulderFeedbackRead
     implements
         Built<
-          BoulderAreaBoulderFeedbackRead,
-          BoulderAreaBoulderFeedbackReadBuilder
+          BoulderAreaReadBoulderFeedbackRead,
+          BoulderAreaReadBoulderFeedbackReadBuilder
         > {
   @BuiltValueField(wireName: r'name')
   String get name;
 
-  BoulderAreaBoulderFeedbackRead._();
+  BoulderAreaReadBoulderFeedbackRead._();
 
-  factory BoulderAreaBoulderFeedbackRead([
-    void updates(BoulderAreaBoulderFeedbackReadBuilder b),
-  ]) = _$BoulderAreaBoulderFeedbackRead;
+  factory BoulderAreaReadBoulderFeedbackRead([
+    void updates(BoulderAreaReadBoulderFeedbackReadBuilder b),
+  ]) = _$BoulderAreaReadBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BoulderAreaBoulderFeedbackReadBuilder b) => b;
+  static void _defaults(BoulderAreaReadBoulderFeedbackReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BoulderAreaBoulderFeedbackRead> get serializer =>
-      _$BoulderAreaBoulderFeedbackReadSerializer();
+  static Serializer<BoulderAreaReadBoulderFeedbackRead> get serializer =>
+      _$BoulderAreaReadBoulderFeedbackReadSerializer();
 }
 
-class _$BoulderAreaBoulderFeedbackReadSerializer
-    implements PrimitiveSerializer<BoulderAreaBoulderFeedbackRead> {
+class _$BoulderAreaReadBoulderFeedbackReadSerializer
+    implements PrimitiveSerializer<BoulderAreaReadBoulderFeedbackRead> {
   @override
   final Iterable<Type> types = const [
-    BoulderAreaBoulderFeedbackRead,
-    _$BoulderAreaBoulderFeedbackRead,
+    BoulderAreaReadBoulderFeedbackRead,
+    _$BoulderAreaReadBoulderFeedbackRead,
   ];
 
   @override
-  final String wireName = r'BoulderAreaBoulderFeedbackRead';
+  final String wireName = r'BoulderAreaReadBoulderFeedbackRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BoulderAreaBoulderFeedbackRead object, {
+    BoulderAreaReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'name';
@@ -62,7 +62,7 @@ class _$BoulderAreaBoulderFeedbackReadSerializer
   @override
   Object serialize(
     Serializers serializers,
-    BoulderAreaBoulderFeedbackRead object, {
+    BoulderAreaReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -77,7 +77,7 @@ class _$BoulderAreaBoulderFeedbackReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BoulderAreaBoulderFeedbackReadBuilder result,
+    required BoulderAreaReadBoulderFeedbackReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -102,12 +102,12 @@ class _$BoulderAreaBoulderFeedbackReadSerializer
   }
 
   @override
-  BoulderAreaBoulderFeedbackRead deserialize(
+  BoulderAreaReadBoulderFeedbackRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BoulderAreaBoulderFeedbackReadBuilder();
+    final result = BoulderAreaReadBoulderFeedbackReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

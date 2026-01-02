@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/api_boulders_get_collection200_response_hydra_search.dart';
 import 'package:breizh_blok_api_generated/src/model/api_boulders_get_collection200_response_hydra_view.dart';
 import 'package:built_value/built_value.dart';
@@ -27,7 +27,7 @@ abstract class ApiBoulderFeedbacksGetCollection200Response
           ApiBoulderFeedbacksGetCollection200ResponseBuilder
         > {
   @BuiltValueField(wireName: r'hydra:member')
-  BuiltList<BoulderFeedbackJsonldBoulderFeedbackRead> get hydraColonMember;
+  BuiltList<BoulderFeedbackJsonldReadBoulderFeedbackRead> get hydraColonMember;
 
   @BuiltValueField(wireName: r'hydra:totalItems')
   int? get hydraColonTotalItems;
@@ -74,7 +74,7 @@ class _$ApiBoulderFeedbacksGetCollection200ResponseSerializer
     yield serializers.serialize(
       object.hydraColonMember,
       specifiedType: const FullType(BuiltList, [
-        FullType(BoulderFeedbackJsonldBoulderFeedbackRead),
+        FullType(BoulderFeedbackJsonldReadBoulderFeedbackRead),
       ]),
     );
     if (object.hydraColonTotalItems != null) {
@@ -134,10 +134,10 @@ class _$ApiBoulderFeedbacksGetCollection200ResponseSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(BuiltList, [
-                      FullType(BoulderFeedbackJsonldBoulderFeedbackRead),
+                      FullType(BoulderFeedbackJsonldReadBoulderFeedbackRead),
                     ]),
                   )
-                  as BuiltList<BoulderFeedbackJsonldBoulderFeedbackRead>;
+                  as BuiltList<BoulderFeedbackJsonldReadBoulderFeedbackRead>;
           result.hydraColonMember.replace(valueDes);
           break;
         case r'hydra:totalItems':

@@ -16,12 +16,13 @@ void main() {
           boulder: fakeBoulder,
           message: 'foo',
         );
-        final request = api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+        final request = api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
           builder,
         ) {
           builder
-            ..newLocation.latitude = boulderFeedback.newLocation?.latitude
-            ..newLocation.longitude = boulderFeedback.newLocation?.longitude
+            ..newLocation.latitude = '${boulderFeedback.newLocation?.latitude}'
+            ..newLocation.longitude =
+                '${boulderFeedback.newLocation?.longitude}'
             ..message = boulderFeedback.message
             ..boulder = boulderFeedback.boulder.iri;
         });
@@ -38,7 +39,7 @@ void main() {
           message: 'foo',
           boulder: fakeBoulder,
         );
-        final request = api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+        final request = api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
           builder,
         ) {
           builder
@@ -58,12 +59,13 @@ void main() {
           newLocation: Location(latitude: 0, longitude: 1),
           boulder: fakeBoulder,
         );
-        final request = api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+        final request = api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
           builder,
         ) {
           builder
-            ..newLocation.latitude = boulderFeedback.newLocation?.latitude
-            ..newLocation.longitude = boulderFeedback.newLocation?.longitude
+            ..newLocation.latitude = '${boulderFeedback.newLocation?.latitude}'
+            ..newLocation.longitude =
+                '${boulderFeedback.newLocation?.longitude}'
             ..boulder = boulderFeedback.boulder.iri;
         });
         expect(

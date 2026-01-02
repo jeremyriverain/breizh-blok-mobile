@@ -59,7 +59,7 @@ class MockBreizhBlokApiAuthZeroUserApi extends Mock
     implements breizh_blok_api.AuthZeroUserApi {}
 
 class MockBreizhBlokApiBoulderFeedbackJsonldBoulderFeedbackRead extends Mock
-    implements breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackRead {}
+    implements breizh_blok_api.BoulderFeedbackJsonldReadBoulderFeedbackRead {}
 
 class MockCacheManager extends Mock implements CacheManager {}
 

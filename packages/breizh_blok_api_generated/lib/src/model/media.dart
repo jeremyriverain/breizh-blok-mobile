@@ -51,7 +51,7 @@ abstract class Media implements Built<Media, MediaBuilder> {
   String? get contentUrl;
 
   @BuiltValueField(wireName: r'imageDimensions')
-  BuiltList<String>? get imageDimensions;
+  BuiltList<int>? get imageDimensions;
 
   @BuiltValueField(wireName: r'mediaAttributes')
   BuiltList<String>? get mediaAttributes;
@@ -142,7 +142,7 @@ class _$MediaSerializer implements PrimitiveSerializer<Media> {
       yield r'imageDimensions';
       yield serializers.serialize(
         object.imageDimensions,
-        specifiedType: const FullType.nullable(BuiltList, [FullType(String)]),
+        specifiedType: const FullType(BuiltList, [FullType(int)]),
       );
     }
     if (object.mediaAttributes != null) {
@@ -266,12 +266,9 @@ class _$MediaSerializer implements PrimitiveSerializer<Media> {
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(BuiltList, [
-                      FullType(String),
-                    ]),
+                    specifiedType: const FullType(BuiltList, [FullType(int)]),
                   )
-                  as BuiltList<String>?;
-          if (valueDes == null) continue;
+                  as BuiltList<int>;
           result.imageDimensions.replace(valueDes);
           break;
         case r'mediaAttributes':

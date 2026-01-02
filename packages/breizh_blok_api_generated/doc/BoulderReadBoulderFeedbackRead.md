@@ -1,4 +1,4 @@
-# breizh_blok_api_generated.model.BoulderFeedbackJsonldBoulderFeedbackWrite
+# breizh_blok_api_generated.model.BoulderReadBoulderFeedbackRead
 
 ## Load the model package
 ```dart
@@ -8,9 +8,8 @@ import 'package:breizh_blok_api_generated/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**newLocation** | [**GeoPointJsonldBoulderFeedbackWrite**](GeoPointJsonldBoulderFeedbackWrite.md) |  | [optional] 
-**message** | **String** |  | [optional] 
-**boulder** | **String** |  | 
+**name** | **String** |  | 
+**rock** | [**RockReadBoulderFeedbackRead**](RockReadBoulderFeedbackRead.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

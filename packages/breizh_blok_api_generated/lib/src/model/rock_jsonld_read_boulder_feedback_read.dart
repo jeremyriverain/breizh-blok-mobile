@@ -3,12 +3,12 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:breizh_blok_api_generated/src/model/boulder_area_jsonld_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
-import 'package:breizh_blok_api_generated/src/model/rock_jsonld_boulder_feedback_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'boulder_jsonld_boulder_feedback_read.g.dart';
+part 'rock_jsonld_read_boulder_feedback_read.g.dart';
 
 ///
 ///
@@ -16,14 +16,13 @@ part 'boulder_jsonld_boulder_feedback_read.g.dart';
 /// * [atContext]
 /// * [atId]
 /// * [atType]
-/// * [name]
-/// * [rock]
+/// * [boulderArea]
 @BuiltValue()
-abstract class BoulderJsonldBoulderFeedbackRead
+abstract class RockJsonldReadBoulderFeedbackRead
     implements
         Built<
-          BoulderJsonldBoulderFeedbackRead,
-          BoulderJsonldBoulderFeedbackReadBuilder
+          RockJsonldReadBoulderFeedbackRead,
+          RockJsonldReadBoulderFeedbackReadBuilder
         > {
   @BuiltValueField(wireName: r'@context')
   AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
@@ -34,40 +33,37 @@ abstract class BoulderJsonldBoulderFeedbackRead
   @BuiltValueField(wireName: r'@type')
   String? get atType;
 
-  @BuiltValueField(wireName: r'name')
-  String get name;
+  @BuiltValueField(wireName: r'boulderArea')
+  BoulderAreaJsonldReadBoulderFeedbackRead get boulderArea;
 
-  @BuiltValueField(wireName: r'rock')
-  RockJsonldBoulderFeedbackRead get rock;
+  RockJsonldReadBoulderFeedbackRead._();
 
-  BoulderJsonldBoulderFeedbackRead._();
-
-  factory BoulderJsonldBoulderFeedbackRead([
-    void updates(BoulderJsonldBoulderFeedbackReadBuilder b),
-  ]) = _$BoulderJsonldBoulderFeedbackRead;
+  factory RockJsonldReadBoulderFeedbackRead([
+    void updates(RockJsonldReadBoulderFeedbackReadBuilder b),
+  ]) = _$RockJsonldReadBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BoulderJsonldBoulderFeedbackReadBuilder b) => b;
+  static void _defaults(RockJsonldReadBoulderFeedbackReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BoulderJsonldBoulderFeedbackRead> get serializer =>
-      _$BoulderJsonldBoulderFeedbackReadSerializer();
+  static Serializer<RockJsonldReadBoulderFeedbackRead> get serializer =>
+      _$RockJsonldReadBoulderFeedbackReadSerializer();
 }
 
-class _$BoulderJsonldBoulderFeedbackReadSerializer
-    implements PrimitiveSerializer<BoulderJsonldBoulderFeedbackRead> {
+class _$RockJsonldReadBoulderFeedbackReadSerializer
+    implements PrimitiveSerializer<RockJsonldReadBoulderFeedbackRead> {
   @override
   final Iterable<Type> types = const [
-    BoulderJsonldBoulderFeedbackRead,
-    _$BoulderJsonldBoulderFeedbackRead,
+    RockJsonldReadBoulderFeedbackRead,
+    _$RockJsonldReadBoulderFeedbackRead,
   ];
 
   @override
-  final String wireName = r'BoulderJsonldBoulderFeedbackRead';
+  final String wireName = r'RockJsonldReadBoulderFeedbackRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BoulderJsonldBoulderFeedbackRead object, {
+    RockJsonldReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.atContext != null) {
@@ -93,22 +89,17 @@ class _$BoulderJsonldBoulderFeedbackReadSerializer
         specifiedType: const FullType(String),
       );
     }
-    yield r'name';
+    yield r'boulderArea';
     yield serializers.serialize(
-      object.name,
-      specifiedType: const FullType(String),
-    );
-    yield r'rock';
-    yield serializers.serialize(
-      object.rock,
-      specifiedType: const FullType(RockJsonldBoulderFeedbackRead),
+      object.boulderArea,
+      specifiedType: const FullType(BoulderAreaJsonldReadBoulderFeedbackRead),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    BoulderJsonldBoulderFeedbackRead object, {
+    RockJsonldReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -123,7 +114,7 @@ class _$BoulderJsonldBoulderFeedbackReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BoulderJsonldBoulderFeedbackReadBuilder result,
+    required RockJsonldReadBoulderFeedbackReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -159,25 +150,16 @@ class _$BoulderJsonldBoulderFeedbackReadSerializer
                   as String;
           result.atType = valueDes;
           break;
-        case r'name':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.name = valueDes;
-          break;
-        case r'rock':
+        case r'boulderArea':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      RockJsonldBoulderFeedbackRead,
+                      BoulderAreaJsonldReadBoulderFeedbackRead,
                     ),
                   )
-                  as RockJsonldBoulderFeedbackRead;
-          result.rock.replace(valueDes);
+                  as BoulderAreaJsonldReadBoulderFeedbackRead;
+          result.boulderArea.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -188,12 +170,12 @@ class _$BoulderJsonldBoulderFeedbackReadSerializer
   }
 
   @override
-  BoulderJsonldBoulderFeedbackRead deserialize(
+  RockJsonldReadBoulderFeedbackRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BoulderJsonldBoulderFeedbackReadBuilder();
+    final result = RockJsonldReadBoulderFeedbackReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

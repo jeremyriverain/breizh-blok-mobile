@@ -5,21 +5,21 @@ import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feed
 class ApiBoulderFeedbackMapper {
   const ApiBoulderFeedbackMapper();
 
-  api.BoulderFeedbackJsonldBoulderFeedbackWrite toCreateRequestFromDomain(
+  api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite toCreateRequestFromDomain(
     BoulderFeedback entity,
   ) {
-    return api.BoulderFeedbackJsonldBoulderFeedbackWrite((builder) {
+    return api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((builder) {
       builder
         ..message = entity.message
         ..boulder = entity.boulder.iri;
 
       final latitude = entity.newLocation?.latitude;
-      final longitude = entity.newLocation?.latitude;
+      final longitude = entity.newLocation?.longitude;
 
       if (latitude != null && longitude != null) {
         builder
-          ..newLocation.latitude = entity.newLocation?.latitude
-          ..newLocation.longitude = entity.newLocation?.longitude;
+          ..newLocation.latitude = '$latitude'
+          ..newLocation.longitude = '$longitude';
       }
     });
   }

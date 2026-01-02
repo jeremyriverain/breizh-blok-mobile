@@ -35,12 +35,6 @@ melos:
       run: dart run melos exec --concurrency=1 --fail-fast -- "dart analyze . --fatal-infos"
       description: Run Dart analyze in all dart packages.
 
-    custom_lint:
-      run: dart run melos exec --fail-fast --order-dependents -- "dart run custom_lint"
-      description: Run custom_lint
-      packageFilters:
-        dependsOn: custom_lint
-
     generate:breizh_blok_api:
       run: |
         set -e
