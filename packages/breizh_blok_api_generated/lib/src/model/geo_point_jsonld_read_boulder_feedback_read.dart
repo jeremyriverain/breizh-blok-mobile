@@ -7,7 +7,7 @@ import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_z
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'boulder_area_jsonld_boulder_feedback_read.g.dart';
+part 'geo_point_jsonld_read_boulder_feedback_read.g.dart';
 
 ///
 ///
@@ -15,13 +15,14 @@ part 'boulder_area_jsonld_boulder_feedback_read.g.dart';
 /// * [atContext]
 /// * [atId]
 /// * [atType]
-/// * [name]
+/// * [latitude]
+/// * [longitude]
 @BuiltValue()
-abstract class BoulderAreaJsonldBoulderFeedbackRead
+abstract class GeoPointJsonldReadBoulderFeedbackRead
     implements
         Built<
-          BoulderAreaJsonldBoulderFeedbackRead,
-          BoulderAreaJsonldBoulderFeedbackReadBuilder
+          GeoPointJsonldReadBoulderFeedbackRead,
+          GeoPointJsonldReadBoulderFeedbackReadBuilder
         > {
   @BuiltValueField(wireName: r'@context')
   AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
@@ -32,37 +33,40 @@ abstract class BoulderAreaJsonldBoulderFeedbackRead
   @BuiltValueField(wireName: r'@type')
   String? get atType;
 
-  @BuiltValueField(wireName: r'name')
-  String get name;
+  @BuiltValueField(wireName: r'latitude')
+  String? get latitude;
 
-  BoulderAreaJsonldBoulderFeedbackRead._();
+  @BuiltValueField(wireName: r'longitude')
+  String? get longitude;
 
-  factory BoulderAreaJsonldBoulderFeedbackRead([
-    void updates(BoulderAreaJsonldBoulderFeedbackReadBuilder b),
-  ]) = _$BoulderAreaJsonldBoulderFeedbackRead;
+  GeoPointJsonldReadBoulderFeedbackRead._();
+
+  factory GeoPointJsonldReadBoulderFeedbackRead([
+    void updates(GeoPointJsonldReadBoulderFeedbackReadBuilder b),
+  ]) = _$GeoPointJsonldReadBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BoulderAreaJsonldBoulderFeedbackReadBuilder b) => b;
+  static void _defaults(GeoPointJsonldReadBoulderFeedbackReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BoulderAreaJsonldBoulderFeedbackRead> get serializer =>
-      _$BoulderAreaJsonldBoulderFeedbackReadSerializer();
+  static Serializer<GeoPointJsonldReadBoulderFeedbackRead> get serializer =>
+      _$GeoPointJsonldReadBoulderFeedbackReadSerializer();
 }
 
-class _$BoulderAreaJsonldBoulderFeedbackReadSerializer
-    implements PrimitiveSerializer<BoulderAreaJsonldBoulderFeedbackRead> {
+class _$GeoPointJsonldReadBoulderFeedbackReadSerializer
+    implements PrimitiveSerializer<GeoPointJsonldReadBoulderFeedbackRead> {
   @override
   final Iterable<Type> types = const [
-    BoulderAreaJsonldBoulderFeedbackRead,
-    _$BoulderAreaJsonldBoulderFeedbackRead,
+    GeoPointJsonldReadBoulderFeedbackRead,
+    _$GeoPointJsonldReadBoulderFeedbackRead,
   ];
 
   @override
-  final String wireName = r'BoulderAreaJsonldBoulderFeedbackRead';
+  final String wireName = r'GeoPointJsonldReadBoulderFeedbackRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BoulderAreaJsonldBoulderFeedbackRead object, {
+    GeoPointJsonldReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.atContext != null) {
@@ -88,17 +92,26 @@ class _$BoulderAreaJsonldBoulderFeedbackReadSerializer
         specifiedType: const FullType(String),
       );
     }
-    yield r'name';
-    yield serializers.serialize(
-      object.name,
-      specifiedType: const FullType(String),
-    );
+    yield r'latitude';
+    yield object.latitude == null
+        ? null
+        : serializers.serialize(
+            object.latitude,
+            specifiedType: const FullType.nullable(String),
+          );
+    yield r'longitude';
+    yield object.longitude == null
+        ? null
+        : serializers.serialize(
+            object.longitude,
+            specifiedType: const FullType.nullable(String),
+          );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    BoulderAreaJsonldBoulderFeedbackRead object, {
+    GeoPointJsonldReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -113,7 +126,7 @@ class _$BoulderAreaJsonldBoulderFeedbackReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BoulderAreaJsonldBoulderFeedbackReadBuilder result,
+    required GeoPointJsonldReadBoulderFeedbackReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -149,14 +162,25 @@ class _$BoulderAreaJsonldBoulderFeedbackReadSerializer
                   as String;
           result.atType = valueDes;
           break;
-        case r'name':
+        case r'latitude':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(String),
+                    specifiedType: const FullType.nullable(String),
                   )
-                  as String;
-          result.name = valueDes;
+                  as String?;
+          if (valueDes == null) continue;
+          result.latitude = valueDes;
+          break;
+        case r'longitude':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.longitude = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -167,12 +191,12 @@ class _$BoulderAreaJsonldBoulderFeedbackReadSerializer
   }
 
   @override
-  BoulderAreaJsonldBoulderFeedbackRead deserialize(
+  GeoPointJsonldReadBoulderFeedbackRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BoulderAreaJsonldBoulderFeedbackReadBuilder();
+    final result = GeoPointJsonldReadBoulderFeedbackReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

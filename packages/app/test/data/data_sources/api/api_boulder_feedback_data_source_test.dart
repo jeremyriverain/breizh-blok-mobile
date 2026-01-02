@@ -11,7 +11,8 @@ import '../../../test_utils.dart';
 
 void main() {
   late breizh_blok_api.BoulderFeedbackApi api;
-  late breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackRead fakeResponse;
+  late breizh_blok_api.BoulderFeedbackJsonldReadBoulderFeedbackRead
+  fakeResponse;
   late ApiBoulderFeedbackDataSource dataSource;
 
   setUp(() {
@@ -25,8 +26,8 @@ void main() {
       test('create boulder feedback successfully', () async {
         when(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -44,8 +45,8 @@ void main() {
 
         verify(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -61,8 +62,8 @@ void main() {
           'Then an UnprocessableEntityException is returned', () async {
         when(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -89,8 +90,8 @@ void main() {
 
         verify(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -106,8 +107,8 @@ void main() {
           'Then an UnknownException is returned', () async {
         when(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -128,8 +129,8 @@ void main() {
 
         verify(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -145,8 +146,8 @@ void main() {
           'Then an UnknownException is returned', () async {
         when(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -162,8 +163,8 @@ void main() {
 
         verify(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder

@@ -1,4 +1,4 @@
-# breizh_blok_api_generated.model.BoulderAreaJsonldBoulderFeedbackRead
+# breizh_blok_api_generated.model.BoulderFeedbackJsonldReadBoulderFeedbackRead
 
 ## Load the model package
 ```dart
@@ -11,7 +11,11 @@ Name | Type | Description | Notes
 **atContext** | [**AuthZeroUserJsonldAuthZeroUserReadContext**](AuthZeroUserJsonldAuthZeroUserReadContext.md) |  | [optional] 
 **atId** | **String** |  | [optional] 
 **atType** | **String** |  | [optional] 
-**name** | **String** |  | 
+**newLocation** | [**GeoPointJsonldReadBoulderFeedbackRead**](GeoPointJsonldReadBoulderFeedbackRead.md) |  | [optional] 
+**message** | **String** |  | [optional] 
+**boulder** | [**BoulderJsonldReadBoulderFeedbackRead**](BoulderJsonldReadBoulderFeedbackRead.md) |  | 
+**createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
+**createdBy** | [**AuthZeroUserJsonldReadBoulderFeedbackRead**](AuthZeroUserJsonldReadBoulderFeedbackRead.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

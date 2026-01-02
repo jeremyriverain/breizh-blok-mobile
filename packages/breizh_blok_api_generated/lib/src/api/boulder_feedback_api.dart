@@ -9,8 +9,8 @@ import 'package:dio/dio.dart';
 
 import 'package:breizh_blok_api_generated/src/api_util.dart';
 import 'package:breizh_blok_api_generated/src/model/api_boulder_feedbacks_get_collection200_response.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_boulder_feedback_write.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_read_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_write_boulder_feedback_write.dart';
 
 class BoulderFeedbackApi {
   final Dio _dio;
@@ -122,9 +122,9 @@ class BoulderFeedbackApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BoulderFeedbackJsonldBoulderFeedbackRead] as data
+  /// Returns a [Future] containing a [Response] with a [BoulderFeedbackJsonldReadBoulderFeedbackRead] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BoulderFeedbackJsonldBoulderFeedbackRead>>
+  Future<Response<BoulderFeedbackJsonldReadBoulderFeedbackRead>>
   apiBoulderFeedbacksIdGet({
     required String id,
     CancelToken? cancelToken,
@@ -165,7 +165,7 @@ class BoulderFeedbackApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BoulderFeedbackJsonldBoulderFeedbackRead? _responseData;
+    BoulderFeedbackJsonldReadBoulderFeedbackRead? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -174,10 +174,10 @@ class BoulderFeedbackApi {
           : _serializers.deserialize(
                   rawResponse,
                   specifiedType: const FullType(
-                    BoulderFeedbackJsonldBoulderFeedbackRead,
+                    BoulderFeedbackJsonldReadBoulderFeedbackRead,
                   ),
                 )
-                as BoulderFeedbackJsonldBoulderFeedbackRead;
+                as BoulderFeedbackJsonldReadBoulderFeedbackRead;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -188,7 +188,7 @@ class BoulderFeedbackApi {
       );
     }
 
-    return Response<BoulderFeedbackJsonldBoulderFeedbackRead>(
+    return Response<BoulderFeedbackJsonldReadBoulderFeedbackRead>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -204,7 +204,7 @@ class BoulderFeedbackApi {
   /// Creates a BoulderFeedback resource.
   ///
   /// Parameters:
-  /// * [boulderFeedbackJsonldBoulderFeedbackWrite] - The new BoulderFeedback resource
+  /// * [boulderFeedbackJsonldWriteBoulderFeedbackWrite] - The new BoulderFeedback resource
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -212,12 +212,12 @@ class BoulderFeedbackApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BoulderFeedbackJsonldBoulderFeedbackRead] as data
+  /// Returns a [Future] containing a [Response] with a [BoulderFeedbackJsonldReadBoulderFeedbackRead] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BoulderFeedbackJsonldBoulderFeedbackRead>>
+  Future<Response<BoulderFeedbackJsonldReadBoulderFeedbackRead>>
   apiBoulderFeedbacksPost({
-    required BoulderFeedbackJsonldBoulderFeedbackWrite
-    boulderFeedbackJsonldBoulderFeedbackWrite,
+    required BoulderFeedbackJsonldWriteBoulderFeedbackWrite
+    boulderFeedbackJsonldWriteBoulderFeedbackWrite,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -247,9 +247,9 @@ class BoulderFeedbackApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BoulderFeedbackJsonldBoulderFeedbackWrite);
+      const _type = FullType(BoulderFeedbackJsonldWriteBoulderFeedbackWrite);
       _bodyData = _serializers.serialize(
-        boulderFeedbackJsonldBoulderFeedbackWrite,
+        boulderFeedbackJsonldWriteBoulderFeedbackWrite,
         specifiedType: _type,
       );
     } catch (error, stackTrace) {
@@ -270,7 +270,7 @@ class BoulderFeedbackApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BoulderFeedbackJsonldBoulderFeedbackRead? _responseData;
+    BoulderFeedbackJsonldReadBoulderFeedbackRead? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -279,10 +279,10 @@ class BoulderFeedbackApi {
           : _serializers.deserialize(
                   rawResponse,
                   specifiedType: const FullType(
-                    BoulderFeedbackJsonldBoulderFeedbackRead,
+                    BoulderFeedbackJsonldReadBoulderFeedbackRead,
                   ),
                 )
-                as BoulderFeedbackJsonldBoulderFeedbackRead;
+                as BoulderFeedbackJsonldReadBoulderFeedbackRead;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -293,7 +293,7 @@ class BoulderFeedbackApi {
       );
     }
 
-    return Response<BoulderFeedbackJsonldBoulderFeedbackRead>(
+    return Response<BoulderFeedbackJsonldReadBoulderFeedbackRead>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

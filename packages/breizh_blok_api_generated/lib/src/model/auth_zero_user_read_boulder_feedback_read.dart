@@ -3,63 +3,68 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_feedback_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'rock_boulder_feedback_read.g.dart';
+part 'auth_zero_user_read_boulder_feedback_read.g.dart';
 
 ///
 ///
 /// Properties:
-/// * [boulderArea]
+/// * [id]
 @BuiltValue()
-abstract class RockBoulderFeedbackRead
-    implements Built<RockBoulderFeedbackRead, RockBoulderFeedbackReadBuilder> {
-  @BuiltValueField(wireName: r'boulderArea')
-  BoulderAreaBoulderFeedbackRead get boulderArea;
+abstract class AuthZeroUserReadBoulderFeedbackRead
+    implements
+        Built<
+          AuthZeroUserReadBoulderFeedbackRead,
+          AuthZeroUserReadBoulderFeedbackReadBuilder
+        > {
+  @BuiltValueField(wireName: r'id')
+  String? get id;
 
-  RockBoulderFeedbackRead._();
+  AuthZeroUserReadBoulderFeedbackRead._();
 
-  factory RockBoulderFeedbackRead([
-    void updates(RockBoulderFeedbackReadBuilder b),
-  ]) = _$RockBoulderFeedbackRead;
+  factory AuthZeroUserReadBoulderFeedbackRead([
+    void updates(AuthZeroUserReadBoulderFeedbackReadBuilder b),
+  ]) = _$AuthZeroUserReadBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(RockBoulderFeedbackReadBuilder b) => b;
+  static void _defaults(AuthZeroUserReadBoulderFeedbackReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<RockBoulderFeedbackRead> get serializer =>
-      _$RockBoulderFeedbackReadSerializer();
+  static Serializer<AuthZeroUserReadBoulderFeedbackRead> get serializer =>
+      _$AuthZeroUserReadBoulderFeedbackReadSerializer();
 }
 
-class _$RockBoulderFeedbackReadSerializer
-    implements PrimitiveSerializer<RockBoulderFeedbackRead> {
+class _$AuthZeroUserReadBoulderFeedbackReadSerializer
+    implements PrimitiveSerializer<AuthZeroUserReadBoulderFeedbackRead> {
   @override
   final Iterable<Type> types = const [
-    RockBoulderFeedbackRead,
-    _$RockBoulderFeedbackRead,
+    AuthZeroUserReadBoulderFeedbackRead,
+    _$AuthZeroUserReadBoulderFeedbackRead,
   ];
 
   @override
-  final String wireName = r'RockBoulderFeedbackRead';
+  final String wireName = r'AuthZeroUserReadBoulderFeedbackRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    RockBoulderFeedbackRead object, {
+    AuthZeroUserReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'boulderArea';
-    yield serializers.serialize(
-      object.boulderArea,
-      specifiedType: const FullType(BoulderAreaBoulderFeedbackRead),
-    );
+    if (object.id != null) {
+      yield r'id';
+      yield serializers.serialize(
+        object.id,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    RockBoulderFeedbackRead object, {
+    AuthZeroUserReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -74,23 +79,21 @@ class _$RockBoulderFeedbackReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required RockBoulderFeedbackReadBuilder result,
+    required AuthZeroUserReadBoulderFeedbackReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'boulderArea':
+        case r'id':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(
-                      BoulderAreaBoulderFeedbackRead,
-                    ),
+                    specifiedType: const FullType(String),
                   )
-                  as BoulderAreaBoulderFeedbackRead;
-          result.boulderArea.replace(valueDes);
+                  as String;
+          result.id = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -101,12 +104,12 @@ class _$RockBoulderFeedbackReadSerializer
   }
 
   @override
-  RockBoulderFeedbackRead deserialize(
+  AuthZeroUserReadBoulderFeedbackRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = RockBoulderFeedbackReadBuilder();
+    final result = AuthZeroUserReadBoulderFeedbackReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

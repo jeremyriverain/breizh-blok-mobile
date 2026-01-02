@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiBoulderFeedbacksIdGet**
-> BoulderFeedbackJsonldBoulderFeedbackRead apiBoulderFeedbacksIdGet(id)
+> BoulderFeedbackJsonldReadBoulderFeedbackRead apiBoulderFeedbacksIdGet(id)
 
 Retrieves a BoulderFeedback resource.
 
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BoulderFeedbackJsonldBoulderFeedbackRead**](BoulderFeedbackJsonldBoulderFeedbackRead.md)
+[**BoulderFeedbackJsonldReadBoulderFeedbackRead**](BoulderFeedbackJsonldReadBoulderFeedbackRead.md)
 
 ### Authorization
 
@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiBoulderFeedbacksPost**
-> BoulderFeedbackJsonldBoulderFeedbackRead apiBoulderFeedbacksPost(boulderFeedbackJsonldBoulderFeedbackWrite)
+> BoulderFeedbackJsonldReadBoulderFeedbackRead apiBoulderFeedbacksPost(boulderFeedbackJsonldWriteBoulderFeedbackWrite)
 
 Creates a BoulderFeedback resource.
 
@@ -124,10 +124,10 @@ import 'package:breizh_blok_api_generated/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('JWT').apiKeyPrefix = 'Bearer';
 
 final api = BreizhBlokApiGenerated().getBoulderFeedbackApi();
-final BoulderFeedbackJsonldBoulderFeedbackWrite boulderFeedbackJsonldBoulderFeedbackWrite = ; // BoulderFeedbackJsonldBoulderFeedbackWrite | The new BoulderFeedback resource
+final BoulderFeedbackJsonldWriteBoulderFeedbackWrite boulderFeedbackJsonldWriteBoulderFeedbackWrite = ; // BoulderFeedbackJsonldWriteBoulderFeedbackWrite | The new BoulderFeedback resource
 
 try {
-    final response = api.apiBoulderFeedbacksPost(boulderFeedbackJsonldBoulderFeedbackWrite);
+    final response = api.apiBoulderFeedbacksPost(boulderFeedbackJsonldWriteBoulderFeedbackWrite);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling BoulderFeedbackApi->apiBoulderFeedbacksPost: $e\n');
@@ -138,11 +138,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **boulderFeedbackJsonldBoulderFeedbackWrite** | [**BoulderFeedbackJsonldBoulderFeedbackWrite**](BoulderFeedbackJsonldBoulderFeedbackWrite.md)| The new BoulderFeedback resource | 
+ **boulderFeedbackJsonldWriteBoulderFeedbackWrite** | [**BoulderFeedbackJsonldWriteBoulderFeedbackWrite**](BoulderFeedbackJsonldWriteBoulderFeedbackWrite.md)| The new BoulderFeedback resource | 
 
 ### Return type
 
-[**BoulderFeedbackJsonldBoulderFeedbackRead**](BoulderFeedbackJsonldBoulderFeedbackRead.md)
+[**BoulderFeedbackJsonldReadBoulderFeedbackRead**](BoulderFeedbackJsonldReadBoulderFeedbackRead.md)
 
 ### Authorization
 

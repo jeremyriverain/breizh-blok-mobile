@@ -16,7 +16,7 @@ void main() {
           boulder: fakeBoulder,
           message: 'foo',
         );
-        final request = api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+        final request = api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
           builder,
         ) {
           builder
@@ -39,7 +39,7 @@ void main() {
           message: 'foo',
           boulder: fakeBoulder,
         );
-        final request = api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+        final request = api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
           builder,
         ) {
           builder
@@ -59,7 +59,7 @@ void main() {
           newLocation: Location(latitude: 0, longitude: 1),
           boulder: fakeBoulder,
         );
-        final request = api.BoulderFeedbackJsonldBoulderFeedbackWrite((
+        final request = api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
           builder,
         ) {
           builder

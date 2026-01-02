@@ -17,7 +17,7 @@ class ApiBoulderFeedbackDataSource {
     return TaskEither.tryCatch(
       () {
         return api.apiBoulderFeedbacksPost(
-          boulderFeedbackJsonldBoulderFeedbackWrite: mapper
+          boulderFeedbackJsonldWriteBoulderFeedbackWrite: mapper
               .toCreateRequestFromDomain(boulderFeedback),
         );
       },

@@ -6,7 +6,7 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'geo_point_boulder_feedback_write.g.dart';
+part 'geo_point_read_boulder_feedback_read.g.dart';
 
 ///
 ///
@@ -14,11 +14,11 @@ part 'geo_point_boulder_feedback_write.g.dart';
 /// * [latitude]
 /// * [longitude]
 @BuiltValue()
-abstract class GeoPointBoulderFeedbackWrite
+abstract class GeoPointReadBoulderFeedbackRead
     implements
         Built<
-          GeoPointBoulderFeedbackWrite,
-          GeoPointBoulderFeedbackWriteBuilder
+          GeoPointReadBoulderFeedbackRead,
+          GeoPointReadBoulderFeedbackReadBuilder
         > {
   @BuiltValueField(wireName: r'latitude')
   String? get latitude;
@@ -26,34 +26,34 @@ abstract class GeoPointBoulderFeedbackWrite
   @BuiltValueField(wireName: r'longitude')
   String? get longitude;
 
-  GeoPointBoulderFeedbackWrite._();
+  GeoPointReadBoulderFeedbackRead._();
 
-  factory GeoPointBoulderFeedbackWrite([
-    void updates(GeoPointBoulderFeedbackWriteBuilder b),
-  ]) = _$GeoPointBoulderFeedbackWrite;
+  factory GeoPointReadBoulderFeedbackRead([
+    void updates(GeoPointReadBoulderFeedbackReadBuilder b),
+  ]) = _$GeoPointReadBoulderFeedbackRead;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(GeoPointBoulderFeedbackWriteBuilder b) => b;
+  static void _defaults(GeoPointReadBoulderFeedbackReadBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GeoPointBoulderFeedbackWrite> get serializer =>
-      _$GeoPointBoulderFeedbackWriteSerializer();
+  static Serializer<GeoPointReadBoulderFeedbackRead> get serializer =>
+      _$GeoPointReadBoulderFeedbackReadSerializer();
 }
 
-class _$GeoPointBoulderFeedbackWriteSerializer
-    implements PrimitiveSerializer<GeoPointBoulderFeedbackWrite> {
+class _$GeoPointReadBoulderFeedbackReadSerializer
+    implements PrimitiveSerializer<GeoPointReadBoulderFeedbackRead> {
   @override
   final Iterable<Type> types = const [
-    GeoPointBoulderFeedbackWrite,
-    _$GeoPointBoulderFeedbackWrite,
+    GeoPointReadBoulderFeedbackRead,
+    _$GeoPointReadBoulderFeedbackRead,
   ];
 
   @override
-  final String wireName = r'GeoPointBoulderFeedbackWrite';
+  final String wireName = r'GeoPointReadBoulderFeedbackRead';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    GeoPointBoulderFeedbackWrite object, {
+    GeoPointReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'latitude';
@@ -75,7 +75,7 @@ class _$GeoPointBoulderFeedbackWriteSerializer
   @override
   Object serialize(
     Serializers serializers,
-    GeoPointBoulderFeedbackWrite object, {
+    GeoPointReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -90,7 +90,7 @@ class _$GeoPointBoulderFeedbackWriteSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required GeoPointBoulderFeedbackWriteBuilder result,
+    required GeoPointReadBoulderFeedbackReadBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -126,12 +126,12 @@ class _$GeoPointBoulderFeedbackWriteSerializer
   }
 
   @override
-  GeoPointBoulderFeedbackWrite deserialize(
+  GeoPointReadBoulderFeedbackRead deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = GeoPointBoulderFeedbackWriteBuilder();
+    final result = GeoPointReadBoulderFeedbackReadBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

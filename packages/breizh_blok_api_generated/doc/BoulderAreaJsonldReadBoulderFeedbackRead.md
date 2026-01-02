@@ -1,4 +1,4 @@
-# breizh_blok_api_generated.model.BoulderJsonldBoulderFeedbackRead
+# breizh_blok_api_generated.model.BoulderAreaJsonldReadBoulderFeedbackRead
 
 ## Load the model package
 ```dart
@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **atId** | **String** |  | [optional] 
 **atType** | **String** |  | [optional] 
 **name** | **String** |  | 
-**rock** | [**RockJsonldBoulderFeedbackRead**](RockJsonldBoulderFeedbackRead.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
