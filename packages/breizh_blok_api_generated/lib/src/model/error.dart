@@ -64,14 +64,14 @@ class _$ErrorSerializer implements PrimitiveSerializer<Error> {
       yield r'title';
       yield serializers.serialize(
         object.title,
-        specifiedType: const FullType.nullable(String),
+        specifiedType: const FullType(String),
       );
     }
     if (object.detail != null) {
       yield r'detail';
       yield serializers.serialize(
         object.detail,
-        specifiedType: const FullType.nullable(String),
+        specifiedType: const FullType(String),
       );
     }
     if (object.status != null) {
@@ -126,20 +126,18 @@ class _$ErrorSerializer implements PrimitiveSerializer<Error> {
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(String),
+                    specifiedType: const FullType(String),
                   )
-                  as String?;
-          if (valueDes == null) continue;
+                  as String;
           result.title = valueDes;
           break;
         case r'detail':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(String),
+                    specifiedType: const FullType(String),
                   )
-                  as String?;
-          if (valueDes == null) continue;
+                  as String;
           result.detail = valueDes;
           break;
         case r'status':

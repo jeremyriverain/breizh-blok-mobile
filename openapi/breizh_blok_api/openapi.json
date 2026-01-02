@@ -3696,18 +3696,12 @@
           "title": {
             "readOnly": true,
             "description": "A short, human-readable summary of the problem.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "detail": {
             "readOnly": true,
             "description": "A human-readable explanation specific to this occurrence of the problem.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "status": {
             "type": "number",
@@ -3772,18 +3766,12 @@
           "title": {
             "readOnly": true,
             "description": "A short, human-readable summary of the problem.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "detail": {
             "readOnly": true,
             "description": "A human-readable explanation specific to this occurrence of the problem.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "status": {
             "type": "number",
@@ -3837,14 +3825,16 @@
         ],
         "properties": {
           "latitude": {
-            "minimum": -90,
-            "maximum": 90,
-            "type": "number"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "longitude": {
-            "minimum": -180,
-            "maximum": 180,
-            "type": "number"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         }
       },
@@ -3994,14 +3984,16 @@
         ],
         "properties": {
           "latitude": {
-            "minimum": -90,
-            "maximum": 90,
-            "type": "number"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "longitude": {
-            "minimum": -180,
-            "maximum": 180,
-            "type": "number"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         }
       },
@@ -4390,12 +4382,9 @@
             ]
           },
           "imageDimensions": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
-              "type": "string"
+              "type": "integer"
             }
           },
           "mediaAttributes": {
@@ -4503,12 +4492,9 @@
             ]
           },
           "imageDimensions": {
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
-              "type": "string"
+              "type": "integer"
             }
           },
           "mediaAttributes": {

@@ -14,12 +14,12 @@ class ApiBoulderFeedbackMapper {
         ..boulder = entity.boulder.iri;
 
       final latitude = entity.newLocation?.latitude;
-      final longitude = entity.newLocation?.latitude;
+      final longitude = entity.newLocation?.longitude;
 
       if (latitude != null && longitude != null) {
         builder
-          ..newLocation.latitude = entity.newLocation?.latitude
-          ..newLocation.longitude = entity.newLocation?.longitude;
+          ..newLocation.latitude = '$latitude'
+          ..newLocation.longitude = '$longitude';
       }
     });
   }

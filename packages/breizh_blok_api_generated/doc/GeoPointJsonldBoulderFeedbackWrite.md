@@ -8,8 +8,8 @@ import 'package:breizh_blok_api_generated/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**latitude** | **num** |  | 
-**longitude** | **num** |  | 
+**latitude** | **String** |  | 
+**longitude** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

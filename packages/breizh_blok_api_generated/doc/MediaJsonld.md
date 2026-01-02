@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **lineBoulders** | **BuiltList&lt;String&gt;** |  | [optional] 
 **filterUrl** | **String** |  | [optional] 
 **contentUrl** | **String** |  | [optional] 
-**imageDimensions** | **BuiltList&lt;String&gt;** |  | [optional] 
+**imageDimensions** | **BuiltList&lt;int&gt;** |  | [optional] 
 **mediaAttributes** | **BuiltList&lt;String&gt;** |  | [optional] 
 **media** | **String** |  | [optional] 
 

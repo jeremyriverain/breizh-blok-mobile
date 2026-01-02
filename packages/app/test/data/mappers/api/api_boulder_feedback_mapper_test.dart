@@ -20,8 +20,9 @@ void main() {
           builder,
         ) {
           builder
-            ..newLocation.latitude = boulderFeedback.newLocation?.latitude
-            ..newLocation.longitude = boulderFeedback.newLocation?.longitude
+            ..newLocation.latitude = '${boulderFeedback.newLocation?.latitude}'
+            ..newLocation.longitude =
+                '${boulderFeedback.newLocation?.longitude}'
             ..message = boulderFeedback.message
             ..boulder = boulderFeedback.boulder.iri;
         });
@@ -62,8 +63,9 @@ void main() {
           builder,
         ) {
           builder
-            ..newLocation.latitude = boulderFeedback.newLocation?.latitude
-            ..newLocation.longitude = boulderFeedback.newLocation?.longitude
+            ..newLocation.latitude = '${boulderFeedback.newLocation?.latitude}'
+            ..newLocation.longitude =
+                '${boulderFeedback.newLocation?.longitude}'
             ..boulder = boulderFeedback.boulder.iri;
         });
         expect(

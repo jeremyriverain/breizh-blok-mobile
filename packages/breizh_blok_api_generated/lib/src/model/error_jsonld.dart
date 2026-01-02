@@ -104,14 +104,14 @@ class _$ErrorJsonldSerializer implements PrimitiveSerializer<ErrorJsonld> {
       yield r'title';
       yield serializers.serialize(
         object.title,
-        specifiedType: const FullType.nullable(String),
+        specifiedType: const FullType(String),
       );
     }
     if (object.detail != null) {
       yield r'detail';
       yield serializers.serialize(
         object.detail,
-        specifiedType: const FullType.nullable(String),
+        specifiedType: const FullType(String),
       );
     }
     if (object.status != null) {
@@ -202,20 +202,18 @@ class _$ErrorJsonldSerializer implements PrimitiveSerializer<ErrorJsonld> {
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(String),
+                    specifiedType: const FullType(String),
                   )
-                  as String?;
-          if (valueDes == null) continue;
+                  as String;
           result.title = valueDes;
           break;
         case r'detail':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(String),
+                    specifiedType: const FullType(String),
                   )
-                  as String?;
-          if (valueDes == null) continue;
+                  as String;
           result.detail = valueDes;
           break;
         case r'status':

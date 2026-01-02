@@ -21,10 +21,10 @@ abstract class GeoPointBoulderFeedbackWrite
           GeoPointBoulderFeedbackWriteBuilder
         > {
   @BuiltValueField(wireName: r'latitude')
-  num get latitude;
+  String? get latitude;
 
   @BuiltValueField(wireName: r'longitude')
-  num get longitude;
+  String? get longitude;
 
   GeoPointBoulderFeedbackWrite._();
 
@@ -57,15 +57,19 @@ class _$GeoPointBoulderFeedbackWriteSerializer
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'latitude';
-    yield serializers.serialize(
-      object.latitude,
-      specifiedType: const FullType(num),
-    );
+    yield object.latitude == null
+        ? null
+        : serializers.serialize(
+            object.latitude,
+            specifiedType: const FullType.nullable(String),
+          );
     yield r'longitude';
-    yield serializers.serialize(
-      object.longitude,
-      specifiedType: const FullType(num),
-    );
+    yield object.longitude == null
+        ? null
+        : serializers.serialize(
+            object.longitude,
+            specifiedType: const FullType.nullable(String),
+          );
   }
 
   @override
@@ -95,14 +99,22 @@ class _$GeoPointBoulderFeedbackWriteSerializer
       switch (key) {
         case r'latitude':
           final valueDes =
-              serializers.deserialize(value, specifiedType: const FullType(num))
-                  as num;
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
           result.latitude = valueDes;
           break;
         case r'longitude':
           final valueDes =
-              serializers.deserialize(value, specifiedType: const FullType(num))
-                  as num;
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
           result.longitude = valueDes;
           break;
         default:
