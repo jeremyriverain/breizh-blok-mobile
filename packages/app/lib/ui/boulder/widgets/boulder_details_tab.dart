@@ -92,7 +92,7 @@ class BoulderDetailsTab extends StatelessWidget {
             },
           ),
           const SizedBox(height: 20),
-          const BoulderDetailsVideos(),
+          const BoulderDetailsVideo(),
           const Divider(),
           Consumer(
             builder: (context, ref, child) {

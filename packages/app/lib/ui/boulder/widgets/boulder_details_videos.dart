@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-/// Creates list of video players
-class BoulderDetailsVideos extends StatefulWidget {
-  const BoulderDetailsVideos({super.key});
+class BoulderDetailsVideo extends StatefulWidget {
+  const BoulderDetailsVideo({super.key});
 
   @override
-  State<BoulderDetailsVideos> createState() => _VideoListState();
+  State<BoulderDetailsVideo> createState() => _BoulderDetailsVideoState();
 }
 
-class _VideoListState extends State<BoulderDetailsVideos> {
-  late YoutubePlayerController controller;
+class _BoulderDetailsVideoState extends State<BoulderDetailsVideo> {
+  late YoutubePlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    controller = YoutubePlayerController(
-      initialVideoId: 'EL439RMv3Xc',
+    _controller = YoutubePlayerController(
+      initialVideoId: 'nPt8bK2gbaU',
       flags: const YoutubePlayerFlags(
         autoPlay: false,
       ),
@@ -24,25 +23,36 @@ class _VideoListState extends State<BoulderDetailsVideos> {
   }
 
   @override
+  void deactivate() {
+    // Pauses video while navigating to next page.
+    _controller.pause();
+    super.deactivate();
+  }
+
+  @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return YoutubePlayer(
-      key: ObjectKey(controller),
-      controller: controller,
-      actionsPadding: const EdgeInsets.only(left: 16.0),
-      bottomActions: const [
-        CurrentPosition(),
-        SizedBox(width: 10),
-        ProgressBar(isExpanded: true),
-        SizedBox(width: 10),
-        RemainingDuration(),
-        FullScreenButton(),
-      ],
+    return YoutubePlayerBuilder(
+      player: YoutubePlayer(
+        controller: _controller,
+
+        showVideoProgressIndicator: true,
+        actionsPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        bottomActions: const [
+          CurrentPosition(),
+          SizedBox(width: 10),
+          ProgressBar(isExpanded: true),
+          SizedBox(width: 10),
+          RemainingDuration(),
+          PlaybackSpeedButton(),
+        ],
+      ),
+      builder: (context, player) => player,
     );
   }
 }
