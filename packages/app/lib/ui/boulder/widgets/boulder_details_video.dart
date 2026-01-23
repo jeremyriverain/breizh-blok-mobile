@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class BoulderDetailsVideo extends StatefulWidget {
-  const BoulderDetailsVideo({super.key});
+  const BoulderDetailsVideo({
+    required this.videoId,
+    super.key,
+  });
+
+  final String videoId;
 
   @override
   State<BoulderDetailsVideo> createState() => _BoulderDetailsVideoState();
@@ -15,7 +20,7 @@ class _BoulderDetailsVideoState extends State<BoulderDetailsVideo> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: 'nPt8bK2gbaU',
+      initialVideoId: widget.videoId,
       flags: const YoutubePlayerFlags(
         autoPlay: false,
       ),

@@ -8,7 +8,7 @@ import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedba
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
-import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_videos.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_video.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/clickable_list_tile.dart';
@@ -34,7 +34,7 @@ class BoulderDetailsTab extends StatelessWidget {
     final localizations = AppLocalizations.of(context);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: ListView(
         key: const Key('boulder-details-list-view'),
         children: [
@@ -92,8 +92,23 @@ class BoulderDetailsTab extends StatelessWidget {
             },
           ),
           const SizedBox(height: 20),
-          const BoulderDetailsVideo(),
-          const Divider(),
+          if (boulder.youtubeVideos.isNotEmpty)
+            ...boulder.youtubeVideos
+                .map(
+                  (y) => Column(
+                    children: [
+                      BoulderDetailsVideo(
+                        videoId: y,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                )
+                .toList()
+          else
+            const Divider(),
           Consumer(
             builder: (context, ref, child) {
               return BlocProvider(
