@@ -3,6 +3,7 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
+import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
@@ -65,6 +66,84 @@ void main() {
       await pumpWidget(tester);
 
       expect(find.widgetWithText(AppBar, fakeBoulder.name), findsOneWidget);
+    });
+
+    testWidgets('description is displayed if present', (
+      WidgetTester tester,
+    ) async {
+      when(
+        () => boulderRepository.find('foo'),
+      ).thenAnswer(
+        (_) async => fakeBoulder.copyWith(description: 'foo description'),
+      );
+      when(
+        () => boulderRepository.findBy(queryParams: any(named: 'queryParams')),
+      ).thenAnswer(
+        (_) async => const PaginatedCollection(
+          items: [],
+          totalItems: 0,
+        ),
+      );
+
+      await pumpWidget(tester);
+
+      expect(
+        find.byWidgetPredicate(
+          (Widget widget) {
+            if (widget is! ListTile) {
+              return false;
+            }
+            final leading = widget.leading;
+            final title = widget.title;
+            return title is Text &&
+                title.data == 'foo description' &&
+                leading is Text &&
+                leading.data == 'Description';
+          },
+          description: 'description list tile',
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('grade is displayed if present', (
+      WidgetTester tester,
+    ) async {
+      when(
+        () => boulderRepository.find('foo'),
+      ).thenAnswer(
+        (_) async => fakeBoulder.copyWith(
+          grade: const Grade(iri: 'foo', name: '6a foo'),
+        ),
+      );
+      when(
+        () => boulderRepository.findBy(queryParams: any(named: 'queryParams')),
+      ).thenAnswer(
+        (_) async => const PaginatedCollection(
+          items: [],
+          totalItems: 0,
+        ),
+      );
+
+      await pumpWidget(tester);
+
+      expect(
+        find.byWidgetPredicate(
+          (Widget widget) {
+            if (widget is! ListTile) {
+              return false;
+            }
+            final leading = widget.leading;
+            final title = widget.title;
+            return title is Text &&
+                title.data == '6a foo' &&
+                leading is Text &&
+                leading.data == 'Cotation';
+          },
+          description: 'grade list tile',
+        ),
+        findsOneWidget,
+      );
     });
 
     group('Contribute', () {
