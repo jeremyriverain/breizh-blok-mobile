@@ -37,6 +37,15 @@ void main() {
             'smoothLine': 'smoothLine',
           },
         ],
+        'videoLinks': [
+          {
+            '@type': 'VideoLink',
+            '@id': 'foo',
+            'url': 'https://www.youtube.com/foo/bar',
+            'videoId': 'foo',
+            'type': 'youtube',
+          },
+        ],
       });
       expect(boulder.iri, '/boulders/boulderId');
       expect(boulder.id, 'boulderId');
@@ -69,6 +78,17 @@ void main() {
             iri: '/line_boulders/lineBoulderId',
             smoothLine: 'smoothLine',
             rockImage: Image(contentUrl: 'contentUrl'),
+          ),
+        ]),
+      );
+
+      expect(
+        boulder.videoLinks,
+        equals(const [
+          VideoLink(
+            type: 'youtube',
+            url: 'https://www.youtube.com/foo/bar',
+            videoId: 'foo',
           ),
         ]),
       );
