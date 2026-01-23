@@ -4,8 +4,10 @@ import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
+import 'package:breizh_blok_mobile/domain/entities/height_boulder/height_boulder.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_message_form_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';
@@ -142,6 +144,33 @@ void main() {
           },
           description: 'grade list tile',
         ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('height is displayed if present', (
+      WidgetTester tester,
+    ) async {
+      when(
+        () => boulderRepository.find('foo'),
+      ).thenAnswer(
+        (_) async => fakeBoulder.copyWith(
+          height: const HeightBoulder(iri: 'foo', min: 3),
+        ),
+      );
+      when(
+        () => boulderRepository.findBy(queryParams: any(named: 'queryParams')),
+      ).thenAnswer(
+        (_) async => const PaginatedCollection(
+          items: [],
+          totalItems: 0,
+        ),
+      );
+
+      await pumpWidget(tester);
+
+      expect(
+        find.widgetWithText(BoulderDetailsHeight, 'Plus de 3m'),
         findsOneWidget,
       );
     });
