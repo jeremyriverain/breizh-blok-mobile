@@ -2,9 +2,11 @@ import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:breizh_blok_mobile/domain/entities/height_boulder/height_boulder.dart';
 import 'package:breizh_blok_mobile/domain/entities/line_boulder/line_boulder.dart';
 import 'package:breizh_blok_mobile/domain/entities/rock/rock.dart';
+import 'package:breizh_blok_mobile/domain/entities/video_link/video_link.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'boulder.freezed.dart';
+
 part 'boulder.g.dart';
 
 @freezed
@@ -17,6 +19,7 @@ abstract class Boulder with _$Boulder {
     Grade? grade,
     String? description,
     HeightBoulder? height,
+    @Default(<VideoLink>[]) List<VideoLink> videoLinks,
   }) = _Boulder;
 
   const Boulder._();
@@ -25,4 +28,9 @@ abstract class Boulder with _$Boulder {
       _$BoulderFromJson(json);
 
   String get id => iri.replaceAll('/boulders/', '');
+
+  List<String> get youtubeVideos => videoLinks
+      .where((v) => v.type == 'youtube')
+      .map((v) => v.videoId)
+      .toList();
 }

@@ -6,7 +6,10 @@ import 'package:breizh_blok_mobile/domain/entities/line_boulder/line_boulder.dar
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
 import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/domain/entities/rock/rock.dart';
+import 'package:breizh_blok_mobile/domain/entities/video_link/video_link.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../../../test_utils.dart';
 
 void main() {
   group('Boulder', () {
@@ -32,6 +35,15 @@ void main() {
             '@id': '/line_boulders/lineBoulderId',
             'rockImage': {'contentUrl': 'contentUrl'},
             'smoothLine': 'smoothLine',
+          },
+        ],
+        'videoLinks': [
+          {
+            '@type': 'VideoLink',
+            '@id': 'foo',
+            'url': 'https://www.youtube.com/foo/bar',
+            'videoId': 'foo',
+            'type': 'youtube',
           },
         ],
       });
@@ -67,6 +79,50 @@ void main() {
             smoothLine: 'smoothLine',
             rockImage: Image(contentUrl: 'contentUrl'),
           ),
+        ]),
+      );
+
+      expect(
+        boulder.videoLinks,
+        equals(const [
+          VideoLink(
+            type: 'youtube',
+            url: 'https://www.youtube.com/foo/bar',
+            videoId: 'foo',
+          ),
+        ]),
+      );
+    });
+
+    test('youtubeVideos', () {
+      expect(
+        fakeBoulder
+            .copyWith(
+              videoLinks: const [
+                VideoLink(
+                  url: 'https://foo.bar',
+                  videoId: 'foo',
+                  type: 'foo',
+                ),
+              ],
+            )
+            .youtubeVideos,
+        isEmpty,
+      );
+      expect(
+        fakeBoulder
+            .copyWith(
+              videoLinks: const [
+                VideoLink(
+                  url: 'https://foo.bar',
+                  videoId: 'foo',
+                  type: 'youtube',
+                ),
+              ],
+            )
+            .youtubeVideos,
+        equals(const [
+          'foo',
         ]),
       );
     });
