@@ -16,11 +16,16 @@ jobs:
 
       - uses: ./.github/actions/install
 
-      - uses: "google-github-actions/auth@v3"
+      - id: auth
+        uses: "google-github-actions/auth@v3"
         with:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID_RELEASE }}
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_RELEASE }}
           service_account: ${{ secrets.SERVICE_ACCOUNT_RELEASE }}
+
+      - uses: ./.github/actions/configure-firebase
+        with:
+          flavor: prod
 
       - name: Build runner
         env:
@@ -59,10 +64,10 @@ jobs:
         with:
           serviceAccountJson: ${{ steps.auth.outputs.credentials_file_path }}
           packageName: fr.geekco.boulders
-          releaseFiles: build/app/outputs/bundle/prodRelease/app-prod-release.aab
+          releaseFiles: packages/app/build/app/outputs/bundle/prodRelease/app-prod-release.aab
           track: production
-          status: inProgress
-    
+          status: draft
+
       - name: Sentry upload debug symbols
         env:
           SENTRY_PROJECT: "${{ secrets.SENTRY_PROJECT }}"
