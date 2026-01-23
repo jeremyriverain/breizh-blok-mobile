@@ -1,11 +1,11 @@
-name: 🚀 Distribute Android App with Firebase App Distribution
+name: 🚀 Distribute Play Store
 
 on:
   workflow_dispatch: ~
 
 jobs:
-  distribute_android_app_with_firebase_app_distribution:
-    name: Distribute Android App with Firebase App Distribution
+  distribute_play_store:
+    name: Distribute Android App on Play Store
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -21,10 +21,6 @@ jobs:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID_RELEASE }}
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_RELEASE }}
           service_account: ${{ secrets.SERVICE_ACCOUNT_RELEASE }}
-
-      - uses: ./.github/actions/configure-firebase
-        with:
-          flavor: prod
 
       - name: Build runner
         env:
@@ -59,11 +55,14 @@ jobs:
             --split-debug-info=symbols \
             --extra-gen-snapshot-options=--save-obfuscation-map=obfuscation.map.json
 
-      - name: Distribute App with Firebase App Distribution
-        run: |
-          cd packages/app
-          firebase appdistribution:distribute build/app/outputs/bundle/prodRelease/app-prod-release.aab --app ${{ secrets.FIREBASE_ANDROID_APP_ID }} --groups me
-
+      - uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: ${{ steps.auth.outputs.credentials_file_path }}
+          packageName: fr.geekco.boulders
+          releaseFiles: build/app/outputs/bundle/prodRelease/app-prod-release.aab
+          track: production
+          status: inProgress
+    
       - name: Sentry upload debug symbols
         env:
           SENTRY_PROJECT: "${{ secrets.SENTRY_PROJECT }}"
