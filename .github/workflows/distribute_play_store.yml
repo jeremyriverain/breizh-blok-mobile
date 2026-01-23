@@ -64,7 +64,7 @@ jobs:
         with:
           serviceAccountJson: ${{ steps.auth.outputs.credentials_file_path }}
           packageName: fr.geekco.boulders
-          releaseFiles: build/app/outputs/bundle/prodRelease/app-prod-release.aab
+          releaseFiles: packages/app/build/app/outputs/bundle/prodRelease/app-prod-release.aab
           track: production
           status: draft
 
