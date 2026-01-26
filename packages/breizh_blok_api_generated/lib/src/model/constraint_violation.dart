@@ -3,54 +3,33 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/constraint_violation_violations_inner.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:breizh_blok_api_generated/src/model/constraint_violation_json_violations_inner.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'constraint_violation_jsonld_jsonld.g.dart';
+part 'constraint_violation.g.dart';
 
 /// Unprocessable entity
 ///
 /// Properties:
-/// * [atContext]
-/// * [atId]
-/// * [atType]
 /// * [status]
 /// * [violations]
 /// * [detail]
-/// * [description]
 /// * [type]
 /// * [title]
 /// * [instance]
 @BuiltValue()
-abstract class ConstraintViolationJsonldJsonld
-    implements
-        Built<
-          ConstraintViolationJsonldJsonld,
-          ConstraintViolationJsonldJsonldBuilder
-        > {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
+abstract class ConstraintViolation
+    implements Built<ConstraintViolation, ConstraintViolationBuilder> {
   @BuiltValueField(wireName: r'status')
   int? get status;
 
   @BuiltValueField(wireName: r'violations')
-  BuiltList<ConstraintViolationJsonViolationsInner>? get violations;
+  BuiltList<ConstraintViolationViolationsInner>? get violations;
 
   @BuiltValueField(wireName: r'detail')
   String? get detail;
-
-  @BuiltValueField(wireName: r'description')
-  String? get description;
 
   @BuiltValueField(wireName: r'type')
   String? get type;
@@ -61,60 +40,35 @@ abstract class ConstraintViolationJsonldJsonld
   @BuiltValueField(wireName: r'instance')
   String? get instance;
 
-  ConstraintViolationJsonldJsonld._();
+  ConstraintViolation._();
 
-  factory ConstraintViolationJsonldJsonld([
-    void updates(ConstraintViolationJsonldJsonldBuilder b),
-  ]) = _$ConstraintViolationJsonldJsonld;
+  factory ConstraintViolation([void updates(ConstraintViolationBuilder b)]) =
+      _$ConstraintViolation;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ConstraintViolationJsonldJsonldBuilder b) =>
-      b..status = 422;
+  static void _defaults(ConstraintViolationBuilder b) => b..status = 422;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ConstraintViolationJsonldJsonld> get serializer =>
-      _$ConstraintViolationJsonldJsonldSerializer();
+  static Serializer<ConstraintViolation> get serializer =>
+      _$ConstraintViolationSerializer();
 }
 
-class _$ConstraintViolationJsonldJsonldSerializer
-    implements PrimitiveSerializer<ConstraintViolationJsonldJsonld> {
+class _$ConstraintViolationSerializer
+    implements PrimitiveSerializer<ConstraintViolation> {
   @override
   final Iterable<Type> types = const [
-    ConstraintViolationJsonldJsonld,
-    _$ConstraintViolationJsonldJsonld,
+    ConstraintViolation,
+    _$ConstraintViolation,
   ];
 
   @override
-  final String wireName = r'ConstraintViolationJsonldJsonld';
+  final String wireName = r'ConstraintViolation';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    ConstraintViolationJsonldJsonld object, {
+    ConstraintViolation object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atContext != null) {
-      yield r'@context';
-      yield serializers.serialize(
-        object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
     if (object.status != null) {
       yield r'status';
       yield serializers.serialize(
@@ -127,7 +81,7 @@ class _$ConstraintViolationJsonldJsonldSerializer
       yield serializers.serialize(
         object.violations,
         specifiedType: const FullType(BuiltList, [
-          FullType(ConstraintViolationJsonViolationsInner),
+          FullType(ConstraintViolationViolationsInner),
         ]),
       );
     }
@@ -135,13 +89,6 @@ class _$ConstraintViolationJsonldJsonldSerializer
       yield r'detail';
       yield serializers.serialize(
         object.detail,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.description != null) {
-      yield r'description';
-      yield serializers.serialize(
-        object.description,
         specifiedType: const FullType(String),
       );
     }
@@ -171,7 +118,7 @@ class _$ConstraintViolationJsonldJsonldSerializer
   @override
   Object serialize(
     Serializers serializers,
-    ConstraintViolationJsonldJsonld object, {
+    ConstraintViolation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -186,42 +133,13 @@ class _$ConstraintViolationJsonldJsonldSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required ConstraintViolationJsonldJsonldBuilder result,
+    required ConstraintViolationBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'@context':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
-                  )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
-          result.atContext.replace(valueDes);
-          break;
-        case r'@id':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atId = valueDes;
-          break;
-        case r'@type':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atType = valueDes;
-          break;
         case r'status':
           final valueDes =
               serializers.deserialize(value, specifiedType: const FullType(int))
@@ -233,10 +151,10 @@ class _$ConstraintViolationJsonldJsonldSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(BuiltList, [
-                      FullType(ConstraintViolationJsonViolationsInner),
+                      FullType(ConstraintViolationViolationsInner),
                     ]),
                   )
-                  as BuiltList<ConstraintViolationJsonViolationsInner>;
+                  as BuiltList<ConstraintViolationViolationsInner>;
           result.violations.replace(valueDes);
           break;
         case r'detail':
@@ -247,15 +165,6 @@ class _$ConstraintViolationJsonldJsonldSerializer
                   )
                   as String;
           result.detail = valueDes;
-          break;
-        case r'description':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.description = valueDes;
           break;
         case r'type':
           final valueDes =
@@ -295,12 +204,12 @@ class _$ConstraintViolationJsonldJsonldSerializer
   }
 
   @override
-  ConstraintViolationJsonldJsonld deserialize(
+  ConstraintViolation deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = ConstraintViolationJsonldJsonldBuilder();
+    final result = ConstraintViolationBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

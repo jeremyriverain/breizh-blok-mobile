@@ -8,7 +8,7 @@ import 'package:built_value/serializer.dart';
 
 part 'line_boulder_boulder_read.g.dart';
 
-///
+/// LineBoulderBoulderRead
 ///
 /// Properties:
 /// * [rockImage]

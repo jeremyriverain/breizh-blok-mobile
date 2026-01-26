@@ -9,12 +9,13 @@ import 'package:built_value/serializer.dart';
 
 part 'boulder_feedback_write_boulder_feedback_write.g.dart';
 
-///
+/// BoulderFeedbackWriteBoulderFeedbackWrite
 ///
 /// Properties:
 /// * [newLocation]
 /// * [message]
 /// * [boulder]
+/// * [videoLink]
 @BuiltValue()
 abstract class BoulderFeedbackWriteBoulderFeedbackWrite
     implements
@@ -30,6 +31,9 @@ abstract class BoulderFeedbackWriteBoulderFeedbackWrite
 
   @BuiltValueField(wireName: r'boulder')
   String get boulder;
+
+  @BuiltValueField(wireName: r'videoLink')
+  String? get videoLink;
 
   BoulderFeedbackWriteBoulderFeedbackWrite._();
 
@@ -82,6 +86,13 @@ class _$BoulderFeedbackWriteBoulderFeedbackWriteSerializer
       object.boulder,
       specifiedType: const FullType(String),
     );
+    if (object.videoLink != null) {
+      yield r'videoLink';
+      yield serializers.serialize(
+        object.videoLink,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
   }
 
   @override
@@ -139,6 +150,16 @@ class _$BoulderFeedbackWriteBoulderFeedbackWriteSerializer
                   )
                   as String;
           result.boulder = valueDes;
+          break;
+        case r'videoLink':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.videoLink = valueDes;
           break;
         default:
           unhandled.add(key);

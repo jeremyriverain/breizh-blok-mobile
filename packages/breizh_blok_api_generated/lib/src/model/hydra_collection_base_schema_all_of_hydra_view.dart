@@ -6,9 +6,9 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'api_boulders_get_collection200_response_hydra_view.g.dart';
+part 'hydra_collection_base_schema_all_of_hydra_view.g.dart';
 
-/// ApiBouldersGetCollection200ResponseHydraView
+/// HydraCollectionBaseSchemaAllOfHydraView
 ///
 /// Properties:
 /// * [atId]
@@ -18,11 +18,11 @@ part 'api_boulders_get_collection200_response_hydra_view.g.dart';
 /// * [hydraColonPrevious]
 /// * [hydraColonNext]
 @BuiltValue()
-abstract class ApiBouldersGetCollection200ResponseHydraView
+abstract class HydraCollectionBaseSchemaAllOfHydraView
     implements
         Built<
-          ApiBouldersGetCollection200ResponseHydraView,
-          ApiBouldersGetCollection200ResponseHydraViewBuilder
+          HydraCollectionBaseSchemaAllOfHydraView,
+          HydraCollectionBaseSchemaAllOfHydraViewBuilder
         > {
   @BuiltValueField(wireName: r'@id')
   String? get atId;
@@ -42,37 +42,34 @@ abstract class ApiBouldersGetCollection200ResponseHydraView
   @BuiltValueField(wireName: r'hydra:next')
   String? get hydraColonNext;
 
-  ApiBouldersGetCollection200ResponseHydraView._();
+  HydraCollectionBaseSchemaAllOfHydraView._();
 
-  factory ApiBouldersGetCollection200ResponseHydraView([
-    void updates(ApiBouldersGetCollection200ResponseHydraViewBuilder b),
-  ]) = _$ApiBouldersGetCollection200ResponseHydraView;
+  factory HydraCollectionBaseSchemaAllOfHydraView([
+    void updates(HydraCollectionBaseSchemaAllOfHydraViewBuilder b),
+  ]) = _$HydraCollectionBaseSchemaAllOfHydraView;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(
-    ApiBouldersGetCollection200ResponseHydraViewBuilder b,
-  ) => b;
+  static void _defaults(HydraCollectionBaseSchemaAllOfHydraViewBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ApiBouldersGetCollection200ResponseHydraView>
-  get serializer => _$ApiBouldersGetCollection200ResponseHydraViewSerializer();
+  static Serializer<HydraCollectionBaseSchemaAllOfHydraView> get serializer =>
+      _$HydraCollectionBaseSchemaAllOfHydraViewSerializer();
 }
 
-class _$ApiBouldersGetCollection200ResponseHydraViewSerializer
-    implements
-        PrimitiveSerializer<ApiBouldersGetCollection200ResponseHydraView> {
+class _$HydraCollectionBaseSchemaAllOfHydraViewSerializer
+    implements PrimitiveSerializer<HydraCollectionBaseSchemaAllOfHydraView> {
   @override
   final Iterable<Type> types = const [
-    ApiBouldersGetCollection200ResponseHydraView,
-    _$ApiBouldersGetCollection200ResponseHydraView,
+    HydraCollectionBaseSchemaAllOfHydraView,
+    _$HydraCollectionBaseSchemaAllOfHydraView,
   ];
 
   @override
-  final String wireName = r'ApiBouldersGetCollection200ResponseHydraView';
+  final String wireName = r'HydraCollectionBaseSchemaAllOfHydraView';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    ApiBouldersGetCollection200ResponseHydraView object, {
+    HydraCollectionBaseSchemaAllOfHydraView object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.atId != null) {
@@ -122,7 +119,7 @@ class _$ApiBouldersGetCollection200ResponseHydraViewSerializer
   @override
   Object serialize(
     Serializers serializers,
-    ApiBouldersGetCollection200ResponseHydraView object, {
+    HydraCollectionBaseSchemaAllOfHydraView object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -137,7 +134,7 @@ class _$ApiBouldersGetCollection200ResponseHydraViewSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required ApiBouldersGetCollection200ResponseHydraViewBuilder result,
+    required HydraCollectionBaseSchemaAllOfHydraViewBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -207,12 +204,12 @@ class _$ApiBouldersGetCollection200ResponseHydraViewSerializer
   }
 
   @override
-  ApiBouldersGetCollection200ResponseHydraView deserialize(
+  HydraCollectionBaseSchemaAllOfHydraView deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = ApiBouldersGetCollection200ResponseHydraViewBuilder();
+    final result = HydraCollectionBaseSchemaAllOfHydraViewBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

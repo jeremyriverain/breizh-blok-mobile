@@ -3,15 +3,16 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_area_item_get.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
+import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'boulder_area_jsonld_boulder_area_item_get.g.dart';
 
-///
+/// BoulderAreaJsonldBoulderAreaItemGet
 ///
 /// Properties:
 /// * [atContext]
@@ -23,27 +24,19 @@ part 'boulder_area_jsonld_boulder_area_item_get.g.dart';
 @BuiltValue()
 abstract class BoulderAreaJsonldBoulderAreaItemGet
     implements
+        HydraItemBaseSchema,
         Built<
           BoulderAreaJsonldBoulderAreaItemGet,
           BoulderAreaJsonldBoulderAreaItemGetBuilder
         > {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
-  @BuiltValueField(wireName: r'centroid')
-  GeoPointJsonldBoulderAreaItemGet? get centroid;
-
-  @BuiltValueField(wireName: r'parkingLocation')
-  GeoPointJsonldBoulderAreaItemGet? get parkingLocation;
-
   @BuiltValueField(wireName: r'numberOfBouldersGroupedByGrade')
   BuiltMap<String, String>? get numberOfBouldersGroupedByGrade;
+
+  @BuiltValueField(wireName: r'parkingLocation')
+  JsonObject? get parkingLocation;
+
+  @BuiltValueField(wireName: r'centroid')
+  JsonObject? get centroid;
 
   BoulderAreaJsonldBoulderAreaItemGet._();
 
@@ -75,47 +68,6 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
     BoulderAreaJsonldBoulderAreaItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atContext != null) {
-      yield r'@context';
-      yield serializers.serialize(
-        object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.centroid != null) {
-      yield r'centroid';
-      yield serializers.serialize(
-        object.centroid,
-        specifiedType: const FullType.nullable(
-          GeoPointJsonldBoulderAreaItemGet,
-        ),
-      );
-    }
-    if (object.parkingLocation != null) {
-      yield r'parkingLocation';
-      yield serializers.serialize(
-        object.parkingLocation,
-        specifiedType: const FullType.nullable(
-          GeoPointJsonldBoulderAreaItemGet,
-        ),
-      );
-    }
     if (object.numberOfBouldersGroupedByGrade != null) {
       yield r'numberOfBouldersGroupedByGrade';
       yield serializers.serialize(
@@ -124,6 +76,37 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
           FullType(String),
           FullType(String),
         ]),
+      );
+    }
+    if (object.parkingLocation != null) {
+      yield r'parkingLocation';
+      yield serializers.serialize(
+        object.parkingLocation,
+        specifiedType: const FullType(JsonObject),
+      );
+    }
+    if (object.atContext != null) {
+      yield r'@context';
+      yield serializers.serialize(
+        object.atContext,
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
+      );
+    }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
+    if (object.centroid != null) {
+      yield r'centroid';
+      yield serializers.serialize(
+        object.centroid,
+        specifiedType: const FullType(JsonObject),
       );
     }
   }
@@ -153,15 +136,34 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'numberOfBouldersGroupedByGrade':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltMap, [
+                      FullType(String),
+                      FullType(String),
+                    ]),
+                  )
+                  as BuiltMap<String, String>;
+          result.numberOfBouldersGroupedByGrade.replace(valueDes);
+          break;
+        case r'parkingLocation':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(JsonObject),
+                  )
+                  as JsonObject;
+          result.parkingLocation = valueDes;
+          break;
         case r'@context':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
                   )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
+                  as HydraItemBaseSchemaContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -186,37 +188,10 @@ class _$BoulderAreaJsonldBoulderAreaItemGetSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(
-                      GeoPointJsonldBoulderAreaItemGet,
-                    ),
+                    specifiedType: const FullType(JsonObject),
                   )
-                  as GeoPointJsonldBoulderAreaItemGet?;
-          if (valueDes == null) continue;
-          result.centroid.replace(valueDes);
-          break;
-        case r'parkingLocation':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType.nullable(
-                      GeoPointJsonldBoulderAreaItemGet,
-                    ),
-                  )
-                  as GeoPointJsonldBoulderAreaItemGet?;
-          if (valueDes == null) continue;
-          result.parkingLocation.replace(valueDes);
-          break;
-        case r'numberOfBouldersGroupedByGrade':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltMap, [
-                      FullType(String),
-                      FullType(String),
-                    ]),
-                  )
-                  as BuiltMap<String, String>;
-          result.numberOfBouldersGroupedByGrade.replace(valueDes);
+                  as JsonObject;
+          result.centroid = valueDes;
           break;
         default:
           unhandled.add(key);

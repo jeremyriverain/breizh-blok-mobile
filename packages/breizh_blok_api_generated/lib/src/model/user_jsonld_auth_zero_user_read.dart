@@ -3,33 +3,20 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'user_jsonld_auth_zero_user_read.g.dart';
 
-///
+/// UserJsonldAuthZeroUserRead
 ///
 /// Properties:
-/// * [atContext]
-/// * [atId]
-/// * [atType]
 /// * [roles]
 @BuiltValue()
 abstract class UserJsonldAuthZeroUserRead
     implements
         Built<UserJsonldAuthZeroUserRead, UserJsonldAuthZeroUserReadBuilder> {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
   @BuiltValueField(wireName: r'roles')
   BuiltList<String>? get roles;
 
@@ -63,29 +50,6 @@ class _$UserJsonldAuthZeroUserReadSerializer
     UserJsonldAuthZeroUserRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atContext != null) {
-      yield r'@context';
-      yield serializers.serialize(
-        object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
     if (object.roles != null) {
       yield r'roles';
       yield serializers.serialize(
@@ -120,35 +84,6 @@ class _$UserJsonldAuthZeroUserReadSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'@context':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
-                  )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
-          result.atContext.replace(valueDes);
-          break;
-        case r'@id':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atId = valueDes;
-          break;
-        case r'@type':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atType = valueDes;
-          break;
         case r'roles':
           final valueDes =
               serializers.deserialize(

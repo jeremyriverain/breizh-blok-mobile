@@ -8,7 +8,7 @@ import 'package:built_value/serializer.dart';
 
 part 'auth_zero_user_read_boulder_feedback_read.g.dart';
 
-///
+/// AuthZeroUserReadBoulderFeedbackRead
 ///
 /// Properties:
 /// * [id]

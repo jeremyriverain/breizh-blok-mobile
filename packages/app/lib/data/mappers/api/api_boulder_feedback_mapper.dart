@@ -5,10 +5,10 @@ import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feed
 class ApiBoulderFeedbackMapper {
   const ApiBoulderFeedbackMapper();
 
-  api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite toCreateRequestFromDomain(
+  api.BoulderFeedbackWriteBoulderFeedbackWrite toCreateRequestFromDomain(
     BoulderFeedback entity,
   ) {
-    return api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((builder) {
+    return api.BoulderFeedbackWriteBoulderFeedbackWrite((builder) {
       builder
         ..message = entity.message
         ..boulder = entity.boulder.iri;

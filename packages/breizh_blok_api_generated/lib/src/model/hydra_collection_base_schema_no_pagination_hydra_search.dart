@@ -3,14 +3,14 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/api_boulders_get_collection200_response_hydra_search_hydra_mapping_inner.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_collection_base_schema_no_pagination_hydra_search_hydra_mapping_inner.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'api_boulders_get_collection200_response_hydra_search.g.dart';
+part 'hydra_collection_base_schema_no_pagination_hydra_search.g.dart';
 
-/// ApiBouldersGetCollection200ResponseHydraSearch
+/// HydraCollectionBaseSchemaNoPaginationHydraSearch
 ///
 /// Properties:
 /// * [atType]
@@ -18,11 +18,11 @@ part 'api_boulders_get_collection200_response_hydra_search.g.dart';
 /// * [hydraColonVariableRepresentation]
 /// * [hydraColonMapping]
 @BuiltValue()
-abstract class ApiBouldersGetCollection200ResponseHydraSearch
+abstract class HydraCollectionBaseSchemaNoPaginationHydraSearch
     implements
         Built<
-          ApiBouldersGetCollection200ResponseHydraSearch,
-          ApiBouldersGetCollection200ResponseHydraSearchBuilder
+          HydraCollectionBaseSchemaNoPaginationHydraSearch,
+          HydraCollectionBaseSchemaNoPaginationHydraSearchBuilder
         > {
   @BuiltValueField(wireName: r'@type')
   String? get atType;
@@ -34,41 +34,41 @@ abstract class ApiBouldersGetCollection200ResponseHydraSearch
   String? get hydraColonVariableRepresentation;
 
   @BuiltValueField(wireName: r'hydra:mapping')
-  BuiltList<ApiBouldersGetCollection200ResponseHydraSearchHydraMappingInner>?
+  BuiltList<HydraCollectionBaseSchemaNoPaginationHydraSearchHydraMappingInner>?
   get hydraColonMapping;
 
-  ApiBouldersGetCollection200ResponseHydraSearch._();
+  HydraCollectionBaseSchemaNoPaginationHydraSearch._();
 
-  factory ApiBouldersGetCollection200ResponseHydraSearch([
-    void updates(ApiBouldersGetCollection200ResponseHydraSearchBuilder b),
-  ]) = _$ApiBouldersGetCollection200ResponseHydraSearch;
+  factory HydraCollectionBaseSchemaNoPaginationHydraSearch([
+    void updates(HydraCollectionBaseSchemaNoPaginationHydraSearchBuilder b),
+  ]) = _$HydraCollectionBaseSchemaNoPaginationHydraSearch;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-    ApiBouldersGetCollection200ResponseHydraSearchBuilder b,
+    HydraCollectionBaseSchemaNoPaginationHydraSearchBuilder b,
   ) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ApiBouldersGetCollection200ResponseHydraSearch>
+  static Serializer<HydraCollectionBaseSchemaNoPaginationHydraSearch>
   get serializer =>
-      _$ApiBouldersGetCollection200ResponseHydraSearchSerializer();
+      _$HydraCollectionBaseSchemaNoPaginationHydraSearchSerializer();
 }
 
-class _$ApiBouldersGetCollection200ResponseHydraSearchSerializer
+class _$HydraCollectionBaseSchemaNoPaginationHydraSearchSerializer
     implements
-        PrimitiveSerializer<ApiBouldersGetCollection200ResponseHydraSearch> {
+        PrimitiveSerializer<HydraCollectionBaseSchemaNoPaginationHydraSearch> {
   @override
   final Iterable<Type> types = const [
-    ApiBouldersGetCollection200ResponseHydraSearch,
-    _$ApiBouldersGetCollection200ResponseHydraSearch,
+    HydraCollectionBaseSchemaNoPaginationHydraSearch,
+    _$HydraCollectionBaseSchemaNoPaginationHydraSearch,
   ];
 
   @override
-  final String wireName = r'ApiBouldersGetCollection200ResponseHydraSearch';
+  final String wireName = r'HydraCollectionBaseSchemaNoPaginationHydraSearch';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    ApiBouldersGetCollection200ResponseHydraSearch object, {
+    HydraCollectionBaseSchemaNoPaginationHydraSearch object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.atType != null) {
@@ -98,7 +98,7 @@ class _$ApiBouldersGetCollection200ResponseHydraSearchSerializer
         object.hydraColonMapping,
         specifiedType: const FullType(BuiltList, [
           FullType(
-            ApiBouldersGetCollection200ResponseHydraSearchHydraMappingInner,
+            HydraCollectionBaseSchemaNoPaginationHydraSearchHydraMappingInner,
           ),
         ]),
       );
@@ -108,7 +108,7 @@ class _$ApiBouldersGetCollection200ResponseHydraSearchSerializer
   @override
   Object serialize(
     Serializers serializers,
-    ApiBouldersGetCollection200ResponseHydraSearch object, {
+    HydraCollectionBaseSchemaNoPaginationHydraSearch object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -123,7 +123,7 @@ class _$ApiBouldersGetCollection200ResponseHydraSearchSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required ApiBouldersGetCollection200ResponseHydraSearchBuilder result,
+    required HydraCollectionBaseSchemaNoPaginationHydraSearchBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -163,12 +163,12 @@ class _$ApiBouldersGetCollection200ResponseHydraSearchSerializer
                     value,
                     specifiedType: const FullType(BuiltList, [
                       FullType(
-                        ApiBouldersGetCollection200ResponseHydraSearchHydraMappingInner,
+                        HydraCollectionBaseSchemaNoPaginationHydraSearchHydraMappingInner,
                       ),
                     ]),
                   )
                   as BuiltList<
-                    ApiBouldersGetCollection200ResponseHydraSearchHydraMappingInner
+                    HydraCollectionBaseSchemaNoPaginationHydraSearchHydraMappingInner
                   >;
           result.hydraColonMapping.replace(valueDes);
           break;
@@ -181,12 +181,12 @@ class _$ApiBouldersGetCollection200ResponseHydraSearchSerializer
   }
 
   @override
-  ApiBouldersGetCollection200ResponseHydraSearch deserialize(
+  HydraCollectionBaseSchemaNoPaginationHydraSearch deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = ApiBouldersGetCollection200ResponseHydraSearchBuilder();
+    final result = HydraCollectionBaseSchemaNoPaginationHydraSearchBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

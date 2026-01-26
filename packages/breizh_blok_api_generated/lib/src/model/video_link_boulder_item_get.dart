@@ -6,69 +6,73 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'constraint_violation_json_violations_inner.g.dart';
+part 'video_link_boulder_item_get.g.dart';
 
-/// ConstraintViolationJsonViolationsInner
+/// VideoLinkBoulderItemGet
 ///
 /// Properties:
-/// * [propertyPath] - The property path of the violation
-/// * [message] - The message associated with the violation
+/// * [url]
+/// * [videoId]
+/// * [type]
 @BuiltValue()
-abstract class ConstraintViolationJsonViolationsInner
-    implements
-        Built<
-          ConstraintViolationJsonViolationsInner,
-          ConstraintViolationJsonViolationsInnerBuilder
-        > {
-  /// The property path of the violation
-  @BuiltValueField(wireName: r'propertyPath')
-  String? get propertyPath;
+abstract class VideoLinkBoulderItemGet
+    implements Built<VideoLinkBoulderItemGet, VideoLinkBoulderItemGetBuilder> {
+  @BuiltValueField(wireName: r'url')
+  String get url;
 
-  /// The message associated with the violation
-  @BuiltValueField(wireName: r'message')
-  String? get message;
+  @BuiltValueField(wireName: r'videoId')
+  String? get videoId;
 
-  ConstraintViolationJsonViolationsInner._();
+  @BuiltValueField(wireName: r'type')
+  String? get type;
 
-  factory ConstraintViolationJsonViolationsInner([
-    void updates(ConstraintViolationJsonViolationsInnerBuilder b),
-  ]) = _$ConstraintViolationJsonViolationsInner;
+  VideoLinkBoulderItemGet._();
+
+  factory VideoLinkBoulderItemGet([
+    void updates(VideoLinkBoulderItemGetBuilder b),
+  ]) = _$VideoLinkBoulderItemGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ConstraintViolationJsonViolationsInnerBuilder b) => b;
+  static void _defaults(VideoLinkBoulderItemGetBuilder b) =>
+      b..type = 'youtube';
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ConstraintViolationJsonViolationsInner> get serializer =>
-      _$ConstraintViolationJsonViolationsInnerSerializer();
+  static Serializer<VideoLinkBoulderItemGet> get serializer =>
+      _$VideoLinkBoulderItemGetSerializer();
 }
 
-class _$ConstraintViolationJsonViolationsInnerSerializer
-    implements PrimitiveSerializer<ConstraintViolationJsonViolationsInner> {
+class _$VideoLinkBoulderItemGetSerializer
+    implements PrimitiveSerializer<VideoLinkBoulderItemGet> {
   @override
   final Iterable<Type> types = const [
-    ConstraintViolationJsonViolationsInner,
-    _$ConstraintViolationJsonViolationsInner,
+    VideoLinkBoulderItemGet,
+    _$VideoLinkBoulderItemGet,
   ];
 
   @override
-  final String wireName = r'ConstraintViolationJsonViolationsInner';
+  final String wireName = r'VideoLinkBoulderItemGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    ConstraintViolationJsonViolationsInner object, {
+    VideoLinkBoulderItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.propertyPath != null) {
-      yield r'propertyPath';
+    yield r'url';
+    yield serializers.serialize(
+      object.url,
+      specifiedType: const FullType(String),
+    );
+    if (object.videoId != null) {
+      yield r'videoId';
       yield serializers.serialize(
-        object.propertyPath,
+        object.videoId,
         specifiedType: const FullType(String),
       );
     }
-    if (object.message != null) {
-      yield r'message';
+    if (object.type != null) {
+      yield r'type';
       yield serializers.serialize(
-        object.message,
+        object.type,
         specifiedType: const FullType(String),
       );
     }
@@ -77,7 +81,7 @@ class _$ConstraintViolationJsonViolationsInnerSerializer
   @override
   Object serialize(
     Serializers serializers,
-    ConstraintViolationJsonViolationsInner object, {
+    VideoLinkBoulderItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -92,30 +96,39 @@ class _$ConstraintViolationJsonViolationsInnerSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required ConstraintViolationJsonViolationsInnerBuilder result,
+    required VideoLinkBoulderItemGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'propertyPath':
+        case r'url':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(String),
                   )
                   as String;
-          result.propertyPath = valueDes;
+          result.url = valueDes;
           break;
-        case r'message':
+        case r'videoId':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(String),
                   )
                   as String;
-          result.message = valueDes;
+          result.videoId = valueDes;
+          break;
+        case r'type':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.type = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -126,12 +139,12 @@ class _$ConstraintViolationJsonViolationsInnerSerializer
   }
 
   @override
-  ConstraintViolationJsonViolationsInner deserialize(
+  VideoLinkBoulderItemGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = ConstraintViolationJsonViolationsInnerBuilder();
+    final result = VideoLinkBoulderItemGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

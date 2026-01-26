@@ -21,14 +21,15 @@ void main() {
     });
     group('get', () {
       test(
-        '''
-Given the API responds successfully
-Then a User is returned''',
+        '''Given the API responds successfully, Then a User is returned''',
         () async {
           when(() => api.apiUsersIdGet(id: 'foo')).thenAnswer(
             (_) async => Response(
               data: AuthZeroUserJsonldAuthZeroUserRead((builder) {
                 builder.user.roles = ListBuilder<String>(['ROLE_FOO']);
+                builder
+                  ..atId = 'foo'
+                  ..atType = 'bar';
               }),
               requestOptions: RequestOptions(),
             ),

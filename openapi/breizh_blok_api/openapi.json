@@ -86,16 +86,13 @@
             "description": "AuthZeroUser identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/boulders": {
@@ -111,93 +108,25 @@
               "application\/ld+json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "hydra:member": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#\/components\/schemas\/Boulder.jsonld-Boulder.read"
-                      }
+                  "description": "Boulder.jsonld-Boulder.read collection.",
+                  "allOf": [
+                    {
+                      "$ref": "#\/components\/schemas\/HydraCollectionBaseSchema"
                     },
-                    "hydra:totalItems": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "hydra:view": {
+                    {
                       "type": "object",
+                      "required": [
+                        "hydra:member"
+                      ],
                       "properties": {
-                        "@id": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:first": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:last": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:previous": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:next": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        }
-                      },
-                      "example": {
-                        "@id": "string",
-                        "type": "string",
-                        "hydra:first": "string",
-                        "hydra:last": "string",
-                        "hydra:previous": "string",
-                        "hydra:next": "string"
-                      }
-                    },
-                    "hydra:search": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:template": {
-                          "type": "string"
-                        },
-                        "hydra:variableRepresentation": {
-                          "type": "string"
-                        },
-                        "hydra:mapping": {
+                        "hydra:member": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "@type": {
-                                "type": "string"
-                              },
-                              "variable": {
-                                "type": "string"
-                              },
-                              "property": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
-                              },
-                              "required": {
-                                "type": "boolean"
-                              }
-                            }
+                            "$ref": "#\/components\/schemas\/Boulder.jsonld-Boulder.read"
                           }
                         }
                       }
                     }
-                  },
-                  "required": [
-                    "hydra:member"
                   ]
                 }
               },
@@ -221,14 +150,12 @@
             "description": "The collection page number",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 1
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "itemsPerPage",
@@ -236,15 +163,14 @@
             "description": "The number of items per page",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 30,
-              "minimum": 0
+              "minimum": 0,
+              "maximum": 30
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "pagination",
@@ -252,13 +178,11 @@
             "description": "Enable or disable pagination",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "boolean"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "order[id]",
@@ -266,7 +190,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "default": "asc",
@@ -276,8 +199,7 @@
               ]
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "order[name]",
@@ -285,7 +207,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "default": "asc",
@@ -295,8 +216,7 @@
               ]
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "order[grade.name]",
@@ -304,7 +224,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "default": "asc",
@@ -314,8 +233,7 @@
               ]
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "id",
@@ -323,13 +241,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "integer"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "id[]",
@@ -337,7 +253,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "array",
               "items": {
@@ -345,8 +260,7 @@
               }
             },
             "style": "form",
-            "explode": true,
-            "allowReserved": false
+            "explode": true
           },
           {
             "name": "name",
@@ -354,13 +268,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "grade.name",
@@ -368,13 +280,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "grade.name[]",
@@ -382,7 +292,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "array",
               "items": {
@@ -390,8 +299,7 @@
               }
             },
             "style": "form",
-            "explode": true,
-            "allowReserved": false
+            "explode": true
           },
           {
             "name": "rock.boulderArea.id",
@@ -399,13 +307,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "integer"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "rock.boulderArea.id[]",
@@ -413,7 +319,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "array",
               "items": {
@@ -421,8 +326,7 @@
               }
             },
             "style": "form",
-            "explode": true,
-            "allowReserved": false
+            "explode": true
           },
           {
             "name": "rock.boulderArea.name",
@@ -430,13 +334,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "rock.boulderArea.name[]",
@@ -444,7 +346,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "array",
               "items": {
@@ -452,8 +353,7 @@
               }
             },
             "style": "form",
-            "explode": true,
-            "allowReserved": false
+            "explode": true
           },
           {
             "name": "rock.boulderArea.municipality.name",
@@ -461,13 +361,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "rock.boulderArea.municipality.name[]",
@@ -475,7 +373,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "array",
               "items": {
@@ -483,8 +380,7 @@
               }
             },
             "style": "form",
-            "explode": true,
-            "allowReserved": false
+            "explode": true
           },
           {
             "name": "rock.id",
@@ -492,13 +388,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "integer"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "rock.id[]",
@@ -506,7 +400,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "array",
               "items": {
@@ -514,8 +407,7 @@
               }
             },
             "style": "form",
-            "explode": true,
-            "allowReserved": false
+            "explode": true
           },
           {
             "name": "term",
@@ -523,13 +415,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "createdAt[before]",
@@ -537,13 +427,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "createdAt[strictly_before]",
@@ -551,13 +439,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "createdAt[after]",
@@ -565,13 +451,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "createdAt[strictly_after]",
@@ -579,13 +463,11 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "groups[]",
@@ -593,7 +475,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "array",
               "items": {
@@ -607,11 +488,9 @@
               }
             },
             "style": "form",
-            "explode": true,
-            "allowReserved": false
+            "explode": true
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/boulders\/{id}": {
@@ -667,16 +546,13 @@
             "description": "Boulder identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/boulder_areas": {
@@ -692,93 +568,25 @@
               "application\/ld+json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "hydra:member": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#\/components\/schemas\/BoulderArea.jsonld-BoulderArea.read"
-                      }
+                  "description": "BoulderArea.jsonld-BoulderArea.read collection.",
+                  "allOf": [
+                    {
+                      "$ref": "#\/components\/schemas\/HydraCollectionBaseSchema"
                     },
-                    "hydra:totalItems": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "hydra:view": {
+                    {
                       "type": "object",
+                      "required": [
+                        "hydra:member"
+                      ],
                       "properties": {
-                        "@id": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:first": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:last": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:previous": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:next": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        }
-                      },
-                      "example": {
-                        "@id": "string",
-                        "type": "string",
-                        "hydra:first": "string",
-                        "hydra:last": "string",
-                        "hydra:previous": "string",
-                        "hydra:next": "string"
-                      }
-                    },
-                    "hydra:search": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:template": {
-                          "type": "string"
-                        },
-                        "hydra:variableRepresentation": {
-                          "type": "string"
-                        },
-                        "hydra:mapping": {
+                        "hydra:member": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "@type": {
-                                "type": "string"
-                              },
-                              "variable": {
-                                "type": "string"
-                              },
-                              "property": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
-                              },
-                              "required": {
-                                "type": "boolean"
-                              }
-                            }
+                            "$ref": "#\/components\/schemas\/BoulderArea.jsonld-BoulderArea.read"
                           }
                         }
                       }
                     }
-                  },
-                  "required": [
-                    "hydra:member"
                   ]
                 }
               },
@@ -802,17 +610,14 @@
             "description": "The collection page number",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 1
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/boulder_areas\/{id}": {
@@ -868,16 +673,13 @@
             "description": "BoulderArea identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/boulder_feedbacks": {
@@ -893,93 +695,25 @@
               "application\/ld+json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "hydra:member": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#\/components\/schemas\/BoulderFeedback.jsonld-read_BoulderFeedback.read"
-                      }
+                  "description": "BoulderFeedback.jsonld-read_BoulderFeedback.read collection.",
+                  "allOf": [
+                    {
+                      "$ref": "#\/components\/schemas\/HydraCollectionBaseSchema"
                     },
-                    "hydra:totalItems": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "hydra:view": {
+                    {
                       "type": "object",
+                      "required": [
+                        "hydra:member"
+                      ],
                       "properties": {
-                        "@id": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:first": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:last": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:previous": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:next": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        }
-                      },
-                      "example": {
-                        "@id": "string",
-                        "type": "string",
-                        "hydra:first": "string",
-                        "hydra:last": "string",
-                        "hydra:previous": "string",
-                        "hydra:next": "string"
-                      }
-                    },
-                    "hydra:search": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:template": {
-                          "type": "string"
-                        },
-                        "hydra:variableRepresentation": {
-                          "type": "string"
-                        },
-                        "hydra:mapping": {
+                        "hydra:member": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "@type": {
-                                "type": "string"
-                              },
-                              "variable": {
-                                "type": "string"
-                              },
-                              "property": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
-                              },
-                              "required": {
-                                "type": "boolean"
-                              }
-                            }
+                            "$ref": "#\/components\/schemas\/BoulderFeedback.jsonld-read_BoulderFeedback.read"
                           }
                         }
                       }
                     }
-                  },
-                  "required": [
-                    "hydra:member"
                   ]
                 }
               },
@@ -1024,17 +758,14 @@
             "description": "The collection page number",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 1
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       },
       "post": {
         "operationId": "api_boulder_feedbacks_post",
@@ -1084,17 +815,17 @@
             "content": {
               "application\/ld+json": {
                 "schema": {
-                  "$ref": "#\/components\/schemas\/ConstraintViolation.jsonld-jsonld"
+                  "$ref": "#\/components\/schemas\/ConstraintViolation.jsonld"
                 }
               },
               "application\/problem+json": {
                 "schema": {
-                  "$ref": "#\/components\/schemas\/ConstraintViolation-json"
+                  "$ref": "#\/components\/schemas\/ConstraintViolation"
                 }
               },
               "application\/json": {
                 "schema": {
-                  "$ref": "#\/components\/schemas\/ConstraintViolation-json"
+                  "$ref": "#\/components\/schemas\/ConstraintViolation"
                 }
               }
             },
@@ -1130,7 +861,7 @@
           "content": {
             "application\/ld+json": {
               "schema": {
-                "$ref": "#\/components\/schemas\/BoulderFeedback.jsonld-write_BoulderFeedback.write"
+                "$ref": "#\/components\/schemas\/BoulderFeedback-write_BoulderFeedback.write"
               }
             },
             "application\/json": {
@@ -1140,8 +871,7 @@
             }
           },
           "required": true
-        },
-        "deprecated": false
+        }
       }
     },
     "\/boulder_feedbacks\/{id}": {
@@ -1218,16 +948,13 @@
             "description": "BoulderFeedback identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/departments": {
@@ -1243,93 +970,25 @@
               "application\/ld+json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "hydra:member": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#\/components\/schemas\/Department.jsonld-Department.read"
-                      }
+                  "description": "Department.jsonld-Department.read collection.",
+                  "allOf": [
+                    {
+                      "$ref": "#\/components\/schemas\/HydraCollectionBaseSchema"
                     },
-                    "hydra:totalItems": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "hydra:view": {
+                    {
                       "type": "object",
+                      "required": [
+                        "hydra:member"
+                      ],
                       "properties": {
-                        "@id": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:first": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:last": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:previous": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:next": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        }
-                      },
-                      "example": {
-                        "@id": "string",
-                        "type": "string",
-                        "hydra:first": "string",
-                        "hydra:last": "string",
-                        "hydra:previous": "string",
-                        "hydra:next": "string"
-                      }
-                    },
-                    "hydra:search": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:template": {
-                          "type": "string"
-                        },
-                        "hydra:variableRepresentation": {
-                          "type": "string"
-                        },
-                        "hydra:mapping": {
+                        "hydra:member": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "@type": {
-                                "type": "string"
-                              },
-                              "variable": {
-                                "type": "string"
-                              },
-                              "property": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
-                              },
-                              "required": {
-                                "type": "boolean"
-                              }
-                            }
+                            "$ref": "#\/components\/schemas\/Department.jsonld-Department.read"
                           }
                         }
                       }
                     }
-                  },
-                  "required": [
-                    "hydra:member"
                   ]
                 }
               },
@@ -1353,14 +1012,12 @@
             "description": "The collection page number",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 1
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "pagination",
@@ -1368,13 +1025,11 @@
             "description": "Enable or disable pagination",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "boolean"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "order[name]",
@@ -1382,7 +1037,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "default": "asc",
@@ -1392,11 +1046,9 @@
               ]
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/departments\/{id}": {
@@ -1452,16 +1104,13 @@
             "description": "Department identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/grades": {
@@ -1477,93 +1126,25 @@
               "application\/ld+json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "hydra:member": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#\/components\/schemas\/Grade.jsonld-Grade.read"
-                      }
+                  "description": "Grade.jsonld-Grade.read collection.",
+                  "allOf": [
+                    {
+                      "$ref": "#\/components\/schemas\/HydraCollectionBaseSchema"
                     },
-                    "hydra:totalItems": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "hydra:view": {
+                    {
                       "type": "object",
+                      "required": [
+                        "hydra:member"
+                      ],
                       "properties": {
-                        "@id": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:first": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:last": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:previous": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:next": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        }
-                      },
-                      "example": {
-                        "@id": "string",
-                        "type": "string",
-                        "hydra:first": "string",
-                        "hydra:last": "string",
-                        "hydra:previous": "string",
-                        "hydra:next": "string"
-                      }
-                    },
-                    "hydra:search": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:template": {
-                          "type": "string"
-                        },
-                        "hydra:variableRepresentation": {
-                          "type": "string"
-                        },
-                        "hydra:mapping": {
+                        "hydra:member": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "@type": {
-                                "type": "string"
-                              },
-                              "variable": {
-                                "type": "string"
-                              },
-                              "property": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
-                              },
-                              "required": {
-                                "type": "boolean"
-                              }
-                            }
+                            "$ref": "#\/components\/schemas\/Grade.jsonld-Grade.read"
                           }
                         }
                       }
                     }
-                  },
-                  "required": [
-                    "hydra:member"
                   ]
                 }
               },
@@ -1587,14 +1168,12 @@
             "description": "The collection page number",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 1
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "pagination",
@@ -1602,13 +1181,11 @@
             "description": "Enable or disable pagination",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "boolean"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "order[name]",
@@ -1616,7 +1193,6 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "default": "asc",
@@ -1626,8 +1202,7 @@
               ]
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "exists[boulders]",
@@ -1635,16 +1210,13 @@
             "description": "",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "boolean"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/grades\/{id}": {
@@ -1700,16 +1272,13 @@
             "description": "Grade identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/height_boulders": {
@@ -1725,93 +1294,25 @@
               "application\/ld+json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "hydra:member": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#\/components\/schemas\/HeightBoulder.jsonld-HeightBoulder.read"
-                      }
+                  "description": "HeightBoulder.jsonld-HeightBoulder.read collection.",
+                  "allOf": [
+                    {
+                      "$ref": "#\/components\/schemas\/HydraCollectionBaseSchema"
                     },
-                    "hydra:totalItems": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "hydra:view": {
+                    {
                       "type": "object",
+                      "required": [
+                        "hydra:member"
+                      ],
                       "properties": {
-                        "@id": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:first": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:last": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:previous": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:next": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        }
-                      },
-                      "example": {
-                        "@id": "string",
-                        "type": "string",
-                        "hydra:first": "string",
-                        "hydra:last": "string",
-                        "hydra:previous": "string",
-                        "hydra:next": "string"
-                      }
-                    },
-                    "hydra:search": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:template": {
-                          "type": "string"
-                        },
-                        "hydra:variableRepresentation": {
-                          "type": "string"
-                        },
-                        "hydra:mapping": {
+                        "hydra:member": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "@type": {
-                                "type": "string"
-                              },
-                              "variable": {
-                                "type": "string"
-                              },
-                              "property": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
-                              },
-                              "required": {
-                                "type": "boolean"
-                              }
-                            }
+                            "$ref": "#\/components\/schemas\/HeightBoulder.jsonld-HeightBoulder.read"
                           }
                         }
                       }
                     }
-                  },
-                  "required": [
-                    "hydra:member"
                   ]
                 }
               },
@@ -1835,14 +1336,12 @@
             "description": "The collection page number",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 1
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "pagination",
@@ -1850,16 +1349,13 @@
             "description": "Enable or disable pagination",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "boolean"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/height_boulders\/{id}": {
@@ -1915,16 +1411,13 @@
             "description": "HeightBoulder identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/media": {
@@ -1940,93 +1433,25 @@
               "application\/ld+json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "hydra:member": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#\/components\/schemas\/Media.jsonld"
-                      }
+                  "description": "Media.jsonld collection.",
+                  "allOf": [
+                    {
+                      "$ref": "#\/components\/schemas\/HydraCollectionBaseSchema"
                     },
-                    "hydra:totalItems": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "hydra:view": {
+                    {
                       "type": "object",
+                      "required": [
+                        "hydra:member"
+                      ],
                       "properties": {
-                        "@id": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:first": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:last": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:previous": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:next": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        }
-                      },
-                      "example": {
-                        "@id": "string",
-                        "type": "string",
-                        "hydra:first": "string",
-                        "hydra:last": "string",
-                        "hydra:previous": "string",
-                        "hydra:next": "string"
-                      }
-                    },
-                    "hydra:search": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:template": {
-                          "type": "string"
-                        },
-                        "hydra:variableRepresentation": {
-                          "type": "string"
-                        },
-                        "hydra:mapping": {
+                        "hydra:member": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "@type": {
-                                "type": "string"
-                              },
-                              "variable": {
-                                "type": "string"
-                              },
-                              "property": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
-                              },
-                              "required": {
-                                "type": "boolean"
-                              }
-                            }
+                            "$ref": "#\/components\/schemas\/Media.jsonld"
                           }
                         }
                       }
                     }
-                  },
-                  "required": [
-                    "hydra:member"
                   ]
                 }
               },
@@ -2050,17 +1475,14 @@
             "description": "The collection page number",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 1
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/media\/{id}": {
@@ -2116,16 +1538,13 @@
             "description": "Media identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/municipalities": {
@@ -2141,93 +1560,25 @@
               "application\/ld+json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "hydra:member": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#\/components\/schemas\/Municipality.jsonld-Municipality.read"
-                      }
+                  "description": "Municipality.jsonld-Municipality.read collection.",
+                  "allOf": [
+                    {
+                      "$ref": "#\/components\/schemas\/HydraCollectionBaseSchema"
                     },
-                    "hydra:totalItems": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "hydra:view": {
+                    {
                       "type": "object",
+                      "required": [
+                        "hydra:member"
+                      ],
                       "properties": {
-                        "@id": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:first": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:last": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:previous": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:next": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        }
-                      },
-                      "example": {
-                        "@id": "string",
-                        "type": "string",
-                        "hydra:first": "string",
-                        "hydra:last": "string",
-                        "hydra:previous": "string",
-                        "hydra:next": "string"
-                      }
-                    },
-                    "hydra:search": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:template": {
-                          "type": "string"
-                        },
-                        "hydra:variableRepresentation": {
-                          "type": "string"
-                        },
-                        "hydra:mapping": {
+                        "hydra:member": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "@type": {
-                                "type": "string"
-                              },
-                              "variable": {
-                                "type": "string"
-                              },
-                              "property": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
-                              },
-                              "required": {
-                                "type": "boolean"
-                              }
-                            }
+                            "$ref": "#\/components\/schemas\/Municipality.jsonld-Municipality.read"
                           }
                         }
                       }
                     }
-                  },
-                  "required": [
-                    "hydra:member"
                   ]
                 }
               },
@@ -2251,17 +1602,14 @@
             "description": "The collection page number",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 1
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/municipalities\/{id}": {
@@ -2317,16 +1665,13 @@
             "description": "Municipality identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/rocks": {
@@ -2342,93 +1687,25 @@
               "application\/ld+json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "hydra:member": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#\/components\/schemas\/Rock.jsonld-Rock.read"
-                      }
+                  "description": "Rock.jsonld-Rock.read collection.",
+                  "allOf": [
+                    {
+                      "$ref": "#\/components\/schemas\/HydraCollectionBaseSchema"
                     },
-                    "hydra:totalItems": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "hydra:view": {
+                    {
                       "type": "object",
+                      "required": [
+                        "hydra:member"
+                      ],
                       "properties": {
-                        "@id": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:first": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:last": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:previous": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        },
-                        "hydra:next": {
-                          "type": "string",
-                          "format": "iri-reference"
-                        }
-                      },
-                      "example": {
-                        "@id": "string",
-                        "type": "string",
-                        "hydra:first": "string",
-                        "hydra:last": "string",
-                        "hydra:previous": "string",
-                        "hydra:next": "string"
-                      }
-                    },
-                    "hydra:search": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "type": "string"
-                        },
-                        "hydra:template": {
-                          "type": "string"
-                        },
-                        "hydra:variableRepresentation": {
-                          "type": "string"
-                        },
-                        "hydra:mapping": {
+                        "hydra:member": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "@type": {
-                                "type": "string"
-                              },
-                              "variable": {
-                                "type": "string"
-                              },
-                              "property": {
-                                "type": [
-                                  "string",
-                                  "null"
-                                ]
-                              },
-                              "required": {
-                                "type": "boolean"
-                              }
-                            }
+                            "$ref": "#\/components\/schemas\/Rock.jsonld-Rock.read"
                           }
                         }
                       }
                     }
-                  },
-                  "required": [
-                    "hydra:member"
                   ]
                 }
               },
@@ -2452,14 +1729,12 @@
             "description": "The collection page number",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "integer",
               "default": 1
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           },
           {
             "name": "pagination",
@@ -2467,16 +1742,13 @@
             "description": "Enable or disable pagination",
             "required": false,
             "deprecated": false,
-            "allowEmptyValue": true,
             "schema": {
               "type": "boolean"
             },
             "style": "form",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "\/rocks\/{id}": {
@@ -2532,16 +1804,13 @@
             "description": "Rock identifier",
             "required": true,
             "deprecated": false,
-            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
             "style": "simple",
-            "explode": false,
-            "allowReserved": false
+            "explode": false
           }
-        ],
-        "deprecated": false
+        ]
       }
     }
   },
@@ -2549,8 +1818,6 @@
     "schemas": {
       "AuthZeroUser-AuthZeroUser.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
           "user": {
             "anyOf": [
@@ -2566,8 +1833,6 @@
       },
       "AuthZeroUser-read_BoulderFeedback.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
           "id": {
             "type": "string"
@@ -2575,106 +1840,44 @@
         }
       },
       "AuthZeroUser.jsonld-AuthZeroUser.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "user": {
+                "anyOf": [
+                  {
+                    "$ref": "#\/components\/schemas\/User.jsonld-AuthZeroUser.read"
                   },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
+                  {
+                    "type": "null"
                   }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+                ]
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "user": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/User.jsonld-AuthZeroUser.read"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            }
           }
-        }
+        ]
       },
       "AuthZeroUser.jsonld-read_BoulderFeedback.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
                 "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
+            }
           }
-        }
+        ]
       },
       "Boulder-Boulder.item-get": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
           "description": {
             "maxLength": 255,
@@ -2692,13 +1895,17 @@
                 "type": "null"
               }
             ]
+          },
+          "videoLinks": {
+            "type": "array",
+            "items": {
+              "$ref": "#\/components\/schemas\/VideoLink-Boulder.item-get"
+            }
           }
         }
       },
       "Boulder-Boulder.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name",
           "rock"
@@ -2729,8 +1936,6 @@
       },
       "Boulder-Rock.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -2743,8 +1948,6 @@
       },
       "Boulder-read_BoulderFeedback.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name",
           "rock"
@@ -2760,210 +1963,121 @@
         }
       },
       "Boulder.jsonld-Boulder.item-get": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "description": {
+                "maxLength": 255,
+                "type": [
+                  "string",
+                  "null"
+                ]
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
+              "height": {
+                "anyOf": [
+                  {
+                    "$ref": "#\/components\/schemas\/HeightBoulder.jsonld-Boulder.item-get"
                   },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
+                  {
+                    "type": "null"
                   }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "description": {
-            "maxLength": 255,
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "height": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/HeightBoulder.jsonld-Boulder.item-get"
+                ]
               },
-              {
-                "type": "null"
+              "videoLinks": {
+                "type": "array",
+                "items": {
+                  "$ref": "#\/components\/schemas\/VideoLink.jsonld-Boulder.item-get"
+                }
               }
-            ]
-          }
-        }
-      },
-      "Boulder.jsonld-Boulder.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name",
-          "rock"
-        ],
-        "properties": {
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 255,
-            "type": "string"
-          },
-          "grade": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "iri-reference",
-            "example": "https:\/\/example.com\/"
-          },
-          "rock": {
-            "$ref": "#\/components\/schemas\/Rock.jsonld-Boulder.read"
-          },
-          "lineBoulders": {
-            "type": "array",
-            "items": {
-              "$ref": "#\/components\/schemas\/LineBoulder.jsonld-Boulder.read"
             }
           }
-        }
+        ]
+      },
+      "Boulder.jsonld-Boulder.read": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "rock"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 255,
+                "type": "string"
+              },
+              "grade": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "iri-reference",
+                "example": "https:\/\/example.com\/"
+              },
+              "rock": {
+                "$ref": "#\/components\/schemas\/Rock.jsonld-Boulder.read"
+              },
+              "lineBoulders": {
+                "type": "array",
+                "items": {
+                  "$ref": "#\/components\/schemas\/LineBoulder.jsonld-Boulder.read"
+                }
+              }
+            }
+          }
+        ]
       },
       "Boulder.jsonld-Rock.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 255,
                 "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 255,
-            "type": "string"
+            }
           }
-        }
+        ]
       },
       "Boulder.jsonld-read_BoulderFeedback.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name",
-          "rock"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "rock"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 255,
                 "type": "string"
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+              "rock": {
+                "$ref": "#\/components\/schemas\/Rock.jsonld-read_BoulderFeedback.read"
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 255,
-            "type": "string"
-          },
-          "rock": {
-            "$ref": "#\/components\/schemas\/Rock.jsonld-read_BoulderFeedback.read"
+            }
           }
-        }
+        ]
       },
       "BoulderArea-Boulder.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -2986,8 +2100,6 @@
       },
       "BoulderArea-BoulderArea.item-get": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
           "centroid": {
             "anyOf": [
@@ -3023,8 +2135,6 @@
       },
       "BoulderArea-BoulderArea.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -3053,8 +2163,6 @@
       },
       "BoulderArea-Municipality.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -3067,8 +2175,6 @@
       },
       "BoulderArea-read_BoulderFeedback.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -3080,276 +2186,151 @@
         }
       },
       "BoulderArea.jsonld-Boulder.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
           },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 255,
-            "type": "string"
-          },
-          "municipality": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/Municipality.jsonld-Boulder.read"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        }
-      },
-      "BoulderArea.jsonld-BoulderArea.item-get": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "centroid": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/GeoPoint.jsonld-BoulderArea.item-get"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "parkingLocation": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/GeoPoint.jsonld-BoulderArea.item-get"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "numberOfBouldersGroupedByGrade": {
-            "readOnly": true,
-            "type": [
-              "object",
-              "null"
+          {
+            "type": "object",
+            "required": [
+              "name"
             ],
-            "additionalProperties": {
-              "type": "string"
+            "properties": {
+              "name": {
+                "maxLength": 255,
+                "type": "string"
+              },
+              "municipality": {
+                "anyOf": [
+                  {
+                    "$ref": "#\/components\/schemas\/Municipality.jsonld-Boulder.read"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
             }
           }
-        }
+        ]
+      },
+      "BoulderArea.jsonld-BoulderArea.item-get": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "centroid": {
+                "anyOf": [
+                  {
+                    "$ref": "#\/components\/schemas\/GeoPoint.jsonld-BoulderArea.item-get"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "parkingLocation": {
+                "anyOf": [
+                  {
+                    "$ref": "#\/components\/schemas\/GeoPoint.jsonld-BoulderArea.item-get"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "numberOfBouldersGroupedByGrade": {
+                "readOnly": true,
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
       },
       "BoulderArea.jsonld-BoulderArea.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@id": {
-            "readOnly": true,
-            "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
           },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 255,
-            "type": "string"
-          },
-          "description": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "municipality": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/Municipality.jsonld-BoulderArea.read"
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 255,
+                "type": "string"
               },
-              {
-                "type": "null"
+              "description": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "municipality": {
+                "anyOf": [
+                  {
+                    "$ref": "#\/components\/schemas\/Municipality.jsonld-BoulderArea.read"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
               }
-            ]
+            }
           }
-        }
+        ]
       },
       "BoulderArea.jsonld-Municipality.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 255,
                 "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 255,
-            "type": "string"
+            }
           }
-        }
+        ]
       },
       "BoulderArea.jsonld-read_BoulderFeedback.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 255,
                 "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 255,
-            "type": "string"
+            }
           }
-        }
+        ]
       },
       "BoulderFeedback-read_BoulderFeedback.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
           "newLocation": {
             "anyOf": [
@@ -3371,8 +2352,6 @@
             "$ref": "#\/components\/schemas\/Boulder-read_BoulderFeedback.read"
           },
           "createdAt": {
-            "default": "CURRENT_TIMESTAMP",
-            "example": "CURRENT_TIMESTAMP",
             "type": "string",
             "format": "date-time"
           },
@@ -3385,6 +2364,17 @@
                 "type": "null"
               }
             ]
+          },
+          "videoLink": {
+            "maxLength": 255,
+            "format": "uri",
+            "externalDocs": {
+              "url": "https:\/\/schema.org\/url"
+            },
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
@@ -3393,8 +2383,6 @@
       },
       "BoulderFeedback-write_BoulderFeedback.write": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
           "newLocation": {
             "anyOf": [
@@ -3416,6 +2404,17 @@
             "type": "string",
             "format": "iri-reference",
             "example": "https:\/\/example.com\/"
+          },
+          "videoLink": {
+            "maxLength": 255,
+            "format": "uri",
+            "externalDocs": {
+              "url": "https:\/\/schema.org\/url"
+            },
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
@@ -3423,124 +2422,70 @@
         ]
       },
       "BoulderFeedback.jsonld-read_BoulderFeedback.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "newLocation": {
+                "anyOf": [
+                  {
+                    "$ref": "#\/components\/schemas\/GeoPoint.jsonld-read_BoulderFeedback.read"
                   },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
+                  {
+                    "type": "null"
                   }
+                ]
+              },
+              "message": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "boulder": {
+                "$ref": "#\/components\/schemas\/Boulder.jsonld-read_BoulderFeedback.read"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "anyOf": [
+                  {
+                    "$ref": "#\/components\/schemas\/AuthZeroUser.jsonld-read_BoulderFeedback.read"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "videoLink": {
+                "maxLength": 255,
+                "format": "uri",
+                "externalDocs": {
+                  "url": "https:\/\/schema.org\/url"
                 },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+                "type": [
+                  "string",
+                  "null"
+                ]
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "newLocation": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/GeoPoint.jsonld-read_BoulderFeedback.read"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "message": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "boulder": {
-            "$ref": "#\/components\/schemas\/Boulder.jsonld-read_BoulderFeedback.read"
-          },
-          "createdAt": {
-            "default": "CURRENT_TIMESTAMP",
-            "example": "CURRENT_TIMESTAMP",
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdBy": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/AuthZeroUser.jsonld-read_BoulderFeedback.read"
-              },
-              {
-                "type": "null"
-              }
+            },
+            "required": [
+              "boulder"
             ]
           }
-        },
-        "required": [
-          "boulder"
         ]
       },
-      "BoulderFeedback.jsonld-write_BoulderFeedback.write": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "newLocation": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/GeoPoint.jsonld-write_BoulderFeedback.write"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "message": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "boulder": {
-            "type": "string",
-            "format": "iri-reference",
-            "example": "https:\/\/example.com\/"
-          }
-        },
-        "required": [
-          "boulder"
-        ]
-      },
-      "ConstraintViolation-json": {
+      "ConstraintViolation": {
         "type": "object",
         "description": "Unprocessable entity",
-        "deprecated": false,
         "properties": {
           "status": {
             "default": 422,
-            "example": 422,
             "type": "integer"
           },
           "violations": {
@@ -3583,99 +2528,67 @@
           }
         }
       },
-      "ConstraintViolation.jsonld-jsonld": {
-        "type": "object",
-        "description": "Unprocessable entity",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
+      "ConstraintViolation.jsonld": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "status": {
+                "default": 422,
+                "type": "integer"
+              },
+              "violations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "propertyPath": {
+                      "type": "string",
+                      "description": "The property path of the violation"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "The message associated with the violation"
+                    }
+                  }
+                }
+              },
+              "detail": {
+                "readOnly": true,
                 "type": "string"
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "status": {
-            "default": 422,
-            "example": 422,
-            "type": "integer"
-          },
-          "violations": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "propertyPath": {
-                  "type": "string",
-                  "description": "The property path of the violation"
-                },
-                "message": {
-                  "type": "string",
-                  "description": "The message associated with the violation"
-                }
+              "description": {
+                "readOnly": true,
+                "type": "string"
+              },
+              "type": {
+                "readOnly": true,
+                "type": "string"
+              },
+              "title": {
+                "readOnly": true,
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "instance": {
+                "readOnly": true,
+                "type": [
+                  "string",
+                  "null"
+                ]
               }
             }
-          },
-          "detail": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "description": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "title": {
-            "readOnly": true,
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "instance": {
-            "readOnly": true,
-            "type": [
-              "string",
-              "null"
-            ]
           }
-        }
+        ],
+        "description": "Unprocessable entity"
       },
       "Department-Department.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -3693,78 +2606,58 @@
         }
       },
       "Department.jsonld-Department.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@id": {
-            "readOnly": true,
-            "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
           },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 255,
                 "type": "string"
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+              "municipalities": {
+                "type": "array",
+                "items": {
+                  "$ref": "#\/components\/schemas\/Municipality.jsonld-Department.read"
+                }
               }
-            ]
-          },
-          "name": {
-            "maxLength": 255,
-            "type": "string"
-          },
-          "municipalities": {
-            "type": "array",
-            "items": {
-              "$ref": "#\/components\/schemas\/Municipality.jsonld-Department.read"
             }
           }
-        }
+        ]
       },
       "Error": {
         "type": "object",
         "description": "A representation of common errors.",
-        "deprecated": false,
         "properties": {
           "title": {
             "readOnly": true,
             "description": "A short, human-readable summary of the problem.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "detail": {
             "readOnly": true,
             "description": "A human-readable explanation specific to this occurrence of the problem.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "status": {
-            "type": "number",
-            "example": 404,
+            "type": [
+              "number",
+              "null"
+            ],
+            "examples": [
+              404
+            ],
             "default": 400
           },
           "instance": {
@@ -3783,106 +2676,78 @@
         }
       },
       "Error.jsonld": {
-        "type": "object",
-        "description": "A representation of common errors.",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "title": {
+                "readOnly": true,
+                "description": "A short, human-readable summary of the problem.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "detail": {
+                "readOnly": true,
+                "description": "A human-readable explanation specific to this occurrence of the problem.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "examples": [
+                  404
+                ],
+                "default": 400
+              },
+              "instance": {
+                "readOnly": true,
+                "description": "A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "readOnly": true,
+                "description": "A URI reference that identifies the problem type",
                 "type": "string"
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+              "description": {
+                "readOnly": true,
+                "type": [
+                  "string",
+                  "null"
+                ]
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "title": {
-            "readOnly": true,
-            "description": "A short, human-readable summary of the problem.",
-            "type": "string"
-          },
-          "detail": {
-            "readOnly": true,
-            "description": "A human-readable explanation specific to this occurrence of the problem.",
-            "type": "string"
-          },
-          "status": {
-            "type": "number",
-            "example": 404,
-            "default": 400
-          },
-          "instance": {
-            "readOnly": true,
-            "description": "A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "type": {
-            "readOnly": true,
-            "description": "A URI reference that identifies the problem type",
-            "type": "string"
-          },
-          "description": {
-            "readOnly": true,
-            "type": [
-              "string",
-              "null"
-            ]
+            }
           }
-        }
+        ],
+        "description": "A representation of common errors."
       },
       "GeoPoint-Boulder.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false
+        "type": "object"
       },
       "GeoPoint-BoulderArea.item-get": {
-        "type": "object",
-        "description": "",
-        "deprecated": false
+        "type": "object"
       },
       "GeoPoint-Municipality.item-get": {
-        "type": "object",
-        "description": "",
-        "deprecated": false
+        "type": "object"
       },
       "GeoPoint-Rock.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false
+        "type": "object"
       },
       "GeoPoint-read_BoulderFeedback.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "latitude",
           "longitude"
@@ -3904,8 +2769,6 @@
       },
       "GeoPoint-write_BoulderFeedback.write": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "latitude",
           "longitude"
@@ -3926,235 +2789,19 @@
         }
       },
       "GeoPoint.jsonld-Boulder.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          }
-        }
+        "type": "object"
       },
       "GeoPoint.jsonld-BoulderArea.item-get": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          }
-        }
+        "type": "object"
       },
       "GeoPoint.jsonld-Municipality.item-get": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          }
-        }
+        "type": "object"
       },
       "GeoPoint.jsonld-Rock.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          }
-        }
+        "type": "object"
       },
       "GeoPoint.jsonld-read_BoulderFeedback.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "latitude",
-          "longitude"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "latitude": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "longitude": {
-            "type": [
-              "string",
-              "null"
-            ]
-          }
-        }
-      },
-      "GeoPoint.jsonld-write_BoulderFeedback.write": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "latitude",
           "longitude"
@@ -4175,66 +2822,32 @@
         }
       },
       "Grade-Grade.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false
+        "type": "object"
       },
       "Grade.jsonld-Grade.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@id": {
-            "readOnly": true,
-            "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
           },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
+          {
+            "type": "object"
           }
-        }
+        ]
       },
       "HeightBoulder-Boulder.item-get": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "min"
         ],
         "properties": {
           "min": {
             "minimum": 0,
+            "maximum": 15,
             "exclusiveMaximum": 15,
             "type": "integer"
           },
           "max": {
+            "maximum": 15,
             "exclusiveMaximum": 15,
             "type": [
               "integer",
@@ -4244,82 +2857,145 @@
         }
       },
       "HeightBoulder-HeightBoulder.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false
+        "type": "object"
       },
       "HeightBoulder.jsonld-Boulder.item-get": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "min"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "min"
+            ],
+            "properties": {
+              "min": {
+                "minimum": 0,
+                "maximum": 15,
+                "exclusiveMaximum": 15,
+                "type": "integer"
               },
-              {
+              "max": {
+                "maximum": 15,
+                "exclusiveMaximum": 15,
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "HeightBoulder.jsonld-HeightBoulder.read": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object"
+          }
+        ]
+      },
+      "HydraCollectionBaseSchema": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraCollectionBaseSchemaNoPagination"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "hydra:view": {
                 "type": "object",
                 "properties": {
-                  "@vocab": {
+                  "@id": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  "@type": {
                     "type": "string"
                   },
-                  "hydra": {
+                  "hydra:first": {
                     "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
+                    "format": "iri-reference"
+                  },
+                  "hydra:last": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  "hydra:previous": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  },
+                  "hydra:next": {
+                    "type": "string",
+                    "format": "iri-reference"
                   }
                 },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+                "example": {
+                  "@id": "string",
+                  "type": "string",
+                  "hydra:first": "string",
+                  "hydra:last": "string",
+                  "hydra:previous": "string",
+                  "hydra:next": "string"
+                }
               }
-            ]
+            }
+          }
+        ]
+      },
+      "HydraCollectionBaseSchemaNoPagination": {
+        "type": "object",
+        "properties": {
+          "hydra:totalItems": {
+            "type": "integer",
+            "minimum": 0
           },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "min": {
-            "minimum": 0,
-            "exclusiveMaximum": 15,
-            "type": "integer"
-          },
-          "max": {
-            "exclusiveMaximum": 15,
-            "type": [
-              "integer",
-              "null"
-            ]
+          "hydra:search": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "type": "string"
+              },
+              "hydra:template": {
+                "type": "string"
+              },
+              "hydra:variableRepresentation": {
+                "type": "string"
+              },
+              "hydra:mapping": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "@type": {
+                      "type": "string"
+                    },
+                    "variable": {
+                      "type": "string"
+                    },
+                    "property": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "required": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
-      "HeightBoulder.jsonld-HeightBoulder.read": {
+      "HydraItemBaseSchema": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
           "@context": {
-            "readOnly": true,
             "oneOf": [
               {
                 "type": "string"
@@ -4344,13 +3020,21 @@
                 "additionalProperties": true
               }
             ]
+          },
+          "@id": {
+            "type": "string"
+          },
+          "@type": {
+            "type": "string"
           }
-        }
+        },
+        "required": [
+          "@id",
+          "@type"
+        ]
       },
       "LineBoulder-Boulder.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "rockImage",
           "smoothLine"
@@ -4367,63 +3051,31 @@
         }
       },
       "LineBoulder.jsonld-Boulder.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "rockImage",
-          "smoothLine"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "rockImage",
+              "smoothLine"
+            ],
+            "properties": {
+              "rockImage": {
+                "type": "string",
+                "format": "iri-reference",
+                "example": "https:\/\/example.com\/"
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+              "smoothLine": {
+                "type": "string"
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "rockImage": {
-            "type": "string",
-            "format": "iri-reference",
-            "example": "https:\/\/example.com\/"
-          },
-          "smoothLine": {
-            "type": "string"
+            }
           }
-        }
+        ]
       },
       "Media": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
           "id": {
             "readOnly": true,
@@ -4496,119 +3148,87 @@
         }
       },
       "Media.jsonld": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@id": {
-            "readOnly": true,
-            "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
           },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "readOnly": true,
+                "type": "integer"
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
+              "file": {
+                "type": [
+                  "string",
+                  "null"
                 ],
-                "additionalProperties": true
+                "format": "binary"
+              },
+              "filePath": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "rock": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "iri-reference",
+                "example": "https:\/\/example.com\/"
+              },
+              "lineBoulders": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "iri-reference",
+                  "example": "https:\/\/example.com\/"
+                }
+              },
+              "filterUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "contentUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "imageDimensions": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "mediaAttributes": {
+                "readOnly": true,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "media": {
+                "readOnly": true,
+                "type": "string",
+                "format": "iri-reference",
+                "example": "https:\/\/example.com\/"
               }
-            ]
-          },
-          "id": {
-            "readOnly": true,
-            "type": "integer"
-          },
-          "file": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "binary"
-          },
-          "filePath": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "rock": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "iri-reference",
-            "example": "https:\/\/example.com\/"
-          },
-          "lineBoulders": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "iri-reference",
-              "example": "https:\/\/example.com\/"
             }
-          },
-          "filterUrl": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "contentUrl": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "imageDimensions": {
-            "type": "array",
-            "items": {
-              "type": "integer"
-            }
-          },
-          "mediaAttributes": {
-            "readOnly": true,
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "media": {
-            "readOnly": true,
-            "type": "string",
-            "format": "iri-reference",
-            "example": "https:\/\/example.com\/"
           }
-        }
+        ]
       },
       "Municipality-Boulder.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -4621,8 +3241,6 @@
       },
       "Municipality-BoulderArea.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -4635,8 +3253,6 @@
       },
       "Municipality-Department.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -4649,8 +3265,6 @@
       },
       "Municipality-Municipality.item-get": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
           "centroid": {
             "anyOf": [
@@ -4666,8 +3280,6 @@
       },
       "Municipality-Municipality.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "name"
         ],
@@ -4685,236 +3297,111 @@
         }
       },
       "Municipality.jsonld-Boulder.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 150,
                 "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 150,
-            "type": "string"
-          }
-        }
-      },
-      "Municipality.jsonld-BoulderArea.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 150,
-            "type": "string"
-          }
-        }
-      },
-      "Municipality.jsonld-Department.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 150,
-            "type": "string"
-          }
-        }
-      },
-      "Municipality.jsonld-Municipality.item-get": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "centroid": {
-            "anyOf": [
-              {
-                "$ref": "#\/components\/schemas\/GeoPoint.jsonld-Municipality.item-get"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        }
-      },
-      "Municipality.jsonld-Municipality.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 150,
-            "type": "string"
-          },
-          "boulderAreas": {
-            "type": "array",
-            "items": {
-              "$ref": "#\/components\/schemas\/BoulderArea.jsonld-Municipality.read"
             }
           }
-        }
+        ]
+      },
+      "Municipality.jsonld-BoulderArea.read": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 150,
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Municipality.jsonld-Department.read": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 150,
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Municipality.jsonld-Municipality.item-get": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "centroid": {
+                "anyOf": [
+                  {
+                    "$ref": "#\/components\/schemas\/GeoPoint.jsonld-Municipality.item-get"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "Municipality.jsonld-Municipality.read": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "maxLength": 150,
+                "type": "string"
+              },
+              "boulderAreas": {
+                "type": "array",
+                "items": {
+                  "$ref": "#\/components\/schemas\/BoulderArea.jsonld-Municipality.read"
+                }
+              }
+            }
+          }
+        ]
       },
       "Rock-Boulder.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "location",
           "boulderArea"
@@ -4930,8 +3417,6 @@
       },
       "Rock-Rock.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "location"
         ],
@@ -4957,8 +3442,6 @@
       },
       "Rock-read_BoulderFeedback.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "required": [
           "boulderArea"
         ],
@@ -4969,171 +3452,79 @@
         }
       },
       "Rock.jsonld-Boulder.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "location",
-          "boulderArea"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "location",
+              "boulderArea"
+            ],
+            "properties": {
+              "location": {
+                "$ref": "#\/components\/schemas\/GeoPoint.jsonld-Boulder.read"
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+              "boulderArea": {
+                "$ref": "#\/components\/schemas\/BoulderArea.jsonld-Boulder.read"
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "location": {
-            "$ref": "#\/components\/schemas\/GeoPoint.jsonld-Boulder.read"
-          },
-          "boulderArea": {
-            "$ref": "#\/components\/schemas\/BoulderArea.jsonld-Boulder.read"
+            }
           }
-        }
+        ]
       },
       "Rock.jsonld-Rock.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "location"
-        ],
-        "properties": {
-          "@id": {
-            "readOnly": true,
-            "type": "string"
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
           },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
+          {
+            "type": "object",
+            "required": [
+              "location"
+            ],
+            "properties": {
+              "location": {
+                "$ref": "#\/components\/schemas\/GeoPoint.jsonld-Rock.read"
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+              "boulders": {
+                "type": "array",
+                "items": {
+                  "$ref": "#\/components\/schemas\/Boulder.jsonld-Rock.read"
+                }
+              },
+              "pictures": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "iri-reference",
+                  "example": "https:\/\/example.com\/"
+                }
               }
-            ]
-          },
-          "location": {
-            "$ref": "#\/components\/schemas\/GeoPoint.jsonld-Rock.read"
-          },
-          "boulders": {
-            "type": "array",
-            "items": {
-              "$ref": "#\/components\/schemas\/Boulder.jsonld-Rock.read"
-            }
-          },
-          "pictures": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "iri-reference",
-              "example": "https:\/\/example.com\/"
             }
           }
-        }
+        ]
       },
       "Rock.jsonld-read_BoulderFeedback.read": {
-        "type": "object",
-        "description": "",
-        "deprecated": false,
-        "required": [
-          "boulderArea"
-        ],
-        "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/HydraItemBaseSchema"
+          },
+          {
+            "type": "object",
+            "required": [
+              "boulderArea"
+            ],
+            "properties": {
+              "boulderArea": {
+                "$ref": "#\/components\/schemas\/BoulderArea.jsonld-read_BoulderFeedback.read"
               }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "boulderArea": {
-            "$ref": "#\/components\/schemas\/BoulderArea.jsonld-read_BoulderFeedback.read"
+            }
           }
-        }
+        ]
       },
       "User-AuthZeroUser.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
           "roles": {
             "type": "array",
@@ -5145,49 +3536,62 @@
       },
       "User.jsonld-AuthZeroUser.read": {
         "type": "object",
-        "description": "",
-        "deprecated": false,
         "properties": {
-          "@context": {
-            "readOnly": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@vocab": {
-                    "type": "string"
-                  },
-                  "hydra": {
-                    "type": "string",
-                    "enum": [
-                      "http:\/\/www.w3.org\/ns\/hydra\/core#"
-                    ]
-                  }
-                },
-                "required": [
-                  "@vocab",
-                  "hydra"
-                ],
-                "additionalProperties": true
-              }
-            ]
-          },
-          "@id": {
-            "readOnly": true,
-            "type": "string"
-          },
-          "@type": {
-            "readOnly": true,
-            "type": "string"
-          },
           "roles": {
             "type": "array",
             "items": {
               "type": "string"
             }
+          }
+        }
+      },
+      "VideoLink-Boulder.item-get": {
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "properties": {
+          "url": {
+            "maxLength": 255,
+            "format": "uri",
+            "externalDocs": {
+              "url": "https:\/\/schema.org\/url"
+            },
+            "type": "string"
+          },
+          "videoId": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "type": {
+            "readOnly": true,
+            "default": "youtube",
+            "type": "string"
+          }
+        }
+      },
+      "VideoLink.jsonld-Boulder.item-get": {
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "properties": {
+          "url": {
+            "maxLength": 255,
+            "format": "uri",
+            "externalDocs": {
+              "url": "https:\/\/schema.org\/url"
+            },
+            "type": "string"
+          },
+          "videoId": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "type": {
+            "readOnly": true,
+            "default": "youtube",
+            "type": "string"
           }
         }
       }
@@ -5213,34 +3617,44 @@
   ],
   "tags": [
     {
-      "name": "AuthZeroUser"
+      "name": "AuthZeroUser",
+      "description": "Resource \u0027AuthZeroUser\u0027 operations."
     },
     {
-      "name": "Boulder"
+      "name": "Boulder",
+      "description": "Resource \u0027Boulder\u0027 operations."
     },
     {
-      "name": "BoulderArea"
+      "name": "BoulderArea",
+      "description": "Resource \u0027BoulderArea\u0027 operations."
     },
     {
-      "name": "BoulderFeedback"
+      "name": "BoulderFeedback",
+      "description": "Resource \u0027BoulderFeedback\u0027 operations."
     },
     {
-      "name": "Department"
+      "name": "Department",
+      "description": "Resource \u0027Department\u0027 operations."
     },
     {
-      "name": "Grade"
+      "name": "Grade",
+      "description": "Resource \u0027Grade\u0027 operations."
     },
     {
-      "name": "HeightBoulder"
+      "name": "HeightBoulder",
+      "description": "Resource \u0027HeightBoulder\u0027 operations."
     },
     {
-      "name": "Media"
+      "name": "Media",
+      "description": "Resource \u0027Media\u0027 operations."
     },
     {
-      "name": "Municipality"
+      "name": "Municipality",
+      "description": "Resource \u0027Municipality\u0027 operations."
     },
     {
-      "name": "Rock"
+      "name": "Rock",
+      "description": "Resource \u0027Rock\u0027 operations."
     }
   ],
   "webhooks": {}

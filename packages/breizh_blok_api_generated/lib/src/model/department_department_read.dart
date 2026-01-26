@@ -10,7 +10,7 @@ import 'package:built_value/serializer.dart';
 
 part 'department_department_read.g.dart';
 
-///
+/// DepartmentDepartmentRead
 ///
 /// Properties:
 /// * [name]

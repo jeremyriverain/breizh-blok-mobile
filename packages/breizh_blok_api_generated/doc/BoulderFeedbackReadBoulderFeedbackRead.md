@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **boulder** | [**BoulderReadBoulderFeedbackRead**](BoulderReadBoulderFeedbackRead.md) |  | 
 **createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
 **createdBy** | [**AuthZeroUserReadBoulderFeedbackRead**](AuthZeroUserReadBoulderFeedbackRead.md) |  | [optional] 
+**videoLink** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -9,10 +9,10 @@ import 'package:built_value/serializer.dart';
 
 part 'municipality_municipality_item_get.g.dart';
 
-///
+/// MunicipalityMunicipalityItemGet
 ///
 /// Properties:
-/// * [centroid] -
+/// * [centroid]
 @BuiltValue()
 abstract class MunicipalityMunicipalityItemGet
     implements
@@ -20,7 +20,6 @@ abstract class MunicipalityMunicipalityItemGet
           MunicipalityMunicipalityItemGet,
           MunicipalityMunicipalityItemGetBuilder
         > {
-  ///
   @BuiltValueField(wireName: r'centroid')
   JsonObject? get centroid;
 

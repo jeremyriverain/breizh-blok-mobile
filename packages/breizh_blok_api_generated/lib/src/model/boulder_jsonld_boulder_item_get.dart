@@ -3,14 +3,17 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
+import 'package:breizh_blok_api_generated/src/model/video_link_jsonld_boulder_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/height_boulder_jsonld_boulder_item_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'boulder_jsonld_boulder_item_get.g.dart';
 
-///
+/// BoulderJsonldBoulderItemGet
 ///
 /// Properties:
 /// * [atContext]
@@ -18,21 +21,17 @@ part 'boulder_jsonld_boulder_item_get.g.dart';
 /// * [atType]
 /// * [description]
 /// * [height]
+/// * [videoLinks]
 @BuiltValue()
 abstract class BoulderJsonldBoulderItemGet
     implements
+        HydraItemBaseSchema,
         Built<BoulderJsonldBoulderItemGet, BoulderJsonldBoulderItemGetBuilder> {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
   @BuiltValueField(wireName: r'description')
   String? get description;
+
+  @BuiltValueField(wireName: r'videoLinks')
+  BuiltList<VideoLinkJsonldBoulderItemGet>? get videoLinks;
 
   @BuiltValueField(wireName: r'height')
   HeightBoulderJsonldBoulderItemGet? get height;
@@ -67,34 +66,37 @@ class _$BoulderJsonldBoulderItemGetSerializer
     BoulderJsonldBoulderItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atContext != null) {
-      yield r'@context';
-      yield serializers.serialize(
-        object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(
         object.description,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.atContext != null) {
+      yield r'@context';
+      yield serializers.serialize(
+        object.atContext,
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
+      );
+    }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
+    if (object.videoLinks != null) {
+      yield r'videoLinks';
+      yield serializers.serialize(
+        object.videoLinks,
+        specifiedType: const FullType(BuiltList, [
+          FullType(VideoLinkJsonldBoulderItemGet),
+        ]),
       );
     }
     if (object.height != null) {
@@ -133,15 +135,23 @@ class _$BoulderJsonldBoulderItemGetSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'description':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.description = valueDes;
+          break;
         case r'@context':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
                   )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
+                  as HydraItemBaseSchemaContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -162,15 +172,16 @@ class _$BoulderJsonldBoulderItemGetSerializer
                   as String;
           result.atType = valueDes;
           break;
-        case r'description':
+        case r'videoLinks':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(String),
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(VideoLinkJsonldBoulderItemGet),
+                    ]),
                   )
-                  as String?;
-          if (valueDes == null) continue;
-          result.description = valueDes;
+                  as BuiltList<VideoLinkJsonldBoulderItemGet>;
+          result.videoLinks.replace(valueDes);
           break;
         case r'height':
           final valueDes =

@@ -3,14 +3,15 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:breizh_blok_api_generated/src/model/user_jsonld_auth_zero_user_read.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'auth_zero_user_jsonld_auth_zero_user_read.g.dart';
 
-///
+/// AuthZeroUserJsonldAuthZeroUserRead
 ///
 /// Properties:
 /// * [atContext]
@@ -20,19 +21,11 @@ part 'auth_zero_user_jsonld_auth_zero_user_read.g.dart';
 @BuiltValue()
 abstract class AuthZeroUserJsonldAuthZeroUserRead
     implements
+        HydraItemBaseSchema,
         Built<
           AuthZeroUserJsonldAuthZeroUserRead,
           AuthZeroUserJsonldAuthZeroUserReadBuilder
         > {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
   @BuiltValueField(wireName: r'user')
   UserJsonldAuthZeroUserRead? get user;
 
@@ -70,25 +63,14 @@ class _$AuthZeroUserJsonldAuthZeroUserReadSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
       );
     }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
     if (object.user != null) {
       yield r'user';
       yield serializers.serialize(
@@ -96,6 +78,11 @@ class _$AuthZeroUserJsonldAuthZeroUserReadSerializer
         specifiedType: const FullType.nullable(UserJsonldAuthZeroUserRead),
       );
     }
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override
@@ -127,11 +114,9 @@ class _$AuthZeroUserJsonldAuthZeroUserReadSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
                   )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
+                  as HydraItemBaseSchemaContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -142,15 +127,6 @@ class _$AuthZeroUserJsonldAuthZeroUserReadSerializer
                   )
                   as String;
           result.atId = valueDes;
-          break;
-        case r'@type':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atType = valueDes;
           break;
         case r'user':
           final valueDes =
@@ -163,6 +139,15 @@ class _$AuthZeroUserJsonldAuthZeroUserReadSerializer
                   as UserJsonldAuthZeroUserRead?;
           if (valueDes == null) continue;
           result.user.replace(valueDes);
+          break;
+        case r'@type':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.atType = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -1,4 +1,4 @@
-# breizh_blok_api_generated.model.BoulderFeedbackJsonldWriteBoulderFeedbackWrite
+# breizh_blok_api_generated.model.HydraItemBaseSchemaContextOneOf
 
 ## Load the model package
 ```dart
@@ -8,9 +8,8 @@ import 'package:breizh_blok_api_generated/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**newLocation** | [**GeoPointJsonldWriteBoulderFeedbackWrite**](GeoPointJsonldWriteBoulderFeedbackWrite.md) |  | [optional] 
-**message** | **String** |  | [optional] 
-**boulder** | **String** |  | 
+**atVocab** | **String** |  | 
+**hydra** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

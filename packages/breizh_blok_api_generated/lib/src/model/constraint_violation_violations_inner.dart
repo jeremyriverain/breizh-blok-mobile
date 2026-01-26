@@ -3,80 +3,72 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'geo_point_jsonld_rock_read.g.dart';
+part 'constraint_violation_violations_inner.g.dart';
 
-///
+/// ConstraintViolationViolationsInner
 ///
 /// Properties:
-/// * [atContext]
-/// * [atId]
-/// * [atType]
+/// * [propertyPath] - The property path of the violation
+/// * [message] - The message associated with the violation
 @BuiltValue()
-abstract class GeoPointJsonldRockRead
-    implements Built<GeoPointJsonldRockRead, GeoPointJsonldRockReadBuilder> {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
+abstract class ConstraintViolationViolationsInner
+    implements
+        Built<
+          ConstraintViolationViolationsInner,
+          ConstraintViolationViolationsInnerBuilder
+        > {
+  /// The property path of the violation
+  @BuiltValueField(wireName: r'propertyPath')
+  String? get propertyPath;
 
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
+  /// The message associated with the violation
+  @BuiltValueField(wireName: r'message')
+  String? get message;
 
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
+  ConstraintViolationViolationsInner._();
 
-  GeoPointJsonldRockRead._();
-
-  factory GeoPointJsonldRockRead([
-    void updates(GeoPointJsonldRockReadBuilder b),
-  ]) = _$GeoPointJsonldRockRead;
+  factory ConstraintViolationViolationsInner([
+    void updates(ConstraintViolationViolationsInnerBuilder b),
+  ]) = _$ConstraintViolationViolationsInner;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(GeoPointJsonldRockReadBuilder b) => b;
+  static void _defaults(ConstraintViolationViolationsInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GeoPointJsonldRockRead> get serializer =>
-      _$GeoPointJsonldRockReadSerializer();
+  static Serializer<ConstraintViolationViolationsInner> get serializer =>
+      _$ConstraintViolationViolationsInnerSerializer();
 }
 
-class _$GeoPointJsonldRockReadSerializer
-    implements PrimitiveSerializer<GeoPointJsonldRockRead> {
+class _$ConstraintViolationViolationsInnerSerializer
+    implements PrimitiveSerializer<ConstraintViolationViolationsInner> {
   @override
   final Iterable<Type> types = const [
-    GeoPointJsonldRockRead,
-    _$GeoPointJsonldRockRead,
+    ConstraintViolationViolationsInner,
+    _$ConstraintViolationViolationsInner,
   ];
 
   @override
-  final String wireName = r'GeoPointJsonldRockRead';
+  final String wireName = r'ConstraintViolationViolationsInner';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    GeoPointJsonldRockRead object, {
+    ConstraintViolationViolationsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atContext != null) {
-      yield r'@context';
+    if (object.propertyPath != null) {
+      yield r'propertyPath';
       yield serializers.serialize(
-        object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
+        object.propertyPath,
         specifiedType: const FullType(String),
       );
     }
-    if (object.atType != null) {
-      yield r'@type';
+    if (object.message != null) {
+      yield r'message';
       yield serializers.serialize(
-        object.atType,
+        object.message,
         specifiedType: const FullType(String),
       );
     }
@@ -85,7 +77,7 @@ class _$GeoPointJsonldRockReadSerializer
   @override
   Object serialize(
     Serializers serializers,
-    GeoPointJsonldRockRead object, {
+    ConstraintViolationViolationsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -100,41 +92,30 @@ class _$GeoPointJsonldRockReadSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required GeoPointJsonldRockReadBuilder result,
+    required ConstraintViolationViolationsInnerBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'@context':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
-                  )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
-          result.atContext.replace(valueDes);
-          break;
-        case r'@id':
+        case r'propertyPath':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(String),
                   )
                   as String;
-          result.atId = valueDes;
+          result.propertyPath = valueDes;
           break;
-        case r'@type':
+        case r'message':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(String),
                   )
                   as String;
-          result.atType = valueDes;
+          result.message = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -145,12 +126,12 @@ class _$GeoPointJsonldRockReadSerializer
   }
 
   @override
-  GeoPointJsonldRockRead deserialize(
+  ConstraintViolationViolationsInner deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = GeoPointJsonldRockReadBuilder();
+    final result = ConstraintViolationViolationsInnerBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

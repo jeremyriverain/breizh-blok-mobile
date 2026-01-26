@@ -3,30 +3,41 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:breizh_blok_api_generated/src/model/constraint_violation_violations_inner.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:breizh_blok_api_generated/src/model/constraint_violation_json_violations_inner.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'constraint_violation_json.g.dart';
+part 'constraint_violation_jsonld.g.dart';
 
 /// Unprocessable entity
 ///
 /// Properties:
+/// * [atContext]
+/// * [atId]
+/// * [atType]
 /// * [status]
 /// * [violations]
 /// * [detail]
+/// * [description]
 /// * [type]
 /// * [title]
 /// * [instance]
 @BuiltValue()
-abstract class ConstraintViolationJson
-    implements Built<ConstraintViolationJson, ConstraintViolationJsonBuilder> {
-  @BuiltValueField(wireName: r'status')
-  int? get status;
+abstract class ConstraintViolationJsonld
+    implements
+        HydraItemBaseSchema,
+        Built<ConstraintViolationJsonld, ConstraintViolationJsonldBuilder> {
+  @BuiltValueField(wireName: r'instance')
+  String? get instance;
 
   @BuiltValueField(wireName: r'violations')
-  BuiltList<ConstraintViolationJsonViolationsInner>? get violations;
+  BuiltList<ConstraintViolationViolationsInner>? get violations;
+
+  @BuiltValueField(wireName: r'description')
+  String? get description;
 
   @BuiltValueField(wireName: r'detail')
   String? get detail;
@@ -37,53 +48,72 @@ abstract class ConstraintViolationJson
   @BuiltValueField(wireName: r'title')
   String? get title;
 
-  @BuiltValueField(wireName: r'instance')
-  String? get instance;
+  @BuiltValueField(wireName: r'status')
+  int? get status;
 
-  ConstraintViolationJson._();
+  ConstraintViolationJsonld._();
 
-  factory ConstraintViolationJson([
-    void updates(ConstraintViolationJsonBuilder b),
-  ]) = _$ConstraintViolationJson;
+  factory ConstraintViolationJsonld([
+    void updates(ConstraintViolationJsonldBuilder b),
+  ]) = _$ConstraintViolationJsonld;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ConstraintViolationJsonBuilder b) => b..status = 422;
+  static void _defaults(ConstraintViolationJsonldBuilder b) => b..status = 422;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ConstraintViolationJson> get serializer =>
-      _$ConstraintViolationJsonSerializer();
+  static Serializer<ConstraintViolationJsonld> get serializer =>
+      _$ConstraintViolationJsonldSerializer();
 }
 
-class _$ConstraintViolationJsonSerializer
-    implements PrimitiveSerializer<ConstraintViolationJson> {
+class _$ConstraintViolationJsonldSerializer
+    implements PrimitiveSerializer<ConstraintViolationJsonld> {
   @override
   final Iterable<Type> types = const [
-    ConstraintViolationJson,
-    _$ConstraintViolationJson,
+    ConstraintViolationJsonld,
+    _$ConstraintViolationJsonld,
   ];
 
   @override
-  final String wireName = r'ConstraintViolationJson';
+  final String wireName = r'ConstraintViolationJsonld';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    ConstraintViolationJson object, {
+    ConstraintViolationJsonld object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.status != null) {
-      yield r'status';
+    if (object.instance != null) {
+      yield r'instance';
       yield serializers.serialize(
-        object.status,
-        specifiedType: const FullType(int),
+        object.instance,
+        specifiedType: const FullType.nullable(String),
       );
     }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
     if (object.violations != null) {
       yield r'violations';
       yield serializers.serialize(
         object.violations,
         specifiedType: const FullType(BuiltList, [
-          FullType(ConstraintViolationJsonViolationsInner),
+          FullType(ConstraintViolationViolationsInner),
         ]),
+      );
+    }
+    if (object.description != null) {
+      yield r'description';
+      yield serializers.serialize(
+        object.description,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.atContext != null) {
+      yield r'@context';
+      yield serializers.serialize(
+        object.atContext,
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
       );
     }
     if (object.detail != null) {
@@ -107,11 +137,16 @@ class _$ConstraintViolationJsonSerializer
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.instance != null) {
-      yield r'instance';
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
+    if (object.status != null) {
+      yield r'status';
       yield serializers.serialize(
-        object.instance,
-        specifiedType: const FullType.nullable(String),
+        object.status,
+        specifiedType: const FullType(int),
       );
     }
   }
@@ -119,7 +154,7 @@ class _$ConstraintViolationJsonSerializer
   @override
   Object serialize(
     Serializers serializers,
-    ConstraintViolationJson object, {
+    ConstraintViolationJsonld object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -134,29 +169,60 @@ class _$ConstraintViolationJsonSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required ConstraintViolationJsonBuilder result,
+    required ConstraintViolationJsonldBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'status':
+        case r'instance':
           final valueDes =
-              serializers.deserialize(value, specifiedType: const FullType(int))
-                  as int;
-          result.status = valueDes;
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.instance = valueDes;
+          break;
+        case r'@id':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.atId = valueDes;
           break;
         case r'violations':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(BuiltList, [
-                      FullType(ConstraintViolationJsonViolationsInner),
+                      FullType(ConstraintViolationViolationsInner),
                     ]),
                   )
-                  as BuiltList<ConstraintViolationJsonViolationsInner>;
+                  as BuiltList<ConstraintViolationViolationsInner>;
           result.violations.replace(valueDes);
+          break;
+        case r'description':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.description = valueDes;
+          break;
+        case r'@context':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
+                  )
+                  as HydraItemBaseSchemaContext;
+          result.atContext.replace(valueDes);
           break;
         case r'detail':
           final valueDes =
@@ -186,15 +252,20 @@ class _$ConstraintViolationJsonSerializer
           if (valueDes == null) continue;
           result.title = valueDes;
           break;
-        case r'instance':
+        case r'@type':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(String),
+                    specifiedType: const FullType(String),
                   )
-                  as String?;
-          if (valueDes == null) continue;
-          result.instance = valueDes;
+                  as String;
+          result.atType = valueDes;
+          break;
+        case r'status':
+          final valueDes =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int;
+          result.status = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -205,12 +276,12 @@ class _$ConstraintViolationJsonSerializer
   }
 
   @override
-  ConstraintViolationJson deserialize(
+  ConstraintViolationJsonld deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = ConstraintViolationJsonBuilder();
+    final result = ConstraintViolationJsonldBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

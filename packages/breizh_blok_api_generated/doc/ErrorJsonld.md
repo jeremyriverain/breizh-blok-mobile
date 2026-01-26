@@ -8,9 +8,9 @@ import 'package:breizh_blok_api_generated/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**atContext** | [**AuthZeroUserJsonldAuthZeroUserReadContext**](AuthZeroUserJsonldAuthZeroUserReadContext.md) |  | [optional] 
-**atId** | **String** |  | [optional] 
-**atType** | **String** |  | [optional] 
+**atContext** | [**HydraItemBaseSchemaContext**](HydraItemBaseSchemaContext.md) |  | [optional] 
+**atId** | **String** |  | 
+**atType** | **String** |  | 
 **title** | **String** | A short, human-readable summary of the problem. | [optional] 
 **detail** | **String** | A human-readable explanation specific to this occurrence of the problem. | [optional] 
 **status** | **num** |  | [optional] [default to 400]

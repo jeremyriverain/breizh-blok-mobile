@@ -10,7 +10,7 @@ import 'package:built_value/serializer.dart';
 
 part 'media.g.dart';
 
-///
+/// Media
 ///
 /// Properties:
 /// * [id]

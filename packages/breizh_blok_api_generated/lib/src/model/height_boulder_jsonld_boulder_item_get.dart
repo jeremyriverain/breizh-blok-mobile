@@ -3,13 +3,14 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'height_boulder_jsonld_boulder_item_get.g.dart';
 
-///
+/// HeightBoulderJsonldBoulderItemGet
 ///
 /// Properties:
 /// * [atContext]
@@ -20,19 +21,11 @@ part 'height_boulder_jsonld_boulder_item_get.g.dart';
 @BuiltValue()
 abstract class HeightBoulderJsonldBoulderItemGet
     implements
+        HydraItemBaseSchema,
         Built<
           HeightBoulderJsonldBoulderItemGet,
           HeightBoulderJsonldBoulderItemGetBuilder
         > {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
   @BuiltValueField(wireName: r'min')
   int get min;
 
@@ -73,27 +66,16 @@ class _$HeightBoulderJsonldBoulderItemGetSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
       );
     }
     yield r'min';
     yield serializers.serialize(object.min, specifiedType: const FullType(int));
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
     if (object.max != null) {
       yield r'max';
       yield serializers.serialize(
@@ -101,6 +83,11 @@ class _$HeightBoulderJsonldBoulderItemGetSerializer
         specifiedType: const FullType.nullable(int),
       );
     }
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override
@@ -132,12 +119,16 @@ class _$HeightBoulderJsonldBoulderItemGetSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
                   )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
+                  as HydraItemBaseSchemaContext;
           result.atContext.replace(valueDes);
+          break;
+        case r'min':
+          final valueDes =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int;
+          result.min = valueDes;
           break;
         case r'@id':
           final valueDes =
@@ -148,21 +139,6 @@ class _$HeightBoulderJsonldBoulderItemGetSerializer
                   as String;
           result.atId = valueDes;
           break;
-        case r'@type':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atType = valueDes;
-          break;
-        case r'min':
-          final valueDes =
-              serializers.deserialize(value, specifiedType: const FullType(int))
-                  as int;
-          result.min = valueDes;
-          break;
         case r'max':
           final valueDes =
               serializers.deserialize(
@@ -172,6 +148,15 @@ class _$HeightBoulderJsonldBoulderItemGetSerializer
                   as int?;
           if (valueDes == null) continue;
           result.max = valueDes;
+          break;
+        case r'@type':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.atType = valueDes;
           break;
         default:
           unhandled.add(key);

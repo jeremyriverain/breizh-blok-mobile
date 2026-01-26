@@ -10,7 +10,7 @@ import 'package:built_value/serializer.dart';
 
 part 'municipality_municipality_read.g.dart';
 
-///
+/// MunicipalityMunicipalityRead
 ///
 /// Properties:
 /// * [name]

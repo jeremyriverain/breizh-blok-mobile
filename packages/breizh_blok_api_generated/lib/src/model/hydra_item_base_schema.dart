@@ -3,78 +3,47 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
-import 'package:breizh_blok_api_generated/src/model/municipality_jsonld_boulder_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'boulder_area_jsonld_boulder_read.g.dart';
+part 'hydra_item_base_schema.g.dart';
 
-/// BoulderAreaJsonldBoulderRead
+/// HydraItemBaseSchema
 ///
 /// Properties:
 /// * [atContext]
 /// * [atId]
 /// * [atType]
-/// * [name]
-/// * [municipality]
-@BuiltValue()
-abstract class BoulderAreaJsonldBoulderRead
-    implements
-        HydraItemBaseSchema,
-        Built<
-          BoulderAreaJsonldBoulderRead,
-          BoulderAreaJsonldBoulderReadBuilder
-        > {
-  @BuiltValueField(wireName: r'name')
-  String get name;
+@BuiltValue(instantiable: false)
+abstract class HydraItemBaseSchema {
+  @BuiltValueField(wireName: r'@context')
+  HydraItemBaseSchemaContext? get atContext;
 
-  @BuiltValueField(wireName: r'municipality')
-  MunicipalityJsonldBoulderRead? get municipality;
+  @BuiltValueField(wireName: r'@id')
+  String get atId;
 
-  BoulderAreaJsonldBoulderRead._();
-
-  factory BoulderAreaJsonldBoulderRead([
-    void updates(BoulderAreaJsonldBoulderReadBuilder b),
-  ]) = _$BoulderAreaJsonldBoulderRead;
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BoulderAreaJsonldBoulderReadBuilder b) => b;
+  @BuiltValueField(wireName: r'@type')
+  String get atType;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BoulderAreaJsonldBoulderRead> get serializer =>
-      _$BoulderAreaJsonldBoulderReadSerializer();
+  static Serializer<HydraItemBaseSchema> get serializer =>
+      _$HydraItemBaseSchemaSerializer();
 }
 
-class _$BoulderAreaJsonldBoulderReadSerializer
-    implements PrimitiveSerializer<BoulderAreaJsonldBoulderRead> {
+class _$HydraItemBaseSchemaSerializer
+    implements PrimitiveSerializer<HydraItemBaseSchema> {
   @override
-  final Iterable<Type> types = const [
-    BoulderAreaJsonldBoulderRead,
-    _$BoulderAreaJsonldBoulderRead,
-  ];
+  final Iterable<Type> types = const [HydraItemBaseSchema];
 
   @override
-  final String wireName = r'BoulderAreaJsonldBoulderRead';
+  final String wireName = r'HydraItemBaseSchema';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BoulderAreaJsonldBoulderRead object, {
+    HydraItemBaseSchema object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'name';
-    yield serializers.serialize(
-      object.name,
-      specifiedType: const FullType(String),
-    );
-    if (object.municipality != null) {
-      yield r'municipality';
-      yield serializers.serialize(
-        object.municipality,
-        specifiedType: const FullType.nullable(MunicipalityJsonldBoulderRead),
-      );
-    }
     if (object.atContext != null) {
       yield r'@context';
       yield serializers.serialize(
@@ -97,7 +66,7 @@ class _$BoulderAreaJsonldBoulderReadSerializer
   @override
   Object serialize(
     Serializers serializers,
-    BoulderAreaJsonldBoulderRead object, {
+    HydraItemBaseSchema object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -107,39 +76,75 @@ class _$BoulderAreaJsonldBoulderReadSerializer
     ).toList();
   }
 
+  @override
+  HydraItemBaseSchema deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return serializers.deserialize(
+          serialized,
+          specifiedType: FullType($HydraItemBaseSchema),
+        )
+        as $HydraItemBaseSchema;
+  }
+}
+
+/// a concrete implementation of [HydraItemBaseSchema], since [HydraItemBaseSchema] is not instantiable
+@BuiltValue(instantiable: true)
+abstract class $HydraItemBaseSchema
+    implements
+        HydraItemBaseSchema,
+        Built<$HydraItemBaseSchema, $HydraItemBaseSchemaBuilder> {
+  $HydraItemBaseSchema._();
+
+  factory $HydraItemBaseSchema([
+    void Function($HydraItemBaseSchemaBuilder)? updates,
+  ]) = _$$HydraItemBaseSchema;
+
+  @BuiltValueHook(initializeBuilder: true)
+  static void _defaults($HydraItemBaseSchemaBuilder b) => b;
+
+  @BuiltValueSerializer(custom: true)
+  static Serializer<$HydraItemBaseSchema> get serializer =>
+      _$$HydraItemBaseSchemaSerializer();
+}
+
+class _$$HydraItemBaseSchemaSerializer
+    implements PrimitiveSerializer<$HydraItemBaseSchema> {
+  @override
+  final Iterable<Type> types = const [
+    $HydraItemBaseSchema,
+    _$$HydraItemBaseSchema,
+  ];
+
+  @override
+  final String wireName = r'$HydraItemBaseSchema';
+
+  @override
+  Object serialize(
+    Serializers serializers,
+    $HydraItemBaseSchema object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return serializers.serialize(
+      object,
+      specifiedType: FullType(HydraItemBaseSchema),
+    )!;
+  }
+
   void _deserializeProperties(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BoulderAreaJsonldBoulderReadBuilder result,
+    required HydraItemBaseSchemaBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'name':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.name = valueDes;
-          break;
-        case r'municipality':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType.nullable(
-                      MunicipalityJsonldBoulderRead,
-                    ),
-                  )
-                  as MunicipalityJsonldBoulderRead?;
-          if (valueDes == null) continue;
-          result.municipality.replace(valueDes);
-          break;
         case r'@context':
           final valueDes =
               serializers.deserialize(
@@ -176,12 +181,12 @@ class _$BoulderAreaJsonldBoulderReadSerializer
   }
 
   @override
-  BoulderAreaJsonldBoulderRead deserialize(
+  $HydraItemBaseSchema deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BoulderAreaJsonldBoulderReadBuilder();
+    final result = $HydraItemBaseSchemaBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

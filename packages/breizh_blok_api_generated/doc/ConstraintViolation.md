@@ -1,4 +1,4 @@
-# breizh_blok_api_generated.model.ConstraintViolationJson
+# breizh_blok_api_generated.model.ConstraintViolation
 
 ## Load the model package
 ```dart
@@ -9,7 +9,7 @@ import 'package:breizh_blok_api_generated/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | **int** |  | [optional] [default to 422]
-**violations** | [**BuiltList&lt;ConstraintViolationJsonViolationsInner&gt;**](ConstraintViolationJsonViolationsInner.md) |  | [optional] 
+**violations** | [**BuiltList&lt;ConstraintViolationViolationsInner&gt;**](ConstraintViolationViolationsInner.md) |  | [optional] 
 **detail** | **String** |  | [optional] 
 **type** | **String** |  | [optional] 
 **title** | **String** |  | [optional] 

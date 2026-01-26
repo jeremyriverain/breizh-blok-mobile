@@ -9,7 +9,7 @@ import 'package:built_value/serializer.dart';
 
 part 'auth_zero_user_auth_zero_user_read.g.dart';
 
-///
+/// AuthZeroUserAuthZeroUserRead
 ///
 /// Properties:
 /// * [user]

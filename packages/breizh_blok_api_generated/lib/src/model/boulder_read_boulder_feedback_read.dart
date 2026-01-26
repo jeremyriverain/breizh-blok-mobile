@@ -9,7 +9,7 @@ import 'package:built_value/serializer.dart';
 
 part 'boulder_read_boulder_feedback_read.g.dart';
 
-///
+/// BoulderReadBoulderFeedbackRead
 ///
 /// Properties:
 /// * [name]

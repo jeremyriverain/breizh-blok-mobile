@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiBoulderFeedbacksPost**
-> BoulderFeedbackJsonldReadBoulderFeedbackRead apiBoulderFeedbacksPost(boulderFeedbackJsonldWriteBoulderFeedbackWrite)
+> BoulderFeedbackJsonldReadBoulderFeedbackRead apiBoulderFeedbacksPost(boulderFeedbackWriteBoulderFeedbackWrite)
 
 Creates a BoulderFeedback resource.
 
@@ -124,10 +124,10 @@ import 'package:breizh_blok_api_generated/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('JWT').apiKeyPrefix = 'Bearer';
 
 final api = BreizhBlokApiGenerated().getBoulderFeedbackApi();
-final BoulderFeedbackJsonldWriteBoulderFeedbackWrite boulderFeedbackJsonldWriteBoulderFeedbackWrite = ; // BoulderFeedbackJsonldWriteBoulderFeedbackWrite | The new BoulderFeedback resource
+final BoulderFeedbackWriteBoulderFeedbackWrite boulderFeedbackWriteBoulderFeedbackWrite = ; // BoulderFeedbackWriteBoulderFeedbackWrite | The new BoulderFeedback resource
 
 try {
-    final response = api.apiBoulderFeedbacksPost(boulderFeedbackJsonldWriteBoulderFeedbackWrite);
+    final response = api.apiBoulderFeedbacksPost(boulderFeedbackWriteBoulderFeedbackWrite);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling BoulderFeedbackApi->apiBoulderFeedbacksPost: $e\n');
@@ -138,7 +138,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **boulderFeedbackJsonldWriteBoulderFeedbackWrite** | [**BoulderFeedbackJsonldWriteBoulderFeedbackWrite**](BoulderFeedbackJsonldWriteBoulderFeedbackWrite.md)| The new BoulderFeedback resource | 
+ **boulderFeedbackWriteBoulderFeedbackWrite** | [**BoulderFeedbackWriteBoulderFeedbackWrite**](BoulderFeedbackWriteBoulderFeedbackWrite.md)| The new BoulderFeedback resource | 
 
 ### Return type
 

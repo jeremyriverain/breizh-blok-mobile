@@ -3,16 +3,19 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_jsonld_municipality_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'municipality_jsonld_municipality_read.g.dart';
 
-///
+/// MunicipalityJsonldMunicipalityRead
 ///
 /// Properties:
+/// * [atContext]
 /// * [atId]
 /// * [atType]
 /// * [name]
@@ -20,16 +23,11 @@ part 'municipality_jsonld_municipality_read.g.dart';
 @BuiltValue()
 abstract class MunicipalityJsonldMunicipalityRead
     implements
+        HydraItemBaseSchema,
         Built<
           MunicipalityJsonldMunicipalityRead,
           MunicipalityJsonldMunicipalityReadBuilder
         > {
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
   @BuiltValueField(wireName: r'name')
   String get name;
 
@@ -66,23 +64,26 @@ class _$MunicipalityJsonldMunicipalityReadSerializer
     MunicipalityJsonldMunicipalityRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
     yield r'name';
     yield serializers.serialize(
       object.name,
+      specifiedType: const FullType(String),
+    );
+    if (object.atContext != null) {
+      yield r'@context';
+      yield serializers.serialize(
+        object.atContext,
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
+      );
+    }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
       specifiedType: const FullType(String),
     );
     if (object.boulderAreas != null) {
@@ -121,6 +122,24 @@ class _$MunicipalityJsonldMunicipalityReadSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'name':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.name = valueDes;
+          break;
+        case r'@context':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
+                  )
+                  as HydraItemBaseSchemaContext;
+          result.atContext.replace(valueDes);
+          break;
         case r'@id':
           final valueDes =
               serializers.deserialize(
@@ -138,15 +157,6 @@ class _$MunicipalityJsonldMunicipalityReadSerializer
                   )
                   as String;
           result.atType = valueDes;
-          break;
-        case r'name':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.name = valueDes;
           break;
         case r'boulderAreas':
           final valueDes =

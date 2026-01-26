@@ -11,7 +11,7 @@ import 'package:built_value/serializer.dart';
 
 part 'boulder_feedback_read_boulder_feedback_read.g.dart';
 
-///
+/// BoulderFeedbackReadBoulderFeedbackRead
 ///
 /// Properties:
 /// * [newLocation]
@@ -19,6 +19,7 @@ part 'boulder_feedback_read_boulder_feedback_read.g.dart';
 /// * [boulder]
 /// * [createdAt]
 /// * [createdBy]
+/// * [videoLink]
 @BuiltValue()
 abstract class BoulderFeedbackReadBoulderFeedbackRead
     implements
@@ -40,6 +41,9 @@ abstract class BoulderFeedbackReadBoulderFeedbackRead
 
   @BuiltValueField(wireName: r'createdBy')
   AuthZeroUserReadBoulderFeedbackRead? get createdBy;
+
+  @BuiltValueField(wireName: r'videoLink')
+  String? get videoLink;
 
   BoulderFeedbackReadBoulderFeedbackRead._();
 
@@ -104,6 +108,13 @@ class _$BoulderFeedbackReadBoulderFeedbackReadSerializer
         specifiedType: const FullType.nullable(
           AuthZeroUserReadBoulderFeedbackRead,
         ),
+      );
+    }
+    if (object.videoLink != null) {
+      yield r'videoLink';
+      yield serializers.serialize(
+        object.videoLink,
+        specifiedType: const FullType.nullable(String),
       );
     }
   }
@@ -186,6 +197,16 @@ class _$BoulderFeedbackReadBoulderFeedbackReadSerializer
                   as AuthZeroUserReadBoulderFeedbackRead?;
           if (valueDes == null) continue;
           result.createdBy.replace(valueDes);
+          break;
+        case r'videoLink':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.videoLink = valueDes;
           break;
         default:
           unhandled.add(key);

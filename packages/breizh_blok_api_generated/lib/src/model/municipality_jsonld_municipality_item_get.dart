@@ -3,14 +3,15 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_municipality_item_get.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
+import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'municipality_jsonld_municipality_item_get.g.dart';
 
-///
+/// MunicipalityJsonldMunicipalityItemGet
 ///
 /// Properties:
 /// * [atContext]
@@ -20,21 +21,13 @@ part 'municipality_jsonld_municipality_item_get.g.dart';
 @BuiltValue()
 abstract class MunicipalityJsonldMunicipalityItemGet
     implements
+        HydraItemBaseSchema,
         Built<
           MunicipalityJsonldMunicipalityItemGet,
           MunicipalityJsonldMunicipalityItemGetBuilder
         > {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
   @BuiltValueField(wireName: r'centroid')
-  GeoPointJsonldMunicipalityItemGet? get centroid;
+  JsonObject? get centroid;
 
   MunicipalityJsonldMunicipalityItemGet._();
 
@@ -70,32 +63,24 @@ class _$MunicipalityJsonldMunicipalityItemGetSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
       );
     }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
     if (object.centroid != null) {
       yield r'centroid';
       yield serializers.serialize(
         object.centroid,
-        specifiedType: const FullType.nullable(
-          GeoPointJsonldMunicipalityItemGet,
-        ),
+        specifiedType: const FullType(JsonObject),
       );
     }
   }
@@ -129,11 +114,9 @@ class _$MunicipalityJsonldMunicipalityItemGetSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
                   )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
+                  as HydraItemBaseSchemaContext;
           result.atContext.replace(valueDes);
           break;
         case r'@id':
@@ -158,13 +141,10 @@ class _$MunicipalityJsonldMunicipalityItemGetSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(
-                      GeoPointJsonldMunicipalityItemGet,
-                    ),
+                    specifiedType: const FullType(JsonObject),
                   )
-                  as GeoPointJsonldMunicipalityItemGet?;
-          if (valueDes == null) continue;
-          result.centroid.replace(valueDes);
+                  as JsonObject;
+          result.centroid = valueDes;
           break;
         default:
           unhandled.add(key);

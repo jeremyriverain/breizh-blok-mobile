@@ -3,41 +3,35 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_rock_read.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_rock_read.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
+import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'rock_jsonld_rock_read.g.dart';
 
-///
+/// RockJsonldRockRead
 ///
 /// Properties:
+/// * [atContext]
 /// * [atId]
 /// * [atType]
-/// * [atContext]
 /// * [location]
 /// * [boulders]
 /// * [pictures]
 @BuiltValue()
 abstract class RockJsonldRockRead
-    implements Built<RockJsonldRockRead, RockJsonldRockReadBuilder> {
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'location')
-  GeoPointJsonldRockRead get location;
-
+    implements
+        HydraItemBaseSchema,
+        Built<RockJsonldRockRead, RockJsonldRockReadBuilder> {
   @BuiltValueField(wireName: r'boulders')
   BuiltList<BoulderJsonldRockRead>? get boulders;
+
+  @BuiltValueField(wireName: r'location')
+  JsonObject get location;
 
   @BuiltValueField(wireName: r'pictures')
   BuiltList<String>? get pictures;
@@ -68,34 +62,6 @@ class _$RockJsonldRockReadSerializer
     RockJsonldRockRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atContext != null) {
-      yield r'@context';
-      yield serializers.serialize(
-        object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    yield r'location';
-    yield serializers.serialize(
-      object.location,
-      specifiedType: const FullType(GeoPointJsonldRockRead),
-    );
     if (object.boulders != null) {
       yield r'boulders';
       yield serializers.serialize(
@@ -105,6 +71,28 @@ class _$RockJsonldRockReadSerializer
         ]),
       );
     }
+    yield r'location';
+    yield serializers.serialize(
+      object.location,
+      specifiedType: const FullType(JsonObject),
+    );
+    if (object.atContext != null) {
+      yield r'@context';
+      yield serializers.serialize(
+        object.atContext,
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
+      );
+    }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
     if (object.pictures != null) {
       yield r'pictures';
       yield serializers.serialize(
@@ -139,6 +127,35 @@ class _$RockJsonldRockReadSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'boulders':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(BoulderJsonldRockRead),
+                    ]),
+                  )
+                  as BuiltList<BoulderJsonldRockRead>;
+          result.boulders.replace(valueDes);
+          break;
+        case r'location':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(JsonObject),
+                  )
+                  as JsonObject;
+          result.location = valueDes;
+          break;
+        case r'@context':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
+                  )
+                  as HydraItemBaseSchemaContext;
+          result.atContext.replace(valueDes);
+          break;
         case r'@id':
           final valueDes =
               serializers.deserialize(
@@ -156,37 +173,6 @@ class _$RockJsonldRockReadSerializer
                   )
                   as String;
           result.atType = valueDes;
-          break;
-        case r'@context':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
-                  )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
-          result.atContext.replace(valueDes);
-          break;
-        case r'location':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(GeoPointJsonldRockRead),
-                  )
-                  as GeoPointJsonldRockRead;
-          result.location.replace(valueDes);
-          break;
-        case r'boulders':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(BoulderJsonldRockRead),
-                    ]),
-                  )
-                  as BuiltList<BoulderJsonldRockRead>;
-          result.boulders.replace(valueDes);
           break;
         case r'pictures':
           final valueDes =

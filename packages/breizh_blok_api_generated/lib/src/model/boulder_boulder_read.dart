@@ -11,7 +11,7 @@ import 'package:built_value/serializer.dart';
 
 part 'boulder_boulder_read.g.dart';
 
-///
+/// BoulderBoulderRead
 ///
 /// Properties:
 /// * [name]

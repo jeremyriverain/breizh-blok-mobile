@@ -17,9 +17,6 @@ import 'package:breizh_blok_api_generated/src/model/date.dart';
 import 'package:breizh_blok_api_generated/src/model/api_boulder_areas_get_collection200_response.dart';
 import 'package:breizh_blok_api_generated/src/model/api_boulder_feedbacks_get_collection200_response.dart';
 import 'package:breizh_blok_api_generated/src/model/api_boulders_get_collection200_response.dart';
-import 'package:breizh_blok_api_generated/src/model/api_boulders_get_collection200_response_hydra_search.dart';
-import 'package:breizh_blok_api_generated/src/model/api_boulders_get_collection200_response_hydra_search_hydra_mapping_inner.dart';
-import 'package:breizh_blok_api_generated/src/model/api_boulders_get_collection200_response_hydra_view.dart';
 import 'package:breizh_blok_api_generated/src/model/api_departments_get_collection200_response.dart';
 import 'package:breizh_blok_api_generated/src/model/api_grades_get_collection200_response.dart';
 import 'package:breizh_blok_api_generated/src/model/api_height_boulders_get_collection200_response.dart';
@@ -28,8 +25,6 @@ import 'package:breizh_blok_api_generated/src/model/api_municipalities_get_colle
 import 'package:breizh_blok_api_generated/src/model/api_rocks_get_collection200_response.dart';
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_auth_zero_user_read.dart';
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read.dart';
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context_one_of.dart';
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_area_boulder_area_item_get.dart';
@@ -45,7 +40,6 @@ import 'package:breizh_blok_api_generated/src/model/boulder_area_read_boulder_fe
 import 'package:breizh_blok_api_generated/src/model/boulder_boulder_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_boulder_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_read_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_write_boulder_feedback_write.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_feedback_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_feedback_write_boulder_feedback_write.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_boulder_item_get.dart';
@@ -54,25 +48,28 @@ import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_read_boulder_
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_rock_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_rock_read.dart';
-import 'package:breizh_blok_api_generated/src/model/constraint_violation_json.dart';
-import 'package:breizh_blok_api_generated/src/model/constraint_violation_json_violations_inner.dart';
-import 'package:breizh_blok_api_generated/src/model/constraint_violation_jsonld_jsonld.dart';
+import 'package:breizh_blok_api_generated/src/model/constraint_violation.dart';
+import 'package:breizh_blok_api_generated/src/model/constraint_violation_jsonld.dart';
+import 'package:breizh_blok_api_generated/src/model/constraint_violation_violations_inner.dart';
 import 'package:breizh_blok_api_generated/src/model/department_department_read.dart';
 import 'package:breizh_blok_api_generated/src/model/department_jsonld_department_read.dart';
 import 'package:breizh_blok_api_generated/src/model/error.dart';
 import 'package:breizh_blok_api_generated/src/model/error_jsonld.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_area_item_get.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_boulder_read.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_municipality_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_read_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_rock_read.dart';
-import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_write_boulder_feedback_write.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_write_boulder_feedback_write.dart';
 import 'package:breizh_blok_api_generated/src/model/grade_jsonld_grade_read.dart';
 import 'package:breizh_blok_api_generated/src/model/height_boulder_boulder_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/height_boulder_jsonld_boulder_item_get.dart';
 import 'package:breizh_blok_api_generated/src/model/height_boulder_jsonld_height_boulder_read.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_collection_base_schema.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_collection_base_schema_all_of_hydra_view.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_collection_base_schema_no_pagination.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_collection_base_schema_no_pagination_hydra_search.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_collection_base_schema_no_pagination_hydra_search_hydra_mapping_inner.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context_one_of.dart';
 import 'package:breizh_blok_api_generated/src/model/line_boulder_boulder_read.dart';
 import 'package:breizh_blok_api_generated/src/model/line_boulder_jsonld_boulder_read.dart';
 import 'package:breizh_blok_api_generated/src/model/media.dart';
@@ -95,6 +92,8 @@ import 'package:breizh_blok_api_generated/src/model/rock_read_boulder_feedback_r
 import 'package:breizh_blok_api_generated/src/model/rock_rock_read.dart';
 import 'package:breizh_blok_api_generated/src/model/user_auth_zero_user_read.dart';
 import 'package:breizh_blok_api_generated/src/model/user_jsonld_auth_zero_user_read.dart';
+import 'package:breizh_blok_api_generated/src/model/video_link_boulder_item_get.dart';
+import 'package:breizh_blok_api_generated/src/model/video_link_jsonld_boulder_item_get.dart';
 
 part 'serializers.g.dart';
 
@@ -102,9 +101,6 @@ part 'serializers.g.dart';
   ApiBoulderAreasGetCollection200Response,
   ApiBoulderFeedbacksGetCollection200Response,
   ApiBouldersGetCollection200Response,
-  ApiBouldersGetCollection200ResponseHydraSearch,
-  ApiBouldersGetCollection200ResponseHydraSearchHydraMappingInner,
-  ApiBouldersGetCollection200ResponseHydraView,
   ApiDepartmentsGetCollection200Response,
   ApiGradesGetCollection200Response,
   ApiHeightBouldersGetCollection200Response,
@@ -113,8 +109,6 @@ part 'serializers.g.dart';
   ApiRocksGetCollection200Response,
   AuthZeroUserAuthZeroUserRead,
   AuthZeroUserJsonldAuthZeroUserRead,
-  AuthZeroUserJsonldAuthZeroUserReadContext,
-  AuthZeroUserJsonldAuthZeroUserReadContextOneOf,
   AuthZeroUserJsonldReadBoulderFeedbackRead,
   AuthZeroUserReadBoulderFeedbackRead,
   BoulderAreaBoulderAreaItemGet,
@@ -130,7 +124,6 @@ part 'serializers.g.dart';
   BoulderBoulderItemGet,
   BoulderBoulderRead,
   BoulderFeedbackJsonldReadBoulderFeedbackRead,
-  BoulderFeedbackJsonldWriteBoulderFeedbackWrite,
   BoulderFeedbackReadBoulderFeedbackRead,
   BoulderFeedbackWriteBoulderFeedbackWrite,
   BoulderJsonldBoulderItemGet,
@@ -139,25 +132,31 @@ part 'serializers.g.dart';
   BoulderJsonldRockRead,
   BoulderReadBoulderFeedbackRead,
   BoulderRockRead,
-  ConstraintViolationJson,
-  ConstraintViolationJsonViolationsInner,
-  ConstraintViolationJsonldJsonld,
+  ConstraintViolation,
+  ConstraintViolationJsonld,
+  ConstraintViolationViolationsInner,
   DepartmentDepartmentRead,
   DepartmentJsonldDepartmentRead,
   Error,
   ErrorJsonld,
-  GeoPointJsonldBoulderAreaItemGet,
-  GeoPointJsonldBoulderRead,
-  GeoPointJsonldMunicipalityItemGet,
   GeoPointJsonldReadBoulderFeedbackRead,
-  GeoPointJsonldRockRead,
-  GeoPointJsonldWriteBoulderFeedbackWrite,
   GeoPointReadBoulderFeedbackRead,
   GeoPointWriteBoulderFeedbackWrite,
   GradeJsonldGradeRead,
   HeightBoulderBoulderItemGet,
   HeightBoulderJsonldBoulderItemGet,
   HeightBoulderJsonldHeightBoulderRead,
+  HydraCollectionBaseSchema,
+  $HydraCollectionBaseSchema,
+  HydraCollectionBaseSchemaAllOfHydraView,
+  HydraCollectionBaseSchemaNoPagination,
+  $HydraCollectionBaseSchemaNoPagination,
+  HydraCollectionBaseSchemaNoPaginationHydraSearch,
+  HydraCollectionBaseSchemaNoPaginationHydraSearchHydraMappingInner,
+  HydraItemBaseSchema,
+  $HydraItemBaseSchema,
+  HydraItemBaseSchemaContext,
+  HydraItemBaseSchemaContextOneOf,
   LineBoulderBoulderRead,
   LineBoulderJsonldBoulderRead,
   Media,
@@ -180,6 +179,8 @@ part 'serializers.g.dart';
   RockRockRead,
   UserAuthZeroUserRead,
   UserJsonldAuthZeroUserRead,
+  VideoLinkBoulderItemGet,
+  VideoLinkJsonldBoulderItemGet,
 ])
 Serializers serializers =
     (_$serializers.toBuilder()
@@ -191,6 +192,9 @@ Serializers serializers =
             const FullType(BuiltList, [FullType(String)]),
             () => ListBuilder<String>(),
           )
+          ..add(HydraCollectionBaseSchema.serializer)
+          ..add(HydraCollectionBaseSchemaNoPagination.serializer)
+          ..add(HydraItemBaseSchema.serializer)
           ..add(const OneOfSerializer())
           ..add(const AnyOfSerializer())
           ..add(const DateSerializer())

@@ -9,7 +9,7 @@ import 'package:built_value/serializer.dart';
 
 part 'boulder_area_boulder_area_read.g.dart';
 
-///
+/// BoulderAreaBoulderAreaRead
 ///
 /// Properties:
 /// * [name]

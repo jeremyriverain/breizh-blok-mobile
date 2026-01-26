@@ -3,20 +3,21 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'dart:typed_data';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'media_jsonld.g.dart';
 
-///
+/// MediaJsonld
 ///
 /// Properties:
+/// * [atContext]
 /// * [atId]
 /// * [atType]
-/// * [atContext]
 /// * [id]
 /// * [file]
 /// * [filePath]
@@ -29,33 +30,10 @@ part 'media_jsonld.g.dart';
 /// * [mediaAttributes]
 /// * [media]
 @BuiltValue()
-abstract class MediaJsonld implements Built<MediaJsonld, MediaJsonldBuilder> {
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'id')
-  int? get id;
-
-  @BuiltValueField(wireName: r'file')
-  Uint8List? get file;
-
-  @BuiltValueField(wireName: r'filePath')
-  String? get filePath;
-
-  @BuiltValueField(wireName: r'updatedAt')
-  DateTime? get updatedAt;
-
+abstract class MediaJsonld
+    implements HydraItemBaseSchema, Built<MediaJsonld, MediaJsonldBuilder> {
   @BuiltValueField(wireName: r'rock')
   String? get rock;
-
-  @BuiltValueField(wireName: r'lineBoulders')
-  BuiltList<String>? get lineBoulders;
 
   @BuiltValueField(wireName: r'filterUrl')
   String? get filterUrl;
@@ -63,14 +41,29 @@ abstract class MediaJsonld implements Built<MediaJsonld, MediaJsonldBuilder> {
   @BuiltValueField(wireName: r'contentUrl')
   String? get contentUrl;
 
+  @BuiltValueField(wireName: r'file')
+  Uint8List? get file;
+
   @BuiltValueField(wireName: r'imageDimensions')
   BuiltList<int>? get imageDimensions;
 
   @BuiltValueField(wireName: r'mediaAttributes')
   BuiltList<String>? get mediaAttributes;
 
+  @BuiltValueField(wireName: r'filePath')
+  String? get filePath;
+
+  @BuiltValueField(wireName: r'id')
+  int? get id;
+
   @BuiltValueField(wireName: r'media')
   String? get media;
+
+  @BuiltValueField(wireName: r'lineBoulders')
+  BuiltList<String>? get lineBoulders;
+
+  @BuiltValueField(wireName: r'updatedAt')
+  DateTime? get updatedAt;
 
   MediaJsonld._();
 
@@ -95,82 +88,10 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
     MediaJsonld object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atContext != null) {
-      yield r'@context';
-      yield serializers.serialize(
-        object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.id != null) {
-      yield r'id';
-      yield serializers.serialize(
-        object.id,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.file != null) {
-      yield r'file';
-      yield serializers.serialize(
-        object.file,
-        specifiedType: const FullType.nullable(Uint8List),
-      );
-    }
-    if (object.filePath != null) {
-      yield r'filePath';
-      yield serializers.serialize(
-        object.filePath,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.updatedAt != null) {
-      yield r'updatedAt';
-      yield serializers.serialize(
-        object.updatedAt,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.rock != null) {
-      yield r'rock';
-      yield serializers.serialize(
-        object.rock,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.lineBoulders != null) {
-      yield r'lineBoulders';
-      yield serializers.serialize(
-        object.lineBoulders,
-        specifiedType: const FullType(BuiltList, [FullType(String)]),
-      );
-    }
     if (object.filterUrl != null) {
       yield r'filterUrl';
       yield serializers.serialize(
         object.filterUrl,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.contentUrl != null) {
-      yield r'contentUrl';
-      yield serializers.serialize(
-        object.contentUrl,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -181,6 +102,11 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
         specifiedType: const FullType(BuiltList, [FullType(int)]),
       );
     }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
     if (object.mediaAttributes != null) {
       yield r'mediaAttributes';
       yield serializers.serialize(
@@ -188,11 +114,72 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
         specifiedType: const FullType(BuiltList, [FullType(String)]),
       );
     }
+    if (object.filePath != null) {
+      yield r'filePath';
+      yield serializers.serialize(
+        object.filePath,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     if (object.media != null) {
       yield r'media';
       yield serializers.serialize(
         object.media,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.lineBoulders != null) {
+      yield r'lineBoulders';
+      yield serializers.serialize(
+        object.lineBoulders,
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
+      );
+    }
+    if (object.rock != null) {
+      yield r'rock';
+      yield serializers.serialize(
+        object.rock,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.contentUrl != null) {
+      yield r'contentUrl';
+      yield serializers.serialize(
+        object.contentUrl,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.file != null) {
+      yield r'file';
+      yield serializers.serialize(
+        object.file,
+        specifiedType: const FullType.nullable(Uint8List),
+      );
+    }
+    if (object.atContext != null) {
+      yield r'@context';
+      yield serializers.serialize(
+        object.atContext,
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
+      );
+    }
+    if (object.id != null) {
+      yield r'id';
+      yield serializers.serialize(
+        object.id,
+        specifiedType: const FullType(int),
+      );
+    }
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
+    if (object.updatedAt != null) {
+      yield r'updatedAt';
+      yield serializers.serialize(
+        object.updatedAt,
+        specifiedType: const FullType(DateTime),
       );
     }
   }
@@ -222,91 +209,6 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'@id':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atId = valueDes;
-          break;
-        case r'@type':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atType = valueDes;
-          break;
-        case r'@context':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
-                  )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
-          result.atContext.replace(valueDes);
-          break;
-        case r'id':
-          final valueDes =
-              serializers.deserialize(value, specifiedType: const FullType(int))
-                  as int;
-          result.id = valueDes;
-          break;
-        case r'file':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType.nullable(Uint8List),
-                  )
-                  as Uint8List?;
-          if (valueDes == null) continue;
-          result.file = valueDes;
-          break;
-        case r'filePath':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType.nullable(String),
-                  )
-                  as String?;
-          if (valueDes == null) continue;
-          result.filePath = valueDes;
-          break;
-        case r'updatedAt':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(DateTime),
-                  )
-                  as DateTime;
-          result.updatedAt = valueDes;
-          break;
-        case r'rock':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType.nullable(String),
-                  )
-                  as String?;
-          if (valueDes == null) continue;
-          result.rock = valueDes;
-          break;
-        case r'lineBoulders':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(String),
-                    ]),
-                  )
-                  as BuiltList<String>;
-          result.lineBoulders.replace(valueDes);
-          break;
         case r'filterUrl':
           final valueDes =
               serializers.deserialize(
@@ -317,16 +219,6 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
           if (valueDes == null) continue;
           result.filterUrl = valueDes;
           break;
-        case r'contentUrl':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType.nullable(String),
-                  )
-                  as String?;
-          if (valueDes == null) continue;
-          result.contentUrl = valueDes;
-          break;
         case r'imageDimensions':
           final valueDes =
               serializers.deserialize(
@@ -335,6 +227,15 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
                   )
                   as BuiltList<int>;
           result.imageDimensions.replace(valueDes);
+          break;
+        case r'@id':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.atId = valueDes;
           break;
         case r'mediaAttributes':
           final valueDes =
@@ -347,6 +248,16 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
                   as BuiltList<String>;
           result.mediaAttributes.replace(valueDes);
           break;
+        case r'filePath':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.filePath = valueDes;
+          break;
         case r'media':
           final valueDes =
               serializers.deserialize(
@@ -355,6 +266,80 @@ class _$MediaJsonldSerializer implements PrimitiveSerializer<MediaJsonld> {
                   )
                   as String;
           result.media = valueDes;
+          break;
+        case r'lineBoulders':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(String),
+                    ]),
+                  )
+                  as BuiltList<String>;
+          result.lineBoulders.replace(valueDes);
+          break;
+        case r'rock':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.rock = valueDes;
+          break;
+        case r'contentUrl':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.contentUrl = valueDes;
+          break;
+        case r'file':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(Uint8List),
+                  )
+                  as Uint8List?;
+          if (valueDes == null) continue;
+          result.file = valueDes;
+          break;
+        case r'@context':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
+                  )
+                  as HydraItemBaseSchemaContext;
+          result.atContext.replace(valueDes);
+          break;
+        case r'id':
+          final valueDes =
+              serializers.deserialize(value, specifiedType: const FullType(int))
+                  as int;
+          result.id = valueDes;
+          break;
+        case r'@type':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.atType = valueDes;
+          break;
+        case r'updatedAt':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
+          result.updatedAt = valueDes;
           break;
         default:
           unhandled.add(key);

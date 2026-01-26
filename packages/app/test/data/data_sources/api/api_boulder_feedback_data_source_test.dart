@@ -26,8 +26,8 @@ void main() {
       test('create boulder feedback successfully', () async {
         when(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
+            boulderFeedbackWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -45,8 +45,8 @@ void main() {
 
         verify(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
+            boulderFeedbackWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -62,8 +62,8 @@ void main() {
           'Then an UnprocessableEntityException is returned', () async {
         when(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
+            boulderFeedbackWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -90,8 +90,8 @@ void main() {
 
         verify(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
+            boulderFeedbackWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -107,8 +107,8 @@ void main() {
           'Then an UnknownException is returned', () async {
         when(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
+            boulderFeedbackWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -129,8 +129,8 @@ void main() {
 
         verify(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
+            boulderFeedbackWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -146,8 +146,8 @@ void main() {
           'Then an UnknownException is returned', () async {
         when(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
+            boulderFeedbackWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder
@@ -163,8 +163,8 @@ void main() {
 
         verify(
           () => api.apiBoulderFeedbacksPost(
-            boulderFeedbackJsonldWriteBoulderFeedbackWrite:
-                breizh_blok_api.BoulderFeedbackJsonldWriteBoulderFeedbackWrite((
+            boulderFeedbackWriteBoulderFeedbackWrite:
+                breizh_blok_api.BoulderFeedbackWriteBoulderFeedbackWrite((
                   builder,
                 ) {
                   builder

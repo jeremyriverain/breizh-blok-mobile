@@ -11,16 +11,15 @@ import 'package:built_value/serializer.dart';
 
 part 'rock_rock_read.g.dart';
 
-///
+/// RockRockRead
 ///
 /// Properties:
-/// * [location] -
+/// * [location]
 /// * [boulders]
 /// * [pictures]
 @BuiltValue()
 abstract class RockRockRead
     implements Built<RockRockRead, RockRockReadBuilder> {
-  ///
   @BuiltValueField(wireName: r'location')
   JsonObject get location;
 

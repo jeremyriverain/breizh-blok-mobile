@@ -8,7 +8,7 @@ import 'package:built_value/serializer.dart';
 
 part 'geo_point_read_boulder_feedback_read.g.dart';
 
-///
+/// GeoPointReadBoulderFeedbackRead
 ///
 /// Properties:
 /// * [latitude]

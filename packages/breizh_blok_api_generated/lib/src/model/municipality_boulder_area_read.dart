@@ -8,7 +8,7 @@ import 'package:built_value/serializer.dart';
 
 part 'municipality_boulder_area_read.g.dart';
 
-///
+/// MunicipalityBoulderAreaRead
 ///
 /// Properties:
 /// * [name]

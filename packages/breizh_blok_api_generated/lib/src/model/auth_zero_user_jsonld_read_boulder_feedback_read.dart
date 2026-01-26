@@ -3,13 +3,14 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'auth_zero_user_jsonld_read_boulder_feedback_read.g.dart';
 
-///
+/// AuthZeroUserJsonldReadBoulderFeedbackRead
 ///
 /// Properties:
 /// * [atContext]
@@ -19,19 +20,11 @@ part 'auth_zero_user_jsonld_read_boulder_feedback_read.g.dart';
 @BuiltValue()
 abstract class AuthZeroUserJsonldReadBoulderFeedbackRead
     implements
+        HydraItemBaseSchema,
         Built<
           AuthZeroUserJsonldReadBoulderFeedbackRead,
           AuthZeroUserJsonldReadBoulderFeedbackReadBuilder
         > {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
   @BuiltValueField(wireName: r'id')
   String? get id;
 
@@ -70,23 +63,7 @@ class _$AuthZeroUserJsonldReadBoulderFeedbackReadSerializer
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
       );
     }
     if (object.id != null) {
@@ -96,6 +73,16 @@ class _$AuthZeroUserJsonldReadBoulderFeedbackReadSerializer
         specifiedType: const FullType(String),
       );
     }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override
@@ -127,12 +114,19 @@ class _$AuthZeroUserJsonldReadBoulderFeedbackReadSerializer
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
                   )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
+                  as HydraItemBaseSchemaContext;
           result.atContext.replace(valueDes);
+          break;
+        case r'id':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.id = valueDes;
           break;
         case r'@id':
           final valueDes =
@@ -151,15 +145,6 @@ class _$AuthZeroUserJsonldReadBoulderFeedbackReadSerializer
                   )
                   as String;
           result.atType = valueDes;
-          break;
-        case r'id':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.id = valueDes;
           break;
         default:
           unhandled.add(key);

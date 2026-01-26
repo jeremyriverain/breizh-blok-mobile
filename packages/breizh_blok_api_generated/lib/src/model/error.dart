@@ -64,21 +64,21 @@ class _$ErrorSerializer implements PrimitiveSerializer<Error> {
       yield r'title';
       yield serializers.serialize(
         object.title,
-        specifiedType: const FullType(String),
+        specifiedType: const FullType.nullable(String),
       );
     }
     if (object.detail != null) {
       yield r'detail';
       yield serializers.serialize(
         object.detail,
-        specifiedType: const FullType(String),
+        specifiedType: const FullType.nullable(String),
       );
     }
     if (object.status != null) {
       yield r'status';
       yield serializers.serialize(
         object.status,
-        specifiedType: const FullType(num),
+        specifiedType: const FullType.nullable(num),
       );
     }
     if (object.instance != null) {
@@ -126,24 +126,30 @@ class _$ErrorSerializer implements PrimitiveSerializer<Error> {
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(String),
+                    specifiedType: const FullType.nullable(String),
                   )
-                  as String;
+                  as String?;
+          if (valueDes == null) continue;
           result.title = valueDes;
           break;
         case r'detail':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(String),
+                    specifiedType: const FullType.nullable(String),
                   )
-                  as String;
+                  as String?;
+          if (valueDes == null) continue;
           result.detail = valueDes;
           break;
         case r'status':
           final valueDes =
-              serializers.deserialize(value, specifiedType: const FullType(num))
-                  as num;
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(num),
+                  )
+                  as num?;
+          if (valueDes == null) continue;
           result.status = valueDes;
           break;
         case r'instance':

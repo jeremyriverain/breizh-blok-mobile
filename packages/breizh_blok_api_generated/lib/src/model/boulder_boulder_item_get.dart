@@ -3,17 +3,20 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:built_collection/built_collection.dart';
 import 'package:breizh_blok_api_generated/src/model/height_boulder_boulder_item_get.dart';
+import 'package:breizh_blok_api_generated/src/model/video_link_boulder_item_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'boulder_boulder_item_get.g.dart';
 
-///
+/// BoulderBoulderItemGet
 ///
 /// Properties:
 /// * [description]
 /// * [height]
+/// * [videoLinks]
 @BuiltValue()
 abstract class BoulderBoulderItemGet
     implements Built<BoulderBoulderItemGet, BoulderBoulderItemGetBuilder> {
@@ -22,6 +25,9 @@ abstract class BoulderBoulderItemGet
 
   @BuiltValueField(wireName: r'height')
   HeightBoulderBoulderItemGet? get height;
+
+  @BuiltValueField(wireName: r'videoLinks')
+  BuiltList<VideoLinkBoulderItemGet>? get videoLinks;
 
   BoulderBoulderItemGet._();
 
@@ -65,6 +71,15 @@ class _$BoulderBoulderItemGetSerializer
       yield serializers.serialize(
         object.height,
         specifiedType: const FullType.nullable(HeightBoulderBoulderItemGet),
+      );
+    }
+    if (object.videoLinks != null) {
+      yield r'videoLinks';
+      yield serializers.serialize(
+        object.videoLinks,
+        specifiedType: const FullType(BuiltList, [
+          FullType(VideoLinkBoulderItemGet),
+        ]),
       );
     }
   }
@@ -115,6 +130,17 @@ class _$BoulderBoulderItemGetSerializer
                   as HeightBoulderBoulderItemGet?;
           if (valueDes == null) continue;
           result.height.replace(valueDes);
+          break;
+        case r'videoLinks':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(VideoLinkBoulderItemGet),
+                    ]),
+                  )
+                  as BuiltList<VideoLinkBoulderItemGet>;
+          result.videoLinks.replace(valueDes);
           break;
         default:
           unhandled.add(key);

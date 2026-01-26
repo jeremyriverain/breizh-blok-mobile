@@ -10,11 +10,11 @@ import 'package:built_value/serializer.dart';
 
 part 'boulder_area_boulder_area_item_get.g.dart';
 
-///
+/// BoulderAreaBoulderAreaItemGet
 ///
 /// Properties:
-/// * [centroid] -
-/// * [parkingLocation] -
+/// * [centroid]
+/// * [parkingLocation]
 /// * [numberOfBouldersGroupedByGrade]
 @BuiltValue()
 abstract class BoulderAreaBoulderAreaItemGet
@@ -23,11 +23,9 @@ abstract class BoulderAreaBoulderAreaItemGet
           BoulderAreaBoulderAreaItemGet,
           BoulderAreaBoulderAreaItemGetBuilder
         > {
-  ///
   @BuiltValueField(wireName: r'centroid')
   JsonObject? get centroid;
 
-  ///
   @BuiltValueField(wireName: r'parkingLocation')
   JsonObject? get parkingLocation;
 

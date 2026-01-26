@@ -7,59 +7,55 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'auth_zero_user_jsonld_auth_zero_user_read_context_one_of.g.dart';
+part 'hydra_item_base_schema_context_one_of.g.dart';
 
-/// AuthZeroUserJsonldAuthZeroUserReadContextOneOf
+/// HydraItemBaseSchemaContextOneOf
 ///
 /// Properties:
 /// * [atVocab]
 /// * [hydra]
 @BuiltValue()
-abstract class AuthZeroUserJsonldAuthZeroUserReadContextOneOf
+abstract class HydraItemBaseSchemaContextOneOf
     implements
         Built<
-          AuthZeroUserJsonldAuthZeroUserReadContextOneOf,
-          AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder
+          HydraItemBaseSchemaContextOneOf,
+          HydraItemBaseSchemaContextOneOfBuilder
         > {
   @BuiltValueField(wireName: r'@vocab')
   String get atVocab;
 
   @BuiltValueField(wireName: r'hydra')
-  AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum get hydra;
+  HydraItemBaseSchemaContextOneOfHydraEnum get hydra;
   // enum hydraEnum {  http://www.w3.org/ns/hydra/core#,  };
 
-  AuthZeroUserJsonldAuthZeroUserReadContextOneOf._();
+  HydraItemBaseSchemaContextOneOf._();
 
-  factory AuthZeroUserJsonldAuthZeroUserReadContextOneOf([
-    void updates(AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder b),
-  ]) = _$AuthZeroUserJsonldAuthZeroUserReadContextOneOf;
+  factory HydraItemBaseSchemaContextOneOf([
+    void updates(HydraItemBaseSchemaContextOneOfBuilder b),
+  ]) = _$HydraItemBaseSchemaContextOneOf;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(
-    AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder b,
-  ) => b;
+  static void _defaults(HydraItemBaseSchemaContextOneOfBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AuthZeroUserJsonldAuthZeroUserReadContextOneOf>
-  get serializer =>
-      _$AuthZeroUserJsonldAuthZeroUserReadContextOneOfSerializer();
+  static Serializer<HydraItemBaseSchemaContextOneOf> get serializer =>
+      _$HydraItemBaseSchemaContextOneOfSerializer();
 }
 
-class _$AuthZeroUserJsonldAuthZeroUserReadContextOneOfSerializer
-    implements
-        PrimitiveSerializer<AuthZeroUserJsonldAuthZeroUserReadContextOneOf> {
+class _$HydraItemBaseSchemaContextOneOfSerializer
+    implements PrimitiveSerializer<HydraItemBaseSchemaContextOneOf> {
   @override
   final Iterable<Type> types = const [
-    AuthZeroUserJsonldAuthZeroUserReadContextOneOf,
-    _$AuthZeroUserJsonldAuthZeroUserReadContextOneOf,
+    HydraItemBaseSchemaContextOneOf,
+    _$HydraItemBaseSchemaContextOneOf,
   ];
 
   @override
-  final String wireName = r'AuthZeroUserJsonldAuthZeroUserReadContextOneOf';
+  final String wireName = r'HydraItemBaseSchemaContextOneOf';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    AuthZeroUserJsonldAuthZeroUserReadContextOneOf object, {
+    HydraItemBaseSchemaContextOneOf object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'@vocab';
@@ -70,16 +66,14 @@ class _$AuthZeroUserJsonldAuthZeroUserReadContextOneOfSerializer
     yield r'hydra';
     yield serializers.serialize(
       object.hydra,
-      specifiedType: const FullType(
-        AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum,
-      ),
+      specifiedType: const FullType(HydraItemBaseSchemaContextOneOfHydraEnum),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    AuthZeroUserJsonldAuthZeroUserReadContextOneOf object, {
+    HydraItemBaseSchemaContextOneOf object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -94,7 +88,7 @@ class _$AuthZeroUserJsonldAuthZeroUserReadContextOneOfSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder result,
+    required HydraItemBaseSchemaContextOneOfBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -115,10 +109,10 @@ class _$AuthZeroUserJsonldAuthZeroUserReadContextOneOfSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum,
+                      HydraItemBaseSchemaContextOneOfHydraEnum,
                     ),
                   )
-                  as AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum;
+                  as HydraItemBaseSchemaContextOneOfHydraEnum;
           result.hydra = valueDes;
           break;
         default:
@@ -130,12 +124,12 @@ class _$AuthZeroUserJsonldAuthZeroUserReadContextOneOfSerializer
   }
 
   @override
-  AuthZeroUserJsonldAuthZeroUserReadContextOneOf deserialize(
+  HydraItemBaseSchemaContextOneOf deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AuthZeroUserJsonldAuthZeroUserReadContextOneOfBuilder();
+    final result = HydraItemBaseSchemaContextOneOfBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(
@@ -150,23 +144,19 @@ class _$AuthZeroUserJsonldAuthZeroUserReadContextOneOfSerializer
   }
 }
 
-class AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum
-    extends EnumClass {
+class HydraItemBaseSchemaContextOneOfHydraEnum extends EnumClass {
   @BuiltValueEnumConst(wireName: r'http://www.w3.org/ns/hydra/core#')
-  static const AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum
+  static const HydraItemBaseSchemaContextOneOfHydraEnum
   httpColonSlashSlashWwwPeriodW3PeriodOrgSlashNsSlashHydraSlashCoreHash =
-      _$authZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum_httpColonSlashSlashWwwPeriodW3PeriodOrgSlashNsSlashHydraSlashCoreHash;
+      _$hydraItemBaseSchemaContextOneOfHydraEnum_httpColonSlashSlashWwwPeriodW3PeriodOrgSlashNsSlashHydraSlashCoreHash;
 
-  static Serializer<AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum>
-  get serializer =>
-      _$authZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnumSerializer;
+  static Serializer<HydraItemBaseSchemaContextOneOfHydraEnum> get serializer =>
+      _$hydraItemBaseSchemaContextOneOfHydraEnumSerializer;
 
-  const AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum._(String name)
-    : super(name);
+  const HydraItemBaseSchemaContextOneOfHydraEnum._(String name) : super(name);
 
-  static BuiltSet<AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum>
-  get values => _$authZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnumValues;
-  static AuthZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnum valueOf(
-    String name,
-  ) => _$authZeroUserJsonldAuthZeroUserReadContextOneOfHydraEnumValueOf(name);
+  static BuiltSet<HydraItemBaseSchemaContextOneOfHydraEnum> get values =>
+      _$hydraItemBaseSchemaContextOneOfHydraEnumValues;
+  static HydraItemBaseSchemaContextOneOfHydraEnum valueOf(String name) =>
+      _$hydraItemBaseSchemaContextOneOfHydraEnumValueOf(name);
 }

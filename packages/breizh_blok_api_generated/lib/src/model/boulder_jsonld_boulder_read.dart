@@ -4,16 +4,19 @@
 
 // ignore_for_file: unused_element
 import 'package:breizh_blok_api_generated/src/model/line_boulder_jsonld_boulder_read.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:breizh_blok_api_generated/src/model/rock_jsonld_boulder_read.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'boulder_jsonld_boulder_read.g.dart';
 
-///
+/// BoulderJsonldBoulderRead
 ///
 /// Properties:
+/// * [atContext]
 /// * [atId]
 /// * [atType]
 /// * [name]
@@ -23,21 +26,16 @@ part 'boulder_jsonld_boulder_read.g.dart';
 @BuiltValue()
 abstract class BoulderJsonldBoulderRead
     implements
+        HydraItemBaseSchema,
         Built<BoulderJsonldBoulderRead, BoulderJsonldBoulderReadBuilder> {
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
-  @BuiltValueField(wireName: r'name')
-  String get name;
+  @BuiltValueField(wireName: r'rock')
+  RockJsonldBoulderRead get rock;
 
   @BuiltValueField(wireName: r'grade')
   String? get grade;
 
-  @BuiltValueField(wireName: r'rock')
-  RockJsonldBoulderRead get rock;
+  @BuiltValueField(wireName: r'name')
+  String get name;
 
   @BuiltValueField(wireName: r'lineBoulders')
   BuiltList<LineBoulderJsonldBoulderRead>? get lineBoulders;
@@ -72,23 +70,14 @@ class _$BoulderJsonldBoulderReadSerializer
     BoulderJsonldBoulderRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
-    yield r'name';
+    yield r'rock';
     yield serializers.serialize(
-      object.name,
+      object.rock,
+      specifiedType: const FullType(RockJsonldBoulderRead),
+    );
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
       specifiedType: const FullType(String),
     );
     if (object.grade != null) {
@@ -98,11 +87,18 @@ class _$BoulderJsonldBoulderReadSerializer
         specifiedType: const FullType.nullable(String),
       );
     }
-    yield r'rock';
+    yield r'name';
     yield serializers.serialize(
-      object.rock,
-      specifiedType: const FullType(RockJsonldBoulderRead),
+      object.name,
+      specifiedType: const FullType(String),
     );
+    if (object.atContext != null) {
+      yield r'@context';
+      yield serializers.serialize(
+        object.atContext,
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
+      );
+    }
     if (object.lineBoulders != null) {
       yield r'lineBoulders';
       yield serializers.serialize(
@@ -112,6 +108,11 @@ class _$BoulderJsonldBoulderReadSerializer
         ]),
       );
     }
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override
@@ -139,6 +140,15 @@ class _$BoulderJsonldBoulderReadSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'rock':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(RockJsonldBoulderRead),
+                  )
+                  as RockJsonldBoulderRead;
+          result.rock.replace(valueDes);
+          break;
         case r'@id':
           final valueDes =
               serializers.deserialize(
@@ -147,24 +157,6 @@ class _$BoulderJsonldBoulderReadSerializer
                   )
                   as String;
           result.atId = valueDes;
-          break;
-        case r'@type':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atType = valueDes;
-          break;
-        case r'name':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.name = valueDes;
           break;
         case r'grade':
           final valueDes =
@@ -176,14 +168,23 @@ class _$BoulderJsonldBoulderReadSerializer
           if (valueDes == null) continue;
           result.grade = valueDes;
           break;
-        case r'rock':
+        case r'name':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(RockJsonldBoulderRead),
+                    specifiedType: const FullType(String),
                   )
-                  as RockJsonldBoulderRead;
-          result.rock.replace(valueDes);
+                  as String;
+          result.name = valueDes;
+          break;
+        case r'@context':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
+                  )
+                  as HydraItemBaseSchemaContext;
+          result.atContext.replace(valueDes);
           break;
         case r'lineBoulders':
           final valueDes =
@@ -195,6 +196,15 @@ class _$BoulderJsonldBoulderReadSerializer
                   )
                   as BuiltList<LineBoulderJsonldBoulderRead>;
           result.lineBoulders.replace(valueDes);
+          break;
+        case r'@type':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.atType = valueDes;
           break;
         default:
           unhandled.add(key);

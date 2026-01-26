@@ -3,84 +3,80 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'geo_point_jsonld_boulder_area_item_get.g.dart';
+part 'video_link_jsonld_boulder_item_get.g.dart';
 
-///
+/// VideoLinkJsonldBoulderItemGet
 ///
 /// Properties:
-/// * [atContext]
-/// * [atId]
-/// * [atType]
+/// * [url]
+/// * [videoId]
+/// * [type]
 @BuiltValue()
-abstract class GeoPointJsonldBoulderAreaItemGet
+abstract class VideoLinkJsonldBoulderItemGet
     implements
         Built<
-          GeoPointJsonldBoulderAreaItemGet,
-          GeoPointJsonldBoulderAreaItemGetBuilder
+          VideoLinkJsonldBoulderItemGet,
+          VideoLinkJsonldBoulderItemGetBuilder
         > {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
+  @BuiltValueField(wireName: r'url')
+  String get url;
 
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
+  @BuiltValueField(wireName: r'videoId')
+  String? get videoId;
 
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
+  @BuiltValueField(wireName: r'type')
+  String? get type;
 
-  GeoPointJsonldBoulderAreaItemGet._();
+  VideoLinkJsonldBoulderItemGet._();
 
-  factory GeoPointJsonldBoulderAreaItemGet([
-    void updates(GeoPointJsonldBoulderAreaItemGetBuilder b),
-  ]) = _$GeoPointJsonldBoulderAreaItemGet;
+  factory VideoLinkJsonldBoulderItemGet([
+    void updates(VideoLinkJsonldBoulderItemGetBuilder b),
+  ]) = _$VideoLinkJsonldBoulderItemGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(GeoPointJsonldBoulderAreaItemGetBuilder b) => b;
+  static void _defaults(VideoLinkJsonldBoulderItemGetBuilder b) =>
+      b..type = 'youtube';
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GeoPointJsonldBoulderAreaItemGet> get serializer =>
-      _$GeoPointJsonldBoulderAreaItemGetSerializer();
+  static Serializer<VideoLinkJsonldBoulderItemGet> get serializer =>
+      _$VideoLinkJsonldBoulderItemGetSerializer();
 }
 
-class _$GeoPointJsonldBoulderAreaItemGetSerializer
-    implements PrimitiveSerializer<GeoPointJsonldBoulderAreaItemGet> {
+class _$VideoLinkJsonldBoulderItemGetSerializer
+    implements PrimitiveSerializer<VideoLinkJsonldBoulderItemGet> {
   @override
   final Iterable<Type> types = const [
-    GeoPointJsonldBoulderAreaItemGet,
-    _$GeoPointJsonldBoulderAreaItemGet,
+    VideoLinkJsonldBoulderItemGet,
+    _$VideoLinkJsonldBoulderItemGet,
   ];
 
   @override
-  final String wireName = r'GeoPointJsonldBoulderAreaItemGet';
+  final String wireName = r'VideoLinkJsonldBoulderItemGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    GeoPointJsonldBoulderAreaItemGet object, {
+    VideoLinkJsonldBoulderItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atContext != null) {
-      yield r'@context';
+    yield r'url';
+    yield serializers.serialize(
+      object.url,
+      specifiedType: const FullType(String),
+    );
+    if (object.videoId != null) {
+      yield r'videoId';
       yield serializers.serialize(
-        object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
+        object.videoId,
         specifiedType: const FullType(String),
       );
     }
-    if (object.atType != null) {
-      yield r'@type';
+    if (object.type != null) {
+      yield r'type';
       yield serializers.serialize(
-        object.atType,
+        object.type,
         specifiedType: const FullType(String),
       );
     }
@@ -89,7 +85,7 @@ class _$GeoPointJsonldBoulderAreaItemGetSerializer
   @override
   Object serialize(
     Serializers serializers,
-    GeoPointJsonldBoulderAreaItemGet object, {
+    VideoLinkJsonldBoulderItemGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(
@@ -104,41 +100,39 @@ class _$GeoPointJsonldBoulderAreaItemGetSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required GeoPointJsonldBoulderAreaItemGetBuilder result,
+    required VideoLinkJsonldBoulderItemGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'@context':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
-                  )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
-          result.atContext.replace(valueDes);
-          break;
-        case r'@id':
+        case r'url':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(String),
                   )
                   as String;
-          result.atId = valueDes;
+          result.url = valueDes;
           break;
-        case r'@type':
+        case r'videoId':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(String),
                   )
                   as String;
-          result.atType = valueDes;
+          result.videoId = valueDes;
+          break;
+        case r'type':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.type = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -149,12 +143,12 @@ class _$GeoPointJsonldBoulderAreaItemGetSerializer
   }
 
   @override
-  GeoPointJsonldBoulderAreaItemGet deserialize(
+  VideoLinkJsonldBoulderItemGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = GeoPointJsonldBoulderAreaItemGetBuilder();
+    final result = VideoLinkJsonldBoulderItemGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

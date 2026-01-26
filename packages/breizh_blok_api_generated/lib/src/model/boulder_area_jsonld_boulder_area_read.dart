@@ -3,15 +3,18 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:breizh_blok_api_generated/src/model/municipality_jsonld_boulder_area_read.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'boulder_area_jsonld_boulder_area_read.g.dart';
 
-///
+/// BoulderAreaJsonldBoulderAreaRead
 ///
 /// Properties:
+/// * [atContext]
 /// * [atId]
 /// * [atType]
 /// * [name]
@@ -20,24 +23,19 @@ part 'boulder_area_jsonld_boulder_area_read.g.dart';
 @BuiltValue()
 abstract class BoulderAreaJsonldBoulderAreaRead
     implements
+        HydraItemBaseSchema,
         Built<
           BoulderAreaJsonldBoulderAreaRead,
           BoulderAreaJsonldBoulderAreaReadBuilder
         > {
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
   @BuiltValueField(wireName: r'name')
   String get name;
 
-  @BuiltValueField(wireName: r'description')
-  String? get description;
-
   @BuiltValueField(wireName: r'municipality')
   MunicipalityJsonldBoulderAreaRead? get municipality;
+
+  @BuiltValueField(wireName: r'description')
+  String? get description;
 
   BoulderAreaJsonldBoulderAreaRead._();
 
@@ -69,32 +67,11 @@ class _$BoulderAreaJsonldBoulderAreaReadSerializer
     BoulderAreaJsonldBoulderAreaRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
     yield r'name';
     yield serializers.serialize(
       object.name,
       specifiedType: const FullType(String),
     );
-    if (object.description != null) {
-      yield r'description';
-      yield serializers.serialize(
-        object.description,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
     if (object.municipality != null) {
       yield r'municipality';
       yield serializers.serialize(
@@ -104,6 +81,30 @@ class _$BoulderAreaJsonldBoulderAreaReadSerializer
         ),
       );
     }
+    if (object.description != null) {
+      yield r'description';
+      yield serializers.serialize(
+        object.description,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.atContext != null) {
+      yield r'@context';
+      yield serializers.serialize(
+        object.atContext,
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
+      );
+    }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override
@@ -131,6 +132,46 @@ class _$BoulderAreaJsonldBoulderAreaReadSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'name':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.name = valueDes;
+          break;
+        case r'municipality':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(
+                      MunicipalityJsonldBoulderAreaRead,
+                    ),
+                  )
+                  as MunicipalityJsonldBoulderAreaRead?;
+          if (valueDes == null) continue;
+          result.municipality.replace(valueDes);
+          break;
+        case r'description':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.description = valueDes;
+          break;
+        case r'@context':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
+                  )
+                  as HydraItemBaseSchemaContext;
+          result.atContext.replace(valueDes);
+          break;
         case r'@id':
           final valueDes =
               serializers.deserialize(
@@ -148,37 +189,6 @@ class _$BoulderAreaJsonldBoulderAreaReadSerializer
                   )
                   as String;
           result.atType = valueDes;
-          break;
-        case r'name':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.name = valueDes;
-          break;
-        case r'description':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType.nullable(String),
-                  )
-                  as String?;
-          if (valueDes == null) continue;
-          result.description = valueDes;
-          break;
-        case r'municipality':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType.nullable(
-                      MunicipalityJsonldBoulderAreaRead,
-                    ),
-                  )
-                  as MunicipalityJsonldBoulderAreaRead?;
-          if (valueDes == null) continue;
-          result.municipality.replace(valueDes);
           break;
         default:
           unhandled.add(key);

@@ -8,7 +8,7 @@ import 'package:built_value/serializer.dart';
 
 part 'boulder_rock_read.g.dart';
 
-///
+/// BoulderRockRead
 ///
 /// Properties:
 /// * [name]

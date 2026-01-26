@@ -3,16 +3,17 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_jsonld_read_boulder_feedback_read.dart';
 import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_read_boulder_feedback_read.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:breizh_blok_api_generated/src/model/geo_point_jsonld_read_boulder_feedback_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'boulder_feedback_jsonld_read_boulder_feedback_read.g.dart';
 
-///
+/// BoulderFeedbackJsonldReadBoulderFeedbackRead
 ///
 /// Properties:
 /// * [atContext]
@@ -23,36 +24,32 @@ part 'boulder_feedback_jsonld_read_boulder_feedback_read.g.dart';
 /// * [boulder]
 /// * [createdAt]
 /// * [createdBy]
+/// * [videoLink]
 @BuiltValue()
 abstract class BoulderFeedbackJsonldReadBoulderFeedbackRead
     implements
+        HydraItemBaseSchema,
         Built<
           BoulderFeedbackJsonldReadBoulderFeedbackRead,
           BoulderFeedbackJsonldReadBoulderFeedbackReadBuilder
         > {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
-
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
-  @BuiltValueField(wireName: r'newLocation')
-  GeoPointJsonldReadBoulderFeedbackRead? get newLocation;
-
-  @BuiltValueField(wireName: r'message')
-  String? get message;
+  @BuiltValueField(wireName: r'createdAt')
+  DateTime? get createdAt;
 
   @BuiltValueField(wireName: r'boulder')
   BoulderJsonldReadBoulderFeedbackRead get boulder;
 
-  @BuiltValueField(wireName: r'createdAt')
-  DateTime? get createdAt;
-
   @BuiltValueField(wireName: r'createdBy')
   AuthZeroUserJsonldReadBoulderFeedbackRead? get createdBy;
+
+  @BuiltValueField(wireName: r'videoLink')
+  String? get videoLink;
+
+  @BuiltValueField(wireName: r'message')
+  String? get message;
+
+  @BuiltValueField(wireName: r'newLocation')
+  GeoPointJsonldReadBoulderFeedbackRead? get newLocation;
 
   BoulderFeedbackJsonldReadBoulderFeedbackRead._();
 
@@ -87,27 +84,51 @@ class _$BoulderFeedbackJsonldReadBoulderFeedbackReadSerializer
     BoulderFeedbackJsonldReadBoulderFeedbackRead object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    if (object.createdAt != null) {
+      yield r'createdAt';
+      yield serializers.serialize(
+        object.createdAt,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    yield r'boulder';
+    yield serializers.serialize(
+      object.boulder,
+      specifiedType: const FullType(BoulderJsonldReadBoulderFeedbackRead),
+    );
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
+    if (object.createdBy != null) {
+      yield r'createdBy';
+      yield serializers.serialize(
+        object.createdBy,
+        specifiedType: const FullType.nullable(
+          AuthZeroUserJsonldReadBoulderFeedbackRead,
+        ),
+      );
+    }
+    if (object.videoLink != null) {
+      yield r'videoLink';
+      yield serializers.serialize(
+        object.videoLink,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     if (object.atContext != null) {
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
       );
     }
-    if (object.atId != null) {
-      yield r'@id';
+    if (object.message != null) {
+      yield r'message';
       yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
+        object.message,
+        specifiedType: const FullType.nullable(String),
       );
     }
     if (object.newLocation != null) {
@@ -119,34 +140,11 @@ class _$BoulderFeedbackJsonldReadBoulderFeedbackReadSerializer
         ),
       );
     }
-    if (object.message != null) {
-      yield r'message';
-      yield serializers.serialize(
-        object.message,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    yield r'boulder';
+    yield r'@type';
     yield serializers.serialize(
-      object.boulder,
-      specifiedType: const FullType(BoulderJsonldReadBoulderFeedbackRead),
+      object.atType,
+      specifiedType: const FullType(String),
     );
-    if (object.createdAt != null) {
-      yield r'createdAt';
-      yield serializers.serialize(
-        object.createdAt,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.createdBy != null) {
-      yield r'createdBy';
-      yield serializers.serialize(
-        object.createdBy,
-        specifiedType: const FullType.nullable(
-          AuthZeroUserJsonldReadBoulderFeedbackRead,
-        ),
-      );
-    }
   }
 
   @override
@@ -174,16 +172,25 @@ class _$BoulderFeedbackJsonldReadBoulderFeedbackReadSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'@context':
+        case r'createdAt':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
+          result.createdAt = valueDes;
+          break;
+        case r'boulder':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
+                      BoulderJsonldReadBoulderFeedbackRead,
                     ),
                   )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
-          result.atContext.replace(valueDes);
+                  as BoulderJsonldReadBoulderFeedbackRead;
+          result.boulder.replace(valueDes);
           break;
         case r'@id':
           final valueDes =
@@ -194,14 +201,46 @@ class _$BoulderFeedbackJsonldReadBoulderFeedbackReadSerializer
                   as String;
           result.atId = valueDes;
           break;
-        case r'@type':
+        case r'createdBy':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType(String),
+                    specifiedType: const FullType.nullable(
+                      AuthZeroUserJsonldReadBoulderFeedbackRead,
+                    ),
                   )
-                  as String;
-          result.atType = valueDes;
+                  as AuthZeroUserJsonldReadBoulderFeedbackRead?;
+          if (valueDes == null) continue;
+          result.createdBy.replace(valueDes);
+          break;
+        case r'videoLink':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.videoLink = valueDes;
+          break;
+        case r'@context':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
+                  )
+                  as HydraItemBaseSchemaContext;
+          result.atContext.replace(valueDes);
+          break;
+        case r'message':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.message = valueDes;
           break;
         case r'newLocation':
           final valueDes =
@@ -215,47 +254,14 @@ class _$BoulderFeedbackJsonldReadBoulderFeedbackReadSerializer
           if (valueDes == null) continue;
           result.newLocation.replace(valueDes);
           break;
-        case r'message':
+        case r'@type':
           final valueDes =
               serializers.deserialize(
                     value,
-                    specifiedType: const FullType.nullable(String),
+                    specifiedType: const FullType(String),
                   )
-                  as String?;
-          if (valueDes == null) continue;
-          result.message = valueDes;
-          break;
-        case r'boulder':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      BoulderJsonldReadBoulderFeedbackRead,
-                    ),
-                  )
-                  as BoulderJsonldReadBoulderFeedbackRead;
-          result.boulder.replace(valueDes);
-          break;
-        case r'createdAt':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(DateTime),
-                  )
-                  as DateTime;
-          result.createdAt = valueDes;
-          break;
-        case r'createdBy':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType.nullable(
-                      AuthZeroUserJsonldReadBoulderFeedbackRead,
-                    ),
-                  )
-                  as AuthZeroUserJsonldReadBoulderFeedbackRead?;
-          if (valueDes == null) continue;
-          result.createdBy.replace(valueDes);
+                  as String;
+          result.atType = valueDes;
           break;
         default:
           unhandled.add(key);

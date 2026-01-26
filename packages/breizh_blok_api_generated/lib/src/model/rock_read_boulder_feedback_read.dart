@@ -9,7 +9,7 @@ import 'package:built_value/serializer.dart';
 
 part 'rock_read_boulder_feedback_read.g.dart';
 
-///
+/// RockReadBoulderFeedbackRead
 ///
 /// Properties:
 /// * [boulderArea]

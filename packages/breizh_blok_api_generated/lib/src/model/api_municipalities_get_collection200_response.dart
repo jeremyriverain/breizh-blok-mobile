@@ -4,39 +4,32 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:breizh_blok_api_generated/src/model/api_boulders_get_collection200_response_hydra_search.dart';
-import 'package:breizh_blok_api_generated/src/model/api_boulders_get_collection200_response_hydra_view.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_collection_base_schema_all_of_hydra_view.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_collection_base_schema.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_collection_base_schema_no_pagination_hydra_search.dart';
 import 'package:breizh_blok_api_generated/src/model/municipality_jsonld_municipality_read.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
 part 'api_municipalities_get_collection200_response.g.dart';
 
-/// ApiMunicipalitiesGetCollection200Response
+/// Municipality.jsonld-Municipality.read collection.
 ///
 /// Properties:
-/// * [hydraColonMember]
 /// * [hydraColonTotalItems]
-/// * [hydraColonView]
 /// * [hydraColonSearch]
+/// * [hydraColonView]
+/// * [hydraColonMember]
 @BuiltValue()
 abstract class ApiMunicipalitiesGetCollection200Response
     implements
+        HydraCollectionBaseSchema,
         Built<
           ApiMunicipalitiesGetCollection200Response,
           ApiMunicipalitiesGetCollection200ResponseBuilder
         > {
   @BuiltValueField(wireName: r'hydra:member')
   BuiltList<MunicipalityJsonldMunicipalityRead> get hydraColonMember;
-
-  @BuiltValueField(wireName: r'hydra:totalItems')
-  int? get hydraColonTotalItems;
-
-  @BuiltValueField(wireName: r'hydra:view')
-  ApiBouldersGetCollection200ResponseHydraView? get hydraColonView;
-
-  @BuiltValueField(wireName: r'hydra:search')
-  ApiBouldersGetCollection200ResponseHydraSearch? get hydraColonSearch;
 
   ApiMunicipalitiesGetCollection200Response._();
 
@@ -76,6 +69,15 @@ class _$ApiMunicipalitiesGetCollection200ResponseSerializer
         FullType(MunicipalityJsonldMunicipalityRead),
       ]),
     );
+    if (object.hydraColonSearch != null) {
+      yield r'hydra:search';
+      yield serializers.serialize(
+        object.hydraColonSearch,
+        specifiedType: const FullType(
+          HydraCollectionBaseSchemaNoPaginationHydraSearch,
+        ),
+      );
+    }
     if (object.hydraColonTotalItems != null) {
       yield r'hydra:totalItems';
       yield serializers.serialize(
@@ -87,18 +89,7 @@ class _$ApiMunicipalitiesGetCollection200ResponseSerializer
       yield r'hydra:view';
       yield serializers.serialize(
         object.hydraColonView,
-        specifiedType: const FullType(
-          ApiBouldersGetCollection200ResponseHydraView,
-        ),
-      );
-    }
-    if (object.hydraColonSearch != null) {
-      yield r'hydra:search';
-      yield serializers.serialize(
-        object.hydraColonSearch,
-        specifiedType: const FullType(
-          ApiBouldersGetCollection200ResponseHydraSearch,
-        ),
+        specifiedType: const FullType(HydraCollectionBaseSchemaAllOfHydraView),
       );
     }
   }
@@ -139,6 +130,17 @@ class _$ApiMunicipalitiesGetCollection200ResponseSerializer
                   as BuiltList<MunicipalityJsonldMunicipalityRead>;
           result.hydraColonMember.replace(valueDes);
           break;
+        case r'hydra:search':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      HydraCollectionBaseSchemaNoPaginationHydraSearch,
+                    ),
+                  )
+                  as HydraCollectionBaseSchemaNoPaginationHydraSearch;
+          result.hydraColonSearch.replace(valueDes);
+          break;
         case r'hydra:totalItems':
           final valueDes =
               serializers.deserialize(value, specifiedType: const FullType(int))
@@ -150,22 +152,11 @@ class _$ApiMunicipalitiesGetCollection200ResponseSerializer
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(
-                      ApiBouldersGetCollection200ResponseHydraView,
+                      HydraCollectionBaseSchemaAllOfHydraView,
                     ),
                   )
-                  as ApiBouldersGetCollection200ResponseHydraView;
+                  as HydraCollectionBaseSchemaAllOfHydraView;
           result.hydraColonView.replace(valueDes);
-          break;
-        case r'hydra:search':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      ApiBouldersGetCollection200ResponseHydraSearch,
-                    ),
-                  )
-                  as ApiBouldersGetCollection200ResponseHydraSearch;
-          result.hydraColonSearch.replace(valueDes);
           break;
         default:
           unhandled.add(key);

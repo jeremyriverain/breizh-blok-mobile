@@ -8,10 +8,10 @@ import 'package:breizh_blok_api_generated/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**hydraColonMember** | [**BuiltList&lt;RockJsonldRockRead&gt;**](RockJsonldRockRead.md) |  | 
 **hydraColonTotalItems** | **int** |  | [optional] 
-**hydraColonView** | [**ApiBouldersGetCollection200ResponseHydraView**](ApiBouldersGetCollection200ResponseHydraView.md) |  | [optional] 
-**hydraColonSearch** | [**ApiBouldersGetCollection200ResponseHydraSearch**](ApiBouldersGetCollection200ResponseHydraSearch.md) |  | [optional] 
+**hydraColonSearch** | [**HydraCollectionBaseSchemaNoPaginationHydraSearch**](HydraCollectionBaseSchemaNoPaginationHydraSearch.md) |  | [optional] 
+**hydraColonView** | [**HydraCollectionBaseSchemaAllOfHydraView**](HydraCollectionBaseSchemaAllOfHydraView.md) |  | [optional] 
+**hydraColonMember** | [**BuiltList&lt;RockJsonldRockRead&gt;**](RockJsonldRockRead.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

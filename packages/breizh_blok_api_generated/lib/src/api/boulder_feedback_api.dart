@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:breizh_blok_api_generated/src/api_util.dart';
 import 'package:breizh_blok_api_generated/src/model/api_boulder_feedbacks_get_collection200_response.dart';
 import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_read_boulder_feedback_read.dart';
-import 'package:breizh_blok_api_generated/src/model/boulder_feedback_jsonld_write_boulder_feedback_write.dart';
+import 'package:breizh_blok_api_generated/src/model/boulder_feedback_write_boulder_feedback_write.dart';
 
 class BoulderFeedbackApi {
   final Dio _dio;
@@ -204,7 +204,7 @@ class BoulderFeedbackApi {
   /// Creates a BoulderFeedback resource.
   ///
   /// Parameters:
-  /// * [boulderFeedbackJsonldWriteBoulderFeedbackWrite] - The new BoulderFeedback resource
+  /// * [boulderFeedbackWriteBoulderFeedbackWrite] - The new BoulderFeedback resource
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -216,8 +216,8 @@ class BoulderFeedbackApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BoulderFeedbackJsonldReadBoulderFeedbackRead>>
   apiBoulderFeedbacksPost({
-    required BoulderFeedbackJsonldWriteBoulderFeedbackWrite
-    boulderFeedbackJsonldWriteBoulderFeedbackWrite,
+    required BoulderFeedbackWriteBoulderFeedbackWrite
+    boulderFeedbackWriteBoulderFeedbackWrite,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -247,9 +247,9 @@ class BoulderFeedbackApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BoulderFeedbackJsonldWriteBoulderFeedbackWrite);
+      const _type = FullType(BoulderFeedbackWriteBoulderFeedbackWrite);
       _bodyData = _serializers.serialize(
-        boulderFeedbackJsonldWriteBoulderFeedbackWrite,
+        boulderFeedbackWriteBoulderFeedbackWrite,
         specifiedType: _type,
       );
     } catch (error, stackTrace) {

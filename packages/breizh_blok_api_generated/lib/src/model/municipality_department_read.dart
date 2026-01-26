@@ -8,7 +8,7 @@ import 'package:built_value/serializer.dart';
 
 part 'municipality_department_read.g.dart';
 
-///
+/// MunicipalityDepartmentRead
 ///
 /// Properties:
 /// * [name]

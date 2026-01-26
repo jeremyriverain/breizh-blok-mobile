@@ -8,7 +8,7 @@ import 'package:built_value/serializer.dart';
 
 part 'height_boulder_boulder_item_get.g.dart';
 
-///
+/// HeightBoulderBoulderItemGet
 ///
 /// Properties:
 /// * [min]

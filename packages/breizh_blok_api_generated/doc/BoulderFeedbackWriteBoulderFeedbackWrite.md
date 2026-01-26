@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **newLocation** | [**GeoPointWriteBoulderFeedbackWrite**](GeoPointWriteBoulderFeedbackWrite.md) |  | [optional] 
 **message** | **String** |  | [optional] 
 **boulder** | **String** |  | 
+**videoLink** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

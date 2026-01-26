@@ -3,7 +3,8 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:breizh_blok_api_generated/src/model/auth_zero_user_jsonld_auth_zero_user_read_context.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema.dart';
+import 'package:breizh_blok_api_generated/src/model/hydra_item_base_schema_context.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -22,37 +23,29 @@ part 'error_jsonld.g.dart';
 /// * [type] - A URI reference that identifies the problem type
 /// * [description]
 @BuiltValue()
-abstract class ErrorJsonld implements Built<ErrorJsonld, ErrorJsonldBuilder> {
-  @BuiltValueField(wireName: r'@context')
-  AuthZeroUserJsonldAuthZeroUserReadContext? get atContext;
+abstract class ErrorJsonld
+    implements HydraItemBaseSchema, Built<ErrorJsonld, ErrorJsonldBuilder> {
+  /// A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.
+  @BuiltValueField(wireName: r'instance')
+  String? get instance;
 
-  @BuiltValueField(wireName: r'@id')
-  String? get atId;
-
-  @BuiltValueField(wireName: r'@type')
-  String? get atType;
-
-  /// A short, human-readable summary of the problem.
-  @BuiltValueField(wireName: r'title')
-  String? get title;
+  @BuiltValueField(wireName: r'description')
+  String? get description;
 
   /// A human-readable explanation specific to this occurrence of the problem.
   @BuiltValueField(wireName: r'detail')
   String? get detail;
 
-  @BuiltValueField(wireName: r'status')
-  num? get status;
-
-  /// A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.
-  @BuiltValueField(wireName: r'instance')
-  String? get instance;
+  /// A short, human-readable summary of the problem.
+  @BuiltValueField(wireName: r'title')
+  String? get title;
 
   /// A URI reference that identifies the problem type
   @BuiltValueField(wireName: r'type')
   String? get type;
 
-  @BuiltValueField(wireName: r'description')
-  String? get description;
+  @BuiltValueField(wireName: r'status')
+  num? get status;
 
   ErrorJsonld._();
 
@@ -77,54 +70,43 @@ class _$ErrorJsonldSerializer implements PrimitiveSerializer<ErrorJsonld> {
     ErrorJsonld object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    if (object.instance != null) {
+      yield r'instance';
+      yield serializers.serialize(
+        object.instance,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    yield r'@id';
+    yield serializers.serialize(
+      object.atId,
+      specifiedType: const FullType(String),
+    );
+    if (object.description != null) {
+      yield r'description';
+      yield serializers.serialize(
+        object.description,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     if (object.atContext != null) {
       yield r'@context';
       yield serializers.serialize(
         object.atContext,
-        specifiedType: const FullType(
-          AuthZeroUserJsonldAuthZeroUserReadContext,
-        ),
-      );
-    }
-    if (object.atId != null) {
-      yield r'@id';
-      yield serializers.serialize(
-        object.atId,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.atType != null) {
-      yield r'@type';
-      yield serializers.serialize(
-        object.atType,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.title != null) {
-      yield r'title';
-      yield serializers.serialize(
-        object.title,
-        specifiedType: const FullType(String),
+        specifiedType: const FullType(HydraItemBaseSchemaContext),
       );
     }
     if (object.detail != null) {
       yield r'detail';
       yield serializers.serialize(
         object.detail,
-        specifiedType: const FullType(String),
+        specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.status != null) {
-      yield r'status';
+    if (object.title != null) {
+      yield r'title';
       yield serializers.serialize(
-        object.status,
-        specifiedType: const FullType(num),
-      );
-    }
-    if (object.instance != null) {
-      yield r'instance';
-      yield serializers.serialize(
-        object.instance,
+        object.title,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -135,11 +117,16 @@ class _$ErrorJsonldSerializer implements PrimitiveSerializer<ErrorJsonld> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.description != null) {
-      yield r'description';
+    yield r'@type';
+    yield serializers.serialize(
+      object.atType,
+      specifiedType: const FullType(String),
+    );
+    if (object.status != null) {
+      yield r'status';
       yield serializers.serialize(
-        object.description,
-        specifiedType: const FullType.nullable(String),
+        object.status,
+        specifiedType: const FullType.nullable(num),
       );
     }
   }
@@ -169,59 +156,6 @@ class _$ErrorJsonldSerializer implements PrimitiveSerializer<ErrorJsonld> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'@context':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      AuthZeroUserJsonldAuthZeroUserReadContext,
-                    ),
-                  )
-                  as AuthZeroUserJsonldAuthZeroUserReadContext;
-          result.atContext.replace(valueDes);
-          break;
-        case r'@id':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atId = valueDes;
-          break;
-        case r'@type':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.atType = valueDes;
-          break;
-        case r'title':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.title = valueDes;
-          break;
-        case r'detail':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
-          result.detail = valueDes;
-          break;
-        case r'status':
-          final valueDes =
-              serializers.deserialize(value, specifiedType: const FullType(num))
-                  as num;
-          result.status = valueDes;
-          break;
         case r'instance':
           final valueDes =
               serializers.deserialize(
@@ -232,14 +166,14 @@ class _$ErrorJsonldSerializer implements PrimitiveSerializer<ErrorJsonld> {
           if (valueDes == null) continue;
           result.instance = valueDes;
           break;
-        case r'type':
+        case r'@id':
           final valueDes =
               serializers.deserialize(
                     value,
                     specifiedType: const FullType(String),
                   )
                   as String;
-          result.type = valueDes;
+          result.atId = valueDes;
           break;
         case r'description':
           final valueDes =
@@ -250,6 +184,63 @@ class _$ErrorJsonldSerializer implements PrimitiveSerializer<ErrorJsonld> {
                   as String?;
           if (valueDes == null) continue;
           result.description = valueDes;
+          break;
+        case r'@context':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(HydraItemBaseSchemaContext),
+                  )
+                  as HydraItemBaseSchemaContext;
+          result.atContext.replace(valueDes);
+          break;
+        case r'detail':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.detail = valueDes;
+          break;
+        case r'title':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(String),
+                  )
+                  as String?;
+          if (valueDes == null) continue;
+          result.title = valueDes;
+          break;
+        case r'type':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.type = valueDes;
+          break;
+        case r'@type':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
+          result.atType = valueDes;
+          break;
+        case r'status':
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType.nullable(num),
+                  )
+                  as num?;
+          if (valueDes == null) continue;
+          result.status = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -1,4 +1,4 @@
-# breizh_blok_api_generated.model.ConstraintViolationJsonldJsonld
+# breizh_blok_api_generated.model.ConstraintViolationJsonld
 
 ## Load the model package
 ```dart
@@ -8,11 +8,11 @@ import 'package:breizh_blok_api_generated/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**atContext** | [**AuthZeroUserJsonldAuthZeroUserReadContext**](AuthZeroUserJsonldAuthZeroUserReadContext.md) |  | [optional] 
-**atId** | **String** |  | [optional] 
-**atType** | **String** |  | [optional] 
+**atContext** | [**HydraItemBaseSchemaContext**](HydraItemBaseSchemaContext.md) |  | [optional] 
+**atId** | **String** |  | 
+**atType** | **String** |  | 
 **status** | **int** |  | [optional] [default to 422]
-**violations** | [**BuiltList&lt;ConstraintViolationJsonViolationsInner&gt;**](ConstraintViolationJsonViolationsInner.md) |  | [optional] 
+**violations** | [**BuiltList&lt;ConstraintViolationViolationsInner&gt;**](ConstraintViolationViolationsInner.md) |  | [optional] 
 **detail** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
 **type** | **String** |  | [optional] 

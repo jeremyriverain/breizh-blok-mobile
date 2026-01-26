@@ -8,9 +8,9 @@ import 'package:breizh_blok_api_generated/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**atId** | **String** |  | [optional] 
-**atType** | **String** |  | [optional] 
-**atContext** | [**AuthZeroUserJsonldAuthZeroUserReadContext**](AuthZeroUserJsonldAuthZeroUserReadContext.md) |  | [optional] 
+**atContext** | [**HydraItemBaseSchemaContext**](HydraItemBaseSchemaContext.md) |  | [optional] 
+**atId** | **String** |  | 
+**atType** | **String** |  | 
 **id** | **int** |  | [optional] 
 **file** | [**Uint8List**](Uint8List.md) |  | [optional] 
 **filePath** | **String** |  | [optional] 
