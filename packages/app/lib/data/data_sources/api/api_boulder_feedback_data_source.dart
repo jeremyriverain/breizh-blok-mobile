@@ -7,18 +7,18 @@ import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 
 class ApiBoulderFeedbackDataSource {
-  ApiBoulderFeedbackDataSource({required this.api})
+  ApiBoulderFeedbackDataSource({required this.dio})
     : mapper = const ApiBoulderFeedbackMapper();
 
   final ApiBoulderFeedbackMapper mapper;
-  final a.BoulderFeedbackApi api;
+  final Dio dio;
 
   TaskEither<DomainException, void> create(BoulderFeedback boulderFeedback) {
     return TaskEither.tryCatch(
       () {
-        return api.apiBoulderFeedbacksPost(
-          boulderFeedbackWriteBoulderFeedbackWrite: mapper
-              .toCreateRequestFromDomain(boulderFeedback),
+        return dio.post<void>(
+          '/boulder_feedbacks',
+          data: boulderFeedback.toJson(),
         );
       },
       (e, _) {

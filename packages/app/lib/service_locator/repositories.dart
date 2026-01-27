@@ -1,5 +1,6 @@
 import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_user_profile_data_source.dart';
+import 'package:breizh_blok_mobile/data/data_sources/api/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository_impl.dart';
 import 'package:breizh_blok_mobile/data/repositories/remote_config/remote_config_repository_impl.dart';
 import 'package:breizh_blok_mobile/data/repositories/user_profile/user_profile_repository_impl.dart';
@@ -14,10 +15,9 @@ part 'repositories.g.dart';
 
 @riverpod
 BoulderFeedbackRepository boulderFeedbackRepository(Ref ref) {
-  final breizhBlokApi = ref.watch(breizhBlokApiProvider);
   return BoulderFeedbackRepositoryImpl(
     apiDataSource: ApiBoulderFeedbackDataSource(
-      api: breizhBlokApi.getBoulderFeedbackApi(),
+      dio: createDio(auth: ref.watch(authProvider)),
     ),
   );
 }
