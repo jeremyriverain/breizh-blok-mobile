@@ -11,7 +11,6 @@ workspace:
   - packages/analytics
   - packages/app
   - packages/auth
-  - packages/breizh_blok_api_generated
   - packages/share_content
   - packages/url_launcher
 
@@ -34,24 +33,6 @@ melos:
     analyze:
       run: dart run melos exec --concurrency=1 --fail-fast -- "dart analyze . --fatal-infos"
       description: Run Dart analyze in all dart packages.
-
-    generate:breizh_blok_api:
-      run: |
-        set -e
-        rm -rf packages/breizh_blok_api_generated/lib && rm -rf packages/breizh_blok_api_generated/doc
-        docker run --rm \
-        -v ${PWD}:/project openapitools/openapi-generator-cli generate \
-        -i /project/openapi/breizh_blok_api/openapi.json \
-        -c /project/openapi/breizh_blok_api/config.json \
-        -g dart-dio \
-        -o /project/packages/breizh_blok_api_generated
-
-        sed -i '' "s/\([ ]*\)sdk: '[^']*'/\1sdk: '^3.9.0'/" packages/breizh_blok_api_generated/pubspec.yaml
-        echo "resolution: workspace" >> packages/breizh_blok_api_generated/pubspec.yaml
-
-        dart run melos exec --scope="breizh_blok_api_generated" -- "dart run build_runner build --delete-conflicting-outputs"
-        dart run melos exec --scope="breizh_blok_api_generated" -- "dart format ."
-        dart run melos exec --scope="breizh_blok_api_generated" -- "dart fix --apply ."
 
     test:
       run: dart run melos exec --concurrency=1 --fail-fast -- "flutter test --test-randomize-ordering-seed random"

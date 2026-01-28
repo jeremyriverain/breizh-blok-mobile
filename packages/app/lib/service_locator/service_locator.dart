@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
-import 'package:breizh_blok_api_generated/breizh_blok_api_generated.dart'
-    as api;
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/constants.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
@@ -66,13 +64,6 @@ class AuthUserNotifier extends _$AuthUserNotifier {
 
     ref.invalidate(userProvider);
   }
-}
-
-@riverpod
-api.BreizhBlokApiGenerated breizhBlokApi(Ref ref) {
-  return api.BreizhBlokApiGenerated(
-    dio: createDio(auth: ref.watch(authProvider)),
-  );
 }
 
 @riverpod

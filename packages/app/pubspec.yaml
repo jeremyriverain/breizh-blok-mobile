@@ -20,7 +20,6 @@ environment:
 
 dependencies:
   breizh_blok_analytics:
-  breizh_blok_api_generated:
   breizh_blok_auth:
   breizh_blok_share_content:
   breizh_blok_url_launcher:
