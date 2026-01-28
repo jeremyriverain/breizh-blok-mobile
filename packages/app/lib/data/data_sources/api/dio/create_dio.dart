@@ -12,6 +12,10 @@ Dio _createBasicDio() {
     )
     ..options = BaseOptions(
       baseUrl: Uri(scheme: 'https', host: Env.apiHost).origin,
+      headers: {
+        'Accept': 'application/ld+json',
+        'Content-type': 'application/ld+json',
+      },
     )
     ..interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true));
 }

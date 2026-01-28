@@ -1,8 +1,6 @@
-import 'package:breizh_blok_api_generated/breizh_blok_api_generated.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_user_profile_data_source.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/entities/user/user.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
@@ -12,24 +10,24 @@ import '../../../mocks.dart';
 
 void main() {
   group('ApiUserProfileDataSource', () {
-    late AuthZeroUserApi api;
+    late Dio dio;
     late ApiUserProfileDataSource dataSource;
 
     setUp(() {
-      api = MockBreizhBlokApiAuthZeroUserApi();
-      dataSource = ApiUserProfileDataSource(api: api);
+      dio = MockDio();
+      dataSource = ApiUserProfileDataSource(dio: dio);
     });
     group('get', () {
       test(
-        '''
-Given the API responds successfully
-Then a User is returned''',
+        '''Given the API responds successfully, Then a User is returned''',
         () async {
-          when(() => api.apiUsersIdGet(id: 'foo')).thenAnswer(
+          when(() => dio.get<Map<String, Object?>>('/users/foo')).thenAnswer(
             (_) async => Response(
-              data: AuthZeroUserJsonldAuthZeroUserRead((builder) {
-                builder.user.roles = ListBuilder<String>(['ROLE_FOO']);
-              }),
+              data: {
+                'user': {
+                  'roles': ['ROLE_FOO'],
+                },
+              },
               requestOptions: RequestOptions(),
             ),
           );
@@ -42,17 +40,19 @@ Then a User is returned''',
             equals(const User(roles: ['ROLE_FOO'])),
           );
 
-          verify(() => api.apiUsersIdGet(id: 'foo')).called(1);
-          verifyNoMoreInteractions(api);
+          verify(() => dio.get<Map<String, Object?>>('/users/foo')).called(1);
+          verifyNoMoreInteractions(dio);
         },
       );
 
       test(
         '''
-Given the API throws an error
-Then the exception is properly handled''',
+      Given the API throws an error
+      Then the exception is properly handled''',
         () async {
-          when(() => api.apiUsersIdGet(id: 'foo')).thenThrow(Exception('foo'));
+          when(
+            () => dio.get<Map<String, Object?>>('/users/foo'),
+          ).thenThrow(Exception('foo'));
 
           final response = await dataSource.get('foo').run();
 
@@ -70,17 +70,21 @@ Then the exception is properly handled''',
             ),
           );
 
-          verify(() => api.apiUsersIdGet(id: 'foo')).called(1);
-          verifyNoMoreInteractions(api);
+          verify(
+            () => dio.get<Map<String, Object?>>('/users/foo'),
+          ).called(1);
+          verifyNoMoreInteractions(dio);
         },
       );
 
       test(
         '''
-Given the API throws a DioException
-Then the exception is properly handled''',
+      Given the API throws a DioException
+      Then the exception is properly handled''',
         () async {
-          when(() => api.apiUsersIdGet(id: 'foo')).thenThrow(
+          when(
+            () => dio.get<Map<String, Object?>>('/users/foo'),
+          ).thenThrow(
             DioException(
               requestOptions: RequestOptions(),
               response: Response(
@@ -98,8 +102,10 @@ Then the exception is properly handled''',
             isA<UnprocessableEntityException>(),
           );
 
-          verify(() => api.apiUsersIdGet(id: 'foo')).called(1);
-          verifyNoMoreInteractions(api);
+          verify(
+            () => dio.get<Map<String, Object?>>('/users/foo'),
+          ).called(1);
+          verifyNoMoreInteractions(dio);
         },
       );
     });

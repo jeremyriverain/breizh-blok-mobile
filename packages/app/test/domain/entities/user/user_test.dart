@@ -8,5 +8,26 @@ void main() {
       expect(const User(roles: ['ROLE_USER']).isAmbassador, isFalse);
       expect(const User(roles: ['ROLE_AMBASSADOR']).isAmbassador, isTrue);
     });
+
+    test('fromJson', () {
+      expect(
+        User.fromJson({
+          'roles': ['ROLE_USER', 'ROLE_CONTRIBUTOR'],
+        }),
+        const User(roles: ['ROLE_USER', 'ROLE_CONTRIBUTOR']),
+      );
+
+      expect(
+        User.fromJson({
+          'roles': [],
+        }),
+        const User(),
+      );
+
+      expect(
+        User.fromJson({}),
+        const User(),
+      );
+    });
   });
 }
