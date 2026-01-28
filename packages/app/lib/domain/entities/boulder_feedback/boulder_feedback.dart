@@ -11,7 +11,8 @@ abstract class BoulderFeedback with _$BoulderFeedback {
   const factory BoulderFeedback({
     @JsonKey(toJson: _boulderToJson) required Boulder boulder,
     String? message,
-    Location? newLocation,
+    @JsonKey(toJson: _newLocationToJson) Location? newLocation,
+    String? videoLink,
   }) = _BoulderFeedack;
 
   const BoulderFeedback._();
@@ -21,3 +22,5 @@ abstract class BoulderFeedback with _$BoulderFeedback {
 }
 
 String _boulderToJson(Boulder value) => value.iri;
+
+Map<String, Object?>? _newLocationToJson(Location? value) => value?.toJson();
