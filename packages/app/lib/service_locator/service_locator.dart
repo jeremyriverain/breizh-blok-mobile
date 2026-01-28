@@ -4,7 +4,6 @@ import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/constants.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/domain/entities/user/user.dart';

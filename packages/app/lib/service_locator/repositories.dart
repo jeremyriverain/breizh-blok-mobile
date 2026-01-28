@@ -31,10 +31,9 @@ RemoteConfigRepository remoteConfigRepository(Ref ref) {
 
 @riverpod
 UserProfileRepository userProfileRepository(Ref ref) {
-  final breizhBlokApi = ref.watch(breizhBlokApiProvider);
   return UserProfileRepositoryImpl(
     apiDataSource: ApiUserProfileDataSource(
-      api: breizhBlokApi.getAuthZeroUserApi(),
+      dio: createDio(auth: ref.watch(authProvider)),
     ),
   );
 }

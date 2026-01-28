@@ -1,6 +1,4 @@
 import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
-import 'package:breizh_blok_api_generated/breizh_blok_api_generated.dart'
-    as breizh_blok_api;
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
@@ -51,15 +49,6 @@ class MockBoulderRepository extends Mock implements BoulderRepository {}
 
 class MockBoulderMarkerRepository extends Mock
     implements BoulderMarkerRepository {}
-
-class MockBreizhBlokApiBoulderFeedbackApi extends Mock
-    implements breizh_blok_api.BoulderFeedbackApi {}
-
-class MockBreizhBlokApiAuthZeroUserApi extends Mock
-    implements breizh_blok_api.AuthZeroUserApi {}
-
-class MockBreizhBlokApiBoulderFeedbackJsonldBoulderFeedbackRead extends Mock
-    implements breizh_blok_api.BoulderFeedbackJsonldReadBoulderFeedbackRead {}
 
 class MockCacheManager extends Mock implements CacheManager {}
 
