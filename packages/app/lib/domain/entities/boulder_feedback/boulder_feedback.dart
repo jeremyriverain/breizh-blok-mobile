@@ -8,7 +8,7 @@ part 'boulder_feedback.g.dart';
 
 @freezed
 abstract class BoulderFeedback with _$BoulderFeedback {
-  factory BoulderFeedback({
+  const factory BoulderFeedback({
     @JsonKey(toJson: _boulderToJson) required Boulder boulder,
     String? message,
     Location? newLocation,

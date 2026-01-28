@@ -18,7 +18,7 @@ void main() {
   setUp(() {
     api = MockBreizhBlokApiBoulderFeedbackApi();
     fakeResponse = MockBreizhBlokApiBoulderFeedbackJsonldBoulderFeedbackRead();
-    dataSource = ApiBoulderFeedbackDataSource(api: api);
+    dataSource = ApiBoulderFeedbackDataSource(dio: MockDio());
   });
 
   group('ApiBoulderFeedackDataSource', () {
