@@ -11,7 +11,7 @@ class ContributeBoulderVideoLinkForm extends FormGroup {
 
   static const ({String videoLink}) formKeys = (videoLink: 'videoLink');
 
-  String? get message =>
+  String? get videoLink =>
       controls[ContributeBoulderVideoLinkForm.formKeys.videoLink]?.value
           as String?;
 }

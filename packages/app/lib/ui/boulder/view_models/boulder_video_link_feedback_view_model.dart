@@ -40,7 +40,7 @@ class BoulderVideoLinkFeedbackViewModel
       );
       final result = await boulderFeedbackRepository
           .create(
-            BoulderFeedback(boulder: boulder, message: state.form.message),
+            BoulderFeedback(boulder: boulder, videoLink: state.form.videoLink),
           )
           .run();
 
