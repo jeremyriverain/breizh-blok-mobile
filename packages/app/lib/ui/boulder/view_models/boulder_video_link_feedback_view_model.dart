@@ -52,8 +52,6 @@ class BoulderVideoLinkFeedbackViewModel
               propertyPath: 'videoLink',
             );
 
-            print(videoLinkViolation);
-
             if (videoLinkViolation != null) {
               state.form
                   .control(
