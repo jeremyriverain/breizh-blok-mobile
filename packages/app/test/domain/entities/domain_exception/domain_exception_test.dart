@@ -6,20 +6,26 @@ void main() {
   group('DomainException', () {
     group('UnprocessableEntityException', () {
       test('fromJson', () {
-        final violation = UnprocessableEntityException.fromJson(const {
-          'violations': [
-            {
-              'propertyPath': 'foo',
-              'message': 'bar',
-            },
-          ],
-        });
         expect(
-          violation,
+          UnprocessableEntityException.fromJson(const {
+            'violations': [
+              {
+                'propertyPath': 'foo',
+                'message': 'bar',
+              },
+            ],
+          }),
           equals(
             const UnprocessableEntityException(
               violations: [Violation(propertyPath: 'foo', message: 'bar')],
             ),
+          ),
+        );
+
+        expect(
+          UnprocessableEntityException.fromJson(const {}),
+          equals(
+            const UnprocessableEntityException(),
           ),
         );
       });

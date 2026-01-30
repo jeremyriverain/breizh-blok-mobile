@@ -5,6 +5,7 @@ import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feed
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:breizh_blok_mobile/domain/entities/height_boulder/height_boulder.dart';
+import 'package:breizh_blok_mobile/domain/entities/violation/violation.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
@@ -830,6 +831,93 @@ Then a ContributeBoulderScreen is displayed
           );
 
           expect(find.byType(BoulderVideoLinkFormScreen), findsOneWidget);
+        },
+      );
+
+      testWidgets(
+        '''
+      Given the form is valid and I submit it,
+      If the repository returns an UnprocessableEntityException,
+      Then an error message is displayed directly in the field
+      ''',
+        (WidgetTester tester) async {
+          when(
+            () => boulderRepository.find('foo'),
+          ).thenAnswer((_) async => fakeBoulder);
+          when(
+            () => boulderRepository.findBy(
+              queryParams: any(named: 'queryParams'),
+            ),
+          ).thenAnswer(
+            (_) async => PaginatedCollection(
+              items: [fakeBoulder.copyWith(name: 'boulder associated')],
+              totalItems: 1,
+            ),
+          );
+          when(
+            () => boulderFeedbackRepository.create(
+              const BoulderFeedback(
+                boulder: fakeBoulder,
+                videoLink: 'https://foo.bar',
+              ),
+            ),
+          ).thenReturn(
+            TaskEither.left(
+              const UnprocessableEntityException(
+                violations: [
+                  Violation(
+                    propertyPath: 'videoLink',
+                    message: 'error: foo bar baz',
+                  ),
+                ],
+              ),
+            ),
+          );
+
+          await pumpWidget(tester);
+
+          await tester.tap(find.widgetWithText(ListTile, 'Contribuer'));
+
+          await tester.pumpAndSettle();
+
+          await tester.tap(
+            find.text('Proposer une vidéo du bloc'),
+          );
+
+          await tester.pumpAndSettle();
+
+          await tester.enterText(
+            find.byType(ReactiveTextField<String>),
+            'https://foo.bar',
+          );
+          await tester.pump();
+
+          await tester.tap(
+            find.descendant(
+              of: find.byType(BoulderVideoLinkFormScreen),
+              matching: find.widgetWithText(FilledButton, 'Envoyer'),
+            ),
+          );
+
+          await tester.pump();
+
+          expect(
+            find.descendant(
+              of: find.byType(SnackBar),
+              matching: find.text('Une erreur est survenue'),
+            ),
+            findsOneWidget,
+          );
+
+          expect(find.byType(BoulderVideoLinkFormScreen), findsOneWidget);
+
+          expect(
+            find.widgetWithText(
+              ReactiveTextField<String>,
+              'error: foo bar baz',
+            ),
+            findsOneWidget,
+          );
         },
       );
 
