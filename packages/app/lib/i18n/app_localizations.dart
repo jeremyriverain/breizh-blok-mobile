@@ -647,6 +647,12 @@ abstract class AppLocalizations {
   /// **'The most recent'**
   String get theMostRecent;
 
+  /// No description provided for @thisIsNotYoutubeUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'This is not a Youtube url'**
+  String get thisIsNotYoutubeUrl;
+
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:

@@ -209,10 +209,11 @@
   "theEasiest": "Les plus faciles",
   "theHardest": "Les plus difficiles",
   "theMostRecent": "Les plus récents",
+  "thisIsNotYoutubeUrl": "Ceci n'est pas une URL YouTube valide.",
   "tryAgain": "Essayer à nouveau",
   "validatorsRequired": "Ce champ est obligatoire",
   "videoLink": "URL de la vidéo",
   "videoLinkHelper": "Seulement les liens Youtube sont acceptés",
   "yourMessageHasBeenSent": "Merci, votre message a été envoyé",
-   "yourVideoLinkHasBeenSent": "Merci, votre vidéo a été envoyée. Elle sera examinée dès que possible."
+  "yourVideoLinkHasBeenSent": "Merci, votre vidéo a été envoyée. Elle sera examinée dès que possible."
 }

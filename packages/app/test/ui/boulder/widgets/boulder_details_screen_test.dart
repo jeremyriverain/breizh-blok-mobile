@@ -740,6 +740,28 @@ Then a ContributeBoulderScreen is displayed
             ),
             findsOneWidget,
           );
+
+          await tester.enterText(
+            find.byType(ReactiveTextField<String>),
+            'foo.bar',
+          );
+
+          await tester.tap(
+            find.descendant(
+              of: find.byType(BoulderVideoLinkFormScreen),
+              matching: find.widgetWithText(FilledButton, 'Envoyer'),
+            ),
+          );
+
+          await tester.pump();
+
+          expect(
+            find.widgetWithText(
+              ReactiveTextField<String>,
+              "Ceci n'est pas une URL YouTube valide.",
+            ),
+            findsOneWidget,
+          );
         },
       );
 

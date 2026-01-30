@@ -386,6 +386,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get theMostRecent => 'Les plus récents';
 
   @override
+  String get thisIsNotYoutubeUrl => 'Ceci n\'est pas une URL YouTube valide.';
+
+  @override
   String get tryAgain => 'Essayer à nouveau';
 
   @override

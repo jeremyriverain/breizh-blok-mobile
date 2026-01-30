@@ -69,6 +69,9 @@ class BoulderVideoLinkFormScreen extends StatelessWidget {
                             key: Key(
                               ContributeBoulderVideoLinkForm.formKeys.videoLink,
                             ),
+                            validationMessages: {
+                              'url': (_) => localizations.thisIsNotYoutubeUrl,
+                            },
                             formControlName: ContributeBoulderVideoLinkForm
                                 .formKeys
                                 .videoLink,

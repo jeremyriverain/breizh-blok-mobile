@@ -386,6 +386,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get theMostRecent => 'The most recent';
 
   @override
+  String get thisIsNotYoutubeUrl => 'This is not a Youtube url';
+
+  @override
   String get tryAgain => 'Try again';
 
   @override
