@@ -1,4 +1,3 @@
-import 'package:breizh_blok_mobile/ui/core/validators/not_equal_validator.dart';
 import 'package:breizh_blok_mobile/ui/core/validators/url_validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:reactive_forms/reactive_forms.dart';
