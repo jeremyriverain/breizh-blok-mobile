@@ -1,4 +1,5 @@
 import 'package:breizh_blok_mobile/domain/entities/violation/violation.dart';
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'domain_exception.freezed.dart';
@@ -18,4 +19,11 @@ sealed class DomainException with _$DomainException implements Exception {
 
   factory DomainException.fromJson(Map<String, Object?> json) =>
       _$DomainExceptionFromJson(json);
+}
+
+extension UnprocessableEntityExceptionExtension
+    on UnprocessableEntityException {
+  Violation? findViolation({required String propertyPath}) {
+    return violations.firstWhereOrNull((v) => v.propertyPath == propertyPath);
+  }
 }

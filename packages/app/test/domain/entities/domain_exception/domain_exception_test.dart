@@ -23,6 +23,22 @@ void main() {
           ),
         );
       });
+
+      test('findViolation', () {
+        expect(
+          const UnprocessableEntityException(
+            violations: [Violation(propertyPath: 'foo', message: 'bar')],
+          ).findViolation(propertyPath: 'foo'),
+          equals(const Violation(propertyPath: 'foo', message: 'bar')),
+        );
+
+        expect(
+          const UnprocessableEntityException(
+            violations: const [],
+          ).findViolation(propertyPath: 'foo'),
+          isNull,
+        );
+      });
     });
   });
 }
