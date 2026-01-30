@@ -4,7 +4,9 @@ import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_message_form.dart';
+import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_video_link_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_video_link_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_line_boulders.dart';
@@ -109,14 +111,27 @@ class BoulderDetailsTab extends StatelessWidget {
             const Divider(),
           Consumer(
             builder: (context, ref, child) {
-              return BlocProvider(
-                create: (context) => BoulderMessageFeedbackViewModel(
-                  form: ContributeBoulderMessageForm(),
-                  boulderFeedbackRepository: ref.watch(
-                    boulderFeedbackRepositoryProvider,
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => BoulderMessageFeedbackViewModel(
+                      form: ContributeBoulderMessageForm(),
+                      boulderFeedbackRepository: ref.watch(
+                        boulderFeedbackRepositoryProvider,
+                      ),
+                      boulder: boulder,
+                    ),
                   ),
-                  boulder: boulder,
-                ),
+                  BlocProvider(
+                    create: (context) => BoulderVideoLinkFeedbackViewModel(
+                      form: ContributeBoulderVideoLinkForm(),
+                      boulderFeedbackRepository: ref.watch(
+                        boulderFeedbackRepositoryProvider,
+                      ),
+                      boulder: boulder,
+                    ),
+                  ),
+                ],
                 child: Builder(
                   builder: (parentContext) {
                     return ClickableListTile(
@@ -126,16 +141,27 @@ class BoulderDetailsTab extends StatelessWidget {
                         await Navigator.push(
                           context,
                           MaterialPageRoute<void>(
-                            builder: (context) =>
+                            builder: (context) => MultiBlocProvider(
+                              providers: [
                                 BlocProvider<
                                   BoulderMessageFeedbackViewModel
                                 >.value(
                                   value: parentContext
                                       .read<BoulderMessageFeedbackViewModel>(),
-                                  child: ContributeBoulderScreen(
-                                    boulder: boulder,
-                                  ),
                                 ),
+                                BlocProvider<
+                                  BoulderVideoLinkFeedbackViewModel
+                                >.value(
+                                  value: parentContext
+                                      .read<
+                                        BoulderVideoLinkFeedbackViewModel
+                                      >(),
+                                ),
+                              ],
+                              child: ContributeBoulderScreen(
+                                boulder: boulder,
+                              ),
+                            ),
                           ),
                         );
                       },

@@ -201,6 +201,7 @@
   "specifyBoulderLocation": "Specifiy the boulder's location",
   "submitLocation": "Submit location",
   "suggestions": "Suggestions",
+  "suggestVideo": "Suggest a video for the boulder",
   "support": "Support",
   "termsOfUse": "Terms of use",
   "termsOfUseContent": "Bouldering is a dangerous activity. Its practice is under the entire responsibility of the practitioners. Breizh Blok declines all responsibility in the event of an accident.",
@@ -208,7 +209,11 @@
   "theEasiest": "The easiest",
   "theHardest": "The hardest",
   "theMostRecent": "The most recent",
+  "thisIsNotYoutubeUrl": "This is not a Youtube url",
   "tryAgain": "Try again",
   "validatorsRequired": "This field is required",
-  "yourMessageHasBeenSent": "Thanks, your message has been sent"
+  "videoLink": "Video link",
+  "videoLinkHelper": "Only Youtube links are accepted",
+  "yourMessageHasBeenSent": "Thanks, your message has been sent",
+  "yourVideoLinkHasBeenSent": "Thanks, your video link has been sent. It will be reviewed as soon as possible."
 }

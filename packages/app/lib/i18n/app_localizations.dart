@@ -599,6 +599,12 @@ abstract class AppLocalizations {
   /// **'Suggestions'**
   String get suggestions;
 
+  /// No description provided for @suggestVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggest a video for the boulder'**
+  String get suggestVideo;
+
   /// No description provided for @support.
   ///
   /// In en, this message translates to:
@@ -641,6 +647,12 @@ abstract class AppLocalizations {
   /// **'The most recent'**
   String get theMostRecent;
 
+  /// No description provided for @thisIsNotYoutubeUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'This is not a Youtube url'**
+  String get thisIsNotYoutubeUrl;
+
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:
@@ -653,11 +665,29 @@ abstract class AppLocalizations {
   /// **'This field is required'**
   String get validatorsRequired;
 
+  /// No description provided for @videoLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Video link'**
+  String get videoLink;
+
+  /// No description provided for @videoLinkHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Only Youtube links are accepted'**
+  String get videoLinkHelper;
+
   /// No description provided for @yourMessageHasBeenSent.
   ///
   /// In en, this message translates to:
   /// **'Thanks, your message has been sent'**
   String get yourMessageHasBeenSent;
+
+  /// No description provided for @yourVideoLinkHasBeenSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks, your video link has been sent. It will be reviewed as soon as possible.'**
+  String get yourVideoLinkHasBeenSent;
 }
 
 class _AppLocalizationsDelegate

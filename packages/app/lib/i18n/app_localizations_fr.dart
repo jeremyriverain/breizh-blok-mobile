@@ -360,6 +360,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get suggestions => 'Suggestions';
 
   @override
+  String get suggestVideo => 'Proposer une vidéo du bloc';
+
+  @override
   String get support => 'Soutenir';
 
   @override
@@ -383,11 +386,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get theMostRecent => 'Les plus récents';
 
   @override
+  String get thisIsNotYoutubeUrl => 'Ceci n\'est pas une URL YouTube valide.';
+
+  @override
   String get tryAgain => 'Essayer à nouveau';
 
   @override
   String get validatorsRequired => 'Ce champ est obligatoire';
 
   @override
+  String get videoLink => 'URL de la vidéo';
+
+  @override
+  String get videoLinkHelper => 'Seulement les liens Youtube sont acceptés';
+
+  @override
   String get yourMessageHasBeenSent => 'Merci, votre message a été envoyé';
+
+  @override
+  String get yourVideoLinkHasBeenSent =>
+      'Merci, votre vidéo a été envoyée. Elle sera examinée dès que possible.';
 }

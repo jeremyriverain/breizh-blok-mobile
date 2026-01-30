@@ -360,6 +360,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get suggestions => 'Suggestions';
 
   @override
+  String get suggestVideo => 'Suggest a video for the boulder';
+
+  @override
   String get support => 'Support';
 
   @override
@@ -383,11 +386,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get theMostRecent => 'The most recent';
 
   @override
+  String get thisIsNotYoutubeUrl => 'This is not a Youtube url';
+
+  @override
   String get tryAgain => 'Try again';
 
   @override
   String get validatorsRequired => 'This field is required';
 
   @override
+  String get videoLink => 'Video link';
+
+  @override
+  String get videoLinkHelper => 'Only Youtube links are accepted';
+
+  @override
   String get yourMessageHasBeenSent => 'Thanks, your message has been sent';
+
+  @override
+  String get yourVideoLinkHasBeenSent =>
+      'Thanks, your video link has been sent. It will be reviewed as soon as possible.';
 }
