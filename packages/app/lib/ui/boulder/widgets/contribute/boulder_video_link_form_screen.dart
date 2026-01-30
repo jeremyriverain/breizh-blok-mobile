@@ -71,7 +71,9 @@ class BoulderVideoLinkFormScreen extends StatelessWidget {
                             ),
                             validationMessages: {
                               'url': (_) => localizations.thisIsNotYoutubeUrl,
+                              'api': (e) => e.toString(),
                             },
+
                             formControlName: ContributeBoulderVideoLinkForm
                                 .formKeys
                                 .videoLink,
@@ -80,6 +82,7 @@ class BoulderVideoLinkFormScreen extends StatelessWidget {
                               labelText: localizations.videoLink,
                               alignLabelWithHint: true,
                               helperText: localizations.videoLinkHelper,
+                              errorMaxLines: 3,
                             ),
                           ),
                         ],

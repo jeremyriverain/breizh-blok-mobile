@@ -7,7 +7,12 @@ extension DioExceptionExt on DioException {
 
     switch (statusCode) {
       case 422:
-        return const UnprocessableEntityException();
+        final data = response?.data;
+        if (data is Map<String, dynamic>) {
+          return UnprocessableEntityException.fromJson(data);
+        } else {
+          return const UnprocessableEntityException();
+        }
       default:
         return UnknownException(
           message: '$statusCode on ${requestOptions.path}',

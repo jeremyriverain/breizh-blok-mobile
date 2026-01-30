@@ -19,7 +19,7 @@ class RemoteConfigRepositoryImpl implements RemoteConfigRepository {
         return value;
       },
       (error, _) {
-        return DomainException.unknwown(message: error.toString());
+        return DomainException.unknown(message: error.toString());
       },
     );
   }
