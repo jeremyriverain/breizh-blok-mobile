@@ -33,9 +33,9 @@ void main() {
         );
 
         expect(
-          const UnprocessableEntityException(
-            violations: const [],
-          ).findViolation(propertyPath: 'foo'),
+          const UnprocessableEntityException().findViolation(
+            propertyPath: 'foo',
+          ),
           isNull,
         );
       });
