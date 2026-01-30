@@ -949,7 +949,8 @@ Then a ContributeBoulderScreen is displayed
             find.descendant(
               of: find.byType(SnackBar),
               matching: find.text(
-                'Merci, votre vidéo a été envoyée. Elle sera examinée dès que possible.',
+                'Merci, votre vidéo a été envoyée. '
+                'Elle sera examinée dès que possible.',
               ),
             ),
             findsAny,
