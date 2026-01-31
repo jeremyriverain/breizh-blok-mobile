@@ -36,12 +36,14 @@ class ContributeBoulderScreen extends StatelessWidget {
             leading: const Icon(Icons.comment),
             title: Text(localizations.makeSuggestion),
             onTap: () async {
+              final viewModel =
+                  context.read<BoulderMessageFeedbackViewModel>();
               await Navigator.push(
                 context,
                 MaterialPageRoute<void>(
                   builder: (_) =>
                       BlocProvider<BoulderMessageFeedbackViewModel>.value(
-                        value: context.read<BoulderMessageFeedbackViewModel>(),
+                        value: viewModel,
                         child: BoulderMessageFormScreen(boulder: boulder),
                       ),
                 ),
@@ -52,13 +54,14 @@ class ContributeBoulderScreen extends StatelessWidget {
             leading: const Icon(Icons.video_call),
             title: Text(localizations.suggestVideo),
             onTap: () async {
+              final viewModel =
+                  context.read<BoulderVideoLinkFeedbackViewModel>();
               await Navigator.push(
                 context,
                 MaterialPageRoute<void>(
                   builder: (_) =>
                       BlocProvider<BoulderVideoLinkFeedbackViewModel>.value(
-                        value: context
-                            .read<BoulderVideoLinkFeedbackViewModel>(),
+                        value: viewModel,
                         child: BoulderVideoLinkFormScreen(boulder: boulder),
                       ),
                 ),
