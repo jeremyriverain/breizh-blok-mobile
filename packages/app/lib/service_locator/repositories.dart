@@ -8,16 +8,26 @@ import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_reposito
 import 'package:breizh_blok_mobile/domain/repositories/remote_config_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/user_profile_repository.dart';
 import 'package:breizh_blok_mobile/service_locator/firebase.dart';
+import 'package:breizh_blok_mobile/service_locator/locale.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
+import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'repositories.g.dart';
 
 @riverpod
+Dio dio(Ref ref) {
+  return createDio(
+    auth: ref.watch(authProvider),
+    locale: ref.watch(myLocaleProvider),
+  );
+}
+
+@riverpod
 BoulderFeedbackRepository boulderFeedbackRepository(Ref ref) {
   return BoulderFeedbackRepositoryImpl(
     apiDataSource: ApiBoulderFeedbackDataSource(
-      dio: createDio(auth: ref.watch(authProvider)),
+      dio: ref.watch(dioProvider),
     ),
   );
 }
@@ -33,7 +43,7 @@ RemoteConfigRepository remoteConfigRepository(Ref ref) {
 UserProfileRepository userProfileRepository(Ref ref) {
   return UserProfileRepositoryImpl(
     apiDataSource: ApiUserProfileDataSource(
-      dio: createDio(auth: ref.watch(authProvider)),
+      dio: ref.watch(dioProvider),
     ),
   );
 }
