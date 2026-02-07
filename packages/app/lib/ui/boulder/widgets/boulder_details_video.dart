@@ -1,4 +1,5 @@
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,22 +28,28 @@ class BoulderDetailsVideo extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 Positioned.fill(
-                  child: Image.network(
-                    'https://img.youtube.com/vi/$videoId/hqdefault.jpg',
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        'https://img.youtube.com/vi/$videoId/hqdefault.jpg',
                     fit: BoxFit.cover,
+                    errorWidget: (context, url, error) => const ColoredBox(
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 64,
                   height: 64,
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.6),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.play_arrow,
-                    color: Colors.white,
-                    size: 40,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.6),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                      size: 40,
+                    ),
                   ),
                 ),
               ],
