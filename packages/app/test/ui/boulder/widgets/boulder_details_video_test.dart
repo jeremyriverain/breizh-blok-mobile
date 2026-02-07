@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/domain/entities/video_link/video_link.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_video.dart';
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
@@ -12,8 +13,11 @@ import '../../../widget_test_utils.dart';
 
 void main() {
   group('BoulderDetailsVideo', () {
-    const videoId = 'abc123';
-    const url = 'https://www.youtube.com/watch?v=abc123';
+    const videoLink = VideoLink(
+      url: 'https://www.youtube.com/watch?v=foo',
+      videoId: 'foo',
+      type: 'youtube',
+    );
 
     late UrlLauncher urlLauncher;
 
@@ -27,8 +31,7 @@ void main() {
         await tester.myPumpWidget(
           overrides: [urlLauncherProvider.overrideWith((_) => urlLauncher)],
           widget: const BoulderDetailsVideo(
-            videoId: videoId,
-            url: url,
+            videoLink: videoLink,
           ),
         );
 
@@ -43,14 +46,13 @@ void main() {
       'When I tap on the video thumbnail, then it opens the video url',
       (tester) async {
         when(
-          () => urlLauncher.openUrl(Uri.parse(url)),
+          () => urlLauncher.openUrl(Uri.parse(videoLink.url)),
         ).thenReturn(TaskEither<LaunchUrlException, bool>.of(true));
 
         await tester.myPumpWidget(
           overrides: [urlLauncherProvider.overrideWith((_) => urlLauncher)],
           widget: const BoulderDetailsVideo(
-            videoId: videoId,
-            url: url,
+            videoLink: videoLink,
           ),
         );
 
@@ -61,7 +63,7 @@ void main() {
         await tester.pump();
 
         verify(
-          () => urlLauncher.openUrl(Uri.parse(url)),
+          () => urlLauncher.openUrl(Uri.parse(videoLink.url)),
         ).called(1);
       },
     );
@@ -73,7 +75,7 @@ then no error is thrown
 ''',
       (tester) async {
         when(
-          () => urlLauncher.openUrl(Uri.parse(url)),
+          () => urlLauncher.openUrl(Uri.parse(videoLink.url)),
         ).thenReturn(
           TaskEither<LaunchUrlException, bool>.left(
             const LaunchUrlException.unknwown(message: 'error'),
@@ -82,10 +84,7 @@ then no error is thrown
 
         await tester.myPumpWidget(
           overrides: [urlLauncherProvider.overrideWith((_) => urlLauncher)],
-          widget: const BoulderDetailsVideo(
-            videoId: videoId,
-            url: url,
-          ),
+          widget: const BoulderDetailsVideo(videoLink: videoLink),
         );
 
         await tester.pump();
@@ -95,7 +94,7 @@ then no error is thrown
         await tester.pump();
 
         verify(
-          () => urlLauncher.openUrl(Uri.parse(url)),
+          () => urlLauncher.openUrl(Uri.parse(videoLink.url)),
         ).called(1);
       },
     );

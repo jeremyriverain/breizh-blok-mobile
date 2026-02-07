@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/domain/entities/video_link/video_link.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -5,13 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BoulderDetailsVideo extends StatelessWidget {
   const BoulderDetailsVideo({
-    required this.videoId,
-    required this.url,
+    required this.videoLink,
     super.key,
   });
 
-  final String videoId;
-  final String url;
+  final VideoLink videoLink;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class BoulderDetailsVideo extends StatelessWidget {
         final urlLauncher = ref.watch(urlLauncherProvider);
         return GestureDetector(
           onTap: () async {
-            await urlLauncher.openUrl(Uri.parse(url)).run();
+            await urlLauncher.openUrl(Uri.parse(videoLink.url)).run();
           },
           child: AspectRatio(
             aspectRatio: 16 / 9,
@@ -30,7 +29,7 @@ class BoulderDetailsVideo extends StatelessWidget {
                 Positioned.fill(
                   child: CachedNetworkImage(
                     imageUrl:
-                        'https://img.youtube.com/vi/$videoId/hqdefault.jpg',
+                        'https://img.youtube.com/vi/${videoLink.videoId}/hqdefault.jpg',
                     fit: BoxFit.cover,
                     errorWidget: (context, url, error) => const ColoredBox(
                       color: Colors.black,

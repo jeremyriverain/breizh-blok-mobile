@@ -99,8 +99,7 @@ class BoulderDetailsTab extends StatelessWidget {
               (v) => Column(
                 children: [
                   BoulderDetailsVideo(
-                    videoId: v.videoId,
-                    url: v.url,
+                    videoLink: v,
                   ),
                   const SizedBox(
                     height: 10,
