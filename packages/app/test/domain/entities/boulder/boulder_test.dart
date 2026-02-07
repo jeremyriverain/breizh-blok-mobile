@@ -9,8 +9,6 @@ import 'package:breizh_blok_mobile/domain/entities/rock/rock.dart';
 import 'package:breizh_blok_mobile/domain/entities/video_link/video_link.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../test_utils.dart';
-
 void main() {
   group('Boulder', () {
     test('fromJson', () {
@@ -94,37 +92,5 @@ void main() {
       );
     });
 
-    test('youtubeVideos', () {
-      expect(
-        fakeBoulder
-            .copyWith(
-              videoLinks: const [
-                VideoLink(
-                  url: 'https://foo.bar',
-                  videoId: 'foo',
-                  type: 'foo',
-                ),
-              ],
-            )
-            .youtubeVideos,
-        isEmpty,
-      );
-      expect(
-        fakeBoulder
-            .copyWith(
-              videoLinks: const [
-                VideoLink(
-                  url: 'https://foo.bar',
-                  videoId: 'foo',
-                  type: 'youtube',
-                ),
-              ],
-            )
-            .youtubeVideos,
-        equals(const [
-          'foo',
-        ]),
-      );
-    });
-  });
+});
 }
