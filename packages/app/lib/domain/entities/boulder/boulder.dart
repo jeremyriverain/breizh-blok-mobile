@@ -29,8 +29,6 @@ abstract class Boulder with _$Boulder {
 
   String get id => iri.replaceAll('/boulders/', '');
 
-  List<String> get youtubeVideos => videoLinks
-      .where((v) => v.type == 'youtube')
-      .map((v) => v.videoId)
-      .toList();
+  List<VideoLink> get youtubeVideos =>
+      videoLinks.where((v) => v.type == 'youtube').toList();
 }

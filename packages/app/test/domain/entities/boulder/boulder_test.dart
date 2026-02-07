@@ -122,7 +122,11 @@ void main() {
             )
             .youtubeVideos,
         equals(const [
-          'foo',
+          VideoLink(
+            url: 'https://foo.bar',
+            videoId: 'foo',
+            type: 'youtube',
+          ),
         ]),
       );
     });

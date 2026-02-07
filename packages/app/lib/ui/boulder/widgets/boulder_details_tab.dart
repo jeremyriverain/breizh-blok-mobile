@@ -96,10 +96,10 @@ class BoulderDetailsTab extends StatelessWidget {
           const SizedBox(height: 20),
           if (boulder.youtubeVideos.isNotEmpty)
             ...boulder.youtubeVideos.map(
-              (y) => Column(
+              (v) => Column(
                 children: [
                   BoulderDetailsVideo(
-                    videoId: y,
+                    videoLink: v,
                   ),
                   const SizedBox(
                     height: 10,

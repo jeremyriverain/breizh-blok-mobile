@@ -5,11 +5,13 @@ import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feed
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:breizh_blok_mobile/domain/entities/height_boulder/height_boulder.dart';
+import 'package:breizh_blok_mobile/domain/entities/video_link/video_link.dart';
 import 'package:breizh_blok_mobile/domain/entities/violation/violation.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_height.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_screen.dart';
+import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_video.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_message_form_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_video_link_form_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_screen.dart';
@@ -175,6 +177,36 @@ void main() {
         find.widgetWithText(BoulderDetailsHeight, 'Plus de 3m'),
         findsOneWidget,
       );
+    });
+
+    testWidgets('BoulderDetailsVideo is displayed when there is a video', (
+      WidgetTester tester,
+    ) async {
+      when(
+        () => boulderRepository.find('foo'),
+      ).thenAnswer(
+        (_) async => fakeBoulder.copyWith(
+          videoLinks: const [
+            VideoLink(
+              url: 'https://www.youtube.com/watch?v=abc123',
+              videoId: 'abc123',
+              type: 'youtube',
+            ),
+          ],
+        ),
+      );
+      when(
+        () => boulderRepository.findBy(queryParams: any(named: 'queryParams')),
+      ).thenAnswer(
+        (_) async => const PaginatedCollection(
+          items: [],
+          totalItems: 0,
+        ),
+      );
+
+      await pumpWidget(tester);
+
+      expect(find.byType(BoulderDetailsVideo), findsOneWidget);
     });
 
     group('Contribute', () {
