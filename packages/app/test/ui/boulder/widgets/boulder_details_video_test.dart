@@ -65,5 +65,39 @@ void main() {
         ).called(1);
       },
     );
+
+    testWidgets(
+      '''
+When I tap on the video thumbnail and openUrl returns a LaunchUrlException,
+then no error is thrown
+''',
+      (tester) async {
+        when(
+          () => urlLauncher.openUrl(Uri.parse(url)),
+        ).thenReturn(
+          TaskEither<LaunchUrlException, bool>.left(
+            const LaunchUrlException.unknwown(message: 'error'),
+          ),
+        );
+
+        await tester.myPumpWidget(
+          overrides: [urlLauncherProvider.overrideWith((_) => urlLauncher)],
+          widget: const BoulderDetailsVideo(
+            videoId: videoId,
+            url: url,
+          ),
+        );
+
+        await tester.pump();
+
+        await tester.tap(find.byType(GestureDetector).first);
+
+        await tester.pump();
+
+        verify(
+          () => urlLauncher.openUrl(Uri.parse(url)),
+        ).called(1);
+      },
+    );
   });
 }
