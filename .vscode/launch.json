@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "Flutter Staging",
+      "request": "launch",
+      "type": "dart",
+      "program": "packages/app/lib/main_staging.dart",
+       "args": [
+        "--flavor", "staging"
+      ]
+    },
+     {
+      "name": "Flutter Prod",
+      "request": "launch",
+      "type": "dart",
+      "program": "packages/app/lib/main_prod.dart",
+      "args": [
+        "--flavor", "prod"
+      ]
+    }
+  ]
+}
