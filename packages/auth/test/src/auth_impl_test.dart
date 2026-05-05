@@ -395,6 +395,28 @@ Then the access token is not updated
           ),
         );
       });
+
+      test(
+        'credentials are null if error occurs while credentials renewal',
+        () async {
+          when(
+            () => authZero.credentialsManager,
+          ).thenReturn(credentialsManager);
+          when(
+            () => credentialsManager.hasValidCredentials(),
+          ).thenAnswer((_) async => true);
+
+          when(
+            () => credentialsManager.credentials(),
+          ).thenThrow('foo');
+          final auth = await AuthFactoryImpl(
+            auth0: authZero,
+            audience: 'foo',
+          ).initialize();
+
+          expect(auth.credentials.value, isNull);
+        },
+      );
     });
   });
 }

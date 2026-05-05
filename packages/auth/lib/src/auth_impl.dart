@@ -95,7 +95,7 @@ class AuthFactoryImpl implements AuthFactory {
   final auth0.Auth0 _auth0;
   final String _audience;
 
-  Future<auth0.Credentials?> _renewCredentials() async {
+  Future<auth0.Credentials?> _getCredentials() async {
     try {
       return await _auth0.credentialsManager.credentials();
     } catch (e) {
@@ -108,7 +108,7 @@ class AuthFactoryImpl implements AuthFactory {
   Future<Auth> initialize() async {
     final auth0Credentials =
         await _auth0.credentialsManager.hasValidCredentials()
-        ? (await _renewCredentials())
+        ? (await _getCredentials())
         : null;
 
     return AuthImpl(
