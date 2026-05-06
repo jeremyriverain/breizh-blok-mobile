@@ -26,7 +26,7 @@ dependencies:
   cached_network_image: ^3.4.1
   collection: ^1.19.1
   cupertino_icons: ^1.0.8
-  dio: ^5.9.0
+  dio: ^5.9.2
   dio_http2_adapter: ^2.6.0
   drift: ^2.29.0
   envied: ^1.3.1
