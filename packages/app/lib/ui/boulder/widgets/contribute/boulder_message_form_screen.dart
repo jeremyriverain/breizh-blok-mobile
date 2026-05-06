@@ -35,8 +35,8 @@ class BoulderMessageFormScreen extends StatelessWidget {
                 >(
                   listener:
                       (
-                        BuildContext context,
-                        BoulderMessageFeedbackState state,
+                        context,
+                        state,
                       ) {
                         if (state.done) {
                           ScaffoldMessenger.of(context).showSnackBar(

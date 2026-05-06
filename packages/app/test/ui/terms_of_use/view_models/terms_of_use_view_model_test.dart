@@ -15,10 +15,10 @@ void main() {
         preferences = await SharedPreferences.getInstance();
       },
       build: () => TermsOfUseViewModel(preferences: preferences),
-      act: (TermsOfUseViewModel bloc) =>
+      act: (bloc) =>
           bloc.add(const TermsOfUseAcceptanceRequested()),
       expect: () => [false],
-      verify: (TermsOfUseViewModel bloc) async {
+      verify: (bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
         final hasAccepted = sharedPreferences.getBool(
           TermsOfUseViewModel.termsOfUseAcceptanceKey,
@@ -36,10 +36,10 @@ void main() {
         preferences = await SharedPreferences.getInstance();
       },
       build: () => TermsOfUseViewModel(preferences: preferences),
-      act: (TermsOfUseViewModel bloc) =>
+      act: (bloc) =>
           bloc.add(const TermsOfUseAcceptanceRequested()),
       expect: () => [false],
-      verify: (TermsOfUseViewModel bloc) async {
+      verify: (bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
         final hasAccepted = sharedPreferences.getBool(
           TermsOfUseViewModel.termsOfUseAcceptanceKey,
@@ -57,10 +57,10 @@ void main() {
         preferences = await SharedPreferences.getInstance();
       },
       build: () => TermsOfUseViewModel(preferences: preferences),
-      act: (TermsOfUseViewModel bloc) =>
+      act: (bloc) =>
           bloc.add(const TermsOfUseAcceptanceRequested()),
       expect: () => [true],
-      verify: (TermsOfUseViewModel bloc) async {
+      verify: (bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
         final hasAccepted = sharedPreferences.getBool(
           TermsOfUseViewModel.termsOfUseAcceptanceKey,
@@ -78,9 +78,9 @@ void main() {
         preferences = await SharedPreferences.getInstance();
       },
       build: () => TermsOfUseViewModel(preferences: preferences),
-      act: (TermsOfUseViewModel bloc) => bloc.add(const TermsOfUseAccepted()),
+      act: (bloc) => bloc.add(const TermsOfUseAccepted()),
       expect: () => [false, true],
-      verify: (TermsOfUseViewModel bloc) async {
+      verify: (bloc) async {
         final sharedPreferences = await SharedPreferences.getInstance();
         final hasAccepted = sharedPreferences.getBool(
           TermsOfUseViewModel.termsOfUseAcceptanceKey,

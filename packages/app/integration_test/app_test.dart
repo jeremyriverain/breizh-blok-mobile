@@ -143,7 +143,7 @@ void main() async {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('page viewed are tracked', (WidgetTester tester) async {
+  testWidgets('page viewed are tracked', (tester) async {
     // prior to test, I fetch boulders to retrieve a reference
     // and assert boulders details dynamically
     final boulderRepository = BoulderRepository(httpClient: httpClient);
@@ -178,7 +178,7 @@ void main() async {
   });
 
   testWidgets('i can switch between english and french', (
-    WidgetTester tester,
+    tester,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     expect(prefs.getString(kLocalePrefs), equals('fr'));
@@ -246,7 +246,7 @@ void main() async {
   });
 
   testWidgets('I list boulders and show details about them', (
-    WidgetTester tester,
+    tester,
   ) async {
     // prior to test, I fetch boulders to retrieve a reference
     // and assert boulders details dynamically
@@ -357,7 +357,7 @@ void main() async {
   });
 
   testWidgets('it shows an alert dialog containing terms of use', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.runAsync(() async {
       // test code here
@@ -369,7 +369,7 @@ void main() async {
   });
 
   testWidgets('search for a boulder, view details', (
-    WidgetTester tester,
+    tester,
   ) async {
     await runApplication(tester: tester);
     const searchedBoulder = 'retaretapas';
@@ -387,7 +387,7 @@ void main() async {
     expect(find.text(searchedBoulder), findsOneWidget);
   });
 
-  testWidgets('filter by grade', (WidgetTester tester) async {
+  testWidgets('filter by grade', (tester) async {
     final gradeRepository = GradeRepository(httpClient: httpClient);
     final gradesResponse = await gradeRepository.findAll();
 
@@ -481,11 +481,11 @@ void main() async {
     );
   });
 
-  testWidgets('sort boulders', (WidgetTester tester) async {
+  testWidgets('sort boulders', (tester) async {
     BoulderListBuilderTile getBoulderListTileAt(int index) {
       return find
               .byWidgetPredicate(
-                (Widget widget) => widget is BoulderListBuilderTile,
+                (widget) => widget is BoulderListBuilderTile,
               )
               .evaluate()
               .elementAt(index)
@@ -545,7 +545,7 @@ void main() async {
     '''
   can quickly go to the top of the screen if I scroll,
   by clicking on the "scroll to to the top" button''',
-    (WidgetTester tester) async {
+    (tester) async {
       await runApplication(tester: tester);
       const keyBackToTopButton = Key('boulder-list-back-to-top-button');
       const keyBoulderListResult = Key('boulder-list-result');
@@ -573,7 +573,7 @@ void main() async {
   );
 
   testWidgets('I go to the municipality details page from the boulder details page', (
-    WidgetTester tester,
+    tester,
   ) async {
     // prior to test, I fetch boulders to retrieve a reference
     // and assert boulders details dynamically
@@ -658,7 +658,7 @@ void main() async {
 
   testWidgets(
     'I go to the boulder area details page from the boulder details page',
-    (WidgetTester tester) async {
+    (tester) async {
       // prior to test, I fetch boulders to retrieve a reference
       // and assert boulders details dynamically
       final boulderRepository = BoulderRepository(httpClient: httpClient);
@@ -738,14 +738,14 @@ void main() async {
   );
 
   testWidgets('sort boulders from boulder area details page', (
-    WidgetTester tester,
+    tester,
   ) async {
     // prior to test, I fetch boulders to retrieve a reference
     // and assert boulders details dynamically
     BoulderListBuilderTile getBoulderListTileAt(CommonFinders find, int index) {
       return find
               .byWidgetPredicate(
-                (Widget widget) => widget is BoulderListBuilderTile,
+                (widget) => widget is BoulderListBuilderTile,
               )
               .evaluate()
               .elementAt(index)
@@ -842,7 +842,7 @@ void main() async {
   });
 
   testWidgets('go to index view and select a municipality', (
-    WidgetTester tester,
+    tester,
   ) async {
     final departmentRepository = DepartmentRepository(httpClient: httpClient);
     final departmentsResponse = await departmentRepository.findAll();

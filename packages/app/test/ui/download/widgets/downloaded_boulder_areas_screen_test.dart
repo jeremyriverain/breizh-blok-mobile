@@ -11,7 +11,7 @@ void main() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
 
   testWidgets('display fallback content if there is no downloads', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.myPumpWidget(
       widget: const DownloadedBoulderAreasScreen(),
@@ -55,7 +55,7 @@ void main() {
     ]);
   }
 
-  testWidgets('display downloads', (WidgetTester tester) async {
+  testWidgets('display downloads', (tester) async {
     final appDatabase = AppDatabase(NativeDatabase.memory());
 
     await createDownload(
@@ -89,7 +89,7 @@ void main() {
     );
   });
 
-  testWidgets('sort downloaded boulder areas', (WidgetTester tester) async {
+  testWidgets('sort downloaded boulder areas', (tester) async {
     await tester.runAsync(() async {
       final appDatabase = AppDatabase(NativeDatabase.memory());
 
@@ -250,7 +250,7 @@ void main() {
     });
   });
 
-  testWidgets('List of downloads is reactive', (WidgetTester tester) async {
+  testWidgets('List of downloads is reactive', (tester) async {
     final appDatabase = AppDatabase(NativeDatabase.memory());
 
     await tester.myPumpWidget(

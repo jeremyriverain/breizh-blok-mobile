@@ -51,7 +51,7 @@ class _BoulderListAppBarSearchFieldState
       key: const Key('search-boulders'),
       controller: _controller,
       autocorrect: false,
-      onSubmitted: (String val) {
+      onSubmitted: (val) {
         context.read<BoulderFilterBloc>().add(BoulderFilterSearched(val));
       },
       decoration: InputDecoration(

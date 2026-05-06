@@ -35,8 +35,8 @@ class BoulderVideoLinkFormScreen extends StatelessWidget {
                 >(
                   listener:
                       (
-                        BuildContext context,
-                        BoulderVideoLinkFeedbackState state,
+                        context,
+                        state,
                       ) {
                         if (state.done) {
                           ScaffoldMessenger.of(context).showSnackBar(

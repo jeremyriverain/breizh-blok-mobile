@@ -134,7 +134,7 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                       await showModalBottomSheet<void>(
                         context: context,
                         isScrollControlled: true,
-                        builder: (BuildContext context) {
+                        builder: (context) {
                           return RepositoryProvider(
                             create: (_) =>
                                 RequestStrategy(offlineFirst: offlineFirst),
@@ -151,7 +151,7 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                                       boulderFilterBloc: BoulderFilterBloc(
                                         const BoulderFilterState(),
                                       ),
-                                      onPageRequested: (int page) {
+                                      onPageRequested: (page) {
                                         final orderParam = context
                                             .read<BoulderOrderBloc>()
                                             .state;

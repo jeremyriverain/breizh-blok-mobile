@@ -1,6 +1,5 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/empty_list_indicator.dart';
@@ -69,7 +68,7 @@ class DownloadedBoulderAreasScreen extends StatelessWidget {
                                       if (index == 0)
                                         DownloadsSortButton(
                                           initialSelected: orderParam,
-                                          onChanged: (ApiOrderParam orderParam) {
+                                          onChanged: (orderParam) {
                                             context
                                                 .read<
                                                   ListDownloadedBoulderAreasViewModel

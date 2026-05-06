@@ -20,7 +20,7 @@ void main() {
     const channel = MethodChannel('map_launcher');
 
     tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
-      MethodCall methodCall,
+      methodCall,
     ) async {
       print(methodCall);
       logs.add(methodCall);
@@ -51,7 +51,7 @@ void main() {
       const channel = MethodChannel('map_launcher');
 
       tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
-        MethodCall methodCall,
+        methodCall,
       ) async {
         print(methodCall);
         logs.add(methodCall);

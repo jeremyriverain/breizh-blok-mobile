@@ -18,7 +18,7 @@ void main() {
     ),
   ];
 
-  testWidgets('I can select specific radio tile', (WidgetTester tester) async {
+  testWidgets('I can select specific radio tile', (tester) async {
     const defaultLabel = 'Afficher en 1er:';
 
     ApiOrderParam? result;
@@ -67,7 +67,7 @@ void main() {
 
   testWidgets(
     'the initial selected value is checked, the default label is displayed',
-    (WidgetTester tester) async {
+    (tester) async {
       const label = 'Sort by';
 
       await tester.myPumpWidget(

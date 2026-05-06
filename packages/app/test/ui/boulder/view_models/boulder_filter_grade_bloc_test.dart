@@ -8,7 +8,7 @@ void main() {
     blocTest<BoulderFilterGradeBloc, BoulderFilterGradeState>(
       'default state OK',
       build: () => BoulderFilterGradeBloc(const BoulderFilterGradeState()),
-      verify: (BoulderFilterGradeBloc bloc) {
+      verify: (bloc) {
         expect(bloc.state.grades, <Grade>{});
       },
     );
@@ -18,7 +18,7 @@ void main() {
     blocTest<BoulderFilterGradeBloc, BoulderFilterGradeState>(
       'BoulderFilterGrade event OK',
       build: () => BoulderFilterGradeBloc(const BoulderFilterGradeState()),
-      act: (BoulderFilterGradeBloc bloc) =>
+      act: (bloc) =>
           bloc.add(BoulderFilterGradeEvent({referenceGrade})),
       expect: () => [
         BoulderFilterGradeState(grades: {referenceGrade}),

@@ -86,7 +86,7 @@ class MapScreen extends StatelessWidget {
                     await showModalBottomSheet<void>(
                       context: context,
                       isScrollControlled: true,
-                      builder: (BuildContext context) {
+                      builder: (context) {
                         return RepositoryProvider(
                           create: (_) => RequestStrategy(),
                           child: Builder(
@@ -102,7 +102,7 @@ class MapScreen extends StatelessWidget {
                                     boulderFilterBloc: BoulderFilterBloc(
                                       const BoulderFilterState(),
                                     ),
-                                    onPageRequested: (int page) {
+                                    onPageRequested: (page) {
                                       final orderParam = context
                                           .read<BoulderOrderBloc>()
                                           .state;

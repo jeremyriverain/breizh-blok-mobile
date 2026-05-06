@@ -13,7 +13,7 @@ void main() {
           name: kIdOrderParam,
         ),
       ),
-      verify: (BoulderOrderBloc bloc) {
+      verify: (bloc) {
         expect(bloc.state.direction, kDescendantDirection);
         expect(bloc.state.name, kIdOrderParam);
       },
@@ -27,7 +27,7 @@ void main() {
           name: kIdOrderParam,
         ),
       ),
-      act: (BoulderOrderBloc bloc) => bloc.add(
+      act: (bloc) => bloc.add(
         BoulderOrderEvent(
           const ApiOrderParam(direction: kAscendantDirection, name: 'name'),
         ),

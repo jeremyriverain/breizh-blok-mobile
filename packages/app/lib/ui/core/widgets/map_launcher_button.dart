@@ -20,7 +20,7 @@ class MapLauncherButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: MapLauncher.installedMaps,
-      builder: (context, AsyncSnapshot<List<AvailableMap>> snapshot) {
+      builder: (context, snapshot) {
         if (!snapshot.hasData || snapshot.hasError || snapshot.data!.isEmpty) {
           return Container();
         }
