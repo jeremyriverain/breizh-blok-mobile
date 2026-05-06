@@ -16,3 +16,14 @@ updates:
     cooldown:
       default-days: 7
     open-pull-requests-limit: 10
+  
+  - package-ecosystem: pub
+    directories:
+      - /packages/*
+      - /tools/*
+      - /
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 50
