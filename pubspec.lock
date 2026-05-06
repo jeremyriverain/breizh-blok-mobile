@@ -333,10 +333,10 @@ packages:
     dependency: transitive
     description:
       name: cupertino_icons
-      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
+      sha256: "41e005c33bd814be4d3096aff55b1908d419fde52ca656c8c47719ec745873cd"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.8"
+    version: "1.0.9"
   custom_lint:
     dependency: transitive
     description:
@@ -397,18 +397,18 @@ packages:
     dependency: transitive
     description:
       name: dio
-      sha256: d90ee57923d1828ac14e492ca49440f65477f4bb1263575900be731a3dac66a9
+      sha256: aff32c08f92787a557dd5c0145ac91536481831a01b4648136373cddb0e64f8c
       url: "https://pub.dev"
     source: hosted
-    version: "5.9.0"
+    version: "5.9.2"
   dio_http2_adapter:
     dependency: transitive
     description:
       name: dio_http2_adapter
-      sha256: b8bd5d587fd228a461711f8b82f378ccd4bf1fbf7802e7663ca60d7b5ce0e3aa
+      sha256: "79f3d69b155b92a786c8734bd11860390b986210d4e07cbb6a5c8c806a7187b2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "2.7.0"
   dio_web_adapter:
     dependency: transitive
     description:
