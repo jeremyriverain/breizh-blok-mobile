@@ -135,6 +135,7 @@ class _MyMapState extends State<MyMap> {
                     ),
                   );
 
+                  // ignore: experimental_member_use
                   setStateWithViewportAnimation(() {
                     _viewport = defaultViewPort;
                   }, transition: const FlyViewportTransition());
@@ -152,6 +153,7 @@ class _MyMapState extends State<MyMap> {
                     ),
                   );
 
+                  // ignore: experimental_member_use
                   setStateWithViewportAnimation(() {
                     _viewport = const FollowPuckViewportState();
                   }, transition: const FlyViewportTransition());

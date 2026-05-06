@@ -17,6 +17,7 @@ class MyLocale extends _$MyLocale {
     final localePref = prefs.getString(kLocalePrefs);
 
     if (localePref == null) {
+      // ignore: experimental_member_use
       MapboxMapsOptions.setLanguage(kDefaultLocale);
 
       final platformLocale = WidgetsBinding.instance.platformDispatcher.locale;
@@ -28,11 +29,13 @@ class MyLocale extends _$MyLocale {
     final localeFromPref = Locale(localePref);
 
     if (AppLocalizations.supportedLocales.contains(localeFromPref)) {
+      // ignore: experimental_member_use
       MapboxMapsOptions.setLanguage(localePref);
 
       return localeFromPref;
     }
 
+    // ignore: experimental_member_use
     MapboxMapsOptions.setLanguage(kDefaultLocale);
 
     return const Locale(kDefaultLocale);
@@ -40,6 +43,7 @@ class MyLocale extends _$MyLocale {
 
   Future<void> setLocale(Locale locale) async {
     final sharedPreferences = ref.watch(sharedPreferencesProvider);
+    // ignore: experimental_member_use
     MapboxMapsOptions.setLanguage(locale.languageCode);
 
     await sharedPreferences.setString(
