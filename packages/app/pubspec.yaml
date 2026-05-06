@@ -80,7 +80,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   json_serializable: ^6.9.4
-  mocktail: ^1.0.4
+  mocktail: ^1.0.5
   riverpod_generator: ^3.0.3
   riverpod_lint: ^3.0.3
   sentry_dart_plugin: ^3.2.0
