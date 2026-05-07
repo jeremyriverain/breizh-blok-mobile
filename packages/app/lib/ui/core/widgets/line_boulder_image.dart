@@ -37,7 +37,7 @@ class LineBoulderImage extends ConsumerWidget {
     image.image
         .resolve(ImageConfiguration.empty)
         .addListener(
-          ImageStreamListener((ImageInfo image, bool synchronousCall) {
+          ImageStreamListener((image, synchronousCall) {
             if (!completer.isCompleted) {
               completer.complete(image.image);
             }
@@ -46,7 +46,7 @@ class LineBoulderImage extends ConsumerWidget {
 
     return FutureBuilder<ui.Image>(
       future: completer.future,
-      builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.hasData) {
           final width = snapshot.data?.width;
           final height = snapshot.data?.height;

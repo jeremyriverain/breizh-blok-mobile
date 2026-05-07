@@ -41,15 +41,15 @@ class MyBarChart extends StatelessWidget {
   BarTouchData get barTouchData => BarTouchData(
     enabled: false,
     touchTooltipData: BarTouchTooltipData(
-      getTooltipColor: (BarChartGroupData group) => Colors.transparent,
+      getTooltipColor: (group) => Colors.transparent,
       tooltipPadding: EdgeInsets.zero,
       tooltipMargin: 8,
       getTooltipItem:
           (
-            BarChartGroupData group,
-            int groupIndex,
-            BarChartRodData rod,
-            int rodIndex,
+            group,
+            groupIndex,
+            rod,
+            rodIndex,
           ) {
             return BarTooltipItem(
               rod.toY.round().toString(),
@@ -65,7 +65,7 @@ class MyBarChart extends StatelessWidget {
         sideTitles: SideTitles(
           showTitles: true,
           reservedSize: 30,
-          getTitlesWidget: (double value, TitleMeta meta) {
+          getTitlesWidget: (value, meta) {
             const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 14);
 
             return SideTitleWidget(

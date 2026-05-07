@@ -20,7 +20,7 @@ class BoulderListScreen extends StatelessWidget {
     return Scaffold(
       appBar: const BoulderListAppBar(),
       body: BoulderListBuilder(
-        onPageRequested: (int page) {
+        onPageRequested: (page) {
           final boulderFilterState = context.read<BoulderFilterBloc>().state;
           return BoulderRequested(
             page: page,

@@ -28,7 +28,7 @@ void main() {
   });
 
   testWidgets('displays status download information', (
-    WidgetTester tester,
+    tester,
   ) async {
     final streamController = StreamController<DbBoulderArea?>();
 

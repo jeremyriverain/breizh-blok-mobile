@@ -27,7 +27,7 @@ class TermsOfUseDialog extends StatelessWidget {
                 await showDialog<void>(
                   barrierDismissible: false,
                   context: context,
-                  builder: (BuildContext dialogContext) => AlertDialog.adaptive(
+                  builder: (dialogContext) => AlertDialog.adaptive(
                     key: const Key('terms-of-use'),
                     title: FittedBox(
                       fit: BoxFit.scaleDown,

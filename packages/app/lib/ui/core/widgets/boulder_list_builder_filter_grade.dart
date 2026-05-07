@@ -111,12 +111,12 @@ class _BoulderListBuilderFilterGradeState
             interval: 1,
             stepSize: 1,
             showDividers: true,
-            onChanged: (SfRangeValues values) {
+            onChanged: (values) {
               setState(() {
                 _currentRangeValues = values;
               });
             },
-            onChangeEnd: (SfRangeValues values) {
+            onChangeEnd: (values) {
               if ([values.start, values.end] case [final num x, final num y]) {
                 final startIndex = x.round();
                 final endIndex = y.round();

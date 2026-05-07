@@ -22,8 +22,8 @@ class BoulderListBuilderFilterModal extends StatelessWidget {
         future: _fetch(context),
         builder:
             (
-              BuildContext context,
-              AsyncSnapshot<PaginatedCollection<Grade>> snapshot,
+              context,
+              snapshot,
             ) {
               final data = snapshot.data;
 

@@ -71,13 +71,13 @@ class MyMaterialApp extends ConsumerWidget {
           return MultiBlocProvider(
             providers: [
               BlocProvider<BoulderFilterBloc>(
-                create: (BuildContext context) => boulderFilterBloc,
+                create: (context) => boulderFilterBloc,
               ),
               BlocProvider<BoulderOrderBloc>(
-                create: (BuildContext context) => boulderOrderBloc,
+                create: (context) => boulderOrderBloc,
               ),
               BlocProvider<BoulderFilterGradeBloc>(
-                create: (BuildContext context) => boulderFilterGradeBloc,
+                create: (context) => boulderFilterGradeBloc,
               ),
             ],
             child: Builder(

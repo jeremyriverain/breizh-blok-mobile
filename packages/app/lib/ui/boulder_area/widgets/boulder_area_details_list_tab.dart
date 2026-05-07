@@ -26,7 +26,7 @@ class _BoulderAreaDetailsListTabState extends State<BoulderAreaDetailsListTab>
     super.build(context);
     return BoulderListBuilder(
       boulderFilterBloc: context.read<BoulderFilterBloc>(),
-      onPageRequested: (int page) {
+      onPageRequested: (page) {
         final orderBlocState = context.read<BoulderOrderBloc>().state;
         final grades = context.read<BoulderFilterGradeBloc>().state.grades;
 

@@ -10,7 +10,7 @@ void main() {
 Given HeightBoulder has min equal to 0 and max equal to 3
 Then it displays "Moins de 3m"
 ''',
-    (WidgetTester tester) async {
+    (tester) async {
       await tester.myPumpWidget(
         widget: const BoulderDetailsHeight(
           height: HeightBoulder(iri: 'foo', min: 0, max: 3),
@@ -27,7 +27,7 @@ Then it displays "Moins de 3m"
 Given HeightBoulder has min equal to 3 and max equal to 5
 Then it displays "Entre 3 et 5m"
 ''',
-    (WidgetTester tester) async {
+    (tester) async {
       await tester.myPumpWidget(
         widget: const BoulderDetailsHeight(
           height: HeightBoulder(iri: 'foo', min: 3, max: 5),
@@ -44,7 +44,7 @@ Then it displays "Entre 3 et 5m"
 Given HeightBoulder has min equal to 5 and max is null
 Then it displays "Plus de 5m"
 ''',
-    (WidgetTester tester) async {
+    (tester) async {
       await tester.myPumpWidget(
         widget: const BoulderDetailsHeight(
           height: HeightBoulder(iri: 'foo', min: 5),

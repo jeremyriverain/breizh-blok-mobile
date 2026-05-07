@@ -68,7 +68,7 @@ void main() {
   "filterUrl": "/media/cache/resolve/%filter%/uploads/ima/image-foo.jpg",
   "filterUrl": "/media/cache/resolve/%filter%/uploads/ima/image-bar.jpg"
 }''';
-    onRequest = (String requestUrl) {
+    onRequest = (requestUrl) {
       if (requestUrl.contains('/boulders?')) {
         return mockResponseBoulders;
       }

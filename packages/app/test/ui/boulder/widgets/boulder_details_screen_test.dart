@@ -55,7 +55,7 @@ void main() {
 
   group('BoulderDetailsScreen', () {
     testWidgets('display name of the boulder in the AppBar', (
-      WidgetTester tester,
+      tester,
     ) async {
       when(
         () => boulderRepository.find('foo'),
@@ -75,7 +75,7 @@ void main() {
     });
 
     testWidgets('description is displayed if present', (
-      WidgetTester tester,
+      tester,
     ) async {
       when(
         () => boulderRepository.find('foo'),
@@ -95,7 +95,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (Widget widget) {
+          (widget) {
             if (widget is! ListTile) {
               return false;
             }
@@ -113,7 +113,7 @@ void main() {
     });
 
     testWidgets('grade is displayed if present', (
-      WidgetTester tester,
+      tester,
     ) async {
       when(
         () => boulderRepository.find('foo'),
@@ -135,7 +135,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (Widget widget) {
+          (widget) {
             if (widget is! ListTile) {
               return false;
             }
@@ -153,7 +153,7 @@ void main() {
     });
 
     testWidgets('height is displayed if present', (
-      WidgetTester tester,
+      tester,
     ) async {
       when(
         () => boulderRepository.find('foo'),
@@ -180,7 +180,7 @@ void main() {
     });
 
     testWidgets('BoulderDetailsVideo is displayed when there is a video', (
-      WidgetTester tester,
+      tester,
     ) async {
       when(
         () => boulderRepository.find('foo'),
@@ -215,7 +215,7 @@ void main() {
 Given I click on the Contribute ListTile
 Then a ContributeBoulderScreen is displayed
 ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -250,7 +250,7 @@ Then a ContributeBoulderScreen is displayed
       When I click on Annuler
       Then I am redirected to ContributeBoulderView
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -300,7 +300,7 @@ Then a ContributeBoulderScreen is displayed
       When I click on Annuler and go again to BoulderMessageFormScreen,
       Then the previous message appears
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -370,7 +370,7 @@ Then a ContributeBoulderScreen is displayed
       When I submit it,
       Then the message field displays a error message
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -422,7 +422,7 @@ Then a ContributeBoulderScreen is displayed
       If the repository returns an error,
       Then a error message is displayed
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -485,7 +485,7 @@ Then a ContributeBoulderScreen is displayed
       Then a success message is displayed
       And the BoulderMessageFormScreen disappears
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -607,7 +607,7 @@ Then a ContributeBoulderScreen is displayed
       When I click on Annuler
       Then I am redirected to ContributeBoulderView
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -657,7 +657,7 @@ Then a ContributeBoulderScreen is displayed
       When I click on Annuler and go again to BoulderVideoLinkFormScreen,
       Then the previous message appears
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -730,7 +730,7 @@ Then a ContributeBoulderScreen is displayed
       When I submit it,
       Then the message field displays an error message
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -804,7 +804,7 @@ Then a ContributeBoulderScreen is displayed
       If the repository returns an error,
       Then an error message is displayed
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -872,7 +872,7 @@ Then a ContributeBoulderScreen is displayed
       If the repository returns an UnprocessableEntityException,
       Then an error message is displayed directly in the field
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);
@@ -960,7 +960,7 @@ Then a ContributeBoulderScreen is displayed
       Then a success message is displayed
       And the BoulderMessageFormScreen disappears
       ''',
-        (WidgetTester tester) async {
+        (tester) async {
           when(
             () => boulderRepository.find('foo'),
           ).thenAnswer((_) async => fakeBoulder);

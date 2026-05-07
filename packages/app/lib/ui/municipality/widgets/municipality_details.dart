@@ -29,7 +29,7 @@ class MunicipalityDetails extends StatelessWidget {
       ListView.builder(
         key: const Key('municipality-details-list-view'),
         itemCount: boulderAreas.length,
-        itemBuilder: (context, int index) {
+        itemBuilder: (context, index) {
           final boulderArea = boulderAreas[index];
 
           return MunicipalityDetailsBoulderAreaItem(

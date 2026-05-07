@@ -38,7 +38,7 @@ void main() {
       const channel = MethodChannel('map_launcher');
 
       tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
-        MethodCall methodCall,
+        methodCall,
       ) async {
         logs.add(methodCall);
         if (methodCall.method == 'getInstalledMaps') {
@@ -82,7 +82,7 @@ void main() {
 
         tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
           channel,
-          (MethodCall methodCall) async {
+          (methodCall) async {
             logs.add(methodCall);
             if (methodCall.method == 'getInstalledMaps') {
               return [];

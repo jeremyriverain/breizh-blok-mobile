@@ -37,7 +37,7 @@ class DepartmentListScreen extends StatelessWidget {
               ),
               ListDepartmentsOK(:final departments) => ListView.builder(
                 itemCount: departments.totalItems,
-                itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (context, index) {
                   final department = departments.items[index];
 
                   return Column(

@@ -25,7 +25,7 @@ class MapDirections {
       await showModalBottomSheet<void>(
         context: context,
 
-        builder: (BuildContext context) {
+        builder: (context) {
           return SafeArea(
             key: const Key('maps-modal-bottom-sheet'),
             child: SingleChildScrollView(

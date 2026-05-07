@@ -38,7 +38,7 @@ class MainNavigationBar extends StatelessWidget {
               label: AppLocalizations.of(context).support,
             ),
           ],
-          onDestinationSelected: (int index) async {
+          onDestinationSelected: (index) async {
             if (index == 4) {
               await urlLauncher
                   .openUrl(

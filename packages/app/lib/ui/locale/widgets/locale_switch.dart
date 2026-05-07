@@ -32,7 +32,7 @@ class LocaleSwitch extends StatelessWidget {
             ),
             label: Text(AppLocalizations.of(context).language),
             initialSelection: currentLocale,
-            onSelected: (String? newValue) async {
+            onSelected: (newValue) async {
               if (newValue == null) {
                 return;
               }
