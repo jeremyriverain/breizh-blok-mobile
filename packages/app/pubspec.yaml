@@ -16,7 +16,7 @@ version: 2.26.0+2.26.0
 resolution: workspace
 
 environment:
-  sdk: "^3.9.0"
+  sdk: "^3.10.0"
 
 dependencies:
   breizh_blok_analytics:
@@ -60,7 +60,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   reactive_forms: ^18.1.2
   riverpod_annotation: ^4.0.2
-  sentry_flutter: ^9.8.0
+  sentry_flutter: ^9.20.0
   shared_preferences: ^2.5.3
   sqlite3_flutter_libs: ^0.5.40
   syncfusion_flutter_sliders: ^30.2.7
