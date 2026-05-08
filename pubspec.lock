@@ -533,10 +533,10 @@ packages:
     dependency: transitive
     description:
       name: fl_chart
-      sha256: "7ca9a40f4eb85949190e54087be8b4d6ac09dc4c54238d782a34cf1f7c011de9"
+      sha256: b938f77d042cbcd822936a7a359a7235bad8bd72070de1f827efc2cc297ac888
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.0"
   flutter:
     dependency: transitive
     description: flutter
@@ -683,10 +683,10 @@ packages:
     dependency: transitive
     description:
       name: go_router
-      sha256: c92d18e1fe994cb06d48aa786c46b142a5633067e8297cff6b5a3ac742620104
+      sha256: "92d8cee7c57dff0a6c409c05597b460002434eccf7424a712283225b3962d03f"
       url: "https://pub.dev"
     source: hosted
-    version: "17.0.0"
+    version: "17.2.3"
   graphs:
     dependency: transitive
     description:
@@ -1312,10 +1312,10 @@ packages:
     dependency: transitive
     description:
       name: sentry_dart_plugin
-      sha256: "4b25aa60b5cbb46bb23859ac9212c4de5b22e2b3bc3fecbcd611756ada8973b5"
+      sha256: "2c5f263f8d5aea3cf387a7e03f77e355d35c71bd9a429474d633fbc085b86ceb"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.0"
+    version: "3.3.0"
   sentry_flutter:
     dependency: transitive
     description:
