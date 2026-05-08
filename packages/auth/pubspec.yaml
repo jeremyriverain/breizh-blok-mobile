@@ -5,17 +5,17 @@ version: 1.0.0
 resolution: workspace
 
 environment:
-  sdk: "^3.9.0"
+  sdk: "^3.10.0"
 
 dependencies:
-  auth0_flutter: ^2.0.1
+  auth0_flutter: ^2.0.2
   flutter:
     sdk: flutter
   freezed_annotation: ^3.1.0
 
 dev_dependencies:
   breizh_blok_lint:
-  build_runner: ^2.10.4
+  build_runner: ^2.15.0
   flutter_test:
     sdk: flutter
   freezed: ^3.2.3
