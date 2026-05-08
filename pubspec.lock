@@ -920,10 +920,10 @@ packages:
     dependency: transitive
     description:
       name: mixpanel_flutter
-      sha256: "0ecd870cceed1cf4600c403e5544b88efa65b8fd3f30fad679702d1ae9e0ac15"
+      sha256: "6962b8ce61eb6202d6545bee648e21a7bc9f7e804fa293912e9673329f499ece"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "2.7.0"
   mockito:
     dependency: transitive
     description:
@@ -1344,10 +1344,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences
-      sha256: "6e8bf70b7fef813df4e9a36f658ac46d107db4b4cfe1048b477d4e453a8159f5"
+      sha256: c3025c5534b01739267eb7d76959bbc25a6d10f6988e1c2a3036940133dd10bf
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.3"
+    version: "2.5.5"
   shared_preferences_android:
     dependency: transitive
     description:
