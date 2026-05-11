@@ -62,7 +62,7 @@ dependencies:
   riverpod_annotation: ^4.0.2
   sentry_flutter: ^9.20.0
   shared_preferences: ^2.5.5
-  sqlite3_flutter_libs: ^0.5.40
+  sqlite3_flutter_libs: ^0.6.0+eol
   upgrader: ^13.2.0
 
 dev_dependencies:
