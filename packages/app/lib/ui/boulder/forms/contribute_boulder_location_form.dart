@@ -6,34 +6,44 @@ class ContributeBoulderLocationForm extends FormGroup {
   ContributeBoulderLocationForm({
     required double latitude,
     required double longitude,
-  }) : _initialLatitude = latitude,
-       _initialLongitude = longitude,
-       super({
-         ContributeBoulderLocationForm.formKeys.latitude: FormControl<double>(
-           validators: [
-             Validators.required,
-             Validators.max(90),
-             Validators.min(-90),
-           ],
-           value: latitude,
-         ),
-         ContributeBoulderLocationForm.formKeys.longitude: FormControl<double>(
-           validators: [
-             Validators.required,
-             Validators.max(180),
-             Validators.min(-180),
-           ],
-           value: longitude,
-         ),
-       });
+  }) : super(
+         {
+           ContributeBoulderLocationForm.formKeys.latitude: FormControl<double>(
+             validators: [
+               Validators.required,
+               Validators.max(90),
+               Validators.min(-90),
+             ],
+             value: latitude,
+           ),
+           ContributeBoulderLocationForm.formKeys.longitude:
+               FormControl<double>(
+                 validators: [
+                   Validators.required,
+                   Validators.max(180),
+                   Validators.min(-180),
+                 ],
+                 value: longitude,
+               ),
+         },
+         validators: [
+           Validators.composeOR([
+             MustValidateControl(
+               controlName: ContributeBoulderLocationForm.formKeys.latitude,
+               validator: NotEqualValidator(latitude),
+             ),
+             MustValidateControl(
+               controlName: ContributeBoulderLocationForm.formKeys.longitude,
+               validator: NotEqualValidator(longitude),
+             ),
+           ]),
+         ],
+       );
 
   static const ({String latitude, String longitude}) formKeys = (
     latitude: 'latitude',
     longitude: 'longitude',
   );
-
-  final double _initialLatitude;
-  final double _initialLongitude;
 
   double? get latitude =>
       controls[ContributeBoulderLocationForm.formKeys.latitude]?.value
@@ -42,18 +52,4 @@ class ContributeBoulderLocationForm extends FormGroup {
   double? get longitude =>
       controls[ContributeBoulderLocationForm.formKeys.longitude]?.value
           as double?;
-
-  @override
-  List<Validator<dynamic>> get validators => [
-    Validators.composeOR([
-      MustValidateControl(
-        controlName: ContributeBoulderLocationForm.formKeys.latitude,
-        validator: NotEqualValidator(_initialLatitude),
-      ),
-      MustValidateControl(
-        controlName: ContributeBoulderLocationForm.formKeys.longitude,
-        validator: NotEqualValidator(_initialLongitude),
-      ),
-    ]),
-  ];
 }
