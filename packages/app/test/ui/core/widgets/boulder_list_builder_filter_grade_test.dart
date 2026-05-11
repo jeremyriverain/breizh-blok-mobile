@@ -5,7 +5,6 @@ import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_g
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../../../widget_test_utils.dart';
 
@@ -46,10 +45,10 @@ void main() {
       await tester.pump();
 
       final leftTarget = tester
-          .getTopLeft(find.byType(SfRangeSlider))
+          .getTopLeft(find.byType(RangeSlider))
           .translate(20, 16);
       final rightTarget = tester
-          .getTopRight(find.byType(SfRangeSlider))
+          .getTopRight(find.byType(RangeSlider))
           .translate(-20, 16);
 
       final middleOffset = Offset((leftTarget.dx + rightTarget.dx) / 2, 0);

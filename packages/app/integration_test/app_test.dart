@@ -40,7 +40,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:upgrader/upgrader.dart';
 
 import '../test/mocks.dart';
@@ -424,10 +423,10 @@ void main() async {
     // inwards by the overlay radius.
     // inspired from https://github.com/flutter/flutter/blob/master/packages/flutter/test/material/range_slider_test.dart
     final leftTarget = tester
-        .getTopLeft(find.byType(SfRangeSlider))
+        .getTopLeft(find.byType(RangeSlider))
         .translate(20, 16);
     final rightTarget = tester
-        .getTopRight(find.byType(SfRangeSlider))
+        .getTopRight(find.byType(RangeSlider))
         .translate(-20, 16);
 
     await tester.dragFrom(
