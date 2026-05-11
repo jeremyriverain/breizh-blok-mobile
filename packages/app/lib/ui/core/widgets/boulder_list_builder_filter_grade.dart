@@ -4,7 +4,6 @@ import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_grade_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BoulderListBuilderFilterGrade extends StatefulWidget {
   const BoulderListBuilderFilterGrade({required this.allGrades, super.key});
@@ -18,7 +17,7 @@ class BoulderListBuilderFilterGrade extends StatefulWidget {
 
 class _BoulderListBuilderFilterGradeState
     extends State<BoulderListBuilderFilterGrade> {
-  late SfRangeValues _currentRangeValues;
+  late RangeValues _currentRangeValues;
 
   @override
   void initState() {
@@ -28,8 +27,8 @@ class _BoulderListBuilderFilterGradeState
           ..sort((a, b) => a.name.compareTo(b.name));
 
     if (selectedGrades.isEmpty) {
-      _currentRangeValues = SfRangeValues(
-        0.0,
+      _currentRangeValues = RangeValues(
+        0,
         (widget.allGrades.items.length - 1).toDouble(),
       );
     } else {
@@ -40,13 +39,13 @@ class _BoulderListBuilderFilterGradeState
         (element) => element.iri == selectedGrades.last.iri,
       );
       if (startIndex != -1 && endIndex != -1) {
-        _currentRangeValues = SfRangeValues(
+        _currentRangeValues = RangeValues(
           startIndex.toDouble(),
           endIndex.toDouble(),
         );
       } else {
-        _currentRangeValues = SfRangeValues(
-          0.0,
+        _currentRangeValues = RangeValues(
+          0,
           (widget.allGrades.items.length - 1).toDouble(),
         );
       }
@@ -104,13 +103,11 @@ class _BoulderListBuilderFilterGradeState
         ),
         SizedBox(
           height: 30,
-          child: SfRangeSlider(
-            values: _currentRangeValues,
+          child: RangeSlider(
             max: widget.allGrades.totalItems - 1,
-            min: 0,
-            interval: 1,
-            stepSize: 1,
-            showDividers: true,
+            divisions: widget.allGrades.totalItems - 1,
+            values: _currentRangeValues,
+
             onChanged: (values) {
               setState(() {
                 _currentRangeValues = values;
