@@ -203,16 +203,3 @@ List<StatefulShellRoute> getRoutes({required Analytics analytics}) {
     ),
   ];
 }
-
-GoRouter createRouter({
-  required List<RouteBase> routes,
-  List<NavigatorObserver>? observers,
-  String? initialLocation,
-}) {
-  return GoRouter(
-    navigatorKey: rootNavigatorKey,
-    initialLocation: initialLocation ?? BoulderListScreen.route.path,
-    observers: observers,
-    routes: routes,
-  );
-}
