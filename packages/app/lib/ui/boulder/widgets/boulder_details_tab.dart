@@ -2,8 +2,6 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator/repositories.dart';
-import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_video_link_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_video_link_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_associated.dart';
@@ -110,57 +108,34 @@ class BoulderDetailsTab extends StatelessWidget {
             const Divider(),
           Consumer(
             builder: (context, ref, child) {
-              ref.watch(
-                boulderFeedbackViewModelProvider(
-                  boulder: boulder,
-                  boulderFeedbackRepository: ref.watch(
-                    boulderFeedbackRepositoryProvider,
+              ref
+                ..watch(
+                  boulderFeedbackViewModelProvider(
+                    boulder: boulder,
                   ),
-                  form: ref.watch(contributeBoulderMessageFormProvider),
-                ),
-              );
-              return MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create: (context) => BoulderVideoLinkFeedbackViewModel(
-                      form: ContributeBoulderVideoLinkForm(),
-                      boulderFeedbackRepository: ref.watch(
-                        boulderFeedbackRepositoryProvider,
-                      ),
-                      boulder: boulder,
-                    ),
+                )
+                ..watch(
+                  boulderVideoFeedbackViewModelProvider(
+                    boulder: boulder,
                   ),
-                ],
-                child: Builder(
-                  builder: (parentContext) {
-                    return ClickableListTile(
-                      leading: const Icon(Icons.feedback),
-                      title: Text(localizations.contribute),
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => MultiBlocProvider(
-                              providers: [
-                                BlocProvider<
-                                  BoulderVideoLinkFeedbackViewModel
-                                >.value(
-                                  value: parentContext
-                                      .read<
-                                        BoulderVideoLinkFeedbackViewModel
-                                      >(),
-                                ),
-                              ],
-                              child: ContributeBoulderScreen(
-                                boulder: boulder,
-                              ),
-                            ),
+                );
+              return Builder(
+                builder: (parentContext) {
+                  return ClickableListTile(
+                    leading: const Icon(Icons.feedback),
+                    title: Text(localizations.contribute),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => ContributeBoulderScreen(
+                            boulder: boulder,
                           ),
-                        );
-                      },
-                    );
-                  },
-                ),
+                        ),
+                      );
+                    },
+                  );
+                },
               );
             },
           ),

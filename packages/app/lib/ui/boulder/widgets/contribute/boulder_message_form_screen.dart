@@ -1,6 +1,5 @@
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_message_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/form_spinner.dart';
@@ -34,20 +33,12 @@ class BoulderMessageFormScreen extends StatelessWidget {
                 final state = ref.watch(
                   boulderFeedbackViewModelProvider(
                     boulder: boulder,
-                    boulderFeedbackRepository: ref.watch(
-                      boulderFeedbackRepositoryProvider,
-                    ),
-                    form: ref.watch(contributeBoulderMessageFormProvider),
                   ),
                 );
 
                 ref.listen(
                   boulderFeedbackViewModelProvider(
                     boulder: boulder,
-                    boulderFeedbackRepository: ref.watch(
-                      boulderFeedbackRepositoryProvider,
-                    ),
-                    form: ref.watch(contributeBoulderMessageFormProvider),
                   ),
                   (_, next) {
                     if (next.done) {
@@ -105,22 +96,9 @@ class BoulderMessageFormScreen extends StatelessWidget {
                 final state = ref.watch(
                   boulderFeedbackViewModelProvider(
                     boulder: boulder,
-                    boulderFeedbackRepository: ref.watch(
-                      boulderFeedbackRepositoryProvider,
-                    ),
-                    form: ref.watch(contributeBoulderMessageFormProvider),
                   ),
                 );
 
-                final notifier = ref.watch(
-                  boulderFeedbackViewModelProvider(
-                    boulder: boulder,
-                    boulderFeedbackRepository: ref.watch(
-                      boulderFeedbackRepositoryProvider,
-                    ),
-                    form: ref.watch(contributeBoulderMessageFormProvider),
-                  ).notifier,
-                );
                 return Wrap(
                   alignment: WrapAlignment.end,
                   crossAxisAlignment: WrapCrossAlignment.center,
@@ -140,7 +118,13 @@ class BoulderMessageFormScreen extends StatelessWidget {
                       onPressed: state.pending
                           ? null
                           : () async {
-                              await notifier.onSubmit();
+                              await ref
+                                  .read(
+                                    boulderFeedbackViewModelProvider(
+                                      boulder: boulder,
+                                    ).notifier,
+                                  )
+                                  .onSubmit();
                             },
                       child: Text(localizations.send),
                     ),

@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
-import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_message_form.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -23,10 +23,9 @@ abstract class BoulderMessageFeedbackState with _$BoulderMessageFeedbackState {
 class BoulderFeedbackViewModel extends _$BoulderFeedbackViewModel {
   @override
   BoulderMessageFeedbackState build({
-    required ContributeBoulderMessageForm form,
-    required BoulderFeedbackRepository boulderFeedbackRepository,
     required Boulder boulder,
   }) {
+    final form = ref.watch(_contributeBoulderMessageFormProvider);
     return BoulderMessageFeedbackState(
       form: form,
       pending: false,
@@ -36,7 +35,8 @@ class BoulderFeedbackViewModel extends _$BoulderFeedbackViewModel {
   }
 
   Future<void> onSubmit() async {
-    form.markAllAsTouched();
+    final form = ref.watch(_contributeBoulderMessageFormProvider)
+      ..markAllAsTouched();
     if (form.invalid) {
       return;
     }
@@ -48,7 +48,8 @@ class BoulderFeedbackViewModel extends _$BoulderFeedbackViewModel {
       error: false,
     );
 
-    final result = await boulderFeedbackRepository
+    final result = await ref
+        .watch(boulderFeedbackRepositoryProvider)
         .create(
           BoulderFeedback(boulder: boulder, message: state.form.message),
         )
@@ -76,6 +77,6 @@ class BoulderFeedbackViewModel extends _$BoulderFeedbackViewModel {
 }
 
 @riverpod
-ContributeBoulderMessageForm contributeBoulderMessageForm(Ref ref) {
+ContributeBoulderMessageForm _contributeBoulderMessageForm(Ref ref) {
   return ContributeBoulderMessageForm();
 }
