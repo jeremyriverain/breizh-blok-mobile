@@ -30,12 +30,6 @@ class BoulderMessageFormScreen extends StatelessWidget {
           ListTile(
             title: Consumer(
               builder: (context, ref, _) {
-                final state = ref.watch(
-                  boulderFeedbackViewModelProvider(
-                    boulder: boulder,
-                  ),
-                );
-
                 ref.listen(
                   boulderFeedbackViewModelProvider(
                     boulder: boulder,
@@ -65,7 +59,7 @@ class BoulderMessageFormScreen extends StatelessWidget {
                 );
 
                 return ReactiveForm(
-                  formGroup: state.form,
+                  formGroup: ref.watch(boulderMessageFormProvider),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[

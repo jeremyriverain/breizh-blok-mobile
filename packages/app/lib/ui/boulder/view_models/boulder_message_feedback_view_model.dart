@@ -12,7 +12,6 @@ part 'boulder_message_feedback_view_model.g.dart';
 @freezed
 abstract class BoulderMessageFeedbackState with _$BoulderMessageFeedbackState {
   const factory BoulderMessageFeedbackState({
-    required ContributeBoulderMessageForm form,
     required bool pending,
     required bool done,
     required bool error,
@@ -25,9 +24,7 @@ class BoulderFeedbackViewModel extends _$BoulderFeedbackViewModel {
   BoulderMessageFeedbackState build({
     required Boulder boulder,
   }) {
-    final form = ref.watch(_contributeBoulderMessageFormProvider);
-    return BoulderMessageFeedbackState(
-      form: form,
+    return const BoulderMessageFeedbackState(
       pending: false,
       done: false,
       error: false,
@@ -35,14 +32,12 @@ class BoulderFeedbackViewModel extends _$BoulderFeedbackViewModel {
   }
 
   Future<void> onSubmit() async {
-    final form = ref.watch(_contributeBoulderMessageFormProvider)
-      ..markAllAsTouched();
+    final form = ref.watch(boulderMessageFormProvider)..markAllAsTouched();
     if (form.invalid) {
       return;
     }
 
-    state = BoulderMessageFeedbackState(
-      form: state.form,
+    state = const BoulderMessageFeedbackState(
       pending: true,
       done: false,
       error: false,
@@ -51,22 +46,20 @@ class BoulderFeedbackViewModel extends _$BoulderFeedbackViewModel {
     final result = await ref
         .watch(boulderFeedbackRepositoryProvider)
         .create(
-          BoulderFeedback(boulder: boulder, message: state.form.message),
+          BoulderFeedback(boulder: boulder, message: form.message),
         )
         .run();
 
     result.match(
       (domainException) {
-        state = BoulderMessageFeedbackState(
-          form: state.form,
+        state = const BoulderMessageFeedbackState(
           pending: false,
           done: false,
           error: true,
         );
       },
       (_) {
-        state = BoulderMessageFeedbackState(
-          form: ContributeBoulderMessageForm(),
+        state = const BoulderMessageFeedbackState(
           pending: false,
           done: true,
           error: false,
@@ -77,6 +70,6 @@ class BoulderFeedbackViewModel extends _$BoulderFeedbackViewModel {
 }
 
 @riverpod
-ContributeBoulderMessageForm _contributeBoulderMessageForm(Ref ref) {
+ContributeBoulderMessageForm boulderMessageForm(Ref ref) {
   return ContributeBoulderMessageForm();
 }

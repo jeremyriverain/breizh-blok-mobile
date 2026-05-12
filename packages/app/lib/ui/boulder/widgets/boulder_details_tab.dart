@@ -109,11 +109,7 @@ class BoulderDetailsTab extends StatelessWidget {
           Consumer(
             builder: (context, ref, child) {
               ref
-                ..watch(
-                  boulderFeedbackViewModelProvider(
-                    boulder: boulder,
-                  ),
-                )
+                ..watch(boulderMessageFormProvider)
                 ..watch(
                   boulderVideoFeedbackViewModelProvider(
                     boulder: boulder,
