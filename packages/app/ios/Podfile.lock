@@ -15,16 +15,16 @@ PODS:
   - JWTDecode (3.3.0)
   - location (0.0.1):
     - Flutter
-  - Mixpanel-swift (6.3.0):
+  - Mixpanel-swift (6.4.0):
     - jsonlogic (~> 1.2.0)
-    - Mixpanel-swift/Complete (= 6.3.0)
+    - Mixpanel-swift/Complete (= 6.4.0)
     - MixpanelSwiftCommon (~> 1.0.0)
-  - Mixpanel-swift/Complete (6.3.0):
+  - Mixpanel-swift/Complete (6.4.0):
     - jsonlogic (~> 1.2.0)
     - MixpanelSwiftCommon (~> 1.0.0)
-  - mixpanel_flutter (2.7.0):
+  - mixpanel_flutter (2.8.0):
     - Flutter
-    - Mixpanel-swift (= 6.3.0)
+    - Mixpanel-swift (= 6.4.0)
   - MixpanelSwiftCommon (1.0.1)
   - permission_handler_apple (9.3.0):
     - Flutter
@@ -67,8 +67,8 @@ SPEC CHECKSUMS:
   jsonlogic: 006f892470384401b8ca5b5d8d4cdadb3a0d5c9b
   JWTDecode: 1ca6f765844457d0dd8690436860fecee788f631
   location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
-  Mixpanel-swift: f8bbfb3ebd1c6debd8aab574e3e54433bd51c724
-  mixpanel_flutter: 6b45d8fc4860872b4950429a213bdafff7c095da
+  Mixpanel-swift: 9eb2ea2d0463970687c984e07040669f787b7a49
+  mixpanel_flutter: 259e1ad9a46a6013e74a979e47b25271989ef5fd
   MixpanelSwiftCommon: 6fc461403945422a2e1d0989d712c0db2c26ecdb
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
   SimpleKeychain: 9c0f3ca8458fed74e01db864d181c5cbe278603e
