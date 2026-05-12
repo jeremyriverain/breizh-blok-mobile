@@ -73,6 +73,27 @@ class _MyMapState extends State<MyMap> {
                   AttributionSettings(enabled: false),
                 );
                 widget.onMapCreated?.call(mapboxMap);
+
+                final onTapListener = widget.onTapListener;
+                final map = _mapboxMap;
+
+                if (map != null && onTapListener != null) {
+                  _mapboxMap?.addInteraction(
+                    TapInteraction.onMap((mapContentGestureContext) {
+                      try {
+                        widget.onTapListener?.call(
+                          mapboxMap,
+                          mapContentGestureContext,
+                        );
+                      } catch (exception, stackTrace) {
+                        Sentry.captureException(
+                          exception,
+                          stackTrace: stackTrace,
+                        ).ignore();
+                      }
+                    }),
+                  );
+                }
               } catch (exception, stackTrace) {
                 Sentry.captureException(
                   exception,
@@ -87,22 +108,6 @@ class _MyMapState extends State<MyMap> {
                   widget.onStyleLoadedListener?.call(
                     mapboxMap,
                     styleLoadedEventData,
-                  );
-                }
-              } catch (exception, stackTrace) {
-                Sentry.captureException(
-                  exception,
-                  stackTrace: stackTrace,
-                ).ignore();
-              }
-            },
-            onTapListener: (mapContentGestureContext) {
-              try {
-                final mapboxMap = _mapboxMap;
-                if (mapboxMap != null) {
-                  widget.onTapListener?.call(
-                    mapboxMap,
-                    mapContentGestureContext,
                   );
                 }
               } catch (exception, stackTrace) {
