@@ -36,15 +36,9 @@ class _BoulderDetailsMapTabState extends State<BoulderDetailsMapTab>
                   child: CircularProgressIndicator(),
                 ),
                 BoulderMapOK() => MyMap(
-                  cameraOptions: CameraOptions(
-                    zoom: 15,
-                    center: Point(
-                      coordinates: Position(
-                        location.longitude,
-                        location.latitude,
-                      ),
-                    ),
-                  ),
+                  initialZoom: 15,
+                  initialLatitude: location.latitude,
+                  initialLongitude: location.longitude,
                   onMapCreated: (mapboxMap) async {
                     final pointAnnotationManager = await mapboxMap.annotations
                         .createPointAnnotationManager();

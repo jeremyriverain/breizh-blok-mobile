@@ -12,7 +12,6 @@ import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:breizh_blok_mobile/ui/map/view_models/map_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 const boulderIdsProcessingLimit = 500;
 
@@ -40,15 +39,9 @@ class MapScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               children: [
                 MyMap(
-                  cameraOptions: CameraOptions(
-                    zoom: 5,
-                    center: Point(
-                      coordinates: Position(
-                        kDefaultLongitude,
-                        kDefaultLatitude,
-                      ),
-                    ),
-                  ),
+                  initialZoom: 5,
+                  initialLatitude: kDefaultLatitude,
+                  initialLongitude: kDefaultLongitude,
                   onStyleLoadedListener: (mapboxMap, _) async {
                     if (!state.pending) {
                       await mapboxMap.showClusters(state.clusterSource);

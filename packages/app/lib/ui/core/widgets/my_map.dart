@@ -8,19 +8,23 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 class MyMap extends StatefulWidget {
   const MyMap({
+    required this.initialZoom,
+    required this.initialLatitude,
+    required this.initialLongitude,
     super.key,
-    this.cameraOptions,
     this.onMapCreated,
     this.onStyleLoadedListener,
     this.onTapListener,
   });
 
-  final CameraOptions? cameraOptions;
   final void Function(MapboxMap)? onMapCreated;
   final void Function(MapboxMap mapboxMap, StyleLoadedEventData)?
   onStyleLoadedListener;
   final void Function(MapboxMap mapboxMap, MapContentGestureContext)?
   onTapListener;
+  final double initialZoom;
+  final double initialLatitude;
+  final double initialLongitude;
 
   @override
   State<MyMap> createState() => _MyMapState();
@@ -33,8 +37,10 @@ class _MyMapState extends State<MyMap> {
   late ViewportState _viewport;
 
   CameraViewportState get defaultViewPort => CameraViewportState(
-    center: widget.cameraOptions?.center,
-    zoom: widget.cameraOptions?.zoom,
+    center: Point(
+      coordinates: Position(widget.initialLongitude, widget.initialLatitude),
+    ),
+    zoom: widget.initialZoom,
     bearing: 0,
   );
 
@@ -54,7 +60,6 @@ class _MyMapState extends State<MyMap> {
         children: [
           MapWidget(
             styleUri: _defaultStyle,
-            cameraOptions: widget.cameraOptions,
             gestureRecognizers: const {
               Factory<EagerGestureRecognizer>(EagerGestureRecognizer.new),
             },

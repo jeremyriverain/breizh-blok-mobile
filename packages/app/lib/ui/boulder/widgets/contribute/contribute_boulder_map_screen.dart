@@ -67,15 +67,11 @@ class ContributeBoulderMapScreen extends StatelessWidget {
                           alignment: Alignment.bottomCenter,
                           children: [
                             MyMap(
-                              cameraOptions: CameraOptions(
-                                zoom: 15,
-                                center: Point(
-                                  coordinates: Position(
-                                    viewModel.boulder.rock.location.longitude,
-                                    viewModel.boulder.rock.location.latitude,
-                                  ),
-                                ),
-                              ),
+                              initialZoom: 15,
+                              initialLatitude:
+                                  viewModel.boulder.rock.location.latitude,
+                              initialLongitude:
+                                  viewModel.boulder.rock.location.longitude,
                               onMapCreated: (mapboxMap) async {
                                 final pointAnnotationManager = await mapboxMap
                                     .annotations
