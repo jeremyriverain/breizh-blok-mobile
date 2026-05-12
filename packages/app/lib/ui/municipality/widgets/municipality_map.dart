@@ -21,15 +21,9 @@ class MunicipalityMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyMap(
-      cameraOptions: CameraOptions(
-        center: Point(
-          coordinates: Position(
-            initialLocation.longitude,
-            initialLocation.latitude,
-          ),
-        ),
-        zoom: 10,
-      ),
+      initialZoom: 10,
+      initialLatitude: initialLocation.latitude,
+      initialLongitude: initialLocation.longitude,
       onMapCreated: (mapboxMap) async {
         final circleAnnotationManager = await mapboxMap.annotations
             .createCircleAnnotationManager();

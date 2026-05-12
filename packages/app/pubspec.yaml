@@ -52,7 +52,7 @@ dependencies:
   json_annotation: ^4.11.0
   location: ^8.0.1
   map_launcher: ^4.5.0
-  mapbox_maps_flutter: ^2.17.0
+  mapbox_maps_flutter: ^2.23.0
   path: ^1.8.3
   path_provider: ^2.1.5
   permission_handler: ^12.0.1

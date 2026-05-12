@@ -55,15 +55,9 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                 ),
                 BoulderAreaMapOK(:final clusterSource, :final boulderMarkers) =>
                   MyMap(
-                    cameraOptions: CameraOptions(
-                      zoom: 12,
-                      center: Point(
-                        coordinates: Position(
-                          location.longitude,
-                          location.latitude,
-                        ),
-                      ),
-                    ),
+                    initialZoom: 12,
+                    initialLatitude: location.latitude,
+                    initialLongitude: location.longitude,
                     onMapCreated: (mapboxMap) async {
                       final parkingLocation =
                           widget.boulderArea.parkingLocation;
