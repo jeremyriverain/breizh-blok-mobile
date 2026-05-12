@@ -111,9 +111,7 @@ class BoulderDetailsTab extends StatelessWidget {
               ref
                 ..watch(boulderMessageFormProvider)
                 ..watch(
-                  boulderVideoFeedbackViewModelProvider(
-                    boulder: boulder,
-                  ),
+                  boulderVideoLinkFormProvider,
                 );
               return Builder(
                 builder: (parentContext) {

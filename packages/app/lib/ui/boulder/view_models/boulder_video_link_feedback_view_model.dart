@@ -13,7 +13,6 @@ part 'boulder_video_link_feedback_view_model.g.dart';
 abstract class BoulderVideoLinkFeedbackState
     with _$BoulderVideoLinkFeedbackState {
   const factory BoulderVideoLinkFeedbackState({
-    required ContributeBoulderVideoLinkForm form,
     required bool pending,
     required bool done,
     required bool error,
@@ -26,9 +25,7 @@ class BoulderVideoFeedbackViewModel extends _$BoulderVideoFeedbackViewModel {
   BoulderVideoLinkFeedbackState build({
     required Boulder boulder,
   }) {
-    final form = ref.watch(_contributeBoulderVideoLinkFormProvider);
-    return BoulderVideoLinkFeedbackState(
-      form: form,
+    return const BoulderVideoLinkFeedbackState(
       pending: false,
       done: false,
       error: false,
@@ -36,13 +33,11 @@ class BoulderVideoFeedbackViewModel extends _$BoulderVideoFeedbackViewModel {
   }
 
   Future<void> onSubmit() async {
-    final form = ref.watch(_contributeBoulderVideoLinkFormProvider)
-      ..markAllAsTouched();
+    final form = ref.watch(boulderVideoLinkFormProvider)..markAllAsTouched();
     if (form.invalid) {
       return;
     }
-    state = BoulderVideoLinkFeedbackState(
-      form: state.form,
+    state = const BoulderVideoLinkFeedbackState(
       pending: true,
       done: false,
       error: false,
@@ -51,7 +46,7 @@ class BoulderVideoFeedbackViewModel extends _$BoulderVideoFeedbackViewModel {
     final result = await ref
         .watch(boulderFeedbackRepositoryProvider)
         .create(
-          BoulderFeedback(boulder: boulder, videoLink: state.form.videoLink),
+          BoulderFeedback(boulder: boulder, videoLink: form.videoLink),
         )
         .run();
 
@@ -63,7 +58,8 @@ class BoulderVideoFeedbackViewModel extends _$BoulderVideoFeedbackViewModel {
           );
 
           if (videoLinkViolation != null) {
-            state.form
+            ref
+                .watch(boulderVideoLinkFormProvider)
                 .control(
                   ContributeBoulderVideoLinkForm.formKeys.videoLink,
                 )
@@ -73,16 +69,14 @@ class BoulderVideoFeedbackViewModel extends _$BoulderVideoFeedbackViewModel {
           }
         }
 
-        state = BoulderVideoLinkFeedbackState(
-          form: state.form,
+        state = const BoulderVideoLinkFeedbackState(
           pending: false,
           done: false,
           error: true,
         );
       },
       (_) {
-        state = BoulderVideoLinkFeedbackState(
-          form: ContributeBoulderVideoLinkForm(),
+        state = const BoulderVideoLinkFeedbackState(
           pending: false,
           done: true,
           error: false,
@@ -93,6 +87,6 @@ class BoulderVideoFeedbackViewModel extends _$BoulderVideoFeedbackViewModel {
 }
 
 @riverpod
-ContributeBoulderVideoLinkForm _contributeBoulderVideoLinkForm(Ref ref) {
+ContributeBoulderVideoLinkForm boulderVideoLinkForm(Ref ref) {
   return ContributeBoulderVideoLinkForm();
 }

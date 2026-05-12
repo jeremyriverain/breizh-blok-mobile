@@ -55,11 +55,9 @@ class BoulderVideoLinkFormScreen extends StatelessWidget {
                     }
                   },
                 );
-                final state = ref.watch(
-                  boulderVideoFeedbackViewModelProvider(boulder: boulder),
-                );
+
                 return ReactiveForm(
-                  formGroup: state.form,
+                  formGroup: ref.watch(boulderVideoLinkFormProvider),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
