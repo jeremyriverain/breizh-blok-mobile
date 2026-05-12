@@ -2,15 +2,12 @@ import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_location_form.dart';
-import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
-import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_video_link_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/contribute_boulder_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_message_form_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/boulder_video_link_form_screen.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/contribute/contribute_boulder_map_screen.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/clickable_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ContributeBoulderScreen extends StatelessWidget {
@@ -36,16 +33,10 @@ class ContributeBoulderScreen extends StatelessWidget {
             leading: const Icon(Icons.comment),
             title: Text(localizations.makeSuggestion),
             onTap: () async {
-              final viewModel =
-                  context.read<BoulderMessageFeedbackViewModel>();
               await Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (_) =>
-                      BlocProvider<BoulderMessageFeedbackViewModel>.value(
-                        value: viewModel,
-                        child: BoulderMessageFormScreen(boulder: boulder),
-                      ),
+                  builder: (_) => BoulderMessageFormScreen(boulder: boulder),
                 ),
               );
             },
@@ -54,16 +45,10 @@ class ContributeBoulderScreen extends StatelessWidget {
             leading: const Icon(Icons.video_call),
             title: Text(localizations.suggestVideo),
             onTap: () async {
-              final viewModel =
-                  context.read<BoulderVideoLinkFeedbackViewModel>();
               await Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (_) =>
-                      BlocProvider<BoulderVideoLinkFeedbackViewModel>.value(
-                        value: viewModel,
-                        child: BoulderVideoLinkFormScreen(boulder: boulder),
-                      ),
+                  builder: (_) => BoulderVideoLinkFormScreen(boulder: boulder),
                 ),
               );
             },
