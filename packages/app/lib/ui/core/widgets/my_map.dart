@@ -78,11 +78,11 @@ class _MyMapState extends State<MyMap> {
                 final map = _mapboxMap;
 
                 if (map != null && onTapListener != null) {
-                  _mapboxMap?.addInteraction(
+                  map.addInteraction(
                     TapInteraction.onMap((mapContentGestureContext) {
                       try {
                         widget.onTapListener?.call(
-                          mapboxMap,
+                          map,
                           mapContentGestureContext,
                         );
                       } catch (exception, stackTrace) {
