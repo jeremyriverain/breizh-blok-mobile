@@ -3,7 +3,6 @@ import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
-import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_message_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/forms/contribute_boulder_video_link_form.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_video_link_feedback_view_model.dart';
@@ -111,17 +110,17 @@ class BoulderDetailsTab extends StatelessWidget {
             const Divider(),
           Consumer(
             builder: (context, ref, child) {
+              ref.watch(
+                boulderFeedbackViewModelProvider(
+                  boulder: boulder,
+                  boulderFeedbackRepository: ref.watch(
+                    boulderFeedbackRepositoryProvider,
+                  ),
+                  form: ref.watch(contributeBoulderMessageFormProvider),
+                ),
+              );
               return MultiBlocProvider(
                 providers: [
-                  BlocProvider(
-                    create: (context) => BoulderMessageFeedbackViewModel(
-                      form: ContributeBoulderMessageForm(),
-                      boulderFeedbackRepository: ref.watch(
-                        boulderFeedbackRepositoryProvider,
-                      ),
-                      boulder: boulder,
-                    ),
-                  ),
                   BlocProvider(
                     create: (context) => BoulderVideoLinkFeedbackViewModel(
                       form: ContributeBoulderVideoLinkForm(),
@@ -143,12 +142,6 @@ class BoulderDetailsTab extends StatelessWidget {
                           MaterialPageRoute<void>(
                             builder: (context) => MultiBlocProvider(
                               providers: [
-                                BlocProvider<
-                                  BoulderMessageFeedbackViewModel
-                                >.value(
-                                  value: parentContext
-                                      .read<BoulderMessageFeedbackViewModel>(),
-                                ),
                                 BlocProvider<
                                   BoulderVideoLinkFeedbackViewModel
                                 >.value(
