@@ -88,6 +88,7 @@ Location location(Ref ref) {
 @riverpod
 GoRouter router(Ref ref) {
   return GoRouter(
+    restorationScopeId: 'app',
     navigatorKey: rootNavigatorKey,
     initialLocation: ref.watch(routerInitialLocationProvider),
     observers: ref.watch(routerObserversProvider),
