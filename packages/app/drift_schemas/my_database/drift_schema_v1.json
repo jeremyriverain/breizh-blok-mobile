@@ -1,0 +1,143 @@
+{
+  "_meta": {
+    "description": "This file contains a serialized version of schema entities for drift.",
+    "version": "1.3.0"
+  },
+  "options": {
+    "store_date_time_values_as_text": true
+  },
+  "entities": [
+    {
+      "id": 0,
+      "references": [],
+      "type": "table",
+      "data": {
+        "name": "db_requests",
+        "was_declared_in_moor": false,
+        "columns": [
+          {
+            "name": "request_path",
+            "getter_name": "requestPath",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": null,
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "response_body",
+            "getter_name": "responseBody",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": null,
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          }
+        ],
+        "is_virtual": false,
+        "without_rowid": false,
+        "constraints": [],
+        "explicit_pk": [
+          "request_path"
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "references": [
+        0
+      ],
+      "type": "table",
+      "data": {
+        "name": "db_boulder_areas",
+        "was_declared_in_moor": false,
+        "columns": [
+          {
+            "name": "iri",
+            "getter_name": "iri",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": null,
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "download_progress",
+            "getter_name": "downloadProgress",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": null,
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "boulders",
+            "getter_name": "boulders",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": null,
+            "defaultConstraints": "REFERENCES db_requests (request_path)",
+            "dialectAwareDefaultConstraints": {
+              "sqlite": "REFERENCES db_requests (request_path)"
+            },
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [
+              {
+                "foreign_key": {
+                  "to": {
+                    "table": "db_requests",
+                    "column": "request_path"
+                  },
+                  "initially_deferred": false,
+                  "on_update": null,
+                  "on_delete": null
+                }
+              }
+            ]
+          },
+          {
+            "name": "downloaded_at",
+            "getter_name": "downloadedAt",
+            "moor_type": "dateTime",
+            "nullable": false,
+            "customConstraints": null,
+            "default_dart": "const CustomExpression('CURRENT_TIMESTAMP')",
+            "default_client_dart": null,
+            "dsl_features": []
+          }
+        ],
+        "is_virtual": false,
+        "without_rowid": false,
+        "constraints": [],
+        "explicit_pk": [
+          "iri"
+        ]
+      }
+    }
+  ],
+  "fixed_sql": [
+    {
+      "name": "db_requests",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TABLE IF NOT EXISTS \"db_requests\" (\"request_path\" TEXT NOT NULL, \"response_body\" TEXT NOT NULL, PRIMARY KEY (\"request_path\"));"
+        }
+      ]
+    },
+    {
+      "name": "db_boulder_areas",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TABLE IF NOT EXISTS \"db_boulder_areas\" (\"iri\" TEXT NOT NULL, \"download_progress\" INTEGER NOT NULL, \"boulders\" TEXT NULL REFERENCES db_requests (request_path), \"downloaded_at\" TEXT NOT NULL DEFAULT (CURRENT_TIMESTAMP), PRIMARY KEY (\"iri\"));"
+        }
+      ]
+    }
+  ]
+}
