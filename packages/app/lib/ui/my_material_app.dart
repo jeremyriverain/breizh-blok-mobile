@@ -84,6 +84,7 @@ class MyMaterialApp extends ConsumerWidget {
               builder: (context) {
                 final router = ref.watch(routerProvider);
                 return MaterialApp.router(
+                  restorationScopeId: 'app',
                   routeInformationProvider: router.routeInformationProvider,
                   routeInformationParser: router.routeInformationParser,
                   routerDelegate: router.routerDelegate,

@@ -12,7 +12,7 @@ import 'package:breizh_blok_mobile/ui/download/widgets/downloaded_boulder_detail
 import 'package:breizh_blok_mobile/ui/map/widgets/map_screen.dart';
 import 'package:breizh_blok_mobile/ui/municipality/widgets/municipality_details_screen.dart';
 import 'package:breizh_blok_mobile/ui/profile/widgets/profile_screen.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,11 +31,16 @@ final _profileShellNavigatorKey = GlobalKey<NavigatorState>(
 List<StatefulShellRoute> getRoutes({required Analytics analytics}) {
   return [
     StatefulShellRoute.indexedStack(
-      builder: (_, _, navigationShell) {
-        return ScaffoldNestedNavigation(navigationShell);
+      restorationScopeId: 'statefulShellBranch',
+      pageBuilder: (_, _, navigationShell) {
+        return MaterialPage(
+          restorationId: 'appShellPage',
+          child: ScaffoldNestedNavigation(navigationShell),
+        );
       },
       branches: <StatefulShellBranch>[
         StatefulShellBranch(
+          restorationScopeId: 'boulderBranch',
           navigatorKey: _boulderListShellNavigatorKey,
           observers: [RouterObserver(analytics: analytics)],
           routes: <RouteBase>[
@@ -82,6 +87,7 @@ List<StatefulShellRoute> getRoutes({required Analytics analytics}) {
           ],
         ),
         StatefulShellBranch(
+          restorationScopeId: 'mapBranch',
           navigatorKey: _mapShellNavigatorKey,
           observers: [RouterObserver(analytics: analytics)],
           routes: <RouteBase>[
@@ -98,6 +104,7 @@ List<StatefulShellRoute> getRoutes({required Analytics analytics}) {
           ],
         ),
         StatefulShellBranch(
+          restorationScopeId: 'sitesBranch',
           navigatorKey: _sitesShellNavigatorKey,
           observers: [RouterObserver(analytics: analytics)],
           routes: <RouteBase>[
@@ -130,6 +137,7 @@ List<StatefulShellRoute> getRoutes({required Analytics analytics}) {
           ],
         ),
         StatefulShellBranch(
+          restorationScopeId: 'profileBranch',
           navigatorKey: _profileShellNavigatorKey,
           observers: [RouterObserver(analytics: analytics)],
           routes: <RouteBase>[
