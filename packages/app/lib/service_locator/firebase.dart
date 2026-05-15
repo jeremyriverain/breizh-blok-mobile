@@ -3,12 +3,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'firebase.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 FirebaseRemoteConfig firebaseRemoteConfig(Ref ref) {
   return FirebaseRemoteConfig.instance;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 RemoteConfigSettings remoteConfigSettings(Ref ref) {
   return RemoteConfigSettings(
     fetchTimeout: const Duration(seconds: 5),
@@ -16,7 +16,7 @@ RemoteConfigSettings remoteConfigSettings(Ref ref) {
   );
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<bool?> initializeFirebase(Ref ref) async {
   final remoteConfig = ref.watch(firebaseRemoteConfigProvider);
   await remoteConfig.setConfigSettings(

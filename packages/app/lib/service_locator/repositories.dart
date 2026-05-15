@@ -15,7 +15,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'repositories.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Dio dio(Ref ref) {
   return createDio(
     auth: ref.watch(authProvider),
@@ -23,7 +23,7 @@ Dio dio(Ref ref) {
   );
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 BoulderFeedbackRepository boulderFeedbackRepository(Ref ref) {
   return BoulderFeedbackRepositoryImpl(
     apiDataSource: ApiBoulderFeedbackDataSource(
@@ -32,14 +32,14 @@ BoulderFeedbackRepository boulderFeedbackRepository(Ref ref) {
   );
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 RemoteConfigRepository remoteConfigRepository(Ref ref) {
   return RemoteConfigRepositoryImpl(
     firebaseRemoteConfig: ref.watch(firebaseRemoteConfigProvider),
   );
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 UserProfileRepository userProfileRepository(Ref ref) {
   return UserProfileRepositoryImpl(
     apiDataSource: ApiUserProfileDataSource(

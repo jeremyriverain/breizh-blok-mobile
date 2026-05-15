@@ -70,7 +70,10 @@ class _MyMapState extends State<MyMap> {
                   _mapboxMap = mapboxMap;
                 });
                 await mapboxMap.attribution.updateSettings(
-                  AttributionSettings(enabled: false),
+                  AttributionSettings(
+                    enabled: true,
+                    position: OrnamentPosition.TOP_RIGHT,
+                  ),
                 );
                 widget.onMapCreated?.call(mapboxMap);
 
