@@ -40,7 +40,7 @@ void main() {
 
       test('Given database throws an exception, '
           'When watchAll is called, '
-          'Then it throws a $DomainException', () async {
+          'Then it throws a $AppDatabaseException', () async {
         final database = MockAppDatabase();
         final dataSource = LocalDataSourceGrade(
           database: database,
@@ -51,11 +51,98 @@ void main() {
         expect(
           dataSource.watchAll,
           throwsA(
-            isA<UnknownException>().having(
+            isA<AppDatabaseException>(),
+          ),
+        );
+      });
+    });
+
+    group('seed', () {
+      test('seeds entities from db', () async {
+        final database = createMemoryDatabase();
+        final dataSource = LocalDataSourceGrade(
+          database: database,
+        );
+        await expectLater(
+          dataSource.seed(
+            const [
+              fakeGrade6a,
+              fakeGrade6b,
+            ],
+          ),
+          completes,
+        );
+        await expectLater(
+          dataSource.watchAll(),
+          emits(
+            const [
+              fakeGrade6a,
+              fakeGrade6b,
+            ],
+          ),
+        );
+      });
+
+      test('seed should fail when names are not unique', () async {
+        final database = createMemoryDatabase();
+        final dataSource = LocalDataSourceGrade(
+          database: database,
+        );
+        await expectLater(
+          dataSource.seed(
+            [fakeGrade6a, fakeGrade6b.copyWith(name: fakeGrade6a.name)],
+          ),
+          throwsA(
+            isA<AppDatabaseException>().having(
               (e) => e.message,
               'message',
-              equals('Exception: fake'),
+              startsWith('SqliteException'),
             ),
+          ),
+        );
+      });
+
+      test('seed should success when entity already exists in db', () async {
+        final database = createMemoryDatabase();
+        final dataSource = LocalDataSourceGrade(
+          database: database,
+        );
+        await database.insertFixtures(
+          grades: const [fakeGrade6a],
+        );
+        await expectLater(
+          dataSource.seed(
+            const [fakeGrade6a],
+          ),
+          completes,
+        );
+      });
+
+      test('Given database has already elements '
+          'When addAll is called '
+          'Then table is clear '
+          'And new elements from addAll replace previous elements', () async {
+        final database = createMemoryDatabase();
+        final dataSource = LocalDataSourceGrade(
+          database: database,
+        );
+        await database.insertFixtures(
+          grades: [fakeGrade6a],
+        );
+        await expectLater(
+          dataSource.seed(
+            const [
+              fakeGrade6b,
+            ],
+          ),
+          completes,
+        );
+        await expectLater(
+          dataSource.watchAll(),
+          emits(
+            const [
+              fakeGrade6b,
+            ],
           ),
         );
       });

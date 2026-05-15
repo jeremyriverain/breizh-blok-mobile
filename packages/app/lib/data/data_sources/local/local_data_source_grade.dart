@@ -10,6 +10,34 @@ class LocalDataSourceGrade {
   final AppDatabase _database;
   LocalGradeMapper get _mapper => const LocalGradeMapper();
 
+  Future<void> seed(List<Grade> grades) async {
+    try {
+      // During update, foreign constraints must be disabled.
+      // See: https://drift.simonbinder.eu/Migrations/api
+      await _database.setForeignKeysMode(isActive: false);
+      await _database.transaction(() async {
+        await _database.delete(_database.gradeTable).go();
+        await _database.batch(
+          (batch) {
+            batch.insertAll(
+              _database.gradeTable,
+              <GradeTableCompanion>[
+                for (final grade in grades)
+                  _mapper.fromDomain(grade).toCompanion(true),
+              ],
+            );
+          },
+        );
+      });
+    } catch (e) {
+      throw AppDatabaseException(
+        message: e.toString(),
+      );
+    } finally {
+      await _database.setForeignKeysMode(isActive: true);
+    }
+  }
+
   Stream<List<Grade>> watchAll() {
     try {
       return _database
@@ -17,7 +45,7 @@ class LocalDataSourceGrade {
           .map(_mapper.toDomain)
           .watch();
     } catch (e) {
-      throw UnknownException(
+      throw AppDatabaseException(
         message: e.toString(),
       );
     }
