@@ -13,6 +13,9 @@ sealed class DomainException with _$DomainException implements Exception {
   const factory DomainException.unknown({required String message}) =
       UnknownException;
 
+  const factory DomainException.appDatabase({required String message}) =
+      AppDatabaseException;
+
   const factory DomainException.unprocessableEntity({
     @Default(<Violation>[]) List<Violation> violations,
   }) = UnprocessableEntityException;

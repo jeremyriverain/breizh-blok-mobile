@@ -28,6 +28,10 @@ class AppDatabase extends _$AppDatabase {
     );
   }
 
+  Future<void> setForeignKeysMode({required bool isActive}) async {
+    return customStatement('PRAGMA foreign_keys = ${isActive ? 'ON' : 'OFF'}');
+  }
+
   Future<int> createOrUpdateRequest(DbRequest request) {
     return into(dbRequests).insertOnConflictUpdate(request);
   }
