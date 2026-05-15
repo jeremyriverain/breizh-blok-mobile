@@ -51,6 +51,9 @@ class MapScreen extends StatelessWidget {
                     context.read<MapScreenViewModel>().add(
                       MapLoadedEvent(mapboxMap: mapboxMap),
                     );
+                    context.read<MapScreenViewModel>().add(
+                      FetchBoulderMarkersEvent(),
+                    );
                   },
                   onTapListener: (mapboxMap, mapContentGestureContext) async {
                     final cluster = await mapboxMap.onTapFindCluster(

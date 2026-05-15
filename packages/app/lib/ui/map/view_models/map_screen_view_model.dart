@@ -66,7 +66,6 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
           );
       }
     });
-    add(FetchBoulderMarkersEvent());
   }
 
   final BoulderMarkerRepository boulderMarkerRepository;
