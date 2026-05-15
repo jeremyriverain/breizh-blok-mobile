@@ -3,7 +3,11 @@ import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 
 class LocalGradeMapper {
   const LocalGradeMapper();
-  Grade fromRow(GradeTableData gradeTableData) {
+  Grade toDomain(GradeTableData gradeTableData) {
     return Grade(iri: gradeTableData.iri, name: gradeTableData.name);
+  }
+
+  GradeTableData fromDomain(Grade grade) {
+    return GradeTableData(iri: grade.iri, name: grade.name);
   }
 }

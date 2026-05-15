@@ -14,7 +14,7 @@ class LocalDataSourceGrade {
     try {
       return _database
           .select(_database.gradeTable)
-          .map(_mapper.fromRow)
+          .map(_mapper.toDomain)
           .watch();
     } catch (e) {
       throw UnknownException(
