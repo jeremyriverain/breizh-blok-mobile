@@ -18,7 +18,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {
@@ -26,6 +26,9 @@ class AppDatabase extends _$AppDatabase {
       onUpgrade: stepByStep(
         from1To2: (m, schema) async {
           await m.createTable(schema.gradeTable);
+        },
+        from2To3: (m, schema) async {
+          await m.createTable(schema.boulderGeoPointTable);
         },
       ),
     );
