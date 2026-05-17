@@ -3,8 +3,8 @@ import 'package:breizh_blok_mobile/data/data_sources/local/mappers/local_grade_m
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 
-class LocalDataSourceGrade {
-  const LocalDataSourceGrade({required AppDatabase database})
+class LocalGradeDataSource {
+  const LocalGradeDataSource({required AppDatabase database})
     : _database = database;
 
   final AppDatabase _database;

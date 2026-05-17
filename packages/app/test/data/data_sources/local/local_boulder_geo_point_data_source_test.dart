@@ -1,6 +1,6 @@
-import 'package:breizh_blok_mobile/data/data_sources/local/local_data_source_grade.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/local_boulder_geo_point_data_source.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_geo_point/boulder_geo_point.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
-import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -9,11 +9,11 @@ import '../../../mocks.dart';
 import '../../../test_utils.dart';
 
 void main() {
-  group('LocalDataSourceGrade', () {
+  group('LocalBoulderGeoPointDataSource', () {
     group('watchAll', () {
       test('empty list by default', () async {
         final database = createMemoryDatabase();
-        final dataSource = LocalDataSourceGrade(
+        final dataSource = LocalBoulderGeoPointDataSource(
           database: database,
         );
         await expectLater(
@@ -24,17 +24,17 @@ void main() {
 
       test('watch some entities from db', () async {
         final database = createMemoryDatabase();
-        final dataSource = LocalDataSourceGrade(
+        final dataSource = LocalBoulderGeoPointDataSource(
           database: database,
         );
-        final grades = <Grade>[
-          fakeGrade6a,
-          fakeGrade6b,
+        final boulderGeoPoints = <BoulderGeoPoint>[
+          fakeBoulderGeoPoint,
+          fakeBoulderGeoPoint2,
         ];
-        await database.insertFixtures(grades: grades);
+        await database.insertFixtures(boulderGeoPoints: boulderGeoPoints);
         await expectLater(
           dataSource.watchAll(),
-          emits(grades),
+          emits(boulderGeoPoints),
         );
       });
 
@@ -42,11 +42,11 @@ void main() {
           'When watchAll is called, '
           'Then it throws a $AppDatabaseException', () async {
         final database = MockAppDatabase();
-        final dataSource = LocalDataSourceGrade(
+        final dataSource = LocalBoulderGeoPointDataSource(
           database: database,
         );
         when(
-          () => database.select(database.gradeTable),
+          () => database.select(database.boulderGeoPointTable),
         ).thenThrow(Exception('fake'));
         expect(
           dataSource.watchAll,
@@ -60,14 +60,14 @@ void main() {
     group('seed', () {
       test('seeds entities from db', () async {
         final database = createMemoryDatabase();
-        final dataSource = LocalDataSourceGrade(
+        final dataSource = LocalBoulderGeoPointDataSource(
           database: database,
         );
         await expectLater(
           dataSource.seed(
             const [
-              fakeGrade6a,
-              fakeGrade6b,
+              fakeBoulderGeoPoint,
+              fakeBoulderGeoPoint2,
             ],
           ),
           completes,
@@ -76,43 +76,24 @@ void main() {
           dataSource.watchAll(),
           emits(
             const [
-              fakeGrade6a,
-              fakeGrade6b,
+              fakeBoulderGeoPoint,
+              fakeBoulderGeoPoint2,
             ],
-          ),
-        );
-      });
-
-      test('seed should fail when names are not unique', () async {
-        final database = createMemoryDatabase();
-        final dataSource = LocalDataSourceGrade(
-          database: database,
-        );
-        await expectLater(
-          dataSource.seed(
-            [fakeGrade6a, fakeGrade6b.copyWith(name: fakeGrade6a.name)],
-          ),
-          throwsA(
-            isA<AppDatabaseException>().having(
-              (e) => e.message,
-              'message',
-              startsWith('SqliteException'),
-            ),
           ),
         );
       });
 
       test('seed should success when entity already exists in db', () async {
         final database = createMemoryDatabase();
-        final dataSource = LocalDataSourceGrade(
+        final dataSource = LocalBoulderGeoPointDataSource(
           database: database,
         );
         await database.insertFixtures(
-          grades: const [fakeGrade6a],
+          boulderGeoPoints: const [fakeBoulderGeoPoint],
         );
         await expectLater(
           dataSource.seed(
-            const [fakeGrade6a],
+            const [fakeBoulderGeoPoint],
           ),
           completes,
         );
@@ -123,16 +104,16 @@ void main() {
           'Then table is clear '
           'And new elements from addAll replace previous elements', () async {
         final database = createMemoryDatabase();
-        final dataSource = LocalDataSourceGrade(
+        final dataSource = LocalBoulderGeoPointDataSource(
           database: database,
         );
         await database.insertFixtures(
-          grades: [fakeGrade6a],
+          boulderGeoPoints: [fakeBoulderGeoPoint],
         );
         await expectLater(
           dataSource.seed(
             const [
-              fakeGrade6b,
+              fakeBoulderGeoPoint2,
             ],
           ),
           completes,
@@ -141,7 +122,7 @@ void main() {
           dataSource.watchAll(),
           emits(
             const [
-              fakeGrade6b,
+              fakeBoulderGeoPoint2,
             ],
           ),
         );

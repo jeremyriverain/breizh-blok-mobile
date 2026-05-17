@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_geo_point/boulder_geo_point.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
 import 'package:breizh_blok_mobile/domain/entities/department/department.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
@@ -48,3 +49,6 @@ const fakeBoulderFeedback = BoulderFeedback(
 
 const fakeGrade6a = Grade(iri: '/grade/1', name: '6a');
 const fakeGrade6b = Grade(iri: '/grade/2', name: '6b');
+
+const fakeBoulderGeoPoint = BoulderGeoPoint(id: 1, lat: 2, lng: 3, areaId: 4);
+const fakeBoulderGeoPoint2 = BoulderGeoPoint(id: 2, lat: 3, lng: 4, areaId: 5);
