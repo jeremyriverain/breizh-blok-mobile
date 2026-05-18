@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_order_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 

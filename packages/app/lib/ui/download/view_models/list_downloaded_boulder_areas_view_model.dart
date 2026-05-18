@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/downloaded_boulder_area.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

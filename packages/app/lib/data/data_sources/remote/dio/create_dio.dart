@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/config/env.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/dio/bearer_interceptor.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/dio/bearer_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';

@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/boulder/boulder_api_response.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/boulder/boulder_api_response.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';

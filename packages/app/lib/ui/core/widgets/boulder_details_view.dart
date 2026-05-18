@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/widgets/boulder_details_map_tab.dart';

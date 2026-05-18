@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_data_source.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_feedback_data_source.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,14 +10,14 @@ import '../../../test_utils.dart';
 void main() {
   late Dio dio;
 
-  late ApiBoulderFeedbackDataSource dataSource;
+  late RemoteBoulderFeedbackDataSource dataSource;
 
   setUp(() {
     dio = MockDio();
-    dataSource = ApiBoulderFeedbackDataSource(dio: dio);
+    dataSource = RemoteBoulderFeedbackDataSource(dio: dio);
   });
 
-  group('ApiBoulderFeedackDataSource', () {
+  group('RemoteBoulderFeedackDataSource', () {
     group('create', () {
       test('create boulder feedback successfully', () async {
         when(

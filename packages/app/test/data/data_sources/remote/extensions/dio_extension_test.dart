@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/extensions/dio_extension.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/extensions/dio_extension.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/entities/violation/violation.dart';
 import 'package:dio/dio.dart';

@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/api_user_profile_data_source.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/remote_user_profile_data_source.dart';
 import 'package:breizh_blok_mobile/data/repositories/user_profile/user_profile_repository_impl.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/entities/user/user.dart';
@@ -10,11 +10,11 @@ import 'package:mocktail/mocktail.dart';
 import '../../../mocks.dart';
 
 void main() {
-  late ApiUserProfileDataSource apiDataSource;
+  late RemoteUserProfileDataSource apiDataSource;
   late UserProfileRepository repository;
 
   setUp(() {
-    apiDataSource = MockApiUserProfileDataSource();
+    apiDataSource = MockRemoteUserProfileDataSource();
     repository = UserProfileRepositoryImpl(apiDataSource: apiDataSource);
   });
   group('UserProfileRepositoryImpl', () {

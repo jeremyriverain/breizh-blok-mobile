@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
