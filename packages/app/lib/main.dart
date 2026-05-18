@@ -35,7 +35,8 @@ Future<void> runMainApp(FirebaseOptions firebaseOptions) async {
       options
         ..dsn = Env.sentryDsn
         ..attachScreenshot = true
-        ..tracesSampleRate = 0;
+        ..tracesSampleRate = 0
+        ..enableTombstone = true;
     },
     appRunner: () => runApp(
       ProviderScope(
