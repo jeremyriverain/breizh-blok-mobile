@@ -1,47 +1,45 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'paginated_collection.freezed.dart';
+part 'paginated_collection.g.dart'; // Nécessaire pour json_serializable
 
-@freezed
+@Freezed(genericArgumentFactories: true)
 abstract class PaginatedCollection<T> with _$PaginatedCollection<T> {
   const factory PaginatedCollection({
-    required List<T> items,
-    required int totalItems,
-    int? nextPage,
+    @JsonKey(name: 'hydra:member') required List<T> items,
+
+    @JsonKey(name: 'hydra:totalItems') required int totalItems,
+
+    @JsonKey(name: 'nextPage', readValue: _readNextPage) int? nextPage,
   }) = _PaginatedCollection;
 
-  const PaginatedCollection._();
+  factory PaginatedCollection.fromJson(
+    Map<String, dynamic> json,
+    T Function(Object?) fromJsonT,
+  ) => _$PaginatedCollectionFromJson(json, fromJsonT);
 
   factory PaginatedCollection.fromApi(
     Map<String, dynamic> json,
-    T Function(Map<String, dynamic>) callbackItem,
+    T Function(Map<String, dynamic>) fromJson,
   ) {
-    final items = (json['hydra:member'] as List<dynamic>)
-        .map<T>((item) => callbackItem(item as Map<String, dynamic>))
-        .toList();
-
-    int? nextPage;
-    if (json case {
-      'hydra:view': {
-        'hydra:next': final String nextPageUrl,
-      },
-    }) {
-      nextPage = _extractPage(nextPageUrl);
-    }
-    return PaginatedCollection(
-      items: items,
-      totalItems: json['hydra:totalItems'] as int,
-      nextPage: nextPage,
-    );
+    return PaginatedCollection.fromJson(json, (jsonT) {
+      return jsonT != null
+          ? fromJson(jsonT as Map<String, dynamic>)
+          : throw Exception('json should not be null');
+    });
   }
+}
 
-  static int? _extractPage(String uri) {
-    final page = Uri.parse(uri).queryParameters['page'];
+Object? _readNextPage(Map<dynamic, dynamic> json, String key) {
+  final view = json['hydra:view'];
+  if (view is Map && view.containsKey('hydra:next')) {
+    final nextUrl = view['hydra:next'];
 
-    if (page == null) {
-      return null;
+    if (nextUrl is String) {
+      final uri = Uri.tryParse(nextUrl);
+      final page = uri?.queryParameters['page'];
+      return page != null ? int.tryParse(page) : null;
     }
-
-    return int.parse(page);
   }
+  return null;
 }
