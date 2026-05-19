@@ -19,7 +19,7 @@ class PaginatedCollection<T> {
         'hydra:next': final String nextPageUrl,
       },
     }) {
-      nextPage = extractPage(nextPageUrl);
+      nextPage = _extractPage(nextPageUrl);
     }
     return PaginatedCollection(
       items: items,
@@ -43,7 +43,7 @@ class PaginatedCollection<T> {
     );
   }
 
-  static int? extractPage(String uri) {
+  static int? _extractPage(String uri) {
     final page = Uri.parse(uri).queryParameters['page'];
 
     if (page == null) {
