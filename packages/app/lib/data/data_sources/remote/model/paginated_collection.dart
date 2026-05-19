@@ -1,9 +1,16 @@
-class PaginatedCollection<T> {
-  const PaginatedCollection({
-    required this.items,
-    required this.totalItems,
-    this.nextPage,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'paginated_collection.freezed.dart';
+
+@freezed
+abstract class PaginatedCollection<T> with _$PaginatedCollection<T> {
+  const factory PaginatedCollection({
+    required List<T> items,
+    required int totalItems,
+    int? nextPage,
+  }) = _PaginatedCollection;
+
+  const PaginatedCollection._();
 
   factory PaginatedCollection.fromApi(
     Map<String, dynamic> json,
@@ -25,21 +32,6 @@ class PaginatedCollection<T> {
       items: items,
       totalItems: json['hydra:totalItems'] as int,
       nextPage: nextPage,
-    );
-  }
-  final List<T> items;
-  final int totalItems;
-  final int? nextPage;
-
-  PaginatedCollection<T> copyWith({
-    List<T>? items,
-    int? totalItems,
-    int? nextPage,
-  }) {
-    return PaginatedCollection(
-      items: items ?? this.items,
-      totalItems: totalItems ?? this.totalItems,
-      nextPage: nextPage ?? this.nextPage,
     );
   }
 
