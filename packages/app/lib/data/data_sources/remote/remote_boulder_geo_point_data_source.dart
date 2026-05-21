@@ -21,10 +21,16 @@ class RemoteBoulderGeoPointDataSource {
           },
         );
 
-        final data = response.data;
-        if (response.statusCode != 200 || data == null) {
+        if (response.statusCode != 200) {
           throw Exception(
             'response is not successfull. status code ${response.statusCode}',
+          );
+        }
+
+        final data = response.data;
+        if (data == null) {
+          throw Exception(
+            'data is null !',
           );
         }
 
