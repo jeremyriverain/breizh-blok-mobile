@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/api_client.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 
 class DownloadedBoulderRepository {

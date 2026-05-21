@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BoulderOrderBloc extends Bloc<BoulderOrderEvent, ApiOrderParam> {

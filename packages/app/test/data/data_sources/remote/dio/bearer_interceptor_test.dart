@@ -1,5 +1,5 @@
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/dio/bearer_interceptor.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/dio/bearer_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';

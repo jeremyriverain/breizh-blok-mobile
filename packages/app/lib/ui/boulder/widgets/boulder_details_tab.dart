@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/iri_parser.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_message_feedback_view_model.dart';

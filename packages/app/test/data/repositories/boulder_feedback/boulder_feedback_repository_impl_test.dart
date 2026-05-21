@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_data_source.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_feedback_data_source.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository_impl.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
@@ -10,7 +10,7 @@ import '../../../mocks.dart';
 import '../../../test_utils.dart';
 
 void main() {
-  late ApiBoulderFeedbackDataSource apiDataSource;
+  late RemoteBoulderFeedbackDataSource apiDataSource;
   late BoulderFeedbackRepository repository;
 
   setUp(() {

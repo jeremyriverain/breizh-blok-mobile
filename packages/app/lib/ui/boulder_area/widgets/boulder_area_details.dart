@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/iri_parser.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';

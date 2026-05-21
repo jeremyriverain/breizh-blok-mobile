@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_choice.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_choice.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

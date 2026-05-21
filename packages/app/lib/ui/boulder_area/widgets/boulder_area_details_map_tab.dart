@@ -1,6 +1,6 @@
 import 'package:breizh_blok_mobile/config/assets.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';

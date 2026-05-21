@@ -1,4 +1,4 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/department/department.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

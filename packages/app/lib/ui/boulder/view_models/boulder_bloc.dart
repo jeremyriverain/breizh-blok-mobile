@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/boulder/boulder_api_response.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/boulder/boulder_api_response.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/services/local/download_area_service.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
@@ -50,14 +50,14 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
           boulderArea: event.boulderArea,
         );
 
-        var data = await repository.findBy(
+        final response = await repository.findBy(
           queryParams: queryParams,
           offlineFirst: true,
           timeout: const Duration(seconds: 15),
         );
 
-        data = data.copyWith(
-          items: data.items.where((boulder) {
+        var data = response.copyWith(
+          items: response.items.where((boulder) {
             return _isInSet(boulder.id, event.boulderIds) &&
                 _isInSet(boulder.grade, event.grades);
           }).toList(),
@@ -65,14 +65,15 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
 
         if (event.orderParam.name == kGradeOrderParam) {
           data = data.copyWith(
-            items: data.items
-              ..sort((firstBoulder, secondBoulder) {
+            items: List.unmodifiable(
+              data.items.toList()..sort((firstBoulder, secondBoulder) {
                 return _compareGrades(
                   firstBoulder,
                   secondBoulder,
                   orderParam: event.orderParam,
                 );
               }),
+            ),
           );
         }
 

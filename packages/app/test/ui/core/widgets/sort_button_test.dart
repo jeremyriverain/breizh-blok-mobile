@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_choice.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/api_order_param.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_choice.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/sort_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -1,10 +1,10 @@
 import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/api_boulder_feedback_data_source.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/api_client.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/api_user_profile_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/api_client.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_feedback_data_source.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/remote_user_profile_data_source.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
@@ -29,12 +29,12 @@ import 'package:mocktail/mocktail.dart';
 import 'package:upgrader/upgrader.dart';
 
 class MockApiBoulderFeedbackDataSource extends Mock
-    implements ApiBoulderFeedbackDataSource {}
+    implements RemoteBoulderFeedbackDataSource {}
 
 class MockApiClient extends Mock implements ApiClient {}
 
-class MockApiUserProfileDataSource extends Mock
-    implements ApiUserProfileDataSource {}
+class MockRemoteUserProfileDataSource extends Mock
+    implements RemoteUserProfileDataSource {}
 
 class MockAppDatabase extends Mock implements AppDatabase {}
 

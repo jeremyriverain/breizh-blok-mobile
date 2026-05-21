@@ -1,5 +1,5 @@
-import 'package:breizh_blok_mobile/data/data_sources/api/model/paginated_collection.dart';
-import 'package:breizh_blok_mobile/data/data_sources/api/model/request_strategy.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
