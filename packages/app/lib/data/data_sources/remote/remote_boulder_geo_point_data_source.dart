@@ -11,6 +11,7 @@ class RemoteBoulderGeoPointDataSource {
   final Dio dio;
 
   TaskEither<DomainException, List<BoulderGeoPoint>> findAll() {
+    const itemsPerPage = 1000;
     return TaskEither.tryCatch(
       () async {
         final response = await dio.get<Map<String, Object?>>(
@@ -39,7 +40,7 @@ class RemoteBoulderGeoPointDataSource {
           (_) => throw Exception('no item should be returned'),
         );
 
-        final numPages = (paginatedCollection.totalItems / 1000).ceil();
+        final numPages = (paginatedCollection.totalItems / itemsPerPage).ceil();
 
         final responses = await Future.wait(
           List.generate(
@@ -49,7 +50,7 @@ class RemoteBoulderGeoPointDataSource {
                   '/boulders',
                   queryParameters: {
                     'page': '${index + 1}',
-                    'itemsPerPage': '1000',
+                    'itemsPerPage': '$itemsPerPage',
                     'groups[]': 'Boulder:map:v2',
                   },
                   options: Options(headers: {'Accept': 'application/json'}),
