@@ -1,10 +1,13 @@
 import 'package:breizh_blok_mobile/data/data_sources/remote/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_feedback_data_source.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_geo_point_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/remote_user_profile_data_source.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_feedback/boulder_feedback_repository_impl.dart';
+import 'package:breizh_blok_mobile/data/repositories/boulder_geo_point/boulder_geo_point_repository_impl.dart';
 import 'package:breizh_blok_mobile/data/repositories/remote_config/remote_config_repository_impl.dart';
 import 'package:breizh_blok_mobile/data/repositories/user_profile/user_profile_repository_impl.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/domain/repositories/boulder_geo_point_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/remote_config_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/user_profile_repository.dart';
 import 'package:breizh_blok_mobile/service_locator/firebase.dart';
@@ -43,6 +46,15 @@ RemoteConfigRepository remoteConfigRepository(Ref ref) {
 UserProfileRepository userProfileRepository(Ref ref) {
   return UserProfileRepositoryImpl(
     apiDataSource: RemoteUserProfileDataSource(
+      dio: ref.watch(dioProvider),
+    ),
+  );
+}
+
+@Riverpod(keepAlive: true)
+BoulderGeoPointRepository boulderGeoPointRepository(Ref ref) {
+  return BoulderGeoPointRepositoryImpl(
+    remoteDataSource: RemoteBoulderGeoPointDataSource(
       dio: ref.watch(dioProvider),
     ),
   );
