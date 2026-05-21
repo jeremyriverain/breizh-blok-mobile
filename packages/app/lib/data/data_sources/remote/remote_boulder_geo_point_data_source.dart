@@ -6,15 +6,15 @@ import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 
 class RemoteBoulderGeoPointDataSource {
-  RemoteBoulderGeoPointDataSource({required this.dio});
+  RemoteBoulderGeoPointDataSource({required Dio dio}) : _dio = dio;
 
-  final Dio dio;
+  final Dio _dio;
 
   TaskEither<DomainException, List<BoulderGeoPoint>> findAll() {
     const itemsPerPage = 1000;
     return TaskEither.tryCatch(
       () async {
-        final response = await dio.get<Map<String, Object?>>(
+        final response = await _dio.get<Map<String, Object?>>(
           '/boulders',
           queryParameters: {
             'itemsPerPage': '0',
@@ -45,7 +45,7 @@ class RemoteBoulderGeoPointDataSource {
         final responses = await Future.wait(
           List.generate(
             numPages,
-            (index) => dio
+            (index) => _dio
                 .get<List<dynamic>>(
                   '/boulders',
                   queryParameters: {
