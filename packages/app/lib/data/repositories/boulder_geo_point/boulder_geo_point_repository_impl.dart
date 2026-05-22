@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/data/data_sources/local/local_boulder_geo_point_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_geo_point_data_source.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_geo_point/boulder_geo_point.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
@@ -5,15 +6,24 @@ import 'package:breizh_blok_mobile/domain/repositories/boulder_geo_point_reposit
 import 'package:fpdart/fpdart.dart';
 
 class BoulderGeoPointRepositoryImpl implements BoulderGeoPointRepository {
-  BoulderGeoPointRepositoryImpl({required this.remoteDataSource});
+  BoulderGeoPointRepositoryImpl({
+    required this.remoteDataSource,
+    required this.localDataSource,
+  });
 
   final RemoteBoulderGeoPointDataSource remoteDataSource;
+  final LocalBoulderGeoPointDataSource localDataSource;
 
   @override
   TaskEither<DomainException, void> findAll() {
-    throw UnimplementedError();
+    return remoteDataSource.findAll().flatMap((points) {
+      return TaskEither.tryCatch(
+        () => localDataSource.seed(points),
+        (error, _) => UnknownException(message: error.toString()),
+      );
+    });
   }
 
   @override
-  Stream<List<BoulderGeoPoint>> get watchAll => throw UnimplementedError();
+  Stream<List<BoulderGeoPoint>> get watchAll => localDataSource.watchAll();
 }

@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/data/data_sources/local/local_boulder_geo_point_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/dio/create_dio.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_feedback_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_geo_point_data_source.dart';
@@ -56,6 +57,9 @@ BoulderGeoPointRepository boulderGeoPointRepository(Ref ref) {
   return BoulderGeoPointRepositoryImpl(
     remoteDataSource: RemoteBoulderGeoPointDataSource(
       dio: ref.watch(dioProvider),
+    ),
+    localDataSource: LocalBoulderGeoPointDataSource(
+      database: ref.watch(appDatabaseProvider),
     ),
   );
 }
