@@ -65,6 +65,53 @@ void main() {
       );
 
       test(
+        'when seed method of local data source throws an error',
+
+        () async {
+          when(
+            () => remoteDataSource.findAll(),
+          ).thenReturn(
+            TaskEither.right([fakeBoulderGeoPoint, fakeBoulderGeoPoint2]),
+          );
+
+          when(
+            () => localDataSource.seed([
+              fakeBoulderGeoPoint,
+              fakeBoulderGeoPoint2,
+            ]),
+          ).thenThrow(Exception('foo'));
+
+          final result = await repository.findAll().run();
+
+          expect(result.isLeft(), isTrue);
+
+          verify(
+            () => remoteDataSource.findAll(),
+          ).called(1);
+
+          verifyNoMoreInteractions(remoteDataSource);
+
+          verify(
+            () => localDataSource.seed([
+              fakeBoulderGeoPoint,
+              fakeBoulderGeoPoint2,
+            ]),
+          ).called(1);
+
+          verifyNoMoreInteractions(localDataSource);
+
+          expect(
+            result.getLeft().toNullable(),
+            isA<UnknownException>().having(
+              (e) => e.message,
+              'message',
+              equals('Exception: foo'),
+            ),
+          );
+        },
+      );
+
+      test(
         'Given findAll returns geo points '
         'Then the seed method of local data source is called',
         () async {
