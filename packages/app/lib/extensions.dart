@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'dart:math';
 
-import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
@@ -50,32 +48,71 @@ extension FeatureExtensionValueExtension on FeatureExtensionValue {
 }
 
 extension MapboxExtension on MapboxMap {
-  Future<void> showClusters(Map<String, dynamic> clusterSource) async {
+  Future<void> showClusters(GeoJsonSource geoJsonSource) async {
     try {
-      await style.styleSourceExists('boulders').then((value) async {
+      await style.styleSourceExists(geoJsonSource.id).then((value) async {
         if (!value) {
-          final source = jsonEncode(clusterSource);
-          await style.addStyleSource('boulders', source);
+          await style.addSource(geoJsonSource);
         }
       });
       await style.styleLayerExists('clusters').then((value) async {
         if (!value) {
-          final layer = await rootBundle.loadString(Assets.clusterLayer);
-          await style.addStyleLayer(layer, null);
-
-          final clusterCountLayer = await rootBundle.loadString(
-            Assets.clusterCountLayer,
+          await style.addLayer(
+            CircleLayer(
+              id: 'clusters',
+              sourceId: geoJsonSource.id,
+              filter: ['has', 'point_count'],
+              circleColorExpression: [
+                'step',
+                ['get', 'point_count'],
+                '#51bbd6',
+                100,
+                '#f1f075',
+                750,
+                '#f28cb1',
+              ],
+              circleRadiusExpression: [
+                'step',
+                ['get', 'point_count'],
+                20,
+                100,
+                30,
+                750,
+                40,
+              ],
+            ),
           );
 
-          await style.addStyleLayer(clusterCountLayer, null);
-
-          final unclusteredLayer = await rootBundle.loadString(
-            Assets.unclusteredPointLayer,
+          await style.addLayer(
+            SymbolLayer(
+              id: 'cluster-count',
+              sourceId: geoJsonSource.id,
+              filter: ['has', 'point_count'],
+              textField: '{point_count_abbreviated}',
+              textFont: ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+              textSize: 12,
+            ),
           );
-          await style.addStyleLayer(unclusteredLayer, null);
+
+          await style.addLayer(
+            CircleLayer(
+              id: 'unclustered-point',
+              sourceId: geoJsonSource.id,
+              filter: [
+                '!',
+                ['has', 'point_count'],
+              ],
+              circleColor: 0xFF11b4da,
+              circleRadius: 6,
+              circleStrokeWidth: 1,
+              circleStrokeColor: 0xFFffffff,
+            ),
+          );
         }
       });
-    } catch (_, _) {}
+    } catch (e, _) {
+      debugPrint(e.toString());
+    }
   }
 
   Future<Map<String?, Object?>?> onTapFindCluster(

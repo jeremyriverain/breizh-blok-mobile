@@ -30,8 +30,9 @@ class MapScreen extends StatelessWidget {
         child: BlocConsumer<MapScreenViewModel, MapState>(
           listener: (context, state) async {
             final mapboxMap = state.mapboxMap;
-            if (!state.pending && mapboxMap != null) {
-              await mapboxMap.showClusters(state.clusterSource);
+            final source = state.clusterSource;
+            if (!state.pending && mapboxMap != null && source != null) {
+              await mapboxMap.showClusters(source);
             }
           },
           builder: (context, state) {
@@ -43,8 +44,9 @@ class MapScreen extends StatelessWidget {
                   initialLatitude: kDefaultLatitude,
                   initialLongitude: kDefaultLongitude,
                   onStyleLoadedListener: (mapboxMap, _) async {
-                    if (!state.pending) {
-                      await mapboxMap.showClusters(state.clusterSource);
+                    final source = state.clusterSource;
+                    if (!state.pending && source != null) {
+                      await mapboxMap.showClusters(source);
                     }
                   },
                   onMapCreated: (mapboxMap) {
@@ -118,6 +120,28 @@ class MapScreen extends StatelessWidget {
                         );
                       },
                     );
+                    // try {
+                    //   await mapboxMap.style.addGeoJSONSourceFeatures(
+                    //     'boulders',
+                    //     'boulderGeoPoints',
+                    //     [
+                    //       Feature.fromJson(
+                    //         const BoulderMarker(
+                    //           id: 3000,
+                    //           rock: RockMarker(
+                    //       location: Location(latitude: 48, longitude: 48),
+                    //           ),
+                    //         ).toGeojson(),
+                    //       ),
+                    //     ],
+                    //   );
+                    //   // await mapboxMap.style.updateStyleImportWithJSON(
+                    //   //   'boulders',
+                    //   //   source,
+                    //   // );
+                    // } catch (e) {
+                    //   print(e);
+                    // }
                   },
                 ),
                 if (state.pending)

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +16,7 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
           error: false,
           mapboxMap: null,
           boulderMarkers: [],
-          clusterSource: {},
+          clusterSource: null,
         ),
       ) {
     on<MapEvents>((event, emit) async {
@@ -70,21 +72,26 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
 
   final BoulderMarkerRepository boulderMarkerRepository;
 
-  Map<String, dynamic> _getClusterSource({
+  GeoJsonSource _getClusterSource({
     required List<BoulderMarker> boulderMarkers,
   }) {
-    return {
-      'type': 'geojson',
-      'cluster': true,
-      'clusterMaxZoom': 20,
-      'clusterRadius': 50,
-      'data': {
+    return GeoJsonSource(
+      id: 'boulders',
+      cluster: true,
+      clusterMaxZoom: 20,
+      clusterRadius: 50,
+
+      data: jsonEncode({
+        'id': 'boulderGeoPoints',
         'type': 'FeatureCollection',
+        'properties': {
+          'dataId': 'boulderGeoPoints',
+        },
         'features': [
           for (final boulderMarker in boulderMarkers) boulderMarker.toGeojson(),
         ],
-      },
-    };
+      }),
+    );
   }
 }
 
@@ -101,7 +108,7 @@ class MapLoadedEvent extends MapEvents {
 @freezed
 abstract class MapState with _$MapState {
   const factory MapState({
-    required Map<String, dynamic> clusterSource,
+    required GeoJsonSource? clusterSource,
     required List<BoulderMarker> boulderMarkers,
     required MapboxMap? mapboxMap,
     required bool pending,

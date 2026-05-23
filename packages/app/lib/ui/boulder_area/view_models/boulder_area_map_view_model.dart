@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 part 'boulder_area_map_view_model.freezed.dart';
 
@@ -64,21 +67,26 @@ class BoulderAreaMapViewModel
   final BoulderArea boulderArea;
   final BoulderMarkerRepository boulderMarkerRepository;
 
-  Map<String, dynamic> _getClusterSource({
+  GeoJsonSource _getClusterSource({
     required List<BoulderMarker> boulderMarkers,
   }) {
-    return {
-      'type': 'geojson',
-      'cluster': true,
-      'clusterMaxZoom': 20,
-      'clusterRadius': 50,
-      'data': {
+    return GeoJsonSource(
+      id: 'boulders',
+      cluster: true,
+      clusterMaxZoom: 20,
+      clusterRadius: 50,
+
+      data: jsonEncode({
+        'id': 'boulderGeoPoints',
         'type': 'FeatureCollection',
+        'properties': {
+          'dataId': 'boulderGeoPoints',
+        },
         'features': [
           for (final boulderMarker in boulderMarkers) boulderMarker.toGeojson(),
         ],
-      },
-    };
+      }),
+    );
   }
 }
 
@@ -96,7 +104,7 @@ sealed class BoulderAreaMapStates with _$BoulderAreaMapStates {
   const factory BoulderAreaMapStates.idle() = BoulderAreaMapIdle;
   const factory BoulderAreaMapStates.ok({
     required Future<void> Function(BuildContext context)? onClickParking,
-    required Map<String, dynamic> clusterSource,
+    required GeoJsonSource? clusterSource,
     required List<BoulderMarker> boulderMarkers,
   }) = BoulderAreaMapOK;
   const factory BoulderAreaMapStates.error() = BoulderAreaMapError;

@@ -17,6 +17,7 @@ abstract class BoulderMarker with _$BoulderMarker {
   Map<String, dynamic> toGeojson() {
     return {
       'type': 'Feature',
+      'id': '$id',
       'properties': {'id': id},
       'geometry': {
         'type': 'Point',

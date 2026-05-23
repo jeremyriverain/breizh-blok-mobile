@@ -26,6 +26,7 @@ void main() {
       );
 
       expect(boulderMarker.toGeojson(), {
+        'id': '1',
         'type': 'Feature',
         'properties': {'id': 1},
         'geometry': {
