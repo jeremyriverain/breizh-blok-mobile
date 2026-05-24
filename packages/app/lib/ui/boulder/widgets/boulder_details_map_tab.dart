@@ -1,7 +1,7 @@
 import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_map_view_model.dart';
-import 'package:breizh_blok_mobile/ui/core/extensions/extensions.dart';
+import 'package:breizh_blok_mobile/ui/core/extensions/build_context_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/material.dart';

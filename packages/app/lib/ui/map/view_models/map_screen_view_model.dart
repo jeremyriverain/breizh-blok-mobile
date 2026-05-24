@@ -81,16 +81,14 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
       clusterMaxZoom: 20,
       clusterRadius: 50,
 
-      data: jsonEncode({
-        'id': 'boulderGeoPoints',
-        'type': 'FeatureCollection',
-        'properties': {
-          'dataId': 'boulderGeoPoints',
-        },
-        'features': [
-          for (final boulderMarker in boulderMarkers) boulderMarker.toGeojson(),
-        ],
-      }),
+      data: jsonEncode(
+        FeatureCollection(
+          features: [
+            for (final boulderMarker in boulderMarkers)
+              boulderMarker.toFeature(),
+          ],
+        ).toJson(),
+      ),
     );
   }
 }

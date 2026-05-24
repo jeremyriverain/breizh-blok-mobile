@@ -5,7 +5,8 @@ import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_order_bloc.dart';
-import 'package:breizh_blok_mobile/ui/core/extensions/extensions.dart';
+import 'package:breizh_blok_mobile/ui/core/extensions/feature_value_extension.dart';
+import 'package:breizh_blok_mobile/ui/core/extensions/mapbox_map_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
@@ -125,20 +126,14 @@ class MapScreen extends StatelessWidget {
                     //     'boulders',
                     //     'boulderGeoPoints',
                     //     [
-                    //       Feature.fromJson(
-                    //         const BoulderMarker(
-                    //           id: 3000,
-                    //           rock: RockMarker(
-                    //       location: Location(latitude: 48, longitude: 48),
-                    //           ),
-                    //         ).toGeojson(),
-                    //       ),
+                    //       const BoulderMarker(
+                    //         id: 3000,
+                    //         rock: RockMarker(
+                    //           location: Location(latitude: 48, longitude: 48),
+                    //         ),
+                    //       ).toFeature(),
                     //     ],
                     //   );
-                    //   // await mapboxMap.style.updateStyleImportWithJSON(
-                    //   //   'boulders',
-                    //   //   source,
-                    //   // );
                     // } catch (e) {
                     //   print(e);
                     // }

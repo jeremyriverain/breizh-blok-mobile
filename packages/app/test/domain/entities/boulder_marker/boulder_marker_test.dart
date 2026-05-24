@@ -2,6 +2,7 @@ import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
 import 'package:breizh_blok_mobile/domain/entities/rock_marker/rock_marker.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 void main() {
   group('BoulderMarker', () {
@@ -19,21 +20,31 @@ void main() {
       );
     });
 
-    test('toGeojson', () {
+    test('toFeature', () {
       const boulderMarker = BoulderMarker(
         id: 1,
         rock: RockMarker(location: Location(latitude: 2, longitude: 3)),
       );
 
-      expect(boulderMarker.toGeojson(), {
-        'id': '1',
-        'type': 'Feature',
-        'properties': {'id': 1},
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [3.0, 2.0, 0.0],
-        },
-      });
+      expect(
+        boulderMarker.toFeature().id,
+        equals(1),
+      );
+
+      expect(
+        boulderMarker.toFeature().properties,
+        equals({'id': 1}),
+      );
+
+      expect(
+        boulderMarker.toFeature().geometry,
+        isA<Point>().having((p) => p.coordinates.lat, 'lat', 2),
+      );
+
+      expect(
+        boulderMarker.toFeature().geometry,
+        isA<Point>().having((p) => p.coordinates.lng, 'lng', 3),
+      );
     });
   });
 }
