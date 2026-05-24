@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
@@ -21,16 +19,6 @@ extension BuildContextExtension on BuildContext {
       final bytes = await rootBundle.load(imagePath);
       return bytes.buffer.asUint8List();
     }
-  }
-
-  int createRandomColor() {
-    final random = Random();
-    return Color.fromARGB(
-      255,
-      random.nextInt(255),
-      random.nextInt(255),
-      random.nextInt(255),
-    ).toARGB32();
   }
 }
 

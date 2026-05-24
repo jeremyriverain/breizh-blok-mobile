@@ -4,13 +4,13 @@ import 'package:breizh_blok_mobile/data/data_sources/remote/model/request_strate
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
-import 'package:breizh_blok_mobile/extensions.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/view_models/boulder_area_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_itinerary_button.dart';
+import 'package:breizh_blok_mobile/ui/core/extensions/extensions.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
