@@ -129,7 +129,7 @@ class MapScreen extends StatelessWidget {
                     //       const BoulderMarker(
                     //         id: 3000,
                     //         rock: RockMarker(
-                    //           location: Location(latitude: 48, longitude: 48),
+                    //       location: Location(latitude: 48, longitude: 48),
                     //         ),
                     //       ).toFeature(),
                     //     ],
