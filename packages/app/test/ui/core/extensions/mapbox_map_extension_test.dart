@@ -1,7 +1,4 @@
-import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
-import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
-import 'package:breizh_blok_mobile/domain/entities/rock_marker/rock_marker.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/mapbox_map_extension.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
@@ -33,7 +30,7 @@ void main() {
         ).thenThrow(Exception());
 
         when(
-          () => styleManager.removeStyleSource('boulders'),
+          () => styleManager.removeStyleSource('foo'),
         ).thenThrow(Exception());
 
         when(
@@ -45,24 +42,25 @@ void main() {
         ).thenAnswer((_) async => {});
 
         when(
-          () => styleManager.setStyleSourceProperties('boulders', any()),
+          () => styleManager.setStyleSourceProperties('foo', any()),
         ).thenAnswer((_) async => {});
 
         when(
           () => styleManager.setStyleSourceProperty(any(), any(), any()),
         ).thenAnswer((_) async => {});
 
-        final result = await showClusters(mapboxMap, [
-          const BoulderMarker(
-            id: 7,
-            rock: RockMarker(location: Location(latitude: 2, longitude: 3)),
-          ),
-        ]).run();
+        final result = await showClusters(
+          mapboxMap: mapboxMap,
+          features: [
+            Feature(id: 2, geometry: Point(coordinates: Position(45, 7))),
+          ],
+          geoJsonSourceId: 'foo',
+        ).run();
 
         verify(() => styleManager.removeStyleLayer(any())).called(3);
         verify(() => styleManager.removeStyleSource(any())).called(1);
 
-        verify(() => styleManager.addStyleSource('boulders', any())).called(1);
+        verify(() => styleManager.addStyleSource('foo', any())).called(1);
 
         verify(() => styleManager.addStyleLayer(any(), any())).called(3);
 
@@ -79,7 +77,7 @@ void main() {
         ).thenThrow(Exception());
 
         when(
-          () => styleManager.removeStyleSource('boulders'),
+          () => styleManager.removeStyleSource('foo'),
         ).thenThrow(Exception());
 
         when(
@@ -91,24 +89,25 @@ void main() {
         ).thenAnswer((_) async => {});
 
         when(
-          () => styleManager.setStyleSourceProperties('boulders', any()),
+          () => styleManager.setStyleSourceProperties('foo', any()),
         ).thenAnswer((_) async => {});
 
         when(
           () => styleManager.setStyleSourceProperty(any(), any(), any()),
         ).thenAnswer((_) async => {});
 
-        final result = await showClusters(mapboxMap, [
-          const BoulderMarker(
-            id: 7,
-            rock: RockMarker(location: Location(latitude: 2, longitude: 3)),
-          ),
-        ]).run();
+        final result = await showClusters(
+          mapboxMap: mapboxMap,
+          features: [
+            Feature(id: 2, geometry: Point(coordinates: Position(45, 7))),
+          ],
+          geoJsonSourceId: 'foo',
+        ).run();
 
         verify(() => styleManager.removeStyleLayer(any())).called(3);
         verify(() => styleManager.removeStyleSource(any())).called(1);
 
-        verify(() => styleManager.addStyleSource('boulders', any())).called(1);
+        verify(() => styleManager.addStyleSource('foo', any())).called(1);
 
         verify(() => styleManager.addStyleLayer(any(), any())).called(3);
 
@@ -133,7 +132,7 @@ void main() {
         ).thenThrow(Exception());
 
         when(
-          () => styleManager.removeStyleSource('boulders'),
+          () => styleManager.removeStyleSource('foo'),
         ).thenThrow(Exception());
 
         when(
@@ -145,24 +144,25 @@ void main() {
         ).thenThrow(Exception('foo'));
 
         when(
-          () => styleManager.setStyleSourceProperties('boulders', any()),
+          () => styleManager.setStyleSourceProperties('foo', any()),
         ).thenAnswer((_) async => {});
 
         when(
           () => styleManager.setStyleSourceProperty(any(), any(), any()),
         ).thenAnswer((_) async => {});
 
-        final result = await showClusters(mapboxMap, [
-          const BoulderMarker(
-            id: 7,
-            rock: RockMarker(location: Location(latitude: 2, longitude: 3)),
-          ),
-        ]).run();
+        final result = await showClusters(
+          mapboxMap: mapboxMap,
+          features: [
+            Feature(id: 2, geometry: Point(coordinates: Position(45, 7))),
+          ],
+          geoJsonSourceId: 'foo',
+        ).run();
 
         verify(() => styleManager.removeStyleLayer(any())).called(3);
         verify(() => styleManager.removeStyleSource(any())).called(1);
 
-        verify(() => styleManager.addStyleSource('boulders', any())).called(1);
+        verify(() => styleManager.addStyleSource('foo', any())).called(1);
 
         verify(() => styleManager.addStyleLayer(any(), any())).called(3);
 

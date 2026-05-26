@@ -38,7 +38,11 @@ class MapViewModel extends _$MapViewModel {
 
         final map = state.mapboxMap;
         if (map != null) {
-          await showClusters2(map, points).run();
+          await showClusters(
+            mapboxMap: map,
+            features: points.map((p) => p.toFeature()).toList(),
+            geoJsonSourceId: 'boulders',
+          ).run();
         }
       },
       onError: (_) {
@@ -61,6 +65,10 @@ class MapViewModel extends _$MapViewModel {
 
   Future<void> setMap(MapboxMap mapboxMap) async {
     state = state.copyWith(mapboxMap: mapboxMap);
-    await showClusters2(mapboxMap, state.boulderGeoPoints).run();
+    await showClusters(
+      mapboxMap: mapboxMap,
+      features: state.boulderGeoPoints.map((p) => p.toFeature()).toList(),
+      geoJsonSourceId: 'boulders',
+    ).run();
   }
 }

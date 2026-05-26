@@ -94,7 +94,13 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                       );
                     }
 
-                    await showClusters(mapboxMap, state.boulderMarkers).run();
+                    await showClusters(
+                      mapboxMap: mapboxMap,
+                      features: state.boulderMarkers
+                          .map((p) => p.toFeature())
+                          .toList(),
+                      geoJsonSourceId: 'boulders',
+                    ).run();
                   },
                   onTapListener: (mapboxMap, mapContentGestureContext) async {
                     final cluster = await mapboxMap.onTapFindCluster(
