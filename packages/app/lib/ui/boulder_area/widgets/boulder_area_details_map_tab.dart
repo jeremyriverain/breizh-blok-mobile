@@ -95,7 +95,7 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                     }
                   },
                   onStyleLoadedListener: (mapboxMap, _) async {
-                    await mapboxMap.showClusters(state.boulderMarkers).run();
+                    await showClusters(mapboxMap, state.boulderMarkers).run();
                   },
                   onTapListener: (mapboxMap, mapContentGestureContext) async {
                     final cluster = await mapboxMap.onTapFindCluster(

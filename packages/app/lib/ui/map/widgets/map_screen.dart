@@ -32,7 +32,7 @@ class MapScreen extends StatelessWidget {
           listener: (context, state) async {
             final mapboxMap = state.mapboxMap;
             if (!state.pending && mapboxMap != null) {
-              await mapboxMap.showClusters(state.boulderMarkers).run();
+              await showClusters(mapboxMap, state.boulderMarkers).run();
             }
           },
           builder: (context, state) {
@@ -45,7 +45,7 @@ class MapScreen extends StatelessWidget {
                   initialLongitude: kDefaultLongitude,
                   onStyleLoadedListener: (mapboxMap, _) async {
                     if (!state.pending) {
-                      await mapboxMap.showClusters(state.boulderMarkers).run();
+                      await showClusters(mapboxMap, state.boulderMarkers).run();
                     }
                   },
                   onMapCreated: (mapboxMap) {
