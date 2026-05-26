@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +14,6 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
           error: false,
           mapboxMap: null,
           boulderMarkers: [],
-          clusterSource: null,
         ),
       ) {
     on<MapEvents>((event, emit) async {
@@ -25,7 +22,6 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
           try {
             emit(
               MapState(
-                clusterSource: state.clusterSource,
                 boulderMarkers: state.boulderMarkers,
                 mapboxMap: state.mapboxMap,
                 pending: true,
@@ -36,9 +32,6 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
 
             emit(
               MapState(
-                clusterSource: _getClusterSource(
-                  boulderMarkers: boulderMarkers,
-                ),
                 boulderMarkers: boulderMarkers,
                 mapboxMap: state.mapboxMap,
                 pending: false,
@@ -48,7 +41,6 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
           } catch (e) {
             emit(
               MapState(
-                clusterSource: state.clusterSource,
                 boulderMarkers: state.boulderMarkers,
                 mapboxMap: state.mapboxMap,
                 pending: false,
@@ -59,7 +51,6 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
         case MapLoadedEvent(:final mapboxMap):
           emit(
             MapState(
-              clusterSource: state.clusterSource,
               boulderMarkers: state.boulderMarkers,
               mapboxMap: mapboxMap,
               pending: state.pending,
@@ -71,26 +62,6 @@ class MapScreenViewModel extends Bloc<MapEvents, MapState> {
   }
 
   final BoulderMarkerRepository boulderMarkerRepository;
-
-  GeoJsonSource _getClusterSource({
-    required List<BoulderMarker> boulderMarkers,
-  }) {
-    return GeoJsonSource(
-      id: 'boulders',
-      cluster: true,
-      clusterMaxZoom: 20,
-      clusterRadius: 50,
-
-      data: jsonEncode(
-        FeatureCollection(
-          features: [
-            for (final boulderMarker in boulderMarkers)
-              boulderMarker.toFeature(),
-          ],
-        ).toJson(),
-      ),
-    );
-  }
 }
 
 sealed class MapEvents {}
@@ -106,7 +77,6 @@ class MapLoadedEvent extends MapEvents {
 @freezed
 abstract class MapState with _$MapState {
   const factory MapState({
-    required GeoJsonSource? clusterSource,
     required List<BoulderMarker> boulderMarkers,
     required MapboxMap? mapboxMap,
     required bool pending,
