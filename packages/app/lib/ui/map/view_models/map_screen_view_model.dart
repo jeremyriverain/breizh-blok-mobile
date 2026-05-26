@@ -1,85 +1,64 @@
-import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
-import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:breizh_blok_mobile/domain/entities/boulder_geo_point/boulder_geo_point.dart';
+import 'package:breizh_blok_mobile/service_locator/repositories.dart';
+import 'package:breizh_blok_mobile/ui/core/extensions/mapbox_map_extension.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'map_screen_view_model.freezed.dart';
-
-class MapScreenViewModel extends Bloc<MapEvents, MapState> {
-  MapScreenViewModel({required this.boulderMarkerRepository})
-    : super(
-        const MapState(
-          pending: true,
-          error: false,
-          mapboxMap: null,
-          boulderMarkers: [],
-        ),
-      ) {
-    on<MapEvents>((event, emit) async {
-      switch (event) {
-        case FetchBoulderMarkersEvent():
-          try {
-            emit(
-              MapState(
-                boulderMarkers: state.boulderMarkers,
-                mapboxMap: state.mapboxMap,
-                pending: true,
-                error: false,
-              ),
-            );
-            final boulderMarkers = await boulderMarkerRepository.findAll();
-
-            emit(
-              MapState(
-                boulderMarkers: boulderMarkers,
-                mapboxMap: state.mapboxMap,
-                pending: false,
-                error: false,
-              ),
-            );
-          } catch (e) {
-            emit(
-              MapState(
-                boulderMarkers: state.boulderMarkers,
-                mapboxMap: state.mapboxMap,
-                pending: false,
-                error: true,
-              ),
-            );
-          }
-        case MapLoadedEvent(:final mapboxMap):
-          emit(
-            MapState(
-              boulderMarkers: state.boulderMarkers,
-              mapboxMap: mapboxMap,
-              pending: state.pending,
-              error: state.error,
-            ),
-          );
-      }
-    });
-  }
-
-  final BoulderMarkerRepository boulderMarkerRepository;
-}
-
-sealed class MapEvents {}
-
-class FetchBoulderMarkersEvent extends MapEvents {}
-
-class MapLoadedEvent extends MapEvents {
-  MapLoadedEvent({required this.mapboxMap});
-
-  final MapboxMap mapboxMap;
-}
+part 'map_screen_view_model.g.dart';
 
 @freezed
-abstract class MapState with _$MapState {
-  const factory MapState({
-    required List<BoulderMarker> boulderMarkers,
+abstract class MapScreenState with _$MapScreenState {
+  const factory MapScreenState({
+    required List<BoulderGeoPoint> boulderGeoPoints,
     required MapboxMap? mapboxMap,
     required bool pending,
     required bool error,
-  }) = _MapState;
+  }) = _MapScreenState;
+}
+
+@riverpod
+class MapViewModel extends _$MapViewModel {
+  @override
+  MapScreenState build() {
+    final boulderGeoPointRepository = ref.watch(
+      boulderGeoPointRepositoryProvider,
+    );
+
+    final subscription = boulderGeoPointRepository.watchAll.listen(
+      (points) async {
+        state = state.copyWith(
+          boulderGeoPoints: points,
+          pending: false,
+          error: false,
+        );
+
+        final map = state.mapboxMap;
+        if (map != null) {
+          await showClusters2(map, points).run();
+        }
+      },
+      onError: (_) {
+        state = state.copyWith(
+          pending: false,
+          error: true,
+        );
+      },
+    );
+
+    ref.onDispose(subscription.cancel);
+
+    return const MapScreenState(
+      boulderGeoPoints: [],
+      mapboxMap: null,
+      pending: true,
+      error: false,
+    );
+  }
+
+  Future<void> setMap(MapboxMap mapboxMap) async {
+    state = state.copyWith(mapboxMap: mapboxMap);
+    await showClusters2(mapboxMap, state.boulderGeoPoints).run();
+  }
 }

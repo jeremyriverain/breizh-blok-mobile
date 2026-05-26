@@ -93,8 +93,7 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                         },
                       );
                     }
-                  },
-                  onStyleLoadedListener: (mapboxMap, _) async {
+
                     await showClusters(mapboxMap, state.boulderMarkers).run();
                   },
                   onTapListener: (mapboxMap, mapContentGestureContext) async {
