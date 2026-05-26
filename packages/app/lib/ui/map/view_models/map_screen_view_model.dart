@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/domain/entities/boulder_geo_point/boulder_geo_point.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/mapbox_map_extension.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,6 +16,7 @@ abstract class MapScreenState with _$MapScreenState {
     required MapboxMap? mapboxMap,
     required bool pending,
     required bool error,
+    required bool initialized,
   }) = _MapScreenState;
 }
 
@@ -32,30 +34,37 @@ class MapViewModel extends _$MapViewModel {
       (points) async {
         state = state.copyWith(
           boulderGeoPoints: points,
-          pending: false,
           error: false,
         );
-
-        final map = state.mapboxMap;
-        if (map != null) {
-          await showClusters(
-            mapboxMap: map,
-            features: points.map((p) => p.toFeature()).toList(),
-            geoJsonSourceId: 'boulders',
-          ).run();
-        }
       },
       onError: (_) {
         state = state.copyWith(
-          pending: false,
           error: true,
         );
       },
     );
 
+    listenSelf((prev, next) async {
+      final map = next.mapboxMap;
+      if (map != null &&
+          (!state.initialized ||
+              !listEquals(
+                prev?.boulderGeoPoints,
+                next.boulderGeoPoints,
+              ))) {
+        state = state.copyWith(initialized: true, pending: false);
+        await showClusters(
+          mapboxMap: map,
+          features: next.boulderGeoPoints.map((p) => p.toFeature()).toList(),
+          geoJsonSourceId: 'boulders',
+        ).run();
+      }
+    });
+
     ref.onDispose(subscription.cancel);
 
     return const MapScreenState(
+      initialized: false,
       boulderGeoPoints: [],
       mapboxMap: null,
       pending: true,
@@ -65,10 +74,5 @@ class MapViewModel extends _$MapViewModel {
 
   Future<void> setMap(MapboxMap mapboxMap) async {
     state = state.copyWith(mapboxMap: mapboxMap);
-    await showClusters(
-      mapboxMap: mapboxMap,
-      features: state.boulderGeoPoints.map((p) => p.toFeature()).toList(),
-      geoJsonSourceId: 'boulders',
-    ).run();
   }
 }
