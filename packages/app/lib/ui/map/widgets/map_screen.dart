@@ -1,8 +1,6 @@
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
-import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
-import 'package:breizh_blok_mobile/domain/entities/rock_marker/rock_marker.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_bloc.dart';
@@ -121,22 +119,6 @@ class MapScreen extends StatelessWidget {
                         );
                       },
                     );
-                    try {
-                      await mapboxMap.style.addGeoJSONSourceFeatures(
-                        'boulders',
-                        'boulderGeoPoints',
-                        [
-                          const BoulderMarker(
-                            id: 3000,
-                            rock: RockMarker(
-                              location: Location(latitude: 48, longitude: 48),
-                            ),
-                          ).toFeature(),
-                        ],
-                      );
-                    } catch (e) {
-                      print(e);
-                    }
                   },
                 ),
                 if (state.pending)
