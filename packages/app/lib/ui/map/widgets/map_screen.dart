@@ -15,7 +15,6 @@ import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:breizh_blok_mobile/ui/map/view_models/map_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 const boulderIdsProcessingLimit = 500;
 
@@ -60,120 +59,84 @@ class MapScreen extends StatelessWidget {
                     );
                   },
                   onTapListener: (mapboxMap, mapContentGestureContext) async {
-                    await mapboxMap.showClusters([
-                      const BoulderMarker(
-                        id: 3000,
-                        rock: RockMarker(
-                          location: Location(latitude: 48, longitude: 48),
-                        ),
-                      ),
-                    ]).run();
-                    // await mapboxMap.style.removeGeoJSONSourceFeatures(
-                    //   'boulders',
-                    //   '',
-                    //   state.boulderMarkers.map((m) => m.id.toString()).toList(),
-                    // );
+                    final cluster = await mapboxMap.onTapFindCluster(
+                      mapContentGestureContext,
+                    );
 
-                    // await mapboxMap.style.addGeoJSONSourceFeatures(
-                    //   'boulders',
-                    //   'boulderGeoPoints',
-                    //   [
-                    //     const BoulderMarker(
-                    //       id: 3000,
-                    //       rock: RockMarker(
-                    //         location: Location(latitude: 48, longitude: 48),
-                    //       ),
-                    //     ).toFeature(),
-                    //     const BoulderMarker(
-                    //       id: 3001,
-                    //       rock: RockMarker(
-                    //         location: Location(
-                    //           latitude: 48.00001,
-                    //           longitude: 48,
-                    //         ),
-                    //       ),
-                    //     ).toFeature(),
-                    //   ],
-                    // );
+                    if (cluster == null) {
+                      return;
+                    }
 
-                    // final cluster = await mapboxMap.onTapFindCluster(
-                    //   mapContentGestureContext,
-                    // );
+                    final clusterLeaves = await mapboxMap
+                        .getGeoJsonClusterLeaves(
+                          'boulders',
+                          cluster,
+                          state.boulderMarkers.length,
+                          0,
+                        );
 
-                    // if (cluster == null) {
-                    //   return;
-                    // }
+                    final boulderIds = clusterLeaves.toBoulderIds();
 
-                    // final clusterLeaves = await mapboxMap
-                    //     .getGeoJsonClusterLeaves(
-                    //       'boulders',
-                    //       cluster,
-                    //       state.boulderMarkers.length,
-                    //       0,
-                    //     );
+                    if (!context.mounted ||
+                        boulderIds.length > boulderIdsProcessingLimit) {
+                      return;
+                    }
 
-                    // final boulderIds = clusterLeaves.toBoulderIds();
+                    await showModalBottomSheet<void>(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) {
+                        return RepositoryProvider(
+                          create: (_) => RequestStrategy(),
+                          child: Builder(
+                            builder: (context) {
+                              return FractionallySizedBox(
+                                heightFactor: 0.8,
+                                child: Scaffold(
+                                  floatingActionButton:
+                                      const ModalClosingButton(),
+                                  floatingActionButtonLocation:
+                                      FloatingActionButtonLocation.endTop,
+                                  body: BoulderListBuilder(
+                                    boulderFilterBloc: BoulderFilterBloc(
+                                      const BoulderFilterState(),
+                                    ),
+                                    onPageRequested: (page) {
+                                      final orderParam = context
+                                          .read<BoulderOrderBloc>()
+                                          .state;
 
-                    // if (!context.mounted ||
-                    //     boulderIds.length > boulderIdsProcessingLimit) {
-                    //   return;
-                    // }
-
-                    // await showModalBottomSheet<void>(
-                    //   context: context,
-                    //   isScrollControlled: true,
-                    //   builder: (context) {
-                    //     return RepositoryProvider(
-                    //       create: (_) => RequestStrategy(),
-                    //       child: Builder(
-                    //         builder: (context) {
-                    //           return FractionallySizedBox(
-                    //             heightFactor: 0.8,
-                    //             child: Scaffold(
-                    //               floatingActionButton:
-                    //                   const ModalClosingButton(),
-                    //               floatingActionButtonLocation:
-                    //                   FloatingActionButtonLocation.endTop,
-                    //               body: BoulderListBuilder(
-                    //                 boulderFilterBloc: BoulderFilterBloc(
-                    //                   const BoulderFilterState(),
-                    //                 ),
-                    //                 onPageRequested: (page) {
-                    //                   final orderParam = context
-                    //                       .read<BoulderOrderBloc>()
-                    //                       .state;
-
-                    //                   return BoulderRequested(
-                    //                     page: page,
-                    //                     boulderIds: boulderIds,
-                    //                     orderParam: orderParam,
-                    //                   );
-                    //                 },
-                    //                 showFilterButton: false,
-                    //               ),
-                    //             ),
-                    //           );
-                    //         },
-                    //       ),
-                    //     );
-                    //   },
-                    // );
-                    // try {
-                    //   await mapboxMap.style.addGeoJSONSourceFeatures(
-                    //     'boulders',
-                    //     'boulderGeoPoints',
-                    //     [
-                    //       const BoulderMarker(
-                    //         id: 3000,
-                    //         rock: RockMarker(
-                    //       location: Location(latitude: 48, longitude: 48),
-                    //         ),
-                    //       ).toFeature(),
-                    //     ],
-                    //   );
-                    // } catch (e) {
-                    //   print(e);
-                    // }
+                                      return BoulderRequested(
+                                        page: page,
+                                        boulderIds: boulderIds,
+                                        orderParam: orderParam,
+                                      );
+                                    },
+                                    showFilterButton: false,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
+                    try {
+                      await mapboxMap.style.addGeoJSONSourceFeatures(
+                        'boulders',
+                        'boulderGeoPoints',
+                        [
+                          const BoulderMarker(
+                            id: 3000,
+                            rock: RockMarker(
+                              location: Location(latitude: 48, longitude: 48),
+                            ),
+                          ).toFeature(),
+                        ],
+                      );
+                    } catch (e) {
+                      print(e);
+                    }
                   },
                 ),
                 if (state.pending)
