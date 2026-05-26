@@ -26,6 +26,8 @@ class MapViewModel extends _$MapViewModel {
       boulderGeoPointRepositoryProvider,
     );
 
+    boulderGeoPointRepository.findAll().run().ignore();
+
     final subscription = boulderGeoPointRepository.watchAll.listen(
       (points) async {
         state = state.copyWith(
