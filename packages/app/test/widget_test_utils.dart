@@ -16,6 +16,15 @@ import 'database_utils.dart';
 import 'mocks.dart';
 
 extension WidgetTesterExtension on WidgetTester {
+  Future<void> waitUntilEndOfLoading({
+    int increment = 3,
+    Duration animationDuration = kThemeAnimationDuration,
+  }) async {
+    for (var i = 0; i < increment; i++) {
+      await pump(animationDuration);
+    }
+  }
+
   Future<void> myPumpWidget({
     required Widget widget,
     List<Override> overrides = const [],

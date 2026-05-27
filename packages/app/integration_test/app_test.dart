@@ -43,6 +43,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upgrader/upgrader.dart';
 
 import '../test/mocks.dart';
+import '../test/widget_test_utils.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -352,6 +353,24 @@ void main() async {
         boulderReference.rock.boulderArea.municipality?.name ?? 'foo',
       ),
       findsOneWidget,
+    );
+  });
+
+  testWidgets('Pull to refresh does not throw any error', (
+    tester,
+  ) async {
+    await runApplication(tester: tester);
+
+    await tester.drag(
+      find.byType(Scaffold).first,
+      const Offset(0, 1000),
+    );
+
+    await tester.waitUntilEndOfLoading();
+
+    expect(
+      find.byType(BoulderListBuilderTile),
+      findsWidgets,
     );
   });
 
