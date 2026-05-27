@@ -60,7 +60,7 @@ void main() {
       id: '6a',
       grade: const Grade(iri: 'd', name: '6a'),
     );
-    blocTest<BoulderBloc, BoulderState>(
+    blocTest<BoulderBloc, BoulderBlocState>(
       'default state OK',
       build: () =>
           BoulderBloc(repository: BoulderRepository(httpClient: apiClient)),
@@ -93,7 +93,7 @@ void main() {
         ).called(1);
       },
     );
-    blocTest<BoulderBloc, BoulderState>(
+    blocTest<BoulderBloc, BoulderBlocState>(
       'sort by grade asc',
       setUp: () {
         when(
@@ -123,15 +123,15 @@ void main() {
         ),
       ),
       verify: (bloc) {
-        expect(bloc.state.data?.totalItems, equals(4));
+        expect(bloc.state.boulderApiResponse.data?.totalItems, equals(4));
         expect(
-          bloc.state.data?.items,
+          bloc.state.boulderApiResponse.data?.items,
           equals([boulder5a, boulder5aPlus, boulder6a, boulderWithoutGrade]),
         );
       },
     );
 
-    blocTest<BoulderBloc, BoulderState>(
+    blocTest<BoulderBloc, BoulderBlocState>(
       'sort by grade desc',
       setUp: () {
         when(
@@ -161,15 +161,15 @@ void main() {
         ),
       ),
       verify: (bloc) {
-        expect(bloc.state.data?.totalItems, equals(4));
+        expect(bloc.state.boulderApiResponse.data?.totalItems, equals(4));
         expect(
-          bloc.state.data?.items,
+          bloc.state.boulderApiResponse.data?.items,
           equals([boulderWithoutGrade, boulder6a, boulder5aPlus, boulder5a]),
         );
       },
     );
 
-    blocTest<BoulderBloc, BoulderState>(
+    blocTest<BoulderBloc, BoulderBlocState>(
       'sort by grade desc',
       setUp: () {
         when(
@@ -199,12 +199,15 @@ void main() {
         ),
       ),
       verify: (bloc) {
-        expect(bloc.state.data?.totalItems, equals(2));
-        expect(bloc.state.data?.items, equals([boulder5aPlus, boulder6a]));
+        expect(bloc.state.boulderApiResponse.data?.totalItems, equals(2));
+        expect(
+          bloc.state.boulderApiResponse.data?.items,
+          equals([boulder5aPlus, boulder6a]),
+        );
       },
     );
 
-    blocTest<BoulderBloc, BoulderState>(
+    blocTest<BoulderBloc, BoulderBlocState>(
       'filter by boulder IDs',
       setUp: () {
         when(
@@ -234,12 +237,15 @@ void main() {
         ),
       ),
       verify: (bloc) {
-        expect(bloc.state.data?.totalItems, equals(2));
-        expect(bloc.state.data?.items, equals([boulder5aPlus, boulder5a]));
+        expect(bloc.state.boulderApiResponse.data?.totalItems, equals(2));
+        expect(
+          bloc.state.boulderApiResponse.data?.items,
+          equals([boulder5aPlus, boulder5a]),
+        );
       },
     );
 
-    blocTest<BoulderBloc, BoulderState>(
+    blocTest<BoulderBloc, BoulderBlocState>(
       'filter by boulder IDs and grade',
       setUp: () {
         when(
@@ -270,8 +276,11 @@ void main() {
         ),
       ),
       verify: (bloc) {
-        expect(bloc.state.data?.totalItems, equals(1));
-        expect(bloc.state.data?.items, equals([boulder5aPlus]));
+        expect(bloc.state.boulderApiResponse.data?.totalItems, equals(1));
+        expect(
+          bloc.state.boulderApiResponse.data?.items,
+          equals([boulder5aPlus]),
+        );
       },
     );
   });

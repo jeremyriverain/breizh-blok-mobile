@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
-import 'package:breizh_blok_mobile/data/data_sources/remote/model/boulder/boulder_api_response.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_bloc.dart';
@@ -103,13 +102,16 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
             _pagingController.refresh();
           },
         ),
-        BlocListener<BoulderBloc, BoulderApiResponse>(
+        BlocListener<BoulderBloc, BoulderBlocState>(
           listener: (context, state) {
-            if (state.error != null) {
-              _pagingController.error = state.error;
+            if (state.pending) {
               return;
-            } else if (state.data != null) {
-              final data = state.data!;
+            }
+            if (state.boulderApiResponse.error != null) {
+              _pagingController.error = state.boulderApiResponse.error;
+              return;
+            } else if (state.boulderApiResponse.data != null) {
+              final data = state.boulderApiResponse.data!;
               if (data.nextPage == null) {
                 _pagingController.appendLastPage(data.items);
               } else {
@@ -167,7 +169,12 @@ class _BoulderListBuilderState extends State<BoulderListBuilder> {
                                     child: BoulderListBuilderResults(
                                       key: const Key('boulder-list-result'),
                                       totalItems:
-                                          _bloc.state.data?.totalItems ?? 0,
+                                          _bloc
+                                              .state
+                                              .boulderApiResponse
+                                              .data
+                                              ?.totalItems ??
+                                          0,
                                     ),
                                   ),
                                 ),
