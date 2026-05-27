@@ -1,7 +1,5 @@
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/request_strategy.dart';
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
-import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_order_bloc.dart';
@@ -11,6 +9,7 @@ import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:breizh_blok_mobile/ui/map/view_models/map_screen_view_model.dart';
+import 'package:breizh_blok_mobile/ui/map/widgets/map_screen_bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -104,36 +103,7 @@ class MapScreen extends StatelessWidget {
                   );
                 },
               ),
-              if (state.pending)
-                const Padding(
-                  padding: EdgeInsets.all(30),
-                  child: SizedBox.square(
-                    dimension: 50,
-
-                    child: CircularProgressIndicator(strokeWidth: 5),
-                  ),
-                ),
-              if (state.error)
-                MaterialBanner(
-                  content: Text(
-                    AppLocalizations.of(
-                      context,
-                    ).anErrorOccuredWhileDisplayingMap,
-                  ),
-                  leading: const Icon(Icons.error),
-                  forceActionsBelow: true,
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () async {
-                        await ref
-                            .read(boulderGeoPointRepositoryProvider)
-                            .findAll()
-                            .run();
-                      },
-                      child: Text(AppLocalizations.of(context).tryAgain),
-                    ),
-                  ],
-                ),
+              const MapScreenBottom(),
             ],
           );
         },

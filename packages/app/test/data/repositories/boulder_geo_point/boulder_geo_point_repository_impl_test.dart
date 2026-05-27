@@ -180,8 +180,6 @@ void main() {
             () => localDataSource.watchAll(),
           ).thenAnswer(
             (_) => Stream.fromIterable([
-              [],
-              [fakeBoulderGeoPoint],
               [fakeBoulderGeoPoint, fakeBoulderGeoPoint2],
             ]),
           );

@@ -20,7 +20,7 @@ class BoulderGeoPointRepositoryImpl implements BoulderGeoPointRepository {
     return remoteDataSource.findAll().flatMap((points) {
       return TaskEither.tryCatch(
         () async {
-          final localPoints = await watchAll.last;
+          final localPoints = await watchAll.first;
           if (listEquals(localPoints, points)) {
             return;
           }

@@ -1,7 +1,9 @@
 import 'package:breizh_blok_mobile/domain/entities/boulder_geo_point/boulder_geo_point.dart';
+import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/mapbox_map_extension.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,8 +16,6 @@ abstract class MapScreenState with _$MapScreenState {
   const factory MapScreenState({
     required List<BoulderGeoPoint> boulderGeoPoints,
     required MapboxMap? mapboxMap,
-    required bool pending,
-    required bool error,
     required bool initialized,
   }) = _MapScreenState;
 }
@@ -28,18 +28,10 @@ class MapViewModel extends _$MapViewModel {
       boulderGeoPointRepositoryProvider,
     );
 
-    boulderGeoPointRepository.findAll().run().ignore();
-
     final subscription = boulderGeoPointRepository.watchAll.listen(
       (points) async {
         state = state.copyWith(
           boulderGeoPoints: points,
-          error: false,
-        );
-      },
-      onError: (_) {
-        state = state.copyWith(
-          error: true,
         );
       },
     );
@@ -52,7 +44,7 @@ class MapViewModel extends _$MapViewModel {
                 prev?.boulderGeoPoints,
                 next.boulderGeoPoints,
               ))) {
-        state = state.copyWith(initialized: true, pending: false);
+        state = state.copyWith(initialized: true);
         await showClusters(
           mapboxMap: map,
           features: next.boulderGeoPoints.map((p) => p.toFeature()).toList(),
@@ -67,12 +59,24 @@ class MapViewModel extends _$MapViewModel {
       initialized: false,
       boulderGeoPoints: [],
       mapboxMap: null,
-      pending: true,
-      error: false,
     );
   }
 
   Future<void> setMap(MapboxMap mapboxMap) async {
     state = state.copyWith(mapboxMap: mapboxMap);
+  }
+}
+
+@Riverpod(
+  keepAlive: true,
+)
+class FindAllBoulderGeoPoints extends _$FindAllBoulderGeoPoints {
+  @override
+  Future<Either<DomainException, void>> build() async {
+    final boulderGeoPointRepository = ref.watch(
+      boulderGeoPointRepositoryProvider,
+    );
+
+    return boulderGeoPointRepository.findAll().run();
   }
 }
