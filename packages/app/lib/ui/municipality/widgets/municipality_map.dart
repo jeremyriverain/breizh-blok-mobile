@@ -3,7 +3,7 @@ import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
-import 'package:breizh_blok_mobile/ui/core/extensions/color_extension.dart';
+import 'package:breizh_blok_mobile/ui/core/extensions/string_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,7 +48,9 @@ class MunicipalityMap extends StatelessWidget {
                       location.latitude,
                     ),
                   ),
-                  circleColor: ColorExtension.random().toARGB32(),
+                  circleColor: boulderArea.name
+                      .randomColorFromString()
+                      .toARGB32(),
                   circleRadius: 12,
                 ),
               );
