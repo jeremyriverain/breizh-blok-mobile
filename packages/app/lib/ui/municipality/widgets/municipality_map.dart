@@ -63,6 +63,7 @@ class MunicipalityMap extends StatelessWidget {
                 final localizations = AppLocalizations.of(context);
                 final boulderArea = circleAnnotationBoulderArea[annotation.id];
                 if (boulderArea != null) {
+                  final router = ref.read(routerProvider);
                   ScaffoldMessenger.of(context).removeCurrentSnackBar();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -70,18 +71,18 @@ class MunicipalityMap extends StatelessWidget {
                         '${boulderArea.name},\n'
                         '${boulderArea.nBouldersRated(localizations)}',
                       ),
+                      showCloseIcon: true,
                       action: SnackBarAction(
                         label: localizations.showDetails,
+
                         onPressed: () async {
-                          await ref
-                              .read(routerProvider)
-                              .pushNamed(
-                                BoulderAreaDetailsScreen.route.name,
-                                pathParameters: {
-                                  BoulderAreaDetailsScreen.idParameterName:
-                                      boulderArea.id,
-                                },
-                              );
+                          await router.pushNamed(
+                            BoulderAreaDetailsScreen.route.name,
+                            pathParameters: {
+                              BoulderAreaDetailsScreen.idParameterName:
+                                  boulderArea.id,
+                            },
+                          );
                         },
                       ),
                     ),
