@@ -119,7 +119,7 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                           0,
                         );
 
-                    final boulderIds = clusterLeaves.toBoulderIds();
+                    final boulderIds = clusterLeaves.extractIDs();
 
                     if (!context.mounted) {
                       return;

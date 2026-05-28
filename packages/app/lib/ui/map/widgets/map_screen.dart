@@ -55,7 +55,7 @@ class MapScreen extends StatelessWidget {
                     0,
                   );
 
-                  final boulderIds = clusterLeaves.toBoulderIds();
+                  final boulderIds = clusterLeaves.extractIDs();
 
                   if (!context.mounted ||
                       boulderIds.length > boulderIdsProcessingLimit) {
