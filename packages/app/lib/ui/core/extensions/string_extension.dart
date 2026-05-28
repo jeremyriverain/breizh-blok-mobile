@@ -13,7 +13,7 @@ final List<Color> palette = [
 ];
 
 extension StringExtension on String {
-  int hashDjb2() {
+  int _hashDjb2() {
     var hash = 5381;
     for (var i = 0; i < length; i++) {
       hash = ((hash << 5) + hash) + codeUnitAt(i);
@@ -22,7 +22,7 @@ extension StringExtension on String {
   }
 
   Color randomColorFromString() {
-    final index = hashDjb2().abs() % palette.length;
+    final index = _hashDjb2().abs() % palette.length;
     debugPrint(index.toString());
     return palette[index];
   }

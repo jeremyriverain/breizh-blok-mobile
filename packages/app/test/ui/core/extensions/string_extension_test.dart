@@ -3,10 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('StringExtension', () {
-    test('hashDjb2', () {
-      expect('foo'.hashDjb2(), equals(193491849));
-    });
-
     test('randomColorFromString', () {
       expect('a'.randomColorFromString(), equals(palette[1]));
       expect('b'.randomColorFromString(), equals(palette[2]));
