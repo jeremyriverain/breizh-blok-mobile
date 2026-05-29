@@ -10,18 +10,26 @@ class MapScreenBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
+        void onTryAgain() {
+          ref.invalidate(findAllBoulderGeoPointsProvider);
+        }
+
         return ref
             .watch(findAllBoulderGeoPointsProvider)
             .when(
               skipLoadingOnRefresh: false,
               data: (result) {
                 if (result.isLeft()) {
-                  return const MapScreenErrorBanner();
+                  return MapScreenErrorBanner(
+                    onTryAgain: onTryAgain,
+                  );
                 }
 
                 return const SizedBox.shrink();
               },
-              error: (_, _) => const MapScreenErrorBanner(),
+              error: (_, _) => MapScreenErrorBanner(
+                onTryAgain: onTryAgain,
+              ),
               loading: () => const Padding(
                 padding: EdgeInsets.all(30),
                 child: SizedBox.square(

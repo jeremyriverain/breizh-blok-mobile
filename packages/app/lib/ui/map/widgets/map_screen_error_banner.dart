@@ -1,10 +1,11 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/map/view_models/map_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MapScreenErrorBanner extends StatelessWidget {
-  const MapScreenErrorBanner({super.key});
+  const MapScreenErrorBanner({required this.onTryAgain, super.key});
+
+  final VoidCallback onTryAgain;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,7 @@ class MapScreenErrorBanner extends StatelessWidget {
           Consumer(
             builder: (context, ref, _) {
               return TextButton(
-                onPressed: () async {
-                  ref.invalidate(findAllBoulderGeoPointsProvider);
-                },
+                onPressed: onTryAgain,
                 child: Text(
                   AppLocalizations.of(context).tryAgain,
                 ),
