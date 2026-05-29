@@ -35,7 +35,9 @@ class MapScreenBottom extends StatelessWidget {
                 child: SizedBox.square(
                   dimension: 50,
 
-                  child: CircularProgressIndicator(strokeWidth: 5),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 5,
+                  ),
                 ),
               ),
             );
