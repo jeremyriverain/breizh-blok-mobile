@@ -29,6 +29,7 @@ import 'package:http/testing.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart' hide Response;
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upgrader/upgrader.dart';
 
 class MockAnalytics extends Mock implements Analytics {}
@@ -91,6 +92,8 @@ class MockRequestInterceptorHandler extends Mock
     implements RequestInterceptorHandler {}
 
 class MockShareContent extends Mock implements ShareContent {}
+
+class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 class MockStatefulNavigationShell extends Mock
     implements StatefulNavigationShell {
