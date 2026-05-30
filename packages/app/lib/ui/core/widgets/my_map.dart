@@ -31,7 +31,7 @@ class _MyMapState extends State<MyMap> {
   MapboxMap? _mapboxMap;
 
   final String _defaultStyle = MapboxStyles.OUTDOORS;
-  late ViewportState _viewport;
+  ViewportState? _viewport;
 
   CameraViewportState get defaultViewPort => CameraViewportState(
     center: Point(
@@ -44,7 +44,6 @@ class _MyMapState extends State<MyMap> {
   @override
   void initState() {
     super.initState();
-    _viewport = defaultViewPort;
   }
 
   bool isLocationShown = false;
@@ -60,7 +59,7 @@ class _MyMapState extends State<MyMap> {
             gestureRecognizers: const {
               Factory<EagerGestureRecognizer>(EagerGestureRecognizer.new),
             },
-            viewport: _viewport,
+            viewport: _viewport ?? defaultViewPort,
             onMapCreated: (mapboxMap) async {
               try {
                 setState(() {
