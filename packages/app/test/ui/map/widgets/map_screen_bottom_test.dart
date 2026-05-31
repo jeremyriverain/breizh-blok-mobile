@@ -96,5 +96,35 @@ void main() {
 
       expect(find.byType(MapScreenErrorBanner), findsOneWidget);
     });
+
+    testWidgets('Given MapScreenErrorBanner is displayed '
+        'When I click on the close icon '
+        'Then MapScreenErrorBanner disappears', (
+      tester,
+    ) async {
+      when(
+        () => repository.findAll(),
+      ).thenThrow(
+        Exception('foo'),
+      );
+      await tester.myPumpWidget(
+        widget: const MapScreenBottom(),
+        overrides: [
+          boulderGeoPointRepositoryProvider.overrideWith((_) => repository),
+        ],
+      );
+
+      await tester.pumpAndSettle();
+
+      verify(() => repository.findAll()).called(1);
+      verifyNoMoreInteractions(repository);
+
+      expect(find.byType(MapScreenErrorBanner), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.close));
+      await tester.pump();
+
+      expect(find.byType(MapScreenErrorBanner), findsNothing);
+    });
   });
 }

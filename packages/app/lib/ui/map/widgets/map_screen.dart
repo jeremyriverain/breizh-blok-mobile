@@ -34,10 +34,8 @@ class MapScreen extends StatelessWidget {
                 initialZoom: 5,
                 initialLatitude: kDefaultLatitude,
                 initialLongitude: kDefaultLongitude,
-                onMapCreated: (mapboxMap) async {
-                  await ref
-                      .read(mapViewModelProvider.notifier)
-                      .setMap(mapboxMap);
+                onMapCreated: (mapboxMap) {
+                  ref.read(mapViewModelProvider.notifier).setMap(mapboxMap);
                 },
                 onTapListener: (mapboxMap, mapContentGestureContext) async {
                   final cluster = await mapboxMap.onTapFindCluster(

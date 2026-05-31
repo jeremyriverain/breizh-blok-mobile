@@ -14,22 +14,35 @@ class MapScreenBottom extends StatelessWidget {
           ref.invalidate(findAllBoulderGeoPointsProvider);
         }
 
+        ref.listen(findAllBoulderGeoPointsProvider, (prev, next) {
+          ref
+              .read(activatePotentialErrorBannerViewModelProvider.notifier)
+              .activatePotentialErrorBanner();
+        });
+
         return ref
             .watch(findAllBoulderGeoPointsProvider)
             .when(
               skipLoadingOnRefresh: false,
               data: (result) {
                 if (result.isLeft()) {
-                  return MapScreenErrorBanner(
-                    onTryAgain: onTryAgain,
-                  );
+                  return ref.watch(
+                        activatePotentialErrorBannerViewModelProvider,
+                      )
+                      ? MapScreenErrorBanner(
+                          onTryAgain: onTryAgain,
+                        )
+                      : const SizedBox.shrink();
                 }
 
                 return const SizedBox.shrink();
               },
-              error: (_, _) => MapScreenErrorBanner(
-                onTryAgain: onTryAgain,
-              ),
+              error: (e, _) =>
+                  ref.watch(activatePotentialErrorBannerViewModelProvider)
+                  ? MapScreenErrorBanner(
+                      onTryAgain: onTryAgain,
+                    )
+                  : const SizedBox.shrink(),
               loading: () => const Padding(
                 padding: EdgeInsets.all(30),
                 child: SizedBox.square(

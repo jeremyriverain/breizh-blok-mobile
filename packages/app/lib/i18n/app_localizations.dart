@@ -164,6 +164,12 @@ abstract class AppLocalizations {
   /// **'Clear'**
   String get clear;
 
+  /// No description provided for @closeTheBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Close the banner'**
+  String get closeTheBanner;
+
   /// No description provided for @closeTheGallery.
   ///
   /// In en, this message translates to:

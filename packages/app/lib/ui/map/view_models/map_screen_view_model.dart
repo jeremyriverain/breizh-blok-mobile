@@ -44,7 +44,12 @@ class MapViewModel extends _$MapViewModel {
                 prev?.boulderGeoPoints,
                 next.boulderGeoPoints,
               ))) {
-        state = state.copyWith(initialized: true);
+        if (next.boulderGeoPoints.isEmpty) {
+          return;
+        }
+        state = state.copyWith(
+          initialized: true,
+        );
         await showClusters(
           mapboxMap: map,
           features: next.boulderGeoPoints.map((p) => p.toFeature()).toList(),
@@ -62,7 +67,7 @@ class MapViewModel extends _$MapViewModel {
     );
   }
 
-  Future<void> setMap(MapboxMap mapboxMap) async {
+  void setMap(MapboxMap mapboxMap) {
     state = state.copyWith(mapboxMap: mapboxMap);
   }
 }
@@ -80,5 +85,22 @@ class FindAllBoulderGeoPoints extends _$FindAllBoulderGeoPoints {
     );
 
     return boulderGeoPointRepository.findAll().run();
+  }
+}
+
+@riverpod
+class ActivatePotentialErrorBannerViewModel
+    extends _$ActivatePotentialErrorBannerViewModel {
+  @override
+  bool build() {
+    return true;
+  }
+
+  void activatePotentialErrorBanner() {
+    state = true;
+  }
+
+  void deactivatePotentialErrorBanner() {
+    state = false;
   }
 }

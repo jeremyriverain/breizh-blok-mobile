@@ -55,6 +55,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clear => 'Clear';
 
   @override
+  String get closeTheBanner => 'Close the banner';
+
+  @override
   String get closeTheGallery => 'Close the gallery';
 
   @override
