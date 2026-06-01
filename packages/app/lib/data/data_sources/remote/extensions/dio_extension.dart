@@ -15,7 +15,10 @@ extension DioExceptionExt on DioException {
         }
       default:
         return UnknownException(
-          message: '$statusCode on ${requestOptions.path}',
+          message:
+              'status code: $statusCode, '
+              // ignore: lines_longer_than_80_chars
+              'path: ${requestOptions.path.isEmpty ? 'null' : requestOptions.path}',
         );
     }
   }

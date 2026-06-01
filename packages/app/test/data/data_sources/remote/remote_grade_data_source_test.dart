@@ -58,6 +58,48 @@ void main() {
       );
 
       test(
+        'throws Exception if DioException',
+        () async {
+          when(
+            () => dio.get<Map<String, Object?>>(
+              '/grades',
+              queryParameters: {
+                'exists[boulders]': ['true'],
+                'pagination': ['false'],
+                'order[name]': [kAscendantDirection],
+              },
+            ),
+          ).thenThrow(
+            DioException(
+              requestOptions: RequestOptions(),
+            ),
+          );
+          final result = await dataSource.findAll().run();
+          expect(result.isLeft(), isTrue);
+          verify(
+            () => dio.get<Map<String, Object?>>(
+              '/grades',
+              queryParameters: {
+                'exists[boulders]': ['true'],
+                'pagination': ['false'],
+                'order[name]': [kAscendantDirection],
+              },
+            ),
+          ).called(1);
+          verifyNoMoreInteractions(dio);
+
+          expect(
+            result.getLeft().toNullable(),
+            isA<UnknownException>().having(
+              (e) => e.message,
+              'message',
+              equals('status code: null, path: null'),
+            ),
+          );
+        },
+      );
+
+      test(
         'throws Exception '
         'if status code is not 200 while retrieving pagination',
         () async {
