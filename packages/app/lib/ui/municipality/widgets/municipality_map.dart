@@ -1,9 +1,9 @@
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
-import 'package:breizh_blok_mobile/extensions.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_screen.dart';
+import 'package:breizh_blok_mobile/ui/core/extensions/string_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,7 +48,9 @@ class MunicipalityMap extends StatelessWidget {
                       location.latitude,
                     ),
                   ),
-                  circleColor: context.createRandomColor(),
+                  circleColor: boulderArea.name
+                      .randomColorFromString()
+                      .toARGB32(),
                   circleRadius: 12,
                 ),
               );
@@ -61,6 +63,7 @@ class MunicipalityMap extends StatelessWidget {
                 final localizations = AppLocalizations.of(context);
                 final boulderArea = circleAnnotationBoulderArea[annotation.id];
                 if (boulderArea != null) {
+                  final router = ref.read(routerProvider);
                   ScaffoldMessenger.of(context).removeCurrentSnackBar();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -68,18 +71,18 @@ class MunicipalityMap extends StatelessWidget {
                         '${boulderArea.name},\n'
                         '${boulderArea.nBouldersRated(localizations)}',
                       ),
+                      showCloseIcon: true,
                       action: SnackBarAction(
                         label: localizations.showDetails,
+
                         onPressed: () async {
-                          await ref
-                              .read(routerProvider)
-                              .pushNamed(
-                                BoulderAreaDetailsScreen.route.name,
-                                pathParameters: {
-                                  BoulderAreaDetailsScreen.idParameterName:
-                                      boulderArea.id,
-                                },
-                              );
+                          await router.pushNamed(
+                            BoulderAreaDetailsScreen.route.name,
+                            pathParameters: {
+                              BoulderAreaDetailsScreen.idParameterName:
+                                  boulderArea.id,
+                            },
+                          );
                         },
                       ),
                     ),

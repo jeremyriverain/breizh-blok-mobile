@@ -6,12 +6,24 @@ import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-typedef BoulderState = BoulderApiResponse;
+part 'boulder_bloc.freezed.dart';
 
-class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
-  BoulderBloc({required this.repository}) : super(const BoulderApiResponse()) {
+class BoulderBloc extends Bloc<BoulderEvent, BoulderBlocState> {
+  BoulderBloc({required this.repository})
+    : super(
+        const BoulderBlocState(
+          boulderApiResponse: BoulderApiResponse(),
+          pending: true,
+        ),
+      ) {
     on<BoulderRequested>((event, emit) async {
+      emit(
+        state.copyWith(
+          pending: true,
+        ),
+      );
       final queryParams = <String, List<String>>{
         'page': [event.page.toString()],
         event.orderParam.name: [event.orderParam.direction],
@@ -38,14 +50,29 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
 
       try {
         final data = await repository.findBy(queryParams: queryParams);
-        emit(BoulderApiResponse(data: data));
+        emit(
+          state.copyWith(
+            boulderApiResponse: BoulderApiResponse(data: data),
+            pending: false,
+          ),
+        );
       } catch (error) {
-        emit(BoulderApiResponse(error: error));
+        emit(
+          state.copyWith(
+            boulderApiResponse: BoulderApiResponse(error: error),
+            pending: false,
+          ),
+        );
       }
     });
 
     on<DbBouldersRequested>((event, emit) async {
       try {
+        emit(
+          state.copyWith(
+            pending: true,
+          ),
+        );
         final queryParams = DownloadAreaService.bouldersQueryParamsOf(
           boulderArea: event.boulderArea,
         );
@@ -79,9 +106,19 @@ class BoulderBloc extends Bloc<BoulderEvent, BoulderState> {
 
         data = data.copyWith(totalItems: data.items.length);
 
-        emit(BoulderApiResponse(data: data));
+        emit(
+          state.copyWith(
+            boulderApiResponse: BoulderApiResponse(data: data),
+            pending: false,
+          ),
+        );
       } catch (error) {
-        emit(BoulderApiResponse(error: error));
+        emit(
+          state.copyWith(
+            boulderApiResponse: BoulderApiResponse(error: error),
+            pending: false,
+          ),
+        );
       }
     });
   }
@@ -154,4 +191,12 @@ class DbBouldersRequested extends BoulderEvent {
   final ApiOrderParam orderParam;
   final Set<Grade> grades;
   final Set<String> boulderIds;
+}
+
+@freezed
+abstract class BoulderBlocState with _$BoulderBlocState {
+  const factory BoulderBlocState({
+    required BoulderApiResponse boulderApiResponse,
+    required bool pending,
+  }) = _BoulderBlocState;
 }

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 part 'boulder_geo_point.freezed.dart';
 part 'boulder_geo_point.g.dart';
@@ -17,15 +18,14 @@ abstract class BoulderGeoPoint with _$BoulderGeoPoint {
   factory BoulderGeoPoint.fromJson(Map<String, Object?> json) =>
       _$BoulderGeoPointFromJson(json);
 
-  Map<String, dynamic> toGeojson() {
-    return {
-      'type': 'Feature',
-      'properties': {'id': id, 'areaId': areaId},
-      'geometry': {
-        'type': 'Point',
-        'coordinates': [lng, lat, 0.0],
-      },
-    };
+  Feature toFeature() {
+    return Feature(
+      id: id,
+      properties: {'id': id, 'areaId': areaId},
+      geometry: Point(
+        coordinates: Position(lng, lat),
+      ),
+    );
   }
 }
 

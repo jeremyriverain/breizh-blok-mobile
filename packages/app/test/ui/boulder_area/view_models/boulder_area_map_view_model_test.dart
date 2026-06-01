@@ -208,32 +208,5 @@ void main() {
 
       verifyNoMoreInteractions(boulderMarkerRepository);
     });
-
-    testWidgets('returns clusterSource correctly', (tester) async {
-      mockBoulderMarkerRepository(boulderArea: fakeBoulderArea);
-      mockMapLauncher(tester: tester);
-
-      final (:viewModel, :widget) = getTestWidget(boulderArea: fakeBoulderArea);
-
-      await tester.myPumpWidget(widget: widget);
-
-      await tester.pump();
-
-      final state = viewModel.state as BoulderAreaMapOK;
-
-      expect(
-        state.clusterSource,
-        equals({
-          'type': 'geojson',
-          'cluster': true,
-          'clusterMaxZoom': 20,
-          'clusterRadius': 50,
-          'data': {
-            'type': 'FeatureCollection',
-            'features': [fakeBoulderMarker.toGeojson()],
-          },
-        }),
-      );
-    });
   });
 }

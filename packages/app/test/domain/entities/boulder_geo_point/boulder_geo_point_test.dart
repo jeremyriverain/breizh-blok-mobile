@@ -2,6 +2,7 @@
 
 import 'package:breizh_blok_mobile/domain/entities/boulder_geo_point/boulder_geo_point.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 void main() {
   group('BoulderGeoPoint', () {
@@ -26,17 +27,28 @@ void main() {
       });
     });
 
-    test('toGeojson', () {
+    test('toFeature', () {
       const boulderMarker = BoulderGeoPoint(id: 1, lat: 2, lng: 3, areaId: 4);
 
-      expect(boulderMarker.toGeojson(), {
-        'type': 'Feature',
-        'properties': {'id': 1, 'areaId': 4},
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [3.0, 2.0, 0.0],
-        },
-      });
+      expect(
+        boulderMarker.toFeature().id,
+        equals(1),
+      );
+
+      expect(
+        boulderMarker.toFeature().properties,
+        equals({'id': 1, 'areaId': 4}),
+      );
+
+      expect(
+        boulderMarker.toFeature().geometry,
+        isA<Point>().having((p) => p.coordinates.lat, 'lat', 2),
+      );
+
+      expect(
+        boulderMarker.toFeature().geometry,
+        isA<Point>().having((p) => p.coordinates.lng, 'lng', 3),
+      );
     });
   });
 }

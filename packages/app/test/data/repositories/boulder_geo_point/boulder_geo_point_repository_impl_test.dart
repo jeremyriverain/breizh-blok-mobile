@@ -81,6 +81,10 @@ void main() {
             ]),
           ).thenThrow(Exception('foo'));
 
+          when(
+            () => localDataSource.watchAll(),
+          ).thenAnswer((_) => Stream.value([]));
+
           final result = await repository.findAll().run();
 
           expect(result.isLeft(), isTrue);
@@ -96,6 +100,10 @@ void main() {
               fakeBoulderGeoPoint,
               fakeBoulderGeoPoint2,
             ]),
+          ).called(1);
+
+          verify(
+            () => localDataSource.watchAll(),
           ).called(1);
 
           verifyNoMoreInteractions(localDataSource);
@@ -128,6 +136,10 @@ void main() {
             ]),
           ).thenAnswer((_) => Future.value());
 
+          when(
+            () => localDataSource.watchAll(),
+          ).thenAnswer((_) => Stream.value([]));
+
           final result = await repository.findAll().run();
 
           expect(result.isRight(), isTrue);
@@ -143,6 +155,47 @@ void main() {
               fakeBoulderGeoPoint,
               fakeBoulderGeoPoint2,
             ]),
+          ).called(1);
+
+          verify(
+            () => localDataSource.watchAll(),
+          ).called(1);
+
+          verifyNoMoreInteractions(localDataSource);
+        },
+      );
+
+      test(
+        'Given findAll returns geo points '
+        'And the local data are identical to the retrieved geo points '
+        'Then the seed method is not called',
+        () async {
+          when(
+            () => remoteDataSource.findAll(),
+          ).thenReturn(
+            TaskEither.right([fakeBoulderGeoPoint, fakeBoulderGeoPoint2]),
+          );
+
+          when(
+            () => localDataSource.watchAll(),
+          ).thenAnswer(
+            (_) => Stream.fromIterable([
+              [fakeBoulderGeoPoint, fakeBoulderGeoPoint2],
+            ]),
+          );
+
+          final result = await repository.findAll().run();
+
+          expect(result.isRight(), isTrue);
+
+          verify(
+            () => remoteDataSource.findAll(),
+          ).called(1);
+
+          verifyNoMoreInteractions(remoteDataSource);
+
+          verify(
+            () => localDataSource.watchAll(),
           ).called(1);
 
           verifyNoMoreInteractions(localDataSource);

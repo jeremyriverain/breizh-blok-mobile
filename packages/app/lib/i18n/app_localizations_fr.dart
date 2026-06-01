@@ -55,6 +55,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get clear => 'Effacer';
 
   @override
+  String get closeTheBanner => 'Fermer le bandeau';
+
+  @override
   String get closeTheGallery => 'Fermer la galerie d\'images';
 
   @override

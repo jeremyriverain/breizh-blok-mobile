@@ -13,13 +13,10 @@ class MyMap extends StatefulWidget {
     required this.initialLongitude,
     super.key,
     this.onMapCreated,
-    this.onStyleLoadedListener,
     this.onTapListener,
   });
 
   final void Function(MapboxMap)? onMapCreated;
-  final void Function(MapboxMap mapboxMap, StyleLoadedEventData)?
-  onStyleLoadedListener;
   final void Function(MapboxMap mapboxMap, MapContentGestureContext)?
   onTapListener;
   final double initialZoom;
@@ -34,7 +31,7 @@ class _MyMapState extends State<MyMap> {
   MapboxMap? _mapboxMap;
 
   final String _defaultStyle = MapboxStyles.OUTDOORS;
-  late ViewportState _viewport;
+  ViewportState? _viewport;
 
   CameraViewportState get defaultViewPort => CameraViewportState(
     center: Point(
@@ -47,7 +44,6 @@ class _MyMapState extends State<MyMap> {
   @override
   void initState() {
     super.initState();
-    _viewport = defaultViewPort;
   }
 
   bool isLocationShown = false;
@@ -63,7 +59,7 @@ class _MyMapState extends State<MyMap> {
             gestureRecognizers: const {
               Factory<EagerGestureRecognizer>(EagerGestureRecognizer.new),
             },
-            viewport: _viewport,
+            viewport: _viewport ?? defaultViewPort,
             onMapCreated: (mapboxMap) async {
               try {
                 setState(() {
@@ -75,12 +71,22 @@ class _MyMapState extends State<MyMap> {
                     position: OrnamentPosition.TOP_RIGHT,
                   ),
                 );
-                widget.onMapCreated?.call(mapboxMap);
+              } catch (exception, stackTrace) {
+                Sentry.captureException(
+                  exception,
+                  stackTrace: stackTrace,
+                ).ignore();
+              }
+            },
+            onStyleLoadedListener: (styleLoadedEventData) {
+              try {
+                final mapboxMap = _mapboxMap;
+                widget.onMapCreated?.call(mapboxMap!);
 
                 final onTapListener = widget.onTapListener;
 
                 if (onTapListener != null) {
-                  mapboxMap.addInteraction(
+                  mapboxMap!.addInteraction(
                     TapInteraction.onMap((mapContentGestureContext) {
                       try {
                         widget.onTapListener?.call(
@@ -94,22 +100,6 @@ class _MyMapState extends State<MyMap> {
                         ).ignore();
                       }
                     }),
-                  );
-                }
-              } catch (exception, stackTrace) {
-                Sentry.captureException(
-                  exception,
-                  stackTrace: stackTrace,
-                ).ignore();
-              }
-            },
-            onStyleLoadedListener: (styleLoadedEventData) {
-              try {
-                final mapboxMap = _mapboxMap;
-                if (mapboxMap != null) {
-                  widget.onStyleLoadedListener?.call(
-                    mapboxMap,
-                    styleLoadedEventData,
                   );
                 }
               } catch (exception, stackTrace) {

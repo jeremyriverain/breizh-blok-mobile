@@ -14,9 +14,12 @@ import 'package:breizh_blok_mobile/data/repositories/department/department_repos
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
+import 'package:breizh_blok_mobile/domain/repositories/boulder_geo_point_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/user_profile_repository.dart';
-import 'package:breizh_blok_share_content/breizh_blok_share_content.dart';
-import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart';
+import 'package:breizh_blok_share_content/breizh_blok_share_content.dart'
+    hide UnknownException;
+import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart'
+    hide UnknownException;
 import 'package:dio/dio.dart' hide Response;
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -28,6 +31,7 @@ import 'package:http/testing.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart' hide Response;
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upgrader/upgrader.dart';
 
 class MockAnalytics extends Mock implements Analytics {}
@@ -37,9 +41,6 @@ class MockApiBoulderFeedbackDataSource extends Mock
 
 class MockApiClient extends Mock implements ApiClient {}
 
-class MockRemoteUserProfileDataSource extends Mock
-    implements RemoteUserProfileDataSource {}
-
 class MockAppDatabase extends Mock implements AppDatabase {}
 
 class MockAuth extends Mock implements Auth {}
@@ -48,6 +49,9 @@ class MockBoulderAreaRepository extends Mock implements BoulderAreaRepository {}
 
 class MockBoulderFeedbackRepository extends Mock
     implements BoulderFeedbackRepository {}
+
+class MockBoulderGeoPointRepository extends Mock
+    implements BoulderGeoPointRepository {}
 
 class MockBoulderRepository extends Mock implements BoulderRepository {}
 
@@ -83,10 +87,15 @@ class MockMunicipalityRepository extends Mock
 class MockRemoteBoulderGeoPointDataSource extends Mock
     implements RemoteBoulderGeoPointDataSource {}
 
+class MockRemoteUserProfileDataSource extends Mock
+    implements RemoteUserProfileDataSource {}
+
 class MockRequestInterceptorHandler extends Mock
     implements RequestInterceptorHandler {}
 
 class MockShareContent extends Mock implements ShareContent {}
+
+class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 class MockStatefulNavigationShell extends Mock
     implements StatefulNavigationShell {
