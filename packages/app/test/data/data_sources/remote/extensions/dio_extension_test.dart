@@ -12,7 +12,25 @@ void main() {
           requestOptions: RequestOptions(),
           response: Response(statusCode: 403, requestOptions: RequestOptions()),
         ).convertToDomainException,
-        isA<UnknownException>(),
+        isA<UnknownException>().having(
+          (e) => e.message,
+          'message',
+          equals('status code: 403, path: null'),
+        ),
+      );
+
+      expect(
+        DioException(
+          requestOptions: RequestOptions(path: '/grades'),
+          response: Response(
+            requestOptions: RequestOptions(),
+          ),
+        ).convertToDomainException,
+        isA<UnknownException>().having(
+          (e) => e.message,
+          'message',
+          equals('status code: null, path: /grades'),
+        ),
       );
 
       expect(

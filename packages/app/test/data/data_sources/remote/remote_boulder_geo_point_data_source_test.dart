@@ -88,7 +88,7 @@ void main() {
             isA<UnknownException>().having(
               (e) => e.message,
               'message',
-              equals('Exception: response is not successfull. status code 302'),
+              equals('Exception: response is not successful. status code 302'),
             ),
           );
         },

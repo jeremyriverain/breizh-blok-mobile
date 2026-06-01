@@ -24,7 +24,7 @@ class RemoteBoulderGeoPointDataSource {
 
         if (response.statusCode != 200) {
           throw Exception(
-            'response is not successfull. status code ${response.statusCode}',
+            'response is not successful. status code ${response.statusCode}',
           );
         }
 
