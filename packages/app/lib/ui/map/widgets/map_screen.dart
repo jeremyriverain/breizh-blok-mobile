@@ -35,6 +35,7 @@ class MapScreen extends StatelessWidget {
                 initialLatitude: kDefaultLatitude,
                 initialLongitude: kDefaultLongitude,
                 onMapCreated: (mapboxMap) {
+                  ref.invalidate(mapViewModelProvider);
                   ref.read(mapViewModelProvider.notifier).setMap(mapboxMap);
                 },
                 onTapListener: (mapboxMap, mapContentGestureContext) async {
