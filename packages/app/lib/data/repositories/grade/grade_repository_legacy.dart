@@ -8,8 +8,8 @@ import 'package:breizh_blok_mobile/data/repositories/query_param_factory.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:flutter/foundation.dart';
 
-class GradeRepository {
-  GradeRepository({required this.httpClient});
+class GradeRepositoryLegacy {
+  GradeRepositoryLegacy({required this.httpClient});
 
   final ApiClient httpClient;
 

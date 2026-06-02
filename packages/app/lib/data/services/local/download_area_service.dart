@@ -3,7 +3,7 @@ import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
-import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository_legacy.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:drift/drift.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -187,7 +187,11 @@ class DownloadAreaService {
 
   Future<String> _fetchGrades() async {
     return httpClient.get(
-      Uri.https(Env.apiHost, '/grades', GradeRepository.findAllQueryParams),
+      Uri.https(
+        Env.apiHost,
+        '/grades',
+        GradeRepositoryLegacy.findAllQueryParams,
+      ),
       offlineFirst: true,
     );
   }

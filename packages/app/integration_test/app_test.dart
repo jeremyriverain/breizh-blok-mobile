@@ -10,7 +10,7 @@ import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_para
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
-import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository_legacy.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/firebase_options_staging.dart';
@@ -406,7 +406,7 @@ void main() async {
   });
 
   testWidgets('filter by grade', (tester) async {
-    final gradeRepository = GradeRepository(httpClient: httpClient);
+    final gradeRepository = GradeRepositoryLegacy(httpClient: httpClient);
     final gradesResponse = await gradeRepository.findAll();
 
     await runApplication(tester: tester);

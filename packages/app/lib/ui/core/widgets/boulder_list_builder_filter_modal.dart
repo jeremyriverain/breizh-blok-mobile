@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/paginated_collection.dart';
-import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
+import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository_legacy.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_grade.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
@@ -10,7 +10,7 @@ class BoulderListBuilderFilterModal extends StatelessWidget {
   const BoulderListBuilderFilterModal({super.key});
 
   Future<PaginatedCollection<Grade>> _fetch(BuildContext context) {
-    return context.read<GradeRepository>().findAll();
+    return context.read<GradeRepositoryLegacy>().findAll();
   }
 
   @override
