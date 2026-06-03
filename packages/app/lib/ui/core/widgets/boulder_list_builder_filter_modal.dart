@@ -1,6 +1,7 @@
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository_legacy.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
+import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_grade.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,18 @@ class BoulderListBuilderFilterModal extends StatelessWidget {
                           const SizedBox(height: 20),
                           BoulderListBuilderFilterGrade(
                             key: const Key('boulder-list-filter-grade'),
-                            allGrades: data,
+                            allGrades: data.items,
+                            selectedGrades: context
+                                .watch<BoulderFilterGradeBloc>()
+                                .state
+                                .grades,
+                            onChangeEnd: (selectedGrades) {
+                              context.read<BoulderFilterGradeBloc>().add(
+                                BoulderFilterGradeEvent(
+                                  selectedGrades,
+                                ),
+                              );
+                            },
                           ),
                           const SizedBox(height: 20),
                         ],

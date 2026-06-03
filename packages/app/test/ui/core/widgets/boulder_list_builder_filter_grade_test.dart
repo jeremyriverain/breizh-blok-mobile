@@ -1,44 +1,36 @@
-import 'package:breizh_blok_mobile/data/data_sources/remote/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
-import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_grade.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../widget_test_utils.dart';
 
 void main() {
-  final grades = [
-    const Grade(iri: '/grades/1', name: '5'),
-    const Grade(iri: '/grades/2', name: '6a'),
-    const Grade(iri: '/grades/3', name: '6b'),
-    const Grade(iri: '/grades/4', name: '6c'),
-    const Grade(iri: '/grades/4', name: '7a'),
+  const grades = [
+    Grade(iri: '/grades/1', name: '5'),
+    Grade(iri: '/grades/2', name: '6a'),
+    Grade(iri: '/grades/3', name: '6b'),
+    Grade(iri: '/grades/4', name: '6c'),
+    Grade(iri: '/grades/4', name: '7a'),
   ];
-  final gradeCollection = PaginatedCollection(
-    items: grades,
-    totalItems: grades.length,
-  );
   group('BoulderListFilterGrade', () {
-    testWidgets('set bloc values correctly after selecting some grades', (
+    testWidgets('set values correctly after selecting some grades', (
       tester,
     ) async {
-      final boulderFilterGradeBloc = BoulderFilterGradeBloc(
-        const BoulderFilterGradeState(),
-      );
-      expect(boulderFilterGradeBloc.state.grades.length, 0);
-
+      late Set<Grade> values;
       await tester.myPumpWidget(
-        widget: BlocProvider(
-          create: (context) => boulderFilterGradeBloc,
-          child: Builder(
-            builder: (context) {
-              return Scaffold(
-                body: BoulderListBuilderFilterGrade(allGrades: gradeCollection),
-              );
-            },
-          ),
+        widget: Builder(
+          builder: (context) {
+            return Scaffold(
+              body: BoulderListBuilderFilterGrade(
+                allGrades: grades,
+                selectedGrades: const <Grade>{},
+                onChangeEnd: (selectedGrades) {
+                  values = selectedGrades;
+                },
+              ),
+            );
+          },
         ),
       );
 
@@ -56,18 +48,21 @@ void main() {
       await tester.dragFrom(rightTarget, -middleOffset);
       await tester.pumpAndSettle();
 
-      expect(boulderFilterGradeBloc.state.grades, {
-        const Grade(iri: '/grades/1', name: '5'),
-        const Grade(iri: '/grades/2', name: '6a'),
-        const Grade(iri: '/grades/3', name: '6b'),
-      });
+      expect(
+        values,
+        equals({
+          const Grade(iri: '/grades/1', name: '5'),
+          const Grade(iri: '/grades/2', name: '6a'),
+          const Grade(iri: '/grades/3', name: '6b'),
+        }),
+      );
 
       await tester.dragFrom(
         rightTarget - middleOffset,
         middleOffset + const Offset(1, 0),
       );
 
-      expect(boulderFilterGradeBloc.state.grades, <Grade>{});
+      expect(values, equals(<Grade>{}));
     });
   });
 }

@@ -1,25 +1,29 @@
-import 'package:breizh_blok_mobile/data/data_sources/remote/model/paginated_collection.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_grade_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'boulder_list_builder_filter_grade.g.dart';
 
 class BoulderListBuilderFilterGrade extends StatelessWidget {
-  const BoulderListBuilderFilterGrade({required this.allGrades, super.key});
+  const BoulderListBuilderFilterGrade({
+    required this.allGrades,
+    required this.selectedGrades,
+    required this.onChangeEnd,
+    super.key,
+  });
 
-  final PaginatedCollection<Grade> allGrades;
+  final List<Grade> allGrades;
+  final Set<Grade> selectedGrades;
+  final void Function(Set<Grade> selectedGrades) onChangeEnd;
 
   @override
   Widget build(BuildContext context) {
-    if (allGrades.totalItems < 2) {
-      // defensive condition, if the API returns less than 2 grades,
+    if (allGrades.length < 2) {
+      // defensive condition, if there is less than 2 grades,
       // then RangeSlider widget won't work
-      return Container();
+      return const SizedBox.shrink();
     }
 
     return Consumer(
@@ -27,14 +31,14 @@ class BoulderListBuilderFilterGrade extends StatelessWidget {
         final notifier = ref.watch(
           _viewModelProvider(
             allGrades,
-            context.read<BoulderFilterGradeBloc>().state.grades,
+            selectedGrades,
           ).notifier,
         );
 
         final rangeValues = ref.watch(
           _viewModelProvider(
             allGrades,
-            context.read<BoulderFilterGradeBloc>().state.grades,
+            selectedGrades,
           ),
         );
         return Column(
@@ -50,8 +54,7 @@ class BoulderListBuilderFilterGrade extends StatelessWidget {
                           text: '${AppLocalizations.of(context).minGrade}: ',
                         ),
                         TextSpan(
-                          text: allGrades
-                              .items[(rangeValues.start as num).toInt()]
+                          text: allGrades[(rangeValues.start as num).toInt()]
                               .name,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
@@ -64,9 +67,8 @@ class BoulderListBuilderFilterGrade extends StatelessWidget {
                       children: <TextSpan>[
                         TextSpan(text: '${AppLocalizations.of(context).max}: '),
                         TextSpan(
-                          text: allGrades
-                              .items[(rangeValues.end as num).toInt()]
-                              .name,
+                          text:
+                              allGrades[(rangeValues.end as num).toInt()].name,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -79,16 +81,12 @@ class BoulderListBuilderFilterGrade extends StatelessWidget {
             SizedBox(
               height: 30,
               child: RangeSlider(
-                max: allGrades.totalItems - 1,
-                divisions: allGrades.totalItems - 1,
+                max: allGrades.length - 1,
+                divisions: allGrades.length - 1,
                 values: rangeValues,
                 onChanged: notifier.onChanged,
                 onChangeEnd: (values) {
-                  context.read<BoulderFilterGradeBloc>().add(
-                    BoulderFilterGradeEvent(
-                      notifier.fromRangeValuesToGrades(values),
-                    ),
-                  );
+                  onChangeEnd(notifier.fromRangeValuesToGrades(values));
                 },
               ),
             ),
@@ -102,20 +100,20 @@ class BoulderListBuilderFilterGrade extends StatelessWidget {
 @riverpod
 class _ViewModel extends _$ViewModel {
   @override
-  RangeValues build(PaginatedCollection<Grade> allGrades, Set<Grade> grades) {
+  RangeValues build(List<Grade> allGrades, Set<Grade> grades) {
     final selectedGrades = grades.toList()
       ..sort((a, b) => a.name.compareTo(b.name));
 
     if (selectedGrades.isEmpty) {
       return RangeValues(
         0,
-        (allGrades.items.length - 1).toDouble(),
+        (allGrades.length - 1).toDouble(),
       );
     } else {
-      final startIndex = allGrades.items.indexWhere(
+      final startIndex = allGrades.indexWhere(
         (element) => element.iri == selectedGrades.first.iri,
       );
-      final endIndex = allGrades.items.indexWhere(
+      final endIndex = allGrades.indexWhere(
         (element) => element.iri == selectedGrades.last.iri,
       );
       if (startIndex != -1 && endIndex != -1) {
@@ -126,7 +124,7 @@ class _ViewModel extends _$ViewModel {
       } else {
         return RangeValues(
           0,
-          (allGrades.items.length - 1).toDouble(),
+          (allGrades.length - 1).toDouble(),
         );
       }
     }
@@ -141,9 +139,9 @@ class _ViewModel extends _$ViewModel {
     final startIndex = values.start.round();
     final endIndex = values.end.round();
     var newValues = <Grade>{};
-    if (startIndex != 0 || endIndex != allGrades.totalItems - 1) {
+    if (startIndex != 0 || endIndex != allGrades.length - 1) {
       newValues = {
-        ...allGrades.items.getRange(
+        ...allGrades.getRange(
           startIndex,
           endIndex + 1,
         ),
