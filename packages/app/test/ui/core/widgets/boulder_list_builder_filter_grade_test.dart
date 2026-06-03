@@ -127,5 +127,37 @@ void main() {
         findsOneWidget,
       );
     });
+
+    testWidgets('when selected grade matches nothing', (
+      tester,
+    ) async {
+      await tester.myPumpWidget(
+        widget: Builder(
+          builder: (context) {
+            return Scaffold(
+              body: BoulderListBuilderFilterGrade(
+                allGrades: grades,
+                selectedGrades: <Grade>{
+                  grades[1],
+                  grades[2].copyWith(iri: 'foo', name: 'bar'),
+                },
+                onChangeEnd: (selectedGrades) {},
+              ),
+            );
+          },
+        ),
+      );
+
+      await tester.pump();
+
+      expect(
+        find.textContaining(grades[0].name, findRichText: true),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining(grades[grades.length - 1].name, findRichText: true),
+        findsOneWidget,
+      );
+    });
   });
 }
