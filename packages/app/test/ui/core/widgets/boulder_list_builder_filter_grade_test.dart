@@ -94,5 +94,38 @@ void main() {
         expect(sizedBox.width, equals(0));
       },
     );
+
+    testWidgets('set default values', (
+      tester,
+    ) async {
+      await tester.myPumpWidget(
+        widget: Builder(
+          builder: (context) {
+            return Scaffold(
+              body: BoulderListBuilderFilterGrade(
+                allGrades: grades,
+                selectedGrades: <Grade>{grades[1], grades[2]},
+                onChangeEnd: (selectedGrades) {},
+              ),
+            );
+          },
+        ),
+      );
+
+      await tester.pump();
+
+      expect(
+        find.textContaining(grades[0].name, findRichText: true),
+        findsNothing,
+      );
+      expect(
+        find.textContaining(grades[1].name, findRichText: true),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining(grades[2].name, findRichText: true),
+        findsOneWidget,
+      );
+    });
   });
 }
