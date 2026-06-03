@@ -3,7 +3,7 @@ source "https://rubygems.org"
 
 gem 'dotenv', groups: [:development, :test]
 
-gem "fastlane", "~> 2.233"
+gem "fastlane", "~> 2.235"
 
 gem 'abbrev'
 gem 'logger'
