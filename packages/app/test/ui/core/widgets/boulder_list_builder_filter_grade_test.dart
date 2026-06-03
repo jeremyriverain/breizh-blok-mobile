@@ -3,6 +3,7 @@ import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_g
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../test_utils.dart';
 import '../../../widget_test_utils.dart';
 
 void main() {
@@ -64,5 +65,34 @@ void main() {
 
       expect(values, equals(<Grade>{}));
     });
+
+    testWidgets(
+      'displays shrinked SizedBox when there is less than two grades',
+      (
+        tester,
+      ) async {
+        await tester.myPumpWidget(
+          widget: Builder(
+            builder: (context) {
+              return Scaffold(
+                body: BoulderListBuilderFilterGrade(
+                  allGrades: const [fakeGrade6a],
+                  selectedGrades: const <Grade>{},
+                  onChangeEnd: (_) {},
+                ),
+              );
+            },
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(RangeSlider), findsNothing);
+        final sizedBox = tester.widget<SizedBox>(find.byType(SizedBox));
+
+        expect(sizedBox.height, equals(0));
+        expect(sizedBox.width, equals(0));
+      },
+    );
   });
 }
