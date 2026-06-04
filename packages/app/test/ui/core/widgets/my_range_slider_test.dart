@@ -1,5 +1,5 @@
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
-import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_grade.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/my_range_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -14,18 +14,22 @@ void main() {
     Grade(iri: '/grades/4', name: '6c'),
     Grade(iri: '/grades/4', name: '7a'),
   ];
-  group('BoulderListFilterGrade', () {
-    testWidgets('set values correctly after selecting some grades', (
+  group('MyRangeSlider', () {
+    testWidgets('set values correctly after selecting some values', (
       tester,
     ) async {
-      late Set<Grade> values;
+      late Set<RangeEntry<Grade>> values;
       await tester.myPumpWidget(
         widget: Builder(
           builder: (context) {
             return Scaffold(
-              body: BoulderListBuilderFilterGrade(
-                allGrades: grades,
-                selectedGrades: const <Grade>{},
+              body: MyRangeSlider(
+                allValues: grades
+                    .map(
+                      (g) => RangeEntry(name: g.name, value: g),
+                    )
+                    .toList(),
+                selectedValues: const <RangeEntry<Grade>>{},
                 onChangeEnd: (selectedGrades) {
                   values = selectedGrades;
                 },
@@ -52,9 +56,18 @@ void main() {
       expect(
         values,
         equals({
-          const Grade(iri: '/grades/1', name: '5'),
-          const Grade(iri: '/grades/2', name: '6a'),
-          const Grade(iri: '/grades/3', name: '6b'),
+          const RangeEntry(
+            name: '5',
+            value: Grade(iri: '/grades/1', name: '5'),
+          ),
+          const RangeEntry(
+            name: '6a',
+            value: Grade(iri: '/grades/2', name: '6a'),
+          ),
+          const RangeEntry(
+            name: '6b',
+            value: Grade(iri: '/grades/3', name: '6b'),
+          ),
         }),
       );
 
@@ -63,11 +76,11 @@ void main() {
         middleOffset + const Offset(1, 0),
       );
 
-      expect(values, equals(<Grade>{}));
+      expect(values, equals(<RangeEntry<Grade>>{}));
     });
 
     testWidgets(
-      'displays shrinked SizedBox when there is less than two grades',
+      'displays shrinked SizedBox when there is less than two possible values',
       (
         tester,
       ) async {
@@ -75,9 +88,11 @@ void main() {
           widget: Builder(
             builder: (context) {
               return Scaffold(
-                body: BoulderListBuilderFilterGrade(
-                  allGrades: const [fakeGrade6a],
-                  selectedGrades: const <Grade>{},
+                body: MyRangeSlider(
+                  allValues: const [
+                    fakeGrade6a,
+                  ].map((g) => RangeEntry(name: g.name, value: g)).toList(),
+                  selectedValues: const <RangeEntry<Grade>>{},
                   onChangeEnd: (_) {},
                 ),
               );
@@ -102,9 +117,14 @@ void main() {
         widget: Builder(
           builder: (context) {
             return Scaffold(
-              body: BoulderListBuilderFilterGrade(
-                allGrades: grades,
-                selectedGrades: <Grade>{grades[1], grades[2]},
+              body: MyRangeSlider(
+                allValues: grades
+                    .map((g) => RangeEntry(name: g.name, value: g))
+                    .toList(),
+                selectedValues: {
+                  RangeEntry(name: grades[1].name, value: grades[1]),
+                  RangeEntry(name: grades[2].name, value: grades[2]),
+                },
                 onChangeEnd: (selectedGrades) {},
               ),
             );
@@ -128,18 +148,23 @@ void main() {
       );
     });
 
-    testWidgets('when selected grade matches nothing', (
+    testWidgets('when selected value matches nothing', (
       tester,
     ) async {
       await tester.myPumpWidget(
         widget: Builder(
           builder: (context) {
             return Scaffold(
-              body: BoulderListBuilderFilterGrade(
-                allGrades: grades,
-                selectedGrades: <Grade>{
-                  grades[1],
-                  grades[2].copyWith(iri: 'foo', name: 'bar'),
+              body: MyRangeSlider(
+                allValues: grades
+                    .map((g) => RangeEntry(name: g.name, value: g))
+                    .toList(),
+                selectedValues: {
+                  RangeEntry(name: grades[1].name, value: grades[1]),
+                  RangeEntry(
+                    name: grades[2].name,
+                    value: grades[2].copyWith(iri: 'foo', name: 'bar'),
+                  ),
                 },
                 onChangeEnd: (selectedGrades) {},
               ),

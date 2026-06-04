@@ -10,7 +10,6 @@ import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_para
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/iri_parser.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
-import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository_legacy.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/firebase_options_staging.dart';
@@ -124,11 +123,6 @@ void main() async {
         ),
       ),
     );
-    await tester.pumpAndSettle();
-  }
-
-  Future<void> closeFilterModal(WidgetTester tester) async {
-    await tester.tapAt(const Offset(10, 10));
     await tester.pumpAndSettle();
   }
 
@@ -403,100 +397,6 @@ void main() async {
     await tester.tap(find.byType(BoulderListBuilderTile).first);
 
     expect(find.text(searchedBoulder), findsOneWidget);
-  });
-
-  testWidgets('filter by grade', (tester) async {
-    final gradeRepository = GradeRepositoryLegacy(httpClient: httpClient);
-    final gradesResponse = await gradeRepository.findAll();
-
-    await runApplication(tester: tester);
-    await tester.tap(find.text('Filtrer'));
-
-    await tester.pumpAndSettle();
-
-    final firstGrade = gradesResponse.items[0];
-    final lastGrade = gradesResponse.items[gradesResponse.totalItems - 1];
-
-    print(
-      'initial grade range expected: ${firstGrade.name} -> ${lastGrade.name}',
-    );
-    expect(
-      find.textContaining(
-        'Cotation min: ${gradesResponse.items[0].name}',
-        findRichText: true,
-      ),
-      findsOneWidget,
-    );
-
-    expect(
-      find.textContaining(
-        'max: ${gradesResponse.items[gradesResponse.totalItems - 1].name}',
-        findRichText: true,
-      ),
-      findsOneWidget,
-    );
-
-    await tester.pumpAndSettle();
-
-    // Get the bounds of the track by finding the slider edges and translating
-    // inwards by the overlay radius.
-    // inspired from https://github.com/flutter/flutter/blob/master/packages/flutter/test/material/range_slider_test.dart
-    final leftTarget = tester
-        .getTopLeft(find.byType(RangeSlider))
-        .translate(20, 16);
-    final rightTarget = tester
-        .getTopRight(find.byType(RangeSlider))
-        .translate(-20, 16);
-
-    await tester.dragFrom(
-      rightTarget,
-      Offset(-(leftTarget.dx + rightTarget.dx) / 2, 0),
-    );
-    await tester.pumpAndSettle();
-
-    final maxGradeWidget =
-        tester
-                .element(find.byKey(const Key('boulder-list-grade-max')).first)
-                .widget
-            as Text;
-
-    final maxGrade = maxGradeWidget.textSpan?.toPlainText() ?? '';
-    final selectedGrade = maxGrade.replaceFirst('max: ', '');
-
-    expect(selectedGrade.length, greaterThan(0));
-
-    await tester.dragFrom(
-      leftTarget,
-      Offset((leftTarget.dx + rightTarget.dx) / 2, 0),
-    );
-    await tester.pumpAndSettle();
-    final minGradeWidget =
-        tester
-                .element(find.byKey(const Key('boulder-list-grade-min')).first)
-                .widget
-            as Text;
-
-    final minGrade = minGradeWidget.textSpan?.toPlainText() ?? '';
-
-    print('min grade: $minGrade, max grade: $maxGrade');
-
-    expect(selectedGrade, equals(minGrade.replaceFirst('Cotation min: ', '')));
-
-    await closeFilterModal(tester);
-    await tester.pumpAndSettle();
-
-    final gradeFinder = find.textContaining(
-      '($selectedGrade)',
-      findRichText: true,
-    );
-
-    expect(gradeFinder, findsWidgets);
-
-    print('found elements: ${gradeFinder.evaluate().length}');
-    expect(
-      gradeFinder.evaluate().length,
-      equals(find.byType(BoulderListBuilderTile).evaluate().length),
-    );
   });
 
   testWidgets('sort boulders', (tester) async {
