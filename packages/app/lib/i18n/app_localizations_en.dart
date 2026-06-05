@@ -197,6 +197,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get minGrade => 'Min grade';
 
   @override
+  String get min => 'min';
+
+  @override
   String moreThanNMeters({required num value}) {
     final intl.NumberFormat valueNumberFormat = intl.NumberFormat.compact(
       locale: localeName,

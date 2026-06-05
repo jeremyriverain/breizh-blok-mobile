@@ -410,6 +410,12 @@ abstract class AppLocalizations {
   /// **'Min grade'**
   String get minGrade;
 
+  /// No description provided for @min.
+  ///
+  /// In en, this message translates to:
+  /// **'min'**
+  String get min;
+
   /// No description provided for @moreThanNMeters.
   ///
   /// In en, this message translates to:

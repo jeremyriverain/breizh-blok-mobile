@@ -87,6 +87,7 @@
   "max": "max",
   "message": "Message",
   "minGrade": "Cotation min",
+  "min": "min",
   "moreThanNMeters": "Plus de {value}m",
   "@moreThanNMeters": {
     "placeholders": {

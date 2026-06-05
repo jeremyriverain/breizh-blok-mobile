@@ -1,3 +1,4 @@
+import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -57,6 +58,7 @@ class MyRangeSlider<T> extends StatelessWidget {
                   Text.rich(
                     TextSpan(
                       children: <TextSpan>[
+                        TextSpan(text: '${AppLocalizations.of(context).min}: '),
                         TextSpan(
                           text: allValues[(rangeValues.start as num).toInt()]
                               .name,
@@ -69,6 +71,7 @@ class MyRangeSlider<T> extends StatelessWidget {
                   Text.rich(
                     TextSpan(
                       children: <TextSpan>[
+                        TextSpan(text: '${AppLocalizations.of(context).max}: '),
                         TextSpan(
                           text:
                               allValues[(rangeValues.end as num).toInt()].name,

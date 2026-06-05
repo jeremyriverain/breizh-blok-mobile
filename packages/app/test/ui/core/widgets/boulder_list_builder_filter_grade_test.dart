@@ -53,8 +53,14 @@ void main() {
         await tester.pump();
 
         expect(find.byType(MyRangeSlider<Grade>), findsOneWidget);
-        expect(find.text(fakeGrade6a.name, findRichText: true), findsOneWidget);
-        expect(find.text(fakeGrade6b.name, findRichText: true), findsOneWidget);
+        expect(
+          find.textContaining(fakeGrade6a.name, findRichText: true),
+          findsOneWidget,
+        );
+        expect(
+          find.textContaining(fakeGrade6b.name, findRichText: true),
+          findsOneWidget,
+        );
 
         verify(
           () => repository.watchAll,
