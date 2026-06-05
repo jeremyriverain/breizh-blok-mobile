@@ -2,6 +2,7 @@
   "@@locale": "en",
   "anErrorOccured": "An error occured",
   "anErrorOccuredWhileDisplayingMap": "An error occured while displaying the map",
+  "anErrorOccuredWhileListingGrades": "An error occured while listing all the grades",
   "areas": "Areas",
   "betweenXAndYMeters": "between {min} and {max} meters",
   "@betweenXAndYMeters": {
@@ -86,6 +87,7 @@
   "max": "max",
   "message": "Message",
   "minGrade": "Min grade",
+  "min": "min",
   "moreThanNMeters": "More than {value} meters",
   "@moreThanNMeters": {
     "placeholders": {

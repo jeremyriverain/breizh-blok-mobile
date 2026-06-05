@@ -110,6 +110,12 @@ abstract class AppLocalizations {
   /// **'An error occured while displaying the map'**
   String get anErrorOccuredWhileDisplayingMap;
 
+  /// No description provided for @anErrorOccuredWhileListingGrades.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occured while listing all the grades'**
+  String get anErrorOccuredWhileListingGrades;
+
   /// No description provided for @areas.
   ///
   /// In en, this message translates to:
@@ -403,6 +409,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Min grade'**
   String get minGrade;
+
+  /// No description provided for @min.
+  ///
+  /// In en, this message translates to:
+  /// **'min'**
+  String get min;
 
   /// No description provided for @moreThanNMeters.
   ///

@@ -2,10 +2,12 @@ import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/local_boulder_geo_point_data_source.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/local_grade_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_feedback_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/remote_boulder_geo_point_data_source.dart';
+import 'package:breizh_blok_mobile/data/data_sources/remote/remote_grade_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/remote_user_profile_data_source.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
@@ -15,6 +17,7 @@ import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_reposito
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_geo_point_repository.dart';
+import 'package:breizh_blok_mobile/domain/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/user_profile_repository.dart';
 import 'package:breizh_blok_share_content/breizh_blok_share_content.dart'
     hide UnknownException;
@@ -72,10 +75,14 @@ class MockErrorInterceptorHandler extends Mock
 
 class MockFirebaseRemoteConfig extends Mock implements FirebaseRemoteConfig {}
 
+class MockGradeRepository extends Mock implements GradeRepository {}
+
 class MockImageBoulderCache extends Mock implements ImageBoulderCache {}
 
 class MockLocalBoulderGeroPointDataSource extends Mock
     implements LocalBoulderGeoPointDataSource {}
+
+class MockLocalGradeDataSource extends Mock implements LocalGradeDataSource {}
 
 class MockLocation extends Mock implements Location {}
 
@@ -86,6 +93,8 @@ class MockMunicipalityRepository extends Mock
 
 class MockRemoteBoulderGeoPointDataSource extends Mock
     implements RemoteBoulderGeoPointDataSource {}
+
+class MockRemoteGradeDataSource extends Mock implements RemoteGradeDataSource {}
 
 class MockRemoteUserProfileDataSource extends Mock
     implements RemoteUserProfileDataSource {}

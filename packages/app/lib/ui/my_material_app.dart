@@ -6,7 +6,6 @@ import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_r
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
-import 'package:breizh_blok_mobile/data/repositories/grade/grade_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/locale.dart';
@@ -51,9 +50,6 @@ class MyMaterialApp extends ConsumerWidget {
         ),
         RepositoryProvider<DepartmentRepository>(
           create: (context) => DepartmentRepository(httpClient: httpClient),
-        ),
-        RepositoryProvider<GradeRepository>(
-          create: (context) => GradeRepository(httpClient: httpClient),
         ),
         RepositoryProvider<MunicipalityRepository>(
           create: (context) => MunicipalityRepository(httpClient: httpClient),

@@ -16,6 +16,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'An error occured while displaying the map';
 
   @override
+  String get anErrorOccuredWhileListingGrades =>
+      'An error occured while listing all the grades';
+
+  @override
   String get areas => 'Areas';
 
   @override
@@ -191,6 +195,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get minGrade => 'Min grade';
+
+  @override
+  String get min => 'min';
 
   @override
   String moreThanNMeters({required num value}) {

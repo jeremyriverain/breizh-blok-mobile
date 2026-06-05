@@ -1,73 +1,525 @@
-import 'package:breizh_blok_mobile/data/data_sources/remote/model/paginated_collection.dart';
+import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
+import 'package:breizh_blok_mobile/domain/repositories/grade_repository.dart';
+import 'package:breizh_blok_mobile/service_locator/repositories.dart';
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_grade_bloc.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder_filter_grade.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/my_range_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:mocktail/mocktail.dart';
 
+import '../../../mocks.dart';
+import '../../../test_utils.dart';
 import '../../../widget_test_utils.dart';
 
 void main() {
-  final grades = [
-    const Grade(iri: '/grades/1', name: '5'),
-    const Grade(iri: '/grades/2', name: '6a'),
-    const Grade(iri: '/grades/3', name: '6b'),
-    const Grade(iri: '/grades/4', name: '6c'),
-    const Grade(iri: '/grades/4', name: '7a'),
-  ];
-  final gradeCollection = PaginatedCollection(
-    items: grades,
-    totalItems: grades.length,
-  );
-  group('BoulderListFilterGrade', () {
-    testWidgets('set bloc values correctly after selecting some grades', (
-      tester,
-    ) async {
-      final boulderFilterGradeBloc = BoulderFilterGradeBloc(
+  group('BoulderListBuilderFilterGrade', () {
+    late GradeRepository repository;
+    late BoulderFilterGradeBloc bloc;
+
+    const errorMessage =
+        'Une erreur est survenue pendant la récupération des cotations';
+
+    setUp(() {
+      repository = MockGradeRepository();
+      bloc = BoulderFilterGradeBloc(
         const BoulderFilterGradeState(),
       );
-      expect(boulderFilterGradeBloc.state.grades.length, 0);
-
-      await tester.myPumpWidget(
-        widget: BlocProvider(
-          create: (context) => boulderFilterGradeBloc,
-          child: Builder(
-            builder: (context) {
-              return Scaffold(
-                body: BoulderListBuilderFilterGrade(allGrades: gradeCollection),
-              );
-            },
-          ),
-        ),
-      );
-
-      await tester.pump();
-
-      final leftTarget = tester
-          .getTopLeft(find.byType(RangeSlider))
-          .translate(20, 16);
-      final rightTarget = tester
-          .getTopRight(find.byType(RangeSlider))
-          .translate(-20, 16);
-
-      final middleOffset = Offset((leftTarget.dx + rightTarget.dx) / 2, 0);
-
-      await tester.dragFrom(rightTarget, -middleOffset);
-      await tester.pumpAndSettle();
-
-      expect(boulderFilterGradeBloc.state.grades, {
-        const Grade(iri: '/grades/1', name: '5'),
-        const Grade(iri: '/grades/2', name: '6a'),
-        const Grade(iri: '/grades/3', name: '6b'),
-      });
-
-      await tester.dragFrom(
-        rightTarget - middleOffset,
-        middleOffset + const Offset(1, 0),
-      );
-
-      expect(boulderFilterGradeBloc.state.grades, <Grade>{});
     });
+
+    testWidgets(
+      'it displays CircularProgressIndicator while loading local data ',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenAnswer((_) => Stream.value([fakeGrade6a, fakeGrade6b]));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer((_) => TaskEither.right(null));
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
+    testWidgets(
+      'Given there is at least 2 grades in the local DB '
+      'Then it displays MyRangeSlider',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenAnswer((_) => Stream.value([fakeGrade6a, fakeGrade6b]));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer((_) => TaskEither.right(null));
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsOneWidget);
+        expect(
+          find.textContaining(fakeGrade6a.name, findRichText: true),
+          findsOneWidget,
+        );
+        expect(
+          find.textContaining(fakeGrade6b.name, findRichText: true),
+          findsOneWidget,
+        );
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
+
+    testWidgets(
+      'Given there is less than 2 grades in the local DB '
+      'Then it does not display MyRangeSlider',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenAnswer((_) => Stream.value([fakeGrade6a]));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer((_) => TaskEither.right(null));
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsNothing);
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
+
+    testWidgets(
+      'Given there is at least 2 grades in the local DB '
+      'And I change the selection of grade '
+      'Then the bloc is notified',
+      (tester) async {
+        const grades = [
+          Grade(iri: '/grades/1', name: '5'),
+          Grade(iri: '/grades/2', name: '6a'),
+          Grade(iri: '/grades/3', name: '6b'),
+          Grade(iri: '/grades/4', name: '6c'),
+          Grade(iri: '/grades/4', name: '7a'),
+        ];
+        when(
+          () => repository.watchAll,
+        ).thenAnswer((_) => Stream.value(grades));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer((_) => TaskEither.right(null));
+
+        expect(bloc.state.grades.length, equals(0));
+
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+
+        final leftTarget = tester
+            .getTopLeft(find.byType(RangeSlider))
+            .translate(20, 16);
+        final rightTarget = tester
+            .getTopRight(find.byType(RangeSlider))
+            .translate(-20, 16);
+
+        final middleOffset = Offset((leftTarget.dx + rightTarget.dx) / 2, 0);
+
+        await tester.dragFrom(rightTarget, -middleOffset);
+        await tester.pumpAndSettle();
+
+        expect(
+          bloc.state.grades,
+          equals({
+            const Grade(iri: '/grades/1', name: '5'),
+            const Grade(iri: '/grades/2', name: '6a'),
+            const Grade(iri: '/grades/3', name: '6b'),
+          }),
+        );
+
+        await tester.dragFrom(
+          rightTarget - middleOffset,
+          middleOffset + const Offset(1, 0),
+        );
+
+        expect(bloc.state.grades, equals(<Grade>{}));
+      },
+    );
+
+    testWidgets(
+      'Given there is less than 2 grades in the local DB '
+      'And the findAll method return TaskEither.left '
+      'Then it displays an error message',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenAnswer((_) => Stream.value([fakeGrade6a]));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer(
+          (_) => TaskEither.left(const UnknownException(message: 'foo')),
+        );
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsNothing);
+        expect(
+          find.text(errorMessage),
+          findsOneWidget,
+        );
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
+
+    testWidgets(
+      'Given there is less than 2 grades in the local DB '
+      'And the findAll method throws exception '
+      'Then it displays an error message',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenAnswer((_) => Stream.value([fakeGrade6a]));
+
+        when(
+          () => repository.findAll(),
+        ).thenThrow(
+          Exception('foo'),
+        );
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsNothing);
+        expect(
+          find.text(errorMessage),
+          findsOneWidget,
+        );
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
+
+    testWidgets(
+      'Given there is at least 2 grades in the local DB '
+      'And the findAll method throws exception '
+      'Then it does not display an error message',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenAnswer((_) => Stream.value([fakeGrade6a, fakeGrade6b]));
+
+        when(
+          () => repository.findAll(),
+        ).thenThrow(
+          Exception('foo'),
+        );
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsOneWidget);
+        expect(
+          find.text(errorMessage),
+          findsNothing,
+        );
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
+
+    testWidgets(
+      'Given there is at least 2 grades in the local DB '
+      'And the findAll method returns TaskEither.left result '
+      'Then it does not display an error message',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenAnswer((_) => Stream.value([fakeGrade6a, fakeGrade6b]));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer(
+          (_) => TaskEither.left(const UnknownException(message: 'foo')),
+        );
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsOneWidget);
+        expect(
+          find.text(errorMessage),
+          findsNothing,
+        );
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
+
+    testWidgets(
+      'Given the stream is in error state '
+      'And the findAll method does not throw any exception '
+      'Then it displays an error message',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenThrow(Exception('foo'));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer((_) => TaskEither.right(null));
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsNothing);
+        expect(
+          find.text(errorMessage),
+          findsOneWidget,
+        );
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
+
+    testWidgets(
+      'Given the error banner is displayed '
+      'When I try again '
+      'Then it makes again the requests to the repository',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenThrow(Exception('foo'));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer((_) => TaskEither.right(null));
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsNothing);
+        expect(
+          find.text(errorMessage),
+          findsOneWidget,
+        );
+
+        await tester.tap(find.text('Essayer à nouveau'));
+        await tester.pump();
+
+        verify(
+          () => repository.watchAll,
+        ).called(2);
+
+        verify(
+          () => repository.findAll(),
+        ).called(2);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
   });
 }
