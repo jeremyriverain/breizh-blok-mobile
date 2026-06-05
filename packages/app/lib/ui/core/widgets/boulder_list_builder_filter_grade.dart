@@ -121,7 +121,9 @@ class _Loader extends StatelessWidget {
   }
 }
 
-@riverpod
+@Riverpod(
+  retry: _disableRetry,
+)
 Stream<List<RangeEntry<Grade>>> _allValues(Ref ref) async* {
   final gradeRepository = ref.watch(gradeRepositoryProvider);
 

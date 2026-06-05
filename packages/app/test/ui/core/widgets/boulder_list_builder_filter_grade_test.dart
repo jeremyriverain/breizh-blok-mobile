@@ -378,5 +378,51 @@ void main() {
         verifyNoMoreInteractions(repository);
       },
     );
+
+    testWidgets(
+      'Given the stream is in error state '
+      'And the findAll method does not throw any exception '
+      'Then it displays an error message',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenThrow(Exception('foo'));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer((_) => TaskEither.right(null));
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsNothing);
+        expect(
+          find.text(errorMessage),
+          findsOneWidget,
+        );
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
   });
 }
