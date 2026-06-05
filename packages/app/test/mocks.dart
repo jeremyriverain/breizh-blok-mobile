@@ -17,6 +17,7 @@ import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_reposito
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_feedback_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_geo_point_repository.dart';
+import 'package:breizh_blok_mobile/domain/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/user_profile_repository.dart';
 import 'package:breizh_blok_share_content/breizh_blok_share_content.dart'
     hide UnknownException;
@@ -73,6 +74,8 @@ class MockErrorInterceptorHandler extends Mock
     implements ErrorInterceptorHandler {}
 
 class MockFirebaseRemoteConfig extends Mock implements FirebaseRemoteConfig {}
+
+class MockGradeRepository extends Mock implements GradeRepository {}
 
 class MockImageBoulderCache extends Mock implements ImageBoulderCache {}
 
