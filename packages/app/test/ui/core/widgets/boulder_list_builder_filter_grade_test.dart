@@ -424,5 +424,54 @@ void main() {
         verifyNoMoreInteractions(repository);
       },
     );
+
+    testWidgets(
+      'Given the error banner is displayed '
+      'When I try again '
+      'Then it makes again the requests to the repository',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenThrow(Exception('foo'));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer((_) => TaskEither.right(null));
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsNothing);
+        expect(
+          find.text(errorMessage),
+          findsOneWidget,
+        );
+
+        await tester.tap(find.text('Essayer à nouveau'));
+        await tester.pump();
+
+        verify(
+          () => repository.watchAll,
+        ).called(2);
+
+        verify(
+          () => repository.findAll(),
+        ).called(2);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
   });
 }
