@@ -72,11 +72,11 @@ class MapViewModel extends _$MapViewModel {
   }
 }
 
-Duration? disableRetry(int retryCount, Object error) {
+Duration? _disableRetry(int retryCount, Object error) {
   return null;
 }
 
-@Riverpod(retry: disableRetry)
+@Riverpod(retry: _disableRetry)
 class FindAllBoulderGeoPoints extends _$FindAllBoulderGeoPoints {
   @override
   Future<Either<DomainException, void>> build() async {

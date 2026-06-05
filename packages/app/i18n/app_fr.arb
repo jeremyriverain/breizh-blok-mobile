@@ -2,6 +2,7 @@
   "@@locale": "fr",
   "anErrorOccured": "Une erreur est survenue",
   "anErrorOccuredWhileDisplayingMap": "Une erreur est survenue pendant l'affichage de la carte",
+  "anErrorOccuredWhileListingGrades": "Une erreur est survenue pendant la récupération des cotations",
   "areas": "Sites",
   "betweenXAndYMeters": "Entre {min} et {max}m",
   "@betweenXAndYMeters": {

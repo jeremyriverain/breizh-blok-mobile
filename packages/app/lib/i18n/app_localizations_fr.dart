@@ -16,6 +16,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Une erreur est survenue pendant l\'affichage de la carte';
 
   @override
+  String get anErrorOccuredWhileListingGrades =>
+      'Une erreur est survenue pendant la récupération des cotations';
+
+  @override
   String get areas => 'Sites';
 
   @override
