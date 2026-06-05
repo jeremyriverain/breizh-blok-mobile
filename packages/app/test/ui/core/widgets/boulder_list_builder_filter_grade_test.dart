@@ -380,6 +380,54 @@ void main() {
     );
 
     testWidgets(
+      'Given there is at least 2 grades in the local DB '
+      'And the findAll method returns TaskEither.left result '
+      'Then it does not display an error message',
+      (tester) async {
+        when(
+          () => repository.watchAll,
+        ).thenAnswer((_) => Stream.value([fakeGrade6a, fakeGrade6b]));
+
+        when(
+          () => repository.findAll(),
+        ).thenAnswer(
+          (_) => TaskEither.left(const UnknownException(message: 'foo')),
+        );
+        await tester.myPumpWidget(
+          overrides: [
+            gradeRepositoryProvider.overrideWith((_) => repository),
+          ],
+          widget: BlocProvider(
+            create: (context) => bloc,
+            child: Builder(
+              builder: (context) {
+                return const BoulderListBuilderFilterGrade();
+              },
+            ),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(MyRangeSlider<Grade>), findsOneWidget);
+        expect(
+          find.text(errorMessage),
+          findsNothing,
+        );
+
+        verify(
+          () => repository.watchAll,
+        ).called(1);
+
+        verify(
+          () => repository.findAll(),
+        ).called(1);
+
+        verifyNoMoreInteractions(repository);
+      },
+    );
+
+    testWidgets(
       'Given the stream is in error state '
       'And the findAll method does not throw any exception '
       'Then it displays an error message',
