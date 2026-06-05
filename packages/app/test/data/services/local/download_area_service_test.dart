@@ -112,19 +112,13 @@ void main() {
 
     const expectedBouldersRequestPath =
         '/boulders?groups%5B%5D=Boulder%3Aitem-get&groups%5B%5D=Boulder%3Aread&groups%5B%5D=read&order%5Bid%5D=desc&pagination=false&rock.boulderArea.id%5B%5D=3';
-    const expectedGradesRequestPath =
-        '/grades?exists%5Bboulders%5D=true&order%5Bname%5D=asc&pagination=false';
-    expect(storedRequests.length, equals(3));
+    expect(storedRequests.length, equals(2));
     expect(storedRequests, [
       const DbRequest(
         requestPath: expectedBouldersRequestPath,
         responseBody: mockResponseBoulders,
       ),
       DbRequest(requestPath: boulderArea.iri, responseBody: '{}'),
-      const DbRequest(
-        requestPath: expectedGradesRequestPath,
-        responseBody: '{}',
-      ),
     ]);
 
     final storedBoulderAreas = await database
@@ -171,18 +165,6 @@ void main() {
         .select(database.dbBoulderAreas)
         .get();
     expect(storedBoulderAreasAfterRemovingDownload.length, equals(0));
-    final storedRequetsAfterRemovingDownload = await database
-        .select(database.dbRequests)
-        .get();
-    expect(storedRequetsAfterRemovingDownload.length, equals(1));
-
-    expect(storedRequetsAfterRemovingDownload, [
-      const DbRequest(
-        requestPath: expectedGradesRequestPath,
-        responseBody: '{}',
-      ),
-    ]);
-
     verify(
       () => cacheManager.removeFile(
         any(
