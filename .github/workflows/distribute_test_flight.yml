@@ -51,7 +51,7 @@ jobs:
 
           security default-keychain -s $KEYCHAIN_PATH
 
-      - uses: ruby/setup-ruby@v1.305.0
+      - uses: ruby/setup-ruby@v1.310.0
         with:
           ruby-version: "3.4"
           bundler-cache: true
