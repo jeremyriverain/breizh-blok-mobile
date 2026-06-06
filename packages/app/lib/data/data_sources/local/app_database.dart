@@ -18,7 +18,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration {
@@ -29,6 +29,14 @@ class AppDatabase extends _$AppDatabase {
         },
         from2To3: (m, schema) async {
           await m.createTable(schema.boulderGeoPointTable);
+        },
+        from3To4: (m, schema) async {
+          await m.createIndex(
+            Index.byDialect(
+              schema.area.entityName,
+              schema.area.createStatementsByDialect,
+            ),
+          );
         },
       ),
     );

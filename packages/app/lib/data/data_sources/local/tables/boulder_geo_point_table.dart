@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+@TableIndex(name: 'area', columns: {#areaId})
 class BoulderGeoPointTable extends Table {
   IntColumn get id => integer()();
   RealColumn get lat => real()();
