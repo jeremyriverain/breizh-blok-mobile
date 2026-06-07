@@ -50,4 +50,16 @@ class LocalBoulderGeoPointDataSource {
       );
     }
   }
+
+  Stream<List<BoulderGeoPoint>> watchByArea(int areaId) {
+    try {
+      return (_database.select(
+        _database.boulderGeoPointTable,
+      )..where((u) => u.areaId.equals(areaId))).map(_mapper.toDomain).watch();
+    } catch (e) {
+      throw AppDatabaseException(
+        message: e.toString(),
+      );
+    }
+  }
 }
