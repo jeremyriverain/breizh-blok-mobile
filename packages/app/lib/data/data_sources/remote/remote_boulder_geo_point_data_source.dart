@@ -11,6 +11,12 @@ class RemoteBoulderGeoPointDataSource {
   final Dio _dio;
 
   TaskEither<DomainException, List<BoulderGeoPoint>> findAll() {
+    return _findAll();
+  }
+
+  TaskEither<DomainException, List<BoulderGeoPoint>> _findAll({
+    Map<String, String>? extraQueryParameters,
+  }) {
     const itemsPerPage = 1000;
     return TaskEither.tryCatch(
       () async {
@@ -19,6 +25,7 @@ class RemoteBoulderGeoPointDataSource {
           queryParameters: {
             'itemsPerPage': '0',
             'groups[]': 'Boulder:map:v2',
+            ...extraQueryParameters ?? {},
           },
         );
 
@@ -52,6 +59,7 @@ class RemoteBoulderGeoPointDataSource {
                     'page': '${index + 1}',
                     'itemsPerPage': '$itemsPerPage',
                     'groups[]': 'Boulder:map:v2',
+                    ...extraQueryParameters ?? {},
                   },
                   options: Options(headers: {'Accept': 'application/json'}),
                 )
@@ -77,6 +85,14 @@ class RemoteBoulderGeoPointDataSource {
           return e.convertToDomainException;
         }
         return UnknownException(message: e.toString());
+      },
+    );
+  }
+
+  TaskEither<DomainException, List<BoulderGeoPoint>> findByArea(int areaId) {
+    return _findAll(
+      extraQueryParameters: {
+        'rock.boulderArea.id': areaId.toString(),
       },
     );
   }
