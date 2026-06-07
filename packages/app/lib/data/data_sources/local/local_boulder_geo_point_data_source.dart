@@ -70,7 +70,7 @@ class LocalBoulderGeoPointDataSource {
       }
       final areaIds = boulderGeoPoints.map((u) => u.areaId).toSet();
 
-      if (areaIds.length > 1) {
+      if (areaIds.length != 1) {
         throw Exception(
           'The geo points are not associated to a single area: $areaIds',
         );
