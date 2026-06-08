@@ -36,4 +36,27 @@ class BoulderGeoPointRepositoryImpl implements BoulderGeoPointRepository {
 
   @override
   Stream<List<BoulderGeoPoint>> get watchAll => localDataSource.watchAll();
+
+  @override
+  TaskEither<DomainException, void> findByArea(int areaId) {
+    return remoteDataSource.findByArea(areaId).flatMap((points) {
+      return TaskEither.tryCatch(
+        () async {
+          final localPoints = await watchByArea(areaId).first;
+          if (listEquals(localPoints, points)) {
+            return;
+          }
+          return localDataSource.seedByArea(points);
+        },
+        (error, _) {
+          debugPrint(error.toString());
+          return UnknownException(message: error.toString());
+        },
+      );
+    });
+  }
+
+  @override
+  Stream<List<BoulderGeoPoint>> watchByArea(int areaId) =>
+      localDataSource.watchByArea(areaId);
 }

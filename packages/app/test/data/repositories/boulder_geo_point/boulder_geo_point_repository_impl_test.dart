@@ -202,5 +202,184 @@ void main() {
         },
       );
     });
+
+    group('watchByArea', () {
+      test('watch from local data source', () async {
+        when(
+          () => localDataSource.watchByArea(1),
+        ).thenAnswer((_) => Stream.value([fakeBoulderGeoPoint]));
+        await expectLater(
+          repository.watchByArea(1),
+          emits([fakeBoulderGeoPoint]),
+        );
+
+        verify(
+          () => localDataSource.watchByArea(1),
+        ).called(1);
+        verifyNoMoreInteractions(localDataSource);
+      });
+    });
+
+    group('findByArea', () {
+      test(
+        'Given findByArea throw Exception '
+        'Then the stream of boulder geo points does not change',
+        () async {
+          when(
+            () => remoteDataSource.findByArea(1),
+          ).thenReturn(TaskEither.left(const UnknownException(message: 'bar')));
+
+          final result = await repository.findByArea(1).run();
+
+          expect(result.isLeft(), isTrue);
+
+          verify(
+            () => remoteDataSource.findByArea(1),
+          ).called(1);
+
+          verifyNoMoreInteractions(remoteDataSource);
+
+          verifyZeroInteractions(localDataSource);
+        },
+      );
+
+      test(
+        'when seed method of local data source throws an error',
+
+        () async {
+          when(
+            () => remoteDataSource.findByArea(1),
+          ).thenReturn(
+            TaskEither.right([fakeBoulderGeoPoint, fakeBoulderGeoPoint2]),
+          );
+
+          when(
+            () => localDataSource.seedByArea([
+              fakeBoulderGeoPoint,
+              fakeBoulderGeoPoint2,
+            ]),
+          ).thenThrow(Exception('foo'));
+
+          when(
+            () => localDataSource.watchByArea(1),
+          ).thenAnswer((_) => Stream.value([]));
+
+          final result = await repository.findByArea(1).run();
+
+          expect(result.isLeft(), isTrue);
+
+          verify(
+            () => remoteDataSource.findByArea(1),
+          ).called(1);
+
+          verifyNoMoreInteractions(remoteDataSource);
+
+          verify(
+            () => localDataSource.seedByArea([
+              fakeBoulderGeoPoint,
+              fakeBoulderGeoPoint2,
+            ]),
+          ).called(1);
+
+          verify(
+            () => localDataSource.watchByArea(1),
+          ).called(1);
+
+          verifyNoMoreInteractions(localDataSource);
+
+          expect(
+            result.getLeft().toNullable(),
+            isA<UnknownException>().having(
+              (e) => e.message,
+              'message',
+              equals('Exception: foo'),
+            ),
+          );
+        },
+      );
+
+      test(
+        'Given findByArea returns geo points '
+        'Then the seed method of local data source is called',
+        () async {
+          when(
+            () => remoteDataSource.findByArea(1),
+          ).thenReturn(
+            TaskEither.right([fakeBoulderGeoPoint, fakeBoulderGeoPoint2]),
+          );
+
+          when(
+            () => localDataSource.seedByArea([
+              fakeBoulderGeoPoint,
+              fakeBoulderGeoPoint2,
+            ]),
+          ).thenAnswer((_) => Future.value());
+
+          when(
+            () => localDataSource.watchByArea(1),
+          ).thenAnswer((_) => Stream.value([]));
+
+          final result = await repository.findByArea(1).run();
+
+          expect(result.isRight(), isTrue);
+
+          verify(
+            () => remoteDataSource.findByArea(1),
+          ).called(1);
+
+          verifyNoMoreInteractions(remoteDataSource);
+
+          verify(
+            () => localDataSource.seedByArea([
+              fakeBoulderGeoPoint,
+              fakeBoulderGeoPoint2,
+            ]),
+          ).called(1);
+
+          verify(
+            () => localDataSource.watchByArea(1),
+          ).called(1);
+
+          verifyNoMoreInteractions(localDataSource);
+        },
+      );
+
+      test(
+        'Given findByArea returns geo points '
+        'And the local data are identical to the retrieved geo points '
+        'Then the seed method is not called',
+        () async {
+          when(
+            () => remoteDataSource.findByArea(1),
+          ).thenReturn(
+            TaskEither.right([fakeBoulderGeoPoint, fakeBoulderGeoPoint2]),
+          );
+
+          when(
+            () => localDataSource.watchByArea(1),
+          ).thenAnswer(
+            (_) => Stream.fromIterable([
+              [fakeBoulderGeoPoint, fakeBoulderGeoPoint2],
+            ]),
+          );
+
+          final result = await repository.findByArea(1).run();
+
+          expect(result.isRight(), isTrue);
+
+          verify(
+            () => remoteDataSource.findByArea(1),
+          ).called(1);
+
+          verifyNoMoreInteractions(remoteDataSource);
+
+          verify(
+            () => localDataSource.watchByArea(1),
+          ).called(1);
+
+          verifyNoMoreInteractions(localDataSource);
+        },
+      );
+    });
   });
 }
