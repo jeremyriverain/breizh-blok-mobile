@@ -112,8 +112,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mapbox/mapbox-common-ios.git",
       "state" : {
-        "revision" : "f9ae004513903cdc40b5c5135e84c98a2a370a4d",
-        "version" : "24.23.1"
+        "revision" : "0903177afad61e293d420de4f0032a0d09a73f26",
+        "version" : "24.24.3"
       }
     },
     {
@@ -121,8 +121,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mapbox/mapbox-core-maps-ios.git",
       "state" : {
-        "revision" : "bde36cdf6936f7c779b99048b333a4e7f8df80d8",
-        "version" : "11.23.1"
+        "revision" : "62e6c66055e66f34e0e80b75e9b8cd18a6bba7ec",
+        "version" : "11.24.3"
       }
     },
     {
@@ -130,8 +130,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mapbox/mapbox-maps-ios.git",
       "state" : {
-        "revision" : "87ddb192623ea9a615903faff12901052966b724",
-        "version" : "11.23.1"
+        "revision" : "90c6b2e36a8e8118c67236974d57d96cfbdc44c0",
+        "version" : "11.24.3"
       }
     },
     {
@@ -157,8 +157,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
-        "revision" : "cf44aa8cb4147f39e698c1f28be0b6b2c89f79d2",
-        "version" : "8.58.2"
+        "revision" : "dad229c665bfd043c5d80ac7aa77717cbd19a1c3",
+        "version" : "8.58.3"
       }
     },
     {
