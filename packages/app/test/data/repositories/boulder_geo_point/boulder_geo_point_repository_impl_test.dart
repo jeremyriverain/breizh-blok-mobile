@@ -202,5 +202,22 @@ void main() {
         },
       );
     });
+
+    group('watchByArea', () {
+      test('watch from local data source', () async {
+        when(
+          () => localDataSource.watchByArea(1),
+        ).thenAnswer((_) => Stream.value([fakeBoulderGeoPoint]));
+        await expectLater(
+          repository.watchByArea(1),
+          emits([fakeBoulderGeoPoint]),
+        );
+
+        verify(
+          () => localDataSource.watchByArea(1),
+        ).called(1);
+        verifyNoMoreInteractions(localDataSource);
+      });
+    });
   });
 }
