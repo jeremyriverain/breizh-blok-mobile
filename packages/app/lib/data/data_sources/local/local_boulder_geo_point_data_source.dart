@@ -4,8 +4,7 @@ import 'package:breizh_blok_mobile/domain/entities/boulder_geo_point/boulder_geo
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 
 class LocalBoulderGeoPointDataSource {
-  const LocalBoulderGeoPointDataSource({required AppDatabase database})
-    : _database = database;
+  const LocalBoulderGeoPointDataSource({required this._database});
 
   final AppDatabase _database;
   LocalBoulderGeoPointMapper get _mapper => const LocalBoulderGeoPointMapper();

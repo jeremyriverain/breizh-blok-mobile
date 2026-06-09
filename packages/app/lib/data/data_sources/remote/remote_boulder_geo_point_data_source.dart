@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 
 class RemoteBoulderGeoPointDataSource {
-  RemoteBoulderGeoPointDataSource({required Dio dio}) : _dio = dio;
+  RemoteBoulderGeoPointDataSource({required this._dio});
 
   final Dio _dio;
 
