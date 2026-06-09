@@ -6,8 +6,8 @@ import 'package:fpdart/fpdart.dart';
 
 class UserProfileRepositoryImpl implements UserProfileRepository {
   UserProfileRepositoryImpl({
-    required RemoteUserProfileDataSource apiDataSource,
-  }) : _apiDataSource = apiDataSource;
+    required this._apiDataSource,
+  });
 
   final RemoteUserProfileDataSource _apiDataSource;
 

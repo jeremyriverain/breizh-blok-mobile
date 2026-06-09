@@ -16,7 +16,7 @@ version: 2.31.0+2.31.0
 resolution: workspace
 
 environment:
-  sdk: "^3.10.0"
+  sdk: "^3.12.0"
 
 dependencies:
   breizh_blok_analytics:

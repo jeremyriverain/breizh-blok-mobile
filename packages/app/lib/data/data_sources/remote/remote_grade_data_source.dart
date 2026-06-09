@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 
 class RemoteGradeDataSource {
-  RemoteGradeDataSource({required Dio dio}) : _dio = dio;
+  RemoteGradeDataSource({required this._dio});
 
   final Dio _dio;
 

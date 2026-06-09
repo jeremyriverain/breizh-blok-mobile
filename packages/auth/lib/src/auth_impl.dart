@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 
 class AuthImpl implements Auth {
   AuthImpl({
-    required auth0.Auth0 auth0,
+    required this._auth0,
     required auth0.Credentials? initialCredentials,
-    required String audience,
-  }) : _auth0 = auth0,
-       _credentials = ValueNotifier(
+    required this._audience,
+  }) : _credentials = ValueNotifier(
          initialCredentials == null
              ? null
              : AuthImpl.toCredentials(initialCredentials),
-       ),
-       _audience = audience;
+       );
 
   final auth0.Auth0 _auth0;
   final String _audience;
@@ -88,9 +86,7 @@ class AuthImpl implements Auth {
 }
 
 class AuthFactoryImpl implements AuthFactory {
-  AuthFactoryImpl({required auth0.Auth0 auth0, required String audience})
-    : _auth0 = auth0,
-      _audience = audience;
+  AuthFactoryImpl({required this._auth0, required this._audience});
 
   final auth0.Auth0 _auth0;
   final String _audience;

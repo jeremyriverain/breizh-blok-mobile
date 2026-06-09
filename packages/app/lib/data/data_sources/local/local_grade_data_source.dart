@@ -4,8 +4,7 @@ import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_excep
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 
 class LocalGradeDataSource {
-  const LocalGradeDataSource({required AppDatabase database})
-    : _database = database;
+  const LocalGradeDataSource({required this._database});
 
   final AppDatabase _database;
   LocalGradeMapper get _mapper => const LocalGradeMapper();
