@@ -1,6 +1,7 @@
-import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_map_launcher/src/available_map.dart';
 import 'package:breizh_blok_map_launcher/src/available_map_impl.dart';
+import 'package:breizh_blok_map_launcher/src/exceptions.dart';
+import 'package:breizh_blok_map_launcher/src/map_launcher.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:map_launcher/map_launcher.dart' as m;
 
