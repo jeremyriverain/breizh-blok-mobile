@@ -1,8 +1,9 @@
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
-import 'package:breizh_blok_mobile/domain/entities/map/map_directions.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/ui/core/extensions/available_map_extension.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -35,15 +36,22 @@ class BoulderAreaMapViewModel
                       parkingLocation == null || availableMaps.isEmpty
                       ? null
                       : (context) async {
-                          await MapDirections.openMapsSheet(
+                          await showModalBottomSheet<void>(
                             context: context,
-                            availableMaps: availableMaps as List<AvailableMap>,
-                            onMapSelectedFn: MapDirections.showDirections(
-                              destination: parkingLocation,
-                              destinationTitle:
-                                  // ignore: lines_longer_than_80_chars
-                                  '${AppLocalizations.of(context).parkingOfTheBoulderArea} ${boulderArea.name}',
-                            ),
+                            builder: (context) {
+                              return AvailableMapsSheet(
+                                onMapSelected: ({required map}) async {
+                                  await map
+                                      .safeShowDirections(
+                                        destination: parkingLocation,
+                                        destinationTitle:
+                                            // ignore: lines_longer_than_80_chars
+                                            '${AppLocalizations.of(context).parkingOfTheBoulderArea} ${boulderArea.name}',
+                                      )
+                                      .run();
+                                },
+                              );
+                            },
                           );
                         },
                   boulderMarkers: boulderMarkers as List<BoulderMarker>,

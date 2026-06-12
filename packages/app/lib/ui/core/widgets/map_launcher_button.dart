@@ -1,7 +1,8 @@
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
-import 'package:breizh_blok_mobile/domain/entities/map/map_directions.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
 import 'package:breizh_blok_mobile/service_locator/map_launcher.dart';
+import 'package:breizh_blok_mobile/ui/core/extensions/available_map_extension.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +22,7 @@ class MapLauncherButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final availableMaps = ref.watch(mapAppsProvider);
+        final availableMaps = ref.watch(mapLauncherProvider);
 
         return availableMaps.when(
           data: (data) {
@@ -30,20 +31,23 @@ class MapLauncherButton extends StatelessWidget {
             }
             return FilledButton.icon(
               key: const Key('map-launcher-button'),
-              onPressed: () => MapDirections.openMapsSheet(
-                context: context,
-                availableMaps: data,
-                onMapSelectedFn: ({required map}) async {
-                  await ref
-                      .read(mapAppsProvider.notifier)
-                      .showDirections(
-                        map,
-                        destinationTitle: destinationTitle,
-                        destination: destination,
-                      )
-                      .run();
-                },
-              ),
+              onPressed: () async {
+                await showModalBottomSheet<void>(
+                  context: context,
+                  builder: (context) {
+                    return AvailableMapsSheet(
+                      onMapSelected: ({required map}) async {
+                        await map
+                            .safeShowDirections(
+                              destinationTitle: destinationTitle,
+                              destination: destination,
+                            )
+                            .run();
+                      },
+                    );
+                  },
+                );
+              },
               icon: const Icon(Icons.directions),
               label: Text(
                 labelButton ?? AppLocalizations.of(context).itinerary,
