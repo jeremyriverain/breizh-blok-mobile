@@ -21,7 +21,7 @@ class MapLauncherButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final availableMaps = ref.watch(mapLauncherProvider);
+        final availableMaps = ref.watch(mapAppsProvider);
 
         return availableMaps.when(
           data: (data) {
@@ -33,10 +33,16 @@ class MapLauncherButton extends StatelessWidget {
               onPressed: () => MapDirections.openMapsSheet(
                 context: context,
                 availableMaps: data,
-                onMapSelectedFn: MapDirections.showDirections(
-                  destination: destination,
-                  destinationTitle: destinationTitle,
-                ),
+                onMapSelectedFn: ({required map}) async {
+                  await ref
+                      .read(mapAppsProvider.notifier)
+                      .showDirections(
+                        map,
+                        destinationTitle: destinationTitle,
+                        destination: destination,
+                      )
+                      .run();
+                },
               ),
               icon: const Icon(Icons.directions),
               label: Text(
