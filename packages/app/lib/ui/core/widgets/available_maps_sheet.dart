@@ -1,8 +1,8 @@
-import 'package:breizh_blok_mobile/service_locator/map_launcher.dart';
+import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
+import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:map_launcher/map_launcher.dart';
 
 class AvailableMapsSheet extends StatelessWidget {
   const AvailableMapsSheet({
@@ -21,22 +21,25 @@ class AvailableMapsSheet extends StatelessWidget {
           builder: (context, ref, _) {
             return Wrap(
               children: ref
-                  .watch(mapLauncherProvider)
+                  .watch(availableMapsProvider)
                   .when(
-                    data: (availableMaps) {
-                      return availableMaps
-                          .map(
-                            (map) => ListTile(
-                              onTap: () => _onMapSelected(map: map),
-                              title: Text(map.mapName),
-                              leading: SvgPicture.asset(
-                                map.icon,
-                                height: 30,
-                                width: 30,
+                    data: (result) {
+                      return result.fold(
+                        (e) => [const Text('error')],
+                        (availableMaps) => availableMaps
+                            .map(
+                              (map) => ListTile(
+                                onTap: () => _onMapSelected(map: map),
+                                title: Text(map.name),
+                                leading: SvgPicture.asset(
+                                  map.icon,
+                                  height: 30,
+                                  width: 30,
+                                ),
                               ),
-                            ),
-                          )
-                          .toList();
+                            )
+                            .toList(),
+                      );
                     },
                     error: (_, _) => const [Text('error')],
                     loading: () => [

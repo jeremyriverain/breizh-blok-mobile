@@ -1,13 +1,12 @@
+import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/core/extensions/available_map_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:map_launcher/map_launcher.dart';
 
 part 'boulder_area_map_view_model.freezed.dart';
 
@@ -22,18 +21,15 @@ class BoulderAreaMapViewModel
         case BoulderAreaMapInit():
           {
             try {
-              final [availableMaps, boulderMarkers] = await Future.wait([
-                MapLauncher.installedMaps,
-                boulderMarkerRepository.findByBoulderArea(
-                  boulderArea: boulderArea,
-                ),
-              ]);
+              final boulderMarkers = await boulderMarkerRepository
+                  .findByBoulderArea(
+                    boulderArea: boulderArea,
+                  );
 
               final parkingLocation = boulderArea.parkingLocation;
               emit(
                 BoulderAreaMapOK(
-                  onClickParking:
-                      parkingLocation == null || availableMaps.isEmpty
+                  onClickParking: parkingLocation == null
                       ? null
                       : (context) async {
                           await showModalBottomSheet<void>(
@@ -42,8 +38,11 @@ class BoulderAreaMapViewModel
                               return AvailableMapsSheet(
                                 onMapSelected: ({required map}) async {
                                   await map
-                                      .safeShowDirections(
-                                        destination: parkingLocation,
+                                      .showDirections(
+                                        destination: Coords(
+                                          latitude: parkingLocation.latitude,
+                                          longitude: parkingLocation.longitude,
+                                        ),
                                         destinationTitle:
                                             // ignore: lines_longer_than_80_chars
                                             '${AppLocalizations.of(context).parkingOfTheBoulderArea} ${boulderArea.name}',
@@ -54,7 +53,7 @@ class BoulderAreaMapViewModel
                             },
                           );
                         },
-                  boulderMarkers: boulderMarkers as List<BoulderMarker>,
+                  boulderMarkers: boulderMarkers,
                 ),
               );
             } catch (e) {

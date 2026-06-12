@@ -1,6 +1,6 @@
+import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
-import 'package:breizh_blok_mobile/ui/core/extensions/available_map_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/build_context_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
@@ -65,9 +65,13 @@ class _BoulderDetailsMapTabState extends State<BoulderDetailsMapTab>
                     return AvailableMapsSheet(
                       onMapSelected: ({required map}) async {
                         await map
-                            .safeShowDirections(
+                            .showDirections(
                               destinationTitle: widget.boulder.name,
-                              destination: widget.boulder.rock.location,
+                              destination: Coords(
+                                latitude: widget.boulder.rock.location.latitude,
+                                longitude:
+                                    widget.boulder.rock.location.longitude,
+                              ),
                             )
                             .run();
                       },
