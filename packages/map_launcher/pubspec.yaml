@@ -1,0 +1,25 @@
+name: breizh_blok_map_launcher
+publish_to: "none"
+version: 1.0.0
+
+resolution: workspace
+
+environment:
+  sdk: "^3.12.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fpdart: ^1.1.1
+  freezed_annotation: ^3.1.0
+  map_launcher: ^4.5.0
+
+dev_dependencies:
+  breizh_blok_lint:
+  build_runner: ^2.15.0
+  flutter_test:
+    sdk: flutter
+  freezed: ^3.2.3
+  mocktail: ^1.0.5
+
+flutter:

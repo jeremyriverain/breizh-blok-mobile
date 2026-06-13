@@ -148,6 +148,7 @@
   "noConnection": "Aucune connexion",
   "noDownload": "Aucun téléchargement",
   "noDownloadHelper": "Il est possible de télécharger des secteurs de bloc afin de pouvoir y accéder même sans connexion internet.",
+  "noMappingApplicationWasDetectedOnYourDevice": "Aucune application de cartographie n'a été détectée sur votre appareil.",
   "noResults": "Aucun résultat",
   "noResultsMatchYourSearchCriteria": "Aucun résultat ne correspond à vos critères de recherche",
   "pageNotFound": "404 - Page non trouvée",

@@ -1,5 +1,6 @@
 import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
+import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/local_boulder_geo_point_data_source.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/local_grade_data_source.dart';
@@ -48,6 +49,8 @@ class MockAppDatabase extends Mock implements AppDatabase {}
 
 class MockAuth extends Mock implements Auth {}
 
+class MockAvailableMap extends Mock implements AvailableMap {}
+
 class MockBoulderAreaRepository extends Mock implements BoulderAreaRepository {}
 
 class MockBoulderFeedbackRepository extends Mock
@@ -87,6 +90,8 @@ class MockLocalGradeDataSource extends Mock implements LocalGradeDataSource {}
 class MockLocation extends Mock implements Location {}
 
 class MockMapboxMap extends Mock implements MapboxMap {}
+
+class MockMapLauncher extends Mock implements MapLauncher {}
 
 class MockMunicipalityRepository extends Mock
     implements MunicipalityRepository {}

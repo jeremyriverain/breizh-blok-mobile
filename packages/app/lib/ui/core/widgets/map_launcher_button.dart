@@ -1,8 +1,10 @@
+import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
-import 'package:breizh_blok_mobile/domain/entities/map/map_directions.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
+import 'package:breizh_blok_mobile/service_locator/map_launcher.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:map_launcher/map_launcher.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MapLauncherButton extends StatelessWidget {
   const MapLauncherButton({
@@ -18,25 +20,51 @@ class MapLauncherButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: MapLauncher.installedMaps,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.hasError || snapshot.data!.isEmpty) {
-          return Container();
-        }
-        return FilledButton.icon(
-          key: const Key('map-launcher-button'),
-          onPressed: () => MapDirections.openMapsSheet(
-            context: context,
-            availableMaps: snapshot.data!,
-            onMapSelectedFn: MapDirections.showDirections(
-              destination: destination,
-              destinationTitle: destinationTitle,
-            ),
-          ),
-          icon: const Icon(Icons.directions),
-          label: Text(labelButton ?? AppLocalizations.of(context).itinerary),
-        );
+    return Consumer(
+      builder: (context, ref, child) {
+        return ref
+            .watch(availableMapsProvider)
+            .when(
+              data: (data) {
+                return data.fold((e) => const SizedBox.shrink(), (
+                  availableMaps,
+                ) {
+                  if (availableMaps.isEmpty) {
+                    return const SizedBox.shrink();
+                  }
+
+                  return FilledButton.icon(
+                    key: const Key('map-launcher-button'),
+                    onPressed: () async {
+                      await showModalBottomSheet<void>(
+                        context: context,
+                        builder: (context) {
+                          return AvailableMapsSheet(
+                            onMapSelected: ({required map}) async {
+                              await map
+                                  .showDirections(
+                                    destinationTitle: destinationTitle,
+                                    destination: Coords(
+                                      latitude: destination.latitude,
+                                      longitude: destination.longitude,
+                                    ),
+                                  )
+                                  .run();
+                            },
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.directions),
+                    label: Text(
+                      labelButton ?? AppLocalizations.of(context).itinerary,
+                    ),
+                  );
+                });
+              },
+              error: (error, stackTrace) => const SizedBox.shrink(),
+              loading: () => const SizedBox.shrink(),
+            );
       },
     );
   }

@@ -291,6 +291,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Il est possible de télécharger des secteurs de bloc afin de pouvoir y accéder même sans connexion internet.';
 
   @override
+  String get noMappingApplicationWasDetectedOnYourDevice =>
+      'Aucune application de cartographie n\'a été détectée sur votre appareil.';
+
+  @override
   String get noResults => 'Aucun résultat';
 
   @override

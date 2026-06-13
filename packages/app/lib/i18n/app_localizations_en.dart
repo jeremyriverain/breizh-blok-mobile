@@ -291,6 +291,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'It is possible to download boulder areas in order to be able to access it without an internet connection';
 
   @override
+  String get noMappingApplicationWasDetectedOnYourDevice =>
+      'No mapping application was detected on your device.';
+
+  @override
   String get noResults => 'No results';
 
   @override

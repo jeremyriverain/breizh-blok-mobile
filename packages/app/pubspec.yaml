@@ -21,6 +21,7 @@ environment:
 dependencies:
   breizh_blok_analytics:
   breizh_blok_auth:
+  breizh_blok_map_launcher:
   breizh_blok_share_content:
   breizh_blok_url_launcher:
   cached_network_image: ^3.4.1
@@ -52,7 +53,6 @@ dependencies:
   intl: ^0.20.2
   json_annotation: ^4.11.0
   location: ^8.0.1
-  map_launcher: ^4.5.0
   mapbox_maps_flutter: ^2.24.3
   path: ^1.8.3
   path_provider: ^2.1.5

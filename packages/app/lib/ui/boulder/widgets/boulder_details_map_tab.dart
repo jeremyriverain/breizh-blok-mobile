@@ -1,11 +1,11 @@
+import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
-import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/build_context_extension.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 class BoulderDetailsMapTab extends StatefulWidget {
@@ -27,52 +27,60 @@ class _BoulderDetailsMapTabState extends State<BoulderDetailsMapTab>
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        BlocProvider(
-          create: (context) => BoulderMapViewModel(boulder: widget.boulder),
-          child: BlocBuilder<BoulderMapViewModel, BoulderMapStates>(
-            builder: (context, state) {
-              return switch (state) {
-                BoulderMapIdle() => const Center(
-                  child: CircularProgressIndicator(),
+        MyMap(
+          initialZoom: 15,
+          initialLatitude: location.latitude,
+          initialLongitude: location.longitude,
+          onMapCreated: (mapboxMap) async {
+            final pointAnnotationManager = await mapboxMap.annotations
+                .createPointAnnotationManager();
+
+            if (!context.mounted) {
+              return;
+            }
+            final imageData = await context.getResponsiveImageData(
+              imagePath: Assets.locationIcon,
+            );
+
+            final pointAnnotationOptions = PointAnnotationOptions(
+              geometry: Point(
+                coordinates: Position(
+                  widget.boulder.rock.location.longitude,
+                  widget.boulder.rock.location.latitude,
                 ),
-                BoulderMapOK() => MyMap(
-                  initialZoom: 15,
-                  initialLatitude: location.latitude,
-                  initialLongitude: location.longitude,
-                  onMapCreated: (mapboxMap) async {
-                    final pointAnnotationManager = await mapboxMap.annotations
-                        .createPointAnnotationManager();
+              ),
+              image: imageData,
+              iconSize: 1.3,
+              iconAnchor: IconAnchor.BOTTOM,
+            );
 
-                    if (!context.mounted) {
-                      return;
-                    }
-                    final imageData = await context.getResponsiveImageData(
-                      imagePath: Assets.locationIcon,
-                    );
-
-                    final pointAnnotationOptions = PointAnnotationOptions(
-                      geometry: Point(
-                        coordinates: Position(
-                          widget.boulder.rock.location.longitude,
-                          widget.boulder.rock.location.latitude,
-                        ),
-                      ),
-                      image: imageData,
-                      iconSize: 1.3,
-                      iconAnchor: IconAnchor.BOTTOM,
-                    );
-
-                    await pointAnnotationManager.create(pointAnnotationOptions);
-                    pointAnnotationManager.tapEvents(
-                      onTap: (annotation) async {
-                        await state.onClickMarker?.call(context);
+            await pointAnnotationManager.create(
+              pointAnnotationOptions,
+            );
+            pointAnnotationManager.tapEvents(
+              onTap: (annotation) async {
+                await showModalBottomSheet<void>(
+                  context: context,
+                  builder: (context) {
+                    return AvailableMapsSheet(
+                      onMapSelected: ({required map}) async {
+                        await map
+                            .showDirections(
+                              destinationTitle: widget.boulder.name,
+                              destination: Coords(
+                                latitude: widget.boulder.rock.location.latitude,
+                                longitude:
+                                    widget.boulder.rock.location.longitude,
+                              ),
+                            )
+                            .run();
                       },
                     );
                   },
-                ),
-              };
-            },
-          ),
+                );
+              },
+            );
+          },
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
