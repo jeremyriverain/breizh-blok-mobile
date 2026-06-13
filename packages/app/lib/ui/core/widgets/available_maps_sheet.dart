@@ -38,6 +38,11 @@ class AvailableMapsSheet extends StatelessWidget {
                                         map.icon,
                                         height: 30,
                                         width: 30,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const SizedBox.square(
+                                                  dimension: 30,
+                                                ),
                                       ),
                                     ),
                                   )
