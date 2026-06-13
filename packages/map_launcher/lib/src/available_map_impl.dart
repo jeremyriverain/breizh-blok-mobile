@@ -7,7 +7,6 @@ import 'package:map_launcher/map_launcher.dart' as m;
 
 part 'available_map_impl.freezed.dart';
 
-@Freezed(copyWith: false)
 abstract class AvailableMapImpl
     with _$AvailableMapImpl
     implements AvailableMap {
