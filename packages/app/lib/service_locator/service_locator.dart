@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:breizh_blok_analytics/breizh_blok_analytics.dart';
 import 'package:breizh_blok_auth/breizh_blok_auth.dart';
-import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_mobile/constants.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/image_boulder_cache.dart';
@@ -17,7 +16,6 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
 import 'package:path/path.dart' as p;
@@ -162,18 +160,4 @@ Future<User?> user(Ref ref) async {
   final res = await userRepository.get(id).run();
 
   return res.getOrElse((_) => null);
-}
-
-@riverpod
-MapLauncher mapLauncher(Ref ref) {
-  return BreizhBlokMapLauncher.createMapLauncher();
-}
-
-@riverpod
-Future<Either<MapLauncherException, List<AvailableMap>>> availableMaps(
-  Ref ref,
-) {
-  final mapLauncher = ref.watch(mapLauncherProvider);
-
-  return mapLauncher.availableMaps.run();
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
-import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/map_launcher.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -100,7 +100,11 @@ void main() {
         widget: AvailableMapsSheet(
           onMapSelected: ({required map}) => completer.complete(map.name),
         ),
-        overrides: [mapLauncherProvider.overrideWith((_) => mapLauncher)],
+        overrides: [
+          mapLauncherProvider.overrideWith((_) {
+            return mapLauncher;
+          }),
+        ],
       );
 
       await tester.pump();
@@ -133,19 +137,55 @@ void main() {
         ),
       );
 
+      var called = 0;
+
       await tester.myPumpWidget(
         widget: AvailableMapsSheet(onMapSelected: ({required map}) => {}),
-        overrides: [mapLauncherProvider.overrideWith((_) => mapLauncher)],
+        overrides: [
+          mapLauncherProvider.overrideWith((_) {
+            called++;
+            return mapLauncher;
+          }),
+        ],
       );
 
       await tester.pump();
 
       expect(find.text('Une erreur est survenue'), findsOneWidget);
+      expect(called, equals(1));
+      await tester.tap(find.text('Essayer à nouveau'));
+      await tester.pump();
+
+      expect(called, equals(2));
+
       verify(
         () => mapLauncher.availableMaps,
       ).called(1);
 
       verifyNoMoreInteractions(mapLauncher);
+    });
+
+    testWidgets('when provider throws error', (tester) async {
+      when(
+        () => mapLauncher.availableMaps,
+      ).thenThrow(Exception('foo'));
+
+      await tester.myPumpWidget(
+        widget: AvailableMapsSheet(onMapSelected: ({required map}) => {}),
+        overrides: [
+          mapLauncherProvider.overrideWith((_) => mapLauncher),
+        ],
+      );
+
+      await tester.pump();
+
+      verify(
+        () => mapLauncher.availableMaps,
+      ).called(1);
+
+      verifyNoMoreInteractions(mapLauncher);
+
+      expect(find.text('Une erreur est survenue'), findsOneWidget);
     });
   });
 }

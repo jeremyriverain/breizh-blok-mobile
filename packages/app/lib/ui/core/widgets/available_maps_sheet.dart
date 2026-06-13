@@ -1,6 +1,6 @@
 import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
+import 'package:breizh_blok_mobile/service_locator/map_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -81,9 +81,15 @@ class _ErrorWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: ListTile(
         title: Text(AppLocalizations.of(context).anErrorOccured),
-        trailing: OutlinedButton(
-          onPressed: () {},
-          child: Text(AppLocalizations.of(context).tryAgain),
+        trailing: Consumer(
+          builder: (context, ref, _) {
+            return OutlinedButton(
+              onPressed: () {
+                ref.invalidate(mapLauncherProvider);
+              },
+              child: Text(AppLocalizations.of(context).tryAgain),
+            );
+          },
         ),
       ),
     );
