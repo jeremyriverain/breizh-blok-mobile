@@ -14,8 +14,6 @@ class MapLauncherImpl implements MapLauncher {
           (maps) => maps
               .map(
                 (m) => AvailableMapImpl(
-                  name: m.mapName,
-                  icon: m.icon,
                   originalMap: m,
                 ),
               )

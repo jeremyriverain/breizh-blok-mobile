@@ -12,12 +12,16 @@ abstract class AvailableMapImpl
     with _$AvailableMapImpl
     implements AvailableMap {
   const factory AvailableMapImpl({
-    required String name,
-    required String icon,
     required m.AvailableMap originalMap,
   }) = _AvailableMapImpl;
 
   const AvailableMapImpl._();
+
+  @override
+  String get name => originalMap.mapName;
+
+  @override
+  String get icon => originalMap.icon;
 
   @override
   TaskEither<MapLauncherException, void> showDirections({
