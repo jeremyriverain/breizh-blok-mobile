@@ -8,6 +8,6 @@ export 'package:breizh_blok_map_launcher/src/map_launcher.dart';
 
 abstract class BreizhBlokMapLauncher {
   static MapLauncher createMapLauncher() {
-    return MapLauncherImpl();
+    return const MapLauncherImpl();
   }
 }
