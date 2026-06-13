@@ -134,13 +134,20 @@ void main() {
         () => mapLauncher.availableMaps,
       ).thenAnswer((_) => TaskEither.right([map]));
 
+      when(
+        () => map.showDirections(
+          destinationTitle: 'baz',
+          destination: const Coords(latitude: 1, longitude: 2),
+        ),
+      ).thenAnswer((_) => TaskEither.right(null));
+
       when(() => map.name).thenReturn('foo');
       when(() => map.icon).thenReturn('bar');
 
       await tester.myPumpWidget(
         widget: const MapLauncherButton(
           destination: Location(latitude: 1, longitude: 2),
-          destinationTitle: 'foo',
+          destinationTitle: 'baz',
         ),
         overrides: [mapLauncherProvider.overrideWith((_) => mapLauncher)],
       );
@@ -155,9 +162,25 @@ void main() {
       expect(find.byType(AvailableMapsSheet), findsNothing);
 
       await tester.tap(find.widgetWithText(FilledButton, 'Itinéraire'));
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       expect(find.byType(AvailableMapsSheet), findsOneWidget);
+
+      await tester.tap(
+        find.descendant(
+          of: find.byType(AvailableMapsSheet),
+          matching: find.text('foo'),
+        ),
+      );
+
+      await tester.pump();
+
+      verify(
+        () => map.showDirections(
+          destinationTitle: 'baz',
+          destination: const Coords(latitude: 1, longitude: 2),
+        ),
+      ).called(1);
     });
   });
 }
