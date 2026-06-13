@@ -1,3 +1,4 @@
+import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_mobile/config/assets.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/request_strategy.dart';
@@ -13,6 +14,7 @@ import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_
 import 'package:breizh_blok_mobile/ui/core/extensions/build_context_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/feature_value_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/mapbox_map_extension.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
@@ -89,7 +91,30 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
                       );
                       pointAnnotationManager.tapEvents(
                         onTap: (annotation) async {
-                          await state.onClickParking?.call(context);
+                          if (!context.mounted) {
+                            return;
+                          }
+                          await showModalBottomSheet<void>(
+                            context: context,
+                            builder: (context) {
+                              return AvailableMapsSheet(
+                                onMapSelected: ({required map}) async {
+                                  await map
+                                      .showDirections(
+                                        destination: Coords(
+                                          latitude: parkingLocation.latitude,
+                                          longitude: parkingLocation.longitude,
+                                        ),
+                                        destinationTitle:
+                                            // ignore: lines_longer_than_80_chars
+                                            '${AppLocalizations.of(context).parkingOfTheBoulderArea} '
+                                            '${widget.boulderArea.name}',
+                                      )
+                                      .run();
+                                },
+                              );
+                            },
+                          );
                         },
                       );
                     }
