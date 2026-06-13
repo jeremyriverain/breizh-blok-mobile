@@ -15,7 +15,7 @@ void main() {
     test('name is derived from originalMap.mapName', () {
       expect(
         AvailableMapImpl(
-          originalMap: m.AvailableMap(
+          map: m.AvailableMap(
             mapName: 'foo',
             mapType: m.MapType.apple,
             icon: 'bar',
@@ -28,7 +28,7 @@ void main() {
     test('icon is derived from originalMap.icon', () {
       expect(
         AvailableMapImpl(
-          originalMap: m.AvailableMap(
+          map: m.AvailableMap(
             mapName: 'foo',
             mapType: m.MapType.apple,
             icon: 'bar',
@@ -44,7 +44,7 @@ void main() {
 
       setUp(() {
         map = MockAvailableMap();
-        availableMap = AvailableMapImpl(originalMap: map);
+        availableMap = AvailableMapImpl(map: map);
       });
       test('when showDirections is successful', () async {
         when(

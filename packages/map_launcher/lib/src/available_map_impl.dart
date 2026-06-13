@@ -7,21 +7,21 @@ import 'package:map_launcher/map_launcher.dart' as m;
 
 part 'available_map_impl.freezed.dart';
 
-@freezed
+@Freezed(copyWith: false)
 abstract class AvailableMapImpl
     with _$AvailableMapImpl
     implements AvailableMap {
   const factory AvailableMapImpl({
-    required m.AvailableMap originalMap,
+    @protected required m.AvailableMap map,
   }) = _AvailableMapImpl;
 
   const AvailableMapImpl._();
 
   @override
-  String get name => originalMap.mapName;
+  String get name => map.mapName;
 
   @override
-  String get icon => originalMap.icon;
+  String get icon => map.icon;
 
   @override
   TaskEither<MapLauncherException, void> showDirections({
@@ -29,7 +29,7 @@ abstract class AvailableMapImpl
     required Coords destination,
   }) {
     return TaskEither.tryCatch(
-      () => originalMap.showDirections(
+      () => map.showDirections(
         destination: m.Coords(destination.latitude, destination.longitude),
         destinationTitle: destinationTitle,
       ),
