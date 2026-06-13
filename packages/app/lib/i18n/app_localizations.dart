@@ -486,6 +486,12 @@ abstract class AppLocalizations {
   /// **'It is possible to download boulder areas in order to be able to access it without an internet connection'**
   String get noDownloadHelper;
 
+  /// No description provided for @noMappingApplicationWasDetectedOnYourDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'No mapping application was detected on your device.'**
+  String get noMappingApplicationWasDetectedOnYourDevice;
+
   /// No description provided for @noResults.
   ///
   /// In en, this message translates to:
