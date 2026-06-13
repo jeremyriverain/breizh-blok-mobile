@@ -26,7 +26,9 @@ class MapLauncherButton extends StatelessWidget {
             .watch(availableMapsProvider)
             .when(
               data: (data) {
-                return data.fold((e) => const Text('error'), (availableMaps) {
+                return data.fold((e) => const SizedBox.shrink(), (
+                  availableMaps,
+                ) {
                   if (availableMaps.isEmpty) {
                     return const SizedBox.shrink();
                   }

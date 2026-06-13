@@ -1,100 +1,163 @@
-// ignore_for_file: avoid_print, avoid_dynamic_calls
-
+import 'package:breizh_blok_map_launcher/breizh_blok_map_launcher.dart';
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
+import 'package:breizh_blok_mobile/service_locator/map_launcher.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_launcher_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:mocktail/mocktail.dart';
 
+import '../../../mocks.dart';
 import '../../../widget_test_utils.dart';
 
 void main() {
-  const destination = Location(latitude: 56, longitude: 87);
-  const destinationTitle = 'my destination';
+  group('MapLauncherButton', () {
+    late AvailableMap map;
+    late MapLauncher mapLauncher;
 
-  testWidgets('button does not show up if there is no installed map', (
-    tester,
-  ) async {
-    final logs = <MethodCall>[];
-
-    const channel = MethodChannel('map_launcher');
-
-    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
-      methodCall,
-    ) async {
-      print(methodCall);
-      logs.add(methodCall);
-      if (methodCall.method == 'getInstalledMaps') {
-        return [];
-      }
-      return null;
+    setUp(() {
+      map = MockAvailableMap();
+      mapLauncher = MockMapLauncher();
     });
 
-    await tester.myPumpWidget(
-      widget: const MapLauncherButton(
-        destination: destination,
-        destinationTitle: destinationTitle,
-      ),
-    );
-    await tester.pump();
+    testWidgets('nothing displays when there is no map', (tester) async {
+      when(
+        () => mapLauncher.availableMaps,
+      ).thenAnswer((_) => TaskEither.right([]));
+      await tester.myPumpWidget(
+        widget: const MapLauncherButton(
+          destination: Location(latitude: 1, longitude: 2),
+          destinationTitle: 'foo',
+        ),
+        overrides: [mapLauncherProvider.overrideWith((_) => mapLauncher)],
+      );
 
-    expect(logs[0].method, equals('getInstalledMaps'));
+      await tester.pump();
 
-    expect(find.byKey(const Key('map-launcher-button')), findsNothing);
-  });
+      verify(
+        () => mapLauncher.availableMaps,
+      ).called(1);
 
-  testWidgets(
-    'I can launch a map by opening a bottom sheet and selecting one map',
-    (tester) async {
-      final logs = <MethodCall>[];
+      verifyNoMoreInteractions(mapLauncher);
 
-      const channel = MethodChannel('map_launcher');
+      final box = tester.widget<SizedBox>(find.byType(SizedBox));
 
-      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (
-        methodCall,
-      ) async {
-        print(methodCall);
-        logs.add(methodCall);
-        if (methodCall.method == 'getInstalledMaps') {
-          return [
-            {'mapName': 'Google Maps', 'mapType': 'google'},
-            {'mapName': 'Apple map', 'mapType': 'apple'},
-          ];
-        }
-        return null;
-      });
+      expect(box.height, equals(0));
+      expect(box.width, equals(0));
+    });
+
+    testWidgets('nothing displays when there is no map', (tester) async {
+      when(
+        () => mapLauncher.availableMaps,
+      ).thenAnswer(
+        (_) => TaskEither.left(
+          const MapLauncherException.unknwown(message: 'foo'),
+        ),
+      );
+      await tester.myPumpWidget(
+        widget: const MapLauncherButton(
+          destination: Location(latitude: 1, longitude: 2),
+          destinationTitle: 'foo',
+        ),
+        overrides: [mapLauncherProvider.overrideWith((_) => mapLauncher)],
+      );
+
+      await tester.pump();
+
+      verify(
+        () => mapLauncher.availableMaps,
+      ).called(1);
+
+      verifyNoMoreInteractions(mapLauncher);
+
+      final box = tester.widget<SizedBox>(find.byType(SizedBox));
+
+      expect(box.height, equals(0));
+      expect(box.width, equals(0));
+    });
+
+    testWidgets('nothing displays when provider throws', (tester) async {
+      when(
+        () => mapLauncher.availableMaps,
+      ).thenThrow(Exception('foo'));
+      await tester.myPumpWidget(
+        widget: const MapLauncherButton(
+          destination: Location(latitude: 1, longitude: 2),
+          destinationTitle: 'foo',
+        ),
+        overrides: [mapLauncherProvider.overrideWith((_) => mapLauncher)],
+      );
+
+      await tester.pump();
+
+      verify(
+        () => mapLauncher.availableMaps,
+      ).called(1);
+
+      verifyNoMoreInteractions(mapLauncher);
+
+      final box = tester.widget<SizedBox>(find.byType(SizedBox));
+
+      expect(box.height, equals(0));
+      expect(box.width, equals(0));
+    });
+
+    testWidgets('displays button when there is map', (tester) async {
+      when(
+        () => mapLauncher.availableMaps,
+      ).thenAnswer((_) => TaskEither.right([map]));
 
       await tester.myPumpWidget(
         widget: const MapLauncherButton(
-          destination: destination,
-          destinationTitle: destinationTitle,
+          destination: Location(latitude: 1, longitude: 2),
+          destinationTitle: 'foo',
         ),
+        overrides: [mapLauncherProvider.overrideWith((_) => mapLauncher)],
       );
+
       await tester.pump();
 
-      expect(logs[0].method, equals('getInstalledMaps'));
+      verify(
+        () => mapLauncher.availableMaps,
+      ).called(1);
 
-      final mapLauncherButton = find.byKey(const Key('map-launcher-button'));
+      verifyNoMoreInteractions(mapLauncher);
 
-      expect(mapLauncherButton, findsOneWidget);
+      expect(find.widgetWithText(FilledButton, 'Itinéraire'), findsOneWidget);
+    });
 
-      await tester.tap(mapLauncherButton);
+    testWidgets('open AvailableMapsSheet when I click on the button', (
+      tester,
+    ) async {
+      when(
+        () => mapLauncher.availableMaps,
+      ).thenAnswer((_) => TaskEither.right([map]));
 
-      await tester.pumpAndSettle();
+      when(() => map.name).thenReturn('foo');
+      when(() => map.icon).thenReturn('bar');
 
-      await tester.tap(find.textContaining('Google Maps', findRichText: true));
-
-      expect(logs[1].method, equals('showDirections'));
-      expect(logs[1].arguments['mapType'], equals('google'));
-      expect(logs[1].arguments['destinationTitle'], equals(destinationTitle));
-      expect(
-        logs[1].arguments['destinationLatitude'],
-        equals(destination.latitude.toString()),
+      await tester.myPumpWidget(
+        widget: const MapLauncherButton(
+          destination: Location(latitude: 1, longitude: 2),
+          destinationTitle: 'foo',
+        ),
+        overrides: [mapLauncherProvider.overrideWith((_) => mapLauncher)],
       );
-      expect(
-        logs[1].arguments['destinationLongitude'],
-        equals(destination.longitude.toString()),
-      );
-    },
-  );
+
+      await tester.pump();
+
+      verify(
+        () => mapLauncher.availableMaps,
+      ).called(1);
+
+      verifyNoMoreInteractions(mapLauncher);
+      expect(find.byType(AvailableMapsSheet), findsNothing);
+
+      await tester.tap(find.widgetWithText(FilledButton, 'Itinéraire'));
+      await tester.pump();
+
+      expect(find.byType(AvailableMapsSheet), findsOneWidget);
+    });
+  });
 }
