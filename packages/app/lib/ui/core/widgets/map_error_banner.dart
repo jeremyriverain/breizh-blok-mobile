@@ -1,12 +1,16 @@
 import 'package:breizh_blok_mobile/i18n/app_localizations.dart';
-import 'package:breizh_blok_mobile/ui/map/view_models/map_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MapErrorBanner extends StatelessWidget {
-  const MapErrorBanner({required this.onTryAgain, super.key});
+  const MapErrorBanner({
+    required this._onTryAgain,
+    required this._onClose,
+    super.key,
+  });
 
-  final VoidCallback onTryAgain;
+  final VoidCallback _onTryAgain;
+  final VoidCallback _onClose;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class MapErrorBanner extends StatelessWidget {
           Consumer(
             builder: (context, ref, _) {
               return TextButton(
-                onPressed: onTryAgain,
+                onPressed: _onTryAgain,
                 child: Text(
                   AppLocalizations.of(context).tryAgain,
                 ),
@@ -37,13 +41,7 @@ class MapErrorBanner extends StatelessWidget {
           Consumer(
             builder: (context, ref, child) {
               return IconButton(
-                onPressed: () {
-                  ref
-                      .read(
-                        activatePotentialErrorBannerViewModelProvider.notifier,
-                      )
-                      .deactivatePotentialErrorBanner();
-                },
+                onPressed: _onClose,
                 icon: child ?? const SizedBox.shrink(),
               );
             },

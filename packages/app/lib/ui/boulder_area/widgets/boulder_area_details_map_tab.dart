@@ -15,7 +15,6 @@ import 'package:breizh_blok_mobile/ui/core/extensions/feature_value_extension.da
 import 'package:breizh_blok_mobile/ui/core/extensions/mapbox_map_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
-import 'package:breizh_blok_mobile/ui/core/widgets/map_error_banner.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/material.dart';

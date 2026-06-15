@@ -14,6 +14,14 @@ class MapScreenBottom extends StatelessWidget {
           ref.invalidate(findAllBoulderGeoPointsProvider);
         }
 
+        void onClose() {
+          ref
+              .read(
+                activatePotentialErrorBannerViewModelProvider.notifier,
+              )
+              .deactivatePotentialErrorBanner();
+        }
+
         ref.listen(findAllBoulderGeoPointsProvider, (prev, next) {
           ref
               .read(activatePotentialErrorBannerViewModelProvider.notifier)
@@ -30,6 +38,7 @@ class MapScreenBottom extends StatelessWidget {
                         activatePotentialErrorBannerViewModelProvider,
                       )
                       ? MapErrorBanner(
+                          onClose: onClose,
                           onTryAgain: onTryAgain,
                         )
                       : const SizedBox.shrink();
@@ -40,6 +49,7 @@ class MapScreenBottom extends StatelessWidget {
               error: (e, _) =>
                   ref.watch(activatePotentialErrorBannerViewModelProvider)
                   ? MapErrorBanner(
+                      onClose: onClose,
                       onTryAgain: onTryAgain,
                     )
                   : const SizedBox.shrink(),

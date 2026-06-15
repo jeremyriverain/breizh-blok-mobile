@@ -21,6 +21,14 @@ class BoulderAreaDetailsMapBottom extends StatelessWidget {
           ref.invalidate(findByAreaBoulderGeoPointsProvider(_areaId));
         }
 
+        void onClose() {
+          ref
+              .read(
+                activatePotentialErrorBannerViewModelProvider.notifier,
+              )
+              .deactivatePotentialErrorBanner();
+        }
+
         ref.listen(findByAreaBoulderGeoPointsProvider(_areaId), (prev, next) {
           ref
               .read(activatePotentialErrorBannerViewModelProvider.notifier)
@@ -38,6 +46,7 @@ class BoulderAreaDetailsMapBottom extends StatelessWidget {
                       )
                       ? MapErrorBanner(
                           onTryAgain: onTryAgain,
+                          onClose: onClose,
                         )
                       : const SizedBox.shrink();
                 }
@@ -47,6 +56,7 @@ class BoulderAreaDetailsMapBottom extends StatelessWidget {
               error: (e, _) =>
                   ref.watch(activatePotentialErrorBannerViewModelProvider)
                   ? MapErrorBanner(
+                      onClose: onClose,
                       onTryAgain: onTryAgain,
                     )
                   : const SizedBox.shrink(),
