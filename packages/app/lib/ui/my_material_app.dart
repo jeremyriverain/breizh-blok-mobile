@@ -3,7 +3,6 @@ import 'package:breizh_blok_mobile/data/data_sources/remote/api_client.dart';
 import 'package:breizh_blok_mobile/data/data_sources/remote/model/api_order_param.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
-import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
@@ -44,9 +43,6 @@ class MyMaterialApp extends ConsumerWidget {
         ),
         RepositoryProvider<BoulderRepository>(
           create: (context) => BoulderRepository(httpClient: httpClient),
-        ),
-        RepositoryProvider<BoulderMarkerRepository>(
-          create: (context) => BoulderMarkerRepository(httpClient: httpClient),
         ),
         RepositoryProvider<DepartmentRepository>(
           create: (context) => DepartmentRepository(httpClient: httpClient),
