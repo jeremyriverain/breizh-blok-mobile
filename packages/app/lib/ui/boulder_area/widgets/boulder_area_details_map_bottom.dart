@@ -1,27 +1,34 @@
+import 'package:breizh_blok_mobile/ui/boulder_area/view_models/boulder_area_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/map_error_banner.dart';
-import 'package:breizh_blok_mobile/ui/map/view_models/map_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MapScreenBottom extends StatelessWidget {
-  const MapScreenBottom({super.key});
+class BoulderAreaDetailsMapBottom extends StatelessWidget {
+  const BoulderAreaDetailsMapBottom({
+    required this._areaId,
+    required this._child,
+    super.key,
+  });
+
+  final int _areaId;
+  final Widget _child;
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
         void onTryAgain() {
-          ref.invalidate(findAllBoulderGeoPointsProvider);
+          ref.invalidate(findByAreaBoulderGeoPointsProvider(_areaId));
         }
 
-        ref.listen(findAllBoulderGeoPointsProvider, (prev, next) {
+        ref.listen(findByAreaBoulderGeoPointsProvider(_areaId), (prev, next) {
           ref
               .read(activatePotentialErrorBannerViewModelProvider.notifier)
               .activatePotentialErrorBanner();
         });
 
         return ref
-            .watch(findAllBoulderGeoPointsProvider)
+            .watch(findByAreaBoulderGeoPointsProvider(_areaId))
             .when(
               skipLoadingOnRefresh: false,
               data: (result) {
@@ -35,7 +42,7 @@ class MapScreenBottom extends StatelessWidget {
                       : const SizedBox.shrink();
                 }
 
-                return const SizedBox.shrink();
+                return _child;
               },
               error: (e, _) =>
                   ref.watch(activatePotentialErrorBannerViewModelProvider)

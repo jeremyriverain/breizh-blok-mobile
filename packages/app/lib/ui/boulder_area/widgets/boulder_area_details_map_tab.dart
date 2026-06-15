@@ -9,11 +9,13 @@ import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_filter_bloc.da
 import 'package:breizh_blok_mobile/ui/boulder/view_models/boulder_order_bloc.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/view_models/boulder_area_map_view_model.dart';
 import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_itinerary_button.dart';
+import 'package:breizh_blok_mobile/ui/boulder_area/widgets/boulder_area_details_map_bottom.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/build_context_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/feature_value_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/extensions/mapbox_map_extension.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/available_maps_sheet.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/boulder_list_builder.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/map_error_banner.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/modal_closing_button.dart';
 import 'package:breizh_blok_mobile/ui/core/widgets/my_map.dart';
 import 'package:flutter/material.dart';
@@ -40,12 +42,12 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final areaId = int.parse(widget.boulderArea.id);
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         Consumer(
           builder: (context, ref, _) {
-            final areaId = int.parse(widget.boulderArea.id);
             final mapState = ref.watch(
               boulderAreaMapViewModelProvider(areaId),
             );
@@ -144,10 +146,14 @@ class _BoulderAreaDetailsMapTabState extends State<BoulderAreaDetailsMapTab>
             );
           },
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: BoulderAreaDetailsItineraryButton(
-            boulderArea: widget.boulderArea,
+
+        BoulderAreaDetailsMapBottom(
+          areaId: areaId,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
+            child: BoulderAreaDetailsItineraryButton(
+              boulderArea: widget.boulderArea,
+            ),
           ),
         ),
       ],

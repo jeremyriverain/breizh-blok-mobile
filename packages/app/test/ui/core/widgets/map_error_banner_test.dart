@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:breizh_blok_mobile/ui/map/widgets/map_screen_error_banner.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/map_error_banner.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../widget_test_utils.dart';
 
 void main() {
-  group('MapScreenErrorBanner', () {
+  group('MapErrorBanner', () {
     testWidgets('display text', (tester) async {
       await tester.myPumpWidget(
-        widget: MapScreenErrorBanner(onTryAgain: () {}),
+        widget: MapErrorBanner(onTryAgain: () {}),
       );
 
       await tester.pump();
@@ -24,7 +24,7 @@ void main() {
         'Then the callback is called', (tester) async {
       final completer = Completer<void>();
       await tester.myPumpWidget(
-        widget: MapScreenErrorBanner(onTryAgain: completer.complete),
+        widget: MapErrorBanner(onTryAgain: completer.complete),
       );
 
       await tester.pump();

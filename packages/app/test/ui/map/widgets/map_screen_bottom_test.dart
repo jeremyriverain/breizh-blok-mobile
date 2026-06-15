@@ -1,8 +1,8 @@
 import 'package:breizh_blok_mobile/domain/entities/domain_exception/domain_exception.dart';
 import 'package:breizh_blok_mobile/domain/repositories/boulder_geo_point_repository.dart';
 import 'package:breizh_blok_mobile/service_locator/repositories.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/map_error_banner.dart';
 import 'package:breizh_blok_mobile/ui/map/widgets/map_screen_bottom.dart';
-import 'package:breizh_blok_mobile/ui/map/widgets/map_screen_error_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
@@ -71,7 +71,7 @@ void main() {
       verify(() => repository.findAll()).called(1);
       verifyNoMoreInteractions(repository);
 
-      expect(find.byType(MapScreenErrorBanner), findsOneWidget);
+      expect(find.byType(MapErrorBanner), findsOneWidget);
     });
 
     testWidgets('display MapScreenErrorBanner if error', (
@@ -94,7 +94,7 @@ void main() {
       verify(() => repository.findAll()).called(1);
       verifyNoMoreInteractions(repository);
 
-      expect(find.byType(MapScreenErrorBanner), findsOneWidget);
+      expect(find.byType(MapErrorBanner), findsOneWidget);
     });
 
     testWidgets('Given MapScreenErrorBanner is displayed '
@@ -119,12 +119,12 @@ void main() {
       verify(() => repository.findAll()).called(1);
       verifyNoMoreInteractions(repository);
 
-      expect(find.byType(MapScreenErrorBanner), findsOneWidget);
+      expect(find.byType(MapErrorBanner), findsOneWidget);
 
       await tester.tap(find.byIcon(Icons.close));
       await tester.pump();
 
-      expect(find.byType(MapScreenErrorBanner), findsNothing);
+      expect(find.byType(MapErrorBanner), findsNothing);
     });
   });
 }

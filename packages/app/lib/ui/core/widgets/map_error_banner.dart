@@ -3,8 +3,8 @@ import 'package:breizh_blok_mobile/ui/map/view_models/map_screen_view_model.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MapScreenErrorBanner extends StatelessWidget {
-  const MapScreenErrorBanner({required this.onTryAgain, super.key});
+class MapErrorBanner extends StatelessWidget {
+  const MapErrorBanner({required this.onTryAgain, super.key});
 
   final VoidCallback onTryAgain;
 
