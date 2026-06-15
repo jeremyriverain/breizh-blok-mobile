@@ -2,13 +2,11 @@ import 'package:breizh_blok_mobile/domain/entities/boulder/boulder.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_area/boulder_area.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_feedback/boulder_feedback.dart';
 import 'package:breizh_blok_mobile/domain/entities/boulder_geo_point/boulder_geo_point.dart';
-import 'package:breizh_blok_mobile/domain/entities/boulder_marker/boulder_marker.dart';
 import 'package:breizh_blok_mobile/domain/entities/department/department.dart';
 import 'package:breizh_blok_mobile/domain/entities/grade/grade.dart';
 import 'package:breizh_blok_mobile/domain/entities/location/location.dart';
 import 'package:breizh_blok_mobile/domain/entities/municipality/municipality.dart';
 import 'package:breizh_blok_mobile/domain/entities/rock/rock.dart';
-import 'package:breizh_blok_mobile/domain/entities/rock_marker/rock_marker.dart';
 
 const fakeBoulder = Boulder(
   iri: '/boulders/foo',
@@ -35,11 +33,6 @@ const fakeBoulderArea = BoulderArea(
   iri: '/boulder_areas/foo',
   name: 'Cremiou',
   parkingLocation: Location(latitude: 2, longitude: 3),
-);
-
-const fakeBoulderMarker = BoulderMarker(
-  id: 1,
-  rock: RockMarker(location: Location(latitude: 2, longitude: 3)),
 );
 
 const fakeBoulderFeedback = BoulderFeedback(

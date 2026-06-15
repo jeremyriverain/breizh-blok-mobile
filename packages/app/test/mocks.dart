@@ -12,7 +12,6 @@ import 'package:breizh_blok_mobile/data/data_sources/remote/remote_grade_data_so
 import 'package:breizh_blok_mobile/data/data_sources/remote/remote_user_profile_data_source.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder/boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/boulder_area/boulder_area_repository.dart';
-import 'package:breizh_blok_mobile/data/repositories/boulder_marker/boulder_marker_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/department/department_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/downloaded_boulder_repository/downloaded_boulder_repository.dart';
 import 'package:breizh_blok_mobile/data/repositories/municipality/municipality_repository.dart';
@@ -60,9 +59,6 @@ class MockBoulderGeoPointRepository extends Mock
     implements BoulderGeoPointRepository {}
 
 class MockBoulderRepository extends Mock implements BoulderRepository {}
-
-class MockBoulderMarkerRepository extends Mock
-    implements BoulderMarkerRepository {}
 
 class MockCacheManager extends Mock implements CacheManager {}
 

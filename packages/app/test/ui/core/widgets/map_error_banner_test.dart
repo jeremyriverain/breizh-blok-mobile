@@ -1,15 +1,19 @@
 import 'dart:async';
 
-import 'package:breizh_blok_mobile/ui/map/widgets/map_screen_error_banner.dart';
+import 'package:breizh_blok_mobile/ui/core/widgets/map_error_banner.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../widget_test_utils.dart';
 
 void main() {
-  group('MapScreenErrorBanner', () {
+  group('MapErrorBanner', () {
     testWidgets('display text', (tester) async {
       await tester.myPumpWidget(
-        widget: MapScreenErrorBanner(onTryAgain: () {}),
+        widget: MapErrorBanner(
+          onTryAgain: () {},
+          onClose: () {},
+        ),
       );
 
       await tester.pump();
@@ -24,7 +28,10 @@ void main() {
         'Then the callback is called', (tester) async {
       final completer = Completer<void>();
       await tester.myPumpWidget(
-        widget: MapScreenErrorBanner(onTryAgain: completer.complete),
+        widget: MapErrorBanner(
+          onTryAgain: completer.complete,
+          onClose: () {},
+        ),
       );
 
       await tester.pump();
@@ -37,6 +44,25 @@ void main() {
         find.text("Une erreur est survenue pendant l'affichage de la carte"),
         findsOneWidget,
       );
+
+      expect(completer.isCompleted, isTrue);
+    });
+
+    testWidgets('Given I click on try again button '
+        'Then the callback is called', (tester) async {
+      final completer = Completer<void>();
+      await tester.myPumpWidget(
+        widget: MapErrorBanner(
+          onClose: completer.complete,
+          onTryAgain: () {},
+        ),
+      );
+
+      await tester.pump();
+
+      await tester.tap(find.byIcon(Icons.close));
+
+      await tester.pump();
 
       expect(completer.isCompleted, isTrue);
     });
