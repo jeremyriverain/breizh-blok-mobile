@@ -24,7 +24,6 @@ import 'package:breizh_blok_share_content/breizh_blok_share_content.dart'
 import 'package:breizh_blok_url_launcher/breizh_blok_url_launcher.dart'
     hide UnknownException;
 import 'package:dio/dio.dart' hide Response;
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -71,8 +70,6 @@ class MockDownloadedBoulderRepository extends Mock
 
 class MockErrorInterceptorHandler extends Mock
     implements ErrorInterceptorHandler {}
-
-class MockFirebaseRemoteConfig extends Mock implements FirebaseRemoteConfig {}
 
 class MockGradeRepository extends Mock implements GradeRepository {}
 

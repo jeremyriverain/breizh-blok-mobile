@@ -15,7 +15,6 @@ import 'package:breizh_blok_mobile/domain/repositories/boulder_geo_point_reposit
 import 'package:breizh_blok_mobile/domain/repositories/grade_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/remote_config_repository.dart';
 import 'package:breizh_blok_mobile/domain/repositories/user_profile_repository.dart';
-import 'package:breizh_blok_mobile/service_locator/firebase.dart';
 import 'package:breizh_blok_mobile/service_locator/locale.dart';
 import 'package:breizh_blok_mobile/service_locator/service_locator.dart';
 import 'package:dio/dio.dart';
@@ -42,9 +41,7 @@ BoulderFeedbackRepository boulderFeedbackRepository(Ref ref) {
 
 @Riverpod(keepAlive: true)
 RemoteConfigRepository remoteConfigRepository(Ref ref) {
-  return RemoteConfigRepositoryImpl(
-    firebaseRemoteConfig: ref.watch(firebaseRemoteConfigProvider),
-  );
+  return RemoteConfigRepositoryImpl();
 }
 
 @Riverpod(keepAlive: true)
