@@ -155,5 +155,45 @@ void main() {
 
       expect(find.byType(MapErrorBanner), findsNothing);
     });
+
+    testWidgets('Given MapErrorBanner is displayed '
+        'When I click on the try again button '
+        'Then the repository is called again', (
+      tester,
+    ) async {
+      var called = 0;
+      when(
+        () => repository.findByArea(areaId),
+      ).thenAnswer((_) {
+        called++;
+        throw Exception('foo');
+      });
+
+      await tester.myPumpWidget(
+        widget: const BoulderAreaDetailsMapBottom(
+          areaId: areaId,
+          child: SizedBox(
+            key: ValueKey('foo'),
+          ),
+        ),
+        overrides: [
+          boulderGeoPointRepositoryProvider.overrideWith((_) {
+            return repository;
+          }),
+        ],
+      );
+
+      await tester.pumpAndSettle();
+
+      verify(() => repository.findByArea(areaId)).called(1);
+      verifyNoMoreInteractions(repository);
+
+      expect(find.byType(MapErrorBanner), findsOneWidget);
+      expect(called, equals(1));
+
+      await tester.tap(find.text('Essayer à nouveau'));
+      await tester.pump();
+      expect(called, equals(2));
+    });
   });
 }
