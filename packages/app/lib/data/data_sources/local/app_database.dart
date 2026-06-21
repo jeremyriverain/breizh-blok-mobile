@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:breizh_blok_mobile/data/data_sources/local/app_database.steps.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/model/downloaded_boulder_area.dart';
+import 'package:breizh_blok_mobile/data/data_sources/local/tables/attempt_table.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/tables/boulder_geo_point_table.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/tables/db_boulder_areas.dart';
 import 'package:breizh_blok_mobile/data/data_sources/local/tables/db_requests.dart';
@@ -12,13 +13,19 @@ import 'package:drift/drift.dart';
 part 'app_database.g.dart';
 
 @DriftDatabase(
-  tables: [DbRequests, DbBoulderAreas, GradeTable, BoulderGeoPointTable],
+  tables: [
+    AttemptTable,
+    BoulderGeoPointTable,
+    DbBoulderAreas,
+    DbRequests,
+    GradeTable,
+  ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration {
@@ -37,6 +44,9 @@ class AppDatabase extends _$AppDatabase {
               schema.area.createStatementsByDialect,
             ),
           );
+        },
+        from4To5: (m, schema) async {
+          await m.createTable(schema.attemptTable);
         },
       ),
     );
