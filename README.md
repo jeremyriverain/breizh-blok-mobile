@@ -65,3 +65,9 @@ fvm flutter test integration_test/all_test.dart
 ```bash
 fvm dart run melos exec --scope="breizh_blok_mobile" -- fvm dart run flutter_launcher_icons
 ```
+
+### Migrate Drift schema
+
+```bash
+ fvm dart run drift_dev make-migrations
+```
