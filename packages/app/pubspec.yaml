@@ -60,7 +60,7 @@ dependencies:
   photo_view: ^0.15.0
   pretty_dio_logger: ^1.4.0
   reactive_forms: ^18.2.2
-  riverpod_annotation: ^4.0.2
+  riverpod_annotation: ^4.0.3
   sentry_flutter: ^9.21.0
   shared_preferences: ^2.5.5
   upgrader: ^13.2.0
