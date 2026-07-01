@@ -63,7 +63,7 @@ dependencies:
   riverpod_annotation: ^4.0.2
   sentry_flutter: ^9.21.0
   shared_preferences: ^2.5.5
-  upgrader: ^13.2.0
+  upgrader: ^13.5.0
 
 dev_dependencies:
   args: ^2.7.0
