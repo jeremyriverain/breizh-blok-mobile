@@ -61,7 +61,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   reactive_forms: ^18.2.2
   riverpod_annotation: ^4.0.2
-  sentry_flutter: ^9.21.0
+  sentry_flutter: ^9.22.0
   shared_preferences: ^2.5.5
   upgrader: ^13.2.0
 
